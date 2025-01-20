@@ -6,7 +6,7 @@ function traitNameActionMenu(trait: Trait, hide_actions?: boolean): JQuery[] {
 
   menus.push(
     menuItemTitle({
-      text: `${trait.repFull()} ${State.variables.gDebug ? `(key: '${trait.key}')` : ""}`,
+      text: `${trait.repFull()} ${State.variables.gDebug ? `<span class="debug-info">(${trait.key})</span>` : ""}`,
     }),
   );
 

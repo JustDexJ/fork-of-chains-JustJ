@@ -34,7 +34,7 @@ http://twinery.org/forum/discussion/comment/17617/
 /* Layout and Positioning of the Right UI Bar. */
 #right-ui-bar {
   position: fixed;
-  z-index: 15;
+  z-index: 25;
   top: 0;
   right: 0;
   width: 17.5em;

@@ -9,7 +9,7 @@ import { getTraitEtcFragment } from "./trait";
 
 function perkNameFragment(perk: Perk, unit: Unit): DOM.Node {
   return html`${perk.repFull()}${State.variables.gDebug
-    ? ` (key: '${perk.key}')`
+    ? ` <span class="debug-info">(${perk.key})</span>`
     : ""}`;
 }
 

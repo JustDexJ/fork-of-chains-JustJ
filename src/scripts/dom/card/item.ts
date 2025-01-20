@@ -9,7 +9,7 @@ import { domCardRep } from "../util/cardnamerep";
 
 function itemNameFragment(item: Item): DOM.Node {
   const owned = item.getOwnedNumber();
-  return html` ${domCardRep(item)} x ${owned} `;
+  return html` ${domCardRep(item, true)} × ${owned} `;
 }
 
 function itemNameActionMenu(item: Item, hide_actions?: boolean): JQuery[] {

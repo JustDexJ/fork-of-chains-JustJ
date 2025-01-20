@@ -204,27 +204,27 @@
   border-right-color: rgb(0, 255, 213);
 }
 
-.text-rarity-legendary:not(:hover) {
-  color: rgb(255, 226, 129) !important;
+.text-rarity-legendary {
+  color: rgb(255, 226, 129);
 }
 
-.text-rarity-epic:not(:hover) {
-  color: rgb(196, 132, 255) !important;
+.text-rarity-epic {
+  color: rgb(196, 132, 255);
 }
 
-.text-rarity-rare:not(:hover) {
-  color: rgb(134, 156, 255) !important;
+.text-rarity-rare {
+  color: rgb(134, 156, 255);
 }
 
-.text-rarity-uncommon:not(:hover) {
-  color: rgb(151, 255, 130) !important;
+.text-rarity-uncommon {
+  color: rgb(151, 255, 130);
 }
 
-.text-rarity-never:not(:hover) {
-  color: rgb(255, 133, 133) !important;
+.text-rarity-never {
+  color: rgb(255, 133, 133);
 }
 
-.text-rarity-always:not(:hover) {
+.text-rarity-always {
   color: rgb(0, 255, 213);
 }
 

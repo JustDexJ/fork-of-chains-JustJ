@@ -1,7 +1,7 @@
 import "../util/SetupUtil.js";
 
 // load SVG as raw string (cannot be loaded at runtime from localhost...)
-import worldmap_regions_svg from "../../assets/worldmap-regions.svg";
+import worldmap_regions_svg from "../../assets/worldmap-regions.svg?raw";
 import { isDefinitionArgs } from "../util/TypeUtil.js";
 import { TwineClass } from "./_TwineClass.js";
 

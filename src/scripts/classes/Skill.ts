@@ -128,7 +128,7 @@ export namespace SkillHelper {
   ) {
     let skill_array = setup.Skill.translate(skill_mod_array_raw);
     let texts = [];
-    let mid = " x ";
+    let mid = " × ";
     if (is_no_mult) mid = " ";
     for (let i = 0; i < skill_array.length; ++i) {
       if (skill_array[i]) {

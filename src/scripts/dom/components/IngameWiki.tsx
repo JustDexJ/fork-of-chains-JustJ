@@ -175,10 +175,7 @@ const WIKI_SECTIONS = [
     display_callback(duty_template) {
       return (
         setup.DutyTemplate.getTypeRep(duty_template.getType()) +
-        duty_template.getName() +
-        " (key: '" +
-        duty_template.key +
-        "')"
+        setup.DOM.Util.domCardName(duty_template)
       );
     },
   }),

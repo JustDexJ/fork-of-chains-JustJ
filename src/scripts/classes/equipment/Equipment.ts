@@ -4,6 +4,8 @@ import type { SkillValuesArray, SkillValuesInit } from "../Skill";
 import type { TraitKey } from "../trait/Trait";
 import type { EquipmentSlot, EquipmentSlotKey } from "./EquipmentSlot";
 
+const FRACTION_CHARACTERS = ["½", "⅓", "¼", "⅕", "⅙", "⅐", "⅛", "⅑"];
+
 interface EquipmentTexts {
   description: string;
   flavor: string;
@@ -232,8 +234,10 @@ export class Equipment extends TwineClass {
       if (mod == 1) {
         inner_fragments_front.push(trait.rep());
       } else {
+        const fract =
+          mod >= 2 && mod <= 9 ? FRACTION_CHARACTERS[mod - 2] : `1/${mod}`;
         inner_fragments_back.push(
-          `[${trait.rep()} <span data-tooltip="You need at least ${mod} pieces of equipment with this to get the trait">(1/${mod})</span>]`,
+          `[<span data-tooltip="You need at least ${mod} pieces of equipment with this to get the trait">${fract} of</span> ${trait.rep()}]`,
         );
       }
     }

@@ -103,7 +103,7 @@ function marketObjectNameActionMenu(
               "data-tooltip":
                 "This market object will expire in this many weeks",
             },
-            html`${expires_in} week${expires_in > 1 ? "s" : ""} `,
+            html`${expires_in} wk${expires_in > 1 ? "s" : ""} left`,
           ),
         }),
       );
