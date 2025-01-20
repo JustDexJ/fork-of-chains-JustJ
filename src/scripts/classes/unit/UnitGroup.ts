@@ -156,8 +156,12 @@ export class UnitGroup extends TwineClass {
     return base;
   }
 
+  getRepMacro() {
+    return "unitgroupcardkey";
+  }
+
   rep(): string {
-    return setup.repMessage(this, "unitgroupcardkey");
+    return setup.repMessage(this);
   }
 
   getUnitPools(): Array<[UnitPool, number]> {

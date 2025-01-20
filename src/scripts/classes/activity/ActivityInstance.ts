@@ -56,8 +56,12 @@ export class ActivityInstance extends TwineClass {
     }
   }
 
+  getRepMacro() {
+    return "activitycardkey";
+  }
+
   rep() {
-    return setup.repMessage(this, "activitycardkey");
+    return setup.repMessage(this);
   }
 
   getName(): string {

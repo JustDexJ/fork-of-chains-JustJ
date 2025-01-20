@@ -60,8 +60,16 @@ export class EquipmentSet extends TwineClass {
     delete State.variables.equipmentset[this.key];
   }
 
+  getImageRep() {
+    return this.getSkillReps();
+  }
+
+  getRepMacro() {
+    return "equipmentsetcardkey";
+  }
+
   rep(): string {
-    return this.getSkillReps() + setup.repMessage(this, "equipmentsetcardkey");
+    return this.getSkillReps() + setup.repMessage(this);
   }
 
   getUnit(): Unit | null {

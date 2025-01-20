@@ -26,8 +26,12 @@ export class EquipmentPool extends TwineClass {
     return this.key;
   }
 
+  getRepMacro() {
+    return "equipmentpoolcardkey";
+  }
+
   rep(): string {
-    return setup.repMessage(this, "equipmentpoolcardkey");
+    return setup.repMessage(this);
   }
 
   getEquipmentChances(is_normalize?: boolean): ChanceArray<EquipmentKey> {

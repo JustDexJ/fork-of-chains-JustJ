@@ -307,14 +307,18 @@ export class RoomTemplate extends TwineClass {
     ));
   }
 
+  getRepMacro() {
+    return "roomtemplatecardkey";
+  }
+
   rep(): string {
-    return setup.repMessage(this, "roomtemplatecardkey");
+    return setup.repMessage(this);
   }
 
   repFull(): string {
     return (
       this.repTags() +
-      setup.repMessage(this, "roomtemplatecardkey") +
+      setup.repMessage(this) +
       ` (${this.getWidth()} x ${this.getHeight()})`
     );
   }

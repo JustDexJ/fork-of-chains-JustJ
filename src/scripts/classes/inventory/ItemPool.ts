@@ -32,8 +32,12 @@ export class ItemPool {
     return this.key;
   }
 
+  getRepMacro() {
+    return "itempoolcardkey";
+  }
+
   rep(): string {
-    return setup.repMessage(this, "itempoolcardkey");
+    return setup.repMessage(this);
   }
 
   getAverageValue(): number {

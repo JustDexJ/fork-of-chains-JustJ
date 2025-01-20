@@ -60,8 +60,12 @@ export class QuestInstance extends TwineClass {
     delete State.variables.questinstance[this.key];
   }
 
+  getRepMacro() {
+    return "questcardkey";
+  }
+
   rep() {
-    return setup.repMessage(this, "questcardkey");
+    return setup.repMessage(this);
   }
 
   isDismissable() {

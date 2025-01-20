@@ -119,7 +119,11 @@ export class BuildingInstance extends TwineClass {
     return this.getName();
   }
 
+  getRepMacro() {
+    return "buildingcardkey";
+  }
+
   rep(): string {
-    return setup.repMessage(this, "buildingcardkey");
+    return setup.repMessage(this);
   }
 }

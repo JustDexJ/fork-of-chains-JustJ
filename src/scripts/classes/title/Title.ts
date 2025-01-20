@@ -128,8 +128,12 @@ export class Title extends TwineClass {
     return this.skill_adds;
   }
 
+  getRepMacro() {
+    return "titlecardkey";
+  }
+
   rep(): string {
-    let base = setup.repMessage(this, "titlecardkey");
+    let base = setup.repMessage(this);
     return `<span class="titlecardmini${this.isNegative() ? "-negative" : ""}">${base}</span>`;
   }
 }

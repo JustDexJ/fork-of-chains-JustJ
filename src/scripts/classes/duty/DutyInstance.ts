@@ -75,11 +75,11 @@ export class DutyInstance extends TwineClass {
     this.is_can_go_on_quests_auto = !this.is_can_go_on_quests_auto;
   }
 
-  getImageRep(tooltip?: string, big?: boolean): string {
+  getImageRep(skip_tooltip?: boolean, big?: boolean): string {
     const template = this.getTemplate();
-    const tooltip_content = tooltip
-      ? `<<dutycardkey '${this.key}' 1>>`
-      : undefined;
+    const tooltip_content = skip_tooltip
+      ? undefined
+      : `<<dutycardkey '${this.key}' 1>>`;
     return (
       '<span class="' +
       template.getCssClass() +
@@ -93,16 +93,20 @@ export class DutyInstance extends TwineClass {
     );
   }
 
+  getRepMacro() {
+    return "dutycardkey";
+  }
+
   rep(): string {
     return (
-      setup.repMessage(this, "dutycardkey", undefined, this.getImageRep()) +
+      setup.repMessage(this, undefined, undefined, this.getImageRep()) +
       "&nbsp;" +
-      setup.repMessage(this, "dutycardkey")
+      setup.repMessage(this)
     );
   }
 
   repIcon(): string {
-    return setup.repMessage(this, "dutycardkey", undefined, this.getImageRep());
+    return setup.repMessage(this, undefined, undefined, this.getImageRep());
   }
 
   /**

@@ -97,13 +97,17 @@ export class Lore extends TwineClass {
     );
   }
 
+  getRepMacro() {
+    return "lorecardkey";
+  }
+
   rep(is_uppercase?: boolean): string {
     if (!is_uppercase) {
-      return setup.repMessage(this, "lorecardkey");
+      return setup.repMessage(this);
     } else {
       return setup.repMessage(
         this,
-        "lorecardkey",
+        undefined,
         undefined,
         this.getName().toUpperFirst(),
       );

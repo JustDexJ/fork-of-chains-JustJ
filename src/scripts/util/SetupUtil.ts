@@ -137,8 +137,8 @@ export namespace SetupUtil {
   }
 
   export function repMessage(
-    instance: any,
-    macroname: string,
+    instance: { key: any; getName(): string; getRepMacro?: () => string },
+    macroname?: string,
     icontext?: string,
     message?: string,
     target?: string,
@@ -158,12 +158,25 @@ export namespace SetupUtil {
     message,
     text_class,
   }: {
-    instance: { key: string | number; getName(): string };
-    macroname: string;
+    instance: {
+      key: string | number;
+      getName(): string;
+      getRepMacro?: () => string;
+    };
+    macroname?: string;
     icontext?: string;
     message?: string;
     text_class?: string;
   }): string {
+    macroname ??= instance.getRepMacro?.() ?? "";
+    let tooltip = "";
+    if (macroname) {
+      tooltip = `<<${macroname} '${instance.key}'>>`;
+    }
+    //else if (instance.repPath && instance.repCard) {
+    //  tooltip = `<<repcard ${instance.repPath()}>>`
+    //}
+
     if (!message) message = instance.getName();
     let text = icontext || "";
     text += `<span data-tooltip="<<${macroname} '${instance.key}' 1>>" data-tooltip-wide>`;

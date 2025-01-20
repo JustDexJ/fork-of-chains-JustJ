@@ -45,14 +45,18 @@ export class RoomInstance extends TwineClass {
     State.variables.roomlist.resetCache();
   }
 
+  getRepMacro() {
+    return "roominstancecardkey";
+  }
+
   rep(): string {
-    return setup.repMessage(this, "roominstancecardkey");
+    return setup.repMessage(this);
   }
 
   repFull(): string {
     return (
       this.getTemplate().repTags() +
-      setup.repMessage(this, "roominstancecardkey") +
+      setup.repMessage(this) +
       ` (${this.getTemplate().getWidth()} x ${this.getTemplate().getHeight()})`
     );
   }

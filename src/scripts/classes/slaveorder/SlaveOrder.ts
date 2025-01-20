@@ -70,8 +70,12 @@ export class SlaveOrder extends TwineClass {
     delete State.variables.slaveorder[this.key];
   }
 
+  getRepMacro() {
+    return "slaveordercardkey";
+  }
+
   rep(): string {
-    return setup.repMessage(this, "slaveordercardkey");
+    return setup.repMessage(this);
   }
 
   doUnfulfill(): void {

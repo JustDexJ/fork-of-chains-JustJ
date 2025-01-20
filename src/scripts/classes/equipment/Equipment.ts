@@ -157,7 +157,7 @@ export class Equipment extends TwineClass {
     else return setup.rarity.common;
   }
 
-  getImageRep(): string {
+  getImageRep(skip_tooltip?: boolean): string {
     let classes = "";
 
     const has_custom_image = this.icon_settings.image;
@@ -190,13 +190,21 @@ export class Equipment extends TwineClass {
 
     const tooltip = `<<equipmentcardkey '${this.key}'>>`;
     const url = setup.escapeHtml(setup.resolveImageUrl(imagepath));
-    return `<span class="trait ${classes}" data-tooltip="${tooltip}"><img src="${url}"/></span>`;
+    const tooltip_attr = skip_tooltip ? "" : `data-tooltip="${tooltip}"`;
+    return `<span class="trait ${classes}" ${tooltip_attr}><img src="${url}"/></span>`;
+  }
+
+  getRepMacro() {
+    return "equipmentcardkey";
+  }
+
+  getRepRarity() {
+    return this.getRarity();
   }
 
   rep(): string {
     return setup.repMessageDict({
       instance: this,
-      macroname: "equipmentcardkey",
       icontext: this.getImageRep(),
       text_class: this.getRarity().getTextColorClass(),
     });

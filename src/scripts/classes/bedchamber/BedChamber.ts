@@ -268,8 +268,12 @@ export class Bedchamber extends TwineClass {
     }
   }
 
+  getRepMacro() {
+    return "bedchambercardkey";
+  }
+
   rep(): string {
-    return setup.repMessage(this, "bedchambercardkey");
+    return setup.repMessage(this);
   }
 
   getOptionMap() {

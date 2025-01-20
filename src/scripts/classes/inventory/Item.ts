@@ -69,17 +69,26 @@ export class Item extends TwineClass {
     return setup.rarity.common;
   }
 
-  getImageRep(): string {
+  getImageRep(skip_tooltip?: boolean) {
     const image_path_raw = this.getItemClass().getImage();
-    const tooltip = `<<itemcardkey '${this.key}'>>`;
+    const tooltip_attr = skip_tooltip
+      ? ""
+      : `data-tooltip="<<itemcard '${this.key}'>>"`;
     const url = setup.escapeHtml(setup.resolveImageUrl(image_path_raw));
-    return `<span class="trait" data-tooltip="${tooltip}"><img src="${url}"/></span>`;
+    return `<span class="trait" ${tooltip_attr}><img src="${url}"/></span>`;
+  }
+
+  getRepMacro() {
+    return "itemcardkey";
+  }
+
+  getRepRarity() {
+    return this.getRarity();
   }
 
   rep(): string {
     return setup.repMessageDict({
       instance: this,
-      macroname: "itemcardkey",
       icontext: this.getImageRep(),
       text_class: this.getRarity().getTextColorClass(),
     });

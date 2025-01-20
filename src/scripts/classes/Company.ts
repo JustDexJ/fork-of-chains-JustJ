@@ -40,8 +40,12 @@ export class Company extends TwineClass {
     //}
   }
 
+  getRepMacro() {
+    return "companycardkey";
+  }
+
   rep() {
-    return setup.repMessage(this, "companycardkey");
+    return setup.repMessage(this);
   }
 
   isFavorActive() {

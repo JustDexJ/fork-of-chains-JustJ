@@ -29,8 +29,12 @@ export class Party extends TwineClass {
     delete State.variables.party[this.key];
   }
 
+  getRepMacro() {
+    return "partycardkey";
+  }
+
   rep() {
-    return setup.repMessage(this, "partycardkey");
+    return setup.repMessage(this);
   }
 
   getName(): string {

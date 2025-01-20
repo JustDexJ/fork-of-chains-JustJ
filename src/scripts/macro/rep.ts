@@ -1,4 +1,4 @@
-function unitRep(unit: Unit): string {
+export function unitRep(unit: Unit): string {
   return setup.DOM.Util.unitRep(unit);
 }
 

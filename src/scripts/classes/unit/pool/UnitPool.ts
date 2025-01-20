@@ -83,8 +83,12 @@ export class UnitPool extends TwineClass {
     return this.name;
   }
 
+  getRepMacro() {
+    return "unitpoolcardkey";
+  }
+
   rep() {
-    return setup.repMessage(this, "unitpoolcardkey");
+    return setup.repMessage(this);
   }
 
   static getChanceArray<K extends string>(

@@ -61,8 +61,12 @@ export class Team extends TwineClass {
     return slavercount >= 3;
   }
 
+  getRepMacro() {
+    return "teamcardkey";
+  }
+
   rep() {
-    return setup.repMessage(this, "teamcardkey");
+    return setup.repMessage(this);
   }
 
   getName() {

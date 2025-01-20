@@ -88,8 +88,12 @@ export class Contact extends TwineClass {
     return setup.contacttemplate[this.template_key] || null;
   }
 
+  getRepMacro() {
+    return "contactcardkey";
+  }
+
   rep(): string {
-    let base = setup.repMessage(this, "contactcardkey");
+    let base = setup.repMessage(this);
     const unit = this.getUnit();
     if (unit) {
       base += ` (${unit.rep()})`;

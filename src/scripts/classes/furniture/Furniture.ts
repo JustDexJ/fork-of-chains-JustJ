@@ -79,7 +79,7 @@ export class Furniture extends Item {
     else return setup.rarity.common;
   }
 
-  override getImageRep(): string {
+  getImageRep(skip_tooltip?: boolean) {
     const image_path_raw = this.getSlot().getImage();
     const main_skill = this.getMainSkill();
 
@@ -92,9 +92,10 @@ export class Furniture extends Item {
 
     classes += ` ${this.getRarity().getIconTriangleClass()}`;
 
-    const tooltip = `<<itemcardkey '${this.key}'>>`;
+    const tooltip = `<<itemcard '${this.key}'>>`;
     const url = setup.escapeHtml(setup.resolveImageUrl(image_path_raw));
-    return `<span class="trait ${classes}" data-tooltip="${tooltip}"><img src="${url}"/></span>`;
+    const tooltip_attr = skip_tooltip ? "" : `data-tooltip="${tooltip}"`;
+    return `<span class="trait ${classes}" ${tooltip_attr}><img src="${url}"/></span>`;
   }
 
   repFull(): string {

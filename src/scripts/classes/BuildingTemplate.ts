@@ -150,9 +150,13 @@ export class BuildingTemplate extends TwineClass {
     return this.prerequisites[0];
   }
 
+  getRepMacro() {
+    return "buildingtemplatecardkey";
+  }
+
   rep() {
-    // return setup.repMessage(this, 'buildingtemplatecardkey', this.getImageRep())
-    return setup.repMessage(this, "buildingtemplatecardkey");
+    // return setup.repMessage(this, undefined, this.getImageRep())
+    return setup.repMessage(this);
   }
 
   isBuildable(current_level: number = 0): boolean {

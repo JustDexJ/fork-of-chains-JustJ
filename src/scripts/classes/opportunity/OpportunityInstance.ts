@@ -54,8 +54,12 @@ export class OpportunityInstance extends TwineClass {
     delete State.variables.opportunityinstance[this.key];
   }
 
+  getRepMacro() {
+    return "opportunitycardkey";
+  }
+
   rep(): string {
-    return setup.repMessage(this, "opportunitycardkey");
+    return setup.repMessage(this);
   }
 
   cleanup() {
