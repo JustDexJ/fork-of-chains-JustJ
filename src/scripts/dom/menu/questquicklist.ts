@@ -1,4 +1,4 @@
-import { getQuestExpiresFragment } from "../card/quest";
+import { getQuestDurationFragment } from "../card/quest";
 
 /**
  * Display list of quests on the right sidebar on wide screens.
@@ -23,7 +23,7 @@ export const DOM_Menu_questquicklist = function (): DOM.Node {
         <div>
           ${setup.TagHelper.getTagsRep("quest", quest.getTemplate().getTags())}
           ${quest.getTemplate().getDifficulty().rep()} ${quest.rep()}
-          ${quest.getTeam() ? html`(${getQuestExpiresFragment(quest)})` : ``}
+          ${quest.getTeam() ? html`(${getQuestDurationFragment(quest)})` : ``}
         </div>
       `);
 

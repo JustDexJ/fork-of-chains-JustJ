@@ -348,6 +348,18 @@ img {
   border: 5px outset rgb(255, 0, 0) !important;
 }
 
+.questcard-numunits {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  margin-left: 0.5em;
+  white-space: nowrap;
+  & img {
+    width: 16px;
+    height: 16px;
+  }
+}
+
 .helpcard {
   padding: 8px 12px 5px 12px;
   margin: 10px 2px 10px 2px;
@@ -515,6 +527,11 @@ img {
 .card {
   padding: 8px 12px 5px 12px;
   margin: 3px 1px 3px 1px;
+}
+
+.questcardbase {
+  overflow: visible;
+  background-color: #111111;
 }
 
 .questcardvale {

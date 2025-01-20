@@ -92,7 +92,7 @@ function getSelectUnitFragment(
           ${unit.key in State.variables.gAdhocUnitUsed!
             ? html`${setup.repImgIcon(
                 setup.Unit.DANGER_IMAGE_URL,
-                `Unit already goin on this quest`,
+                `Unit already going on this quest`,
               )}`
             : html`${unit.repBusyState(true)}`}
           ${setup.DOM.Util.level(unit.getLevel())} ${unit.repFull()}

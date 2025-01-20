@@ -109,3 +109,19 @@
 .rep-retired {
   color: rgb(180, 180, 180) !important;
 }
+
+.tag-region {
+  border: 2px solid #9f9352;
+  background-color: #5ca2ba;
+}
+
+.quest-new {
+  /* "NEW" text in new quests */
+  font-size: 60%;
+  vertical-align: middle;
+  color: #222;
+  font-weight: bold;
+  background-color: rgb(137, 202, 137);
+  padding: 0 4px;
+  border-radius: 6px;
+}

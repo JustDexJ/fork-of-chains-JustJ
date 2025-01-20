@@ -116,6 +116,6 @@ export class TagHelper {
           setup.QUESTTAGS_BORDER[tag as keyof typeof setup.QUESTTAGS_BORDER];
       }
     }
-    return panorama + " " + border;
+    return "questcardbase " + panorama + " " + border;
   }
 }

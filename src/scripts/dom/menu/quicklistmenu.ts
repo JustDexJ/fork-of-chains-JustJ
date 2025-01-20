@@ -6,9 +6,9 @@
 import { menuItem } from "../../ui/menuitem";
 
 export const RIGHT_SIDEBAR_MENUS = {
-  unit: "Unit",
-  quest: "Quest",
-  slaveorder: "Order",
+  unit: "Units",
+  quest: "Quests",
+  slaveorder: "Orders",
 };
 
 /**

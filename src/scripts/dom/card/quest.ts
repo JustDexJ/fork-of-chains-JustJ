@@ -46,36 +46,24 @@ function getQuestUnitRolesFragment(quest: QuestInstance): DOM.Node {
 function getQuestTitleFragment(quest: QuestInstance): DOM.Node {
   const template = quest.getTemplate();
   return html`
-    ${setup.TagHelper.getTagsRep("quest", template.getTags())}
+    <div>${setup.TagHelper.getTagsRep("quest", template.getTags())}</div>
     ${State.variables.statistics.isHasSuccess(template)
       ? ""
-      : setup.DOM.Text.successlite("NEW")}
-    ${template.getDifficulty().rep()} ${domCardRep(quest)}
+      : '<span class="quest-new">NEW</span>'}
+    <span>${template.getDifficulty().rep()}</span> · ${domCardRep(quest)}
   `;
 }
 
-export function getQuestExpiresFragment(quest: QuestInstance): DOM.Node {
+export function getQuestDurationFragment(quest: QuestInstance): DOM.Node {
   const team = quest.getTeam();
   const template = quest.getTemplate();
-  if (team) {
-    return html` ${quest.getRemainingWeeks()} wks left `;
-  }
 
-  let expires;
-  if (template.getDeadlineWeeks() < setup.INFINITY)
-    expires = quest.getWeeksUntilExpired();
+  if (team) {
+    return html` completed in ${quest.getRemainingWeeks()} wks `;
+  }
 
   return html`
     <span data-tooltip="Quest duration"> ${template.getWeeks()} wks </span>
-    ${template.getDeadlineWeeks() >= setup.INFINITY
-      ? ""
-      : html`
-          |
-          <span data-tooltip="Quest expiration">
-            ${expires == 1 ? setup.DOM.Text.danger(expires) : `${expires}`} wks
-            left
-          </span>
-        `}
   `;
 }
 
@@ -129,9 +117,10 @@ function questNameActionMenu(
   menus.push(
     menuItemAction({
       text: html`${template.getSkillSummary()}
-        <span data-tooltip="Number of units"
-          >(${Object.values(template.getUnitCriterias()).length})</span
-        >`,
+        <div class="questcard-numunits" data-tooltip="Number of units">
+          ${Object.values(template.getUnitCriterias()).length}
+          <img src="${setup.resolveImageUrl(`img/special/unit.svg`)}" />
+        </div>`,
       callback: () => {
         setup.Dialogs.open({
           title: `Full quest roles`,
@@ -158,9 +147,23 @@ function questNameActionMenu(
 
   menus.push(
     menuItemText({
-      text: getQuestExpiresFragment(quest),
+      text: getQuestDurationFragment(quest),
     }),
   );
+
+  if (!quest.getTeam() && template.getDeadlineWeeks() < setup.INFINITY) {
+    const expires = quest.getWeeksUntilExpired();
+
+    menus.push(
+      menuItemText({
+        tooltip: `Quest expires in ${expires} week${expires !== 1 ? "s" : ""}`,
+        text: html`${expires == 1
+          ? setup.DOM.Text.danger(expires)
+          : `${expires}`}
+        wks left`,
+      }),
+    );
+  }
 
   if (State.variables.gDebug) {
     extras.push(
