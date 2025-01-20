@@ -5,6 +5,7 @@ export const _MENUS_questassign: FilterMenu<unknown> = {
   score: {
     title: '<i class="sfa sfa-cog"></i>',
     default: "Default",
+    hidearrow: true,
     hardreload: true,
     options: {
       crit: {

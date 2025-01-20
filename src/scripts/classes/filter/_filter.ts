@@ -19,6 +19,7 @@ export interface FilterMenuEntry<T> {
   hardreload?: boolean;
   resets?: string[];
   trait_menu?: boolean;
+  hidearrow?: boolean;
   default_filter?: (instance: T) => boolean | unknown;
   default_sort?: (a: T, b: T) => number;
   options?:
@@ -202,7 +203,9 @@ export class MenuFilter extends TwineClass {
       text = options[current_value].title;
       text = `<span class="lightgraytext">${text}</span>`;
     }
-    text = `${text} <i class="sfa sfa-caret-down"></i>`;
+    if (!menu_obj.hidearrow) {
+      text = `${text} <i class="sfa sfa-caret-down"></i>`;
+    }
 
     const children = [
       menuItem({
