@@ -81,6 +81,14 @@ http://twinery.org/forum/discussion/comment/17617/
   height: 100%;
 }
 
+.right-ui-bar-base {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 0.5em;
+  overflow: hidden;
+  height: 100%;
+}
+
 .right-ui-bar-header {
   overflow: hidden;
   display: flex;
@@ -91,7 +99,7 @@ http://twinery.org/forum/discussion/comment/17617/
 
 .right-ui-bar-content {
   overflow: auto;
-  padding: 0.5em 1em;
+  padding: 0 1em;
   height: 100%;
 }
 

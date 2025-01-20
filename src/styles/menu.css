@@ -16,16 +16,17 @@
 .menu.toolbar {
   display: flex;
   flex-wrap: wrap;
-}
+  gap: 2px;
+  margin-bottom: 2px;
 
-.menu.toolbar > div > span {
-  padding: 4px 12px;
-}
-
-.menu.toolbar > div {
-  display: inline-block;
-  border-right: 2px solid transparent;
-  margin-top: 1px;
+  & > div {
+    & > span {
+      height: 100%;
+      min-height: 36px;
+      box-sizing: border-box;
+      padding: 4px 12px;
+    }
+  }
 }
 
 .menu {
@@ -51,7 +52,10 @@
 
 .menu div > .menu-span {
   position: relative;
-  display: block;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 0.4em;
   padding: 8px 12px;
   background-color: var(--menu-color, #394c7a);
 }
@@ -128,27 +132,56 @@
   right: 100%;
 }
 
-.icon-checkbox {
-  position: relative;
-  display: inline-block;
-  padding: 1px;
-  width: 0.6em;
-  height: 0.6em;
-  border-radius: 4px;
-  border: 1px solid white;
-  vertical-align: sub;
+/** Menu Colors **/
+.menu .submenu-actor > * {
+  --menu-color: #436767;
+  --menu-hover-color: #5f9191;
+}
 
-  /*&.checked {}*/
-  &::before {
-    position: absolute;
-    top: -0.25em;
-    right: -0.35em;
+.menu .submenu-action > * {
+  --menu-color: #312a5a;
+  --menu-hover-color: #694c9e;
+}
 
-    padding: 0;
-  }
+.menu .submenu-value > * {
+  --menu-color: #766d46;
+  --menu-hover-color: #ac994a;
+}
 
-  & + span {
-    vertical-align: middle;
-    margin-inline-start: 0.3em;
-  }
+.menu .submenu-tag-0 > * {
+  --menu-color: #5d833e;
+  --menu-hover-color: #6cdb91;
+}
+
+.menu .submenu-tag-1 > * {
+  --menu-color: #813e7e;
+  --menu-hover-color: #db6edf;
+}
+
+.menu .submenu-tag-2 > * {
+  --menu-color: #477b94;
+  --menu-hover-color: #70d2df;
+}
+
+.menu .submenu-tag-selected > * {
+  --menu-color: #707070;
+  --menu-hover-color: #b9b9b9;
+}
+
+.menu .submenu-danger > * {
+  --menu-color: #674343;
+  --menu-hover-color: #915f5f;
+}
+
+.menu .submenu-filter-text > * {
+  color: rgb(185, 185, 185);
+  --menu-color: #3a3a3a;
+  --menu-hover-color: #3a3a3a;
+  cursor: default;
+}
+
+.menu .submenu-filter-title > * {
+  --menu-color: #202020;
+  --menu-hover-color: #202020;
+  cursor: default;
 }

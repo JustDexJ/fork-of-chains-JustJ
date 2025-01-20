@@ -78,7 +78,11 @@ export class TagHelper {
       setup.TagHelper.TAG_INFO[menu as keyof typeof setup.TagHelper.TAG_INFO]
         .img_folder;
 
-    return setup.repImgIcon(`img/${folder}/${tag}.svg`, tagobj.description);
+    return setup.repImg({
+      imagepath: `img/${folder}/${tag}.svg`,
+      tooltip_content: tagobj.description,
+      extra_class: `trait tag-${tagobj.type}`,
+    });
   }
 
   static tagRepLong(menu: MenuKey, tag: string): string {

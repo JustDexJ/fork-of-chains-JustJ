@@ -16,3 +16,7 @@
 .description-render {
   overflow: auto;
 }
+
+.questassignrolecard .tagtoolbarsticky {
+  --bg-color: rgba(0, 0, 0, 0);
+}

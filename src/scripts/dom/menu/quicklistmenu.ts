@@ -77,14 +77,12 @@ export const DOM_Menu_rightsidebar = function (): DOM.Node {
       setup.DOM.create("div", { class: "right-ui-bar-content" }, [content]),
     );
   }
-  return setup.DOM.create("div", {}, fragments);
+  return setup.DOM.create("div", { class: "right-ui-bar-base" }, fragments);
 };
 
 export const DOM_Menu_refreshRightSidebar = function () {
   setup.DOM.Helper.replace(
     "#menurightdata",
-    setup.DOM.create("div", {}, [
-      setup.DOM.create("div", {}, [setup.DOM.Menu.rightsidebar()]),
-    ]),
+    setup.DOM.create("div", {}, [setup.DOM.Menu.rightsidebar()]),
   );
 };

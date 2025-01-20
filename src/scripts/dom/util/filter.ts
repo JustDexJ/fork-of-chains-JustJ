@@ -77,9 +77,9 @@ export default {
       const display_object = display_objects_parsed[i];
       try {
         display_fragments.push(html`
-          <div data-filter-key="${filter_object.key}">
+          <article data-filter-key="${filter_object.key}">
             ${display_callback(display_object)}
-          </div>
+          </article>
         `);
       } catch (ex) {
         display_fragments.push(setup.DOM.Util.exception(ex));
