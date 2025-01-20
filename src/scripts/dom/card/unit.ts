@@ -1,8 +1,8 @@
 import {
-  menuItemAction,
   menuItemExtras,
   menuItemText,
   menuItemTitle,
+  menuItemValue,
 } from "../../ui/menuitem";
 import { getRosterListMenuItems } from "../roster/rosterlist";
 import { domCardNameBold } from "../util/cardnamerep";
@@ -83,7 +83,7 @@ function unitNameActionMenus(unit: Unit): JQuery[] {
   }
 
   menus.push(
-    menuItemAction({
+    menuItemValue({
       text: html`${setup.DOM.Util.money(unit.getSlaveValue())}`,
       tooltip: `This is the unit's value. Click for more information`,
       is_no_close: true,

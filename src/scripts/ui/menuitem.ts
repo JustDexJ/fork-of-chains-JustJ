@@ -159,6 +159,11 @@ export function menuItemAction(args: MenuItemArgs) {
   return menuItem(args);
 }
 
+export function menuItemValue(args: MenuItemArgs) {
+  args["cssclass"] = "submenu-value";
+  return menuItem(args);
+}
+
 export function menuItemExtras(args: Omit<MenuItemArgs, "text">) {
   return menuItem({
     ...args,
