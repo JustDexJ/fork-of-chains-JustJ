@@ -61,21 +61,30 @@ export const DOM_Menu_rightsidebar = function (): DOM.Node {
 
   if (State.variables.unit?.player) {
     fragments.push(html`
-      <div class="tagtoolbarsticky">${setup.DOM.Menu.quicklistmenu()}</div>
+      <div class="right-ui-bar-header">${setup.DOM.Menu.quicklistmenu()}</div>
     `);
 
     const sidebartype = State.variables.settings.rightsidebar;
+    let content = null;
     if (sidebartype == "quest") {
-      fragments.push(setup.DOM.Menu.questquicklist());
+      content = setup.DOM.Menu.questquicklist();
     } else if (sidebartype == "slaveorder") {
-      fragments.push(setup.DOM.Menu.slaveorderquicklist());
+      content = setup.DOM.Menu.slaveorderquicklist();
     } else {
-      fragments.push(setup.DOM.Menu.unitquicklist());
+      content = setup.DOM.Menu.unitquicklist();
     }
+    fragments.push(
+      setup.DOM.create("div", { class: "right-ui-bar-content" }, [content]),
+    );
   }
   return setup.DOM.create("div", {}, fragments);
 };
 
 export const DOM_Menu_refreshRightSidebar = function () {
-  setup.DOM.Helper.replace("#menurightdata", setup.DOM.Menu.rightsidebar());
+  setup.DOM.Helper.replace(
+    "#menurightdata",
+    setup.DOM.create("div", {}, [
+      setup.DOM.create("div", {}, [setup.DOM.Menu.rightsidebar()]),
+    ]),
+  );
 };

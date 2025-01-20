@@ -68,15 +68,31 @@ http://twinery.org/forum/discussion/comment/17617/
 }
 
 #right-ui-bar-body {
-  height: 90%;
-  height: calc(100% - 2.5em);
-  margin: 2.5em 0;
-  padding: 0 1em;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+#right-ui-bar-body,
+#right-ui-bar-body > *,
+#right-ui-bar-body > * > *,
+#right-ui-bar-body > * > * > * {
+  overflow: hidden;
+  height: 100%;
 }
 
-#right-ui-bar-body {
-  line-height: 1.5;
+.right-ui-bar-header {
+  overflow: hidden;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.2em;
+  margin-right: 0.2em;
+}
+
+.right-ui-bar-content {
   overflow: auto;
+  padding: 0.5em 1em;
+  height: 100%;
 }
 
 @media screen and (min-width: 769px) {
