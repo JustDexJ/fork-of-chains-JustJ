@@ -29,5 +29,6 @@
 
 .icongrid > :only-child img {
   /* special case, only one item at grid: show at full size */
-  width: 20px;
+  width: 20px !important;
+  height: 20px !important;
 }

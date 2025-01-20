@@ -315,13 +315,13 @@ export class EquipmentSet extends TwineClass {
     for (let i = 0; i < mods.length; ++i)
       with_skill.push([setup.skill[i], mods[i]]);
     with_skill.sort((a, b) => b[1] - a[1]);
-    let rep = "";
+    let rep = `<div class="icongrid equipmentset-icongrid${!with_skill[0]?.[1] ? " empty" : ""}">`;
     for (let i = 0; i < setup.EQUIPMENTSET_SKILL_DISPLAY; ++i) {
       if (with_skill[i][1]) {
         rep += with_skill[i][0].rep();
       }
     }
-    return rep;
+    return rep + "</div>";
   }
 
   getSkillMods(): SkillValuesArray {

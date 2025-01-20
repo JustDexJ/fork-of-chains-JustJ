@@ -1,7 +1,7 @@
 /* Equipment Grid */
 
 .equipmentgrid .empty-slot img {
-  opacity: 0.4;
+  opacity: 0.3;
 }
 
 .equipmentgrid {
@@ -23,6 +23,11 @@
   }
 }
 
+.equipmentgrid .graytext { /* "none" */
+  font-size: 80%;
+  user-select: none;
+}
+
 .equipmentgrid img {
   margin-right: 4px;
 }
@@ -36,4 +41,23 @@
   padding: 0 8px;
   border-radius: 8px;
   border: 1px solid gray;
+}
+
+.equipmentset-icongrid {
+  width: 22px;
+  height: 22px;
+  border: 2px double #555;
+  background-color: #333;
+  background: radial-gradient(farthest-corner, #444, #333, #444);
+  border-radius: 6px;
+
+  &.empty:after {
+    display: block;
+    content: '-';
+    color: #666;
+    line-height: 1em;
+    font-size: 1em;
+    align-self: center;
+    grid-column: 1 / -1;
+  }
 }

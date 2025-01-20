@@ -107,7 +107,7 @@ export default {
         } else {
           very_inner.push(html`
             <span class="empty-slot">${slot.rep()}</span>
-            <span class="graytext">none</span>
+            <span class="graytext">(empty)</span>
           `);
         }
 
