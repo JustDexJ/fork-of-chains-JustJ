@@ -14,7 +14,7 @@
           (<<tfriendtitle _friendcardfriendship>>)
         <</if>>
       <<else>>
-        No friends
+        No bonds
       <</if>>
       <<message '(?)'>>
         <div class='helpcard'>

@@ -864,9 +864,9 @@ export const DOM_Menu_unitdescription = function (unit: Unit): DOM.Node {
 
     fragments.push(html`
       ${format([
-        `If a|rep was to become a slaver, a|their starting skills would be`,
+        `If a|rep was to become a slaver, a|their starting skills would be:`,
       ])}
-      ${setup.SkillHelper.explainSkillsWithAdditives(unit)}.
+      ${setup.SkillHelper.explainSkillsWithAdditives(unit)}
     `);
 
     outer_fragments.push(setup.DOM.create("p", {}, fragments));

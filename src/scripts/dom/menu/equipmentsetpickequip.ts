@@ -113,10 +113,10 @@ export const DOM_Menu_equipmentsetpickequip = function (unit: Unit): DOM.Node {
 
         fragments.push(setup.DOM.Util.menuItemToolbar(menu));
 
-        if (
+        const isCompact =
           State.variables.menufilter.get("equipmentsetpickequip", "display") ==
-          "compact"
-        ) {
+          "compact";
+        if (isCompact) {
           // don't add any other extra info
         } else {
           // append set info
@@ -128,7 +128,11 @@ export const DOM_Menu_equipmentsetpickequip = function (unit: Unit): DOM.Node {
           );
         }
 
-        return setup.DOM.create("div", {}, fragments);
+        return setup.DOM.create(
+          "div",
+          { class: isCompact ? undefined : "equipmentset" },
+          fragments,
+        );
       },
     }),
   );

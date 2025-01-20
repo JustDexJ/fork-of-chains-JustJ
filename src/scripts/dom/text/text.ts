@@ -49,6 +49,7 @@ export const DOM_Text = {
   },
 
   percentage(number: number): string {
-    return `${(number * 100).toFixed(2)}%`;
+    const roundedPercentage = parseFloat((number * 100).toFixed(2));
+    return `${roundedPercentage}%`;
   },
 };

@@ -204,20 +204,20 @@ export namespace SkillHelper {
     }
 
     const tooltip = `<<unitskillcardkey "${unit.key}" ${skill.key}>>`;
+    let text = "";
     if (!State.variables.settings.summarizeunitskills) {
-      return `<span data-tooltip='${tooltip}'>${val_text}${add_text}</span> ${image_rep}`;
+      text = `${val_text}${add_text}`;
     } else {
-      let base = `${unit.getSkill(skill)}`;
+      text = `${unit.getSkill(skill)}`;
       if (innate_add > 0 && add >= 0) {
-        base = setup.DOM.toString(setup.DOM.Text.infolite(base));
+        text = setup.DOM.toString(setup.DOM.Text.infolite(text));
       } else if (add > 0) {
-        base = setup.DOM.toString(setup.DOM.Text.successlite(base));
+        text = setup.DOM.toString(setup.DOM.Text.successlite(text));
       } else if (add < 0) {
-        base = setup.DOM.toString(setup.DOM.Text.dangerlite(base));
-      } else {
+        text = setup.DOM.toString(setup.DOM.Text.dangerlite(text));
       }
-      return `<span data-tooltip='${tooltip}'>${base}</span> ${image_rep}`;
     }
+    return `<span class="unit-skill">${image_rep} <span data-tooltip='${tooltip}'>${text}</span></span>`;
   }
 
   export function explainSkillsWithAdditives(unit: Unit): string {
@@ -230,7 +230,7 @@ export namespace SkillHelper {
         );
       }
     }
-    return texts.join("║");
+    return `<div class="unit-skills">${texts.join("")}</div>`;
   }
 
   /**

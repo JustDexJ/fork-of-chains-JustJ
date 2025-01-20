@@ -210,7 +210,7 @@ export namespace UnitSkillsHelper {
     for (let i = 0; i < setup.skill.length; ++i) {
       result[i].push({
         value: initial[i],
-        title: "Base",
+        title: "Innate",
       });
       const level_up = base[i] - initial[i];
       if (level_up) {

@@ -7,12 +7,14 @@ import {
 import { getRosterListMenuItems } from "../roster/rosterlist";
 import { domCardNameBold } from "../util/cardnamerep";
 
-function unitNameFragment(unit: Unit): DOM.Node {
+function unitNameFragment(unit: Unit, skipJob?: boolean): DOM.Node {
   const fragments: DOM.Attachable[] = [];
 
   fragments.push(html`
     ${unit.repBusyState(/* show duty icon = */ true)}
-    ${setup.DOM.Card.job(unit.getJob(), /* hide actions = */ true)}
+    ${skipJob
+      ? ""
+      : setup.DOM.Card.job(unit.getJob(), /* hide actions = */ true)}
     <span
       data-tooltip="Full name: <b>${setup.escapeJsString(
         unit.getFullName(),
@@ -35,7 +37,7 @@ function unitNameActionMenus(unit: Unit): JQuery[] {
 
   menus.push(
     menuItemTitle({
-      text: unitNameFragment(unit),
+      text: unitNameFragment(unit, true),
     }),
   );
 
@@ -112,7 +114,7 @@ export default {
     const now_fragments = [];
 
     now_fragments.push(html`
-      <span class="unitimage">
+      <div class="unitimage">
         ${setup.DOM.Util.onEvent(
           "click",
           setup.DOM.Util.Image.load({
@@ -123,196 +125,198 @@ export default {
             setup.Dialogs.openUnitImage(unit);
           },
         )}
-      </span>
+      </div>
     `);
 
-    now_fragments.push(
-      setup.DOM.Util.async(() => {
-        const fragments: DOM.Attachable[] = [];
+    const asyncContent = setup.DOM.Util.async(() => {
+      const fragments: DOM.Attachable[] = [];
+
+      fragments.push(setup.DOM.Util.menuItemToolbar(unitNameActionMenus(unit)));
+
+      /* Titles */
+      {
+        const titles = State.variables.titlelist.getAssignedTitles(unit);
+        const title_fragments = titles.map((title) => html`${title.rep()}`);
+
+        const all_titles = State.variables.titlelist.getAllTitles(unit);
+        if (all_titles.length > titles.length) {
+          title_fragments.push(html`
+            ${setup.DOM.Util.message(
+              `(+${all_titles.length - titles.length})`,
+              () => {
+                return html`
+                  <div class="helpcard">
+                    ${setup.Text.replaceUnitMacros(
+                      `a|Rep also a|have the following titles, but these titles are inactive`,
+                      { a: unit },
+                    )}
+                    ${setup.DOM.Util.help(html`
+                      A unit can only have at most three active titles. Active
+                      titles will grant their skill bonuses to the unit, while
+                      inactive titles will not. You can change the set of active
+                      titles from the Slaver or Slave menu.
+                    `)}:
+                    ${all_titles
+                      .filter((title) => !titles.includes(title))
+                      .map((title) => title.rep())}
+                  </div>
+                `;
+              },
+            )}
+          `);
+        }
+
+        fragments.push(setup.DOM.create("div", {}, title_fragments));
+      }
+
+      /* Traits */
+      {
+        let traits = unit.getTraits();
+        if (State.variables.settings.hideskintraits) {
+          traits = traits.filter((trait) => !trait.getTags().includes("skin"));
+        }
+        const trait_fragments = traits.map((trait) => html`${trait.rep()}`);
+
+        // extra traits
+        const extra_traits = unit.getExtraTraits();
+        if (extra_traits.length) {
+          trait_fragments.push(html`
+            + ${extra_traits.map((trait) => html`${trait.rep()}`)}
+            ${setup.DOM.Util.help(html`
+              These are extra traits that the unit possess. While these traits
+              will affect the unit's skills and the critical/disaster traits on
+              missions, the units themselves are ${setup.DOM.Text.danger("not")}
+              counted as having these traits for satisfying requirements or for
+              story purposes.
+            `)}
+          `);
+        }
 
         fragments.push(
-          setup.DOM.Util.menuItemToolbar(unitNameActionMenus(unit)),
+          setup.DOM.create("div", { class: "unit-traits" }, trait_fragments),
         );
+      }
 
-        /* Titles */
-        {
-          const titles = State.variables.titlelist.getAssignedTitles(unit);
-          const title_fragments = titles.map((title) => html`${title.rep()}`);
-
-          const all_titles = State.variables.titlelist.getAllTitles(unit);
-          if (all_titles.length > titles.length) {
-            title_fragments.push(html`
-              ${setup.DOM.Util.message(
-                `(+${all_titles.length - titles.length})`,
-                () => {
-                  return html`
-                    <div class="helpcard">
-                      ${setup.Text.replaceUnitMacros(
-                        `a|Rep also a|have the following titles, but these titles are inactive`,
-                        { a: unit },
-                      )}
-                      ${setup.DOM.Util.help(html`
-                        A unit can only have at most three active titles. Active
-                        titles will grant their skill bonuses to the unit, while
-                        inactive titles will not. You can change the set of
-                        active titles from the Slaver or Slave menu.
-                      `)}:
-                      ${all_titles
-                        .filter((title) => !titles.includes(title))
-                        .map((title) => title.rep())}
-                    </div>
-                  `;
-                },
-              )}
-            `);
-          }
-
-          fragments.push(setup.DOM.create("div", {}, title_fragments));
-        }
-
-        /* Traits */
-        {
-          let traits = unit.getTraits();
-          if (State.variables.settings.hideskintraits) {
-            traits = traits.filter(
-              (trait) => !trait.getTags().includes("skin"),
-            );
-          }
-          const trait_fragments = traits.map((trait) => html`${trait.rep()}`);
-
-          // extra traits
-          const extra_traits = unit.getExtraTraits();
-          if (extra_traits.length) {
-            trait_fragments.push(html`
-              + ${extra_traits.map((trait) => html`${trait.rep()}`)}
-              ${setup.DOM.Util.help(html`
-                These are extra traits that the unit possess. While these traits
-                will affect the unit's skills and the critical/disaster traits
-                on missions, the units themselves are
-                ${setup.DOM.Text.danger("not")} counted as having these traits
-                for satisfying requirements or for story purposes.
-              `)}
-            `);
-          }
-
-          fragments.push(setup.DOM.create("div", {}, trait_fragments));
-        }
-
-        {
-          /* skills */
-          if (!unit.isSlaveOrInSlaveMarket()) {
-            const skill_fragments = [];
-            skill_fragments.push(html`
-              ${setup.SkillHelper.explainSkillsWithAdditives(unit)}
-            `);
-            skill_fragments.push(
-              setup.DOM.Util.help(html`
-                These are the unit's skills. It is displayed as [base_amount] +
-                [amount from modifiers]. For example, a unit can have
-                48${setup.DOM.Text.successlite("+10")}
-                ${setup.skill.combat.rep()}, which means that the unit has 48
-                base ${setup.skill.combat.rep()}, while their traits,
-                equipments, and modifiers add another 10
-                ${setup.skill.combat.rep()} on top of it, for a total of 58
-                ${setup.skill.combat.rep()}.
-              `),
-            );
-            fragments.push(setup.DOM.create("div", {}, skill_fragments));
-          }
-        }
-
-        {
-          /* Miscellaneous */
-
-          /**
-           * This code is slightly duplicated with setup.DOM.Card.tooltipunitstatus, because here we want it inline,
-           * while there we want it verbose.
-           */
-
-          const market = unit.getMarket();
-          const misc_fragments: DOM.Attachable[] = [];
-          {
-            const contact = unit.getContact();
-            if (contact) {
-              misc_fragments.push(html`${contact.rep()}`);
-            }
-
-            const duty = unit.getDuty();
-            if (duty) {
-              misc_fragments.push(html`${duty.rep()}`);
-            }
-
-            const eq_set = unit.getEquipmentSet();
-            if (eq_set) {
-              misc_fragments.push(html`${eq_set.rep()}`);
-            }
-
-            const quest = unit.getQuest();
-            if (quest) {
-              let questrep: DOM.Attachable = quest.rep();
-              if (quest.getTeam()) {
-                questrep = `${questrep} (${quest.getRemainingWeeks()} wk left)`;
-              }
-              misc_fragments.push(questrep);
-            }
-
-            const opp = unit.getOpportunity();
-            if (opp) {
-              misc_fragments.push(html`${opp.rep()}`);
-            }
-
-            if (market) {
-              misc_fragments.push(market.rep());
-            }
-
-            if (State.variables.leave.isOnLeave(unit)) {
-              misc_fragments.push(setup.DOM.Card.leave(unit));
-            }
-          }
-
-          if (
-            unit.isSlaver() &&
-            State.variables.fort.player.isHasBuilding("moraleoffice")
-          ) {
-            const bestfriend = State.variables.friendship.getBestFriend(unit);
-            const tooltip = `<<friendcard ${unit.key}>>`;
-            let friendship_fragment;
-            if (bestfriend) {
-              const friendship = State.variables.friendship.getFriendship(
-                unit,
-                bestfriend,
-              );
-              friendship_fragment = html`
-                ${setup.DOM.Util.name(bestfriend)}
-                ${unit.getLover() == bestfriend
-                  ? setup.Friendship.loversIcon()
-                  : setup.DOM.Util.friendship(friendship)}
-              `;
-            } else {
-              friendship_fragment = `No friend`;
-            }
-            misc_fragments.push(html`
-              <span data-tooltip="${tooltip}"> ${friendship_fragment} </span>
-            `);
-          }
-
-          const misc_fragments_with_separator = [];
-          for (const fragment of misc_fragments) {
-            if (misc_fragments_with_separator.length) {
-              misc_fragments_with_separator.push(html` | `);
-            }
-            misc_fragments_with_separator.push(fragment);
-          }
-
+      {
+        /* skills */
+        if (!unit.isSlaveOrInSlaveMarket()) {
+          const skill_fragments = [];
+          skill_fragments.push(html`
+            ${setup.SkillHelper.explainSkillsWithAdditives(unit)}
+          `);
+          skill_fragments.push(
+            setup.DOM.Util.help(html`
+              These are the unit's skills. It is displayed as [base_amount] +
+              [amount from modifiers]. For example, a unit can have
+              48${setup.DOM.Text.successlite("+10")}
+              ${setup.skill.combat.rep()}, which means that the unit has 48 base
+              ${setup.skill.combat.rep()}, while their traits, equipments, and
+              modifiers add another 10 ${setup.skill.combat.rep()} on top of it,
+              for a total of 58 ${setup.skill.combat.rep()}.
+            `),
+          );
           fragments.push(
-            setup.DOM.create("div", {}, misc_fragments_with_separator),
+            setup.DOM.create(
+              "div",
+              { class: "unit-skills-container" },
+              skill_fragments,
+            ),
           );
         }
-        return setup.DOM.create("span", {}, fragments);
-      }, /* transition = */ true),
+      }
+
+      {
+        /* Miscellaneous */
+
+        /**
+         * This code is slightly duplicated with setup.DOM.Card.tooltipunitstatus, because here we want it inline,
+         * while there we want it verbose.
+         */
+
+        const market = unit.getMarket();
+        const misc_fragments: DOM.Attachable[] = [];
+        {
+          const contact = unit.getContact();
+          if (contact) {
+            misc_fragments.push(html`<div>Contact: ${contact.rep()}</div>`);
+          }
+          const duty = unit.getDuty();
+          if (duty) {
+            misc_fragments.push(
+              html`<div><span>On duty:</span><span>${duty.rep()}</span></div>`,
+            );
+          }
+
+          const eq_set = unit.getEquipmentSet();
+          if (eq_set) {
+            misc_fragments.push(
+              html`<div>
+                <span>Wearing:</span><span>${eq_set.rep()}</span>
+              </div>`,
+            );
+          }
+
+          const quest = unit.getQuest();
+          if (quest) {
+            let questrep = quest.rep();
+            if (quest.getTeam()) {
+              questrep = `<div>On quest: ${questrep} (${quest.getRemainingWeeks()} wk left)</div>`;
+            }
+            misc_fragments.push(questrep);
+          }
+
+          const opp = unit.getOpportunity();
+          if (opp) {
+            misc_fragments.push(html`<div>On opportunity: ${opp.rep()}</div>`);
+          }
+
+          if (market) {
+            misc_fragments.push(html`<div>${market.rep()}</div>`);
+          }
+
+          if (State.variables.leave.isOnLeave(unit)) {
+            misc_fragments.push(setup.DOM.Card.leave(unit));
+          }
+        }
+
+        if (
+          unit.isSlaver() &&
+          State.variables.fort.player.isHasBuilding("moraleoffice")
+        ) {
+          const bestfriend = State.variables.friendship.getBestFriend(unit);
+          const tooltip = `<<friendcard ${unit.key}>>`;
+          let friendship_fragment;
+          if (bestfriend) {
+            const friendship = State.variables.friendship.getFriendship(
+              unit,
+              bestfriend,
+            );
+            friendship_fragment = html`
+              ${setup.DOM.Util.name(bestfriend)}
+              ${unit.getLover() == bestfriend
+                ? setup.Friendship.loversIcon()
+                : setup.DOM.Util.friendship(friendship)}
+            `;
+          } else {
+            friendship_fragment = `No bonds`;
+          }
+          misc_fragments.push(html`
+            <div data-tooltip="${tooltip}">${friendship_fragment}</div>
+          `);
+        }
+
+        fragments.push(
+          setup.DOM.create("div", { class: "unit-misc" }, misc_fragments),
+        );
+      }
+      return setup.DOM.create("span", {}, fragments);
+    }, /* transition = */ true);
+
+    now_fragments.push(
+      setup.DOM.create("div", { class: "unitcard-content" }, [asyncContent]),
     );
 
-    let divclass = `${unit.getJob().key}card ${unit.isMale() ? "male-card" : "female-card"}`;
+    let divclass = `unitcard ${unit.getJob().key}card ${unit.isMale() ? "male-card" : "female-card"}`;
     return setup.DOM.create("div", { class: divclass }, now_fragments);
   },
 
@@ -322,7 +326,7 @@ export default {
     );
     return setup.DOM.create(
       "span",
-      {},
+      { class: "unit-skillfocus" },
       focuses.map((skill) => skill.rep()),
     );
   },

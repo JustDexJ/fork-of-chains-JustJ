@@ -47,7 +47,7 @@ export class Settings extends TwineClass {
   hidequestdescription = false;
   hideeventdescription = false;
   animatedtooltips = true;
-  summarizeunitskills = false;
+  summarizeunitskills = true;
 
   challengemode: keyof typeof Settings.DIFFICULTIES | false = false;
   hideskintraits = false;

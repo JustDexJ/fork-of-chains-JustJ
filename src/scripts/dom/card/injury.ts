@@ -8,7 +8,9 @@ export default {
 
     // due to legacy code, don't make this into multiple lines. Otherwise sugarcube will put <br/>
     return html`<span data-tooltip="${tooltip}" class="injurycard"
-      >${setup.repImgIcon(setup.Unit.INJURY_IMAGE_URL)} ${duration}</span
+      >${setup.repImgIcon(setup.Unit.INJURY_IMAGE_URL)}<span
+        >${duration}</span
+      ></span
     >`;
   },
 };

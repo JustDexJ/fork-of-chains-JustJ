@@ -104,7 +104,7 @@ button.selected {
 }
 
 .filtercontainer > * > article {
-  & > .card, & > .slavecard, & > .slavercard {
+  & > .card, & > .unitcard, & > .equipmentset {
     margin-bottom: 1em;
   }
 }
