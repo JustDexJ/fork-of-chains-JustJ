@@ -146,7 +146,7 @@ export const DOM_Menu_questassign = function (quest: QuestInstance): DOM.Node {
     </div>
   `);
 
-  fragments.push(setup.DOM.Card.quest(quest, /* hide actions = */ true));
+  fragments.push(setup.DOM.Card.quest(quest));
 
   const criterias = quest.getTemplate().getUnitCriterias();
 

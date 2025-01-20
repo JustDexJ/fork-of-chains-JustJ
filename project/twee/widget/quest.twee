@@ -1,19 +1,19 @@
 :: LoadQuestWidget [nobr widget]
 
 <<focwidget 'questcardcompact'>>
-  <<set _dom = setup.DOM.Card.questcompact($args[0], $args[1])>>
+  <<set _dom = setup.DOM.Card.questcompact($args[0])>>
   <<attach _dom>>
 <</focwidget>>
 
 
 <<focwidget "questcard">>
-  <<set _dom = setup.DOM.Card.quest($args[0], $args[1])>>
+  <<set _dom = setup.DOM.Card.quest($args[0])>>
   <<attach _dom>>
 <</focwidget>>
 
 
 <<focwidget "questcardkey">>
-  <<questcard $questinstance[$args[0]] $args[1]>>
+  <<questcard $questinstance[$args[0]]>>
 <</focwidget>>
 
 

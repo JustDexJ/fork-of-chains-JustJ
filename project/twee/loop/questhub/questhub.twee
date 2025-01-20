@@ -208,7 +208,7 @@ You take a look at the details of these quests...
       display_callback: quest => {
         if ($menufilter.get('quest', 'display') == 'compact') return setup.DOM.Card.questcompact(quest);
         if ($menufilter.get('quest', 'display') == 'short') return setup.DOM.Card.questcompact(quest);
-        return setup.DOM.Card.quest(quest);
+        return setup.DOM.Card.quest(quest, /* show_actions = */ true);
       },
     })>>
     <<attach _dom>>

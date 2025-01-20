@@ -69,7 +69,7 @@ export function getQuestDurationFragment(quest: QuestInstance): DOM.Node {
 
 function questNameActionMenu(
   quest: QuestInstance,
-  hide_actions?: boolean,
+  show_actions?: boolean,
   show_open_button?: boolean,
   show_hide_button?: boolean,
 ): JQuery[] {
@@ -86,7 +86,7 @@ function questNameActionMenu(
           const selector = `#${getCompactDivId(quest)} `;
           setup.DOM.Helper.replace(
             selector,
-            questCardCompactInternal(quest, hide_actions),
+            questCardCompactInternal(quest, show_actions),
           );
         },
       }),
@@ -101,7 +101,7 @@ function questNameActionMenu(
           const selector = `#${getCompactDivId(quest)}`;
           setup.DOM.Helper.replace(
             selector,
-            setup.DOM.Card.quest(quest, hide_actions),
+            setup.DOM.Card.quest(quest, show_actions),
           );
         },
       }),
@@ -230,7 +230,7 @@ function getQuestExtraActorsFragment(quest: QuestInstance): DOM.Node | null {
 
 function questCardCompactInternal(
   quest: QuestInstance,
-  hide_actions?: boolean,
+  show_actions?: boolean,
 ): DOM.Node {
   const is_short =
     State.variables.menufilter.get("quest", "display") == "short";
@@ -245,7 +245,7 @@ function questCardCompactInternal(
   const fragments: DOM.Attachable[] = [];
   fragments.push(
     setup.DOM.Util.menuItemToolbar(
-      questNameActionMenu(quest, hide_actions, /* show open button = */ true),
+      questNameActionMenu(quest, show_actions, /* show open button = */ true),
     ),
   );
 
@@ -296,14 +296,14 @@ function getQuestDescriptionFragment(quest: QuestInstance): DOM.Node {
 
 function getQuestCardAsyncFragment(
   quest: QuestInstance,
-  hide_actions?: boolean,
+  show_actions?: boolean,
 ) {
   const fragments: DOM.Attachable[] = [];
   const template = quest.getTemplate();
   const team = quest.getTeam();
   const criterias = quest.getUnitCriteriasList();
 
-  if (!hide_actions) {
+  if (show_actions) {
     fragments.push(getQuestToolbar(quest));
   }
 
@@ -337,21 +337,21 @@ function getQuestCardAsyncFragment(
 }
 
 export default {
-  questcompact(quest: QuestInstance, hide_actions?: boolean): DOM.Node {
+  questcompact(quest: QuestInstance, show_actions?: boolean): DOM.Node {
     return html`
       <div id="${getCompactDivId(quest)}">
-        ${questCardCompactInternal(quest, hide_actions)}
+        ${questCardCompactInternal(quest, show_actions)}
       </div>
     `;
   },
 
-  quest(quest: QuestInstance, hide_actions?: boolean): DOM.Node {
+  quest(quest: QuestInstance, show_actions?: boolean): DOM.Node {
     const template = quest.getTemplate();
 
     const fragments: DOM.Attachable[] = [];
 
     const show_close_button =
-      !hide_actions &&
+      show_actions &&
       ["short", "compact"].includes(
         State.variables.menufilter.get("quest", "display")!,
       );
@@ -360,7 +360,7 @@ export default {
       setup.DOM.Util.menuItemToolbar(
         questNameActionMenu(
           quest,
-          hide_actions,
+          show_actions,
           /* show open button = */ false,
           /* show close button = */ show_close_button,
         ),
@@ -373,7 +373,7 @@ export default {
     // async loading
     fragments.push(
       setup.DOM.Util.async(() => {
-        return getQuestCardAsyncFragment(quest, hide_actions);
+        return getQuestCardAsyncFragment(quest, show_actions);
       }),
     );
 
