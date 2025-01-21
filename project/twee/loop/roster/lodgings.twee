@@ -13,8 +13,8 @@ You enter the area of your fort which has been designated as the de facto lodgin
 <<if _room && _room.getLevel() > 1>>
 It has been extended with <<= _room.getLevel() - 1>> additional rooms.
 <</if>>
-There are currently <<successtext _unitlist.length>> slavers residing here out of 
-a maximum of <<= _maxslavers>> slavers.
+There <<= _unitlist.length === 1 ? 'is' : 'are'>> currently <<successtext _unitlist.length>> <<= _unitlist.length === 1 ? 'slaver' : 'slavers'>> residing here out of 
+a maximum of <<= _maxslavers>> <<= _maxslavers === 1 ? 'slaver' : 'slavers'>>.
 <<if _unitlist.length >= _maxslavers>>
 If you want to hire more slavers, consider furnishing more rooms by upgrading
 your <<rep setup.buildingtemplate.lodgings>>.

@@ -70,16 +70,18 @@ You had some time before you restart with a new company, and you've been spendin
 
 <<focwidget 'loadflavortext'>>
   So far your company consists of:
-  <<for _iunit, _unit range $company.player.getUnits()>>
-    <<rep _unit>>
-  <</for>>
+  <div style="display: inline-flex">
+    <<for _iunit, _unit range $company.player.getUnits()>>
+      <<= _iunit > 0 ? ',&nbsp;' : ''>><<rep _unit>>
+    <</for>>
+  </div>
 <</focwidget>>
 
 <p id='flavortextholder'>
   <<loadflavortext>>
 </p>
 
-<h3>Choose your starting slavers</h3>
+<h3>Choose your starting slavers (<<= (5 - $company.player.getUnits().length)>> more)</h3>
 
 <<set _callback = () => {
   if (State.variables.company.player.getUnits().length >= 5) {

@@ -60,7 +60,10 @@ export function getQuestDurationFragment(quest: QuestInstance): DOM.Node {
   const template = quest.getTemplate();
 
   if (team) {
-    return html` Completed in ${quest.getRemainingWeeks()} wks `;
+    const remainingWeeks = quest.getRemainingWeeks();
+    return html`
+      Completed in ${remainingWeeks} wk${remainingWeeks === 1 ? "" : "s"}
+    `;
   }
 
   return html`

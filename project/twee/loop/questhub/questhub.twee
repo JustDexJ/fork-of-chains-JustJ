@@ -4,8 +4,10 @@
 
 <p>
 You enter your office, where you assign slaver teams to quests.
-There are currently <<successtext _quests.length >> quests that
-your company can take.
+There <<= _quests.length === 1 ? 'is' : 'are'>> currently
+<<successtext _quests.length >> <<= _quests.length === 1 ? 'quest' : 'quests'>>
+that your company can take.
+
 <<set _vale = $dutylist.getDuty('scoutvale')>>
 <<set _forest = $dutylist.getDuty('scoutforest')>>
 <<set _city = $dutylist.getDuty('scoutcity')>>

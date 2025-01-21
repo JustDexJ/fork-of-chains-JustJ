@@ -16,11 +16,16 @@ import {
 
 function roomNameFragment(room: RoomInstance): DOM.Node {
   const fragments: DOM.Attachable[] = [];
-  fragments.push(html`${room.getTemplate().repTags()}`);
+  const roomTemplate = room.getTemplate();
+  if (roomTemplate) {
+    fragments.push(html`${roomTemplate.repTags()}`);
+  }
   fragments.push(html`${domCardRep(room)}`);
-  fragments.push(
-    html`(${room.getTemplate().getWidth()}x${room.getTemplate().getHeight()})`,
-  );
+  if (roomTemplate) {
+    fragments.push(
+      html` (${roomTemplate.getWidth()}×${roomTemplate.getHeight()})`,
+    );
+  }
   return setup.DOM.create("span", {}, fragments);
 }
 

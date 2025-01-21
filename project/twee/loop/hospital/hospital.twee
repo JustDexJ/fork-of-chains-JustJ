@@ -29,7 +29,8 @@
     <</if>>
   <</if>>
   <<if _patients.length>>
-    There are currently <<successtext _patients.length>> patients
+    There <<= _patients.length === 1 ? 'is' : 'are'>> currently
+    <<successtext _patients.length>> <<= _patients.length === 1 ? 'patient' : 'patients'>>
     recovering here.
   <</if>>
 

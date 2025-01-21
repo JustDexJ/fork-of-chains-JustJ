@@ -56,12 +56,18 @@ somehow be received once you build the <<rep setup.buildingtemplate.veteranhall>
 <</if>>
 
 <div class='helpcard'>
-  <p>
+  <h4>
     Welcome to Fort of Chains!
-  </p>
+  </h4>
 
   <p>
     This game is designed to be perfectly playable going in completely blind in your first playthrough.
+
+    Please do not be afraid of failures! The game is designed so that
+    <<successtext "if you fail / time out on a quest, there will be replacement quests, or the quest will respawn">>.
+  </p>
+
+  <p>
     There are contextual help texts such as
     <<message '(?)'>>
       <div class='helpcard'>
@@ -69,15 +75,13 @@ somehow be received once you build the <<rep setup.buildingtemplate.veteranhall>
         To close, click the "(?)" link again.
       </div>
     <</message>>
-    throughout the games.
+    throughout the game.
     You can get more hints and help by clicking on them.
-    In this game, please
-    do not be afraid of failures! The game is designed so that
-    <<successtext "if you fail / time out on a quest, there will be replacement quests or the quest will respawn">>.
+    Also, you can hover over most stuff in order to see tooltips, where you can see expanded details or explanations.
   </p>
 
   <p>
-    Hint: Make sure to check the Settings menu to change your game's preferences.
+    <b>Hint:</b> Make sure to check the Settings menu to change your game's preferences.
     Also, the [Space] key is a shortcut to press continue for most menus.
   </p>
 </div>
