@@ -20,8 +20,8 @@ deliver your messages.
 
 <<filterall 'contact' _contacts>>
   <<if $menufilter.get('contact', 'display') == 'compact'>>
-    <<contactcardcompact _displayobj>>
+    <<contactcardcompact _displayobj true>>
   <<else>>
-    <<contactcard _displayobj>>
+    <<contactcard _displayobj true>>
   <</if>>
 <</filterall>>

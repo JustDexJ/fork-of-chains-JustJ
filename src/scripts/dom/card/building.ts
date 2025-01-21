@@ -46,7 +46,7 @@ function buildingNameFragment(building: BuildingInstance): DOM.Node {
 
 function buildingInstanceNameActionMenu(
   building: BuildingInstance,
-  hide_actions?: boolean,
+  show_actions?: boolean,
 ): JQuery[] {
   const menus: JQuery[] = [];
 
@@ -56,7 +56,7 @@ function buildingInstanceNameActionMenu(
     }),
   );
 
-  if (!hide_actions && building.isHasUpgrade()) {
+  if (show_actions && building.isHasUpgrade()) {
     if (building.isUpgradable()) {
       menus.push(
         menuItemAction({
@@ -126,10 +126,10 @@ function buildingInstanceNameActionMenu(
 
 function buildingDescriptionFragment(
   building: BuildingInstance,
-  hide_actions?: boolean,
+  show_actions?: boolean,
 ): DOM.Node {
   if (
-    !hide_actions &&
+    show_actions &&
     State.variables.menufilter.get("buildinginstance", "display") == "short"
   ) {
     return setup.DOM.Util.message("(description)", () => {
@@ -150,7 +150,7 @@ function buildingDescriptionFragment(
 
 function buildingTemplateNameActionMenu(
   template: BuildingTemplate,
-  hide_actions?: boolean,
+  show_actions?: boolean,
 ): JQuery[] {
   const menus: JQuery[] = [];
 
@@ -160,7 +160,7 @@ function buildingTemplateNameActionMenu(
     }),
   );
 
-  if (!hide_actions && !State.variables.fort.player.isHasBuilding(template)) {
+  if (show_actions && !State.variables.fort.player.isHasBuilding(template)) {
     if (template.isBuildable()) {
       menus.push(
         menuItemAction({
@@ -223,7 +223,7 @@ function buildingTemplateNameActionMenu(
 
   const extras = [];
 
-  if (!hide_actions) {
+  if (show_actions) {
     if (
       State.variables.fort.player.isHasBuilding(
         setup.buildingtemplate.greathall,
@@ -259,14 +259,16 @@ function buildingTemplateNameActionMenu(
 
 export default {
   buildingtemplate(
-    template: BuildingTemplate,
-    hide_actions?: boolean,
+    template_or_key: BuildingTemplate | BuildingTemplate["key"],
+    show_actions?: boolean,
   ): DOM.Node {
+    const template = resolveObject(template_or_key, setup.buildingtemplate);
+
     const fragments: DOM.Attachable[] = [];
 
     fragments.push(
       setup.DOM.Util.menuItemToolbar(
-        buildingTemplateNameActionMenu(template, hide_actions),
+        buildingTemplateNameActionMenu(template, show_actions),
       ),
     );
 
@@ -278,7 +280,7 @@ export default {
     fragments.push(buildingTemplateDescriptionFragment(template));
 
     let divclass;
-    if (!hide_actions && !template.isBuildable()) {
+    if (show_actions && !template.isBuildable()) {
       divclass = `card buildingtemplatebadcard`;
     } else {
       divclass = `card buildingtemplatecard`;
@@ -287,18 +289,26 @@ export default {
     return setup.DOM.create("div", { class: divclass }, fragments);
   },
 
-  buildingtemplatecompact(template: BuildingTemplate, hide_actions?: boolean) {
+  buildingtemplatecompact(template: BuildingTemplate, show_actions?: boolean) {
     return setup.DOM.Util.menuItemToolbar(
-      buildingTemplateNameActionMenu(template, hide_actions),
+      buildingTemplateNameActionMenu(template, show_actions),
     );
   },
 
-  buildinginstance(building: BuildingInstance, hide_actions?: boolean) {
+  buildinginstance(
+    building_or_key: BuildingInstance | BuildingInstance["key"],
+    show_actions?: boolean,
+  ) {
+    const building = resolveObject(
+      building_or_key,
+      State.variables.buildinginstance,
+    );
+
     const fragments: DOM.Attachable[] = [];
 
     fragments.push(
       setup.DOM.Util.menuItemToolbar(
-        buildingInstanceNameActionMenu(building, hide_actions),
+        buildingInstanceNameActionMenu(building, show_actions),
       ),
     );
 
@@ -311,7 +321,7 @@ export default {
       fragments.push(setup.DOM.create("div", {}, inner));
     }
 
-    fragments.push(buildingDescriptionFragment(building, hide_actions));
+    fragments.push(buildingDescriptionFragment(building, show_actions));
 
     const divclass = `card buildingcard`;
     return setup.DOM.create("div", { class: divclass }, fragments);
@@ -319,10 +329,10 @@ export default {
 
   buildinginstancecompact(
     building: BuildingInstance,
-    hide_actions?: boolean,
+    show_actions?: boolean,
   ): DOM.Node {
     return setup.DOM.Util.menuItemToolbar(
-      buildingInstanceNameActionMenu(building, hide_actions),
+      buildingInstanceNameActionMenu(building, show_actions),
     );
   },
 };

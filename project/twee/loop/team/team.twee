@@ -59,8 +59,8 @@
 
 <<filterall 'team' _teamlist>>
   <<if $menufilter.get('team', 'display') == 'compact'>>
-    <<teamcardcompact _displayobj>>
+    <<teamcardcompact _displayobj true>>
   <<else>>
-    <<teamcard _displayobj>>
+    <<teamcard _displayobj true>>
   <</if>>
 <</filterall>>

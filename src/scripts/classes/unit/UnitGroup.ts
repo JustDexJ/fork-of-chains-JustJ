@@ -157,7 +157,7 @@ export class UnitGroup extends TwineClass {
   }
 
   getRepMacro() {
-    return "unitgroupcardkey";
+    return "unitgroupcard";
   }
 
   rep(): string {

@@ -33,7 +33,7 @@ export class ItemPool {
   }
 
   getRepMacro() {
-    return "itempoolcardkey";
+    return "itempoolcard";
   }
 
   rep(): string {

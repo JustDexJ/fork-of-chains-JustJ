@@ -151,7 +151,7 @@ export class BuildingTemplate extends TwineClass {
   }
 
   getRepMacro() {
-    return "buildingtemplatecardkey";
+    return "buildingtemplatecard";
   }
 
   rep() {

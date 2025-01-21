@@ -1,3 +1,4 @@
+import type { SlaveOrderKey } from "../../classes/slaveorder/SlaveOrder";
 import {
   menuItemAction,
   menuItemExtras,
@@ -13,7 +14,7 @@ function slaveOrderNameFragment(slave_order: SlaveOrder): DOM.Node {
 
 function slaveOrderNameActionMenu(
   slave_order: SlaveOrder,
-  hide_actions?: boolean,
+  show_actions?: boolean,
 ): JQuery[] {
   const menus: JQuery[] = [];
   const extras: JQuery[] = [];
@@ -32,7 +33,7 @@ function slaveOrderNameActionMenu(
     );
   }
 
-  if (!hide_actions) {
+  if (show_actions) {
     menus.push(
       menuItemAction({
         text: `Fulfill`,
@@ -79,7 +80,7 @@ function slaveOrderNameActionMenu(
     text: `Ignored`,
     checked: slave_order.isIgnored(),
   };
-  if (hide_actions) {
+  if (show_actions) {
     extras.push(menuItemText(ignore_args));
   } else {
     ignore_args.callback = () => {
@@ -101,12 +102,20 @@ function slaveOrderNameActionMenu(
 }
 
 export default {
-  slaveorder(slave_order: SlaveOrder, hide_actions?: boolean): DOM.Node {
+  slaveorder(
+    slave_order_or_key: SlaveOrder | SlaveOrderKey,
+    show_actions?: boolean,
+  ): DOM.Node {
+    const slave_order = resolveObject(
+      slave_order_or_key,
+      State.variables.slaveorder,
+    );
+
     const fragments: DOM.Attachable[] = [];
 
     fragments.push(
       setup.DOM.Util.menuItemToolbar(
-        slaveOrderNameActionMenu(slave_order, hide_actions),
+        slaveOrderNameActionMenu(slave_order, show_actions),
       ),
     );
 
@@ -149,9 +158,9 @@ export default {
     return setup.DOM.create("div", { class: divclass }, fragments);
   },
 
-  slaveordercompact(slave_order: SlaveOrder, hide_actions?: boolean): DOM.Node {
+  slaveordercompact(slave_order: SlaveOrder, show_actions?: boolean): DOM.Node {
     return setup.DOM.Util.menuItemToolbar(
-      slaveOrderNameActionMenu(slave_order, hide_actions),
+      slaveOrderNameActionMenu(slave_order, show_actions),
     );
   },
 };

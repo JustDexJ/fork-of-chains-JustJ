@@ -274,15 +274,9 @@ export const DOM_Menu_devtoolactivityselectroom = function (
         if (
           State.variables.menufilter.get("roomtemplate", "display") == "compact"
         ) {
-          inside = setup.DOM.Card.roomtemplatecompact(
-            room_template,
-            /* hide actions = */ true,
-          );
+          inside = setup.DOM.Card.roomtemplatecompact(room_template);
         } else {
-          inside = setup.DOM.Card.roomtemplate(
-            room_template,
-            /* hide actions = */ true,
-          );
+          inside = setup.DOM.Card.roomtemplate(room_template);
         }
         return html`
           <div>

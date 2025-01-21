@@ -76,7 +76,7 @@ Finally, you have to decide what to do with <<rep $g.child>>, your future
 <<daughter $g.child>> from an alternate timeline...
 </p>
 
-<<unitcard $g.child 1>>
+<<unitcard $g.child>>
 
 :: Opportunity_branching_timeline_0 [nobr]
 Recruit

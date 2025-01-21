@@ -30,7 +30,7 @@ export class Party extends TwineClass {
   }
 
   getRepMacro() {
-    return "partycardkey";
+    return "partycard";
   }
 
   rep() {

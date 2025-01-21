@@ -79,7 +79,7 @@ export class Item extends TwineClass {
   }
 
   getRepMacro() {
-    return "itemcardkey";
+    return "itemcard";
   }
 
   getRepRarity() {

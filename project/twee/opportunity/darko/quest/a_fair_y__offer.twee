@@ -104,7 +104,7 @@ company, but choosing this means your slavers will never be able to exact
 their revenge on the fae...
 </p>
 
-<<unitcard $g.fairy 1>>
+<<unitcard $g.fairy>>
 
 <</if>>
 

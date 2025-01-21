@@ -61,9 +61,9 @@
 
 <<filterall 'slaveorder' $slaveorderlist.getSlaveOrders()>>
   <<if $menufilter.get('slaveorder', 'display') == 'compact'>>
-    <<slaveordercardcompact _displayobj 1>>
+    <<slaveordercardcompact _displayobj>>
   <<else>>
-    <<slaveordercard _displayobj 1>>
+    <<slaveordercard _displayobj>>
   <</if>>
 <</filterall>>
 

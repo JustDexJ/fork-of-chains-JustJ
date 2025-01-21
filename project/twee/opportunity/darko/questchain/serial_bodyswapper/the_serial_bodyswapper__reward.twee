@@ -114,9 +114,9 @@ ritual in the stronghold of the serial bodyswapper.
   these mindbroken slaves home.
 </p>
 
-<<unitcard $g.shifter1 1>>
-<<unitcard $g.shifter2 1>>
-<<unitcard $g.shifter3 1>>
+<<unitcard $g.shifter1>>
+<<unitcard $g.shifter2>>
+<<unitcard $g.shifter3>>
 
 :: Opportunity_the_serial_bodyswapper__reward_0 [nobr]
 Choose <<rep $g.fighter>>

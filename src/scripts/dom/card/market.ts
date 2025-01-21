@@ -20,7 +20,7 @@ function marketObjectNameActionMenu(
   market: Market,
   market_object: MarketObject,
   market_refresh_callback: () => void,
-  hide_actions?: boolean,
+  show_actions?: boolean,
   is_can_delete?: boolean,
 ): JQuery[] {
   const menus: JQuery[] = [];
@@ -41,7 +41,7 @@ function marketObjectNameActionMenu(
   }
 
   const price = market_object.getPrice();
-  if (!hide_actions) {
+  if (show_actions) {
     if (market.isCanBuyObject(market_object)) {
       menus.push(
         menuItemAction({
@@ -81,7 +81,7 @@ function marketObjectNameActionMenu(
       }),
     );
   } else {
-    if (is_can_delete && !hide_actions) {
+    if (is_can_delete && show_actions) {
       extras.push(
         menuItemDanger({
           text: `Remove`,
@@ -141,7 +141,7 @@ function marketObjectFragment<T extends MarketableObject>(
   market_object: MarketObject<T>,
   market_refresh_callback: () => void,
   market_object_display_callback: (object: T) => DOM.Attachable,
-  hide_actions?: boolean,
+  show_actions?: boolean,
   is_can_delete?: boolean,
 ): DOM.Node {
   return html`
@@ -155,7 +155,7 @@ function marketObjectFragment<T extends MarketableObject>(
           market,
           market_object,
           market_refresh_callback,
-          hide_actions,
+          show_actions,
           is_can_delete,
         ),
       )}
@@ -168,7 +168,7 @@ function marketObjectCompactFragment(
   market: Market,
   market_object: MarketObject,
   market_refresh_callback: () => void,
-  hide_actions?: boolean,
+  show_actions?: boolean,
   is_can_delete?: boolean,
 ): DOM.Node {
   return setup.DOM.Util.menuItemToolbar(
@@ -176,7 +176,7 @@ function marketObjectCompactFragment(
       market,
       market_object,
       market_refresh_callback,
-      hide_actions,
+      show_actions,
       is_can_delete,
     ),
   );
@@ -202,16 +202,13 @@ export default {
     let display_callback: (object: any) => DOM.Node;
     if (market instanceof MarketEquipment) {
       menu = "equipmentmarket";
-      display_callback = (equipment) =>
-        setup.DOM.Card.equipment(equipment, /* hide actions = */ true);
+      display_callback = (equipment) => setup.DOM.Card.equipment(equipment);
     } else if (market instanceof MarketItem) {
       menu = "itemmarket";
-      display_callback = (item) =>
-        setup.DOM.Card.item(item, /* hide actions = */ true);
+      display_callback = (item) => setup.DOM.Card.item(item);
     } else if (market instanceof MarketUnit) {
       menu = "unitmarket";
-      display_callback = (unit) =>
-        setup.DOM.Card.unit(unit, /* hide actions = */ true);
+      display_callback = (unit) => setup.DOM.Card.unit(unit);
     } else {
       throw new Error(`Unknown market: ${market.key} `);
     }
@@ -239,7 +236,7 @@ export default {
       menu,
       "display",
     );
-    const hide_actions = false;
+    const show_actions = true;
 
     return setup.DOM.Util.async(() => {
       const res = setup.DOM.Util.filterAll({
@@ -252,7 +249,7 @@ export default {
               market,
               display_obj,
               market_refresh_callback,
-              hide_actions,
+              show_actions,
               is_can_delete,
             );
           } else {
@@ -261,7 +258,7 @@ export default {
               display_obj,
               market_refresh_callback,
               display_callback,
-              hide_actions,
+              show_actions,
               is_can_delete,
             );
           }

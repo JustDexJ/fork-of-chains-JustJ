@@ -22,7 +22,7 @@ export const DOM_Menu_changeactivetitles = function (unit: Unit): DOM.Node {
       `)}
     </div>
   `);
-  fragments.push(setup.DOM.Card.unit(unit, /* hide actions = */ true));
+  fragments.push(setup.DOM.Card.unit(unit));
 
   const last = State.variables.titlelist.getLastTitlePositive(unit);
   const last_negative = State.variables.titlelist.getLastTitleNegative(unit);

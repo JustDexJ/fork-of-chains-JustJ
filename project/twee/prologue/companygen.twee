@@ -6,7 +6,7 @@ Your new company shall be named <<textbox "$company.player.name" $company.player
 
 <hr/>
 
-<<unitcard $unit.player 1>>
+<<unitcard $unit.player>>
 
 <div>
 You had some time before you restart with a new company, and you've been spending them by:

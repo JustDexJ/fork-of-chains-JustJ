@@ -65,7 +65,7 @@ export class EquipmentSet extends TwineClass {
   }
 
   getRepMacro() {
-    return "equipmentsetcardkey";
+    return "equipmentsetcard";
   }
 
   rep(): string {

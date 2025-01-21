@@ -48,7 +48,7 @@ export default {
         } else {
           return html`
             ${actions_menu}
-            ${setup.DOM.Card.unit(unit, /* hide actions = */ true)}
+            ${setup.DOM.Card.unit(unit, /* show actions = */ false)}
           `;
         }
       },

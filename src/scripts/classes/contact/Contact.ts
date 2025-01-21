@@ -89,7 +89,7 @@ export class Contact extends TwineClass {
   }
 
   getRepMacro() {
-    return "contactcardkey";
+    return "contactcard";
   }
 
   rep(): string {

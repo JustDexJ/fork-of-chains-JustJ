@@ -81,7 +81,7 @@ setup.rarity.never, /* Rarity */
     You also have to decide what to do with this slave wanna-be.
 </p>
 
-<<unitcard $g.slave 1>>
+<<unitcard $g.slave>>
 
 <<choose>>
 <<opt "Enslave <<them $g.slave>>, which will surely anger the village">>

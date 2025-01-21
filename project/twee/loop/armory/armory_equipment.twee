@@ -21,9 +21,9 @@
   display_objects: _display,
   display_callback: equipment_obj => {
     if ($menufilter.get('equipment', 'display') == 'compact') {
-      return setup.DOM.Card.equipmentcompact(equipment_obj[0]);
+      return setup.DOM.Card.equipmentcompact(equipment_obj[0], /* show_actions = */ true);
     } else {
-      return setup.DOM.Card.equipment(equipment_obj[0]);
+      return setup.DOM.Card.equipment(equipment_obj[0], /* show_actions = */ true);
     }
   },
 })>>

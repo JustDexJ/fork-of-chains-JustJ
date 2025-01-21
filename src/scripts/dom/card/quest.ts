@@ -3,6 +3,7 @@ import { ContentTemplate } from "../../classes/content/ContentTemplate";
 import type { EventInstance } from "../../classes/event/EventInstance";
 import type { InteractionInstance } from "../../classes/interaction/InteractionInstance";
 import type { OpportunityInstance } from "../../classes/opportunity/OpportunityInstance";
+import type { QuestInstanceKey } from "../../classes/quest/QuestInstance";
 import type { QuestUnitCriteria } from "../../classes/quest/QuestTemplate";
 import {
   menuItemAction,
@@ -345,7 +346,12 @@ export default {
     `;
   },
 
-  quest(quest: QuestInstance, show_actions?: boolean): DOM.Node {
+  quest(
+    quest_or_key: QuestInstance | QuestInstanceKey,
+    show_actions?: boolean,
+  ): DOM.Node {
+    const quest = resolveObject(quest_or_key, State.variables.questinstance);
+
     const template = quest.getTemplate();
 
     const fragments: DOM.Attachable[] = [];

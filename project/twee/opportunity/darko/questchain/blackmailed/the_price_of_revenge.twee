@@ -104,7 +104,7 @@ Let me go. I'll walk away, and I'll give away all the money I have left,
 and also <<rep $g.slaver>> of course."
 </p>
 
-<<unitcard $g.boss 1>>
+<<unitcard $g.boss>>
 
 
 :: Opportunity_the_price_of_revenge_0 [nobr]

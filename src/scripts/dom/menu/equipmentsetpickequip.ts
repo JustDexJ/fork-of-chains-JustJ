@@ -120,12 +120,7 @@ export const DOM_Menu_equipmentsetpickequip = function (unit: Unit): DOM.Node {
           // don't add any other extra info
         } else {
           // append set info
-          fragments.push(
-            setup.DOM.Card.equipmentset(
-              equipment_set,
-              /* hide actions = */ true,
-            ),
-          );
+          fragments.push(setup.DOM.Card.equipmentset(equipment_set));
         }
 
         return setup.DOM.create(

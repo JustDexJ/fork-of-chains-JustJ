@@ -82,7 +82,7 @@ function companyFavorDecayInfoFragment(company: Company): DOM.Node {
 
 function companyNameActionMenu(
   company: Company,
-  hide_actions?: boolean,
+  show_actions?: boolean,
 ): JQuery[] {
   const menus: JQuery[] = [];
 
@@ -109,7 +109,7 @@ function companyNameActionMenu(
 
   const extras = [];
 
-  if (!hide_actions) {
+  if (show_actions) {
     extras.push(
       menuItemAction({
         text: `Favor bonus active`,
@@ -134,12 +134,17 @@ function companyNameActionMenu(
 }
 
 export default {
-  company(company: Company, hide_actions?: boolean): DOM.Node {
+  company(
+    company_or_key: Company | Company["key"],
+    show_actions?: boolean,
+  ): DOM.Node {
+    const company = resolveObject(company_or_key, State.variables.company);
+
     const fragments: DOM.Attachable[] = [];
 
     fragments.push(html`
       ${setup.DOM.Util.menuItemToolbar(
-        companyNameActionMenu(company, hide_actions),
+        companyNameActionMenu(company, show_actions),
       )}
       <div>
         ${setup.DOM.Util.include(company.getTemplate().getDescriptionPassage())}
@@ -149,9 +154,9 @@ export default {
     return setup.DOM.create("div", { class: "companycard" }, fragments);
   },
 
-  companycompact(company: Company, hide_actions?: boolean): DOM.Node {
+  companycompact(company: Company, show_actions?: boolean): DOM.Node {
     return setup.DOM.Util.menuItemToolbar(
-      companyNameActionMenu(company, hide_actions),
+      companyNameActionMenu(company, show_actions),
     );
   },
 };

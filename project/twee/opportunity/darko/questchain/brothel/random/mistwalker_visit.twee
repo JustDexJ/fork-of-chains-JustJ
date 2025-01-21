@@ -91,7 +91,7 @@ With that, the demon surprisingly offers to join your company. No doubt <<they $
 However, if you are feeling particularly brave and foolish, you could feign acceptance, only to enslave the demon later. You would need a slaver proficient with <<rep setup.trait.magic_fire_master>> to bind the demon into this plane forever, however, and you will also no doubt anger the demon's court. They may even retaliate against your brothel, and choosing this option is very likely to <<dangertext "cut your brothel career short">>. But this could be an extremely rare opportunity to get your <<uhands $unit.player>> on a demon royalty...
 </p>
 
-<<unitcard $g.target 1>>
+<<unitcard $g.target>>
 
 
 :: Opportunity_mistwalker_visit_0 [nobr]

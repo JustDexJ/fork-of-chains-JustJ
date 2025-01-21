@@ -269,7 +269,7 @@ export class Bedchamber extends TwineClass {
   }
 
   getRepMacro() {
-    return "bedchambercardkey";
+    return "bedchambercard";
   }
 
   rep(): string {

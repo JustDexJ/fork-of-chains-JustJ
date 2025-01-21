@@ -6,7 +6,7 @@
 
 You enter <<= _bedchamberx.getName()>>.
 
-<<bedchambercard _bedchamberx>>
+<<bedchambercard _bedchamberx true>>
 
 <<focmove '(Exit room)' 'BedchamberList'>>
 

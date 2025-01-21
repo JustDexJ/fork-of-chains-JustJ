@@ -79,6 +79,9 @@
   Is there anything you need to do here today?
 </p>
 
-<<for _iunit, _unit range _patients>>
-  <<unitcard _unit >>
-<</for>>
+<div class="hospital-units">
+  <<for _iunit, _unit range _patients>>
+    <<set _dom = setup.DOM.Card.unit(_unit, /* show_actions = */ true)>>
+    <<attach _dom>>
+  <</for>>
+</div>

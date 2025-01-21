@@ -118,7 +118,7 @@ const ACTOR_MACROS_INFO: CodeEditorMacroAction[] = [
   },
   {
     text: "Unit card",
-    output: (key) => `<<unitcard ${key} 1>>`,
+    output: (key) => `<<unitcard ${key}>>`,
     tooltip: `Shows the unit's details as a card. Useful for showing details of NPCs, whose stats are hidden by default.`,
   },
   //{ text: 'Training banter', output: (key) => `<<ubantertraining ${key}>>` },

@@ -20,9 +20,9 @@ You enter your warehouse, which currently holds the following items.
   display_objects: _display,
   display_callback: item_obj => {
     if ($menufilter.get('item', 'display') == 'compact') {
-      return setup.DOM.Card.itemcompact(item_obj.item);
+      return setup.DOM.Card.itemcompact(item_obj.item, /* show_actions = */ true);
     } else {
-      return setup.DOM.Card.item(item_obj.item);
+      return setup.DOM.Card.item(item_obj.item, /* show_actions = */ true);
     }
   },
 })>>

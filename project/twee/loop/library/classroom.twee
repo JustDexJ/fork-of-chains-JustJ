@@ -65,9 +65,9 @@ for anyone to study.
   filter_objects: _forfilter,
   display_callback: sexaction => {
     if ($menufilter.get('sexaction', 'display') == 'compact') {
-      return setup.DOM.Card.sexactioncompact(sexaction);
+      return setup.DOM.Card.sexactioncompact(sexaction, /* show_actions = */ true);
     } else {
-      return setup.DOM.Card.sexaction(sexaction);
+      return setup.DOM.Card.sexaction(sexaction, /* show_actions = */ true);
     }
   },
 })>>

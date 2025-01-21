@@ -80,7 +80,7 @@ for such a valuable slave?
 </p>
 <</if>>
 
-<<unitcard $g.prince 1>>
+<<unitcard $g.prince>>
 
 
 :: Opportunity_tower_of_roses__point_of_love_0 [nobr]

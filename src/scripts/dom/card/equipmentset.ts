@@ -1,5 +1,8 @@
 import type { Equipment } from "../../classes/equipment/Equipment";
-import type { EquipmentSet } from "../../classes/equipment/EquipmentSet";
+import type {
+  EquipmentSet,
+  EquipmentSetKey,
+} from "../../classes/equipment/EquipmentSet";
 
 function equipmentSetTopRightInfo(equipment_set: EquipmentSet): DOM.Node {
   const fragments: DOM.Attachable[] = [];
@@ -27,17 +30,22 @@ function removeEquipmentCallback(
 
 export default {
   equipmentset(
-    equipment_set: EquipmentSet,
-    hide_actions?: boolean,
+    equipment_set_or_key: EquipmentSet | EquipmentSetKey,
+    show_actions?: boolean,
     show_remove_button?: boolean,
   ): DOM.Node {
+    const equipment_set = resolveObject(
+      equipment_set_or_key,
+      State.variables.equipmentset,
+    );
+
     const fragments: DOM.Attachable[] = [];
 
     // value and sluttiness
     fragments.push(equipmentSetTopRightInfo(equipment_set));
 
     // name and menu toolbar
-    if (!hide_actions && !equipment_set.is_default) {
+    if (show_actions && !equipment_set.is_default) {
       fragments.push(setup.DOM.Util.menuItemToolbar(equipment_set.getMenu()));
     }
 
@@ -136,10 +144,10 @@ export default {
 
   equipmentsetcompact(
     equipment_set: EquipmentSet,
-    hide_actions?: boolean,
+    show_actions?: boolean,
   ): DOM.Node {
     // async here?
-    if (hide_actions) {
+    if (show_actions) {
       return html` <div>${equipment_set.rep()}</div> `;
     } else {
       return html`

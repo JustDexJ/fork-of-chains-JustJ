@@ -325,7 +325,7 @@ function getNextEventsMenu(): DOM.Attachable {
     if (!State.variables.gDebug) {
       return null;
     } else {
-      fragments.push(`[DEBUG] No known events`);
+      fragments.push(`<span class="debug-info">[DEBUG] No known events</span>`);
     }
   } else {
     fragments.push(

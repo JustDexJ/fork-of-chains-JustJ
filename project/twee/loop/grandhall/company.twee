@@ -35,7 +35,8 @@ a <<rep _veteranroom>>, which displays the various achivements of your company.<
 
 <p>
 You are:
-<<unitcard $unit.player 1>>
+  <<set _dom = setup.DOM.Card.unit($unit.player, /* show_actions = */ true)>>
+  <<attach _dom>>
 </p>
 
 <p>

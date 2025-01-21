@@ -48,8 +48,8 @@ The <<message 'map of the region'>>
 
 <<filterall 'lore' _forfilter>>
   <<if $menufilter.get('lore', 'display') == 'compact'>>
-    <<lorecardcompact _displayobj>>
+    <<lorecardcompact _displayobj true>>
   <<else>>
-    <<lorecard _displayobj>>
+    <<lorecard _displayobj true>>
   <</if>>
 <</filterall>>

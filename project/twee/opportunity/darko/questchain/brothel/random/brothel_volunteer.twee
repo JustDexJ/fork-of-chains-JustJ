@@ -114,7 +114,7 @@ and stuff."
 <<They $g.volunteer>> seems to be a little naive about whoring, and seemingly completely unaware of your company's actual business, but there's no need to tell <<them $g.volunteer>> that.
 </p>
 
-<<unitcard $g.volunteer 1>>
+<<unitcard $g.volunteer>>
 
 
 :: Opportunity_brothel_volunteer_0 [nobr]

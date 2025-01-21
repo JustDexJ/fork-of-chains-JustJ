@@ -71,7 +71,7 @@ export class SlaveOrder extends TwineClass {
   }
 
   getRepMacro() {
-    return "slaveordercardkey";
+    return "slaveordercard";
   }
 
   rep(): string {

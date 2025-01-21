@@ -1,4 +1,4 @@
-import type { Team } from "../../classes/Team";
+import type { Team, TeamKey } from "../../classes/Team";
 import {
   menuItemDanger,
   menuItemExtras,
@@ -14,7 +14,7 @@ function teamNameFragment(team: Team): DOM.Node {
 function teamStatusFragment(team: Team): DOM.Node {
   if (team.getQuest()) {
     return html`
-      <span data-tooltip="<<questcardkey '${team.getQuest().key}' 1>>">
+      <span data-tooltip="<<questcard '${team.getQuest().key}'>>">
         ${setup.DOM.Text.dangerlite(`[Quest]`)}
       </span>
     `;
@@ -22,7 +22,7 @@ function teamStatusFragment(team: Team): DOM.Node {
   return html``;
 }
 
-function teamNameActionMenu(team: Team, hide_actions?: boolean): JQuery[] {
+function teamNameActionMenu(team: Team, show_actions?: boolean): JQuery[] {
   const menus: JQuery[] = [];
   const extras: JQuery[] = [];
 
@@ -41,7 +41,7 @@ function teamNameActionMenu(team: Team, hide_actions?: boolean): JQuery[] {
   }
 
   const quest = team.getQuest();
-  if (quest && !hide_actions && quest.isCanChangeTeam()) {
+  if (quest && show_actions && quest.isCanChangeTeam()) {
     menus.push(
       menuItemDanger({
         text: `Cancel quest`,
@@ -73,11 +73,13 @@ function removeUnitCallback(team: Team, unit: Unit) {
 }
 
 export default {
-  team(team: Team, hide_actions?: boolean): DOM.Node {
+  team(team_or_key: Team | TeamKey, show_actions?: boolean): DOM.Node {
+    const team = resolveObject(team_or_key, State.variables.team);
+
     const fragments: DOM.Attachable[] = [];
 
     fragments.push(
-      setup.DOM.Util.menuItemToolbar(teamNameActionMenu(team, hide_actions)),
+      setup.DOM.Util.menuItemToolbar(teamNameActionMenu(team, show_actions)),
     );
 
     const quest = team.getQuest();
@@ -93,7 +95,7 @@ export default {
       fragments.push(html`
         <div>
           ${setup.DOM.Util.level(unit.getLevel())} ${unit.repLong()}
-          ${!hide_actions &&
+          ${show_actions &&
           !team.getQuest() &&
           setup.DOM.Nav.link(`(remove)`, removeUnitCallback(team, unit))}
         </div>
@@ -103,9 +105,9 @@ export default {
     return setup.DOM.create("div", { class: "teamcard" }, fragments);
   },
 
-  teamcompact(team: Team, hide_actions?: boolean): DOM.Node {
+  teamcompact(team: Team, show_actions?: boolean): DOM.Node {
     return setup.DOM.Util.menuItemToolbar(
-      teamNameActionMenu(team, hide_actions),
+      teamNameActionMenu(team, show_actions),
     );
   },
 };

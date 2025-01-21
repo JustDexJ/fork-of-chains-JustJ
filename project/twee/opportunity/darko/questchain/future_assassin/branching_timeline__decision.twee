@@ -73,7 +73,7 @@ someone but <<rep $g.parent>>, then <<they $g.child>> will cease to exist.
 Would you choose love or the life of a stranger?
 </p>
 
-<<unitcard $g.child 1>>
+<<unitcard $g.child>>
 
 :: Opportunity_branching_timeline__decision_0 [nobr]
 Become lovers with <<if $g.parent>><<rep $g.parent>><</if>>

@@ -1,7 +1,0 @@
-:: LoadNotificationCard [nobr widget]
-
-<<focwidget "notificationscard">>
-  <<set _dom = setup.DOM.Card.notifications($args[0])>>
-  <<attach _dom>>
-<</focwidget>>
-

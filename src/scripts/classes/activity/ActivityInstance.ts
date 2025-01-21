@@ -57,7 +57,7 @@ export class ActivityInstance extends TwineClass {
   }
 
   getRepMacro() {
-    return "activitycardkey";
+    return "activitycard";
   }
 
   rep() {
@@ -116,7 +116,7 @@ export class ActivityInstance extends TwineClass {
 
     const actor_boxes = [];
     for (const [actor_name, actor] of this.getActorsList()) {
-      actor_boxes.push(`<span data-tooltip="<<activitycardkey ${this.key}>>" data-tooltip-wide>
+      actor_boxes.push(`<span data-tooltip="<<activitycard ${this.key}>>" data-tooltip-wide>
         ${setup.DOM.toString(
           DOM.Util.Image.load({
             image_name: actor.getImage(),

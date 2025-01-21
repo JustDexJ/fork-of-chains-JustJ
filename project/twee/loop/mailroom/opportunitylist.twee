@@ -23,7 +23,7 @@
 
 
 <<filterall 'opportunity' _opportunities>>
-  <<opportunitycard _displayobj>>
+  <<opportunitycard _displayobj true>>
 <</filterall>>
 
 

@@ -90,9 +90,9 @@
       filter_objects: _forfilter,
       display_callback: buildinginstance => {
         if ($menufilter.get('buildinginstance', 'display') == 'compact') {
-          return setup.DOM.Card.buildinginstancecompact(buildinginstance);
+          return setup.DOM.Card.buildinginstancecompact(buildinginstance, /* show_actions = */ true);
         } else {
-          return setup.DOM.Card.buildinginstance(buildinginstance);
+          return setup.DOM.Card.buildinginstance(buildinginstance, /* show_actions = */ true);
         }
       },
     })>>
@@ -166,9 +166,9 @@
     filter_objects: _forfilter,
     display_callback: buildingtemplate => {
       if ($menufilter.get('buildingtemplate', 'display') == 'compact') {
-        return setup.DOM.Card.buildingtemplatecompact(buildingtemplate);
+        return setup.DOM.Card.buildingtemplatecompact(buildingtemplate, /* show_actions = */ true);
       } else {
-        return setup.DOM.Card.buildingtemplate(buildingtemplate);
+        return setup.DOM.Card.buildingtemplate(buildingtemplate, /* show_actions = */ true);
       }
     },
   })>>

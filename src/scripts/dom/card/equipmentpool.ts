@@ -1,5 +1,8 @@
-import type { EquipmentPool } from "../../classes/equipment/EquipmentPool";
-import { menuItemExtras, menuItemText, menuItemTitle } from "../../ui/menuitem";
+import type {
+  EquipmentPool,
+  EquipmentPoolKey,
+} from "../../classes/equipment/EquipmentPool";
+import { menuItemText, menuItemTitle } from "../../ui/menuitem";
 import { domCardRep } from "../util/cardnamerep";
 
 function equipmentPoolNameFragment(pool: EquipmentPool): DOM.Node {
@@ -8,7 +11,7 @@ function equipmentPoolNameFragment(pool: EquipmentPool): DOM.Node {
 
 function equipmentPoolNameActionMenu(
   pool: EquipmentPool,
-  hide_actions?: boolean,
+  show_actions?: boolean,
 ): JQuery[] {
   const menus: JQuery[] = [];
 
@@ -25,26 +28,31 @@ function equipmentPoolNameActionMenu(
     }),
   );
 
-  const extras: JQuery[] = [];
+  //const extras: JQuery[] = [];
 
-  if (extras.length) {
-    menus.push(
-      menuItemExtras({
-        children: extras,
-      }),
-    );
-  }
+  //if (extras.length) {
+  //  menus.push(
+  //    menuItemExtras({
+  //      children: extras,
+  //    }),
+  //  );
+  //}
 
   return menus;
 }
 
 export default {
-  equipmentpool(pool: EquipmentPool, hide_actions?: boolean): DOM.Node {
+  equipmentpool(
+    pool_or_key: EquipmentPool | EquipmentPoolKey,
+    show_actions?: boolean,
+  ): DOM.Node {
+    const pool = resolveObject(pool_or_key, setup.equipmentpool);
+
     const fragments: DOM.Attachable[] = [];
 
     fragments.push(
       setup.DOM.Util.menuItemToolbar(
-        equipmentPoolNameActionMenu(pool, hide_actions),
+        equipmentPoolNameActionMenu(pool, show_actions),
       ),
     );
 

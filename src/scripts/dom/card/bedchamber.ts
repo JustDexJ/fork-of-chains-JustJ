@@ -10,15 +10,20 @@ function removeFurnitureCallback(slot: FurnitureSlot, bedchamber: Bedchamber) {
 
 export default {
   bedchamber(
-    bedchamber: Bedchamber,
-    hide_actions?: boolean,
+    bedchamber_or_key: Bedchamber | Bedchamber["key"],
+    show_actions?: boolean,
     show_remove_button?: boolean,
   ): DOM.Node {
+    const bedchamber = resolveObject(
+      bedchamber_or_key,
+      State.variables.bedchamber,
+    );
+
     const fragments: DOM.Attachable[] = [];
 
     // name and menu toolbar
     fragments.push(
-      setup.DOM.Util.menuItemToolbar(bedchamber.getMenu(!hide_actions)),
+      setup.DOM.Util.menuItemToolbar(bedchamber.getMenu(show_actions)),
     );
 
     // slaves

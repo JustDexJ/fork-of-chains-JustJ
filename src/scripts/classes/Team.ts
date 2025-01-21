@@ -62,7 +62,7 @@ export class Team extends TwineClass {
   }
 
   getRepMacro() {
-    return "teamcardkey";
+    return "teamcard";
   }
 
   rep() {

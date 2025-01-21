@@ -1,4 +1,7 @@
-import type { UnitAction } from "../../classes/unitaction/UnitAction";
+import type {
+  UnitAction,
+  UnitActionKey,
+} from "../../classes/unitaction/UnitAction";
 import {
   menuItemAction,
   menuItemExtras,
@@ -12,7 +15,7 @@ function unitActionNameFragment(action: UnitAction, unit: Unit): DOM.Node {
     ${setup.TagHelper.getTagsRep("unitaction", action.getTags())}
     <span
       data-tooltip="${setup.escapeHtml(
-        `<<unitactioncardkey '${action.key}' '${unit.key}' 1>>`,
+        `<<unitactioncard '${action.key}' '${unit.key}'>>`,
       )}"
     >
       ${domCardNameBold(action)}
@@ -23,7 +26,7 @@ function unitActionNameFragment(action: UnitAction, unit: Unit): DOM.Node {
 function unitActionNameActionMenu(
   unit_action: UnitAction,
   unit: Unit,
-  hide_actions?: boolean,
+  show_actions?: boolean,
 ): JQuery[] {
   const menus: JQuery[] = [];
   const extras: JQuery[] = [];
@@ -34,7 +37,7 @@ function unitActionNameActionMenu(
     }),
   );
 
-  if (!hide_actions) {
+  if (show_actions) {
     if (unit_action.isCanTrain(unit)) {
       menus.push(
         menuItemAction({
@@ -76,12 +79,19 @@ function unitActionDescriptionFragment(
 }
 
 export default {
-  unitaction(action: UnitAction, unit: Unit, hide_actions?: boolean): DOM.Node {
+  unitaction(
+    action_or_key: UnitAction | UnitActionKey,
+    unit_or_key: Unit | UnitKey,
+    show_actions?: boolean,
+  ): DOM.Node {
+    const action = resolveObject(action_or_key, setup.unitaction);
+    const unit = resolveObject(unit_or_key, State.variables.unit);
+
     const fragments: DOM.Attachable[] = [];
 
     fragments.push(
       setup.DOM.Util.menuItemToolbar(
-        unitActionNameActionMenu(action, unit, hide_actions),
+        unitActionNameActionMenu(action, unit, show_actions),
       ),
     );
 
@@ -109,7 +119,7 @@ export default {
       fragments.push(unitActionDescriptionFragment(action, unit));
     }
 
-    const is_can_train = unit && !hide_actions && action.isCanTrain(unit);
+    const is_can_train = unit && show_actions && action.isCanTrain(unit);
     let divclass;
     if (unit && !is_can_train) {
       divclass = "unitactionbadcard card";
@@ -123,10 +133,10 @@ export default {
   unitactioncompact(
     action: UnitAction,
     unit: Unit,
-    hide_actions?: boolean,
+    show_actions?: boolean,
   ): DOM.Node {
     return setup.DOM.Util.menuItemToolbar(
-      unitActionNameActionMenu(action, unit, hide_actions),
+      unitActionNameActionMenu(action, unit, show_actions),
     );
   },
 };

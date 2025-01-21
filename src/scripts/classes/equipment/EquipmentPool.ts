@@ -27,7 +27,7 @@ export class EquipmentPool extends TwineClass {
   }
 
   getRepMacro() {
-    return "equipmentpoolcardkey";
+    return "equipmentpoolcard";
   }
 
   rep(): string {

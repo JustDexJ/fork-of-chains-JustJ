@@ -20,9 +20,11 @@ function getSkillFocusMenu(unit: Unit): JQuery {
 function getNonRetiredUnitMenuItems({
   unit,
   hide_details,
+  show_actions,
 }: {
   unit: Unit;
   hide_details?: boolean;
+  show_actions?: boolean;
 }): JQuery[] {
   const menus = [];
   if (
@@ -35,15 +37,17 @@ function getNonRetiredUnitMenuItems({
         text: `Details`,
         tooltip: `See unit's details as well as long description`,
         callback: () => {
-          State.variables.gUnit_key = unit.key;
-          State.variables.gUnitDetailReturnPassage = State.variables.gPassage;
-          setup.DOM.Nav.goto("UnitDetail");
+          if (State.variables.gMenuVisible) {
+            State.variables.gUnit_key = unit.key;
+            State.variables.gUnitDetailReturnPassage = State.variables.gPassage;
+            setup.DOM.Nav.goto("UnitDetail");
+          }
         },
       }),
     );
   }
 
-  if (unit.isCanHaveSexWithYou()) {
+  if (show_actions && unit.isCanHaveSexWithYou()) {
     menus.push(
       menuItemAction({
         text: `Sex`,
@@ -56,7 +60,7 @@ function getNonRetiredUnitMenuItems({
     );
   }
 
-  if (State.variables.fort.player.isTrainingUnlocked(unit)) {
+  if (show_actions && State.variables.fort.player.isTrainingUnlocked(unit)) {
     if (unit.isAvailable()) {
       if (State.variables.dutylist.isViceLeaderAssigned()) {
         menus.push(
@@ -92,6 +96,7 @@ function getNonRetiredUnitMenuItems({
   }
 
   if (
+    show_actions &&
     unit.isYourCompany() &&
     State.variables.fort.player.isHasBuilding("warroom") &&
     unit.isCanLearnNewPerk()
@@ -108,7 +113,7 @@ function getNonRetiredUnitMenuItems({
     );
   }
 
-  if (unit.isSlaver()) {
+  if (show_actions && unit.isSlaver()) {
     menus.push(getSkillFocusMenu(unit));
   }
 
@@ -141,19 +146,21 @@ export function getRosterListMenuItems({
   unit,
   hide_details,
   as_extras_only,
+  show_actions,
 }: {
   unit: Unit;
   hide_details?: boolean;
   as_extras_only?: boolean;
+  show_actions?: boolean;
 }): JQuery[] {
   const menus: JQuery[] = [];
 
   if (!unit.isRetired()) {
     menus.push(
-      ...getNonRetiredUnitMenuItems({ unit: unit, hide_details: hide_details }),
+      ...getNonRetiredUnitMenuItems({ unit, show_actions, hide_details }),
     );
   } else {
-    menus.push(...getRetiredUnitMenuItems({ unit: unit }));
+    menus.push(...getRetiredUnitMenuItems({ unit }));
   }
 
   const misc = [];
@@ -211,7 +218,7 @@ export function getRosterListMenuItems({
     );
   }
 
-  if (unit.isSlaver()) {
+  if (show_actions && unit.isSlaver()) {
     if (
       State.variables.titlelist.getAllTitles(unit).length >
       setup.TITLE_MAX_ASSIGNED
@@ -229,7 +236,7 @@ export function getRosterListMenuItems({
     }
   }
 
-  if (unit.isCanChangeEquipmentSet()) {
+  if (show_actions && unit.isCanChangeEquipmentSet()) {
     misc.push(
       menuItemAction({
         text: `Change equipment set`,
@@ -242,30 +249,32 @@ export function getRosterListMenuItems({
     );
   }
 
-  misc.push(
-    menuItemAction({
-      text: `Change nickname`,
-      tooltip: `Change how you will address the unit`,
-      callback: () => {
-        State.variables.gUnit_key = unit.key;
-        setup.DOM.Nav.goto("UnitChangeName");
-      },
-    }),
-  );
+  if (show_actions) {
+    misc.push(
+      menuItemAction({
+        text: `Change nickname`,
+        tooltip: `Change how you will address the unit`,
+        callback: () => {
+          State.variables.gUnit_key = unit.key;
+          setup.DOM.Nav.goto("UnitChangeName");
+        },
+      }),
+    );
 
-  misc.push(
-    menuItemAction({
-      text: `Change portrait`,
-      tooltip: `Swap the unit's portrait with another one or a custom one`,
-      callback: () => {
-        setup.Dialogs.openUnitImagePicker(unit).then(() => {
-          setup.DOM.Nav.goto();
-        });
-      },
-    }),
-  );
+    misc.push(
+      menuItemAction({
+        text: `Change portrait`,
+        tooltip: `Swap the unit's portrait with another one or a custom one`,
+        callback: () => {
+          setup.Dialogs.openUnitImagePicker(unit).then(() => {
+            setup.DOM.Nav.goto();
+          });
+        },
+      }),
+    );
+  }
 
-  if (unit.isRetired()) {
+  if (show_actions && unit.isRetired()) {
     if (
       !unit.isEngaged() &&
       State.variables.company.player.isCanAddUnitWithJob(setup.job.slaver)
@@ -297,7 +306,7 @@ export function getRosterListMenuItems({
     }
   }
 
-  if (State.variables.retiredlist.isCanRetire(unit)) {
+  if (show_actions && State.variables.retiredlist.isCanRetire(unit)) {
     misc.push(
       menuItemDanger({
         text: `Retire unit`,
@@ -310,48 +319,50 @@ export function getRosterListMenuItems({
     );
   }
 
-  if (unit.isRetired()) {
-    if (!unit.isEngaged()) {
+  if (show_actions) {
+    if (unit.isRetired()) {
+      if (!unit.isEngaged()) {
+        misc.push(
+          menuItemDanger({
+            text: `Remove unit permanently`,
+            tooltip: `Permanently sever contacts with the unit. They will be gone forever, and you will never see them ever again.`,
+            callback: () => {
+              State.variables.gUnit_key = unit.key;
+              setup.DOM.Nav.goto("RetiredUnitDismissConfirm");
+            },
+          }),
+        );
+      } else {
+        misc.push(
+          menuItemText({
+            text: `Unit is busy and cannot be removed`,
+          }),
+        );
+      }
+    } else if (unit.isCanBeDismissed()) {
       misc.push(
         menuItemDanger({
-          text: `Remove unit permanently`,
-          tooltip: `Permanently sever contacts with the unit. They will be gone forever, and you will never see them ever again.`,
+          text: `Dismiss unit`,
+          tooltip: `Permanently dismiss unit from your company. They will be gone forever, and you will never see them ever again.`,
           callback: () => {
             State.variables.gUnit_key = unit.key;
-            setup.DOM.Nav.goto("RetiredUnitDismissConfirm");
+            setup.DOM.Nav.goto("UnitDismissConfirm");
           },
+        }),
+      );
+    } else if (unit.isYou()) {
+      misc.push(
+        menuItemText({
+          text: `This is you`,
         }),
       );
     } else {
       misc.push(
         menuItemText({
-          text: `Unit is busy and cannot be removed`,
+          text: `Unit can't be dismissed right now`,
         }),
       );
     }
-  } else if (unit.isCanBeDismissed()) {
-    misc.push(
-      menuItemDanger({
-        text: `Dismiss unit`,
-        tooltip: `Permanently dismiss unit from your company. They will be gone forever, and you will never see them ever again.`,
-        callback: () => {
-          State.variables.gUnit_key = unit.key;
-          setup.DOM.Nav.goto("UnitDismissConfirm");
-        },
-      }),
-    );
-  } else if (unit.isYou()) {
-    misc.push(
-      menuItemText({
-        text: `This is you`,
-      }),
-    );
-  } else {
-    misc.push(
-      menuItemText({
-        text: `Unit can't be dismissed right now`,
-      }),
-    );
   }
 
   if (State.variables.gDebug) {
@@ -396,7 +407,7 @@ export default {
       menu: menu,
       units: units,
       actions_callback: (unit: Unit) => {
-        return getRosterListMenuItems({ unit: unit });
+        return getRosterListMenuItems({ unit, show_actions: true });
       },
     });
   },

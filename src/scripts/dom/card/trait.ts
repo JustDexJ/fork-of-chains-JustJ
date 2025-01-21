@@ -1,6 +1,6 @@
 import { menuItemExtras, menuItemTitle } from "../../ui/menuitem";
 
-function traitNameActionMenu(trait: Trait, hide_actions?: boolean): JQuery[] {
+function traitNameActionMenu(trait: Trait, show_actions?: boolean): JQuery[] {
   const menus: JQuery[] = [];
   const extras: JQuery[] = [];
 
@@ -40,12 +40,14 @@ export function getTraitEtcFragment(trait: Trait): DOM.Node {
 }
 
 export default {
-  trait(trait: Trait, hide_actions?: boolean): DOM.Node {
+  trait(trait_or_key: Trait | TraitKey, show_actions?: boolean): DOM.Node {
+    const trait = resolveObject(trait_or_key, setup.trait);
+
     const fragments: DOM.Attachable[] = [];
 
     fragments.push(html`
       ${setup.DOM.Util.menuItemToolbar(
-        traitNameActionMenu(trait, hide_actions),
+        traitNameActionMenu(trait, show_actions),
       )}
       ${getTraitEtcFragment(trait)}
     `);

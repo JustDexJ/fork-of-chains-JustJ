@@ -20,7 +20,7 @@ function equipmentNameFragment(equipment: Equipment): DOM.Node {
 
 function equipmentNameActionMenu(
   equipment: Equipment,
-  hide_actions?: boolean,
+  show_actions?: boolean,
 ): JQuery[] {
   const menus: JQuery[] = [];
 
@@ -54,7 +54,7 @@ function equipmentNameActionMenu(
 
   const sell_value = equipment.getSellValue();
   if (
-    !hide_actions &&
+    show_actions &&
     sell_value &&
     State.variables.fort.player.isHasBuilding(setup.buildingtemplate.bazaar)
   ) {
@@ -96,11 +96,16 @@ function equipmentNameActionMenu(
 }
 
 export default {
-  equipment(equipment: Equipment, hide_actions?: boolean): DOM.Node {
+  equipment(
+    equipment_or_key: Equipment | Equipment["key"],
+    show_actions?: boolean,
+  ): DOM.Node {
+    const equipment = resolveObject(equipment_or_key, setup.equipment);
+
     const fragments: DOM.Attachable[] = [];
     fragments.push(
       setup.DOM.Util.menuItemToolbar(
-        equipmentNameActionMenu(equipment, hide_actions),
+        equipmentNameActionMenu(equipment, show_actions),
       ),
     );
 
@@ -133,9 +138,9 @@ export default {
     return setup.DOM.create("div", { class: "equipmentcard" }, fragments);
   },
 
-  equipmentcompact(equipment: Equipment, hide_actions?: boolean): DOM.Node {
+  equipmentcompact(equipment: Equipment, show_actions?: boolean): DOM.Node {
     return setup.DOM.Util.menuItemToolbar(
-      equipmentNameActionMenu(equipment, hide_actions),
+      equipmentNameActionMenu(equipment, show_actions),
     );
   },
 };

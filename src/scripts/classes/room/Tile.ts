@@ -186,7 +186,7 @@ export class Tile extends TwineClass {
     const tile_size = Tile.getTileSize();
     if (room) {
       image_path_raw = room.getImage();
-      tooltip = `<<roominstancecardkey ${room.key}>>`;
+      tooltip = `<<roominstancecard ${room.key}>>`;
       divwidth = room.getWidth() * tile_size;
       divheight = room.getHeight() * tile_size;
       width = room.getTemplate().getWidth() * tile_size;

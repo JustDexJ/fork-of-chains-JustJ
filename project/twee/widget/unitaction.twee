@@ -1,21 +1,4 @@
-:: LoadUnitActionCard [nobr widget]
-
-<<focwidget 'unitactioncard'>>
-  <<set _dom = setup.DOM.Card.unitaction($args[0], $args[1], $args[2])>>
-  <<attach _dom>>
-<</focwidget>>
-
-
-<<focwidget 'unitactioncardcompact'>>
-  <<set _dom = setup.DOM.Card.unitactioncompact($args[0], $args[1], $args[2])>>
-  <<attach _dom>>
-<</focwidget>>
-
-
-<<focwidget 'unitactioncardkey'>>
-  <<unitactioncard setup.unitaction[$args[0]] $unit[$args[1]] $args[2]>>
-<</focwidget>>
-
+:: LoadUnitActionListWidget [nobr widget]
 
 <<focwidget 'unitactionlist'>>
 
@@ -47,9 +30,9 @@
   filter_objects: _tofilter,
   display_callback: unitaction => {
     if ($menufilter.get('unitaction', 'display') == 'compact') {
-      return setup.DOM.Card.unitactioncompact(unitaction, $args[1]);
+      return setup.DOM.Card.unitactioncompact(unitaction, $args[1], /* show_actions = */ true);
     } else {
-      return setup.DOM.Card.unitaction(unitaction, $args[1]);
+      return setup.DOM.Card.unitaction(unitaction, $args[1], /* show_actions = */ true);
     }
   },
 })>>

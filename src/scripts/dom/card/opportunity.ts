@@ -1,4 +1,7 @@
-import type { OpportunityInstance } from "../../classes/opportunity/OpportunityInstance";
+import type {
+  OpportunityInstance,
+  OpportunityInstanceKey,
+} from "../../classes/opportunity/OpportunityInstance";
 import {
   menuItemDanger,
   menuItemExtras,
@@ -36,7 +39,7 @@ function getOpportunityExpiresFragment(opportunity: OpportunityInstance) {
 
 function opportunityNameActionMenu(
   opportunity: OpportunityInstance,
-  hide_actions?: boolean,
+  show_actions?: boolean,
 ): JQuery[] {
   const template = opportunity.getTemplate();
 
@@ -120,16 +123,21 @@ function getOpportunityDescriptionFragment(
 
 export default {
   opportunity(
-    opportunity: OpportunityInstance,
-    hide_actions?: boolean,
+    opportunity_or_key: OpportunityInstance | OpportunityInstanceKey,
+    show_actions?: boolean,
   ): DOM.Node {
+    const opportunity = resolveObject(
+      opportunity_or_key,
+      State.variables.opportunityinstance,
+    );
+
     const template = opportunity.getTemplate();
 
     const fragments: DOM.Attachable[] = [];
 
     fragments.push(
       setup.DOM.Util.menuItemToolbar(
-        opportunityNameActionMenu(opportunity, hide_actions),
+        opportunityNameActionMenu(opportunity, show_actions),
       ),
     );
 
@@ -159,7 +167,7 @@ export default {
         </div>
       `);
 
-      if (!hide_actions) {
+      if (show_actions) {
         inner_fragments.push(html`
           ${opportunity.isCanSelectOption(i)
             ? setup.DOM.Nav.button(

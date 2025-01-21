@@ -2060,7 +2060,7 @@ export class Unit extends TwineClass {
   }
 
   /** Same as rep, but doesn't include icons (just name + tooltip) */
-  repShort(): string {
+  repShort(show_actions?: boolean): string {
     let color_class = "";
     if (State.variables.settings.inline_color) {
       if (this.isSlaver()) {
@@ -2085,7 +2085,7 @@ export class Unit extends TwineClass {
       return `<span class="${color_class}">${this.getName()}</span>`;
     } else {
       return (
-        `<span data-tooltip="<<tooltipunit '${this.key}'>>" data-tooltip-wide>` +
+        `<span data-tooltip="<<tooltipunit '${this.key}'${show_actions ? " true" : ""}>>" data-tooltip-wide>` +
         `<a class="replink${color_class}">${this.getName()}</a>` +
         `</span>`
       );
@@ -2093,7 +2093,7 @@ export class Unit extends TwineClass {
   }
 
   /** Same as rep and always include icons */
-  repLong(): string {
+  repLong(show_actions?: boolean): string {
     const job = this.getJob();
 
     let text = '<span class="rep">';
@@ -2113,7 +2113,7 @@ export class Unit extends TwineClass {
       text += job.rep();
     }
 
-    text += this.repShort();
+    text += this.repShort(show_actions);
 
     if (State.variables.hospital.isInjured(this)) {
       text += setup.DOM.toString(setup.DOM.Card.injury(this));

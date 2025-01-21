@@ -120,7 +120,7 @@ export class BuildingInstance extends TwineClass {
   }
 
   getRepMacro() {
-    return "buildingcardkey";
+    return "buildingcard";
   }
 
   rep(): string {

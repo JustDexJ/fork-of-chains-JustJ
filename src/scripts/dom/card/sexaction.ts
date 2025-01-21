@@ -16,7 +16,7 @@ function sexActionNameFragment(action: SexAction): DOM.Node {
 
 function sexActionNameActionMenu(
   sex_action: SexAction,
-  hide_actions?: boolean,
+  show_actions?: boolean,
 ): JQuery[] {
   const menus: JQuery[] = [];
   const extras: JQuery[] = [];
@@ -27,8 +27,8 @@ function sexActionNameActionMenu(
     }),
   );
 
-  const disabled_args = {};
-  if (!hide_actions) {
+  //const disabled_args = {};
+  if (show_actions) {
     extras.push(
       menuItemAction({
         callback: () => {
@@ -55,19 +55,19 @@ function sexActionNameActionMenu(
 }
 
 export default {
-  sexactioncompact(action: SexAction, hide_actions?: boolean): DOM.Node {
+  sexactioncompact(action: SexAction, show_actions?: boolean): DOM.Node {
     return setup.DOM.Util.menuItemToolbar(
-      sexActionNameActionMenu(action, hide_actions),
+      sexActionNameActionMenu(action, show_actions),
     );
   },
 
-  sexaction(action: SexAction, hide_actions?: boolean): DOM.Node {
+  sexaction(action: SexAction, show_actions?: boolean): DOM.Node {
     const fragments: DOM.Attachable[] = [];
 
     // title stuffs
     fragments.push(
       setup.DOM.Util.menuItemToolbar(
-        sexActionNameActionMenu(action, hide_actions),
+        sexActionNameActionMenu(action, show_actions),
       ),
     );
 

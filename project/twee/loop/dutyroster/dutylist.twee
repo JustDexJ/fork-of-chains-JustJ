@@ -62,9 +62,9 @@ Would you like to make changes to the unit duty assignments?
 
 <<filterall 'duty' _dutylist>>
   <<if $menufilter.get('duty', 'display') == 'compact'>>
-    <<dutycardcompact _displayobj>>
+    <<dutycardcompact _displayobj true>>
   <<else>>
-    <<dutycard _displayobj>>
+    <<dutycard _displayobj true>>
   <</if>>
 <</filterall>>
 

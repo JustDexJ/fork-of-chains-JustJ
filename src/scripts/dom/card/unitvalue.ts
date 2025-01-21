@@ -1,5 +1,5 @@
 export default {
-  unitvalue(unit: Unit, hide_actions?: boolean): DOM.Node {
+  unitvalue(unit: Unit, show_actions?: boolean): DOM.Node {
     const fragments: DOM.Attachable[] = [];
 
     const slave_value = unit.getSlaveValue();

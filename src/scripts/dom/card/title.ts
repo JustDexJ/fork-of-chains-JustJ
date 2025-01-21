@@ -1,8 +1,10 @@
-import type { Title } from "../../classes/title/Title";
+import type { Title, TitleKey } from "../../classes/title/Title";
 import { domCardNameBold } from "../util/cardnamerep";
 
 export default {
-  title(title: Title): DOM.Node {
+  title(title_or_key: Title | TitleKey): DOM.Node {
+    const title = resolveObject(title_or_key, setup.title);
+
     const fragments: DOM.Attachable[] = [];
 
     {

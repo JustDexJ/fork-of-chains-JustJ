@@ -10,7 +10,7 @@ export const DOM_Menu_equipmentsetedit = function (
   fragments.push(
     setup.DOM.Card.equipmentset(
       equipment_set,
-      /* hide actions = */ false,
+      /* show actions = */ true,
       /* show_remove_button = */ true,
     ),
   );

@@ -2,7 +2,7 @@
 
 /* Not moved to DOM, because only used in content creator tooltips */
 <<focwidget "unitpoolcard">>
-  <<set _unitpool = $args[0]>>
+  <<set _unitpool = setup.selfOrObject($args[0], setup.unitpool)>>
   <<capture _unitpool>>
     <div class='companycard'>
       <<nameof _unitpool>>
@@ -26,13 +26,8 @@
 <</focwidget>>
 
 /* Not moved to DOM, because only used in content creator tooltips */
-<<focwidget "unitpoolcardkey">>
-  <<unitpoolcard setup.unitpool[$args[0]]>>
-<</focwidget>>
-
-/* Not moved to DOM, because only used in content creator tooltips */
 <<focwidget "unitgroupcard">>
-  <<set _unitgroup = $args[0]>>
+  <<set _unitgroup = setup.selfOrObject($args[0], setup.unitgroup)>>
   <<capture _unitgroup>>
     <div class='marketobjectcard'>
       <<nameof _unitgroup>>
@@ -65,10 +60,5 @@
       <</for>>
     </div>
   <</capture>>
-<</focwidget>>
-
-/* Not moved to DOM, because only used in content creator tooltips */
-<<focwidget "unitgroupcardkey">>
-  <<unitgroupcard setup.unitgroup[$args[0]]>>
 <</focwidget>>
 

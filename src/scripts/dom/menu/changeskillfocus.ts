@@ -52,7 +52,7 @@ export const DOM_Menu_changeskillfocus = function (unit: Unit): DOM.Node {
     </div>
   `);
 
-  fragments.push(setup.DOM.Card.unit(unit, /* hide actions = */ true));
+  fragments.push(setup.DOM.Card.unit(unit));
 
   const focuses = unit.getSkillFocuses(/* no sort = */ true);
   let z = [];

@@ -16,7 +16,7 @@ function perkNameFragment(perk: Perk, unit: Unit): DOM.Node {
 function perkNameActionMenu(
   perk: Perk,
   unit: Unit,
-  hide_actions?: boolean,
+  show_actions?: boolean,
 ): JQuery[] {
   const menus: JQuery[] = [];
   const extras: JQuery[] = [];
@@ -27,7 +27,7 @@ function perkNameActionMenu(
     }),
   );
 
-  if (!hide_actions) {
+  if (show_actions) {
     if (unit.getLearnablePerks().includes(perk)) {
       menus.push(
         menuItemAction({
@@ -63,12 +63,18 @@ function perkNameActionMenu(
 }
 
 export default {
-  perk(perk: Perk, unit: Unit, hide_actions?: boolean): DOM.Node {
+  perk(
+    perk_or_key: Perk | TraitKey,
+    unit: Unit,
+    show_actions?: boolean,
+  ): DOM.Node {
+    const perk = resolveObject(perk_or_key, setup.trait) as Perk;
+
     const fragments: DOM.Attachable[] = [];
 
     fragments.push(
       setup.DOM.Util.menuItemToolbar(
-        perkNameActionMenu(perk, unit, hide_actions),
+        perkNameActionMenu(perk, unit, show_actions),
       ),
     );
 

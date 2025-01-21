@@ -203,7 +203,7 @@ export namespace SkillHelper {
       add_text += setup.DOM.toString(setup.DOM.Text.dangerlite(`-${-add}`));
     }
 
-    const tooltip = `<<unitskillcardkey "${unit.key}" ${skill.key}>>`;
+    const tooltip = `<<unitskillcard "${unit.key}" ${skill.key}>>`;
     let text = "";
     if (!State.variables.settings.summarizeunitskills) {
       text = `${val_text}${add_text}`;

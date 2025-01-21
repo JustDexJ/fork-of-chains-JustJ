@@ -55,9 +55,9 @@ Some equipments also have restrictions on who can possibly use them.
   filter_objects: _sets,
   display_callback: equipment_set => {
     if ($menufilter.get('equipmentset', 'display') == 'compact') {
-      return setup.DOM.Card.equipmentsetcompact(equipment_set);
+      return setup.DOM.Card.equipmentsetcompact(equipment_set, /* show_actions = */ true);
     } else {
-      return setup.DOM.Card.equipmentset(equipment_set);
+      return setup.DOM.Card.equipmentset(equipment_set, /* show_actions = */ true);
     }
   },
 })>>

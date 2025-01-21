@@ -116,9 +116,9 @@ You find an empty desk to work at, sit there and begin your work here.
 
 <<filterall 'company' _companies>>
   <<if $menufilter.get('company', 'display') == 'compact'>>
-    <<companycardcompact _displayobj>>
+    <<companycardcompact _displayobj true>>
   <<else>>
-    <<companycard _displayobj>>
+    <<companycard _displayobj true>>
   <</if>>
 <</filterall>>
 

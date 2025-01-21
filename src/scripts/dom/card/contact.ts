@@ -18,7 +18,7 @@ function contactNameFragment(contact: Contact): DOM.Node {
 
 function contactNameActionMenu(
   contact: Contact,
-  hide_actions?: boolean,
+  show_actions?: boolean,
 ): JQuery[] {
   const menus: JQuery[] = [];
 
@@ -38,7 +38,7 @@ function contactNameActionMenu(
 
   const extras = [];
 
-  if (!hide_actions) {
+  if (show_actions) {
     extras.push(
       menuItemAction({
         text: `Active`,
@@ -64,11 +64,16 @@ function contactNameActionMenu(
 }
 
 export default {
-  contact(contact: Contact, hide_actions?: boolean): DOM.Node {
+  contact(
+    contact_or_key: Contact | Contact["key"],
+    show_actions?: boolean,
+  ): DOM.Node {
+    const contact = resolveObject(contact_or_key, State.variables.contact);
+
     const fragments: DOM.Attachable[] = [];
     fragments.push(
       setup.DOM.Util.menuItemToolbar(
-        contactNameActionMenu(contact, hide_actions),
+        contactNameActionMenu(contact, show_actions),
       ),
     );
 
@@ -85,9 +90,9 @@ export default {
     return setup.DOM.create("div", { class: "contactcard" }, fragments);
   },
 
-  contactcompact(contact: Contact, hide_actions?: boolean): DOM.Node {
+  contactcompact(contact: Contact, show_actions?: boolean): DOM.Node {
     return setup.DOM.Util.menuItemToolbar(
-      contactNameActionMenu(contact, hide_actions),
+      contactNameActionMenu(contact, show_actions),
     );
   },
 };

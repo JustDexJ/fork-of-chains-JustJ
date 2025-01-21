@@ -1,4 +1,4 @@
-import type { Lore } from "../../classes/Lore";
+import type { Lore, LoreKey } from "../../classes/Lore";
 import { menuItemExtras, menuItemTitle } from "../../ui/menuitem";
 import { domCardRep } from "../util/cardnamerep";
 
@@ -8,7 +8,7 @@ function loreNameFragment(lore: Lore) {
   `;
 }
 
-function loreNameActionMenu(lore: Lore, hide_actions?: boolean): JQuery[] {
+function loreNameActionMenu(lore: Lore, show_actions?: boolean): JQuery[] {
   const menus: JQuery[] = [];
   const extras: JQuery[] = [];
 
@@ -30,12 +30,14 @@ function loreNameActionMenu(lore: Lore, hide_actions?: boolean): JQuery[] {
 }
 
 export default {
-  lore(lore: Lore, hide_actions?: boolean): DOM.Node {
+  lore(lore_or_key: Lore | LoreKey, show_actions?: boolean): DOM.Node {
+    const lore = resolveObject(lore_or_key, setup.lore);
+
     return html`
       <div class="lorecard">
         <div>
           ${setup.DOM.Util.menuItemToolbar(
-            loreNameActionMenu(lore, hide_actions),
+            loreNameActionMenu(lore, show_actions),
           )}
           <div>
             ${setup.DOM.Card.restriction(
@@ -50,9 +52,9 @@ export default {
     `;
   },
 
-  lorecompact(lore: Lore, hide_actions?: boolean): DOM.Node {
+  lorecompact(lore: Lore, show_actions?: boolean): DOM.Node {
     return setup.DOM.Util.menuItemToolbar(
-      loreNameActionMenu(lore, hide_actions),
+      loreNameActionMenu(lore, show_actions),
     );
   },
 };

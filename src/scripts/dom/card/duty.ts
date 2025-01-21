@@ -90,7 +90,7 @@ function triggerChanceOrPrestige(duty: DutyInstance): DOM.Node {
 
 function dutyNameActionMenus(
   duty: DutyInstance,
-  hide_actions?: boolean,
+  show_actions?: boolean,
 ): JQuery[] {
   const menu: JQuery[] = [];
 
@@ -130,7 +130,7 @@ function dutyNameActionMenus(
     );
   }
 
-  if (!hide_actions) {
+  if (show_actions) {
     if (unit) {
       toolbar_items.push(
         menuItemAction({
@@ -162,7 +162,7 @@ function dutyNameActionMenus(
     checked: duty.isCanGoOnQuestsAuto(),
   };
 
-  if (hide_actions) {
+  if (!show_actions) {
     toolbar_items.push(menuItemText(auto_assign_param));
   } else {
     auto_assign_param.callback = () => {
@@ -182,7 +182,7 @@ function dutyNameActionMenus(
       checked: duty.isSpecialistEnabled(),
     };
 
-    if (hide_actions) {
+    if (!show_actions) {
       toolbar_items.push(menuItemText(specialist_param));
     } else {
       specialist_param.callback = () => {
@@ -196,7 +196,12 @@ function dutyNameActionMenus(
 }
 
 export default {
-  duty(duty: DutyInstance, hide_actions?: boolean): DOM.Node {
+  duty(
+    duty_or_key: DutyInstance | DutyInstance["key"],
+    show_actions?: boolean,
+  ): DOM.Node {
+    const duty = resolveObject(duty_or_key, State.variables.duty);
+
     const template = duty.getTemplate();
 
     const fragments: DOM.Attachable[] = [];
@@ -204,7 +209,7 @@ export default {
     const unit = duty.getAssignedUnit();
 
     fragments.push(
-      setup.DOM.Util.menuItemToolbar(dutyNameActionMenus(duty, hide_actions)),
+      setup.DOM.Util.menuItemToolbar(dutyNameActionMenus(duty, show_actions)),
     );
 
     const restrictions = template.getUnitRestrictions();
@@ -288,7 +293,7 @@ export default {
     }
 
     if (
-      !hide_actions &&
+      show_actions &&
       State.variables.menufilter.get("duty", "display") == "shortened"
     ) {
       fragments.push(
@@ -304,9 +309,9 @@ export default {
     return setup.DOM.create("div", { class: divclass }, fragments);
   },
 
-  dutycompact(duty: DutyInstance, hide_actions?: boolean): DOM.Node {
+  dutycompact(duty: DutyInstance, show_actions?: boolean): DOM.Node {
     return setup.DOM.Util.menuItemToolbar(
-      dutyNameActionMenus(duty, hide_actions),
+      dutyNameActionMenus(duty, show_actions),
     );
   },
 };

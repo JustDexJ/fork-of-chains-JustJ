@@ -1,5 +1,11 @@
-import type { RoomInstance } from "../../classes/room/RoomInstance";
-import type { RoomTemplate } from "../../classes/room/RoomTemplate";
+import type {
+  RoomInstance,
+  RoomInstanceKey,
+} from "../../classes/room/RoomInstance";
+import type {
+  RoomTemplate,
+  RoomTemplateKey,
+} from "../../classes/room/RoomTemplate";
 import { menuItemAction, menuItemText, menuItemTitle } from "../../ui/menuitem";
 import { show_reason } from "../menu/fortgrid";
 import { domCardRep } from "../util/cardnamerep";
@@ -32,7 +38,7 @@ export function roomTemplateNameFragment(
 
 function roomTemplateActionFragmentCommon(
   template: RoomTemplate,
-  hide_actions?: boolean,
+  show_actions?: boolean,
 ): JQuery[] {
   const menus = [];
   const placed = State.variables.roomlist.getRoomCount(template);
@@ -81,7 +87,7 @@ export function getPlacedRoom(template: RoomTemplate): RoomInstance | null {
 
 function roomInstanceNameActionMenu(
   room: RoomInstance,
-  hide_actions?: boolean,
+  show_actions?: boolean,
 ): JQuery[] {
   const menus: JQuery[] = [];
 
@@ -92,7 +98,7 @@ function roomInstanceNameActionMenu(
   );
 
   if (
-    !hide_actions &&
+    show_actions &&
     State.variables.roomlist.getRoomCount(room.getTemplate()).unplaced
   ) {
     menus.push(
@@ -132,7 +138,7 @@ function roomInstanceNameActionMenu(
   }
 
   if (
-    !hide_actions &&
+    show_actions &&
     !room.getTemplate().isFixed() &&
     State.variables.roomlist.getRoomCount(room.getTemplate()).placed &&
     State.variables.gFortGridControl &&
@@ -171,7 +177,7 @@ function roomInstanceNameActionMenu(
   }
 
   menus.push(
-    ...roomTemplateActionFragmentCommon(room.getTemplate(), hide_actions),
+    ...roomTemplateActionFragmentCommon(room.getTemplate(), show_actions),
   );
 
   return menus;
@@ -179,7 +185,7 @@ function roomInstanceNameActionMenu(
 
 function roomTemplateNameActionMenu(
   template: RoomTemplate,
-  hide_actions?: boolean,
+  show_actions?: boolean,
 ): JQuery[] {
   const menus: JQuery[] = [];
 
@@ -189,7 +195,7 @@ function roomTemplateNameActionMenu(
     }),
   );
 
-  menus.push(...roomTemplateActionFragmentCommon(template, hide_actions));
+  menus.push(...roomTemplateActionFragmentCommon(template, show_actions));
 
   return menus;
 }
@@ -215,7 +221,7 @@ function getArtCreditFragment(room: RoomInstance): DOM.Node | null {
 
 function getRoomAndTemplateCommonFragment(
   template: RoomTemplate,
-  hide_actions?: boolean,
+  show_actions?: boolean,
 ): DOM.Node {
   const fragments: DOM.Attachable[] = [];
   const description_passage = template.getDescriptionPassage();
@@ -351,11 +357,16 @@ function fullAdjacencyExplanation(room: RoomInstance): DOM.Node {
 }
 
 export default {
-  roominstance(room: RoomInstance, hide_actions?: boolean): DOM.Node {
+  roominstance(
+    room_or_key: RoomInstance | RoomInstanceKey,
+    show_actions?: boolean,
+  ): DOM.Node {
+    const room = resolveObject(room_or_key, State.variables.roominstance);
+
     const fragments: DOM.Attachable[] = [];
     fragments.push(
       setup.DOM.Util.menuItemToolbar(
-        roomInstanceNameActionMenu(room, hide_actions),
+        roomInstanceNameActionMenu(room, show_actions),
       ),
     );
 
@@ -386,7 +397,7 @@ export default {
     }
 
     fragments.push(
-      getRoomAndTemplateCommonFragment(room.getTemplate(), hide_actions),
+      getRoomAndTemplateCommonFragment(room.getTemplate(), show_actions),
     );
 
     fragments.push(getArtCreditFragment(room));
@@ -395,17 +406,22 @@ export default {
     return setup.DOM.create("div", { class: divclass }, fragments);
   },
 
-  roominstancecompact(room: RoomInstance, hide_actions?: boolean): DOM.Node {
+  roominstancecompact(room: RoomInstance, show_actions?: boolean): DOM.Node {
     return setup.DOM.Util.menuItemToolbar(
-      roomInstanceNameActionMenu(room, hide_actions),
+      roomInstanceNameActionMenu(room, show_actions),
     );
   },
 
-  roomtemplate(template: RoomTemplate, hide_actions?: boolean): DOM.Node {
+  roomtemplate(
+    template_or_key: RoomTemplate | RoomTemplateKey,
+    show_actions?: boolean,
+  ): DOM.Node {
+    const template = resolveObject(template_or_key, setup.roomtemplate);
+
     const fragments: DOM.Attachable[] = [];
     fragments.push(
       setup.DOM.Util.menuItemToolbar(
-        roomTemplateNameActionMenu(template, hide_actions),
+        roomTemplateNameActionMenu(template, show_actions),
       ),
     );
 
@@ -413,7 +429,7 @@ export default {
       fragments.push(artContributorWanted(template));
     }
 
-    fragments.push(getRoomAndTemplateCommonFragment(template, hide_actions));
+    fragments.push(getRoomAndTemplateCommonFragment(template, show_actions));
 
     const divclass = `card roomtemplatecard`;
     return setup.DOM.create("div", { class: divclass }, fragments);
@@ -421,10 +437,10 @@ export default {
 
   roomtemplatecompact(
     template: RoomTemplate,
-    hide_actions?: boolean,
+    show_actions?: boolean,
   ): DOM.Node {
     return setup.DOM.Util.menuItemToolbar(
-      roomTemplateNameActionMenu(template, hide_actions),
+      roomTemplateNameActionMenu(template, show_actions),
     );
   },
 };

@@ -41,7 +41,7 @@ export class Company extends TwineClass {
   }
 
   getRepMacro() {
-    return "companycardkey";
+    return "companycard";
   }
 
   rep() {

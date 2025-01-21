@@ -12,9 +12,7 @@ function unitNameFragment(unit: Unit, skipJob?: boolean): DOM.Node {
 
   fragments.push(html`
     ${unit.repBusyState(/* show duty icon = */ true)}
-    ${skipJob
-      ? ""
-      : setup.DOM.Card.job(unit.getJob(), /* hide actions = */ true)}
+    ${skipJob ? "" : setup.DOM.Card.job(unit.getJob())}
     <span
       data-tooltip="Full name: <b>${setup.escapeJsString(
         unit.getFullName(),
@@ -32,7 +30,7 @@ function unitNameFragment(unit: Unit, skipJob?: boolean): DOM.Node {
   return setup.DOM.create("div", {}, fragments);
 }
 
-function unitNameActionMenus(unit: Unit): JQuery[] {
+function unitNameActionMenus(unit: Unit, show_actions?: boolean): JQuery[] {
   const menus: JQuery[] = [];
 
   menus.push(
@@ -92,7 +90,7 @@ function unitNameActionMenus(unit: Unit): JQuery[] {
       callback: () => {
         setup.Dialogs.open({
           title: "Unit value",
-          content: setup.DOM.Card.unitvalue(unit, /* hide actions = */ true),
+          content: setup.DOM.Card.unitvalue(unit),
         });
       },
     }),
@@ -101,7 +99,11 @@ function unitNameActionMenus(unit: Unit): JQuery[] {
   if (State.variables.gMenuVisible) {
     menus.push(
       menuItemExtras({
-        children: getRosterListMenuItems({ unit: unit, as_extras_only: true }),
+        children: getRosterListMenuItems({
+          unit: unit,
+          show_actions,
+          as_extras_only: true,
+        }),
       }),
     );
   }
@@ -110,7 +112,9 @@ function unitNameActionMenus(unit: Unit): JQuery[] {
 }
 
 export default {
-  unit(unit: Unit, hide_actions?: boolean): DOM.Node {
+  unit(unit_or_key: Unit | UnitKey, show_actions?: boolean): DOM.Node {
+    const unit = resolveObject(unit_or_key, State.variables.unit);
+
     const now_fragments = [];
 
     now_fragments.push(html`
@@ -131,7 +135,9 @@ export default {
     const asyncContent = setup.DOM.Util.async(() => {
       const fragments: DOM.Attachable[] = [];
 
-      fragments.push(setup.DOM.Util.menuItemToolbar(unitNameActionMenus(unit)));
+      fragments.push(
+        setup.DOM.Util.menuItemToolbar(unitNameActionMenus(unit, show_actions)),
+      );
 
       /* Titles */
       {

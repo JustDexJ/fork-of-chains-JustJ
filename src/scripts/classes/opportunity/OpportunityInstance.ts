@@ -55,7 +55,7 @@ export class OpportunityInstance extends TwineClass {
   }
 
   getRepMacro() {
-    return "opportunitycardkey";
+    return "opportunitycard";
   }
 
   rep(): string {

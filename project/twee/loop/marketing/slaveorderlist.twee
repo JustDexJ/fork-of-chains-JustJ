@@ -34,8 +34,8 @@ You enter the room you designated as the marketing office.
 
 <<filterall 'slaveorder' $slaveorderlist.getSlaveOrders()>>
   <<if $menufilter.get('slaveorder', 'display') == 'compact'>>
-    <<slaveordercardcompact _displayobj>>
+    <<slaveordercardcompact _displayobj true>>
   <<else>>
-    <<slaveordercard _displayobj>>
+    <<slaveordercard _displayobj true>>
   <</if>>
 <</filterall>>

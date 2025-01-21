@@ -190,14 +190,14 @@ export class Equipment extends TwineClass {
 
     classes += ` ${this.getRarity().getIconTriangleClass()}`;
 
-    const tooltip = `<<equipmentcardkey '${this.key}'>>`;
+    const tooltip = `<<equipmentcard '${this.key}'>>`;
     const url = setup.escapeHtml(setup.resolveImageUrl(imagepath));
     const tooltip_attr = skip_tooltip ? "" : `data-tooltip="${tooltip}"`;
     return `<span class="trait ${classes}" ${tooltip_attr}><img src="${url}"/></span>`;
   }
 
   getRepMacro() {
-    return "equipmentcardkey";
+    return "equipmentcard";
   }
 
   getRepRarity() {

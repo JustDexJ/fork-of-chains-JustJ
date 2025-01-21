@@ -128,3 +128,10 @@
 .unitcard:not(.slavercard) .unit-misc {
   margin-top: 6px;
 }
+
+
+.hospital-units {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8em;
+}

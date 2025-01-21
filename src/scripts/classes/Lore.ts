@@ -98,7 +98,7 @@ export class Lore extends TwineClass {
   }
 
   getRepMacro() {
-    return "lorecardkey";
+    return "lorecard";
   }
 
   rep(is_uppercase?: boolean): string {

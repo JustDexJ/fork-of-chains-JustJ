@@ -12,7 +12,7 @@ function itemNameFragment(item: Item): DOM.Node {
   return html` ${domCardRep(item, true)} × ${owned} `;
 }
 
-function itemNameActionMenu(item: Item, hide_actions?: boolean): JQuery[] {
+function itemNameActionMenu(item: Item, show_actions?: boolean): JQuery[] {
   const menus: JQuery[] = [];
 
   menus.push(
@@ -30,7 +30,7 @@ function itemNameActionMenu(item: Item, hide_actions?: boolean): JQuery[] {
     );
   }
 
-  if (!hide_actions && item.isUsable()) {
+  if (show_actions && item.isUsable()) {
     menus.push(
       menuItemAction({
         text: `Use`,
@@ -50,7 +50,7 @@ function itemNameActionMenu(item: Item, hide_actions?: boolean): JQuery[] {
 
   const sell_value = item.getSellValue();
   if (
-    !hide_actions &&
+    show_actions &&
     sell_value &&
     State.variables.fort.player.isHasBuilding(setup.buildingtemplate.bazaar)
   ) {
@@ -95,12 +95,14 @@ function itemDescriptionFragment(item: Item): DOM.Node {
 }
 
 export default {
-  item(item: Item, hide_actions?: boolean): DOM.Node {
+  item(item_or_key: Item | ItemKey, show_actions?: boolean): DOM.Node {
+    const item = resolveObject(item_or_key, setup.item);
+
     const fragments: DOM.Attachable[] = [];
 
     // async here?
     fragments.push(
-      setup.DOM.Util.menuItemToolbar(itemNameActionMenu(item, hide_actions)),
+      setup.DOM.Util.menuItemToolbar(itemNameActionMenu(item, show_actions)),
     );
 
     if (item instanceof setup.Furniture) {
@@ -121,7 +123,7 @@ export default {
     }
 
     const shorten_desc =
-      !hide_actions &&
+      show_actions &&
       State.variables.menufilter.get("item", "display") == "short";
     if (shorten_desc) {
       fragments.push(
@@ -143,9 +145,9 @@ export default {
     return setup.DOM.create("div", { class: divclass }, fragments);
   },
 
-  itemcompact(item: Item, hide_actions?: boolean): DOM.Node {
+  itemcompact(item: Item, show_actions?: boolean): DOM.Node {
     return setup.DOM.Util.menuItemToolbar(
-      itemNameActionMenu(item, hide_actions),
+      itemNameActionMenu(item, show_actions),
     );
   },
 };

@@ -61,7 +61,7 @@ export class QuestInstance extends TwineClass {
   }
 
   getRepMacro() {
-    return "questcardkey";
+    return "questcard";
   }
 
   rep() {

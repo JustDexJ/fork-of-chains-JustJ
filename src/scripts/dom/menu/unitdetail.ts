@@ -30,14 +30,18 @@ export const DOM_Menu_unitdetail = function (unit: Unit): DOM.Node {
   outer.push(
     parseRosterMenuToolbar(
       unit,
-      getRosterListMenuItems({ unit: unit, hide_details: true }),
+      getRosterListMenuItems({
+        unit: unit,
+        show_actions: true,
+        hide_details: true,
+      }),
     ),
   );
 
   // unit card
   outer.push(html`
     <div class="hide-unit-card-image">
-      ${setup.DOM.Card.unit(unit, /* hide actions = */ false)}
+      ${setup.DOM.Card.unit(unit, /* show actions = */ true)}
     </div>
   `);
 
@@ -105,7 +109,7 @@ export const DOM_Menu_unitdetail = function (unit: Unit): DOM.Node {
     outer.push(
       setup.DOM.Card.equipmentset(
         equipment_set,
-        /* hide actions = */ false,
+        /* show actions = */ true,
         /* show remove = */ false,
       ),
     );

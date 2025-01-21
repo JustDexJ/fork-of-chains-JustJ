@@ -1,4 +1,4 @@
-import type { ItemPool } from "../../classes/inventory/ItemPool";
+import type { ItemPool, ItemPoolKey } from "../../classes/inventory/ItemPool";
 import { menuItemExtras, menuItemText, menuItemTitle } from "../../ui/menuitem";
 import { domCardRep } from "../util/cardnamerep";
 
@@ -8,7 +8,7 @@ function itemPoolNameFragment(pool: ItemPool): DOM.Node {
 
 function itemPoolNameActionMenu(
   pool: ItemPool,
-  hide_actions?: boolean,
+  show_actions?: boolean,
 ): JQuery[] {
   const menus: JQuery[] = [];
 
@@ -39,12 +39,17 @@ function itemPoolNameActionMenu(
 }
 
 export default {
-  itempool(pool: ItemPool, hide_actions?: boolean): DOM.Node {
+  itempool(
+    pool_or_key: ItemPool | ItemPoolKey,
+    show_actions?: boolean,
+  ): DOM.Node {
+    const pool = resolveObject(pool_or_key, setup.itempool);
+
     const fragments: DOM.Attachable[] = [];
 
     fragments.push(
       setup.DOM.Util.menuItemToolbar(
-        itemPoolNameActionMenu(pool, hide_actions),
+        itemPoolNameActionMenu(pool, show_actions),
       ),
     );
 

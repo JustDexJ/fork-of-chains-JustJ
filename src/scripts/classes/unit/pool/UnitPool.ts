@@ -84,7 +84,7 @@ export class UnitPool extends TwineClass {
   }
 
   getRepMacro() {
-    return "unitpoolcardkey";
+    return "unitpoolcard";
   }
 
   rep() {

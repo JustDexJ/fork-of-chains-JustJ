@@ -78,9 +78,9 @@ const WIKI_SECTIONS = [
     get_display_object: (item) => ({ item: item, quantity: 1 }),
     display_callback(item_obj) {
       if (State.variables.menufilter.get("item", "display") == "compact") {
-        return setup.DOM.Card.itemcompact(item_obj.item, true);
+        return setup.DOM.Card.itemcompact(item_obj.item);
       } else {
-        return setup.DOM.Card.item(item_obj.item, true);
+        return setup.DOM.Card.item(item_obj.item);
       }
     },
   }),
@@ -91,9 +91,9 @@ const WIKI_SECTIONS = [
     get_objects: () => Object.values(setup.equipment),
     display_callback(equipment_obj) {
       if (State.variables.menufilter.get("equipment", "display") == "compact") {
-        return setup.DOM.Card.equipmentcompact(equipment_obj, true);
+        return setup.DOM.Card.equipmentcompact(equipment_obj);
       } else {
-        return setup.DOM.Card.equipment(equipment_obj, true);
+        return setup.DOM.Card.equipment(equipment_obj);
       }
     },
   }),
@@ -107,9 +107,9 @@ const WIKI_SECTIONS = [
         State.variables.menufilter.get("buildingtemplate", "display") ==
         "compact"
       ) {
-        return setup.DOM.Card.buildingtemplatecompact(buildingtemplate, true);
+        return setup.DOM.Card.buildingtemplatecompact(buildingtemplate);
       } else {
-        return setup.DOM.Card.buildingtemplate(buildingtemplate, true);
+        return setup.DOM.Card.buildingtemplate(buildingtemplate);
       }
     },
   }),
@@ -122,9 +122,9 @@ const WIKI_SECTIONS = [
       if (
         State.variables.menufilter.get("roomtemplate", "display") == "compact"
       ) {
-        return setup.DOM.Card.roomtemplatecompact(roomtemplate, true);
+        return setup.DOM.Card.roomtemplatecompact(roomtemplate);
       } else {
-        return setup.DOM.Card.roomtemplate(roomtemplate, true);
+        return setup.DOM.Card.roomtemplate(roomtemplate);
       }
     },
   }),
@@ -135,9 +135,9 @@ const WIKI_SECTIONS = [
     get_objects: () => setup.sexaction.filter((action) => action.desc()),
     display_callback(sexaction) {
       if (State.variables.menufilter.get("sexaction", "display") == "compact") {
-        return setup.DOM.Card.sexactioncompact(sexaction, true);
+        return setup.DOM.Card.sexactioncompact(sexaction);
       } else {
-        return setup.DOM.Card.sexaction(sexaction, true);
+        return setup.DOM.Card.sexaction(sexaction);
       }
     },
   }),
@@ -148,9 +148,9 @@ const WIKI_SECTIONS = [
     get_objects: () => Object.values(State.variables.company),
     display_callback(company) {
       if (State.variables.menufilter.get("company", "display") == "compact") {
-        return setup.DOM.Card.companycompact(company, true);
+        return setup.DOM.Card.companycompact(company);
       } else {
-        return setup.DOM.Card.company(company, true);
+        return setup.DOM.Card.company(company);
       }
     },
   }),
@@ -161,9 +161,9 @@ const WIKI_SECTIONS = [
     get_objects: () => Object.values(setup.lore),
     display_callback(lore) {
       if (State.variables.menufilter.get("lore", "display") == "compact") {
-        return setup.DOM.Card.lorecompact(lore, true);
+        return setup.DOM.Card.lorecompact(lore);
       } else {
-        return setup.DOM.Card.lore(lore, true);
+        return setup.DOM.Card.lore(lore);
       }
     },
   }),

@@ -1,4 +1,4 @@
-import type { Party } from "../../classes/party/Party";
+import type { Party, PartyKey } from "../../classes/party/Party";
 import {
   menuItemAction,
   menuItemDanger,
@@ -13,7 +13,7 @@ function partyNameFragment(party: Party): DOM.Node {
   return html`${domCardRep(party)}`;
 }
 
-function partyNameActionMenu(party: Party, hide_actions?: boolean): JQuery[] {
+function partyNameActionMenu(party: Party, show_actions?: boolean): JQuery[] {
   const menus: JQuery[] = [];
   const extras: JQuery[] = [];
 
@@ -23,7 +23,7 @@ function partyNameActionMenu(party: Party, hide_actions?: boolean): JQuery[] {
     }),
   );
 
-  if (!hide_actions) {
+  if (show_actions) {
     menus.push(
       menuItemAction({
         text: `Add unit`,
@@ -42,7 +42,7 @@ function partyNameActionMenu(party: Party, hide_actions?: boolean): JQuery[] {
     checked: party.isCanGoOnQuestsAuto(),
   };
 
-  if (hide_actions) {
+  if (!show_actions) {
     menus.push(menuItemText(auto_assign_param));
   } else {
     auto_assign_param.callback = () => {
@@ -52,7 +52,7 @@ function partyNameActionMenu(party: Party, hide_actions?: boolean): JQuery[] {
     menus.push(menuItemAction(auto_assign_param));
   }
 
-  if (!hide_actions) {
+  if (show_actions) {
     extras.push(
       menuItemAction({
         text: `Rename`,
@@ -103,18 +103,20 @@ function removeUnitCallback(party: Party, unit: Unit) {
 }
 
 export default {
-  party(party: Party, hide_actions?: boolean): DOM.Node {
+  party(party_or_key: Party | PartyKey, show_actions?: boolean): DOM.Node {
+    const party = resolveObject(party_or_key, State.variables.party);
+
     const fragments: DOM.Attachable[] = [];
 
     fragments.push(
-      setup.DOM.Util.menuItemToolbar(partyNameActionMenu(party, hide_actions)),
+      setup.DOM.Util.menuItemToolbar(partyNameActionMenu(party, show_actions)),
     );
 
     for (const unit of party.getUnits()) {
       fragments.push(html`
         <div>
           ${setup.DOM.Util.level(unit.getLevel())} ${unit.repLong()}
-          ${!hide_actions &&
+          ${show_actions &&
           setup.DOM.Nav.link(`(remove)`, removeUnitCallback(party, unit))}
         </div>
       `);
@@ -123,9 +125,9 @@ export default {
     return setup.DOM.create("div", { class: "partycard card" }, fragments);
   },
 
-  partycompact(party: Party, hide_actions?: boolean): DOM.Node {
+  partycompact(party: Party, show_actions?: boolean): DOM.Node {
     return setup.DOM.Util.menuItemToolbar(
-      partyNameActionMenu(party, hide_actions),
+      partyNameActionMenu(party, show_actions),
     );
   },
 };

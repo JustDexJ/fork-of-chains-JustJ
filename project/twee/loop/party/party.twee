@@ -55,9 +55,9 @@
 
 <<filterall 'party' _partylist>>
   <<if $menufilter.get('party', 'display') == 'compact'>>
-    <<partycardcompact _displayobj>>
+    <<partycardcompact _displayobj true>>
   <<else>>
-    <<partycard _displayobj>>
+    <<partycard _displayobj true>>
   <</if>>
 <</filterall>>
 

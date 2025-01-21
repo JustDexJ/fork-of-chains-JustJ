@@ -114,8 +114,8 @@ Will you slay the demon and recruit the
 <<= $varstore.get('choose_your_own_adventure_lovers')>> go?
 </p>
 
-<<unitcard $g.hero1 1>>
-<<unitcard $g.hero2 1>>
+<<unitcard $g.hero1>>
+<<unitcard $g.hero2>>
 
 :: Opportunity_choose_your_own_adventure__true_end_0 [nobr]
 Slay the demon

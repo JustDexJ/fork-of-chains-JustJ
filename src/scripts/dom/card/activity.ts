@@ -31,7 +31,14 @@ export default {
   /**
    * Renders a unit saying a dialogue.
    */
-  activity(activity: ActivityInstance): DOM.Node {
+  activity(
+    activity_or_key: ActivityInstance | ActivityInstance["key"],
+  ): DOM.Node {
+    const activity = resolveObject(
+      activity_or_key,
+      State.variables.activityinstance,
+    );
+
     State.temporary.activity_card_key = activity.key;
     const res = renderDescription(activity, "RenderActivity");
     delete State.temporary.activity_card_key;

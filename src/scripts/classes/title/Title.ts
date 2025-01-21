@@ -129,7 +129,7 @@ export class Title extends TwineClass {
   }
 
   getRepMacro() {
-    return "titlecardkey";
+    return "titlecard";
   }
 
   rep(): string {

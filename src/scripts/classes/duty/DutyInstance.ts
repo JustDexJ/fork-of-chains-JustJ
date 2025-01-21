@@ -79,7 +79,7 @@ export class DutyInstance extends TwineClass {
     const template = this.getTemplate();
     const tooltip_content = skip_tooltip
       ? undefined
-      : `<<dutycardkey '${this.key}' 1>>`;
+      : `<<dutycard '${this.key}'>>`;
     return (
       '<span class="' +
       template.getCssClass() +
@@ -94,12 +94,12 @@ export class DutyInstance extends TwineClass {
   }
 
   getRepMacro() {
-    return "dutycardkey";
+    return "dutycard";
   }
 
   rep(): string {
     return (
-      setup.repMessage(this, undefined, undefined, this.getImageRep()) +
+      setup.repMessage(this, undefined, undefined, this.getImageRep(true)) +
       "&nbsp;" +
       setup.repMessage(this)
     );

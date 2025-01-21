@@ -29,10 +29,10 @@ export const DOM_Menu_roomlist = function (): DOM.Node {
       if (State.variables.menufilter.get("room", "display") == "compact") {
         return setup.DOM.Card.roominstancecompact(
           room,
-          /* hide actions = */ false,
+          /* show actions = */ true,
         );
       } else {
-        return setup.DOM.Card.roominstance(room, /* hide actions = */ false);
+        return setup.DOM.Card.roominstance(room, /* show actions = */ true);
       }
     },
   });
