@@ -44,20 +44,21 @@
 
 .tile-caption {
   position: absolute;
-  top: 2px;
-  left: 2px;
-  background-color: black;
+  background-color: rgba(32, 32, 32, 0.8);
+  border-radius: 4px;
   font-size: x-small;
   z-index: 5;
+  padding: 0 2px;
+}
+
+.tile-caption-top {
+  top: 2px;
+  left: 2px; 
 }
 
 .tile-caption-bottom {
-  position: absolute;
   bottom: 2px;
   left: 2px;
-  background-color: black;
-  font-size: x-small;
-  z-index: 5;
 }
 
 .tile-caption-bottom .trait img {
@@ -91,6 +92,35 @@
 .fortgrid-table .fortgrid-valid-entrance:not(.fortgrid-expansion) {
   background-color: rgb(0, 102, 128);
 }
+
+/* 0 = bottom, 1 = left, 2 = up, 3 = right */
+.fortgrid-table .fortgrid-entrance-0::after,
+.fortgrid-table .fortgrid-entrance-1::after,
+.fortgrid-table .fortgrid-entrance-2::after,
+.fortgrid-table .fortgrid-entrance-3::after {
+  font-family: tme-fa-icons;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  justify-content: center;
+  align-items: center;
+  scale: var(--fortgrid-scale);
+  color: rgba(255,255,255,0.6);
+}
+.fortgrid-table .fortgrid-entrance-0::after { content: '\e823'; height: 60%; }
+.fortgrid-table .fortgrid-entrance-1::after { content: '\e822'; width: 60%; left: 40%; }
+.fortgrid-table .fortgrid-entrance-2::after { content: '\e820'; height: 60%; top: 40%; }
+.fortgrid-table .fortgrid-entrance-3::after { content: '\e821'; width: 60%; }
 
 .fortgrid-table .fortgrid-path {
   background-color: yellow;

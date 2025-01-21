@@ -244,7 +244,7 @@ export class Tile extends TwineClass {
       !room.getTemplate().isHideName() &&
       State.variables.menufilter.get("fortgrid", "show_caption") != "hide"
     ) {
-      caption += `<div class='tile-caption'>${room.getName()}</div>`;
+      caption += `<div class='tile-caption tile-caption-top'>${room.getName()}</div>`;
     }
 
     if (
@@ -258,7 +258,7 @@ export class Tile extends TwineClass {
         /* is to fixed = */ true,
       );
       if (explanation) {
-        caption += `<div class='tile-caption-bottom'>${explanation}</div>`;
+        caption += `<div class='tile-caption tile-caption-bottom'>${explanation}</div>`;
       }
     }
 
@@ -321,7 +321,12 @@ export class Tile extends TwineClass {
     return `${outer_extra}<div style="background-image: url('${tile_url}'); width:${divwidth}px; height:${divheight}px" class="${classes.join(" ")}" ${tooltip ? `data-tooltip="${tooltip}"` : ""}>${extras}<img ${rotatestyle ? `style="transform: ${rotatestyle};"` : ""} width="${width}" height="${height}" class="${imgclass.join(" ")}" src="${url}"/>${caption}</div>`;
   }
 
-  static getTileSize() {
+  static getZoom(): number {
+    const zoom = State.variables.menufilter.get("fortgrid", "zoom");
+    return ZOOM_AMOUNT[zoom as keyof typeof ZOOM_AMOUNT] ?? 1;
+  }
+
+  static getTileSize(): number {
     const zoom = State.variables.menufilter.get("fortgrid", "zoom") ?? 0;
     if (zoom && zoom in ZOOM_AMOUNT) {
       return Math.round(

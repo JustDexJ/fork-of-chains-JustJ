@@ -260,6 +260,11 @@ export class FortGridController extends TwineClass {
       setup.DOM.create("tbody", {}, display_rows),
     );
 
+    (table as HTMLTableElement).style.setProperty(
+      "--fortgrid-scale",
+      String(setup.Tile.getZoom()),
+    );
+
     $(table).on("mouseenter", ".tile-event-listen", function () {
       const row = parseInt($(this).attr("data-row")!);
       const col = parseInt($(this).attr("data-col")!);
