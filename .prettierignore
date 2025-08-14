@@ -1,0 +1,9 @@
+# Ignore all by default
+/*
+
+# Re-include specific folders/files
+!/src
+!/t3lt.twee-config.json
+
+# Third-party code
+src/**/*.js

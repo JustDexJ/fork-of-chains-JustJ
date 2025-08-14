@@ -2,26 +2,28 @@
  * ContentImage.ts
  * ----------------
  * This module defines the ContentImage class, which manages the loading, mapping, and retrieval of content images and their associated metadata for the game.
- * 
+ *
  * Key Responsibilities:
  * - Asynchronously loads image metadata from a specified JavaScript file (imagemeta.js) using importScripts.
  * - Maps image paths to ImageObject instances for efficient lookup and retrieval.
  * - Handles missing or malformed metadata gracefully, providing robust error handling and debug support.
  * - Organizes image credits by artist for display or attribution purposes.
  * - Cleans up dynamically loaded global variables to avoid polluting the global namespace.
- * 
+ *
  * Best Practices:
  * - Always use type-safe access for dynamic globals (window.IMAGE_CREDITS, window.UNITIMAGE_CREDITS) and clean up after use.
  * - Use clear, descriptive error messages and warnings for missing or malformed data.
  * - Keep all image metadata and mapping logic encapsulated within the ContentImage class.
  * - Use explicit type annotations for all function parameters and return types.
  * - Document all public methods and static properties for maintainability.
- * 
+ *
  * Usage Example:
  *   setup.ContentImage.initalize();
  *   const imgObj = setup.ContentImage.getImageObjectIfAny('portrait.jpg');
  *   const credits = setup.ContentImage.getCreditsByArtist();
  */
+
+import { TwineClass } from "../_TwineClass";
 
 // Ensure global type augmentation is loaded for dynamic globals
 /// <reference path="../../types/misc.d.ts" />
@@ -31,16 +33,13 @@
 // 'State' is the SugarCube global for game state and variables
 // 'importScripts' loads external JS files dynamically
 
-// @ts-ignore
-declare const setup: any;
 declare function importScripts(...urls: string[]): Promise<void>;
 
 /**
  * ContentImage class manages all content images and their metadata for the game.
  * Provides static methods for initialization, lookup, and credit organization.
  */
-// @ts-ignore
-setup.ContentImage = class ContentImage extends setup.TwineClass {
+export class ContentImage extends TwineClass {
   /**
    * Maps image file paths to their corresponding ImageObject.
    * Used for fast lookup and retrieval of image metadata.
@@ -72,13 +71,18 @@ setup.ContentImage = class ContentImage extends setup.TwineClass {
      * @param credits - The metadata object mapping image names to metadata.
      * @returns An array of ImageObject instances.
      */
-    function parseImageList(directory: string, credits: Record<string, any>): ImageObject[] {
+    function parseImageList(
+      directory: string,
+      credits: Record<string, any>,
+    ): ImageObject[] {
       const image_list: ImageObject[] = [];
       for (const image_key in credits) {
         const image_path = `${directory}/${image_key}`;
         const image_info = credits[image_key];
-        const image_object: ImageObject = { path: image_path, info: image_info };
-        // @ts-ignore
+        const image_object: ImageObject = {
+          path: image_path,
+          info: image_info,
+        };
         setup.ContentImage.CONTENT_IMAGE_PATH_TO_OBJ[image_path] = image_object;
         image_list.push(image_object);
       }
@@ -94,32 +98,36 @@ setup.ContentImage = class ContentImage extends setup.TwineClass {
      * @param image_directory - Directory containing images.
      * @returns A promise that resolves when loading and parsing is complete.
      */
-    function Construct(imagemeta: string, image_directory: string): Promise<void> {
+    function Construct(
+      imagemeta: string,
+      image_directory: string,
+    ): Promise<void> {
       return importScripts(imagemeta).then(
         function () {
           // Try multiple possible global names for credits (IMAGE_CREDITS, UNITIMAGE_CREDITS)
-          // @ts-ignore
           let credits = window.IMAGE_CREDITS || window.UNITIMAGE_CREDITS;
           if (!credits) {
-            console.warn(`No image credits found in ${imagemeta}, using empty fallback.`);
+            console.warn(
+              `No image credits found in ${imagemeta}, using empty fallback.`,
+            );
             credits = {};
           }
           parseImageList(image_directory, credits);
           // Cleanup
-          // @ts-ignore
           delete window.IMAGE_CREDITS;
           delete window.UNITIMAGE_CREDITS;
         },
         () => {
           // imagemeta not found. Use empty credits as fallback.
-          console.warn(`Image meta for contents not found at ${imagemeta}, using empty fallback.`);
+          console.warn(
+            `Image meta for contents not found at ${imagemeta}, using empty fallback.`,
+          );
           parseImageList(image_directory, {});
-        }
+        },
       );
     }
 
     // Begin initialization by loading the main metadata file
-    // @ts-ignore
     Construct(setup.ContentImage.IMAGEMETA, setup.ContentImage.IMAGE_DIR);
   }
 
@@ -131,15 +139,15 @@ setup.ContentImage = class ContentImage extends setup.TwineClass {
    * @returns The ImageObject if found, or null if not found.
    */
   static getImageObjectIfAny(image_name: string): ImageObject | null {
-    // @ts-ignore
     const path = `${setup.ContentImage.IMAGE_DIR}/${image_name}`;
-    // @ts-ignore
     if (path in setup.ContentImage.CONTENT_IMAGE_PATH_TO_OBJ) {
-      // @ts-ignore
       return setup.ContentImage.CONTENT_IMAGE_PATH_TO_OBJ[path];
     } else {
       // In debug mode, throw an error for missing images to aid development
-      if (typeof State.variables.gDebug === 'boolean' && State.variables.gDebug) {
+      if (
+        typeof State.variables.gDebug === "boolean" &&
+        State.variables.gDebug
+      ) {
         throw new Error(`${image_name} not found in img/content/imagemeta.js!`);
       }
       return null;
@@ -154,8 +162,9 @@ setup.ContentImage = class ContentImage extends setup.TwineClass {
    */
   static getCreditsByArtist(): { [artist: string]: ImageObject[] } {
     const result: { [artist: string]: ImageObject[] } = {};
-    // @ts-ignore
-    for (const imageUnknown of Object.values(setup.ContentImage.CONTENT_IMAGE_PATH_TO_OBJ)) {
+    for (const imageUnknown of Object.values(
+      setup.ContentImage.CONTENT_IMAGE_PATH_TO_OBJ,
+    )) {
       const image = imageUnknown as ImageObject;
       if (image.info && typeof image.info.artist === "string") {
         if (!Object.prototype.hasOwnProperty.call(result, image.info.artist)) {
@@ -166,4 +175,4 @@ setup.ContentImage = class ContentImage extends setup.TwineClass {
     }
     return result;
   }
-};
+}

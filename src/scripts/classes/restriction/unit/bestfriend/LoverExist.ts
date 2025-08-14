@@ -1,22 +1,17 @@
-// @ts-nocheck
-
-setup.qresImpl.LoverExist = class LoverExist extends setup.Restriction {
+export default class LoverExist extends Restriction.Unit {
   constructor() {
-    super()
+    super();
   }
 
-  text() {
-    return `setup.qres.LoverExist()`
+  override text() {
+    return `setup.qres.LoverExist()`;
   }
 
-  explain() {
-    return `Unit has a lover`
+  override explain() {
+    return `Unit has a lover`;
   }
 
-  /**
-   * @param {setup.Unit} unit 
-   */
-  isOk(unit) {
-    return !!unit.getLover()
+  override isOk(unit: Unit): boolean {
+    return !!unit.getLover();
   }
 }

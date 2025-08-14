@@ -1,29 +1,30 @@
-// @ts-nocheck
+import type { Equipment, EquipmentKey } from "../../equipment/Equipment";
 
-setup.qcImpl.EquipmentLose = class EquipmentLose extends setup.Cost {
-  /**
-   * @param {setup.Equipment} equipment 
-   */
-  constructor(equipment) {
-    super()
+export default class EquipmentLose extends Cost {
+  equipment_key: EquipmentKey;
 
-    this.equipment_key = setup.keyOrSelf(equipment)
+  constructor(equipment: Equipment) {
+    super();
+
+    this.equipment_key = resolveKey(equipment);
   }
 
-  text() {
-    return `setup.qc.EquipmentLose(setup.equipment.${this.equipment_key})`
+  override text() {
+    return `setup.qc.EquipmentLose(setup.equipment.${this.equipment_key})`;
   }
 
-  getEquipment() { return setup.equipment[this.equipment_key] }
+  getEquipment(): Equipment {
+    return setup.equipment[this.equipment_key];
+  }
 
-  apply(quest) {
-    const equipment = this.getEquipment()
+  override apply(context: CostContext) {
+    const equipment = this.getEquipment();
     if (State.variables.armory.getEquipmentCount(equipment)) {
-      State.variables.armory.removeEquipment(equipment, 1)
+      State.variables.armory.removeEquipment(equipment, 1);
     }
   }
 
-  explain() {
-    return `Lose ${this.getEquipment().rep()}`
+  override explain() {
+    return `Lose ${this.getEquipment().rep()}`;
   }
 }

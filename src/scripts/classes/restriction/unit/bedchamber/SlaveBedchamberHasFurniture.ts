@@ -1,29 +1,33 @@
-// @ts-nocheck
+export default class SlaveBedchamberHasFurniture extends Restriction.Unit {
+  item_key: ItemKey;
 
+  constructor(item: Item | ItemKey) {
+    super();
 
-setup.qresImpl.SlaveBedchamberHasFurniture = class SlaveBedchamberHasFurniture extends setup.Restriction {
-  constructor(item) {
-    super()
-
-    if (!item) throw new Error(`Item null in SlaveBedchamberHasFurniture`)
-    this.item_key = item.key
+    if (!item) throw new Error(`Item null in SlaveBedchamberHasFurniture`);
+    this.item_key = resolveKey(item);
   }
 
-  text() {
-    return `setup.qres.SlaveBedchamberHasFurniture(setup.item.${this.item_key})`
+  override text() {
+    return `setup.qres.SlaveBedchamberHasFurniture(setup.item.${this.item_key})`;
   }
 
-  getItem() { return setup.item[this.item_key] }
-
-  explain() {
-    return `Unit is a slave in a bedchamber with ${this.getItem().rep()}`
+  getItem() {
+    return setup.item[this.item_key];
   }
 
-  isOk(unit) {
-    let bedchamber = unit.getBedchamber()
-    if (!bedchamber) return false
-  
-    let item = this.getItem()
-    return (item instanceof setup.Furniture) && bedchamber.getFurniture(item.getSlot()) == item
+  override explain() {
+    return `Unit is a slave in a bedchamber with ${this.getItem().rep()}`;
+  }
+
+  override isOk(unit: Unit): boolean {
+    let bedchamber = unit.getBedchamber();
+    if (!bedchamber) return false;
+
+    let item = this.getItem();
+    return (
+      item instanceof setup.Furniture &&
+      bedchamber.getFurniture(item.getSlot()) == item
+    );
   }
 }

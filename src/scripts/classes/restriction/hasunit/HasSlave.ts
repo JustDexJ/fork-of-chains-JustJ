@@ -1,26 +1,23 @@
-// @ts-nocheck
-
-
-setup.qresImpl.HasSlave = class HasSlave extends setup.Restriction {
+export default class HasSlave extends Restriction {
   constructor() {
-    super()
-
+    super();
   }
 
-  static NAME = 'Have at least one slave'
-  static PASSAGE = 'RestrictionHasSlave'
+  static NAME = "Have at least one slave";
+  static PASSAGE = "RestrictionHasSlave";
 
-  text() {
-    return `setup.qres.HasSlave()`
+  override text() {
+    return `setup.qres.HasSlave()`;
   }
 
-
-  explain() {
-    return `Has a slave`
+  override explain() {
+    return `Has a slave`;
   }
 
-  isOk() {
-    let units = State.variables.company.player.getUnits({job: setup.job.slave})
-    return units.length > 0
+  override isOk() {
+    let units = State.variables.company.player.getUnits({
+      job: setup.job.slave,
+    });
+    return units.length > 0;
   }
 }

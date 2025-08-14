@@ -1,22 +1,17 @@
-// @ts-nocheck
-
-setup.qresImpl.IsCanSee = class IsCanSee extends setup.Restriction {
+export default class IsCanSee extends Restriction.Unit {
   constructor() {
-    super()
+    super();
   }
 
-  text() {
-    return `setup.qres.IsCanSee()`
+  override text() {
+    return `setup.qres.IsCanSee()`;
   }
 
-  explain() {
-    return `Can see: not blocked by slave rule or by blindfold`
+  override explain() {
+    return `Can see: not blocked by slave rule or by blindfold`;
   }
 
-  /**
-   * @param {setup.Unit} unit 
-   */
-  isOk(unit) {
-    return unit.isCanSee()
+  override isOk(unit: Unit): boolean {
+    return unit.isCanSee();
   }
 }

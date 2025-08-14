@@ -84,8 +84,7 @@ setup.rarity.never, /* Rarity */
 <<unitcard $g.slave 1>>
 
 <<choose>>
-<<opt "Enslave <<them $g.slave>>
-    , which will surely anger the village">>
+<<opt "Enslave <<them $g.slave>>, which will surely anger the village">>
 
     <<set _job = $g.slave.getTraitWithTag('bg').getName()>>
 
@@ -99,8 +98,7 @@ setup.rarity.never, /* Rarity */
 
     <<run setup.qc.Ire('humanvale', 10).apply($gQuest)>>
 
-<<opt "Send <<them $g.slave>>
-    back to the village's chief">>
+<<opt "Send <<them $g.slave>> back to the village's chief">>
 
     <p>
         Not wanting to risk the valefolk's ire any further, you decided to send the potential slave back to the village. You even asked <<rep _u>> to escort <<them _u>> back, lest <<they $g.slave>> run away and try to enslave <<themself $g.slave>> to some other slaving company in the region. The chief was grateful to you, although it did not nullify the damage that had been done.

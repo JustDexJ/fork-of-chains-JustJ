@@ -11,7 +11,7 @@
 )>>
 
 /* Special unit group class. Will automatically call one of the below. */
-<<run new setup.UnitGroupSoldSlaves(
+<<run new setup.UnitGroup_SoldSlaves(
   'soldslaves',
   'Special: Sold Slaves',
   [

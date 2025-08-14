@@ -1,25 +1,21 @@
-// @ts-nocheck
+import type { Equipment, EquipmentKey } from "../../equipment/Equipment";
 
-setup.qcImpl.SexEquip = class SexEquip extends setup.SexCost {
-  /**
-   * @param {string} actor_name
-   * @param {setup.Equipment} equipment
-   */
-  constructor(actor_name, equipment) {
-    super()
-    this.actor_name = actor_name
-    this.equipment = equipment
+export default class SexEquip extends SexCost {
+  actor_name: string;
+  equipment_key: EquipmentKey;
+
+  constructor(actor_name: string, equipment: Equipment | EquipmentKey) {
+    super();
+    this.actor_name = actor_name;
+    this.equipment_key = resolveKey(equipment);
   }
 
-  /**
-   * @param {setup.SexAction} action
-   */
-  apply(action) {
-    const unit = action.getActorUnit(this.actor_name)
-    this.sex.equipTemporarily(unit, this.equipment)
+  override apply(action: SexAction) {
+    const unit = action.getActorUnit(this.actor_name);
+    this.sex.equipTemporarily(unit, setup.equipment[this.equipment_key]);
   }
 
-  explain() {
-    return `${this.actor_name} equips ${this.equipment.rep()}`
+  override explain() {
+    return `${this.actor_name} equips ${setup.equipment[this.equipment_key].rep()}`;
   }
 }

@@ -1,28 +1,31 @@
-// @ts-nocheck
-
 // v1.0.0
-'use strict';
 
-Macro.add('uequipslot', {
-  handler : function () {
-    let wrapper = $(document.createElement('span'))
+import type { EquipmentSlotKey } from "../classes/equipment/EquipmentSlot";
 
-    let unit = this.args[0]
-    if (setup.isString(unit)) unit = State.variables.unit[unit]
+Macro.add("uequipslot", {
+  handler: function () {
+    let wrapper = $(document.createElement("span"));
 
-    let slotkey = this.args[1]
+    let unit = resolveObject(
+      this.args[0] as Unit | UnitKey,
+      State.variables.unit,
+    );
+
+    let slotkey = this.args[1] as EquipmentSlotKey;
     if (!(slotkey in setup.equipmentslot)) {
-      throw new Error(`unrecognized slot key: ${slotkey} for uequipslot`)
+      throw new Error(`unrecognized slot key: ${slotkey} for uequipslot`);
     }
 
-    let eq = setup.Text.Unit.Equipment.getEquipmentAt(unit, setup.equipmentslot[slotkey])
+    let eq = setup.Text.Unit.Equipment.getEquipmentAt(
+      unit,
+      setup.equipmentslot[slotkey],
+    );
     if (eq) {
-      wrapper.wiki(eq.rep())
+      wrapper.wiki(eq.rep());
     } else {
-      wrapper.wiki(`<<u${slotkey} "${unit.key}">>`)
+      wrapper.wiki(`<<u${slotkey} "${unit.key}">>`);
     }
 
-    wrapper.appendTo(this.output)
-  }
+    wrapper.appendTo(this.output);
+  },
 });
-

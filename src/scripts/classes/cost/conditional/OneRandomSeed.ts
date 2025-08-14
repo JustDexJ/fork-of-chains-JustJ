@@ -1,46 +1,41 @@
-// @ts-nocheck
+/**
+ * Gives one of the costs as reward, at random, based on the quest's seed value.
+ */
+export default class OneRandomSeed extends Cost {
+  constructor(public costs: Cost[]) {
+    super();
 
-// gives one of the costs as reward, at random, based on the quest's seed value.
-setup.qcImpl.OneRandomSeed = class OneRandomSeed extends setup.Cost {
-  /**
-   * @param {setup.Cost[]} costs 
-   */
-  constructor(costs) {
-    super()
-
-    this.costs = costs
+    this.costs = costs;
   }
 
-  text() {
-    let texts = []
+  override text() {
+    let texts = [];
     for (let i = 0; i < this.costs.length; ++i) {
-      texts.push(this.costs[i].text())
+      texts.push(this.costs[i].text());
     }
-    return `setup.qc.OneRandomSeed([\n${texts.join(',\n')}\n])`
+    return `setup.qc.OneRandomSeed([\n${texts.join(",\n")}\n])`;
   }
 
-  getSeededCost(quest) {
-    return this.costs[quest.getSeed() % this.costs.length]
+  getSeededCost(context: CostContext): Cost {
+    let seed = context.getSeed ? context.getSeed() : 0;
+    return this.costs[seed % this.costs.length];
   }
 
-  /**
-   * @param {setup.QuestInstance} quest 
-   */
-  apply(quest) {
-    const cost = this.getSeededCost(quest)
-    return cost.apply(quest)
+  override apply(context: CostContext) {
+    const cost = this.getSeededCost(context);
+    return cost.apply(context);
   }
 
-  explain(quest) {
-    if (quest) {
-      const cost = this.getSeededCost(quest)
-      return cost.explain(quest)
+  override explain(context: CostContext) {
+    if (context) {
+      const cost = this.getSeededCost(context);
+      return cost.explain(context);
     }
-    let texts = []
+    let texts = [];
     for (let i = 0; i < this.costs.length; ++i) {
-      texts.push(this.costs[i].explain())
+      texts.push(this.costs[i].explain());
     }
-    return `<div class='card lorecard'> A random (SEEDED) effect out of:<br/>${texts.join('<br/>')}</div>`
+    return `<div class='card lorecard'> A random (SEEDED) effect out of:<br/>${texts.join("<br/>")}</div>`;
   }
 
   getLayout() {
@@ -50,20 +45,19 @@ setup.qcImpl.OneRandomSeed = class OneRandomSeed extends setup.Cost {
         {
           passage: "CostOneRandomSeedHeader",
           // addpassage: "QGAddCostActual",
-          listpath: ".costs"
+          listpath: ".costs",
         },
-      ]
-    }
+      ],
+    };
   }
 
-  isOk(quest) {
-    const cost = this.getSeededCost(quest)
-    return cost.isOk(quest)
+  override isOk(context: CostContext): boolean {
+    const cost = this.getSeededCost(context);
+    return cost.isOk(context);
   }
 
-  undoApply(quest) {
-    const cost = this.getSeededCost(quest)
-    cost.undoApply(quest)
+  override undoApply(context: CostContext) {
+    const cost = this.getSeededCost(context);
+    cost.undoApply(context);
   }
-
 }

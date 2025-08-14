@@ -1,13 +1,11 @@
-// @ts-nocheck
-
-/**
- * Replaces the content of selector with node
- * @param {string} selector 
- * @param {setup.DOM.Node} node 
- */
-setup.DOM.Helper.replace = function(selector, node) {
-  $(selector).empty()
-  if (node) {
-    $(selector).append(setup.DOM.toDOM(node))
-  }
-}
+export default {
+  /**
+   * Replaces the content of selector with node
+   */
+  replace(selector: string, node: DOM.Node) {
+    $(selector).empty();
+    if (node) {
+      $(selector).append(setup.DOM.toDOM(node));
+    }
+  },
+};

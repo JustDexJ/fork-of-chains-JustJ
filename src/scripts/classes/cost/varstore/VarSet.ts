@@ -1,33 +1,22 @@
-// @ts-nocheck
-
-
-setup.qcImpl.VarSet = class VarSet extends setup.Cost {
-  constructor(key, value, expires) {
-    super()
-
-    this.key = key
-    this.value = value
-    if (expires == undefined) {
-      this.expires = -1
-    } else {
-      this.expires = expires
-    }
+export default class VarSet extends Cost {
+  constructor(
+    public key: string,
+    public value: string | number,
+    public expires: number = -1,
+  ) {
+    super();
   }
 
-  text() {
-    if (setup.isString(this.value)) {
-      return `setup.qc.VarSet('${this.key}', '${this.value}', ${this.expires})`
-    } else {
-      return `setup.qc.VarSet('${this.key}', ${this.value}, ${this.expires})`
-    }
+  override text() {
+    return `setup.qc.VarSet('${this.key}', ${JSON.stringify(this.value)}, ${this.expires})`;
   }
 
-  apply(quest) {
-    State.variables.varstore.set(this.key, this.value, this.expires)
+  override apply(context: CostContext) {
+    State.variables.varstore.set(this.key, this.value, this.expires);
   }
 
-  explain(quest) {
-    if (quest) return ''
-    return `Variable "${this.key}" is set to "${this.value}" for ${this.expires} weeks.`
+  override explain(context: CostContext) {
+    if (context) return ""; // ???
+    return `Variable "${this.key}" is set to "${this.value}" for ${this.expires} weeks.`;
   }
 }

@@ -16,7 +16,7 @@ figcaption.unitimagefull {
   caption-side: bottom;
 }
 
-figure>image {
+figure > image {
   margin: auto;
 }
 

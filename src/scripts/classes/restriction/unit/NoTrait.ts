@@ -1,36 +1,37 @@
-// @ts-nocheck
+import type { Trait, TraitKey } from "../../trait/Trait";
+import type { Unit } from "../../unit/Unit";
 
+export default class NoTrait extends Restriction {
+  trait_key: TraitKey;
 
-setup.qresImpl.NoTrait = class NoTrait extends setup.Restriction {
-  /**
-   * @param {setup.Trait | string} trait 
-   */
-  constructor(trait) {
-    super()
+  constructor(trait: Trait | TraitKey | BuiltinTraitKey) {
+    super();
 
-    this.trait_key = setup.keyOrSelf(trait)
+    this.trait_key = resolveKey(trait as Trait | TraitKey);
   }
 
-  text() {
-    return `setup.qres.NoTrait(setup.trait.${this.trait_key})`
+  override text() {
+    return `setup.qres.NoTrait(setup.trait.${this.trait_key})`;
   }
 
+  override explain() {
+    let trait = setup.trait[this.trait_key];
+    let cover: (Trait | null)[] = [trait];
 
-  explain() {
-    let trait = setup.trait[this.trait_key]
-    let cover = [trait]
-    if (trait.getTraitGroup()) {
-      cover = trait.getTraitGroup().getTraitCover(setup.trait[this.trait_key])
+    const traitgroup = trait.getTraitGroup();
+    if (traitgroup) {
+      cover = traitgroup.getTraitCover(setup.trait[this.trait_key]);
     }
-    let text = ''
-    for (let i = 0; i < cover.length; ++i) {
-      text += cover[i].repNegative()
+
+    let text = "";
+    for (const trait of cover) {
+      text += trait ? trait.repNegative() : "null";
     }
-    return text
+    return text;
   }
 
-  isOk(unit) {
-    let trait = setup.trait[this.trait_key]
-    return !unit.isHasTrait(trait)
+  override isOk(unit: Unit) {
+    let trait = setup.trait[this.trait_key];
+    return !unit.isHasTrait(trait);
   }
 }

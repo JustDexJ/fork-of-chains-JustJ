@@ -1,86 +1,89 @@
-// @ts-nocheck
+import { Equipment } from "../equipment/Equipment";
+import type { EquipmentSlotKey } from "../equipment/EquipmentSlot";
+import {
+  down,
+  type FilterMenu,
+  type FilterMenuOption,
+  type FilterMenuOptions,
+} from "./_filter";
+import { MenuFilterHelper } from "./filterhelper";
 
-import { up, down } from "./AAA_filter"
-import { MenuFilterHelper } from "./filterhelper"
-
-function getEquipmentSlotFilter(equipment_slot_key) {
-  return equipment => equipment.getSlot().key == equipment_slot_key
+function getEquipmentSlotFilter(equipment_slot_key: EquipmentSlotKey) {
+  return (equipment: Equipment) =>
+    equipment.getSlot().key == equipment_slot_key;
 }
 
-function getEquipmentSlotFilters() {
-  const options = []
+function getEquipmentSlotFilters(): FilterMenuOption<Equipment>[] {
+  const options: FilterMenuOption<Equipment>[] = [];
 
   for (const equipment_slot of Object.values(setup.equipmentslot)) {
     options.push({
       title: equipment_slot.getImageRep(),
       filter: getEquipmentSlotFilter(equipment_slot.key),
-    })
+    });
   }
 
-  return options
+  return options;
 }
 
-/**
- * @param {number} skill_key 
- * @returns {Function}
- */
-function getSkillModSort(skill_key) {
-  const skill = setup.skill[skill_key]
-  return (a, b) => b.getSkillMod(skill) - a.getSkillMod(skill)
+function getSkillModSort(skill_key: number) {
+  type T = { getSkillMod(skill: Skill): number };
+
+  const skill = setup.skill[skill_key];
+  return (a: T, b: T) => b.getSkillMod(skill) - a.getSkillMod(skill);
 }
 
 function getSkillModsSort() {
-  const base = {}
+  const base: FilterMenuOptions<Equipment> = {};
 
   for (const skill of setup.skill) {
     base[skill.keyword] = {
       title: skill.getImageRep(),
       sort: getSkillModSort(skill.key),
-      filter: a => a.getSkillMod(skill) > 0,
-    }
+      filter: (a) => a.getSkillMod(skill) > 0,
+    };
   }
-  return base
+  return base;
 }
 
-
-setup.MenuFilter._MENUS.equipment = {
+export const _MENUS_equipment: FilterMenu<Equipment> = {
   sextoy: {
-    title: 'Class',
-    default: 'All',
+    title: "Class",
+    default: "All",
     icon_menu: true,
     options: () => {
       return {
         sex: {
-          title: setup.Equipment.repSexIcon(),
-          filter: equipment => equipment.getTags().includes('sextoy'),
+          title: Equipment.repSexIcon(),
+          filter: (equipment) => equipment.getTags().includes("sextoy"),
         },
         nonsex: {
-          title: setup.Equipment.repNonSexIcon(),
-          filter: equipment => !equipment.getTags().includes('sextoy'),
+          title: Equipment.repNonSexIcon(),
+          filter: (equipment) => !equipment.getTags().includes("sextoy"),
         },
-      }
+      };
     },
   },
   type: {
-    title: 'Type',
-    default: 'All',
+    title: "Type",
+    default: "All",
     icon_menu: true,
     options: getEquipmentSlotFilters,
   },
   rarity: {
-    title: 'Rarity',
-    default: 'All',
+    title: "Rarity",
+    default: "All",
     icon_menu: true,
     options: MenuFilterHelper.rarityFilters,
   },
   sortskill: {
-    title: 'Skill',
-    default: 'All',
+    title: "Skill",
+    default: "All",
     options: getSkillModsSort,
   },
   sort: {
-    title: 'Sort',
-    default: down('Default'),
+    title: "Sort",
+    default: down("Default"),
     options: {
       namedown: MenuFilterHelper.namedown,
       nameup: MenuFilterHelper.nameup,
@@ -90,21 +93,20 @@ setup.MenuFilter._MENUS.equipment = {
       sluttinessup: MenuFilterHelper.sluttinessup,
       raritydown: MenuFilterHelper.raritydown,
       rarityup: MenuFilterHelper.rarityup,
-    }
+    },
   },
   display: {
-    title: 'Display',
-    default: 'Full',
+    title: "Display",
+    default: "Full",
     hardreload: true,
     options: {
       compact: {
-        title: 'Compact',
+        title: "Compact",
       },
-    }
+    },
   },
-}
+};
 
-setup.MenuFilter._MENUS.equipmentmarket = {}
 /*
   availability: {
     title: 'Availability',
@@ -122,20 +124,21 @@ setup.MenuFilter._MENUS.equipmentmarket = {}
 }
 */
 
-setup.MenuFilter._MENUS.equipmentmarket = Object.assign(setup.MenuFilter._MENUS.equipmentmarket, setup.MenuFilter._MENUS.equipment)
-delete setup.MenuFilter._MENUS.equipmentmarket['display']
-
-setup.MenuFilter._MENUS.equipmentmarket['display'] = {
-  title: 'Display',
-  default: 'Full',
-  hardreload: true,
-  // @ts-ignore
-  options: {
-    compact: {
-      title: 'Compact',
+export const _MENUS_equipmentmarket: FilterMenu<Equipment> = {
+  ..._MENUS_equipment,
+  display: {
+    title: "Display",
+    default: "Full",
+    hardreload: true,
+    options: {
+      compact: {
+        title: "Compact",
+      },
     },
-  }
-}
+  },
+};
 
-setup.MenuFilter._MENUS.equipmentattach = Object.assign({}, setup.MenuFilter._MENUS.equipment)
-delete setup.MenuFilter._MENUS.equipmentattach.display
+export const _MENUS_equipmentattach: FilterMenu<Equipment> = {
+  ..._MENUS_equipmentmarket,
+};
+delete _MENUS_equipmentattach.display;

@@ -1,14 +1,10 @@
-// @ts-nocheck
+import type { FilterMenu } from "./_filter";
+import { _MENUS_unit } from "./filter_unit";
 
-import { up, down } from "./AAA_filter"
-import { getJobFilters, getStatusFilters } from "./filter_unit"
-import { MenuFilterHelper } from "./filterhelper"
-import "./filter_unit";
+export const _MENUS_unitquick: FilterMenu<Unit> = {
+  job: _MENUS_unit.job,
+  status: _MENUS_unit.status,
+  sort: { ..._MENUS_unit.sort },
+};
 
-setup.MenuFilter._MENUS.unitquick = {
-  job: setup.MenuFilter._MENUS.unit.job,
-  status: setup.MenuFilter._MENUS.unit.status,
-  sort: Object.assign({}, setup.MenuFilter._MENUS.unit.sort),
-}
-
-delete setup.MenuFilter._MENUS.unitquick.sort.resets
+delete _MENUS_unitquick.sort.resets;

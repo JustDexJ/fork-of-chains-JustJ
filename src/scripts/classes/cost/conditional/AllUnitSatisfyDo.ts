@@ -1,42 +1,40 @@
-// @ts-nocheck
-
-setup.qcImpl.AllUnitSatisfyDo = class AllUnitSatisfyDo extends setup.Cost {
-  /**
-   * @param {setup.Restriction[]} requirement 
-   * @param {setup.Cost[]} dowhat 
-   */
-  constructor(requirement, dowhat) {
-    super()
-
-    this.requirement = requirement
-    this.dowhat = dowhat
+export default class AllUnitSatisfyDo extends Cost {
+  constructor(
+    public requirement: Restriction[],
+    public dowhat: Cost[],
+  ) {
+    super();
   }
 
-  text() {
-    return `setup.qc.AllUnitSatisfyDo([${this.requirement.map(res => res.text()).join(', ')}],\n[${this.dowhat.map(cost => cost.text()).join(', ')}],\n)`
+  override text() {
+    return `setup.qc.AllUnitSatisfyDo([${this.requirement.map((res) => res.text()).join(", ")}],\n[${this.dowhat.map((cost) => cost.text()).join(", ")}],\n)`;
   }
 
-  apply(quest) {
+  override apply(context: CostContext) {
     for (const unit of Object.values(State.variables.unit)) {
       if (setup.RestrictionLib.isUnitSatisfy(unit, this.requirement)) {
-        let name = null
-        if (quest && 'getName' in quest) {
-          name = quest.getName()
+        let name: string | null = null;
+        if (context && "getName" in context) {
+          name = context.getName!();
         }
-        setup.RestrictionLib.applyAll(this.dowhat, setup.costUnitHelperDict({
-          unit: unit
-        }, name))
+        setup.RestrictionLib.applyAll(
+          this.dowhat,
+          setup.costUnitHelperDict(
+            {
+              unit: unit,
+            },
+            name,
+          ),
+        );
       }
     }
   }
 
-  explain(quest) {
-    return `<div class='card livingcard'>For all units that satisfy: ${this.requirement.map(r => r.explain()).join(', ')} <br/> do:
+  override explain(context: CostContext) {
+    return `<div class='card livingcard'>For all units that satisfy: ${this.requirement.map((r) => r.explain()).join(", ")} <br/> do:
       <br/>
-      ${this.dowhat.map(
-      cost => `${cost.explain()}<br/>`
-    ).join('')}
-    </div>`
+      ${this.dowhat.map((cost) => `${cost.explain()}<br/>`).join("")}
+    </div>`;
   }
 
   getLayout() {
@@ -51,9 +49,9 @@ setup.qcImpl.AllUnitSatisfyDo = class AllUnitSatisfyDo extends setup.Cost {
         {
           passage: "CostAllUnitSatisfyDo_ThenHeader",
           addpassage: "QGAddCostUnit",
-          listpath: ".dowhat"
+          listpath: ".dowhat",
         },
-      ]
-    }
+      ],
+    };
   }
 }

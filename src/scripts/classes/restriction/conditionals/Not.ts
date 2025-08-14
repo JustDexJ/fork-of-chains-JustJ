@@ -1,25 +1,18 @@
-// @ts-nocheck
-
-
-setup.qresImpl.Not = class Not extends setup.Restriction {
-  constructor(requirement) {
-    super()
-
-    // true if requirements is false
-
-    this.requirement = requirement
+export default class Not<T = unknown> extends Restriction<T> {
+  constructor(public requirement: Restriction<T>) {
+    super();
   }
 
-  text() {
-    return `setup.qres.Not(${this.requirement.text()})`
+  override text() {
+    return `setup.qres.Not(${this.requirement.text()})`;
   }
 
-  isOk(quest) {
-    return !this.requirement.isOk(quest)
+  override isOk(context: T) {
+    return !this.requirement.isOk(context);
   }
 
-  explain(quest) {
-    return `Must be false: (${this.requirement.explain(quest)})`
+  override explain(context?: T) {
+    return `Must be false: (${this.requirement.explain(context)})`;
   }
 
   getLayout() {
@@ -28,9 +21,9 @@ setup.qresImpl.Not = class Not extends setup.Restriction {
         {
           passage: "RestrictionNotHeader",
           //addpassage: "", // inherit
-          entrypath: ".requirement"
-        }
-      ]
-    }
+          entrypath: ".requirement",
+        },
+      ],
+    };
   }
 }

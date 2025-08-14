@@ -1,31 +1,25 @@
-// @ts-nocheck
-
-
-setup.qresImpl.NoUnitWithTag = class NoUnitWithTag extends setup.Restriction {
-  constructor(tag_name) {
-    super()
-
-    this.tag_name = tag_name
+export default class NoUnitWithTag extends Restriction {
+  constructor(public tag_name: string) {
+    super();
   }
 
-  static NAME = 'Does not exists any unit that has the given tag'
-  static PASSAGE = 'RestrictionNoUnitWithTag'
-  static UNIT = true
+  static NAME = "Does not exists any unit that has the given tag";
+  static PASSAGE = "RestrictionNoUnitWithTag";
+  static UNIT = true;
 
-  text() {
-    return `setup.qres.NoUnitWithTag('${this.tag_name}')`
+  override text() {
+    return `setup.qres.NoUnitWithTag('${this.tag_name}')`;
   }
 
-  explain() {
-    let tagname = this.tag_name
-    return `Must NOT exists any unit (anywhere in the world, not only in your company) with tag/flag: "${tagname}"`
+  override explain() {
+    let tagname = this.tag_name;
+    return `Must NOT exists any unit (anywhere in the world, not only in your company) with tag/flag: "${tagname}"`;
   }
 
-  isOk() {
-    for (let iunitkey in State.variables.unit) {
-      let unit = State.variables.unit[iunitkey]
-      if (unit.isHasTag(this.tag_name)) return false
+  override isOk() {
+    for (const unit of Object.values(State.variables.unit)) {
+      if (unit.isHasTag(this.tag_name)) return false;
     }
-    return true
+    return true;
   }
 }

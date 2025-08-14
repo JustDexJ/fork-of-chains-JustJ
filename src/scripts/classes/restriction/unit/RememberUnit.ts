@@ -1,40 +1,28 @@
-// @ts-nocheck
-
-setup.qresImpl.RememberUnit = class RememberUnit extends setup.Restriction {
+export default class RememberUnit extends Restriction.Unit {
   constructor() {
-    super()
-
+    super();
   }
 
-  text() {
-    return `setup.qres.RememberUnit()`
+  override text() {
+    return `setup.qres.RememberUnit()`;
   }
 
-  explain() {
-    return `Remember this unit (used with setup.qres.BestFriendWithRememberedUnit, setup.qres.CanUseRememberedUnit, and setup.qres.CanBeUsedWithRememberedUnit)`
+  override explain() {
+    return `Remember this unit (used with setup.qres.BestFriendWithRememberedUnit, setup.qres.CanUseRememberedUnit, and setup.qres.CanBeUsedWithRememberedUnit)`;
   }
 
-  /**
-   * @param {setup.Unit} unit 
-   */
-  isOk(unit) {
-    setup.qresImpl.RememberUnit.rememberUnit(unit)
-    return true
+  override isOk(unit: Unit): boolean {
+    setup.qresImpl.RememberUnit.rememberUnit(unit);
+    return true;
   }
 
-  /**
-   * @param {setup.Unit} unit 
-   */
-  static rememberUnit(unit) {
-    State.temporary.remember_unit_rememberedUnit_key = unit.key
+  static rememberUnit(unit: Unit) {
+    State.temporary.remember_unit_rememberedUnit_key = unit.key;
   }
 
-  /**
-   * @returns {setup.Unit}
-   */
-  static getRememberedUnit() {
-    const key = State.temporary.remember_unit_rememberedUnit_key
-    if (!key) throw new Error(`No remembered unit!`)
-    return State.variables.unit[key]
+  static getRememberedUnit(): Unit {
+    const key = State.temporary.remember_unit_rememberedUnit_key;
+    if (!key) throw new Error(`No remembered unit!`);
+    return State.variables.unit[key];
   }
 }

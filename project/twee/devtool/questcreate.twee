@@ -126,11 +126,11 @@
 )>>
 
 """::""" <<= $qpassagedesc >> [nobr]
-<<= setup.devToolFormat($qdesc)>>
+<<= setup.DevToolHelper.devToolFormat($qdesc)>>
 
 <<for _ipo, _po range $qpassageoutcomes>><<if !_ipo || $qoutcomedesc[_ipo].trim()>>
 """::""" <<= _po >> [nobr]
-<<= setup.devToolFormat($qoutcomedesc[_ipo])>>
+<<= setup.DevToolHelper.devToolFormat($qoutcomedesc[_ipo])>>
 
 
 <</if>><</for>>

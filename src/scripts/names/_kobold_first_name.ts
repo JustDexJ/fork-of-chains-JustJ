@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 /* from
 https://www.fantasynamegenerators.com/kobold-names.php
 */
@@ -533,12 +531,10 @@ const nm14 = [
 ];
 
 const br = "";
-export function kobold_gen_name(type) {
-  const tp = type;
-
-  let name;
+export function kobold_gen_name(tp: 1 | 2) {
+  let name = "";
   // male
-  if (tp == 1) {
+  if (tp === 1) {
     let rnd = Math.floor(Math.random() * nm5.length);
     let rnd2 = Math.floor(Math.random() * nm6.length);
     let rnd5 = Math.floor(Math.random() * nm8.length);
@@ -587,12 +583,12 @@ export function kobold_gen_name(type) {
   return setup.capitalize(name);
 }
 
-setup.NAME_kobold_male_first_name = function () {
+export const NAME_kobold_male_first_name = function () {
   // male name
   return kobold_gen_name(/* type = */ 1);
 };
 
-setup.NAME_kobold_female_first_name = function () {
+export const NAME_kobold_female_first_name = function () {
   // male name
   return kobold_gen_name(/* type = */ 2);
 };

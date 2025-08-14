@@ -1,3 +1,4 @@
+// @ts-nocheck
 export function withLineNumbers(highlight, options = {}) {
     const opts = Object.assign({ width: "35px" }, options);
     let lineNumbers;

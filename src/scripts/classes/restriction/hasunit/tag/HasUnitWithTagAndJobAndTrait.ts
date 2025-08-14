@@ -1,31 +1,40 @@
-// @ts-nocheck
+import type { Job, JobKey } from "../../../job/Job";
+import type { TraitKey } from "../../../trait/Trait";
 
+export default class HasUnitWithTagAndJobAndTrait extends Restriction {
+  job_key: JobKey;
+  trait_key: TraitKey;
 
-setup.qresImpl.HasUnitWithTagAndJobAndTrait = class HasUnitWithTagAndJobAndTrait extends setup.Restriction {
-  constructor(tag_name, job, trait) {
-    super()
+  constructor(
+    public tag_name: string,
+    job: Job | JobKey,
+    trait: Trait | TraitKey,
+  ) {
+    super();
 
-    this.job_key = job.key
-    this.tag_name = tag_name
-    this.trait_key = trait.key
+    this.job_key = resolveKey(job);
+    this.trait_key = resolveKey(trait);
   }
 
-  text() {
-    return `setup.qres.HasUnitWithTagAndJobAndTrait('${this.tag_name}', setup.job.${this.job_key}, setup.trait.${this.trait_key})`
+  override text() {
+    return `setup.qres.HasUnitWithTagAndJobAndTrait('${this.tag_name}', setup.job.${this.job_key}, setup.trait.${this.trait_key})`;
   }
 
-  explain() {
-    let tagname = this.tag_name
-    let trait = setup.trait[this.trait_key]
-    return `Must have a unit with job: ${this.job_key} and trait: ${trait.rep()} and tag/flag : "${tagname}"`
+  override explain() {
+    let tagname = this.tag_name;
+    let trait = setup.trait[this.trait_key];
+    return `Must have a unit with job: ${this.job_key} and trait: ${trait.rep()} and tag/flag : "${tagname}"`;
   }
 
-  isOk() {
-    let units = State.variables.company.player.getUnits({job: setup.job[this.job_key]})
-    let trait = setup.trait[this.trait_key]
+  override isOk() {
+    let units = State.variables.company.player.getUnits({
+      job: setup.job[this.job_key],
+    });
+    let trait = setup.trait[this.trait_key];
     for (let i = 0; i < units.length; ++i) {
-      if (units[i].isHasTag(this.tag_name) && units[i].isHasTrait(trait)) return true
+      if (units[i].isHasTag(this.tag_name) && units[i].isHasTrait(trait))
+        return true;
     }
-    return false
+    return false;
   }
 }

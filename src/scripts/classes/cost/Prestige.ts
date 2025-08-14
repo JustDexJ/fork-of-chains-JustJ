@@ -1,35 +1,30 @@
-// @ts-nocheck
-
-
-setup.qcImpl.Prestige = class Prestige extends setup.Cost {
-  constructor(prestige) {
-    super()
-
-    this.prestige = prestige
+export default class Prestige extends Cost {
+  constructor(public prestige: number) {
+    super();
   }
 
-  static NAME = 'Prestige'
-  static PASSAGE = 'CostPrestige'
+  static NAME = "Prestige";
+  static PASSAGE = "CostPrestige";
 
-  text() {
-    return `setup.qc.Prestige(${this.prestige})`
+  override text() {
+    return `setup.qc.Prestige(${this.prestige})`;
   }
 
-  isOk() {
-    if (this.prestige > 0) return true
-    return (State.variables.company.player.getPrestige() >= -this.prestige)
+  override isOk(): boolean {
+    if (this.prestige > 0) return true;
+    return State.variables.company.player.getPrestige() >= -this.prestige;
   }
 
-  apply(quest) {
+  override apply(context: CostContext) {
     // try to apply as best as you can.
-    State.variables.company.player.addPrestige(this.prestige)
+    State.variables.company.player.addPrestige(this.prestige);
   }
 
-  undoApply(quest) {
-    State.variables.company.player.addPrestige(-this.prestige)
+  override undoApply(context: CostContext) {
+    State.variables.company.player.addPrestige(-this.prestige);
   }
 
-  explain() {
-    return `<<prestige ${this.prestige}>>`
+  override explain() {
+    return `<<prestige ${this.prestige}>>`;
   }
 }

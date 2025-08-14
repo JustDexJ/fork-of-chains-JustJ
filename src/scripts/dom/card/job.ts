@@ -1,16 +1,7 @@
-// @ts-nocheck
+import type { Job } from "../../classes/job/Job";
 
-
-/**
- * @param {setup.Job} job 
- * @param {boolean} [hide_actions]
- * @returns {setup.DOM.Node}
- */
-setup.DOM.Card.job = function(job, hide_actions) {
-  return html`
-  <span class='jobcard'>
-    ${job.rep()}
-  </span>
-  `
-}
-
+export default {
+  job(job: Job, hide_actions?: boolean): DOM.Node {
+    return html` <span class="jobcard"> ${job.rep()} </span> `;
+  },
+};

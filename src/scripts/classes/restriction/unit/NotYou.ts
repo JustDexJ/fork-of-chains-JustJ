@@ -1,25 +1,21 @@
-// @ts-nocheck
-
-
-setup.qresImpl.NotYou = class NotYou extends setup.Restriction {
+export default class NotYou extends Restriction.Unit {
   constructor() {
-    super()
-
+    super();
   }
 
-  static NAME = 'Unit cannot be the player character (i.e, cannot be you)'
-  static PASSAGE = 'RestrictionNotYou'
-  static UNIT = true
+  static NAME = "Unit cannot be the player character (i.e, cannot be you)";
+  static PASSAGE = "RestrictionNotYou";
+  static UNIT = true;
 
-  text() {
-    return `setup.qres.NotYou()`
+  override text() {
+    return `setup.qres.NotYou()`;
   }
 
-  explain() {
-    return `Unit cannot be you`
+  override explain() {
+    return `Unit cannot be you`;
   }
 
-  isOk(unit) {
-    return unit != State.variables.unit.player
+  override isOk(unit: Unit): boolean {
+    return unit != State.variables.unit.player;
   }
 }

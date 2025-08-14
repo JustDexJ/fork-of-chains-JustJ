@@ -1,46 +1,32 @@
-// @ts-nocheck
+export default {
+  /**
+   * Returns a node that will be filled with children asynchronously.
+   * <<foctimed>>
+   */
+  async(callback: () => DOM.Node, transition?: boolean): DOM.Node {
+    if (State.temporary.foctimed_is_tooltip) {
+      return setup.DOM.create("span", {}, callback());
+    }
 
- /**
-  * Returns a node that will be filled with children asynchronously.
-  * <<foctimed>>
-  * 
-  * @callback nodeCallback
-  * @returns {setup.DOM.Node}
-  * 
-  * @param {nodeCallback} callback
-  * @param {boolean} [transition]
-  * @returns {setup.DOM.Node}
-  */
-setup.DOM.Util.async = function(callback, transition) {
+    let eleclass = "";
+    if (transition) {
+      eleclass = "macro-timed-insert macro-timed-in";
+    }
 
-  if (State.temporary.foctimed_is_tooltip) {
-    return setup.DOM.create(
-      'span',
-      {},
-      callback(),
-    )
-  }
+    const element = setup.DOM.create("span", { class: eleclass }, []);
 
-  let eleclass = ''
-  if (transition) {
-    eleclass = 'macro-timed-insert macro-timed-in'
-  }
+    setTimeout(() => {
+      const node = callback();
+      element.append(node);
+    }, 1);
 
-  const element = setup.DOM.create(
-    'span',
-    {class: eleclass},
-    [],
-  )
+    if (transition) {
+      setTimeout(
+        () => $(element).removeClass("macro-timed-in"),
+        (Engine as any).minDomActionDelay,
+      );
+    }
 
-  setTimeout(() => {
-    const node = callback()
-    element.append(node)
-  }, 1)
-
-  if (transition) {
-    setTimeout(() => $(element).removeClass('macro-timed-in'), Engine.minDomActionDelay);
-  }
-
-  return element
-}
-
+    return element;
+  },
+};

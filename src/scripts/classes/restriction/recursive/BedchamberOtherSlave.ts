@@ -1,30 +1,25 @@
-// @ts-nocheck
-
-
-setup.qresImpl.BedchamberOtherSlave = class BedchamberOtherSlave extends setup.Restriction {
-  constructor(restriction) {
-    super()
-
-    this.restriction = restriction
+export default class BedchamberOtherSlave extends Restriction.Unit {
+  constructor(public restriction: Restriction) {
+    super();
   }
 
-  text() {
-    return `setup.qres.BedchamberOtherSlave(${this.restriction.text()})`
+  override text() {
+    return `setup.qres.BedchamberOtherSlave(${this.restriction.text()})`;
   }
 
-  explain(quest) {
-    return `The other slave in bedchamber satisfies: (${this.restriction.explain(quest)})`
+  override explain(context?: unknown) {
+    return `The other slave in bedchamber satisfies: (${this.restriction.explain(context)})`;
   }
 
-  isOk(unit) {
-    if (!unit.isSlave()) return false
-    let bedchamber = unit.getBedchamber()
-    if (!bedchamber) return false
-    let slaves = bedchamber.getSlaves()
-    if (slaves.length < 2) return false
-    let targ = slaves[0]
-    if (targ == unit) targ = slaves[1]
-    return this.restriction.isOk(targ)
+  override isOk(unit: Unit): boolean {
+    if (!unit.isSlave()) return false;
+    let bedchamber = unit.getBedchamber();
+    if (!bedchamber) return false;
+    let slaves = bedchamber.getSlaves();
+    if (slaves.length < 2) return false;
+    let targ = slaves[0];
+    if (targ == unit) targ = slaves[1];
+    return this.restriction.isOk(targ);
   }
 
   getLayout() {
@@ -34,9 +29,9 @@ setup.qresImpl.BedchamberOtherSlave = class BedchamberOtherSlave extends setup.R
         {
           passage: "RestrictionBedchamberOtherSlaveHeader",
           addpassage: "QGAddRestrictionUnit",
-          entrypath: ".restriction"
-        }
-      ]
-    }
+          entrypath: ".restriction",
+        },
+      ],
+    };
   }
 }

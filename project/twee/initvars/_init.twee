@@ -2,7 +2,6 @@
 <<include 'GameVersion'>>
 
 <<run Config.history.maxStates = 3>>
-<<set setup.INFINITY = 999999999999>>
 
 <<set Save.onSave.add(setup.onSave)>>
 <<set Save.onLoad.add(setup.onLoad)>>
@@ -30,10 +29,6 @@
     }
   };
 <</script>>
-
-<<run setup.Cost.initConstructors()>>
-<<run setup.Restriction.initConstructors()>>
-<<run setup.SlaveOrderAddonBase.initConstructors()>>
 
 <<include InitSkills>>
 <<include InitTraits>>

@@ -1,9 +1,8 @@
-
 /* from
 https://github.com/cmho/belfnames/blob/master/nelves.rb
 */
 
-setup.NAME_elf_surname = function () {
+export const NAME_elf_surname = function () {
   const firstpart = [
     "Amber",
     "Auror",
@@ -123,8 +122,9 @@ setup.NAME_elf_surname = function () {
     "Winter",
     "Wish",
     "Wolf",
-    "Wood", ,
-  ]
+    "Wood",
+    ,
+  ];
   const secondpart = [
     "blaze",
     "bloom",
@@ -252,8 +252,8 @@ setup.NAME_elf_surname = function () {
     "wing",
     "wisp",
     "wood",
-  ]
-  let firstrand = setup.rng.choice(firstpart)
-  let secondrand = setup.rng.choice(secondpart)
-  return `${firstrand}${secondrand}`
-}
+  ];
+  let firstrand = setup.rng.choice(firstpart);
+  let secondrand = setup.rng.choice(secondpart);
+  return `${firstrand}${secondrand}`;
+};

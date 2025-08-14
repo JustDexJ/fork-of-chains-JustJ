@@ -48,8 +48,7 @@ setup.rarity.rare, /* Rarity */
 </p>
 
 <<choose>>
-<<opt "Punish <<their $g.slave>>
-    ass for insolence">>
+<<opt "Punish <<their $g.slave>> ass for insolence">>
 
     <p>
         You inform <<them $g.slave>> sternly that you will ensure that <<they $g.slave>> is not permanently damaged, and that otherwise, <<they $g.slave>> is to take anal pain like a good buttslave. <<They $g.slave>> starts to beg and whine as you lean back in a chair and
@@ -63,8 +62,7 @@ setup.rarity.rare, /* Rarity */
 
     <<run setup.qc.FriendshipWithYou('slave', -50).apply($gQuest)>>
 
-<<opt "Give <<their $g.slave>>
-    some care">>
+<<opt "Give <<their $g.slave>> some care">>
 
     <p>
         <<They $g.slave>>'s filled with anxiety as you lay <<them $g.slave>> face down on a nearby bench, but is surprised and reassured when <<they $g.slave>>'s penetrated not by a

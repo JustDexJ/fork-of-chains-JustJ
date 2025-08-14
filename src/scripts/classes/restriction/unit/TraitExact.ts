@@ -1,29 +1,27 @@
-// @ts-nocheck
+export default class TraitExact extends Restriction.Unit {
+  trait_key: TraitKey;
 
+  constructor(public trait: Trait | TraitKey) {
+    super();
 
-setup.qresImpl.TraitExact = class TraitExact extends setup.Restriction {
-  constructor(trait) {
-    super()
-
-    this.trait_key = trait.key
+    this.trait_key = resolveKey(trait);
   }
 
-  static NAME = 'Has a trait (exact)'
-  static PASSAGE = 'RestrictionTraitExact'
-  static UNIT = true
+  static NAME = "Has a trait (exact)";
+  static PASSAGE = "RestrictionTraitExact";
+  static UNIT = true;
 
-  text() {
-    return `setup.qres.TraitExact(setup.trait.${this.trait_key})`
+  override text() {
+    return `setup.qres.TraitExact(setup.trait.${this.trait_key})`;
   }
 
-
-  explain() {
-    let trait = setup.trait[this.trait_key]
-    return trait.rep()
+  override explain() {
+    let trait = setup.trait[this.trait_key];
+    return trait.rep();
   }
 
-  isOk(unit) {
-    let trait = setup.trait[this.trait_key]
-    return unit.isHasTraitExact(trait)
+  override isOk(unit: Unit): boolean {
+    let trait = setup.trait[this.trait_key];
+    return unit.isHasTraitExact(trait);
   }
 }

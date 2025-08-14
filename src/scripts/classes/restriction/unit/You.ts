@@ -1,20 +1,17 @@
-// @ts-nocheck
-
-
-setup.qresImpl.You = class You extends setup.Restriction {
+export default class You extends Restriction.Unit {
   constructor() {
-    super()
+    super();
   }
 
-  text() {
-    return `setup.qres.You()`
+  override text() {
+    return `setup.qres.You()`;
   }
 
-  explain() {
-    return `Unit must be you`
+  override explain() {
+    return `Unit must be you`;
   }
 
-  isOk(unit) {
-    return unit == State.variables.unit.player
+  override isOk(unit: Unit): boolean {
+    return unit == State.variables.unit.player;
   }
 }

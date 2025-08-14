@@ -1,33 +1,31 @@
-// @ts-nocheck
+import type { ContactTemplateKey } from "../contact/ContactTemplate";
 
-setup.qcImpl.ContactLose = class ContactLose extends setup.Cost {
-  /**
-   * 
-   * @param {setup.ContactTemplate | string} contacttemplate 
-   */
-  constructor(contacttemplate) {
-    super()
+export default class ContactLose extends Cost {
+  contacttemplate_key: ContactTemplateKey;
 
-    this.contacttemplate_key = setup.keyOrSelf(contacttemplate)
+  constructor(contacttemplate: ContactTemplateKey | ContactTemplateKey) {
+    super();
+
+    this.contacttemplate_key = resolveKey(contacttemplate);
   }
 
-  text() {
-    return `setup.qc.ContactLose(setup.contacttemplate.${this.contacttemplate_key})`
+  override text() {
+    return `setup.qc.ContactLose(setup.contacttemplate.${this.contacttemplate_key})`;
   }
 
   getTemplate() {
-    return setup.contacttemplate[this.contacttemplate_key]
+    return setup.contacttemplate[this.contacttemplate_key];
   }
 
-  apply(quest) {
-    const template = setup.contacttemplate[this.contacttemplate_key]
-    const contacts = State.variables.contactlist.getContacts(template)
+  override apply(context: CostContext) {
+    const template = setup.contacttemplate[this.contacttemplate_key];
+    const contacts = State.variables.contactlist.getContacts(template);
     for (const contact of contacts) {
-      State.variables.contactlist.removeContact(contact)
+      State.variables.contactlist.removeContact(contact);
     }
   }
 
-  explain() {
-    return `Lose contact: ${this.getTemplate().rep()}`
+  override explain() {
+    return `Lose contact: ${this.getTemplate().rep()}`;
   }
 }

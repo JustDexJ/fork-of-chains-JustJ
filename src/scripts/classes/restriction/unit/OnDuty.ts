@@ -1,28 +1,24 @@
-// @ts-nocheck
+import type { DutyTemplate, DutyTemplateKey } from "../../duty/DutyTemplate";
 
-setup.qresImpl.OnDuty = class OnDuty extends setup.Restriction {
-  /**
-   * @param {string | setup.DutyTemplate} duty_template 
-   */
-  constructor(duty_template) {
-    super()
+export default class OnDuty extends Restriction.Unit {
+  duty_template_key: DutyTemplateKey;
 
-    this.duty_template_key = setup.keyOrSelf(duty_template)
+  constructor(duty_template: DutyTemplate | DutyTemplateKey) {
+    super();
+
+    this.duty_template_key = resolveKey(duty_template);
   }
 
-  text() {
-    return `setup.qres.OnDuty('${this.duty_template_key}')`
+  override text() {
+    return `setup.qres.OnDuty('${this.duty_template_key}')`;
   }
 
-  explain() {
-    return `Unit must be on duty: ${setup.dutytemplate[this.duty_template_key].getName()}`
+  override explain() {
+    return `Unit must be on duty: ${setup.dutytemplate[this.duty_template_key].getName()}`;
   }
 
-  /**
-   * @param {setup.Unit} unit 
-   */
-  isOk(unit) {
-    const duty = unit.getDuty()
-    return duty && duty.getTemplate().key == this.duty_template_key
+  override isOk(unit: Unit): boolean {
+    const duty = unit.getDuty();
+    return !!duty && duty.getTemplate().key == this.duty_template_key;
   }
 }

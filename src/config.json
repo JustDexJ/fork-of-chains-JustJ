@@ -1,6 +1,6 @@
 {
-    "directories": {
-        "user-js": "./src/scripts/**/*.{js,jsx}",
-        "user-css": "./src/styles/**/*.css"
-    }
+  "directories": {
+    "user-js": "./src/scripts/**/*.{js,jsx,ts,tsx}",
+    "user-css": "./src/styles/**/*.css"
+  }
 }

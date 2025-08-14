@@ -1,27 +1,22 @@
-// @ts-nocheck
+import type { SexBodypart } from "../../bodypart/SexBodypart";
 
-setup.qresImpl.SexIsOngoingWithAnyone = class SexIsOngoingWithAnyone extends setup.SexRestriction {
-  /**
-   * @param {setup.SexBodypart} my_bodypart 
-   * @param {setup.SexBodypart} their_bodypart 
-   */
-  constructor(my_bodypart, their_bodypart) {
-    super()
-    this.my_bodypart = my_bodypart
-    this.their_bodypart = their_bodypart
+export default class SexIsOngoingWithAnyone extends SexRestriction {
+  constructor(
+    public my_bodypart: SexBodypart,
+    public their_bodypart: SexBodypart,
+  ) {
+    super();
   }
 
-  explain() {
-    return `${this.my_bodypart.repsimple()} is penetrating ${this.their_bodypart.repsimple()}`
+  override explain() {
+    return `${this.my_bodypart.repsimple()} is penetrating ${this.their_bodypart.repsimple()}`;
   }
 
-  /**
-   * @param {setup.Unit} unit
-   */
-  isOk(unit) {
-    const target = this.sex.getBodypartPenetrationTarget(unit, this.my_bodypart)
-    return target && target.bodypart == this.their_bodypart
+  override isOk(unit: Unit) {
+    const target = this.sex.getBodypartPenetrationTarget(
+      unit,
+      this.my_bodypart,
+    );
+    return !!target && target.bodypart == this.their_bodypart;
   }
 }
-
-

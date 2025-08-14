@@ -1,18 +1,18 @@
 
 
 :: InitCodeEditorWidgets [nobr widget]
- 
+
  <!-- Used for tooltips for macro info -->
 <<focwidget 'devmacroinfo'>>
   <<set _macroname = $args[0]>>
-  <<set _meta = setup.getMacroMetadata(_macroname)>>
+  <<set _meta = setup.MacroUtil.getMetadata(_macroname)>>
   <header style="margin: 6px 0; padding-left: 4px">
-    <<set _aliases = setup.getMacroAliases(_macroname).join(' / ')>>
+    <<set _aliases = setup.MacroUtil.getAliases(_macroname).join(' / ')>>
     <b><<= _aliases >></b>
     &nbsp;
     <small>(macro)</small>
   </header>
-  <<if _meta>>
+  <<if _meta && !_meta.internal>>
     <<= _meta.info >>
     <<if _meta.args>>
       <<set _overloads = Array.isArray(_meta.args[0]) ? _meta.args : [_meta.args]>>
@@ -26,7 +26,7 @@
         </div>
       <</for>>
     <</if>>
-  <<elseif _meta === null>>
+  <<elseif _meta === null || (_meta && _meta.internal)>>
     This macro is for internal use only
   <<else>>
     No info available
@@ -58,7 +58,7 @@
 
     <<default>>
       [Preview not supported for this content]
-  
+
   <</switch>>
 <</focwidget>>
 

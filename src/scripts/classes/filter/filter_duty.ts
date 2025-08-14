@@ -1,131 +1,141 @@
-// @ts-nocheck
+import { DutyInstance } from "../duty/DutyInstance";
+import "../duty/DutyTemplate";
+import { DutyTemplate, type DutyTemplateType } from "../duty/DutyTemplate";
+import type { JobKey } from "../job/Job";
+import { down, up, type FilterMenu, type FilterMenuOptions } from "./_filter";
+import { MenuFilterHelper } from "./filterhelper";
 
-import { up, down } from "./AAA_filter"
-import { MenuFilterHelper } from "./filterhelper"
-import "../duty/dutytemplate";
-
-function getDutyTypeFilter(type_key) {
-  return duty => duty.getTemplate().getType() == type_key
+function getDutyTypeFilter(type_key: DutyTemplateType) {
+  return (duty: DutyInstance) => duty.getTemplate().getType() == type_key;
 }
 
 function getDutyTypeFilters() {
-  const base = {}
-  for (const type_key in setup.DutyTemplate.TYPE) {
+  const base: FilterMenuOptions<DutyInstance> = {};
+  for (const type_key of objectKeys(DutyTemplate.TYPE)) {
     base[type_key] = {
-      title: setup.DutyTemplate.getTypeRep(type_key),
+      title: DutyTemplate.getTypeRep(type_key),
       filter: getDutyTypeFilter(type_key),
-    }
+    };
   }
-  return base
+  return base;
 }
 
-function getJobFilter(job_key) {
-  return (duty) => duty.getTemplate().getEligibleJobs().includes(setup.job[job_key])
+function getJobFilter(job_key: JobKey) {
+  return (duty: DutyInstance) =>
+    duty.getTemplate().getEligibleJobs().includes(setup.job[job_key]);
 }
 
 function getJobFilters() {
-  const base = {}
-  for (const job_key in setup.job) {
+  const base: FilterMenuOptions<DutyInstance> = {};
+  for (const [job_key, job] of objectEntries(setup.job)) {
     base[job_key] = {
       title: setup.job[job_key].rep(),
       filter: getJobFilter(job_key),
-    }
+    };
   }
-  return base
+  return base;
 }
 
-setup.MenuFilter._MENUS.duty = {
+export const _MENUS_duty: FilterMenu<DutyInstance> = {
   job: {
-    title: 'Job',
-    default: 'All',
+    title: "Job",
+    default: "All",
     icon_menu: true,
     options: getJobFilters,
   },
   type: {
-    title: 'Type',
-    default: 'All',
+    title: "Type",
+    default: "All",
     icon_menu: true,
     options: getDutyTypeFilters,
   },
   status: {
-    title: 'Status',
-    default: 'All',
+    title: "Status",
+    default: "All",
     options: {
       assigned: {
-        title: 'Assigned',
-        filter: duty => duty.getAssignedUnit(),
+        title: "Assigned",
+        filter: (duty) => !!duty.getAssignedUnit(),
       },
       active: {
-        title: 'Active',
-        filter: duty => duty.isActive(),
+        title: "Active",
+        filter: (duty) => duty.isActive(),
       },
       replaced: {
-        title: 'Replacement active',
-        filter: duty => duty.isSpecialistActive(),
+        title: "Replacement active",
+        filter: (duty) => duty.isSpecialistActive(),
       },
       busy: {
-        title: 'Inactive',
-        filter: duty => duty.getAssignedUnit() && !duty.isActive(),
+        title: "Inactive",
+        filter: (duty) => !!duty.getAssignedUnit() && !duty.isActive(),
       },
       inactive: {
-        title: 'Inactive or empty',
-        filter: duty => !duty.isActive(),
+        title: "Inactive or empty",
+        filter: (duty) => !duty.isActive(),
       },
       empty: {
-        title: 'Empty',
-        filter: duty => !duty.getAssignedUnit(),
+        title: "Empty",
+        filter: (duty) => !duty.getAssignedUnit(),
       },
     },
   },
   other: {
-    title: 'Others',
-    default: 'All',
+    title: "Others",
+    default: "All",
     options: {
       autoassign_quest_yes: {
-        title: 'Pickable by auto-assign quest',
-        filter: duty => duty.isCanGoOnQuestsAuto(),
+        title: "Pickable by auto-assign quest",
+        filter: (duty) => duty.isCanGoOnQuestsAuto(),
       },
       autoassign_quest_no: {
-        title: 'Not pickable by auto-assign quest',
-        filter: duty => !duty.isCanGoOnQuestsAuto(),
+        title: "Not pickable by auto-assign quest",
+        filter: (duty) => !duty.isCanGoOnQuestsAuto(),
       },
       specialist_quest_yes: {
-        title: 'Replacement specialist enabled',
-        filter: duty => duty.isSpecialistEnabled(),
+        title: "Replacement specialist enabled",
+        filter: (duty) => duty.isSpecialistEnabled(),
       },
       specialist_quest_no: {
-        title: 'Replacement specialist disabled',
-        filter: duty => duty.getTemplate().isCanReplaceWithSpecialist() && !duty.isSpecialistEnabled(),
+        title: "Replacement specialist disabled",
+        filter: (duty) =>
+          duty.getTemplate().isCanReplaceWithSpecialist() &&
+          !duty.isSpecialistEnabled(),
       },
     },
   },
   sort: {
-    title: 'Sort',
-    default: down('Default'),
+    title: "Sort",
+    default: down("Default"),
     options: {
       namedown: MenuFilterHelper.namedown,
       nameup: MenuFilterHelper.nameup,
       triggerup: {
-        title: up('Trigger chance'),
-        sort: setup.DutyInstance.DutyChanceCmpGen(setup.DutyTemplate.HAS_TRIGGER_CHANCE, /* reverse = */ true),
+        title: up("Trigger chance"),
+        sort: DutyInstance.DutyChanceCmpGen(
+          DutyTemplate.HAS_TRIGGER_CHANCE,
+          /* reverse = */ true,
+        ),
       },
       prestigeup: {
-        title: up('Prestige'),
-        sort: setup.DutyInstance.DutyChanceCmpGen(setup.DutyTemplate.HAS_PRESTIGE, /* reverse = */ true),
+        title: up("Prestige"),
+        sort: DutyInstance.DutyChanceCmpGen(
+          DutyTemplate.HAS_PRESTIGE,
+          /* reverse = */ true,
+        ),
       },
-    }
+    },
   },
   display: {
-    title: 'Display',
-    default: 'Full',
+    title: "Display",
+    default: "Full",
     hardreload: true,
     options: {
       shortened: {
-        title: 'Shortened',
+        title: "Shortened",
       },
       compact: {
-        title: 'Compact',
+        title: "Compact",
       },
-    }
+    },
   },
-}
+};

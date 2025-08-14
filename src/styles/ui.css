@@ -67,19 +67,23 @@ button.selected {
   */
   --ui-bar-width: 17.5em;
   --right-ui-bar-width: 17.5em;
-  min-width: calc(100vw - var(--ui-bar-width) - var(--right-ui-bar-width) - 4em);
-  margin-left: calc((100vw - 100% - var(--ui-bar-width) - var(--right-ui-bar-width) - 4em)/-2);
+  min-width: calc(
+    100vw - var(--ui-bar-width) - var(--right-ui-bar-width) - 4em
+  );
+  margin-left: calc(
+    (100vw - 100% - var(--ui-bar-width) - var(--right-ui-bar-width) - 4em) / -2
+  );
 }
 
-#ui-bar.stowed+#story .overflow-story-container {
+#ui-bar.stowed + #story .overflow-story-container {
   --ui-bar-width: 2em;
 }
 
-#right-ui-bar.stowed+#story .overflow-story-container {
+#right-ui-bar.stowed + #story .overflow-story-container {
   --right-ui-bar-width: 2em;
 }
 
-.button-full-container>button {
+.button-full-container > button {
   width: 100%;
 }
 

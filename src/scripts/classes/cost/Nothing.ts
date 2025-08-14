@@ -1,27 +1,21 @@
-// @ts-nocheck
-
-
-setup.qcImpl.Nothing = class Nothing extends setup.Cost {
+export default class Nothing extends Cost {
   constructor() {
-    super()
-
+    super();
   }
 
-  text() {
-    return 'setup.qc.Nothing()'
+  override text() {
+    return "setup.qc.Nothing()";
   }
 
-  isOk() {
-    throw new Error(`Nothing not a cost`)
+  override isOk(): boolean {
+    throw new Error(`"Nothing" cannot be used as a cost`);
   }
 
-  apply(quest) {
-  }
+  override apply(context: CostContext) {}
 
-  undoApply() {
-  }
+  override undoApply() {}
 
-  explain() {
-    return `Nothing happened.`
+  override explain() {
+    return `Nothing happened.`;
   }
 }

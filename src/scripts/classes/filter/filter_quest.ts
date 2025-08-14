@@ -1,99 +1,101 @@
-// @ts-nocheck
+import { down, up, type FilterMenu, type FilterMenuOptions } from "./_filter";
+import { MenuFilterHelper } from "./filterhelper";
 
-import { up, down } from "./AAA_filter"
-import { MenuFilterHelper } from "./filterhelper"
-
-function getQuestTagFilter(tag) {
-  return quest => quest.getTemplate().getTags().includes(tag)
+function getQuestTagFilter(tag: string) {
+  return (quest: QuestInstance) => quest.getTemplate().getTags().includes(tag);
 }
 
-function getQuestTagFilters(tag_type) {
+function getQuestTagFilters(tag_type: string) {
   return () => {
-    const base = {}
-    for (const tag of setup.TagHelper.getAllTagsOfType('quest', tag_type)) {
+    const base: FilterMenuOptions<QuestInstance> = {};
+    for (const tag of setup.TagHelper.getAllTagsOfType("quest", tag_type)) {
       base[tag] = {
-        title: setup.TagHelper.tagRep('quest', tag, /* force = */ true),
+        title: setup.TagHelper.tagRep("quest", tag, /* force = */ true),
         filter: getQuestTagFilter(tag),
-      }
+      };
     }
-    return base
-  }
+    return base;
+  };
 }
 
-setup.MenuFilter._MENUS.quest = {
+export const _MENUS_quest: FilterMenu<QuestInstance> = {
   tag_rarity: {
-    title: 'Rarity',
-    default: 'All',
+    title: "Rarity",
+    default: "All",
     icon_menu: true,
-    options: getQuestTagFilters('rarity'),
+    options: getQuestTagFilters("rarity"),
   },
   tag_region: {
-    title: 'Region',
-    default: 'All',
+    title: "Region",
+    default: "All",
     icon_menu: true,
-    options: getQuestTagFilters('region'),
+    options: getQuestTagFilters("region"),
   },
   tag_type: {
-    title: 'Type',
-    default: 'All',
+    title: "Type",
+    default: "All",
     icon_menu: true,
-    options: getQuestTagFilters('type'),
+    options: getQuestTagFilters("type"),
   },
   tag_reward: {
-    title: 'Reward',
-    default: 'All',
+    title: "Reward",
+    default: "All",
     icon_menu: true,
-    options: getQuestTagFilters('reward'),
+    options: getQuestTagFilters("reward"),
   },
 
   status: {
-    title: 'Status',
-    default: 'All',
+    title: "Status",
+    default: "All",
     options: {
       assigned: {
-        title: 'Assigned',
-        filter: quest => quest.getTeam(),
+        title: "Assigned",
+        filter: (quest) => !!quest.getTeam(),
       },
       free: {
-        title: 'Free',
-        filter: quest => !quest.getTeam(),
+        title: "Free",
+        filter: (quest) => !quest.getTeam(),
       },
     },
   },
   history: {
-    title: 'History',
-    default: 'All',
+    title: "History",
+    default: "All",
     options: {
       new: {
-        title: 'New',
-        filter: quest => !State.variables.statistics.isHasSuccess(quest.getTemplate()),
+        title: "New",
+        filter: (quest) =>
+          !State.variables.statistics.isHasSuccess(quest.getTemplate()),
       },
       free: {
-        title: 'Cleared',
-        filter: quest => State.variables.statistics.isHasSuccess(quest.getTemplate()),
+        title: "Cleared",
+        filter: (quest) =>
+          State.variables.statistics.isHasSuccess(quest.getTemplate()),
       },
     },
   },
   ignored: {
-    title: 'Ignored',
-    default: 'Hide',
-    default_filter: quest => !State.variables.company.player.isIgnored(quest.getTemplate()),
+    title: "Ignored",
+    default: "Hide",
+    default_filter: (quest) =>
+      !State.variables.company.player.isIgnored(quest.getTemplate()),
     options: {
       show: {
-        title: 'Show',
+        title: "Show",
       },
       ignoredonly: {
-        title: 'Ignored only',
-        filter: quest => State.variables.company.player.isIgnored(quest.getTemplate()),
+        title: "Ignored only",
+        filter: (quest) =>
+          State.variables.company.player.isIgnored(quest.getTemplate()),
       },
     },
   },
   sort: {
-    title: 'Sort',
-    default: down('Obtained'),
+    title: "Sort",
+    default: down("Obtained"),
     options: {
       obtainedup: {
-        title: up('Obtained'),
+        title: up("Obtained"),
         sort: (a, b) => b.key - a.key,
       },
 
@@ -101,51 +103,51 @@ setup.MenuFilter._MENUS.quest = {
       levelup: MenuFilterHelper.templatelevelup,
 
       expiresdown: {
-        title: down('Expires'),
+        title: down("Expires"),
         sort: (a, b) => a.getWeeksUntilExpired() - b.getWeeksUntilExpired(),
       },
       expiresup: {
-        title: up('Expires'),
+        title: up("Expires"),
         sort: (a, b) => b.getWeeksUntilExpired() - a.getWeeksUntilExpired(),
       },
 
       weeksdown: {
-        title: down('Weeks'),
+        title: down("Weeks"),
         sort: (a, b) => a.getTemplate().getWeeks() - b.getTemplate().getWeeks(),
       },
       weeksup: {
-        title: up('Weeks'),
+        title: up("Weeks"),
         sort: (a, b) => b.getTemplate().getWeeks() - a.getTemplate().getWeeks(),
       },
 
       namedown: MenuFilterHelper.namedown,
       nameup: MenuFilterHelper.nameup,
-    }
+    },
   },
   display: {
-    title: 'Display',
-    default: 'Full',
+    title: "Display",
+    default: "Full",
     hardreload: true,
     options: {
       short: {
-        title: 'Short',
+        title: "Short",
       },
       compact: {
-        title: 'Compact',
+        title: "Compact",
       },
     },
   },
   text: {
-    title: 'Story',
-    default: 'Full',
+    title: "Story",
+    default: "Full",
     hardreload: true,
     options: {
       new: {
-        title: 'New only',
+        title: "New only",
       },
       hidden: {
-        title: 'Hidden',
+        title: "Hidden",
       },
     },
   },
-}
+};

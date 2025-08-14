@@ -1,22 +1,17 @@
-// @ts-nocheck
-
-setup.qresImpl.YourBestFriend = class YourBestFriend extends setup.Restriction {
+export default class YourBestFriend extends Restriction.Unit {
   constructor() {
-    super()
+    super();
   }
 
-  text() {
-    return `setup.qres.YourBestFriend()`
+  override text() {
+    return `setup.qres.YourBestFriend()`;
   }
 
-  explain() {
-    return `Unit must be your best friend` 
+  override explain() {
+    return `Unit must be your best friend`;
   }
 
-  /**
-   * @param {setup.Unit} unit 
-   */
-  isOk(unit) {
-    return unit.getBestFriend()?.isYou()
+  override isOk(unit: Unit): boolean {
+    return !!unit.getBestFriend()?.isYou();
   }
 }

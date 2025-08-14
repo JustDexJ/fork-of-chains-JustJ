@@ -1,36 +1,29 @@
-// @ts-nocheck
+import type { Equipment, EquipmentKey } from "../../equipment/Equipment";
 
-setup.qresImpl.Equipped = class Equipped extends setup.Restriction {
-  /**
-   * @param {setup.Equipment} equipment 
-   */
-  constructor(equipment) {
-    super()
+export default class Equipped extends Restriction.Unit {
+  equipment_key: EquipmentKey;
 
-    if (!equipment) throw new Error(`Equipment null in Equipped`)
-    this.equipment_key = setup.keyOrSelf(equipment)
+  constructor(equipment: Equipment) {
+    super();
+
+    if (!equipment) throw new Error(`Equipment null in Equipped`);
+    this.equipment_key = resolveKey(equipment);
   }
 
-  /**
-   * @returns {setup.Equipment}
-   */
-  getEquipment() {
-    return setup.equipment[this.equipment_key]
+  getEquipment(): Equipment {
+    return setup.equipment[this.equipment_key];
   }
 
-  text() {
-    return `setup.qres.Equipped('${this.equipment_key}')`
+  override text() {
+    return `setup.qres.Equipped('${this.equipment_key}')`;
   }
 
-  explain() {
-    return `equips ${this.getEquipment().rep()}`
+  override explain() {
+    return `equips ${this.getEquipment().rep()}`;
   }
 
-  /**
-   * @param {setup.Unit} unit 
-   */
-  isOk(unit) {
-    const equipment = this.getEquipment()
-    return unit.getEquipmentAt(equipment.getSlot()) == equipment
+  override isOk(unit: Unit): boolean {
+    const equipment = this.getEquipment();
+    return unit.getEquipmentAt(equipment.getSlot()) == equipment;
   }
 }

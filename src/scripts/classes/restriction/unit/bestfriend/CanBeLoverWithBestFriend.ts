@@ -1,24 +1,19 @@
-// @ts-nocheck
-
-setup.qresImpl.CanBeLoverWithBestFriend = class CanBeLoverWithBestFriend extends setup.Restriction {
+export default class CanBeLoverWithBestFriend extends Restriction.Unit {
   constructor() {
-    super()
+    super();
   }
 
-  text() {
-    return `setup.qres.CanBeLoverWithBestFriend()`
+  override text() {
+    return `setup.qres.CanBeLoverWithBestFriend()`;
   }
 
-  explain() {
-    return `Can become lover with their best friend`
+  override explain() {
+    return `Can become lover with their best friend`;
   }
 
-  /**
-   * @param {setup.Unit} unit 
-   */
-  isOk(unit) {
-    const bf = unit.getBestFriend()
-    if (!bf) return false
-    return State.variables.friendship.isCanBecomeLovers(unit, bf)
+  override isOk(unit: Unit): boolean {
+    const bf = unit.getBestFriend();
+    if (!bf) return false;
+    return State.variables.friendship.isCanBecomeLovers(unit, bf);
   }
 }

@@ -1,44 +1,46 @@
-// @ts-nocheck
+import type { QuestDifficultyKey } from "../../quest/QuestDifficulty";
+import Money from "./Money";
 
-
-// give a fixed amount of money scaled according to the quest difficulty.
-
-import { ContentTemplate } from "../../content/ContentTemplate"
-
-// eg.., 1500g is 1500g for lv40 quest, but becomes 600g for lv1 quest.
-setup.qcImpl.MoneyCustom = class MoneyCustom extends setup.qcImpl.Money {
-  constructor(money) {
-    super(money)
+/**
+ * Give a fixed amount of money scaled according to the quest difficulty.
+ *
+ * e.g. 1500g is 1500g for lv40 quest, but becomes 600g for lv1 quest.
+ */
+export default class MoneyCustom extends Money {
+  constructor(money: number) {
+    super(money);
   }
 
-  static NAME = 'Gain Money'
-  static PASSAGE = 'CostMoneyCustom'
+  static NAME = "Gain Money";
+  static PASSAGE = "CostMoneyCustom";
 
-  text() {
-    return `setup.qc.MoneyCustom(${this.money})`
+  override text() {
+    return `setup.qc.MoneyCustom(${this.money})`;
   }
 
-  explain(quest) {
-    if (quest) {
-      return super.explain(quest)
+  override explain(context: CostContext) {
+    if (context) {
+      return super.explain(context);
     } else {
-      return `Scaled money: ${setup.DOM.toString(setup.DOM.Util.money(this.money))}`
+      return `Scaled money: ${setup.DOM.toString(setup.DOM.Util.money(this.money ?? 0))}`;
     }
   }
 
-  getMoney(quest) {
-    let base = this.money
+  override getMoney(context: CostContext) {
+    let base = this.money ?? 0;
 
     // scale based on level, if the quest is given
-    if (quest && 'getTemplate' in quest) {
-      let level = quest.getTemplate().getDifficulty().getLevel()
+    if (context.getTemplate) {
+      let level = context.getTemplate().getDifficulty().getLevel();
 
       // scale based on PLATEAU
-      let diff1 = `normal${level}`
-      let diff2 = `normal${setup.LEVEL_PLATEAU}`
-      base = Math.round(base * setup.qdiff[diff1].getMoney() / setup.qdiff[diff2].getMoney())
+      let diff1 = `normal${level}` as QuestDifficultyKey;
+      let diff2 = `normal${setup.LEVEL_PLATEAU}` as QuestDifficultyKey;
+      base = Math.round(
+        (base * setup.qdiff[diff1].getMoney()) / setup.qdiff[diff2].getMoney(),
+      );
     }
 
-    return Math.max(base, 1)
+    return Math.max(base, 1);
   }
 }

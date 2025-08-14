@@ -2,7 +2,7 @@
 https://en.uesp.net/wiki/Lore:Redguard_Names#Redguard_Family_Names_and_Derivation_Names
 */
 
-setup.NAME_arabic_female_first_name = [
+export const NAME_arabic_female_first_name = [
   "Aabidah",
   "Aabirah",
   "Aabish",
@@ -2448,4 +2448,4 @@ setup.NAME_arabic_female_first_name = [
   "Zunairah",
   "Zynah",
   "Zyva",
-]
+];

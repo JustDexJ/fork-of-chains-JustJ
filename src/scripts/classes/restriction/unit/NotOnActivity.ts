@@ -1,23 +1,17 @@
-// @ts-nocheck
-
-setup.qresImpl.NotOnActivity = class NotOnActivity extends setup.Restriction {
+export default class NotOnActivity extends Restriction.Unit {
   constructor() {
-    super()
-
+    super();
   }
 
-  text() {
-    return `setup.qres.NotOnActivity()`
+  override text() {
+    return `setup.qres.NotOnActivity()`;
   }
 
-  explain() {
-    return `Unit is not already on another activity`
+  override explain() {
+    return `Unit is not already on another activity`;
   }
 
-  /**
-   * @param {setup.Unit} unit 
-   */
-  isOk(unit) {
-    return !State.variables.activitylist.getActivityOf(unit)
+  override isOk(unit: Unit): boolean {
+    return !State.variables.activitylist.getActivityOf(unit);
   }
 }

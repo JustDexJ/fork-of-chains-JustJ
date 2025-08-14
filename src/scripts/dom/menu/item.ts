@@ -1,15 +1,14 @@
-// @ts-nocheck
+import type { ItemUnitUsable } from "../../classes/inventory/subtypes/ItemUnitUsable";
 
-/**
- * @param {setup.ItemUnitUsable} item
- * @param {setup.Unit} unit
- */
-setup.DOM.Menu.useitemonunit = function (item, unit) {
-  item.use(unit)
-  setup.notify(`Used ${item.rep()} on a|rep.`, { a: unit })
+export const DOM_Menu_useitemonunit = function (
+  item: ItemUnitUsable,
+  unit: Unit,
+) {
+  item.use(unit);
+  setup.notify(`Used ${item.rep()} on a|rep.`, { a: unit });
   if (State.variables.inventory.isHasItem(item)) {
-    setup.DOM.Nav.goto()
+    setup.DOM.Nav.goto();
   } else {
-    setup.DOM.Nav.goto('Inventory')
+    setup.DOM.Nav.goto("Inventory");
   }
-}
+};

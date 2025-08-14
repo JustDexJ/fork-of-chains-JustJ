@@ -1,81 +1,89 @@
-// @ts-nocheck
+import type { ContentTemplate } from "../../content/ContentTemplate";
+import type { EventTemplate } from "../../event/EventTemplate";
+import type { OpportunityTemplate } from "../../opportunity/OpportunityTemplate";
+import type { QuestTemplate } from "../../quest/QuestTemplate";
 
-class SetCooldown extends setup.Cost {
-  /**
-   * @param {*} template
-   * @param {number} cooldown 
-   */
-  constructor(template, cooldown) {
-    super()
+/**
+ * If passed null as template, will set cooldown for the current quest/opportunity/whatever
+ */
+abstract class SetCooldown<T extends ContentTemplate> extends Cost {
+  template_key: T["key"] | null;
+  cooldown: number;
+
+  constructor(template: T | T["key"] | null, cooldown: number) {
+    super();
+
+    this.template_key = template ? resolveKey(template) : null;
+    this.cooldown = cooldown;
+  }
+
+  getTemplate(): T | null {
+    return null;
+  }
+
+  override apply(context: CostContext) {
+    let template: ContentTemplate | null = this.getTemplate();
+    if (template === null) {
+      template = context.getTemplate!();
+    }
+
     if (!template) {
-      this.template_key = null
-    } else {
-      this.template_key = setup.keyOrSelf(template)
+      throw new Error(`Missing template for ${this.template_key}`);
     }
 
-    this.cooldown = cooldown
+    State.variables.calendar.setCooldown(template, this.cooldown);
   }
 
-  /**
-   * @returns {setup.QuestTemplate | setup.OpportunityTemplate | setup.Event | null}
-   */
-  getTemplate() {
-    return null
-  }
-
-  apply(quest) {
-    const template = this.getTemplate()
-    if (!template && template != null) throw new Error(`Missing template for ${this.template_key}`)
-    State.variables.calendar.setCooldown(this.getTemplate() || quest.getTemplate(), this.cooldown)
-  }
-
-  explain(quest) {
-    const template = this.getTemplate()
-    return `Cannot generate ${template ? template.getName() : 'this'} for the next ${this.cooldown} weeks`
+  override explain(context: CostContext) {
+    const template = this.getTemplate();
+    return `Cannot generate ${template ? template.getName() : "this"} for the next ${this.cooldown} weeks`;
   }
 }
 
-
-setup.qcImpl.SetCooldownQuest = class SetCooldownQuest extends SetCooldown {
-  text() {
-    return `setup.qc.SetCooldownQuest(${this.template_key ? `'${this.template_key}'` : `null`}, ${this.cooldown})`
+export class SetCooldownQuest extends SetCooldown<QuestTemplate> {
+  override text() {
+    return `setup.qc.SetCooldownQuest(${this.template_key ? `'${this.template_key}'` : `null`}, ${this.cooldown})`;
   }
 
   getTemplate() {
     if (this.template_key) {
-      return setup.questtemplate[this.template_key]
+      return setup.questtemplate[this.template_key];
     } else {
-      return null
+      return null;
     }
   }
 }
 
-
-setup.qcImpl.SetCooldownOpportunity = class SetCooldownOpportunity extends SetCooldown {
-  text() {
-    return `setup.qc.SetCooldownOpportunity(${this.template_key ? `'${this.template_key}'` : `null`}, ${this.cooldown})`
+export class SetCooldownOpportunity extends SetCooldown<OpportunityTemplate> {
+  override text() {
+    return `setup.qc.SetCooldownOpportunity(${this.template_key ? `'${this.template_key}'` : `null`}, ${this.cooldown})`;
   }
 
   getTemplate() {
     if (this.template_key) {
-      return setup.opportunitytemplate[this.template_key]
+      return setup.opportunitytemplate[this.template_key];
     } else {
-      return null
+      return null;
     }
   }
 }
 
-
-setup.qcImpl.SetCooldownEvent = class SetCooldownEvent extends SetCooldown {
-  text() {
-    return `setup.qc.SetCooldownEvent(${this.template_key ? `'${this.template_key}'` : `null`}, ${this.cooldown})`
+export class SetCooldownEvent extends SetCooldown<EventTemplate> {
+  override text() {
+    return `setup.qc.SetCooldownEvent(${this.template_key ? `'${this.template_key}'` : `null`}, ${this.cooldown})`;
   }
 
   getTemplate() {
     if (this.template_key) {
-      return setup.event[this.template_key]
+      return setup.event[this.template_key];
     } else {
-      return null
+      return null;
     }
   }
 }
+
+export default {
+  SetCooldownQuest,
+  SetCooldownOpportunity,
+  SetCooldownEvent,
+};

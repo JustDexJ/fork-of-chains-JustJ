@@ -1,104 +1,119 @@
-// @ts-nocheck
+import type { UnitKey } from "../classes/unit/Unit";
 
+declare global {
+  /**
+   * Helper type for making branded type.
+   *
+   * Mostly used to make "type-safe ID types", so that for example it will generate a type error if
+   * you try to pass an UnitKey to a function parameter expecting a TraitKey.
+   */
+  type BrandedType<K, T> = K & { __brand: T };
 
-// augment "window" global object type
-interface Window {
-  // Used by "/classes/unit/unitimage.js"
-  UNITIMAGE_CREDITS?: Record<string, ImageMetadata> | undefined
-  UNITIMAGE_NOBACK?: boolean | undefined
-  UNITIMAGE_LOAD_FURTHER?: string[] | undefined
-  IMAGEPACK?: ImagePackNode & Pick<ImagePackMetadata, "title" | "description" | "author"> | undefined
+  // augment "window" global object type
+  interface Window {
+    // Used by "/classes/unit/unitimage.js"
+    IMAGE_CREDITS?: Record<string, ImageMetadata> | undefined;
+    UNITIMAGE_CREDITS?: Record<string, ImageMetadata> | undefined;
+    UNITIMAGE_NOBACK?: boolean | undefined;
+    UNITIMAGE_LOAD_FURTHER?: string[] | undefined;
+    IMAGEPACK?:
+      | (ImagePackNode &
+          Pick<ImagePackMetadata, "title" | "description" | "author">)
+      | undefined;
 
-  // Embedded images (might be present or not)
-  IMAGES?: Record<string, string>
-}
+    ROOMIMAGE_CREDITS?: Record<string, ImageMetadata> | undefined;
+    ROOMIMAGEPACK?: Record<string, ImagePackNode>;
 
-// augment String class
-interface String {
-  hashCode(): number
-}
+    // Embedded images (might be present or not)
+    IMAGES?: Record<string, string>;
+  }
 
-interface ImageObject {
-  path: string
-  depth?: number
-  info: ImageMetadata
-}
+  // augment String class
+  interface String {
+    hashCode(): number;
+  }
 
-interface ImageMetadata {
-  title?: string
-  artist?: string
-  url?: string
-  imagepack?: string
-  license?: string
-  directional?: boolean
-  norotate?: boolean
-  nowalls?: boolean
-  extra?: string
-}
+  interface ImageObject {
+    path: string;
+    depth?: number;
+    info: ImageMetadata;
+  }
 
-interface ImagePackNode {
-  is_back_allowed?: boolean
-  further?: Record<string, ImagePackNode>
-  images?: ImageObject[]
-}
+  interface ImageMetadata {
+    title?: string;
+    artist?: string;
+    url?: string;
+    imagepack?: string;
+    license?: string;
+    directional?: boolean;
+    norotate?: boolean;
+    nowalls?: boolean;
+    extra?: string;
+  }
 
-interface ImagePackMetadata {
-  title?: string
-  description?: string
-  author?: string
+  interface ImagePackNode {
+    is_back_allowed?: boolean;
+    further?: Record<string, ImagePackNode>;
+    images?: ImageObject[];
+  }
 
-  url: string
-  numimages: number
-}
+  interface ImagePackMetadata {
+    title?: string;
+    description?: string;
+    author?: string;
 
-// Helper type, to define a Map with strings as keys, and class T instances as values
-type Registry<T extends new (...args: any) => any> = Record<string, InstanceType<T>>
-
-declare interface GlobalSettings {
-  imagepacks?: readonly string[],
+    url: string;
+    numimages: number;
+  }
 
   /**
-   * Paths of all the installed mods (regardless of if they are enabled)
-   * Each entry can be in the form:
-   *  - "mymod.focmod.js" (a packed mod in "mods/")
-   *  - "mymod" (an unpacked mod folder in "mods/")
-   *  - "https://.../mymod.focmod.js" (a packed mod hosted not locally)
+   * Helper type to define a Map/Dictionary for an entity T, such that it maps: T['key'] -> T.
+   *
+   * (Keys must be a string and/or number)
    */
-  mods_installed?: readonly string[],
+  type Registry<T extends { key: string | number }> = {
+    [k in T["key"]]: T;
+  };
+
+  type RegistryWithBuiltins<T extends { key: string }, D extends string> = {
+    [k in T["key"] | D]: T;
+  };
+
+  //type Registry<T extends new (...args: any) => any> = Record<string, InstanceType<T>>
+
+  //type Rarity = "legendary" | "epic" | "rare" | "uncommon" | "common" | "negative"
+
+  type DialogueText = {
+    [k in BuiltinSpeechKey]: string[];
+  };
+
+  interface Dialogue {
+    actor: string;
+    texts: DialogueText;
+  }
+
+  interface DialogueRaw {
+    actor: string;
+    texts: DialogueText | string[];
+  }
+
+  interface Skills extends Array<number> {}
+
+  /**
+   * Type for author info, which can be a string or an object with name and url.
+   */
+  type AuthorInfo = { name: string; url?: string };
+
+  type ContentType =
+    | "event"
+    | "quest"
+    | "opportunity"
+    | "activity"
+    | "interaction";
+
+  type ActorUnitList = Array<[actorname: string, unit: Unit]>;
+
+  type ActorMap<T> = { [actorname: string]: T };
+  type ActorUnitMap = { [actorname: string]: Unit };
+  type ActorUnitKeyMap = { [actorname: string]: UnitKey };
 }
-
-type Rarity = "legendary" | "epic" | "rare" | "uncommon" | "common" | "negative"
-
-interface DialogueText {
-  friendly: string[]
-  bold: string[]
-  cool: string[]
-  witty: string[]
-  debauched: string[]
-}
-
-interface Dialogue {
-  actor: string
-  texts: DialogueText
-}
-
-interface DialogueRaw {
-  actor: string
-  texts: DialogueText | string[]
-}
-
-interface ScheduledEventInfo {
-  event_key: string
-  default_assignment_keys: Record<string, string>
-  is_visible_in_calendar?: boolean
-}
-
-interface ScheduledEventInfoRealized {
-  occur_week: number,
-  events: Array<{
-    event: setup.Event,
-    is_visible_in_calendar: boolean
-  }>,
-}
-
-interface Skills extends Array<number> { }

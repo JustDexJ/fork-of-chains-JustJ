@@ -1,37 +1,34 @@
-// @ts-nocheck
-
-import { up, down } from "./AAA_filter"
-import { MenuFilterHelper } from "./filterhelper"
+import type { FilterMenu } from "./_filter";
 
 /**
  * Not actually a filter, but rather a menu option for how you want to auto assign your equipment.
  */
-setup.MenuFilter._MENUS.equipmentauto = {
+export const _MENUS_equipmentauto: FilterMenu<unknown> = {
   max: {
-    title: '(Auto-Attach) Fill All',
-    default: 'No',
+    title: "(Auto-Attach) Fill All",
+    default: "No",
     options: {
       yes: {
-        title: 'Yes',
-      }
-    }
+        title: "Yes",
+      },
+    },
   },
   slutty: {
-    title: '(Auto-Attach) Slutty',
-    default: 'No',
+    title: "(Auto-Attach) Slutty",
+    default: "No",
     options: {
       yes: {
-        title: 'Yes',
-      }
-    }
+        title: "Yes",
+      },
+    },
   },
   special: {
-    title: '(Auto-Attach) Special',
-    default: 'No',
+    title: "(Auto-Attach) Special",
+    default: "No",
     options: {
       yes: {
-        title: 'Yes',
-      }
-    }
+        title: "Yes",
+      },
+    },
   },
-}
+};

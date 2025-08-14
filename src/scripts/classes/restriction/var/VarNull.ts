@@ -1,21 +1,17 @@
-// @ts-nocheck
-
-setup.qresImpl.VarNull = class VarNull extends setup.Restriction {
-  constructor(key) {
-    super()
-
-    this.key = key
+export default class VarNull extends Restriction {
+  constructor(public key: string) {
+    super();
   }
 
-  text() {
-    return `setup.qres.VarNull('${this.key}')`
+  override text() {
+    return `setup.qres.VarNull('${this.key}')`;
   }
 
-  explain() {
-    return `Variable "${this.key}" must be null (unset)`
+  override explain() {
+    return `Variable "${this.key}" must be null (unset)`;
   }
 
-  isOk() {
-    return State.variables.varstore.get(this.key) == null
+  override isOk() {
+    return (State.variables.varstore.get(this.key) ?? null) === null;
   }
 }

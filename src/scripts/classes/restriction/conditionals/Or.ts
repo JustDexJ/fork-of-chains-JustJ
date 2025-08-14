@@ -1,31 +1,31 @@
-// @ts-nocheck
-
-
-setup.qresImpl.Or = class Or extends setup.Restriction {
-  constructor(requirements) {
-    super()
+export default class Or<T = unknown> extends Restriction<T> {
+  constructor(public requirements: Restriction<T>[]) {
+    super();
 
     // true as long as one of the requirements is true.
 
-    if (!Array.isArray(requirements)) throw new Error(`First element of setup.qres.Or must be array, not ${requirements}`)
-    this.requirements = requirements
+    if (!Array.isArray(requirements))
+      throw new Error(
+        `First element of setup.qres.Or must be array, not ${requirements}`,
+      );
   }
 
-  text() {
-    return `setup.qres.Or([\n${this.requirements.map(a => a.text()).join(',\n')}\n])`
+  override text() {
+    return `setup.qres.Or([\n${this.requirements.map((a) => a.text()).join(",\n")}\n])`;
   }
 
-  isOk(quest) {
+  override isOk(context: T) {
     for (let i = 0; i < this.requirements.length; ++i) {
-      if (this.requirements[i].isOk(quest)) return true
+      if (this.requirements[i].isOk(context)) return true;
     }
-    return false
+    return false;
   }
 
-  explain(quest) {
-    let texts = []
-    for (let i = 0; i < this.requirements.length; ++i) texts.push(this.requirements[i].explain(quest))
-    return `OR(${texts.join(', ')})`
+  override explain(context?: T) {
+    let texts = [];
+    for (let i = 0; i < this.requirements.length; ++i)
+      texts.push(this.requirements[i].explain(context));
+    return `OR(${texts.join(", ")})`;
   }
 
   getLayout() {
@@ -35,9 +35,9 @@ setup.qresImpl.Or = class Or extends setup.Restriction {
         {
           passage: "RestrictionOrHeader",
           //addpassage: "", // inherit
-          listpath: ".requirements"
-        }
-      ]
-    }
+          listpath: ".requirements",
+        },
+      ],
+    };
   }
 }

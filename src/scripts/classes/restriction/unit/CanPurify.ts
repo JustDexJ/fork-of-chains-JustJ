@@ -1,22 +1,17 @@
-// @ts-nocheck
-
-
-setup.qresImpl.CanPurify = class CanPurify extends setup.Restriction {
-  constructor(trait_tag) {
-    super()
-
-    this.trait_tag = trait_tag
+export default class CanPurify extends Restriction.Unit {
+  constructor(public trait_tag: string) {
+    super();
   }
 
-  text() {
-    return `setup.qres.CanPurify(${this.trait_tag})`
+  override text() {
+    return `setup.qres.CanPurify(${this.trait_tag})`;
   }
 
-  explain() {
-    return `Unit can be purified in: ${this.trait_tag || "anything"}`
+  override explain() {
+    return `Unit can be purified in: ${this.trait_tag || "anything"}`;
   }
 
-  isOk(unit) {
-    return unit.isCanPurify(this.trait_tag)
+  override isOk(unit: Unit): boolean {
+    return unit.isCanPurify(this.trait_tag);
   }
 }

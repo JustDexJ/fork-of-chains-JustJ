@@ -9,11 +9,11 @@
     setup.qres.Building(setup.buildingtemplate.temple),
     setup.qres.NoTrait(setup.trait.race_demon),
     setup.qres.CanPurify(),
-    
+
   ],
 })>>
 
-<<run new setup.UnitActionRepeatSelf({
+<<run new setup.UnitAction_RepeatSelf({
   key: 'purify_all_repeat',
   tags: ['purification', ],
   quest_template: setup.questtemplate.purify_all,
@@ -22,7 +22,7 @@
     setup.qres.Building(setup.buildingtemplate.temple),
     setup.qres.NoTrait(setup.trait.race_demon),
     setup.qres.CanPurify(),
-    
+
   ],
 })>>
 
@@ -35,7 +35,7 @@
     setup.qres.Building(setup.buildingtemplate.prayerroom),
     setup.qres.NoTrait(setup.trait.race_demon),
     setup.qres.CanPurify('body'),
-    
+
   ],
 })>>
 
@@ -48,7 +48,7 @@
     setup.qres.Building(setup.buildingtemplate.prayerroom),
     setup.qres.NoTrait(setup.trait.race_demon),
     setup.qres.CanPurify('arms'),
-    
+
   ],
 })>>
 
@@ -61,7 +61,7 @@
     setup.qres.Building(setup.buildingtemplate.prayerroom),
     setup.qres.NoTrait(setup.trait.race_demon),
     setup.qres.CanPurify('legs'),
-    
+
   ],
 })>>
 
@@ -74,7 +74,7 @@
     setup.qres.Building(setup.buildingtemplate.blessingroom),
     setup.qres.NoTrait(setup.trait.race_demon),
     setup.qres.CanPurify('eyes'),
-    
+
   ],
 })>>
 
@@ -88,7 +88,7 @@
     setup.qres.Building(setup.buildingtemplate.blessingroom),
     setup.qres.NoTrait(setup.trait.race_demon),
     setup.qres.CanPurify('ears'),
-    
+
   ],
 })>>
 
@@ -102,7 +102,7 @@
     setup.qres.Building(setup.buildingtemplate.blessingroom),
     setup.qres.NoTrait(setup.trait.race_demon),
     setup.qres.CanPurify('mouth'),
-    
+
   ],
 })>>
 
@@ -116,7 +116,7 @@
     setup.qres.Building(setup.buildingtemplate.penitenceroom),
     setup.qres.NoTrait(setup.trait.race_demon),
     setup.qres.CanPurify('tail'),
-    
+
   ],
 })>>
 
@@ -130,7 +130,7 @@
     setup.qres.Building(setup.buildingtemplate.penitenceroom),
     setup.qres.NoTrait(setup.trait.race_demon),
     setup.qres.CanPurify('wings'),
-    
+
   ],
 })>>
 
@@ -144,6 +144,6 @@
     setup.qres.Building(setup.buildingtemplate.penitenceroom),
     setup.qres.NoTrait(setup.trait.race_demon),
     setup.qres.CanPurify('dick'),
-    
+
   ],
 })>>

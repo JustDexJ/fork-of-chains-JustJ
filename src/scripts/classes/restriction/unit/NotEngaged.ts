@@ -1,25 +1,20 @@
-// @ts-nocheck
-
 /**
  * Unit must not be engaged
  */
-setup.qresImpl.NotEngaged = class NotEngaged extends setup.Restriction {
+export default class NotEngaged extends Restriction.Unit {
   constructor() {
-    super()
+    super();
   }
 
-  text() {
-    return `setup.qres.NotEngaged()`
+  override text() {
+    return `setup.qres.NotEngaged()`;
   }
 
-  explain() {
-    return `Unit is not engaged`
+  override explain() {
+    return `Unit is not engaged`;
   }
 
-  /**
-   * @param {setup.Unit} unit 
-   */
-  isOk(unit) {
-    return !unit.isEngaged()
+  override isOk(unit: Unit): boolean {
+    return !unit.isEngaged();
   }
 }

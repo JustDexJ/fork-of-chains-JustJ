@@ -1,17 +1,11 @@
-// @ts-nocheck
-
-/**
- * @returns {setup.DOM.Node}
- */
-export function advanceWeekBeforeResolvingQuests() {
-
+export function advanceWeekBeforeResolvingQuests(): DOM.Node | null {
   // advance quest timers
   for (const quest of State.variables.company.player.getQuests()) {
-    quest.advanceQuestOneWeek()
+    quest.advanceQuestOneWeek();
   }
 
   for (const market of Object.values(State.variables.market)) {
-    market.advanceWeek()
+    market.advanceWeek();
   }
 
   const to_advance_week = [
@@ -24,61 +18,54 @@ export function advanceWeekBeforeResolvingQuests() {
     State.variables.hospital,
     State.variables.trauma,
     State.variables.favor,
-  ]
+  ];
 
   for (const to_advance of to_advance_week) {
-    to_advance.advanceWeek()
+    to_advance.advanceWeek();
   }
 
-  return null
+  return null;
 }
 
-/**
- * @returns {setup.DOM.Node}
- */
-function expireQuests() {
-  const expired = State.variables.company.player.expireQuests()
+function expireQuests(): DOM.Node | null {
+  const expired = State.variables.company.player.expireQuests();
   if (expired.length) {
     return html`
-      ${setup.DOM.Util.message(
-      `${expired.length} quests`,
-      () => {
+      ${setup.DOM.Util.message(`${expired.length} quests`, () => {
         return html`
-            <div class='helpcard'>
-              ${expired.map(quest => `<div>Quest ${quest.rep()} expired.</div>`)}
-            </div>
-          `
-      },
-    )}
-      ${setup.DOM.Text.dangerlite('expired...')}
-    `
+          <div class="helpcard">
+            ${expired.map(
+              (quest) => `<div>Quest ${quest.rep()} expired.</div>`,
+            )}
+          </div>
+        `;
+      })}
+      ${setup.DOM.Text.dangerlite("expired...")}
+    `;
   } else {
-    return null
+    return null;
   }
 }
 
-/**
- * @returns {setup.DOM.Node}
- */
-export function advanceWeekAfterResolvingQuests() {
+export function advanceWeekAfterResolvingQuests(): DOM.Node | null {
   // quest generation is delayed until here
-  State.variables.questgen.generate()
+  State.variables.questgen.generate();
 
-  State.variables.varstore.advanceWeek()
-  State.variables.calendar.advanceWeek()
+  State.variables.varstore.advanceWeek();
+  State.variables.calendar.advanceWeek();
 
   for (const unit of Object.values(State.variables.unit)) {
-    unit.advanceWeek()
+    unit.advanceWeek();
   }
 
-  const fragment = expireQuests()
+  const fragment = expireQuests();
 
-  State.variables.unitimage.advanceWeek()
-  setup.MarketItem.advanceWeek()
-  State.variables.activitylist.advanceWeek()
+  State.variables.unitimage.advanceWeek();
+  setup.MarketItem.advanceWeek();
+  State.variables.activitylist.advanceWeek();
 
   // auto-answer generated opportunities
-  State.variables.opportunitylist.autoAnswer()
+  State.variables.opportunitylist.autoAnswer();
 
-  return fragment
+  return fragment;
 }

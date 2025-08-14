@@ -1,37 +1,29 @@
-// @ts-nocheck
+import type {
+  EventTemplate,
+  EventTemplateKey,
+} from "../../event/EventTemplate";
 
+export default class NoEvent extends Restriction {
+  template_key: EventTemplateKey;
 
-setup.qresImpl.NoEvent = class NoEvent extends setup.Restriction {
-  constructor(template) {
-    super()
+  constructor(template: EventTemplate | EventTemplateKey) {
+    super();
 
-    if (!template) throw new Error(`Missing template for NoEvent`)
-    if (setup.isString(template)) {
-      this.template_key = template
-    } else {
-      this.template_key = template.key
-    }
+    if (!template) throw new Error(`Missing template for NoEvent`);
+    this.template_key = resolveKey(template);
   }
 
-  text() {
-    return `setup.qres.NoEvent('${this.template_key}')`
+  override text() {
+    return `setup.qres.NoEvent('${this.template_key}')`;
   }
 
-  isOk(template_arg) {
-    let template = setup.event[this.template_key]
-    return !State.variables.eventpool.isEventScheduled(template)
+  override isOk() {
+    let template = setup.event[this.template_key];
+    return !State.variables.eventpool.isEventScheduled(template);
   }
 
-  apply(quest) {
-    throw new Error(`Not a reward`)
-  }
-
-  undoApply(quest) {
-    throw new Error(`Not a reward`)
-  }
-
-  explain() {
-    let template = setup.event[this.template_key]
-    return `Event not scheduled: ${template.getName()}`
+  override explain() {
+    let template = setup.event[this.template_key];
+    return `Event not scheduled: ${template.getName()}`;
   }
 }

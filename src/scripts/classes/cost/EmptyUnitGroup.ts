@@ -1,49 +1,42 @@
-// @ts-nocheck
+import type { UnitGroup, UnitGroupKey } from "../unit/UnitGroup";
 
+export default class EmptyUnitGroup extends Cost {
+  unit_group_key: UnitGroupKey;
 
-setup.qcImpl.EmptyUnitGroup = class EmptyUnitGroup extends setup.Cost {
-  constructor(unit_group) {
-    super()
+  constructor(unit_group: UnitGroup | UnitGroupKey | BuiltinUnitGroupKey) {
+    super();
 
-    if (setup.isString(unit_group)) {
-      this.unit_group_key = unit_group
-    } else {
-      this.unit_group_key = unit_group.key
-    }
-    if (!this.unit_group_key) throw new Error(`no key for unit group ${unit_group} in EmptyUnitGroup`)
+    this.unit_group_key = resolveKey(unit_group as UnitGroup | UnitGroupKey);
+
+    if (!this.unit_group_key)
+      throw new Error(`no key for unit group ${unit_group} in EmptyUnitGroup`);
   }
 
-  text() {
-    let unitgroup = setup.unitgroup[this.unit_group_key]
-    let qcu = State.variables.qcustomunitgroup
-    if (!qcu) qcu = []
-  
-    let otherkey = unitgroup.key
+  override text() {
+    let unitgroup = setup.unitgroup[this.unit_group_key];
+    let qcu = State.variables.qcustomunitgroup;
+    if (!qcu) qcu = [];
+
+    let otherkey = unitgroup.key;
     for (let i = 0; i < qcu.length; ++i) {
-      let ug = qcu[i]
+      let ug = qcu[i];
       if (ug.key == unitgroup.key) {
-        otherkey = ug.otherkey
-        break
+        // TODO: this is correct?
+        // @ts-ignore
+        otherkey = ug.otherkey;
+        break;
       }
     }
-    return `setup.qc.EmptyUnitGroup('${otherkey}')`
+    return `setup.qc.EmptyUnitGroup('${otherkey}')`;
   }
 
-  isOk(quest) {
-    throw new Error(`Reward only`)
+  override apply(context: CostContext) {
+    let unitgroup = setup.unitgroup[this.unit_group_key];
+    unitgroup.removeAllUnits();
   }
 
-  apply(quest) {
-    let unitgroup = setup.unitgroup[this.unit_group_key]
-    unitgroup.removeAllUnits()
-  }
-
-  undoApply(quest) {
-    throw new Error(`Can't undo`)
-  }
-
-  explain(quest) {
-    let unitgroup = setup.unitgroup[this.unit_group_key]
-    return `Unitgroup ${unitgroup.rep()} is cleared of all units`
+  override explain(context: CostContext) {
+    let unitgroup = setup.unitgroup[this.unit_group_key];
+    return `Unitgroup ${unitgroup.rep()} is cleared of all units`;
   }
 }

@@ -1,22 +1,19 @@
-// @ts-nocheck
-
 // slave must not be assigned to a bedchamber
-setup.qresImpl.SlaveNoBedchamber = class SlaveNoBedchamber extends setup.Restriction {
+export default class SlaveNoBedchamber extends Restriction.Unit {
   constructor() {
-    super()
-
+    super();
   }
 
-  text() {
-    return `setup.qres.SlaveNoBedchamber()`
+  override text() {
+    return `setup.qres.SlaveNoBedchamber()`;
   }
 
-  explain() {
-    return `Unit must NOT be a slave serving in some bedchamber`
+  override explain() {
+    return `Unit must NOT be a slave serving in some bedchamber`;
   }
 
-  isOk(unit) {
-    if (!unit.isSlave()) return false
-    return !unit.getBedchamber()
+  override isOk(unit: Unit): boolean {
+    if (!unit.isSlave()) return false;
+    return !unit.getBedchamber();
   }
 }

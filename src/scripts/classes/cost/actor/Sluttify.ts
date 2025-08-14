@@ -1,38 +1,30 @@
-// @ts-nocheck
+import { SluttifyDomifyCostBase } from "./Domify";
 
-import { SluttifyDomifyCost } from "./Domify"
-
-// sluttify this unit (one step). Opposity of Domify
-setup.qcImpl.Sluttify = class Sluttify extends SluttifyDomifyCost {
-  /**
-   * @param {string} actor_name 
-   */
-  constructor(actor_name) {
-    super()
-
-    this.actor_name = actor_name
+/**
+ * Sluttify this unit (one step). Opposity of Domify
+ */
+export default class Sluttify extends SluttifyDomifyCostBase {
+  constructor(public actor_name: string) {
+    super();
   }
 
-  text() {
-    return `setup.qc.Sluttify('${this.actor_name}')`
+  override text() {
+    return `setup.qc.Sluttify('${this.actor_name}')`;
   }
 
-  /**
-   * @param {setup.QuestInstance | setup.EventInstance | setup.OpportunityInstance} quest 
-   */
-  apply(quest) {
-    /**
-     * @type {setup.Unit}
-     */
-    const unit = quest.getActorUnit(this.actor_name)
+  override apply(context: CostContext) {
+    const unit = context.getActorUnit(this.actor_name)!;
 
     // blessing of wolf prevents sluttification
     if (unit.isHasTrait(setup.trait.blessing_wolf1)) {
-      unit.decreaseTrait(setup.trait.blessing_wolf8.getTraitGroup())
+      unit.decreaseTrait(setup.trait.blessing_wolf8.getTraitGroup()!);
       if (unit.isYourCompany()) {
-        setup.notify(`a|Reps Blessing of Wolf prevents a|them from being sluttified`, { a: unit })
+        setup.notify(
+          `a|Reps Blessing of Wolf prevents a|them from being sluttified`,
+          { a: unit },
+        );
       }
-      return
+      return;
     }
 
     // sluttification effects:
@@ -57,7 +49,12 @@ setup.qcImpl.Sluttify = class Sluttify extends SluttifyDomifyCost {
       },
       // masochistication
       {
-        requirements: [setup.qres.NoTraits([setup.trait.per_masochistic, setup.trait.per_lunatic])],
+        requirements: [
+          setup.qres.NoTraits([
+            setup.trait.per_masochistic,
+            setup.trait.per_lunatic,
+          ]),
+        ],
         effect: setup.qc.Trait(this.actor_name, setup.trait.per_masochistic),
         texts: [
           `a|Rep a|begin to crave pain and punishment`,
@@ -66,7 +63,12 @@ setup.qcImpl.Sluttify = class Sluttify extends SluttifyDomifyCost {
       },
       // lunatification
       {
-        requirements: [setup.qres.NoTraits([setup.trait.per_masochistic, setup.trait.per_lunatic])],
+        requirements: [
+          setup.qres.NoTraits([
+            setup.trait.per_masochistic,
+            setup.trait.per_lunatic,
+          ]),
+        ],
         effect: setup.qc.Trait(this.actor_name, setup.trait.per_lunatic),
         texts: [
           `a|Rep a|lose part of a|their sanity`,
@@ -94,7 +96,11 @@ setup.qcImpl.Sluttify = class Sluttify extends SluttifyDomifyCost {
       // meekification
       {
         requirements: [],
-        effect: setup.qc.Trauma(this.actor_name, setup.trait.trauma_slaving, /* duration = */ 150),
+        effect: setup.qc.Trauma(
+          this.actor_name,
+          setup.trait.trauma_slaving,
+          /* duration = */ 150,
+        ),
         texts: [
           `a|Rep a|lose a LOT of a|their confidence`,
           `a|Rep a|have become much, MUCH meeker than before`,
@@ -109,12 +115,12 @@ setup.qcImpl.Sluttify = class Sluttify extends SluttifyDomifyCost {
           `a|Rep a|have become a permanently disfunctional sex toy, incapable of higher thoughts`,
         ],
       },
-    ]
+    ];
 
-    return this._do_apply(quest, unit, slut_candidates)
+    return this._do_apply(context, unit, slut_candidates);
   }
 
-  explain(quest) {
-    return `${this.actor_name} becomes sluttier`
+  override explain(context: CostContext) {
+    return `${this.actor_name} becomes sluttier`;
   }
 }

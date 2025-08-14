@@ -1,25 +1,22 @@
-// @ts-nocheck
-
-
 /**
  * Attach a DOM HTML element to output
  */
-Macro.add('attach', {
+Macro.add("attach", {
   skipArgs: true,
 
-  /** @this {SugarcubeMacroContext} */
   handler() {
     if (this.args.full.length === 0) {
-      return this.error('no expression specified')
+      return this.error("no expression specified");
     }
 
-    /** @type {setup.DOM.Attachable} */
-    let node
+    let node: DOM.Attachable;
     try {
-      node = Scripting.evalJavaScript(this.args.full)
+      node = Scripting.evalJavaScript(this.args.full);
     } catch (ex) {
-      console.error(`Bad evaluation of <<attach ${this.args.full}>>`, ex)
-      return this.error(`bad evaluation: ${ex instanceof Error ? ex.message : ex}`)
+      console.error(`Bad evaluation of <<attach ${this.args.full}>>`, ex);
+      return this.error(
+        `bad evaluation: ${ex instanceof Error ? ex.message : ex}`,
+      );
     }
 
     // Custom debug view setup
@@ -28,7 +25,7 @@ Macro.add('attach', {
     //}
 
     if (node) {
-      this.output.append(setup.DOM.toDOM(node))
+      this.output.append(setup.DOM.toDOM(node));
     }
-  }
-})
+  },
+});

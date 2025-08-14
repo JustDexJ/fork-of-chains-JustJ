@@ -1,37 +1,25 @@
-// @ts-nocheck
-
-
-setup.qcImpl.BoonizeRandom = class BoonizeRandom extends setup.Cost {
-  constructor(actor_name, duration) {
-    super()
-
-    this.actor_name = actor_name
-    this.duration = duration
+export default class BoonizeRandom extends Cost {
+  constructor(
+    public actor_name: string,
+    public duration: number,
+  ) {
+    super();
   }
 
-  static NAME = 'Unit gains a random temporary boon'
-  static PASSAGE = 'CostBoonizeRandom'
-  static UNIT = true
+  static NAME = "Unit gains a random temporary boon";
+  static PASSAGE = "CostBoonizeRandom";
+  static UNIT = true;
 
-  text() {
-    return `setup.qc.BoonizeRandom('${this.actor_name}', ${this.duration})`
+  override text() {
+    return `setup.qc.BoonizeRandom('${this.actor_name}', ${this.duration})`;
   }
 
-
-  isOk(quest) {
-    throw new Error(`Reward only`)
+  override apply(context: CostContext) {
+    let unit = context.getActorUnit(this.actor_name)!;
+    State.variables.trauma.boonize(unit, this.duration);
   }
 
-  apply(quest) {
-    let unit = quest.getActorUnit(this.actor_name)
-    State.variables.trauma.boonize(unit, this.duration)
-  }
-
-  undoApply(quest) {
-    throw new Error(`not undo-able`)
-  }
-
-  explain(quest) {
-    return `${this.actor_name} gains a random and temporary boon for ${this.duration} weeks`
+  override explain(context: CostContext) {
+    return `${this.actor_name} gains a random and temporary boon for ${this.duration} weeks`;
   }
 }

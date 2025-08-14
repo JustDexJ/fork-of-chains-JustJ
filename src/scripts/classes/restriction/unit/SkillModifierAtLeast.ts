@@ -1,31 +1,29 @@
-// @ts-nocheck
+import type { SkillKey } from "../../Skill";
 
-setup.qresImpl.SkillModifierAtLeast = class SkillModifierAtLeast extends setup.Restriction {
-  /**
-   * @param {setup.Skill} skill 
-   * @param {number} modifier 
-   */
-  constructor(skill, modifier) {
-    super()
+export default class SkillModifierAtLeast extends Restriction.Unit {
+  skill_key: SkillKey;
+  modifier: number;
 
-    this.skill_key = setup.keyOrSelf(skill)
-    this.modifier = modifier
+  constructor(skill: Skill | SkillKey, modifier: number) {
+    super();
+
+    this.skill_key = resolveKey(skill);
+    this.modifier = modifier;
   }
 
-  text() {
-    return `setup.qres.SkillModifierAtLeast(setup.skill.${this.getSkill().keyword}, ${this.modifier})`
+  override text() {
+    return `setup.qres.SkillModifierAtLeast(setup.skill.${this.getSkill().keyword}, ${this.modifier})`;
   }
 
-  getSkill() { return setup.skill[this.skill_key] }
-
-  explain() {
-    return `Unit's ${this.getSkill().rep()} has at least +${this.modifier}x modifier at base`
+  getSkill() {
+    return setup.skill[this.skill_key];
   }
 
-  /**
-   * @param {setup.Unit} unit 
-   */
-  isOk(unit) {
-    return unit.getSkillModifiers(true)[this.getSkill().key] >= this.modifier
+  override explain() {
+    return `Unit's ${this.getSkill().rep()} has at least +${this.modifier}x modifier at base`;
+  }
+
+  override isOk(unit: Unit): boolean {
+    return unit.getSkillModifiers(true)[this.getSkill().key] >= this.modifier;
   }
 }

@@ -1,86 +1,85 @@
-// @ts-nocheck
+import type { Company, CompanyKey } from "../../../Company";
+import { SlaveOrderAddonBase } from "./_SlaveOrderAddonBase";
 
-setup.qcImpl.UnitValueToFavor = class UnitValueToFavor extends setup.Cost {
-  /**
-   * @param {setup.Company | string} company
-   * @param {number} favor_per_value
-   * @param {number} favor_per_crit
-   */
-  constructor(company, favor_per_value, favor_per_crit) {
-    super()
-    this.company_key = setup.keyOrSelf(company)
-    this.favor_per_value = favor_per_value
-    this.favor_per_crit = favor_per_crit
+export default class UnitValueToFavor extends Cost {
+  company_key: CompanyKey;
+
+  constructor(
+    company: Company | CompanyKey | BuiltinCompanyTemplateKey,
+    public favor_per_value: number,
+    public favor_per_crit: number,
+  ) {
+    super();
+    this.company_key = resolveKey(company as Company | CompanyKey);
   }
 
-  text() {
-    return `setup.qc.UnitValueToFavor('${this.company_key}', ${this.favor_per_value}, ${this.favor_per_crit})`
+  override text() {
+    return `setup.qc.UnitValueToFavor('${this.company_key}', ${this.favor_per_value}, ${this.favor_per_crit})`;
   }
 
-  /**
-   * @returns {setup.Company}
-   */
-  getCompany() { return State.variables.company[this.company_key] }
-
-  explain() {
-    const fpv = this.favor_per_value
-    const fpc = this.favor_per_crit
-    return `Favor with ${this.getCompany().rep()} = value * ${fpv} + crit * ${fpc}`
+  getCompany(): Company {
+    return State.variables.company[this.company_key];
   }
 
-  /**
-   * @param {setup.SlaveOrder} slave_order 
-   */
-  apply(slave_order) {
-    const unit = slave_order.getUnit()
-    const criteria = slave_order.getCriteria()
-    const mods = criteria.computeSuccessModifiers(unit, /* ignore extra traits = */ true)
+  override explain() {
+    const fpv = this.favor_per_value;
+    const fpc = this.favor_per_crit;
+    return `Favor with ${this.getCompany().rep()} = value * ${fpv} + crit * ${fpc}`;
+  }
 
-    let favor = unit.getSlaveValue() * this.favor_per_value
+  override apply(slave_order: SlaveOrder) {
+    const unit = slave_order.getUnit()!;
+    const criteria = slave_order.getCriteria();
+    const mods = criteria.computeSuccessModifiers(
+      unit,
+      /* ignore extra traits = */ true,
+    );
 
-    favor += mods.crit * this.favor_per_crit
-    favor -= mods.disaster * this.favor_per_crit
+    let favor = unit.getSlaveValue() * this.favor_per_value;
 
-    setup.qc.Favor(this.getCompany(), Math.round(favor)).apply()
+    favor += mods.crit * this.favor_per_crit;
+    favor -= mods.disaster * this.favor_per_crit;
+
+    setup.qc.Favor(this.getCompany(), Math.round(favor)).apply(slave_order);
   }
 }
 
-setup.SlaveOrderAddonImpl.UnitValueToFavor = class UnitValueToFavor extends setup.SlaveOrderAddonBase {
-  /**
-   * @param {setup.Company | string} company
-   * @param {number} favor_per_value
-   * @param {number} favor_per_crit
-   */
-  constructor(company, favor_per_value, favor_per_crit) {
-    super()
+export const UnitValueToFavor_Addon = class UnitValueToFavor extends SlaveOrderAddonBase {
+  company_key: CompanyKey;
 
-    this.company_key = setup.keyOrSelf(company)
-    this.favor_per_value = favor_per_value
-    this.favor_per_crit = favor_per_crit
+  constructor(
+    company: Company | CompanyKey,
+    public favor_per_value: number,
+    public favor_per_crit: number,
+  ) {
+    super();
+
+    this.company_key = resolveKey(company);
+    this.favor_per_value = favor_per_value;
+    this.favor_per_crit = favor_per_crit;
   }
 
-  text() {
-    return `setup.SlaveOrderAddon.UnitValueToFavor('${this.company_key}', ${this.favor_per_value}, ${this.favor_per_crit})`
+  override text() {
+    return `setup.SlaveOrderAddon.UnitValueToFavor('${this.company_key}', ${this.favor_per_value}, ${this.favor_per_crit})`;
   }
 
-  /**
-   * @returns {setup.Company}
-   */
-  getCompany() { return State.variables.company[this.company_key] }
+  getCompany(): Company {
+    return State.variables.company[this.company_key];
+  }
 
-  explain() {
+  override explain() {
     return `Gain favor with ${this.getCompany().rep()} equal to:
       Unit value * ${this.favor_per_value} +
-      Crit traits * ${this.favor_per_crit}`
+      Crit traits * ${this.favor_per_crit}`;
   }
 
-  /**
-   * @param {setup.SlaveOrder} slave_order 
-   */
-  apply(slave_order) {
-    slave_order.fulfilled_outcomes.push(setup.qc.UnitValueToFavor(
-      this.getCompany(), this.favor_per_value, this.favor_per_crit
-    ))
+  override apply(slave_order: SlaveOrder) {
+    slave_order.fulfilled_outcomes.push(
+      setup.qc.UnitValueToFavor(
+        this.getCompany(),
+        this.favor_per_value,
+        this.favor_per_crit,
+      ),
+    );
   }
-
-}
+};

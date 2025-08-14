@@ -1,45 +1,43 @@
-// @ts-nocheck
+import type { ItemKey } from "../../inventory/Item";
+import { SlaveOrderItem as SlaveOrderItem_ } from "../../slaveorder/SlaveOrderItem";
+import { SlaveOrderTemplate } from "./SlaveOrderTemplate";
 
-// slave order that reward items instead of money
-import "./SlaveOrderTemplate";
+/**
+ * Slave order that reward items instead of money
+ */
+export default class SlaveOrderItem extends SlaveOrderTemplate {
+  item_key: ItemKey;
+  maximum: number;
 
-setup.qcImpl.SlaveOrderItem = class SlaveOrderItem extends setup.qcImpl.SlaveOrderTemplate {
-  /**
-   * @param {setup.Item | string} item 
-   * @param {number} maximum
-   */
-  constructor(item, maximum) {
-    super()
+  constructor(item: Item | ItemKey, maximum: number) {
+    super();
 
-    this.item_key = setup.keyOrSelf(item)
-    this.maximum = maximum
+    this.item_key = resolveKey(item);
+    this.maximum = maximum;
   }
 
-  text() {
-    return `setup.qc.SlaveOrderItem('${this.item_key}')`
+  override text() {
+    return `setup.qc.SlaveOrderItem('${this.item_key}')`;
   }
 
-  /**
-   * @returns {setup.Item}
-   */
-  getItem() {
-    return setup.item[this.item_key]
+  getItem(): Item {
+    return setup.item[this.item_key];
   }
 
-  apply(quest) {
-    return new setup.SlaveOrderItem(
-      this.getName(quest),
-      this.getCompany(quest),
-      this.getCriteria(quest),
-      this.getBasePrice(quest),
-      this.getTraitMulti(quest),
-      this.getValueMulti(quest),
-      this.getExpiresIn(quest),
-      this.getFulfilledOutcomes(quest),
-      this.getUnfulfilledOutcomes(quest),
-      this.getDestinationUnitGroup(quest),
+  override apply(context: CostContext) {
+    return new SlaveOrderItem_(
+      this.getName(context),
+      this.getCompany(context),
+      this.getCriteria(context),
+      this.getBasePrice(context),
+      this.getTraitMulti(context),
+      this.getValueMulti(context),
+      this.getExpiresIn(context),
+      this.getFulfilledOutcomes(context),
+      this.getUnfulfilledOutcomes(context),
+      this.getDestinationUnitGroup(context),
       this.getItem(),
       this.maximum,
-    )
+    );
   }
 }

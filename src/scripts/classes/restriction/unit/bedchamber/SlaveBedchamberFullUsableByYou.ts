@@ -1,30 +1,26 @@
-// @ts-nocheck
-
-
 // whether slave is located in a full bedchamber with both slaves usable by you
-setup.qresImpl.SlaveBedchamberFullUsableByYou = class SlaveBedchamberFullUsableByYou extends setup.Restriction {
+export default class SlaveBedchamberFullUsableByYou extends Restriction.Unit {
   constructor() {
-    super()
-
+    super();
   }
 
-  text() {
-    return `setup.qres.SlaveBedchamberFullUsableByYou()`
+  override text() {
+    return `setup.qres.SlaveBedchamberFullUsableByYou()`;
   }
 
-  explain() {
-    return `Unit must be in a full bedchamber usable by you`
+  override explain() {
+    return `Unit must be in a full bedchamber usable by you`;
   }
 
-  isOk(unit) {
-    if (!unit.isSlave()) return false
-    let bedchamber = unit.getBedchamber()
-    if (!bedchamber) return false
-    let slaves = bedchamber.getSlaves()
-    if (slaves.length < 2) return false
+  override isOk(unit: Unit): boolean {
+    if (!unit.isSlave()) return false;
+    let bedchamber = unit.getBedchamber();
+    if (!bedchamber) return false;
+    let slaves = bedchamber.getSlaves();
+    if (slaves.length < 2) return false;
     for (let i = 0; i < slaves.length; ++i) {
-      if (!slaves[i].isUsableBy(State.variables.unit.player)) return false
+      if (!slaves[i].isUsableBy(State.variables.unit.player)) return false;
     }
-    return true
+    return true;
   }
 }

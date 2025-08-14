@@ -1,25 +1,28 @@
-// @ts-nocheck
+import type { ItemPool as ItemPool_, ItemPoolKey } from "../inventory/ItemPool";
 
+export default class ItemPool extends Cost {
+  itempool_key: ItemPoolKey;
 
-setup.qcImpl.ItemPool = class ItemPool extends setup.Cost {
-  constructor(item_pool) {
-    super()
+  constructor(item_pool: ItemPool_ | ItemPoolKey) {
+    super();
 
-    if (!item_pool) throw new Error(`Null item pool`)
-    this.itempool_key = setup.keyOrSelf(item_pool)
+    if (!item_pool) throw new Error(`Null item pool`);
+    this.itempool_key = resolveKey(item_pool);
   }
 
-  text() {
-    return `setup.qc.ItemPool(setup.itempool.${this.itempool_key})`
+  override text() {
+    return `setup.qc.ItemPool(setup.itempool.${this.itempool_key})`;
   }
 
-  getItemPool() { return setup.itempool[this.itempool_key] }
-
-  apply(quest) {
-    State.variables.inventory.addItem(this.getItemPool().generateItem())
+  getItemPool(): ItemPool_ {
+    return setup.itempool[this.itempool_key];
   }
 
-  explain() {
-    return `Gain item from ${this.getItemPool().rep()}`
+  override apply(context?: CostContext) {
+    State.variables.inventory.addItem(this.getItemPool().generateItem());
+  }
+
+  override explain() {
+    return `Gain item from ${this.getItemPool().rep()}`;
   }
 }

@@ -1,29 +1,33 @@
-// @ts-nocheck
+import MissingUnit from "../missingunit/MissingUnit";
 
-// one of your non-busy slave escaped.
-setup.qcImpl.EscapedSlaveRandom = class EscapedSlaveRandom extends setup.Cost {
+/**
+ * One of your non-busy slave escaped.
+ */
+export default class EscapedSlaveRandom extends Cost {
   constructor() {
-    super()
-
+    super();
   }
 
-  text() {
-    return `setup.qc.EscapedSlaveRandom()`
+  override text() {
+    return `setup.qc.EscapedSlaveRandom()`;
   }
 
-  apply(quest) {
-    let slaves = State.variables.company.player.getUnits({ job: setup.job.slave, available: true })
-    if (!slaves.length) return  // nobody can escape.
-    let escaped = setup.rng.choice(slaves)
+  override apply(context: CostContext) {
+    let slaves = State.variables.company.player.getUnits({
+      job: setup.job.slave,
+      available: true,
+    });
+    if (!slaves.length) return; // nobody can escape.
+    let escaped = setup.rng.choice(slaves);
 
-    if (setup.qcImpl.MissingUnit.checkMissingPlayer(escaped, quest)) return
+    if (MissingUnit.checkMissingPlayer(escaped, context)) return;
 
-    escaped.addHistory('escaped from your company.', quest)
-    State.variables.company.player.removeUnit(escaped)
-    setup.unitgroup.missingslaves.addUnit(escaped)
+    escaped.addHistory("escaped from your company.", context);
+    State.variables.company.player.removeUnit(escaped);
+    setup.unitgroup.missingslaves.addUnit(escaped);
   }
 
-  explain(quest) {
-    return `A random slave escaped`
+  override explain(context: CostContext) {
+    return `A random slave escaped`;
   }
 }

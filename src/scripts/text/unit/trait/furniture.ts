@@ -1,91 +1,53 @@
-// @ts-nocheck
+import type { Furniture } from "../../../classes/furniture/Furniture";
+import type { FurnitureSlot } from "../../../classes/furniture/FurnitureSlot";
+import type { Unit } from "../../../classes/unit/Unit";
 
-/**
- * 
- * @param {setup.Unit} unit 
- * @param {setup.FurnitureSlot} slot 
- * @returns {string}
- */
-function bedchamberEquipment(unit, slot) {
-  let bedchamber = unit.getBedchamber()
+function bedchamberEquipment(unit: Unit, slot: FurnitureSlot): string {
+  let bedchamber = unit.getBedchamber();
 
-  let furniture
+  let furniture: Furniture;
   if (!bedchamber) {
-    furniture = slot.getBasicFurniture()
+    furniture = slot.getBasicFurniture();
   } else {
-    furniture = bedchamber.getFurniture(slot)
+    furniture = bedchamber.getFurniture(slot);
   }
-  return furniture.rep()
+  return furniture.rep();
 }
 
-/**
- * @param {setup.Unit} unit 
- * @returns {string}
- */
-setup.Text.Unit.Trait.slaverbed = function(unit) {
-  return bedchamberEquipment(unit, setup.furnitureslot.slaverbed)
-}
+export const TextUnitTrait_Furniture = {
+  slaverbed(unit: Unit): string {
+    return bedchamberEquipment(unit, setup.furnitureslot.slaverbed);
+  },
 
-/**
- * @param {setup.Unit} unit 
- * @returns {string}
- */
-setup.Text.Unit.Trait.slavebed = function(unit) {
-  return bedchamberEquipment(unit, setup.furnitureslot.slavebed)
-}
+  slavebed(unit: Unit): string {
+    return bedchamberEquipment(unit, setup.furnitureslot.slavebed);
+  },
 
-/**
- * @param {setup.Unit} unit 
- * @returns {string}
- */
-setup.Text.Unit.Trait.foodtray = function(unit) {
-  return bedchamberEquipment(unit, setup.furnitureslot.foodtray)
-}
+  foodtray(unit: Unit): string {
+    return bedchamberEquipment(unit, setup.furnitureslot.foodtray);
+  },
 
-/**
- * @param {setup.Unit} unit 
- * @returns {string}
- */
-setup.Text.Unit.Trait.drinktray = function(unit) {
-  return bedchamberEquipment(unit, setup.furnitureslot.drinktray)
-}
+  drinktray(unit: Unit): string {
+    return bedchamberEquipment(unit, setup.furnitureslot.drinktray);
+  },
 
-/**
- * @param {setup.Unit} unit 
- * @returns {string}
- */
-setup.Text.Unit.Trait.punishment = function(unit) {
-  return bedchamberEquipment(unit, setup.furnitureslot.punishment)
-}
+  punishment(unit: Unit): string {
+    return bedchamberEquipment(unit, setup.furnitureslot.punishment);
+  },
 
-/**
- * @param {setup.Unit} unit 
- * @returns {string}
- */
-setup.Text.Unit.Trait.lighting = function(unit) {
-  return bedchamberEquipment(unit, setup.furnitureslot.lighting)
-}
+  lighting(unit: Unit): string {
+    return bedchamberEquipment(unit, setup.furnitureslot.lighting);
+  },
 
-/**
- * @param {setup.Unit} unit 
- * @returns {string}
- */
-setup.Text.Unit.Trait.tile = function(unit) {
-  return bedchamberEquipment(unit, setup.furnitureslot.tile)
-}
+  tile(unit: Unit): string {
+    return bedchamberEquipment(unit, setup.furnitureslot.tile);
+  },
 
-/**
- * @param {setup.Unit} unit 
- * @returns {string}
- */
-setup.Text.Unit.Trait.object = function(unit) {
-  return bedchamberEquipment(unit, setup.furnitureslot.object)
-}
+  object(unit: Unit): string {
+    return bedchamberEquipment(unit, setup.furnitureslot.object);
+  },
 
-/**
- * @param {setup.Unit} unit 
- * @returns {string}
- */
-setup.Text.Unit.Trait.wall = function(unit) {
-  return bedchamberEquipment(unit, setup.furnitureslot.wall)
-}
+  wall(unit: Unit): string {
+    return bedchamberEquipment(unit, setup.furnitureslot.wall);
+  },
+};

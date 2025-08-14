@@ -1,16 +1,16 @@
-// @ts-nocheck
+import type { Unit } from "../../unit/Unit";
 
-/**
- * @param {setup.Unit} me 
- * @param {setup.Unit} them 
- * @param {setup.SexInstance} sex 
- * @param {string[]} try_to 
- * @param {string[]} as_they 
- * @returns {string}
- */
-function rawRepResist(me, them, sex, try_to, as_they) {
-  let struggle = setup.rng.choice(try_to)
-  let they_pin = setup.rng.choice(as_they)
+import type { SexInstance } from "../engine/SexInstance";
+
+function rawRepResist(
+  me: Unit,
+  them: Unit,
+  sex: SexInstance,
+  try_to: string[],
+  as_they: string[],
+): string {
+  let struggle = setup.rng.choice(try_to);
+  let they_pin = setup.rng.choice(as_they);
 
   let t = [
     `a|Rep desperately a|struggle while trying to |struggle|, but a|their efforts prove to be in vain as
@@ -54,84 +54,84 @@ function rawRepResist(me, them, sex, try_to, as_they) {
      frantically a|try to |struggle|.`,
 
     `a|Rep a|try a|their best to |struggle|, but it was all in vain as b|rep completely b|ignore a|their discomfort as |pin|.`,
-  ]
+  ];
 
-  let converted = setup.SexUtil.convert(t, { a: me, b: them }, sex)
-  converted = converted.replaceAll(
-    /\|struggle\|/g, struggle).replaceAll(
-      /\|pin\|/g, they_pin)
-  return converted
+  let converted = setup.SexUtil.convert(t, { a: me, b: them }, sex);
+  converted = converted
+    .replaceAll(/\|struggle\|/g, struggle)
+    .replaceAll(/\|pin\|/g, they_pin);
+  return converted;
 }
 
-
-/**
- * @param {setup.Unit} me   who is resiting
- * @param {setup.Unit} them    who is attacking them
- * @param {setup.SexInstance} sex 
- * @param {string[]} try_to   knock their fingers away from their breasts
- * @param {string[]} as_they   a|they a|carry on playing with b|their breasts
- * @returns {string}
- */
-setup.SexUtil.repResist = function (me, them, sex, try_to, as_they) {
-  return rawRepResist(me, them, sex, try_to, as_they)
-}
-
-
-/**
- * @param {setup.Unit} me 
- * @param {setup.Unit} them 
- * @param {setup.SexInstance} sex 
- * @returns {string | string[]}
- */
-function rawRepResistSpeech(me, them, sex) {
+function rawRepResistSpeech(
+  me: Unit,
+  them: Unit,
+  sex: SexInstance,
+): string | string[] {
   let t = [
     `No! Don't! Please, get away from me!`,
     `Please! Don't do this! Leave me alone!`,
     `No! Stop! Get away from there!`,
-  ]
+  ];
 
-  return t
+  return t;
 }
 
+export default {
+  /**
+   * @param me who is resiting
+   * @param them who is attacking them
+   * @param sex
+   * @param try_to knock their fingers away from their breasts
+   * @param as_they a|they a|carry on playing with b|their breasts
+   */
+  repResist(
+    me: Unit,
+    them: Unit,
+    sex: SexInstance,
+    try_to: string[],
+    as_they: string[],
+  ): string {
+    return rawRepResist(me, them, sex, try_to, as_they);
+  },
 
-/**
- * @param {setup.Unit} me    who is resisting
- * @param {setup.Unit} them     who is atacking them
- * @param {setup.SexInstance} sex 
- * @returns {string}
- */
-setup.SexUtil.repResistSpeech = function (me, them, sex) {
-  const base = setup.SexUtil.convert(rawRepResistSpeech(me, them, sex), { a: me, b: them }, sex)
-  if (!sex.isCanTalk(me)) {
-    let muffle = [
-      `Mmph, mmph, mmph!`,
-      `Mmmmph!`,
-      `Ngghmph!`,
-    ]
-    return `${muffle} (${base})`
-  } else {
-    return base
-  }
-}
+  /**
+   * @param me    who is resisting
+   * @param them     who is atacking them
+   */
+  repResistSpeech(me: Unit, them: Unit, sex: SexInstance): string {
+    const base = setup.SexUtil.convert(
+      rawRepResistSpeech(me, them, sex),
+      { a: me, b: them },
+      sex,
+    );
+    if (!sex.isCanTalk(me)) {
+      let muffle = [`Mmph, mmph, mmph!`, `Mmmmph!`, `Ngghmph!`];
+      return `${muffle} (${base})`;
+    } else {
+      return base;
+    }
+  },
 
-/**
- * @param {setup.Unit} me    who is resisting
- * @param {setup.Unit} them    who is attacking
- * @param {setup.SexInstance} sex 
- * @param {string[]} try_to
- * @returns {string}
- */
-setup.SexUtil.repResistGeneric = function (me, them, sex, try_to) {
-  const speech = setup.SexUtil.repResistSpeech(me, them, sex)
-  const tryto = setup.rng.choice(try_to)
-  const t = [
-    ` b|A_sob bursts out from between b|reps lips as b|they b|try to ${tryto}, "${speech}".`,
+  /**
+   * @param me    who is resisting
+   * @param them    who is attacking
+   */
+  repResistGeneric(
+    me: Unit,
+    them: Unit,
+    sex: SexInstance,
+    try_to: string[],
+  ): string {
+    const speech = setup.SexUtil.repResistSpeech(me, them, sex);
+    const tryto = setup.rng.choice(try_to);
+    const t = [
+      ` b|A_sob bursts out from between b|reps lips as b|they b|try to ${tryto}, "${speech}".`,
 
-    ` b|Rep b|let out a desperate sob, before pleading, "${speech}".`,
+      ` b|Rep b|let out a desperate sob, before pleading, "${speech}".`,
 
-    ` b|Rep sob in distress as b|rep b|beg, "${speech}".`,
-  ]
-  return setup.SexUtil.convert(t, { a: me, b: them }, sex)
-}
-
-
+      ` b|Rep sob in distress as b|rep b|beg, "${speech}".`,
+    ];
+    return setup.SexUtil.convert(t, { a: me, b: them }, sex);
+  },
+};

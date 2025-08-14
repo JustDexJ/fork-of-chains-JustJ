@@ -1,72 +1,64 @@
-// @ts-nocheck
+import type { ItemPool } from "../../classes/inventory/ItemPool";
+import { menuItemExtras, menuItemText, menuItemTitle } from "../../ui/menuitem";
+import { domCardRep } from "../util/cardnamerep";
 
-import { menuItemAction, menuItemDanger, menuItemExtras, menuItemText, menuItemTitle } from "../../ui/menu"
-import { domCardRep } from "../util/cardnamerep"
-
-/**
- * @param {setup.ItemPool} pool
- * @returns {setup.DOM.Node}
- */
-function itemPoolNameFragment(pool) {
-  return html`${domCardRep(pool)}`
+function itemPoolNameFragment(pool: ItemPool): DOM.Node {
+  return html`${domCardRep(pool)}`;
 }
 
-/**
- * @param {setup.ItemPool} pool
- * @param {boolean} hide_actions 
- * @returns {JQLite[]}
- */
-function itemPoolNameActionMenu(pool, hide_actions) {
-  /**
-   * @type {JQLite[]}
-   */
-  const menus = []
+function itemPoolNameActionMenu(
+  pool: ItemPool,
+  hide_actions?: boolean,
+): JQuery[] {
+  const menus: JQuery[] = [];
 
-  menus.push(menuItemTitle({
-    text: itemPoolNameFragment(pool),
-  }))
+  menus.push(
+    menuItemTitle({
+      text: itemPoolNameFragment(pool),
+    }),
+  );
 
-  const average_value = pool.getAverageValue()
-  menus.push(menuItemText({
-    text: html`Average value: ${setup.DOM.Util.money(average_value)}`
-  }))
+  const average_value = pool.getAverageValue();
+  menus.push(
+    menuItemText({
+      text: html`Average value: ${setup.DOM.Util.money(average_value)}`,
+    }),
+  );
 
-  const extras = []
+  const extras: JQuery[] = [];
 
   if (extras.length) {
-    menus.push(menuItemExtras({
-      children: extras,
-    }))
+    menus.push(
+      menuItemExtras({
+        children: extras,
+      }),
+    );
   }
 
-  return menus
+  return menus;
 }
 
+export default {
+  itempool(pool: ItemPool, hide_actions?: boolean): DOM.Node {
+    const fragments: DOM.Attachable[] = [];
 
-/**
- * @param {setup.ItemPool} pool
- * @param {boolean} [hide_actions]
- * @returns {setup.DOM.Node}
- */
-setup.DOM.Card.itempool = function (pool, hide_actions) {
-  const fragments = []
+    fragments.push(
+      setup.DOM.Util.menuItemToolbar(
+        itemPoolNameActionMenu(pool, hide_actions),
+      ),
+    );
 
-  fragments.push(setup.DOM.Util.menuItemToolbar(
-    itemPoolNameActionMenu(pool, hide_actions),
-  ))
+    for (const [item_key, chance] of pool.getItemChances(
+      /* normalize = */ true,
+    )) {
+      fragments.push(html`
+        <div>
+          ${setup.item[item_key].rep()}: ${setup.DOM.Text.percentage(chance)}
+        </div>
+      `);
+    }
 
-  for (const [item_key, chance] of pool.getItemChances(/* normalize = */ true)) {
-    fragments.push(html`
-      <div>
-        ${setup.item[item_key].rep()}: ${setup.DOM.Text.percentage(chance)}
-      </div>
-    `)
-  }
-
-  const divclass = `card itemcard`
-  return setup.DOM.create(
-    'div',
-    { class: divclass },
-    fragments,
-  )
-}
+    const divclass = `card itemcard`;
+    return setup.DOM.create("div", { class: divclass }, fragments);
+  },
+};

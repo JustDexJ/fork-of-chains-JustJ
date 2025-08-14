@@ -1,28 +1,24 @@
-// @ts-nocheck
-
-setup.qresImpl.RandomlyTrue = class RandomlyTrue extends setup.Restriction {
+export default class RandomlyTrue extends Restriction {
   /**
    * Randomly true with chance probability.
-   * @param {number} chance 
    */
-  constructor(chance) {
-    super()
-    this.chance = chance
+  constructor(public chance: number) {
+    super();
   }
 
-  text() {
-    return `setup.qres.RandomlyTrue(${this.chance})`
+  override text() {
+    return `setup.qres.RandomlyTrue(${this.chance})`;
   }
 
-  explain() {
+  override explain() {
     if (State.variables.gDebug) {
-      return `With ${(this.chance * 100).toFixed(1)}% chance`
+      return `With ${(this.chance * 100).toFixed(1)}% chance`;
     } else {
-      return `Sometimes true`
+      return `Sometimes true`;
     }
   }
 
-  isOk() {
-    return Math.random() < this.chance
+  override isOk() {
+    return Math.random() < this.chance;
   }
 }

@@ -1,38 +1,30 @@
-// @ts-nocheck
-
-
-setup.qcImpl.Heal = class Heal extends setup.Cost {
-  constructor(actor_name, heal_amt) {
-    super()
-
-    this.actor_name = actor_name
-    this.heal_amt = heal_amt
+export default class Heal extends Cost {
+  constructor(
+    public actor_name: string,
+    public heal_amt: number,
+  ) {
+    super();
   }
 
-  static NAME = 'Heal Unit'
-  static PASSAGE = 'CostHeal'
-  static UNIT = true
+  static NAME = "Heal Unit";
+  static PASSAGE = "CostHeal";
+  static UNIT = true;
 
-  text() {
-    return `setup.qc.Heal('${this.actor_name}', ${this.heal_amt})`
+  override text() {
+    return `setup.qc.Heal('${this.actor_name}', ${this.heal_amt})`;
   }
 
-
-  isOk(quest) {
-    throw new Error(`Reward only`)
+  override apply(context: CostContext) {
+    let unit = context.getActorUnit(this.actor_name)!;
+    State.variables.hospital.healUnit(unit, this.heal_amt);
   }
 
-  apply(quest) {
-    let unit = quest.getActorUnit(this.actor_name)
-    State.variables.hospital.healUnit(unit, this.heal_amt)
+  override undoApply(context: CostContext) {
+    let unit = context.getActorUnit(this.actor_name)!;
+    State.variables.hospital.injureUnit(unit, this.heal_amt);
   }
 
-  undoApply(quest) {
-    let unit = quest.getActorUnit(this.actor_name)
-    State.variables.hospital.injureUnit(unit, this.heal_amt)
-  }
-
-  explain(quest) {
-    return `${this.actor_name} healed by ${this.heal_amt} weeks`
+  override explain(context: CostContext) {
+    return `${this.actor_name} healed by ${this.heal_amt} weeks`;
   }
 }

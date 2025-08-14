@@ -1,30 +1,25 @@
-// @ts-nocheck
-
-
-setup.qcImpl.VarAdd = class VarAdd extends setup.Cost {
-  constructor(key, value, expires) {
-    super()
-
-    this.key = key
-    this.value = value
-    if (expires == undefined) {
-      this.expires = expires
-    } else {
-      this.expires = -1
-    }
+export default class VarAdd extends Cost {
+  constructor(
+    public key: string,
+    public value: number,
+    public expires: number = -1,
+  ) {
+    super();
   }
 
-  text() {
-    return `setup.qc.VarAdd('${this.key}', ${this.value}, ${this.expires})`
+  override text() {
+    return `setup.qc.VarAdd('${this.key}', ${this.value}, ${this.expires})`;
   }
 
-  apply(quest) {
-    const existing = State.variables.varstore.get(this.key) || 0
-    State.variables.varstore.set(this.key, parseInt(existing) + this.value, this.expires)
+  override apply(context: CostContext) {
+    let old_value = State.variables.varstore.get<any>(this.key);
+    let new_value = (isNaN(old_value) ? 0 : old_value) + this.value;
+
+    State.variables.varstore.set(this.key, new_value, this.expires);
   }
 
-  explain(quest) {
-    if (quest) return ''
-    return `Variable "${this.key}" is added by "${this.value}" and reset expiration to ${this.expires} weeks.`
+  override explain(context: CostContext) {
+    if (context) return ""; // ???
+    return `Variable "${this.key}" is added by "${this.value}" and reset expiration to ${this.expires} weeks.`;
   }
 }

@@ -1,19 +1,17 @@
-// @ts-nocheck
-
-setup.qresImpl.ZeroTitle = class ZeroTitle extends setup.Restriction {
+export default class ZeroTitle extends Restriction.Unit {
   constructor() {
-    super()
+    super();
   }
 
-  text() {
-    return `setup.qres.ZeroTitle()`
+  override text() {
+    return `setup.qres.ZeroTitle()`;
   }
 
-  explain() {
-    return `Unit does not have any title`
+  override explain() {
+    return `Unit does not have any title`;
   }
 
-  isOk(unit) {
-    return State.variables.titlelist.getAllTitles(unit).length == 0
+  override isOk(unit: Unit): boolean {
+    return State.variables.titlelist.getAllTitles(unit).length == 0;
   }
 }

@@ -1,18 +1,22 @@
-// @ts-nocheck
+import { SlaveOrderTemplate } from "../SlaveOrderTemplate";
 
-
-setup.qcImpl.SlaveOrderSeaborneRescueItHasToBeYouAssPirate = class SlaveOrderSeaborneRescueItHasToBeYouAssPirate extends setup.qcImpl.SlaveOrderTemplate {
+export default class SlaveOrderSeaborneRescueItHasToBeYouAssPirate extends SlaveOrderTemplate {
   constructor() {
-    super()
+    super();
 
-    this.base_price = 0
-    this.trait_multi = 6000
-    this.value_multi = 1
+    this.base_price = 0;
+    this.trait_multi = 6000;
+    this.value_multi = 1;
 
     this.criteria = new setup.UnitCriteria(
-      null, /* key */
-      'Ass Pirate Order', /* title */
-      [setup.trait.anus_tight, setup.trait.training_anal_basic, setup.trait.training_anal_advanced, setup.trait.training_anal_master],
+      null /* key */,
+      "Ass Pirate Order" /* title */,
+      [
+        setup.trait.anus_tight,
+        setup.trait.training_anal_basic,
+        setup.trait.training_anal_advanced,
+        setup.trait.training_anal_master,
+      ],
       [],
       [
         setup.qres.Job(setup.job.slave),
@@ -21,18 +25,18 @@ setup.qcImpl.SlaveOrderSeaborneRescueItHasToBeYouAssPirate = class SlaveOrderSea
           setup.qres.Trait(setup.trait.anus_tight),
         ]),
       ],
-      {}  /* skill effects */
-    )
+      {} /* skill effects */,
+    );
 
-    this.name = 'Ass Pirate Order'
-    this.company_key = 'outlaws'
-    this.expires_in = 4
-    this.fulfilled_outcomes = []
-    this.unfulfilled_outcomes = []
-    this.destination_unit_group_key = setup.unitgroup.soldslaves.key
+    this.name = "Ass Pirate Order";
+    this.company_key = "outlaws";
+    this.expires_in = 4;
+    this.fulfilled_outcomes = [];
+    this.unfulfilled_outcomes = [];
+    this.destination_unit_group_key = setup.unitgroup.soldslaves.key;
   }
 
-  text() {
-    return `setup.qc.SlaveOrderSeaborneRescueItHasToBeYouAssPirate()`
+  override text() {
+    return `setup.qc.SlaveOrderSeaborneRescueItHasToBeYouAssPirate()`;
   }
 }

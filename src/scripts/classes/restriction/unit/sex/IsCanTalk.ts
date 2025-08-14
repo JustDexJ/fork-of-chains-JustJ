@@ -1,22 +1,17 @@
-// @ts-nocheck
-
-setup.qresImpl.IsCanTalk = class IsCanTalk extends setup.Restriction {
+export default class IsCanTalk extends Restriction.Unit {
   constructor() {
-    super()
+    super();
   }
 
-  text() {
-    return `setup.qres.IsCanTalk()`
+  override text() {
+    return `setup.qres.IsCanTalk()`;
   }
 
-  explain() {
-    return `Can talk: not blocked by slave rule or by gag`
+  override explain() {
+    return `Can talk: not blocked by slave rule or by gag`;
   }
 
-  /**
-   * @param {setup.Unit} unit 
-   */
-  isOk(unit) {
-    return unit.isCanTalk()
+  override isOk(unit: Unit): boolean {
+    return unit.isCanTalk();
   }
 }

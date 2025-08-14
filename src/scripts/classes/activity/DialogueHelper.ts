@@ -1,24 +1,17 @@
-// @ts-nocheck
+import { TwineClass } from "../_TwineClass";
 
-
-
-setup.DialogueHelper = class DialogueHelper extends setup.TwineClass {
-  /**
-   * @param {string} actor_name 
-   * @returns {Dialogue}
-   */
-  static createEmptyDialogue(actor_name) {
+export class DialogueHelper extends TwineClass {
+  static createEmptyDialogue(actor_name: string): Dialogue {
     const res = {
-      friendly: [''],
-      bold: [''],
-      cool: [''],
-      witty: [''],
-      debauched: [''],
-    }
+      friendly: [""],
+      bold: [""],
+      cool: [""],
+      witty: [""],
+      debauched: [""],
+    };
     return {
       actor: actor_name,
       texts: res,
-    }
+    };
   }
 }
-

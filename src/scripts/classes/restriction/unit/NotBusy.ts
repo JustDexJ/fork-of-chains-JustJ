@@ -1,25 +1,21 @@
-// @ts-nocheck
-
-
-setup.qresImpl.NotBusy = class NotBusy extends setup.Restriction {
+export default class NotBusy extends Restriction.Unit {
   constructor() {
-    super()
-
+    super();
   }
 
-  static NAME = 'Unit not busy'
-  static PASSAGE = 'RestrictionNotBusy'
-  static UNIT = true
+  static NAME = "Unit not busy";
+  static PASSAGE = "RestrictionNotBusy";
+  static UNIT = true;
 
-  text() {
-    return `setup.qres.NotBusy()`
+  override text() {
+    return `setup.qres.NotBusy()`;
   }
 
-  explain() {
-    return `Unit is [<<successtextlite 'IDLE'>>]`
+  override explain() {
+    return `Unit is [<<successtextlite 'IDLE'>>]`;
   }
 
-  isOk(unit) {
-    return !unit.isBusy()
+  override isOk(unit: Unit): boolean {
+    return !unit.isBusy();
   }
 }

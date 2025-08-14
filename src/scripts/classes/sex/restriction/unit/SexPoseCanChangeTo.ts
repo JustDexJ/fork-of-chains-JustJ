@@ -1,21 +1,16 @@
-// @ts-nocheck
-
-setup.qresImpl.SexPoseCanChangeTo = class SexPoseCanChangeTo extends setup.SexRestriction {
-  /**
-   * @param {setup.SexPose} pose
-   */
-  constructor(pose) {
-    super()
-    this.pose = pose
+export default class SexPoseCanChangeTo extends SexRestriction {
+  constructor(public pose: SexPose) {
+    super();
   }
 
-  explain() {
-    return `Can switch to ${this.pose.rep()}`
+  override explain() {
+    return `Can switch to ${this.pose.rep()}`;
   }
 
-  isOk(unit) {
-    return this.sex.getPose(unit) != this.pose && this.pose.isAllowed(unit, this.sex)
+  override isOk(unit: Unit) {
+    return (
+      this.sex.getPose(unit) !== this.pose &&
+      this.pose.isAllowed(unit, this.sex)
+    );
   }
 }
-
-

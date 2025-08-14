@@ -1,9 +1,8 @@
-
-/* 
+/*
 https://raw.githubusercontent.com/sterpe/japanese-name-generator/master/data/names/male.json
 */
 
-setup.NAME_japanese_surname = [
+export const NAME_japanese_surname = [
   "Abe",
   "Abukara",
   "Adachi",
@@ -1266,4 +1265,4 @@ setup.NAME_japanese_surname = [
   "Yuasa",
   "Yuhara",
   "Yunokawa",
-]
+];

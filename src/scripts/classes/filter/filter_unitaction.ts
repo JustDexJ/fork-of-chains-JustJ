@@ -1,64 +1,68 @@
-// @ts-nocheck
+import type { UnitAction } from "../unitaction/UnitAction";
+import type { FilterMenu, FilterMenuOptions } from "./_filter";
+import { MenuFilterHelper } from "./filterhelper";
 
-import { up, down } from "./AAA_filter"
-import { MenuFilterHelper } from "./filterhelper"
-
-function getUnitActionTagFilter(tag) {
-  return template => template.getTags().includes(tag)
+function getUnitActionTagFilter(tag: string) {
+  return (unitaction: UnitAction) => unitaction.getTags().includes(tag);
 }
 
-function getUnitActionTagFilters(tag_type) {
+function getUnitActionTagFilters(tag_type: string) {
   return () => {
-    const base = {}
-    for (const tag of setup.TagHelper.getAllTagsOfType('unitaction', tag_type)) {
+    const base: FilterMenuOptions<UnitAction> = {};
+    for (const tag of setup.TagHelper.getAllTagsOfType(
+      "unitaction",
+      tag_type,
+    )) {
       base[tag] = {
-        title: setup.TagHelper.tagRep('unitaction', tag, /* force = */ true),
+        title: setup.TagHelper.tagRep("unitaction", tag, /* force = */ true),
         filter: getUnitActionTagFilter(tag),
-      }
+      };
     }
-    return base
-  }
+    return base;
+  };
 }
 
-setup.MenuFilter._MENUS.unitaction = {
+export const _MENUS_unitaction: FilterMenu<UnitAction> = {
   type: {
-    title: 'Type',
+    title: "Type",
     icon_menu: true,
-    options: getUnitActionTagFilters('type'),
+    options: getUnitActionTagFilters("type"),
   },
   status: {
-    title: 'Status',
-    default: 'All',
+    title: "Status",
+    default: "All",
     options: {
       doable: {
-        title: 'Usable',
-        filter: unitaction => unitaction.isCanTrain(State.temporary.unitaction_unit),
+        title: "Usable",
+        filter: (unitaction) =>
+          unitaction.isCanTrain(State.temporary.unitaction_unit),
       },
       notdoable: {
-        title: 'Not usable',
-        filter: unitaction => !unitaction.isCanTrain(State.temporary.unitaction_unit),
-      },
-    }
-  },
-  sort: {
-    title: 'Sort',
-    default: 'Default',
-    options: {
-      namedown: MenuFilterHelper.namedown,
-      nameup: MenuFilterHelper.nameup,
-    }
-  },
-  display: {
-    title: 'Display',
-    default: 'Full',
-    hardreload: true,
-    options: {
-      short: {
-        title: 'Short',
-      },
-      compact : {
-        title: 'Compact',
+        title: "Not usable",
+        filter: (unitaction) =>
+          !unitaction.isCanTrain(State.temporary.unitaction_unit),
       },
     },
   },
-}
+  sort: {
+    title: "Sort",
+    default: "Default",
+    options: {
+      namedown: MenuFilterHelper.namedown,
+      nameup: MenuFilterHelper.nameup,
+    },
+  },
+  display: {
+    title: "Display",
+    default: "Full",
+    hardreload: true,
+    options: {
+      short: {
+        title: "Short",
+      },
+      compact: {
+        title: "Compact",
+      },
+    },
+  },
+};

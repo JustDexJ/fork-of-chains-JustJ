@@ -1,49 +1,50 @@
-// @ts-nocheck
+import type { Equipment } from "../../equipment/Equipment";
+import type {
+  EquipmentPool,
+  EquipmentPoolKey,
+} from "../../equipment/EquipmentPool";
+import type { Market } from "../../market/Market";
 
+export default class EquipmentForSale extends Cost {
+  equipment_pool_key: EquipmentPoolKey;
 
-setup.qcImpl.EquipmentForSale = class EquipmentForSale extends setup.Cost {
-  /**
-   * @param {setup.EquipmentPool | string} equipment_pool 
-   * @param {number} amount 
-   * @param {number} [markup]
-   */
-  constructor(equipment_pool, amount, markup) {
-    super()
+  constructor(
+    equipment_pool: EquipmentPool | EquipmentPoolKey,
+    public amount: number = 1,
+    public markup: number = 1.0,
+  ) {
+    super();
 
-    if (!equipment_pool) throw new Error(`Missing equipment pool for equipment for sale`)
+    if (!equipment_pool)
+      throw new Error(`Missing equipment pool for equipment for sale`);
 
-    this.equipment_pool_key = setup.keyOrSelf(equipment_pool)
-    this.markup = markup || 1.0
-
-    if (!amount) {
-      this.amount = 1
-    } else {
-      this.amount = amount
-    }
+    this.equipment_pool_key = resolveKey(equipment_pool);
   }
 
-  text() {
-    return `setup.qc.EquipmentForSale('${this.equipment_pool_key}', ${this.amount}, ${this.markup})`
+  override text() {
+    return `setup.qc.EquipmentForSale('${this.equipment_pool_key}', ${this.amount}, ${this.markup})`;
   }
 
-  apply(quest) {
-    let market = this.getMarket()
-    let pool = setup.equipmentpool[this.equipment_pool_key]
+  override apply(context: CostContext) {
+    let market = this.getMarket();
+    let pool = setup.equipmentpool[this.equipment_pool_key];
     for (let i = 0; i < this.amount; ++i) {
-      let equipment = pool.generateEquipment()
+      let equipment = pool.generateEquipment();
       new setup.MarketObject(
         equipment,
         /* price = */ Math.round(equipment.getValue() * this.markup),
         setup.MARKET_OBJECT_EQUIPMENT_EXPIRATION,
         market,
-        quest,
-      )
+        context,
+      );
     }
   }
 
-  getMarket() { return State.variables.market.equipmentmarket }
+  getMarket(): Market<Equipment> {
+    return State.variables.market.equipmentmarket;
+  }
 
-  explain(quest) {
-    return `${this.amount} new items in ${this.getMarket().rep()} at ${this.markup}x price`
+  override explain(context: CostContext) {
+    return `${this.amount} new items in ${this.getMarket().rep()} at ${this.markup}x price`;
   }
 }

@@ -1,35 +1,22 @@
-// @ts-nocheck
-
-
-// levels up this unit.
-setup.qcImpl.levelUp = class levelUp extends setup.Cost {
-  constructor(actor_name) {
-    super()
-
-    this.actor_name = actor_name
+/** Levels up this unit. */
+export default class levelUp extends Cost {
+  constructor(public actor_name: string) {
+    super();
   }
 
-  static NAME = 'Level up a unit'
-  static PASSAGE = 'CostlevelUp'
+  static NAME = "Level up a unit";
+  static PASSAGE = "CostlevelUp";
 
-  text() {
-    return `setup.qc.levelUp('${this.actor_name}')`
+  override text() {
+    return `setup.qc.levelUp('${this.actor_name}')`;
   }
 
-  isOk(quest) {
-    throw new Error(`Reward only`)
+  override apply(context: CostContext) {
+    let unit = context.getActorUnit(this.actor_name)!;
+    unit.levelUp();
   }
 
-  apply(quest) {
-    let unit = quest.getActorUnit(this.actor_name)
-    unit.levelUp()
-  }
-
-  undoApply(quest) {
-    throw new Error(`Cannot be undone`)
-  }
-
-  explain(quest) {
-    return `${this.actor_name} levels up`
+  override explain(context: CostContext) {
+    return `${this.actor_name} levels up`;
   }
 }

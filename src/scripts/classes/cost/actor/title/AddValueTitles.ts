@@ -1,37 +1,30 @@
-// @ts-nocheck
+import type { TitleKey } from "../../../title/Title";
 
-setup.qcImpl.AddValueTitles = class AddValueTitles extends setup.Cost {
-  /**
-   * @param {string} actor_name 
-   * @param {number} amount 
-   */
-  constructor(actor_name, amount) {
-    super()
-    this.actor_name = actor_name
-    this.amount = amount
+export default class AddValueTitles extends Cost {
+  constructor(
+    public actor_name: string,
+    public amount: number,
+  ) {
+    super();
   }
 
-  text() {
-    return `setup.qc.AddValueTitles('${this.actor_name}', ${this.amount})`
+  override text() {
+    return `setup.qc.AddValueTitles('${this.actor_name}', ${this.amount})`;
   }
 
-  apply(quest) {
-    let target = this.amount
-    const values = [
-      80000,
-      40000,
-      20000,
-      10000,
-      5000,
-    ]
+  override apply(context: CostContext) {
+    let target = this.amount;
+    const values = [80000, 40000, 20000, 10000, 5000];
     for (const value of values) {
       if (target >= value) {
-        setup.qc.AddTitle(this.actor_name, `value_add_${value}`).apply(quest)
+        setup.qc
+          .AddTitle(this.actor_name, `value_add_${value}` as TitleKey)
+          .apply(context);
       }
     }
   }
 
-  explain(quest) {
-    return `${this.actor_name} gains titles to increase its value by at most ${this.amount}g`
+  override explain(context: CostContext) {
+    return `${this.actor_name} gains titles to increase its value by at most ${this.amount}g`;
   }
 }

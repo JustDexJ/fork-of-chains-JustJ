@@ -2,7 +2,7 @@
 https://en.uesp.net/wiki/Lore:Dunmer_Names
 */
 
-setup.NAME_drow_male_first_name = [
+export const NAME_drow_male_first_name = [
   "Aanthis",
   "Adaves",
   "Adavos",
@@ -1402,5 +1402,4 @@ setup.NAME_drow_male_first_name = [
   "Zanil",
   "Zanon",
   "Zimmeron",
-]
-
+];

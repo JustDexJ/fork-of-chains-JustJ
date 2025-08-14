@@ -2,7 +2,7 @@
 https://en.uesp.net/wiki/Lore:Redguard_Names#Redguard_Family_Names_and_Derivation_Names
 */
 
-setup.NAME_arabic_male_first_name = [
+export const NAME_arabic_male_first_name = [
   "Aaban",
   "Aabid",
   "Aadil",
@@ -2069,4 +2069,4 @@ setup.NAME_arabic_male_first_name = [
   "Zulqarnain",
   "Zunnoon",
   "Zuti",
-]
+];

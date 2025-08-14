@@ -1,18 +1,13 @@
-// @ts-nocheck
-
-setup.qcImpl.SexEnd = class SexEnd extends setup.SexCost {
+export default class SexEnd extends SexCost {
   constructor() {
-    super()
+    super();
   }
 
-  /**
-   * @param {setup.SexAction} action
-   */
-  apply(action) {
-    this.sex.endSex()
+  override apply(action: SexAction) {
+    this.sex.endSex();
   }
 
-  explain() {
-    return `Ends sex`
+  override explain() {
+    return `Ends sex`;
   }
 }

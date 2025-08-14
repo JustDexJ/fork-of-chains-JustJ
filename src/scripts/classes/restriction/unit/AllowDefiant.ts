@@ -1,30 +1,25 @@
-// @ts-nocheck
-
 /**
  * Usually, defiant units are disallowed from participating in many things, such as quests, events, interactions,
  * etc. This restriction will allow them to participate in those.
  */
-setup.qresImpl.AllowDefiant = class AllowDefiant extends setup.Restriction {
+export default class AllowDefiant extends Restriction.Unit {
   constructor() {
-    super()
+    super();
   }
 
-  text() {
-    return `setup.qres.AllowDefiant()`
+  override text() {
+    return `setup.qres.AllowDefiant()`;
   }
 
-  explain() {
+  override explain() {
     if (State.variables.gDebug) {
-      return `Allow defiant units`
+      return `Allow defiant units`;
     } else {
-      return ``
+      return ``;
     }
   }
 
-  /**
-   * @param {setup.Unit} unit 
-   */
-  isOk(unit) {
-    return true
+  override isOk(unit: Unit): boolean {
+    return true;
   }
 }

@@ -1,9 +1,8 @@
-
 /* from
 https://github.com/LukeMS/lua-namegen/blob/master/data/creatures.cfg
 */
 
-setup.NAME_demon_male_first_name = function () {
+export const NAME_demon_male_first_name = function () {
   const firstpart = [
     "Aag",
     "Alur",
@@ -71,7 +70,7 @@ setup.NAME_demon_male_first_name = function () {
     "Zuldu",
     "Zuv",
     "Kkroh",
-  ]
+  ];
   const secondpart = [
     "arag",
     "axus",
@@ -99,8 +98,8 @@ setup.NAME_demon_male_first_name = function () {
     "zzunth",
     "zachar",
     "biicus",
-  ]
-  let firstrand = setup.rng.choice(firstpart)
-  let secondrand = setup.rng.choice(secondpart)
-  return `${firstrand}${secondrand}`
-}
+  ];
+  let firstrand = setup.rng.choice(firstpart);
+  let secondrand = setup.rng.choice(secondpart);
+  return `${firstrand}${secondrand}`;
+};

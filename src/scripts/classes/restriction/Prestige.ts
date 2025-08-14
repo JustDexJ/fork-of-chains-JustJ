@@ -1,25 +1,20 @@
-// @ts-nocheck
-
-
-setup.qresImpl.Prestige = class Prestige extends setup.Restriction {
-  constructor(prestige) {
-    super()
-
-    this.prestige = prestige
+export default class Prestige extends Restriction {
+  constructor(public prestige: number) {
+    super();
   }
 
-  static NAME = 'Prestige minimum'
-  static PASSAGE = 'RestrictionPrestige'
+  static NAME = "Prestige minimum";
+  static PASSAGE = "RestrictionPrestige";
 
-  text() {
-    return `setup.qres.Prestige(${this.prestige})`
+  override text() {
+    return `setup.qres.Prestige(${this.prestige})`;
   }
 
-  explain() {
-    return `Minimum prestige: ${this.prestige}`
+  override explain() {
+    return `Minimum prestige: ${this.prestige}`;
   }
 
-  isOk() {
-    return State.variables.company.player.getPrestige() >= this.prestige
+  override isOk() {
+    return State.variables.company.player.getPrestige() >= this.prestige;
   }
 }

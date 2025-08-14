@@ -1,50 +1,46 @@
-// @ts-nocheck
+import type { UnitGroup, UnitGroupKey } from "../../unit/UnitGroup";
 
+/**
+ * Mark unit to NOT be deleted.
+ * Should be "RemoveFromUnitGroup"-ed later.
+ */
+export default class AddUnitToUnitGroup extends Cost {
+  unit_group_key: UnitGroupKey;
 
-// mark unit to NOT be deleted. Should be "RemoveFromUnitGroup"-ed later.
-setup.qcImpl.AddUnitToUnitGroup = class AddUnitToUnitGroup extends setup.Cost {
-  constructor(actor_name, unit_group) {
-    super()
+  constructor(
+    public actor_name: string,
+    unit_group: UnitGroup | UnitGroupKey,
+  ) {
+    super();
 
-    this.actor_name = actor_name
-    if (setup.isString(unit_group)) {
-      this.unit_group_key = unit_group
-    } else {
-      this.unit_group_key = unit_group.key
-    }
+    this.unit_group_key = resolveKey(unit_group);
   }
 
-  text() {
-    let unitgroup = setup.unitgroup[this.unit_group_key]
-    let qcu = State.variables.qcustomunitgroup
-    if (!qcu) qcu = []
-  
-    let otherkey = unitgroup.key
+  override text() {
+    let unitgroup = setup.unitgroup[this.unit_group_key];
+    let qcu = State.variables.qcustomunitgroup;
+    if (!qcu) qcu = [];
+
+    let otherkey = unitgroup.key;
     for (let i = 0; i < qcu.length; ++i) {
-      let ug = qcu[i]
+      let ug = qcu[i];
       if (ug.key == unitgroup.key) {
-        otherkey = ug.otherkey
-        break
+        // TODO: this is correct?
+        // @ts-ignore
+        otherkey = ug.otherkey;
+        break;
       }
     }
-  
-    return `setup.qc.AddUnitToUnitGroup('${this.actor_name}', '${otherkey}')`
+
+    return `setup.qc.AddUnitToUnitGroup('${this.actor_name}', '${otherkey}')`;
   }
 
-  isOk(quest) {
-    throw new Error(`Reward only`)
+  override apply(context: CostContext) {
+    let unit = context.getActorUnit(this.actor_name)!;
+    setup.unitgroup[this.unit_group_key].addUnit(unit);
   }
 
-  apply(quest) {
-    let unit = quest.getActorUnit(this.actor_name)
-    setup.unitgroup[this.unit_group_key].addUnit(unit)
-  }
-
-  undoApply(quest) {
-    throw new Error(`Can't undo`)
-  }
-
-  explain(quest) {
-    return `${this.actor_name} is added to unit group ${setup.unitgroup[this.unit_group_key].rep()}`
+  override explain(context: CostContext) {
+    return `${this.actor_name} is added to unit group ${setup.unitgroup[this.unit_group_key].rep()}`;
   }
 }

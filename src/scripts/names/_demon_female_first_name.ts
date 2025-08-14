@@ -2,7 +2,7 @@
 https://github.com/LukeMS/lua-namegen/blob/master/data/creatures.cfg
 */
 
-setup.NAME_demon_female_first_name = function () {
+export const NAME_demon_female_first_name = function () {
   const firstpart = [
     "Aag",
     "Karg",

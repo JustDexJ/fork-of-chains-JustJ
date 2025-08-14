@@ -29,7 +29,9 @@
     "precompile": "sh deploy.sh precompiled",
     "deployfull": "sh deploy.sh deployfull",
     "deployitch": "sh deploy.sh deployitch",
-    "set-version": "node dev/setVersion.js"
+    "set-version": "node dev/setVersion.js",
+    "check-type-errors": "tsc -p .",
+    "reformat-all-files": "prettier --write ."
   },
   "keywords": [
     "twine",
@@ -58,6 +60,8 @@
     "fast-glob": "^3.3.3",
     "open-cli": "^8.0.0",
     "postcss-nesting": "^13.0.2",
+    "prettier": "^3.6.2",
+    "prettier-plugin-organize-imports": "^4.2.0",
     "typescript": "^5.9.2",
     "vite": "^7.1.0",
     "vite-plugin-solid": "^2.11.8"

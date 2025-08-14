@@ -1,32 +1,32 @@
-// @ts-nocheck
+export default class HasAnyItemAnywhere extends Restriction {
+  item_keys: ItemKey[];
 
-setup.qresImpl.HasAnyItemAnywhere = class HasAnyItemAnywhere extends setup.Restriction {
-  /**
-   * @param {Array<string | setup.Item>} items 
-   */
-  constructor(items) {
-    super()
+  constructor(items: Array<Item | ItemKey | BuiltinItemKey>) {
+    super();
 
-    this.item_keys = items.map(item => setup.keyOrSelf(item))
+    this.item_keys = items.map((item) => resolveKey(item as Item | ItemKey));
   }
 
-  /**
-   * @returns {setup.Item[]}
-   */
-  getItems() { return this.item_keys.map(key => setup.item[key]) }
-
-  text() {
-    return `setup.qres.HasAnyItem([${this.getItems().map(item => `"${item.key}"`).join(', ')}])`
+  getItems(): Item[] {
+    return this.item_keys.map((key) => setup.item[key]);
   }
 
-  explain() {
-    return `Has any of these items anywhere: ${this.getItems().map(item => item.rep()).join('')}`
+  override text() {
+    return `setup.qres.HasAnyItem([${this.getItems()
+      .map((item) => `"${item.key}"`)
+      .join(", ")}])`;
   }
 
-  isOk() {
+  override explain() {
+    return `Has any of these items anywhere: ${this.getItems()
+      .map((item) => item.rep())
+      .join("")}`;
+  }
+
+  override isOk() {
     for (const item of this.getItems()) {
-      if (State.variables.inventory.isHasItemAnywhere(item)) return true
+      if (State.variables.inventory.isHasItemAnywhere(item)) return true;
     }
-    return false
+    return false;
   }
 }

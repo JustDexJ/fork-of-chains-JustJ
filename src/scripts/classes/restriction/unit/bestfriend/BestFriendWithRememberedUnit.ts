@@ -1,23 +1,18 @@
-// @ts-nocheck
-
-setup.qresImpl.BestFriendWithRememberedUnit = class BestFriendWithRememberedUnit extends setup.Restriction {
+export default class BestFriendWithRememberedUnit extends Restriction.Unit {
   constructor() {
-    super()
+    super();
   }
 
-  text() {
-    return `setup.qres.BestFriendWithRememberedUnit()`
+  override text() {
+    return `setup.qres.BestFriendWithRememberedUnit()`;
   }
 
-  explain() {
-    return `Unit must be the best friend/lover of the remembered unit`
+  override explain() {
+    return `Unit must be the best friend/lover of the remembered unit`;
   }
 
-  /**
-   * @param {setup.Unit} unit 
-   */
-  isOk(unit) {
-    const bf = setup.qresImpl.RememberUnit.getRememberedUnit()
-    return unit.getBestFriend() == bf
+  override isOk(unit: Unit): boolean {
+    const bf = setup.qresImpl.RememberUnit.getRememberedUnit();
+    return unit.getBestFriend() == bf;
   }
 }

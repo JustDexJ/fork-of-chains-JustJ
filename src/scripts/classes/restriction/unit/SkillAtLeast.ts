@@ -1,28 +1,29 @@
-// @ts-nocheck
+import type { SkillKey } from "../../Skill";
 
+export default class SkillAtLeast extends Restriction.Unit {
+  skill_key: SkillKey;
+  amount: number;
 
-setup.qresImpl.SkillAtLeast = class SkillAtLeast extends setup.Restriction {
-  constructor(skill, amount) {
-    super()
+  constructor(skill: Skill | SkillKey, amount: number) {
+    super();
 
-    this.skill_key = setup.keyOrSelf(skill)
-    this.amount = amount
+    this.skill_key = resolveKey(skill);
+    this.amount = amount;
   }
 
-  text() {
-    return `setup.qres.SkillAtLeast(setup.skill.${this.getSkill().keyword}, ${this.amount})`
+  override text() {
+    return `setup.qres.SkillAtLeast(setup.skill.${this.getSkill().keyword}, ${this.amount})`;
   }
 
-  getSkill() { return setup.skill[this.skill_key] }
-
-  explain() {
-    return `Unit's ${this.getSkill().rep()} is at least ${this.amount}`
+  getSkill() {
+    return setup.skill[this.skill_key];
   }
 
-  /**
-   * @param {setup.Unit} unit 
-   */
-  isOk(unit) {
-    return unit.getSkill(this.getSkill()) >= this.amount
+  override explain() {
+    return `Unit's ${this.getSkill().rep()} is at least ${this.amount}`;
+  }
+
+  override isOk(unit: Unit): boolean {
+    return unit.getSkill(this.getSkill()) >= this.amount;
   }
 }

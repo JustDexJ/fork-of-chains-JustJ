@@ -1,29 +1,24 @@
-// @ts-nocheck
-
-
-setup.qresImpl.NotExistUnit = class NotExistUnit extends setup.Restriction {
-  constructor(restrictions) {
-    super()
-
-    this.restrictions = restrictions
+export default class NotExistUnit extends Restriction {
+  constructor(public restrictions: Restriction[]) {
+    super();
   }
 
-  text() {
-    let texts = this.restrictions.map(a => a.text())
-    return `setup.qres.NotExistUnit([<br/>${texts.join(',<br/>')}<br/>])`
+  override text() {
+    let texts = this.restrictions.map((a) => a.text());
+    return `setup.qres.NotExistUnit([<br/>${texts.join(",<br/>")}<br/>])`;
   }
 
-  explain() {
-    let texts = this.restrictions.map(a => a.explain())
-    return `Must NOT exist any unit with: [ ${texts.join(' ')} ]`
+  override explain() {
+    let texts = this.restrictions.map((a) => a.explain());
+    return `Must NOT exist any unit with: [ ${texts.join(" ")} ]`;
   }
 
-  isOk() {
-    for (let iunitkey in State.variables.unit) {
-      let unit = State.variables.unit[iunitkey]
-      if (setup.RestrictionLib.isUnitSatisfy(unit, this.restrictions)) return false
+  override isOk() {
+    for (const unit of Object.values(State.variables.unit)) {
+      if (setup.RestrictionLib.isUnitSatisfy(unit, this.restrictions))
+        return false;
     }
-    return true
+    return true;
   }
 
   getLayout() {
@@ -33,9 +28,9 @@ setup.qresImpl.NotExistUnit = class NotExistUnit extends setup.Restriction {
         {
           passage: "RestrictionNotExistUnitHeader",
           addpassage: "QGAddRestrictionUnit",
-          listpath: ".restrictions"
-        }
-      ]
-    }
+          listpath: ".restrictions",
+        },
+      ],
+    };
   }
 }

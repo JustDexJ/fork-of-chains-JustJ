@@ -1,28 +1,25 @@
-// @ts-nocheck
+import type { Title, TitleKey } from "../../../title/Title";
 
+export default class NoTitle extends Restriction.Unit {
+  title_key: TitleKey;
 
-setup.qresImpl.NoTitle = class NoTitle extends setup.Restriction {
-  constructor(title) {
-    super()
+  constructor(public title: Title | TitleKey) {
+    super();
 
-    if (setup.isString(title)) {
-      this.title_key = title
-    } else {
-      this.title_key = title.key
-    }
+    this.title_key = resolveKey(title);
   }
 
-  text() {
-    return `setup.qres.NoTitle('${this.title_key}')`
+  override text() {
+    return `setup.qres.NoTitle('${this.title_key}')`;
   }
 
-  explain() {
-    let title = setup.title[this.title_key]
-    return `Unit does not have ${title.rep()}`
+  override explain() {
+    let title = setup.title[this.title_key];
+    return `Unit does not have ${title.rep()}`;
   }
 
-  isOk(unit) {
-    let title = setup.title[this.title_key]
-    return !State.variables.titlelist.isHasTitle(unit, title)
+  override isOk(unit: Unit): boolean {
+    let title = setup.title[this.title_key];
+    return !State.variables.titlelist.isHasTitle(unit, title);
   }
 }

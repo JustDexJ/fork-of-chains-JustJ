@@ -1,22 +1,17 @@
-// @ts-nocheck
-
-setup.qresImpl.IsCanPhysicallyTalk = class IsCanPhysicallyTalk extends setup.Restriction {
+export default class IsCanPhysicallyTalk extends Restriction.Unit {
   constructor() {
-    super()
+    super();
   }
 
-  text() {
-    return `setup.qres.IsCanPhysicallyTalk()`
+  override text() {
+    return `setup.qres.IsCanPhysicallyTalk()`;
   }
 
-  explain() {
-    return `Can talk physically: not blocked by gag, but can be blocked by slave rule`
+  override explain() {
+    return `Can talk physically: not blocked by gag, but can be blocked by slave rule`;
   }
 
-  /**
-   * @param {setup.Unit} unit 
-   */
-  isOk(unit) {
-    return unit.isCanPhysicallyTalk()
+  override isOk(unit: Unit): boolean {
+    return unit.isCanPhysicallyTalk();
   }
 }

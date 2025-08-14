@@ -178,7 +178,7 @@
               <td>1-2 week</td>
             </tr>
             <tr>
-              <td><<Lore region_deep>></td>
+              <td><<lore region_deep>></td>
               <td>Normal</td>
               <td>1-3 weeks</td>
             </tr>
@@ -474,7 +474,7 @@
           <<message '(?)'>>
             <div class='helpcard'>
               Rarity class of this $devtooltype, if any.
-              In general, pick the "rare" tag if the actual rarity is Epic or higher, 
+              In general, pick the "rare" tag if the actual rarity is Epic or higher,
               and use the "Legendary" tag if the actual rarity is legendary.
             </div>
           <</message>>
@@ -1085,7 +1085,7 @@
         if the player go on the quest.
         <br/>
         <br/>
-        For example, 
+        For example,
         "&lt;&lt;Rep $g.actor&gt;&gt; actor|was drinking"
         will be converted to either
         "You were drinking" or "Bob was drinking".
@@ -1127,7 +1127,7 @@
         Second, you can use adverbs / adjectives that will be based on their personality.
         To do this, in the editor choose "Terms" from the toolbar, and then
         "Random adverb" or "Random adjective". Alternatively, you can use
-        the "your evil slaver Bob" option from the 
+        the "your evil slaver Bob" option from the
         <br/>
         <br/>
         Third, you can also create variations based on whether or not the units
@@ -1181,7 +1181,7 @@
 
 <<focwidget 'dtraritychoose'>>
   <div>
-    Choose rarity: 
+    Choose rarity:
     <<dtrarityhelp>>
   </div>
   <<for _rarity range setup.rarity>>

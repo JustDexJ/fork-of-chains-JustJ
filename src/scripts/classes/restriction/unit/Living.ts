@@ -1,29 +1,26 @@
-// @ts-nocheck
+import type { Living as Living_, LivingKey } from "../../retire/Living";
 
+export default class Living extends Restriction.Unit {
+  living_key: LivingKey;
 
-setup.qresImpl.Living = class Living extends setup.Restriction {
-  /**
-   * @param {setup.Living} living 
-   */
-  constructor(living) {
-    super()
-    this.living_key = setup.keyOrSelf(living)
+  constructor(living: Living_ | LivingKey) {
+    super();
+    this.living_key = resolveKey(living);
   }
 
-  text() {
-    return `setup.qres.Living(setup.living.${this.living_key})`
+  override text() {
+    return `setup.qres.Living(setup.living.${this.living_key})`;
   }
 
-  getLiving() { return setup.living[this.living_key] }
-
-  explain() {
-    return `Unit is retired and has the following living: ${this.getLiving().rep()}`
+  getLiving(): Living_ {
+    return setup.living[this.living_key];
   }
 
-  /**
-   * @param {setup.Unit} unit 
-   */
-  isOk(unit) {
-    return unit.getLiving() == this.getLiving()
+  override explain() {
+    return `Unit is retired and has the following living: ${this.getLiving().rep()}`;
+  }
+
+  override isOk(unit: Unit): boolean {
+    return unit.getLiving() == this.getLiving();
   }
 }

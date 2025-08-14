@@ -1,16 +1,14 @@
-// @ts-nocheck
+import type { Title } from "../title/Title";
+import type { FilterMenu } from "./_filter";
+import { MenuFilterHelper } from "./filterhelper";
 
-import { up, down } from "./AAA_filter"
-import { MenuFilterHelper } from "./filterhelper"
-
-setup.MenuFilter._MENUS.living = {
+export const _MENUS_title: FilterMenu<Title> = {
   sort: {
-    title: 'Sort',
-    default: 'Default',
+    title: "Sort",
+    default: "Default",
     options: {
       namedown: MenuFilterHelper.namedown,
       nameup: MenuFilterHelper.nameup,
-    }
+    },
   },
-}
-
+};

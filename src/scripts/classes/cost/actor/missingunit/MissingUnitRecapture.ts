@@ -1,5 +1,4 @@
-// @ts-nocheck
-
+import type { QuestPoolKey } from "../../../quest/QuestPool";
 
 const QUESTPOOL_TO_STACKS = {
   capturedeasy: 1,
@@ -8,58 +7,65 @@ const QUESTPOOL_TO_STACKS = {
   escapeeasy: 1,
   escapemedium: 2,
   escapehard: 3,
-}
+};
 
-// force one of your units into a "missing unit" quest that can recapture them.
-setup.qcImpl.MissingUnitRecapture = class MissingUnitRecapture extends setup.Cost {
-  constructor(actor_name, questpool_key) {
-    super()
+/**
+ * Force one of your units into a "missing unit" quest that can recapture them.
+ */
+export default class MissingUnitRecapture extends Cost {
+  constructor(
+    public actor_name: string,
+    public questpool_key: keyof typeof QUESTPOOL_TO_STACKS,
+  ) {
+    super();
 
-    if (!(questpool_key in QUESTPOOL_TO_STACKS)) throw new Error(`Unknown quest pool for recapture: ${questpool_key}`)
-    this.questpool_key = questpool_key
-    this.actor_name = actor_name
+    if (!(questpool_key in QUESTPOOL_TO_STACKS))
+      throw new Error(`Unknown quest pool for recapture: ${questpool_key}`);
   }
 
-  text() {
-    return `setup.qc.MissingUnitRecapture('${this.actor_name}', '${this.questpool_key}')`
+  override text() {
+    return `setup.qc.MissingUnitRecapture('${this.actor_name}', '${this.questpool_key}')`;
   }
 
-  apply(quest) {
-    let questpool = setup.questpool[this.questpool_key]
-    /**
-     * @type {setup.Unit}
-     */
-    let unit = quest.getActorUnit(this.actor_name)
+  override apply(context: CostContext) {
+    let questpool = setup.questpool[this.questpool_key as QuestPoolKey];
+    let unit = context.getActorUnit(this.actor_name)!;
 
-    let stacks
+    let stacks;
     if (unit.isMindbroken() || unit.isObedient()) {
-      stacks = 1
+      stacks = 1;
     } else {
-      stacks = QUESTPOOL_TO_STACKS[this.questpool_key]
+      stacks = QUESTPOOL_TO_STACKS[this.questpool_key];
     }
-    if (setup.qcImpl.MissingUnit.checkBlessingOfLife({ unit: unit, stacks: stacks })) return
+    if (
+      setup.qcImpl.MissingUnit.checkBlessingOfLife({
+        unit: unit,
+        stacks: stacks,
+      })
+    )
+      return;
 
     if (unit.isSlave()) {
-      setup.notify(`a|Rep a|is <<dangertext 'attempting an escape!'>> You must recapture immediately if you want the unit back!`,
-        { a: unit })
+      setup.notify(
+        `a|Rep a|is <<dangertext 'attempting an escape!'>> You must recapture immediately if you want the unit back!`,
+        { a: unit },
+      );
     } else if (unit.isSlaver()) {
-      setup.notify(`a|Rep a|is <<dangertext 'captured!'>> You must immediately rescue the slaver if you want them back!`,
-        { a: unit })
+      setup.notify(
+        `a|Rep a|is <<dangertext 'captured!'>> You must immediately rescue the slaver if you want them back!`,
+        { a: unit },
+      );
     }
 
-    let tag = 'escaped_slave'
-    if (unit.isSlaver()) tag = 'captured_slaver'
+    let tag = "escaped_slave";
+    if (unit.isSlaver()) tag = "captured_slaver";
 
-    unit.addTag(tag)
-    setup.qc.Quest(questpool, 1).apply(quest)
-    unit.removeTag(tag)
+    unit.addTag(tag);
+    setup.qc.Quest(questpool, 1).apply(context);
+    unit.removeTag(tag);
   }
 
-  undoApply(quest) {
-    throw new Error(`Cannot be undone`)
-  }
-
-  explain(quest) {
-    return `${this.actor_name} will be lost from your company, but immediately regainable with quest (${this.questpool_key})`
+  override explain(context: CostContext) {
+    return `${this.actor_name} will be lost from your company, but immediately regainable with quest (${this.questpool_key})`;
   }
 }

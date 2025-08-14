@@ -1,32 +1,28 @@
-// @ts-nocheck
+import type {
+  BuildingTemplate,
+  BuildingTemplateKey,
+} from "../BuildingTemplate";
 
+export default class Building extends Cost {
+  template_key: BuildingTemplateKey;
 
-setup.qcImpl.Building = class Building extends setup.Cost {
-  constructor(building_template) {
-    super()
+  constructor(building_template: BuildingTemplate | BuildingTemplateKey) {
+    super();
 
-    this.template_key = building_template.key
+    this.template_key = resolveKey(building_template);
   }
 
-  text() {
-    return `setup.qc.Building(setup.buildingtemplate.${this.template_key})`
+  override text() {
+    return `setup.qc.Building(setup.buildingtemplate.${this.template_key})`;
   }
 
-  isOk() {
-    throw new Error(`Building not a cost`)
+  override apply(context: CostContext) {
+    let template = setup.buildingtemplate[this.template_key];
+    State.variables.fort.player.build(template);
   }
 
-  apply(quest) {
-    let template = setup.buildingtemplate[this.template_key]
-    State.variables.fort.player.build(template)
-  }
-
-  undoApply() {
-    throw new Error(`Building not undoable`)
-  }
-
-  explain() {
-    let template = setup.buildingtemplate[this.template_key]
-    return `${template.rep()}`
+  override explain() {
+    let template = setup.buildingtemplate[this.template_key];
+    return `${template.rep()}`;
   }
 }

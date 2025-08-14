@@ -1,4 +1,3 @@
-
 /* from
 https://github.com/LukeMS/lua-namegen/blob/master/data/creatures.cfg
 https://en.uesp.net/wiki/Lore:Altmer_Names
@@ -6,7 +5,7 @@ https://en.uesp.net/wiki/Lore:Dunmer_Names
 https://en.uesp.net/wiki/Lore:Bosmer_Names
 */
 
-setup.NAME_elf_male_first_name = [
+export const NAME_elf_male_first_name = [
   "Aanthis",
   "Adamir",
   "Adaves",
@@ -3338,4 +3337,4 @@ setup.NAME_elf_male_first_name = [
   "Zanon",
   "Zerutti",
   "Zimmeron",
-]
+];

@@ -477,37 +477,4 @@
 )>>
 
 
-<<set setup.TraitHelper.TRAINING_BASIC_GENDERLESS = setup.TraitHelper.getAllTraitsOfTags([
-  'trbasic', 'trmale', 'trfemale',
-])>>
-
-<<set setup.TraitHelper.TRAINING_BASIC = setup.TraitHelper.getAllTraitsOfTags([
-  'trbasic',
-])>>
-
-<<set setup.TraitHelper.TRAINING_ADVANCED = setup.TraitHelper.getAllTraitsOfTags([
-  'tradvanced',
-])>>
-
-<<set setup.TraitHelper.TRAINING_ADVANCED_GENDERLESS = setup.TraitHelper.getAllTraitsOfTags([
-  'tradvanced', 'trmale', 'trfemale',
-])>>
-
-<<set setup.TraitHelper.TRAINING_MASTER = setup.TraitHelper.getAllTraitsOfTags([
-  'trmaster',
-])>>
-
-<<set setup.TraitHelper.TRAINING_MASTER_GENDERLESS = setup.TraitHelper.getAllTraitsOfTags([
-  'trmaster', 'trmale', 'trfemale',
-])>>
-
-<<set setup.TraitHelper.TRAINING_ALL = setup.TraitHelper.TRAINING_BASIC.concat(
-  setup.TraitHelper.TRAINING_ADVANCED).concat(setup.TraitHelper.TRAINING_MASTER)>>
-
-<<set setup.TraitHelper.TRAINING_ALL_GENDERLESS = setup.TraitHelper.TRAINING_BASIC_GENDERLESS.concat(
-  setup.TraitHelper.TRAINING_ADVANCED_GENDERLESS).concat(setup.TraitHelper.TRAINING_MASTER_GENDERLESS)>>
-
-
-<<set setup.TraitHelper.TRAINING_ALL_INCL_MINDBREAK = setup.TraitHelper.TRAINING_ALL.concat([setup.trait.training_mindbreak])>>
-
-
+<<run setup.TraitHelper._init()>>

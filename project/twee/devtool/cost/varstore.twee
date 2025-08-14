@@ -25,7 +25,7 @@ Unsets the value of the variable <<textbox '_key' ''>>.
 
 :: CostVarAdd [nobr]
 
-Add into variable <<textbox '_key' ''>> a value of <<numberbox '_value' ''>>
+Add into variable <<textbox '_key' ''>> a value of <<numberbox '_value' 0>>
 and resets expiration to <<numberbox '_expires' -1>> weeks.
 <<message '(?)'>>
 If the value did not exist before, it becomes 0.

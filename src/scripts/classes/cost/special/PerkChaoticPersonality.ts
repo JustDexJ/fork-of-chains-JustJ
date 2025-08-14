@@ -1,38 +1,27 @@
-// @ts-nocheck
-
-// levels up this unit.
-setup.qcImpl.PerkChaoticPersonality = class PerkChaoticPersonality extends setup.Cost {
-  constructor(actor_name) {
-    super()
-
-    this.actor_name = actor_name
+export default class PerkChaoticPersonality extends Cost {
+  constructor(public actor_name: string) {
+    super();
   }
 
-  text() {
-    return `setup.qc.PerkChaoticPersonality('${this.actor_name}')`
+  override text() {
+    return `setup.qc.PerkChaoticPersonality('${this.actor_name}')`;
   }
 
-  apply(quest) {
-    /**
-     * @type {setup.Unit}
-     */
-    const unit = quest.getActorUnit(this.actor_name)
+  override apply(context: CostContext) {
+    const unit = context.getActorUnit(this.actor_name)!;
     if (unit.isHome()) {
-      setup.notify(`a|Rep a|switch personalities`, { a: unit })
-      /**
-       * @type {setup.Trait[]}
-       */
-      const personalities = unit.getAllTraitsWithTag('per')
+      setup.notify(`a|Rep a|switch personalities`, { a: unit });
+      const personalities = unit.getAllTraitsWithTag("per");
       for (const per of personalities) {
-        const trait_group = per.getTraitGroup()
+        const trait_group = per.getTraitGroup();
         if (trait_group) {
-          const other_traits = trait_group.getTraits().filter(trait => trait)
+          const other_traits = trait_group.getTraits().filter((trait) => trait);
           if (other_traits.length == 2) {
             for (const other_trait of other_traits) {
               if (other_trait && other_trait != per) {
                 // switch to this
-                unit.addTrait(other_trait, null, /* replace = */ true)
-                break
+                unit.addTrait(other_trait, null, /* replace = */ true);
+                break;
               }
             }
           }
@@ -41,7 +30,7 @@ setup.qcImpl.PerkChaoticPersonality = class PerkChaoticPersonality extends setup
     }
   }
 
-  explain(quest) {
-    return `${this.actor_name} reverse their personalities`
+  override explain(context: CostContext) {
+    return `${this.actor_name} reverse their personalities`;
   }
 }

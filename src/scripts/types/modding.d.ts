@@ -1,41 +1,34 @@
-// @ts-nocheck
-
-
-
 export interface FocModDefinition {
   /** Unique identifier for the mod (e.g. "my_mod") */
-  key: string
+  key: string;
 
   /** Display name for the mod (e.g. "My Mod") */
-  name?: string
+  name?: string;
 
   /** Version number for the mod, in semver syntax (e.g. "1.0.0") */
-  version?: string
+  version?: string;
 
   /** Author or authors of the mod */
-  author?: string
+  author?: string;
 
   /** Brief summary of what the mod does */
-  description?: string
+  description?: string;
 
   /**
    * Priority during the mods loading order, higher priority mods load before
    * Use it if you mod depends on another mod, so it loads after it
    * Default is 0
    */
-  priority?: number
+  priority?: number;
 
-  onEnable?: () => void
-  onDisable?: () => void
-  
+  onEnable?: () => void;
+  onDisable?: () => void;
 }
 
 declare global {
-
   /**
    * Called by FoC mods to register themselves
    * @param definition
    */
-  function FocMod(definition: FocModDefinition): void
-
+  function FocMod(definition: FocModDefinition): void;
 }
