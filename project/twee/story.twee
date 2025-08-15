@@ -52,13 +52,13 @@ The game is entirely fictional, and in no way depicts any of the contributor's v
 The game would like to express its deepest gratitude to the various contributors to this project:
 </div>
 <div>
-<<focmove "(Artist Credits - Portraits)" "PortraitCredits">> · 
-<<focmove "(Artist Credits - Content Images)" "ContentImagesCredits">> · 
-<<focmove "(Artist Credits - Rooms)" "RoomCredits">> · 
-<<focmove "(Artist Credits - Tilesets)" "TilesetCredits">> · 
-<<focmove "(Author Credits)" "AuthorCredits">> · 
-<<focmove "(Coder Credits)" "CoderCredits">> · 
-<<focmove "(Other Credits)" "OtherCredits">> · 
+<<focmove "(Artist Credits - Portraits)" "PortraitCredits">> ·
+<<focmove "(Artist Credits - Content Images)" "ContentImagesCredits">> ·
+<<focmove "(Artist Credits - Rooms)" "RoomCredits">> ·
+<<focmove "(Artist Credits - Tilesets)" "TilesetCredits">> ·
+<<focmove "(Author Credits)" "AuthorCredits">> ·
+<<focmove "(Coder Credits)" "CoderCredits">> ·
+<<focmove "(Other Credits)" "OtherCredits">> ·
 [[(License)|https://gitgud.io/darkofocdarko/fort-of-chains#license]]
 </div>
 
@@ -72,7 +72,7 @@ The game would like to express its deepest gratitude to the various contributors
     <<run $menufilter.set('unit', 'display', 'compact')>>
   <</button>>
 
-  <<button "<<icon tags>> In-Game Database" "WikiLobby">>
+  <<button "<<icon info-circle>> In-Game Database" "WikiLobby">>
     <<run setup.DebugInit.contentCreatorInit()>>
     <<run $menufilter.set('unit', 'display', 'compact')>>
   <</button>>

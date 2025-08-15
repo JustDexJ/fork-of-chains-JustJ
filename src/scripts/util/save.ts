@@ -220,7 +220,7 @@ export namespace SaveGlobalFunctions {
     arglist: {},
   ): T {
     const obj = Object.create(classobj.prototype);
-    setup.copyProperties(obj, arglist);
+    Object.assign(obj, arglist);
     return obj;
   }
 
@@ -242,20 +242,15 @@ export namespace SaveGlobalFunctions {
     return setup.rebuildClassObject(class_container[classname], arglist);
   }
 
-  export function toJsonHelper(
-    classname: string,
-    obj: any,
-    container?: string,
-  ) {
-    let dataobj = {};
-    setup.copyProperties(dataobj, obj);
+  export function toJsonHelper(classname: string, obj: {}, container?: string) {
+    let dataobj = { ...obj };
     if (!container) {
-      return JSON.reviveWrapper(
+      return Serial.createReviver(
         `setup.deserializeClass("${classname}", $ReviveData$)`,
         dataobj,
       );
     } else {
-      return JSON.reviveWrapper(
+      return Serial.createReviver(
         `setup.deserializeClass("${classname}", $ReviveData$, "${container}")`,
         dataobj,
       );
@@ -267,3 +262,39 @@ export namespace SaveGlobalFunctions {
     State.variables.fortgrid.resetCache();
   }
 }
+
+// Register the onSave/onLoad listeners to sugarcube
+Save.onSave.add(SaveGlobalFunctions.onSave);
+Save.onLoad.add(SaveGlobalFunctions.onLoad);
+
+// Set description used by Saves, for all passages,
+// to give some decent information about game state.
+Config.saves.descriptions = function (saveType) {
+  const sv = State.variables;
+  if (sv.devtooltype) {
+    // In devtool
+    if (sv.devtooltype == "event") {
+      return `Dev Tool (event): ${sv.dtquest!.name}`;
+    } else if (sv.devtooltype == "quest") {
+      return `Dev Tool (quest): ${sv.dtquest!.name}`;
+    } else if (sv.devtooltype == "opportunity") {
+      return `Dev Tool (opportunity): ${sv.dtquest!.name}`;
+    } else if (sv.devtooltype == "interaction") {
+      return `Dev Tool (interaction): ${sv.dtquest!.name}`;
+    } else if (sv.devtooltype == "activity") {
+      return `Dev Tool (activity): ${sv.dtquest!.name}`;
+    } else {
+      throw new Error(`Unknown dev tool name: ${sv.devtooltype}`);
+    }
+  } else {
+    // Ingame
+    return (
+      sv.company.player.getName() +
+      ", Week " +
+      sv.calendar.getWeek() +
+      ", " +
+      sv.company.player.getMoney() +
+      "g"
+    );
+  }
+};

@@ -1,4 +1,4 @@
-:: InitCriteriaScout [nobr]
+:: InitCriteriaScout [nobr criteria]
 
 <<run new setup.UnitCriteria(
   'scout_vale',

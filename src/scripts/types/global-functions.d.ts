@@ -11,7 +11,7 @@ import {
   RestrictionType,
   SexRestriction as SexRestriction_,
 } from "../classes/restriction/_Restriction";
-import type { SetupUtils } from "../util/common";
+import type { SetupUtil } from "../util/SetupUtil";
 
 export {};
 
@@ -29,8 +29,8 @@ declare global {
     var SexRestriction: typeof SexRestriction_;
     interface SexRestriction extends SexRestriction_ {}
 
-    var resolveKey: typeof SetupUtils.resolveKey;
-    var resolveObject: typeof SetupUtils.resolveObject;
+    var resolveKey: typeof SetupUtil.resolveKey;
+    var resolveObject: typeof SetupUtil.resolveObject;
   }
 
   /** Type-safe version of `Object.keys` that preserves the type of the keys. */
@@ -42,6 +42,7 @@ declare global {
   }): K[];
 
   /** Type-safe version of `Object.entries` that preserves the type of the keys. */
+  function objectEntries<K extends string, V>(obj: { [k in K]: V }): [K, V][];
   function objectEntries<K extends string | number, V>(obj: { [k in K]: V }): [
     K,
     V,

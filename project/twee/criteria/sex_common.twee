@@ -1,4 +1,4 @@
-:: InitCriteriaSexCommon [nobr]
+:: InitCriteriaSexCommon [nobr criteria]
 
 <<run new setup.UnitCriteria(
   'seducer', /* key */

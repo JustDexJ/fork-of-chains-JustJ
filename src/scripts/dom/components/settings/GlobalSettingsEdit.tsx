@@ -53,12 +53,12 @@ export const GlobalSettingsEdit = () => {
 };
 
 export default function () {
-  const body = Dialog.setup(
+  const dialog = Dialog.create(
     "Global Settings",
     "dialog-fullwidth dialog-fullheight dialog-globalsettings",
   );
 
-  setup.DOM.renderComponentInto(body, GlobalSettingsEdit);
+  setup.DOM.renderComponentInto(dialog.body(), GlobalSettingsEdit);
 
-  Dialog.open();
+  dialog.open();
 }

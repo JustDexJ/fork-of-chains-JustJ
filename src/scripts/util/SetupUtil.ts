@@ -1,7 +1,7 @@
 /**
  * There functions/values are defined directly at the root of the `setup` object.
  */
-export namespace SetupUtils {
+export namespace SetupUtil {
   export const INFINITY: number = 999999999999;
 
   /**
@@ -44,12 +44,6 @@ export namespace SetupUtils {
 
   /** @deprecated Use `setup.resolveObject`  */
   export const selfOrObject = resolveObject;
-
-  export function copyProperties(to: {}, from: {}) {
-    for (const k of Object.keys(from)) {
-      (to as any)[k] = (from as any)[k];
-    }
-  }
 
   export function nameIfAny(obj: any): string | null {
     if (obj && "getName" in obj) return (obj as any).getName();
@@ -235,10 +229,6 @@ export namespace SetupUtils {
    * Runs a sugarcube command, for example, <<focgoto "xxx">>
    */
   export function runSugarCubeCommand(command: string) {
-    // TODO: there's got to be a better way (... i hope)
-    //       please don't judge me for this
-    //       ...well, could be worse. believe me, it was...
-    //       ...and now everyone can use this function without feeling guilty woo!
     new Wikifier(null, command);
   }
 
@@ -378,9 +368,7 @@ export namespace SetupUtils {
   /**
    * returns a deep copy of the object
    */
-  export function deepCopy<T>(obj: T): T {
-    return JSON.parse(JSON.stringify(obj));
-  }
+  export const deepCopy = clone;
 
   /**
    * Get all possible permutation of x elements out of an array
@@ -398,5 +386,20 @@ export namespace SetupUtils {
       }
     }
     return res;
+  }
+
+  /**
+   * Executes all passages with the given tag, ignoring the output,
+   * so use it just for passages with side effects (e.g. which define items or traits)
+   */
+  export function executePassagesWithTag(tag: string): void {
+    const passages = Story.filter((passage) => passage.tags.includes(tag));
+    for (const passage of passages) {
+      try {
+        new Wikifier(null, passage.text);
+      } catch (e) {
+        console.error(`Failed to execute passage "${passage.name}"`, e);
+      }
+    }
   }
 }

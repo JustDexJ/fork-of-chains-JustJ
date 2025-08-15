@@ -29,7 +29,7 @@ Macro.add("onevent", {
     if (event_type && callback && target) {
       $(target).on(
         event_type + ".refreshable",
-        this.createShadowWrapper(function (ev) {
+        this.shadowHandler(function (ev) {
           if (ev.currentTarget && "value" in ev.currentTarget) {
             State.temporary.value = ev.currentTarget.value;
           }

@@ -6,6 +6,7 @@
  *   SKIP_TWEE      - If set (any value), skips compiling .twee files during build and dev server. Useful for JS/CSS-only builds or rapid iteration.
  *   NODE_ENV       - Standard Node.js environment variable, used by Vite for mode selection (e.g., 'development', 'production').
  *   PORT           - If set, overrides the dev server port (default: 3800).
+ *   HOT_RELOAD     - EXPERIMENTAL. If set to 1/true, will try to hot-reload the changed .ts/.tsx files only, instead of doing a full page reload.
  *   (add more here as needed)
  *
  * Example usage:
@@ -27,9 +28,10 @@
 //
 // To run the interactive dev server [WIP]:
 //   npx vite dev
+//   HOT_RELOAD=1 npx vite dev
 //
 
-import fs from 'fs/promises'
+import fs from 'node:fs/promises'
 import os from 'node:os'
 import url from 'node:url'
 import path from 'node:path'
@@ -61,6 +63,7 @@ export default defineConfig(({ command, mode }) => {
   const VIRTUAL_JS_MODULE = './src/index.virtual.js'
   const VIRTUAL_JS_MODULE_RESOLVED_ID = /*'\0' +*/ VIRTUAL_JS_MODULE
   function generateVirtualModuleCode() {
+    // Dynamically generate an index with all .js files (so non-imported modules get compiled)
     let js = [
       ...glob.sync(CONFIG.directories["user-js"]),
       ...glob.sync(CONFIG.directories["user-css"]),
@@ -68,6 +71,10 @@ export default defineConfig(({ command, mode }) => {
     return js
   }
 
+  /**
+   * @param {string} mode
+   * @param {import('vite').WebSocketServer} [ws]
+   */
   async function compileTwee(mode, ws) {
     if (!process.env.SKIP_TWEE) {
       const scriptFile = (os.platform() === 'win32' ? 'compile.bat' : 'compile.sh')
@@ -80,12 +87,12 @@ export default defineConfig(({ command, mode }) => {
         console.info("Rebuild finished")
       } catch (err) {
         console.error('Twee compile failed:', err)
-        if (ws) ws.send({ type: 'error', err: String(err) })
+        if (ws) ws.send({ type: 'error', err: /** @type {any} */ (err) })
       }
     }
   }
 
-  const assetFileNames = (asset) => {
+  const assetFileNames = (/** @type {import('rollup').PreRenderedAsset} */ asset) => {
     const ext = (asset.name ?? '').split('.').pop()
     switch (ext) {
       case 'css':
@@ -123,46 +130,78 @@ export default defineConfig(({ command, mode }) => {
            * SKIP_TWEE env var: Set to skip compiling .twee files (for JS/CSS-only builds).
            */
           async configureServer(server) {
+            const enableHotReload = (server.config.env['HOT_RELOAD'] ?? '0') !== '0';
+
             await compileTwee('devserver', server.ws)
             const virtualModulePath = VIRTUAL_JS_MODULE.substring(1)
             // Watch .twee and .ts files in dev mode and recompile on change, then reload browser (debounced)
             server.watcher.add(path.join(__dirname, 'project/twee/**/*.twee'))
             server.watcher.add(path.join(__dirname, 'src/scripts/**/*.ts'))
-            let rebuildTimeout = null
+
+            let fullReloadTimeout = null
+            let tsHotReloadTimeouts = {}
+            let hasTweeChanges = false
+
             server.watcher.on('change', (file) => {
-              if (file.endsWith('.twee') || file.endsWith('.ts')) {
-                clearTimeout(rebuildTimeout)
-                rebuildTimeout = setTimeout(() => {
-                  if (file.endsWith('.twee')) {
-                    compileTwee('devserver', server.ws)
-                      .then(() => server.ws.send({ type: 'full-reload' }))
-                  } else if (file.endsWith('.ts')) {
-                    // TypeScript: run tsc on the changed file
-                    child_process.spawn('npx', ['tsc', file], { stdio: ['ignore', 'inherit', 'inherit'] })
-                      .on('exit', code => {
-                        if (code === 0) {
-                          server.ws.send({ type: 'full-reload' })
-                        } else {
-                          server.ws.send('error', { err: `TypeScript compile failed for ${file}` })
-                        }
-                      })
-                  }
-                }, 200) // 200ms debounce for all watched files
+              const isTS = file.endsWith('.ts') || file.endsWith('.tsx')
+              if (enableHotReload && isTS) {
+                // Apply individual debounce for each file
+                clearTimeout(tsHotReloadTimeouts[file])
+                tsHotReloadTimeouts[file] = setTimeout(() => {
+                  // Compile only the changed file to JS using tsc
+                  const tsc = child_process.spawn('npx', ['tsc', file, '--outDir', path.dirname(file), '--target', 'ESNext', '--module', 'ESNext', '--moduleResolution', 'node', '--esModuleInterop', '--skipLibCheck', '--noEmit', 'false', '--pretty', 'false'], {
+                    stdio: ['ignore', 'inherit', 'inherit']
+                  })
+                  tsc.on('exit', (code) => {
+                    if (code === 0) {
+                      server.ws.send({ type: 'full-reload' })
+                    } else {
+                      console.error('TypeScript compile failed for', file)
+                    }
+                  })
+                }, 200) // 200ms debounce
+              } else {
+                const isTwee = file.endsWith('.twee')
+                if (isTwee || isTS) {
+                  hasTweeChanges ||= isTwee
+                  clearTimeout(fullReloadTimeout)
+                  fullReloadTimeout = setTimeout(async () => {
+                    if (hasTweeChanges) {
+                      hasTweeChanges = false
+                      await compileTwee('devserver', server.ws)
+                    }
+                    server.ws.send({ type: 'full-reload' })
+                  }, 200) // 200ms debounce
+                }
               }
             })
             server.middlewares.use((req, res, next) => {
               if (req.url === '/') {
-                return fs.readFile(path.join(__dirname, indexHtmlPath), 'utf8').then(html => (
-                  res.setHeader('content-type', 'text/html').end(html
-                    .replace(`jQuery((function`, () => 'jQuery((async function')
-                    .replace(`Story.init`, () => 'await Story.init')
-                    .replace(/domId\}\},init:\{value:function/, m => m.replace('function', 'async function'))
-                    .replace(/\)try\{Scripting.evalJavaScript\([^)]+\)/, () => (
-                      `)try{await Scripting.evalJavaScript('(() => {`
-                      + `Object.assign(window, { setup, storage, importScripts, postrender, clone, setPageElement, Alert, Browser, Config, DebugBar, DebugView, Dialog, Diff, Engine, Fullscreen, Has, History, Lexer, LoadScreen, Macro, MacroContext, Passage, Patterns, Save, Scripting, Setting, SimpleAudio, SimpleStore, State, Story, StyleWrapper, Template, UI, UIBar, Util, Visibility, Wikifier });`
-                      + `return import("${VIRTUAL_JS_MODULE}")})()')`
-                    )))
-                ))
+                // Hotpatch the SugarCube JS so that it loads the initial userscript from devserver.
+                // Most of these replaces are required in order to make SugarCube code support awaiting the async promise
+                const replacements = /** @type {const} */ ([
+                  [/new Promise\(\(function\s*\(resolve\)\s*{\s*Story.init\(\)/, () => 'new Promise((async function (resolve) { Story.init()'],
+                  [/,\s*Engine.runUserScripts\(\),/, () => `; await Engine.runUserScripts();`],
+                  [/runUserScripts:\s*\{\s*value:\s*function\s*\(\)/, () => `runUserScripts: { value: async function ()`],
+                  [/,\s*Story.getScripts\(\).forEach\((?:[\s\S\n])*?(?=Story\.getWidgets)/, () => (
+                      `); if (_state === States.Init) {`
+                        + `await Scripting.evalJavaScript(\`(() => {`
+                        + `Object.assign(window, { setup, storage, importScripts, postrender, clone, setPageElement, Alert, Browser, Config, DebugBar, DebugView, Dialog, Diff, Engine, Fullscreen, Has, History, Lexer, LoadScreen, Macro, MacroContext, Passage, Patterns, Save, Scripting, Setting, SimpleAudio, SimpleStore, Serial, State, Story, StyleWrapper, Template, UI, UIBar, Util, Visibility, Wikifier });`
+                        + `return import("${VIRTUAL_JS_MODULE}")})()\`); `
+                      + `}; _state === States.Init && (`
+                    )]
+                ]);
+
+                return fs.readFile(path.join(__dirname, indexHtmlPath), 'utf8').then(html => {
+                  for (const [regexp, getReplacedValue] of replacements) {
+                    let replaced = false;
+                    html = html.replace(regexp, (...args) => (replaced = true, getReplacedValue.apply(undefined, args)));
+                    if (!replaced) {
+                      console.error(`Error serving the devmode html: failed to find \`${regexp}\` for hotpatching. Devmode won't work. If you updated the SugarCube storyformat, the patterns will need to be changed.`);
+                    }
+                  }
+                  res.setHeader('content-type', 'text/html').end(html);
+                });
               } else if (req.url === virtualModulePath) {
                 return res.setHeader('content-type', 'text/javascript').end(generateVirtualModuleCode())
               }

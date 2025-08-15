@@ -1,7 +1,5 @@
 :: InitQuestPool [nobr]
 
-<<set setup.questpool = {}>>
-
 /* Generic */
 <<run new setup.QuestPool('vale', 'Northern Vale')>>
 <<run new setup.QuestPool('forest', 'Western Forests')>>

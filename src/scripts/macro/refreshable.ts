@@ -44,7 +44,7 @@ Macro.add("refreshable", {
       // store renderer function as jquery data associated to this element
       $elem.data(
         "refreshable-renderer",
-        this.createShadowWrapper(function () {
+        this.shadowHandler(function () {
           $elem.empty();
           $elem.wiki(template);
         }),

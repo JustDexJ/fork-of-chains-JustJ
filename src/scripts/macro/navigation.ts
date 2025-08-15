@@ -22,7 +22,7 @@ Macro.add(["focmove", "focreturn"], {
     const this_args = this.args;
     $elem.on(
       "click",
-      this.createShadowWrapper(() => {
+      this.shadowHandler(() => {
         if (this_name == "focreturn") {
           [State.variables.gOldPassage, State.variables.gPassage] = [
             State.variables.gPassage,
@@ -93,7 +93,7 @@ Macro.add(["foclink", "focbutton"], {
     const this_args = this.args;
     $elem.on(
       "click",
-      this.createShadowWrapper(() => {
+      this.shadowHandler(() => {
         setup.runSugarCubeCommand(this_payload[0].contents);
 
         // <<foclink>> with only one parameter does not switch passage

@@ -13,7 +13,7 @@ Macro.add("await", {
 
     if (promise.then) {
       promise.then(
-        this.createShadowWrapper(function () {
+        this.shadowHandler(function () {
           $elem.wiki(contents);
         }),
       );

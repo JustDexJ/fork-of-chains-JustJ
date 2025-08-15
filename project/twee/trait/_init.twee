@@ -4,9 +4,6 @@
 default trait chance in unitpool.twee
 */
 
-<<set setup.trait = {}>>
-<<set setup.traitgroup = {}>>
-
 <<include InitJobTraits>>
 <<include InitGenderTraits>>
 <<include InitRaceTraits>>

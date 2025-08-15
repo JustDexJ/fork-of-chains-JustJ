@@ -1,4 +1,4 @@
-:: InitCriteriaHeal [nobr]
+:: InitCriteriaHeal [nobr criteria]
 
 <<run new setup.UnitCriteria(
   'heal_head',

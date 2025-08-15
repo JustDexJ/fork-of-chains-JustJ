@@ -1,4 +1,4 @@
-:: InitCriteriaRaiderCommon [nobr]
+:: InitCriteriaRaiderCommon [nobr criteria]
 
 <<run new setup.UnitCriteria(
   'raider', /* key */

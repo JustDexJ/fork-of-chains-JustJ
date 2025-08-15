@@ -15,24 +15,20 @@ export class Notification extends TwineClass {
 
   delete_next: typeof this.to_be_deleted = [];
 
-  disabled_semaphore = 0;
-
   constructor() {
     super();
   }
 
   disable() {
-    this.disabled_semaphore += 1;
+    Notification.disable();
   }
 
   enable() {
-    this.disabled_semaphore -= 1;
-    if (this.disabled_semaphore < 0)
-      throw new Error("Disabled semaphore cannot be negative!");
+    Notification.enable();
   }
 
   isDisabled(): boolean {
-    return this.disabled_semaphore > 0;
+    return Notification.isDisabled();
   }
 
   popAll() {
@@ -61,6 +57,26 @@ export class Notification extends TwineClass {
     }
     this.delete_next = this.to_be_deleted;
     this.to_be_deleted = [];
+  }
+
+  //
+  // Static
+  //
+
+  static disabled_semaphore = 0;
+
+  static disable() {
+    Notification.disabled_semaphore += 1;
+  }
+
+  static enable() {
+    Notification.disabled_semaphore -= 1;
+    if (Notification.disabled_semaphore < 0)
+      throw new Error("Disabled semaphore cannot be negative!");
+  }
+
+  static isDisabled(): boolean {
+    return Notification.disabled_semaphore > 0;
   }
 }
 

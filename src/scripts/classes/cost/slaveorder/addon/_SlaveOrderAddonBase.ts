@@ -25,9 +25,8 @@ export abstract class SlaveOrderAddonBase extends TwineClass {
 
   // used by Twine serialization (overrides default from TwineClass)
   toJSON() {
-    const data = {};
-    setup.copyProperties(data, this);
-    return JSON.reviveWrapper(
+    const data = { ...this };
+    return Serial.createReviver(
       `setup.SlaveOrderAddonBase.deserialize("${this.constructor.name}", $ReviveData$)`,
       data,
     );

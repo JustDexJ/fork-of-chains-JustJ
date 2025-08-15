@@ -67,7 +67,7 @@ Macro.add("message", {
 
     let $content = containerPath ? null : $(document.createElement("span"));
     $link.wiki(offText).ariaClick(
-      this.createShadowWrapper(function () {
+      this.shadowHandler(function (e) {
         if (!$content && containerPath) {
           // if using containerId, create the element lazily (otherwise parent might not exist yet)
           $content = $(document.createElement("span"));
@@ -90,7 +90,7 @@ Macro.add("message", {
         }
 
         $wrapper.toggleClass("open");
-      }),
+      }) as unknown as (event: JQuery.Event) => void,
     );
 
     $wrapper

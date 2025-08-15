@@ -42,7 +42,7 @@ function autoSave() {
     const week = State.variables.calendar.getWeek();
     // do it asynchronously
     setTimeout(() => {
-      SugarCube.Save.slots.save(7, `Autosave Wk ${week}: ${name}`);
+      Save.browser.slots.save(7, `Autosave Wk ${week}: ${name}`);
     }, 0);
   }
 }

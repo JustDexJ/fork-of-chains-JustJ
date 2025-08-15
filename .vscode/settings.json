@@ -12,6 +12,7 @@
   "search.exclude": {
     "**/index.html": true,
     "**/user.min.js": true,
+    "**/user.min.css": true,
     "**/vendor.min.js": true,
     "dev/tweeGo/": true,
     "src/modules/": true,

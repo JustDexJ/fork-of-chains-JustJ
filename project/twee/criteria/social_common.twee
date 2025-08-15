@@ -1,4 +1,4 @@
-:: InitCriteriaSocialCommon [nobr]
+:: InitCriteriaSocialCommon [nobr criteria]
 
 <<run new setup.UnitCriteria(
   'negotiator', /* key */

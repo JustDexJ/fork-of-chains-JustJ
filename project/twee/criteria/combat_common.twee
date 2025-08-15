@@ -1,4 +1,4 @@
-:: InitCriteriaCombatCommon [nobr]
+:: InitCriteriaCombatCommon [nobr criteria]
 
 <<run new setup.UnitCriteria(
   'guard', /* key */

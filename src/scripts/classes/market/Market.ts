@@ -10,8 +10,8 @@ export abstract class Market<
 > extends TwineClass {
   key: MarketKey;
   name: string;
-  varname: string | null | undefined;
-  setupvarname: string | null | undefined;
+  declare varname?: string | null | undefined;
+  declare setupvarname?: string | null | undefined;
 
   market_objects: MarketObject<T>[] = [];
 
@@ -25,17 +25,17 @@ export abstract class Market<
 
     this.key = key as MarketKey;
     this.name = name;
-    this.varname = varname;
-    this.setupvarname = setupvarname;
 
     if (varname) {
       if (!(varname in State.variables))
         throw new Error(`Incorrect varname \"${varname}\" for ${key}`);
+      this.varname = varname;
     } else if (setupvarname) {
       if (!(setupvarname in setup))
         throw new Error(
           `Incorrect setup varname \"${setupvarname}\" for ${key}`,
         );
+      this.setupvarname = setupvarname;
     } else {
       throw new Error(`No varname or setupvarname for ${key}`);
     }

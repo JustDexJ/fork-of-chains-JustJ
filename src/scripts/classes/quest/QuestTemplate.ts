@@ -3,7 +3,7 @@ import {
   ContentTemplate,
   type ActorUnitgroupsInit,
 } from "../content/ContentTemplate";
-import type { UnitCriteria, UnitCriteriaKey } from "../criteria/UnitCriteria";
+import type { UnitCriteria } from "../criteria/UnitCriteria";
 import { Rarity, RarityKey } from "../deck/Rarity";
 import type { Job } from "../job/Job";
 import Job_ from "../restriction/unit/Job";
@@ -80,17 +80,19 @@ export class QuestTemplate extends ContentTemplate<QuestTemplateKey> {
     this.weeks = weeks;
     this.deadline_weeks = deadline_weeks;
 
-    let all_keys: string[] = [];
+    //let all_actor_keys: string[] = [];
 
     let total_offset = 0;
-    for (let criteria_key of objectKeys(unit_criterias) as UnitCriteriaKey[]) {
-      if (all_keys.includes(criteria_key))
-        throw new Error(`Duplicate actor/unit key ${criteria_key}`);
-      all_keys.push(criteria_key);
-      let unit_criteria = unit_criterias[criteria_key];
+    for (let [actor_name, unit_criteria] of objectEntries(unit_criterias)) {
+      //if (all_actor_keys.includes(actor_name))
+      //  throw new Error(`Duplicate actor key: "${actor_name}"`);
+      //all_actor_keys.push(actor_name);
+
       let offsetmod = 1;
       if (!unit_criteria)
-        throw new Error(`unit criteria ${criteria_key} undefined`);
+        throw new Error(
+          `Actor "${actor_name}" has an undefined/null unit criteria`,
+        );
       if (Array.isArray(unit_criteria)) {
         offsetmod = unit_criteria[1];
         unit_criteria = unit_criteria[0];
@@ -104,12 +106,12 @@ export class QuestTemplate extends ContentTemplate<QuestTemplateKey> {
         // check for role fitting-ness
         if (Math.abs(skills - 3.0) > 0.00001 && !State.variables.devtooltype) {
           throw new Error(
-            `Quest ${key}: The skills of unit criteria ${criteria_key} must sum to exactly 3.0, but ${skills} was found instead`,
+            `Quest ${key}: The skills of unit criteria ${actor_name} must sum to exactly 3.0, but ${skills} was found instead`,
           );
         }
       }
 
-      this.unit_criteria_map[criteria_key] = {
+      this.unit_criteria_map[actor_name] = {
         criteria: unit_criteria,
         offsetmod: offsetmod,
       };

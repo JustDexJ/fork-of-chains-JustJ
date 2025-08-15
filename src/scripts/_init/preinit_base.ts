@@ -10,7 +10,7 @@ import {
   Restriction,
   SexRestriction,
 } from "../classes/restriction/_Restriction";
-import { SetupUtils } from "../util/common";
+import { SetupUtil } from "../util/SetupUtil";
 import { globalsettings } from "../util/globalsettings";
 
 //
@@ -25,8 +25,8 @@ Object.assign(globalThis as any, {
   objectKeys: Object.keys,
   objectEntries: Object.entries,
 
-  resolveKey: SetupUtils.resolveKey,
-  resolveObject: SetupUtils.resolveObject,
+  resolveKey: SetupUtil.resolveKey,
+  resolveObject: SetupUtil.resolveObject,
 });
 
 //
@@ -34,6 +34,6 @@ Object.assign(globalThis as any, {
 // which are used during the declaration of some game classes
 //
 Object.assign(setup, {
-  ...SetupUtils,
+  ...SetupUtil,
   globalsettings,
 });

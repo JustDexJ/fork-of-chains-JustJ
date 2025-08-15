@@ -229,6 +229,7 @@ export function initState(this: SugarCubeStoryVariables): void {
     // already initialized
     throw Error("State already initialized");
   }
+  Notification.disable();
 
   //
   // Create a blank state
@@ -264,7 +265,6 @@ export function initState(this: SugarCubeStoryVariables): void {
 
   // Initialize fort grid
   this.fortgrid.initialize();
-
   {
     // initialize fort grid buildings and rooms
     const room = this.fort.player.build(setup.buildingtemplate.questoffice)!;
@@ -275,6 +275,7 @@ export function initState(this: SugarCubeStoryVariables): void {
     });
   }
 
+  Notification.enable();
   this.gInitDone = true; // mark as initialized
 }
 

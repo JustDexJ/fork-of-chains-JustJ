@@ -220,7 +220,6 @@ import { Dialogs } from "../ui/ux/Dialogs.js";
 import { ActorHelper, DebugActor } from "../util/actor.js";
 import { BackwardsCompat, updatePostProcess } from "../util/backwardscompat.js";
 import { beautifyTwine } from "../util/code_beautifier.js";
-import { SetupUtils } from "../util/common.js";
 import { getAuthorCredits } from "../util/credits.js";
 import {
   debugCrash,
@@ -237,6 +236,7 @@ import { QuestAssignHelper } from "../util/questassign.js";
 import { RestrictionLib } from "../util/restriction.js";
 import { rng } from "../util/rng.js";
 import { SaveGlobalFunctions, SaveUtil } from "../util/save.js";
+import { SetupUtil } from "../util/SetupUtil.js";
 import "./preinit_base.js";
 import { qc, qres } from "./preinit_costrestrictions.js";
 import { initEstablishBase, initSetup, initState } from "./state_init.js";
@@ -400,7 +400,7 @@ const setup_ = {
   // Static data containers/registries
   //
 
-  skill: {} as Record<SkillKey | SkillKeyword, Skill> &
+  skill: [] as unknown as Record<SkillKey | SkillKeyword, Skill> &
     Array<InstanceType<typeof Skill>>,
   activitytemplate: {} as Registry<ActivityTemplate>,
   buildingtemplate: {} as RegistryWithBuiltins<
@@ -490,7 +490,7 @@ const setup_ = {
   //
   // Global functions
   //
-  ...SetupUtils,
+  ...SetupUtil,
   ...SaveGlobalFunctions,
 
   initState,

@@ -1,7 +1,5 @@
 :: InitEquipment [nobr]
 
-<<set setup.equipment = {}>>
-
 <<include InitEquipmentCombat>>
 <<include InitEquipmentBrawn>>
 <<include InitEquipmentSurvival>>

@@ -1,4 +1,4 @@
-:: InitCriteriaIntrigueCommon [nobr]
+:: InitCriteriaIntrigueCommon [nobr criteria]
 
 <<run new setup.UnitCriteria(
   'infiltrator', /* key */

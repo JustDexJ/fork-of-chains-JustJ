@@ -1,4 +1,4 @@
-:: InitCriteriaSurgery [nobr]
+:: InitCriteriaSurgery [nobr criteria]
 
 <<run new setup.UnitCriteria(
   'surgery_head',

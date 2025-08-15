@@ -19,21 +19,21 @@ export namespace Dialogs {
       throw Error("There is already an open dialog");
     }
     return new Promise((resolve, reject) => {
-      const dialogBody = Dialog.setup(title, classnames);
+      const dialog = Dialog.create(title, classnames);
 
       if (content instanceof Node) {
         // @ts-ignore
-        Dialog.append(content);
+        dialog.append(content);
       } else if (content instanceof Function) {
-        content(dialogBody);
+        content(dialog.body());
       } else {
         const dialog_content = passage
           ? Story.get(passage).processText()
           : setup.DevToolHelper.stripNewLine(content || "");
-        Dialog.wiki(dialog_content);
+        dialog.wiki(dialog_content);
       }
 
-      Dialog.open(
+      dialog.open(
         {} /*, () => {
         // this callback does not work. if dialog closed via Dialog.close(), it's not called....
       }*/,

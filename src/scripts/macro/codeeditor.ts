@@ -199,8 +199,9 @@ Macro.add("codeeditor", {
 
     $textarea.on(
       "change.macros",
-      this.createShadowWrapper(function () {
-        if (use_fallback) State.setVar(varname, (this as any).value);
+      this.shadowHandler(function (ev) {
+        if (use_fallback)
+          State.setVar(varname, (ev.target as HTMLTextAreaElement).value);
       }),
     );
 

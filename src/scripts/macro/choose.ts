@@ -1,10 +1,12 @@
+import type { MacroContext } from "twine-sugarcube";
+
 function replaceContainerContentCallback(
   $container: JQuery,
   content: string,
-  sugarcube_this: any,
-  g_copy: any,
+  macro_context: MacroContext,
+  g_copy: ActorUnitMap,
 ) {
-  return sugarcube_this.createShadowWrapper(() => {
+  return macro_context.shadowHandler(() => {
     $container.empty();
     $container.wiki(setup.Text.replaceUnitMacros(content, g_copy));
     const element = setup.DOM.Card.notifications();

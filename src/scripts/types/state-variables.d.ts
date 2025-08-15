@@ -58,7 +58,7 @@ export interface StateVariables
   args?: any[] & { raw?: string; full?: string; payload?: string }; // $args as used in widgets
   a?: string;
   b?: string;
-  g: Record<string, InstanceType<typeof setup.Unit>>;
+  g: ActorUnitMap;
 
   gVersion:
     | `${number}.${number}.${number}`

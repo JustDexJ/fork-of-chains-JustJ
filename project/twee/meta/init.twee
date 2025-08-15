@@ -1,8 +1,7 @@
 :: StoryInit [nobr]
 
+<<include 'GameVersion'>>
+
 <<if !setup.INIT_DONE>>
-  <<silently>>
-    <<include 'InitSetup'>>
-  <</silently>>
   <<run $notification.popAll()>>
 <</if>>

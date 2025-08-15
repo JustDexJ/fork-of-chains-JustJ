@@ -19,13 +19,16 @@ http://twinery.org/forum/discussion/comment/17617/
 }
 
 #right-ui-bar-toggle:before {
-  font-family: tme-fa-icons;
+  font-family: sc-icons !important;
   font-style: normal;
-  font-weight: 400;
+  font-weight: normal;
   font-variant: normal;
-  text-transform: none;
   line-height: 1;
-  speak: none;
+  speak: never;
+  text-rendering: auto;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Layout and Positioning of the Right UI Bar. */
@@ -57,11 +60,11 @@ http://twinery.org/forum/discussion/comment/17617/
   left: 0;
   border-left: none;
   padding: 0.3em 0.45em 0.25em;
-  -webkit-user-select: none;
+  user-select: none;
 }
 
 #right-ui-bar-toggle:before {
-  content: "\e81e";
+  content: "\f054";
 }
 
 #right-ui-bar-body {
@@ -93,7 +96,7 @@ http://twinery.org/forum/discussion/comment/17617/
 }
 
 #right-ui-bar.stowed #right-ui-bar-toggle:before {
-  content: "\e81d";
+  content: "\f053";
 }
 
 #right-ui-bar.stowed #right-ui-bar-body {

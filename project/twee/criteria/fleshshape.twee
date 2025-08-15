@@ -1,4 +1,4 @@
-:: InitCriteriaFleshShape [nobr]
+:: InitCriteriaFleshShape [nobr criteria]
 
 <<run new setup.UnitCriteria(
   'fleshshape_head',

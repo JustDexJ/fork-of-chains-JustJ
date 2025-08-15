@@ -1,4 +1,3 @@
-import { SetupUtils } from "../../util/common";
 import { TwineClass } from "../_TwineClass";
 import type { Rarity } from "../deck/Rarity";
 import type { Market, MarketKey } from "./Market";
@@ -82,7 +81,7 @@ export class MarketObject<
   }
 
   isInfinite(): boolean {
-    return this.expires_in === SetupUtils.INFINITY;
+    return this.expires_in === setup.INFINITY;
   }
 
   getPrice(): number {

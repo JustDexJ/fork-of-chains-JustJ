@@ -71,7 +71,6 @@ export class UnitGroup extends TwineClass {
         throw new Error(`unit group ${key} missing unit post process ${i}`);
       }
       if ("actor_name" in k && k.actor_name != "unit") {
-        debugger;
         throw new Error(
           `unit group ${key} post process ${i} actor name must be "unit"`,
         );

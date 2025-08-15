@@ -1,4 +1,4 @@
-:: InitCriteriaUnitTraining [nobr]
+:: InitCriteriaUnitTraining [nobr criteria]
 
 <<run new setup.UnitCriteria(
   'training_head',

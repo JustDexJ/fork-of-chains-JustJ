@@ -1,8 +1,5 @@
 :: InitBuildingTemplate [nobr]
 
-<<set setup.buildingtemplate = {}>>
-<<set setup.roomtemplate = {}>>
-
 /* Unique buildings */
 
 /* Structural */
@@ -265,17 +262,11 @@
 
 /* buildings from mods */
 
-<<set _passages = Story.lookup('tags', 'building')>>
-<<for _ipassage, _passage range _passages>>
-  <<include _passage.title>>
-<</for>>
+<<run setup.executePassagesWithTag('building')>>
 
 /* building-less rooms from mods */
 
-<<set _passages = Story.lookup('tags', 'room')>>
-<<for _ipassage, _passage range _passages>>
-  <<include _passage.title>>
-<</for>>
+<<run setup.executePassagesWithTag('room')>>
 
 /* initialize rooms */
 <<run setup.RoomTemplate.initialize()>>

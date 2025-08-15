@@ -1,5 +1,5 @@
 import { Constants } from "../../constants";
-import "../../util/common"; // ensure common loads before this file
+import "../../util/SetupUtil"; // ensure common loads before this file
 import "../../util/globalsettings"; // ensure globalsettings loads before this file
 import { createLogger } from "../../util/logger";
 import { TwineClass } from "../_TwineClass";

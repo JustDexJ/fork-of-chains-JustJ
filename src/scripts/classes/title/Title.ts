@@ -5,6 +5,16 @@ import type { Unit } from "../unit/Unit";
 
 export type TitleKey = BrandedType<string, "TitleKey">;
 
+interface TitleInit {
+  key: string;
+  name: string;
+  description: string;
+  unit_text: string;
+  slave_value: number;
+  skill_adds: SkillValuesInit;
+  is_negative?: boolean;
+}
+
 export class Title extends TwineClass {
   key: TitleKey;
   name: string;
@@ -14,6 +24,7 @@ export class Title extends TwineClass {
   skill_adds: number[];
   is_negative: boolean;
 
+  constructor(options: TitleInit);
   constructor(
     key: string,
     name: string,
@@ -24,32 +35,44 @@ export class Title extends TwineClass {
     args?: {
       is_negative?: boolean;
     },
-  ) {
+  );
+
+  constructor(...args: any[]) {
     super();
 
-    if (!args) {
-      args = {};
-    }
+    const init: TitleInit =
+      args.length <= 1
+        ? args[0]
+        : {
+            key: args[0],
+            name: args[1],
+            description: args[2],
+            unit_text: args[3],
+            slave_value: args[4],
+            skill_adds: args[5],
+            is_negative: args[6]?.is_negative,
+          };
 
-    if (!key) throw new Error(`null key for title`);
-    this.key = key as TitleKey;
+    if (!init.key) throw new Error(`null key for title`);
+    const key = init.key as TitleKey;
+    this.key = key;
 
-    if (!name) throw new Error(`null name for title ${key}`);
-    this.name = name;
+    if (!init.name) throw new Error(`null name for title ${key}`);
+    this.name = init.name;
 
-    if (!description) throw new Error(`null name for title ${key}`);
-    this.description = description;
+    if (!init.description) throw new Error(`null name for title ${key}`);
+    this.description = init.description;
 
     // unit text can be null. In which case it'll be hidden.
-    this.unit_text = unit_text;
+    this.unit_text = init.unit_text;
 
-    this.slave_value = slave_value;
-    this.skill_adds = Skill.translate(skill_adds);
+    this.slave_value = init.slave_value;
+    this.skill_adds = Skill.translate(init.skill_adds);
 
-    this.is_negative = !!args.is_negative;
+    this.is_negative = !!init.is_negative;
 
     if (key in setup.title) throw new Error(`Title ${key} duplicated`);
-    setup.title[key as TitleKey] = this;
+    setup.title[key] = this;
   }
 
   toText() {
