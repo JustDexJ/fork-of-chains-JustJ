@@ -75,7 +75,7 @@ namespace DOM_Util_Image {
     const url =
       credits?.url ||
       (kind === "room" &&
-        "https://gitgud.io/darkofocdarko/fort-of-chains/-/blob/master/docs/tileset_credits.md");
+        `${setup.REPO_URL}/-/blob/master/docs/tileset_credits.md`);
     const extra =
       credits?.extra ||
       (kind === "room" && "See URL for complete tileset credits");

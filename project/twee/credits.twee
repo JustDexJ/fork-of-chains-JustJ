@@ -8,7 +8,7 @@ from the game.
 If you want more of these scenes, please consider giving Lilith's Throne a try!
 The use of these content from Lilith's Throne into this game is in no way endorsed by Innoxia.
 Innoxia has
-kindly [[permitted|https://gitgud.io/darkofocdarko/fort-of-chains/-/blob/master/docs/img/ltconsent.png]]
+kindly <a @href="setup.REPO_URL+'/-/blob/master/docs/img/ltconsent.png'" target="_blank">permitted</a>
 their use in this game.
 Lilith's Throne is released under <<message "this license (click to view)">>
 <div class='helpcard'>
@@ -157,7 +157,7 @@ Thomas M. Edwards for making SugarCube 2.
       <<for _image range _images>>
         <<set _info = _image.info>>
         <<set _path = _image.path>>
-        "<<= _info.title>>" 
+        "<<= _info.title>>"
         <<if _info.url>>
           [[(source)|_info.url]]
         <</if>>
@@ -229,16 +229,26 @@ Thomas M. Edwards for making SugarCube 2.
 <h3>Repository contributors</h3>
 
 <p>
-This game is the result of the combined effort of many
-[[repository contributors|https://gitgud.io/darkofocdarko/fort-of-chains/-/graphs/master]].
-Special mention to Naraden, Matthew Lang, stevenjackson121, and acciabread for
+This open-sourced game is the result of the combined effort of many repository contributors, both to
+<a @href="`${setup.REPO_URL}`" target="_blank">this current incarnation of the game</a>, and to
+<a href="https://gitgud.io/darkofocdarko/fort-of-chains/-/graphs/master" target="_blank">the original game</a>.
+</p>
+<p>
+Fort of Chains was originally conceived and developed by Darko, who designed and coded most of the game systems,
+and also authored a lot of the content and texts.
+</p>
+<p>
+Also special mention to Naraden, Matthew Lang, stevenjackson121, and acciabread for
 the many, many improvements they have made into the game.
 Give your thanks to them!
 </p>
 
+<hr/>
+
 <p>
-You are also welcome to join and contribute into the game.
-[[Learn more here|https://gitgud.io/darkofocdarko/fort-of-chains/-/blob/master/docs/images.md#adding-new-portraits-to-the-repository]]
+You are also welcome to join and contribute into the game!
+<a @href="`${setup.REPO_URL}/-/blob/master/docs/images.md#adding-new-portraits-to-the-repository`" target="_blank">Learn more here</a>,
+or feel free to join our <a @href="setup.DISCORD_URL" target="_blank">Discord</a>
 </p>
 
 
@@ -257,7 +267,7 @@ You are also welcome to join and contribute into the game.
       <<for _image range _images>>
         <<set _info = _image.info>>
         <<set _path = _image.path>>
-        "<<= _info.title>>" 
+        "<<= _info.title>>"
         <<if _info.url>>
           [[(source)|_info.url]]
         <</if>>
@@ -305,7 +315,7 @@ You are also welcome to join and contribute into the game.
       <<for _image range _images>>
         <<set _info = _image.info>>
         <<set _path = _image.path>>
-        "<<= _info.title>>" 
+        "<<= _info.title>>"
         <<if _info.url>>
           [[(source)|_info.url]]
         <</if>>

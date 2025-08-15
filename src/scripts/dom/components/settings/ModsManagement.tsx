@@ -223,7 +223,7 @@ export const ModsManagement: Component = () => {
                   <p>
                     <a
                       target="_blank"
-                      href="https://gitgud.io/darkofocdarko/fort-of-chains/-/blob/master/docs/modding.md"
+                      href={`${setup.REPO_URL}/-/blob/master/docs/modding.md`}
                     >
                       How to create a new mod
                     </a>

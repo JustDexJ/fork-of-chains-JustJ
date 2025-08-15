@@ -41,11 +41,11 @@ export type FilterMenuResolved<T = unknown> = Record<
 type MenuParsed = { [k in MenuKey]?: FilterMenuResolved<unknown> };
 
 export function down(text: string): string {
-  return `${text} <i class="sfa sfa-down-big"></i>`;
+  return `${text} <i class="sfa sfa-arrow-down"></i>`;
 }
 
 export function up(text: string): string {
-  return `${text} <i class="sfa sfa-up-big"></i>`;
+  return `${text} <i class="sfa sfa-arrow-up"></i>`;
 }
 
 export function getCallback(
@@ -202,7 +202,7 @@ export class MenuFilter extends TwineClass {
       text = options[current_value].title;
       text = `<span class="lightgraytext">${text}</span>`;
     }
-    text = `${text} <i class="sfa sfa-down-dir"></i>`;
+    text = `${text} <i class="sfa sfa-caret-down"></i>`;
 
     const children = [
       menuItem({
@@ -264,7 +264,7 @@ export class MenuFilter extends TwineClass {
       text = menu_obj.title;
     }
 
-    text = `${text} <i class="sfa sfa-down-dir"></i>`;
+    text = `${text} <i class="sfa sfa-caret-down"></i>`;
 
     // compute choice traits
     const trait_map: Record<TraitKey, boolean> = {};

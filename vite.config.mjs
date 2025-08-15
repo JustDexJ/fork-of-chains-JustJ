@@ -136,15 +136,15 @@ export default defineConfig(({ command, mode }) => {
             const virtualModulePath = VIRTUAL_JS_MODULE.substring(1)
             // Watch .twee and .ts files in dev mode and recompile on change, then reload browser (debounced)
             server.watcher.add(path.join(__dirname, 'project/twee/**/*.twee'))
-            server.watcher.add(path.join(__dirname, 'src/scripts/**/*.ts'))
+            server.watcher.add(path.join(__dirname, 'src/**/*.{ts,tsx,css}'))
 
             let fullReloadTimeout = null
             let tsHotReloadTimeouts = {}
             let hasTweeChanges = false
 
             server.watcher.on('change', (file) => {
-              const isTS = file.endsWith('.ts') || file.endsWith('.tsx')
-              if (enableHotReload && isTS) {
+              const isCodeFile = /\.(ts|tsx|css)$/.test(file);
+              if (enableHotReload && isCodeFile) {
                 // Apply individual debounce for each file
                 clearTimeout(tsHotReloadTimeouts[file])
                 tsHotReloadTimeouts[file] = setTimeout(() => {
@@ -161,9 +161,9 @@ export default defineConfig(({ command, mode }) => {
                   })
                 }, 200) // 200ms debounce
               } else {
-                const isTwee = file.endsWith('.twee')
-                if (isTwee || isTS) {
-                  hasTweeChanges ||= isTwee
+                const isTweeFile = file.endsWith('.twee')
+                if (isTweeFile || isCodeFile) {
+                  hasTweeChanges ||= isTweeFile
                   clearTimeout(fullReloadTimeout)
                   fullReloadTimeout = setTimeout(async () => {
                     if (hasTweeChanges) {

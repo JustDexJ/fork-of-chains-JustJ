@@ -31,7 +31,7 @@ export default {
         setup.DOM.Util.help(
           `Author of this quest.
         If you like story written by an author, do give the author a shout-out
-        in <a target="_blank" class="link-external" href="https://discord.gg/PTD9D7mZyg" tabindex="0">Discord</a>!
+        in <a target="_blank" class="link-external" href="${setup.DISCORD_URL}" tabindex="0">Discord</a>!
         It will make their day.`,
         ),
       );

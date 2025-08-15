@@ -91,7 +91,7 @@ export const ImagepacksManagement: Component = () => {
                 <p>
                   <a
                     target="_blank"
-                    href="https://gitgud.io/darkofocdarko/fort-of-chains/-/blob/master/docs/images.md#creating-your-own-image-pack"
+                    href={`${setup.REPO_URL}/-/blob/master/docs/images.md#creating-your-own-image-pack`}
                   >
                     How to create a new image pack
                   </a>

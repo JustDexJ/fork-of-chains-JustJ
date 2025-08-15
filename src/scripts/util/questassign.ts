@@ -424,7 +424,7 @@ export namespace QuestAssignHelper {
           if (State.variables.partylist.getParties().length) {
             toolbar_items.push(
               menuItemAction({
-                text: `Party <i class="sfa sfa-down-dir"></i>`,
+                text: `Party <i class="sfa sfa-caret-down"></i>`,
                 tooltip: `Send units from one particular party to go on this quest`,
                 children: partyChildrenCallback(quest),
                 clickonly: true,

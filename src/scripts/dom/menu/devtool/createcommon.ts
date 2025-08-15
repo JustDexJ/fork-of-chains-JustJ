@@ -34,22 +34,18 @@ export const DOM_Menu_dev_content_generated_middle = function (): DOM.Node {
       into the game! There are two options for you. The first option is to copy
       paste all the code below to a file, then post the file in the
       #your-contribution channel inside our
-      ${setup.DOM.Nav.url("Discord", "https://discord.com/invite/PTD9D7mZyg")}
-      server. A contributor will put it in the game code. (If you use Discord,
-      you can tell us your discord name too in the submission so we can give you
-      a Discord role, which among other things allows you to bypass the seven
-      days wait required there.) The second option is to add it to the code
-      directly, and it's also very easy!
+      ${setup.DOM.Nav.url("Discord", setup.DISCORD_URL)} server. A contributor
+      will put it in the game code. (If you use Discord, you can tell us your
+      discord name too in the submission so we can give you a Discord role,
+      which among other things allows you to bypass the seven days wait required
+      there.) The second option is to add it to the code directly, and it's also
+      very easy!
       ${setup.DOM.Util.message(
         `Click for guide on how to add it to the game code yourself`,
         html`
           <div class="helpcard">
             <div>
-              First, go to
-              ${setup.DOM.Nav.url(
-                "https://gitgud.io/darkofocdarko/fort-of-chains",
-                "https://gitgud.io/darkofocdarko/fort-of-chains",
-              )}
+              First, go to ${setup.DOM.Nav.url(setup.REPO_URL, setup.REPO_URL)}
               and download the repository from there. Next, create the following
               file: ${setup.DOM.Text.success(filename)} and copy paste all the
               code later below to that file. (Replace [yourname] with your name.
@@ -63,12 +59,12 @@ export const DOM_Menu_dev_content_generated_middle = function (): DOM.Node {
               other extension.)
               ${setup.DOM.Nav.url(
                 "(Example)",
-                "https://gitgud.io/darkofocdarko/fort-of-chains/-/blob/master/project/twee/quest/Dporentel/goblin_resque.twee",
+                `${setup.REPO_URL}/-/blob/master/project/twee/quest/Dporentel/goblin_resque.twee`,
               )}
               Finally, compile the game, which is really easy! See
               ${setup.DOM.Nav.url(
                 "compilation instructions",
-                "https://gitgud.io/darkofocdarko/fort-of-chains#compiling-instructions",
+                `${setup.REPO_URL}#compiling-instructions`,
               )}
               for compiling instructions.
             </div>
@@ -83,7 +79,7 @@ export const DOM_Menu_dev_content_generated_middle = function (): DOM.Node {
               need to do is
               ${setup.DOM.Nav.url(
                 "send a merge request",
-                "https://gitgud.io/darkofocdarko/fort-of-chains/-/blob/master/docs/mergerequest.md",
+                `${setup.REPO_URL}/-/blob/master/docs/mergerequest.md`,
               )}
               (Again, you don't need to install anything to do so.)
             </div>
@@ -97,7 +93,7 @@ export const DOM_Menu_dev_content_generated_middle = function (): DOM.Node {
       or, if you're planning to
       ${setup.DOM.Nav.url(
         "test it and compile your game",
-        "https://gitgud.io/darkofocdarko/fort-of-chains#compiling-instructions",
+        `${setup.REPO_URL}#compiling-instructions`,
       )},
       to ${setup.DOM.Text.success(filename)}:
       <span id="copy-to-clipboard-button">

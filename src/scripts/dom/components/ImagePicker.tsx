@@ -514,7 +514,7 @@ export const ImagePicker: Component<{ unit: Unit }> = (props) => {
                 }}
               >
                 <i
-                  class={`sfa ${isImageDisabled(getPackImagePath()!) ? "sfa-check-empty" : "sfa-check"}`}
+                  class={`sfa ${isImageDisabled(getPackImagePath()!) ? "sfa-times-circle" : "sfa-check-circle"}`}
                 />
                 Eligible in generation
               </button>

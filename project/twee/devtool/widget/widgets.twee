@@ -129,7 +129,7 @@
 <<if _choosequestfilter>>
 
   <p>Matching quests:</p>
-  
+
   <<set _cand = []>>
   <<set _filter = _choosequestfilter.toLowerCase()>>
   <<for _iquest, _quest range setup.questtemplate>>
@@ -263,7 +263,7 @@ In general, "easy" quests have higher success rate than "hard" quest.
 The modifier should reflect how dangerous the risks are --- easy or medium quests means that
 even on disaster it won't be too bad, while "hardest" or "abyss" quest will have terrible consequences
 on disaster.
-The level of a difficulty is the recommended level for slavers to tackle this difficulty --- 
+The level of a difficulty is the recommended level for slavers to tackle this difficulty ---
 e.g., a Lv 50 quest is designed to be tackled by a set of lv 50 slavers.
 <</message>>
 
@@ -329,7 +329,7 @@ e.g., a Lv 50 quest is designed to be tackled by a set of lv 50 slavers.
 <<if _chooseoppfilter>>
 
   <p>Matching opportunities:</p>
-  
+
   <<set _cand = []>>
   <<set _filter = _chooseoppfilter.toLowerCase()>>
   <<for _iopp, _opp range setup.opportunitytemplate>>
@@ -496,13 +496,13 @@ Choose an activity:
             &nbsp;
 
             <<if _ientry > 0>>
-              <<link '<<icon up-dir "Move up">>' _passage>>
+              <<link '<<icon caret-up "Move up">>' _passage>>
                 <<run setup.swapValues(setup.evalJsPath(_listpath), _ientry, _ientry - 1)>>
                 <<run setup.DevToolHelper.saveScrollPos()>>
               <</link>>
             <</if>>
             <<if _ientry < setup.evalJsPath(_listpath).length - 1>>
-              <<link '<<icon down-dir "Move down">>' _passage>>
+              <<link '<<icon caret-down "Move down">>' _passage>>
                 <<run setup.swapValues(setup.evalJsPath(_listpath), _ientry, _ientry + 1)>>
                 <<run setup.DevToolHelper.saveScrollPos()>>
               <</link>>
@@ -510,7 +510,7 @@ Choose an activity:
           <</capture>>
         <</if>>
       </div>
-      
+
       <<for _iblock, _block range _layout.blocks>>
         <div>
           <<if _block.passage>>
@@ -552,7 +552,7 @@ Choose an activity:
             <</link>>
           <</capture>>
         <</if>>-->
-        
+
         <<if _ientry === null>>
           <!-- replace entry button -->
           <<link '(replace)' _addpassage>>
@@ -565,21 +565,21 @@ Choose an activity:
           <!-- move entry buttons -->
           <<if _ientry > 0>>
             &nbsp;
-            <<link '<<icon up-dir "Move up">>' _passage>>
+            <<link '<<icon caret-up "Move up">>' _passage>>
               <<run setup.swapValues(setup.evalJsPath(_listpath), _ientry, _ientry - 1)>>
               <<run setup.DevToolHelper.saveScrollPos()>>
             <</link>>
           <</if>>
           <<if _ientry < setup.evalJsPath(_listpath).length - 1>>
             <<if _ientry === 0>>&nbsp;<</if>>
-            <<link '<<icon down-dir "Move down">>' _passage>>
+            <<link '<<icon caret-down "Move down">>' _passage>>
               <<run setup.swapValues(setup.evalJsPath(_listpath), _ientry, _ientry + 1)>>
               <<run setup.DevToolHelper.saveScrollPos()>>
             <</link>>
           <</if>>
           &nbsp;
           <!-- delete entry button -->
-          <<link '<<icon cancel "Delete">>' _passage>>
+          <<link '<<icon times "Delete">>' _passage>>
             <<run setup.evalJsPath(_listpath).splice(_ientry, 1)>>
             <<run setup.DevToolHelper.saveScrollPos()>>
           <</link>>

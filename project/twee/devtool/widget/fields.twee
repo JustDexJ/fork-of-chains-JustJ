@@ -30,7 +30,7 @@
       <br/>
       If you are supplying your own URL,
       please don't link to malicious URLs or URLs containing materials forbidden by the
-      [[Content Guidelines|https://gitgud.io/darkofocdarko/fort-of-chains/-/blob/master/docs/contentguideline.md]] --
+      <<link 'Content Guidelines' `${setup.REPO_URL}/-/blob/master/docs/contentguideline.md`>><</link>> --
       these URLs will be removed.
     </div>
   <</message>>
@@ -422,7 +422,7 @@
         <<capture _tag>>
           <span class='tagcard'>
             <<= setup.TagHelper.tagRepLong('quest', _tag) >>
-            <<link '<<icon cancel "Delete">>'>>
+            <<link '<<icon times "Delete">>'>>
               <<set $args[0].tags = $args[0].tags.filter(item => item != _tag)>>
               <<run setup.DevToolHelper.saveScrollPos()>>
               <<devgotoreturn>>
@@ -783,7 +783,7 @@
         <tr>
           <td>Items</td>
           <td>Equal to their value.
-          See [[here|https://gitgud.io/darkofocdarko/fort-of-chains/-/issues/343]]
+          See <a @href="`${setup.REPO_URL}/-/issues/343`" target="_blank">here</a>
           for the list of items that are still missing quests to give them out.
           If your quest only gives out cosmetic / collectibles, consider making it a
           veteran quest.
@@ -1070,7 +1070,7 @@
       <div class='helpcard'>
         The game tries to be permissive with what kind of stories you can add,
         but due to various reasons, there are some
-        [[Guidelines|https://gitgud.io/darkofocdarko/fort-of-chains/-/blob/master/docs/contentguideline.md]]
+        <a @href="`${setup.REPO_URL}/-/blob/master/docs/contentguideline.md`" target="_blank">Guidelines</a>
         on this.
       </div>
     <</message>>
@@ -1110,8 +1110,8 @@
         each of the items in the toolbar.
       </div>
     <</message>>
-    [[(Content Creator Cheat Sheet)|https://gitgud.io/darkofocdarko/fort-of-chains/-/blob/master/docs/textcheatsheet.md]]
-    [[(Extra Commands and Syntax)|https://gitgud.io/darkofocdarko/fort-of-chains/-/blob/master/docs/text.md]]
+    <a @href="`${setup.REPO_URL}/-/blob/master/docs/textcheatsheet.md`" target="_blank">(Content Creator Cheat Sheet)</a>
+    <a @href="`${setup.REPO_URL}/-/blob/master/docs/text.md`" target="_blank">(Extra Commands and Syntax)</a>
     <<message '(Suggestions)'>>
       <div class='helpcard'>
         To make the slavers feel more alive, consider personalizing the story based on the slaver.

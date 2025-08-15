@@ -492,7 +492,7 @@ function sexMenuFragmentUnit(
   }
 
   return menuItem({
-    text: `${text} <i class='sfa sfa-down-dir'></i>`,
+    text: `${text} <i class='sfa sfa-caret-down'></i>`,
     clickonly: true,
     children: actual_menu_items,
   });
@@ -545,7 +545,7 @@ function sexMenuFragment(
 
   menu_items.push(
     menuItem({
-      text: `<span data-tooltip="Random x100"><i class='sfa sfa-fast-fw'></i></span>`,
+      text: `<span data-tooltip="Random x100"><i class='sfa sfa-forward'></i></span>`,
       callback() {
         scene.advanceTurns(100);
         setup.DOM.refresh(`#${interface_div_id}`);
@@ -555,7 +555,7 @@ function sexMenuFragment(
 
   menu_items.push(
     menuItem({
-      text: `<span data-tooltip="Reroll"><i class='sfa sfa-ccw'></i></span>`,
+      text: `<span data-tooltip="Reroll"><i class='sfa sfa-sync-alt'></i></span>`,
       callback() {
         setup.DOM.refresh(`#${interface_div_id}`);
       },
@@ -566,7 +566,7 @@ function sexMenuFragment(
   if (end_sex.length) {
     menu_items.push(
       menuItem({
-        text: `<span data-tooltip="End sex"><i class='sfa sfa-off'></i></span>`,
+        text: `<span data-tooltip="End sex"><i class='sfa sfa-power-off'></i></span>`,
         callback() {
           selectAction(scene, end_sex[0], interface_div_id);
         },
@@ -576,7 +576,7 @@ function sexMenuFragment(
 
   menu_items.push(
     menuItem({
-      text: `<i class='sfa sfa-cog'></i><i class='sfa sfa-down-dir'></i>`,
+      text: `<i class='sfa sfa-cog'></i><i class='sfa sfa-caret-down'></i>`,
       children: [
         menuItem({
           text: `Mobile mode`,

@@ -358,7 +358,7 @@ export class EquipmentSet extends TwineClass {
 
   getAutoAttachMenu() {
     return menuItemAction({
-      text: `Auto-Attach <i class="sfa sfa-down-dir"></i>`,
+      text: `Auto-Attach <i class="sfa sfa-caret-down"></i>`,
       tooltip: `Automatically attach equipments to this set maximizing your chosen skills`,
       clickonly: true,
       children: () => {

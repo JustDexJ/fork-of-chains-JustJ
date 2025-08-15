@@ -127,3 +127,28 @@
   left: unset;
   right: 100%;
 }
+
+.icon-checkbox {
+  position: relative;
+  display: inline-block;
+  padding: 1px;
+  width: 0.6em;
+  height: 0.6em;
+  border-radius: 4px;
+  border: 1px solid white;
+  vertical-align: sub;
+
+  /*&.checked {}*/
+  &::before {
+    position: absolute;
+    top: -0.25em;
+    right: -0.35em;
+
+    padding: 0;
+  }
+
+  & + span {
+    vertical-align: middle;
+    margin-inline-start: 0.3em;
+  }
+}

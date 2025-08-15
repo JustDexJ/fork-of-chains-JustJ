@@ -21,8 +21,8 @@ export function getAuthorCredits(): AuthorContentCredits {
           for (const contentkey of setup.CONTENT_CREATOR_TYPES) {
             credits[author.name][contentkey] = [];
           }
-          credits[author.name][name].push({ content: work, info: author });
         }
+        credits[author.name][name].push({ content: work, info: author });
       }
     }
 

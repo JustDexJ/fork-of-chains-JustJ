@@ -30,8 +30,9 @@ export function menuItem({
 }: MenuItemArgs): JQuery {
   let checked_html = "";
   if (checked != undefined) {
-    if (checked) checked_html = '<i class="sfa sfa-check"></i> ';
-    else checked_html = '<i class="sfa sfa-check-empty"></i> ';
+    if (checked)
+      checked_html = '<i class="icon-checkbox checked sfa sfa-check"></i> ';
+    else checked_html = '<i class="icon-checkbox"></i> ';
   }
 
   let is_open = false;
@@ -48,7 +49,7 @@ export function menuItem({
   }
 
   const menuitem = $(
-    `<div><span ${tooltip_text} class='menu-span'>${checked_html}${wrapper.html()}</span></div>`,
+    `<div><span ${tooltip_text} class='menu-span'>${checked_html}<span>${wrapper.html()}</span></span></div>`,
   );
   menuitem.on("mouseenter", function (ev) {
     if (is_open) return;
@@ -162,6 +163,6 @@ export function menuItemExtras(args: Omit<MenuItemArgs, "text">) {
   return menuItem({
     ...args,
     clickonly: true,
-    text: '<i class="sfa sfa-ellipsis-vert"></i>',
+    text: '<i class="sfa sfa-ellipsis-v"></i>',
   });
 }

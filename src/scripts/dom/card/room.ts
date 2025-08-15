@@ -198,11 +198,7 @@ function artContributorWanted(template: RoomTemplate): DOM.Node {
   return html` <div class="graytext">
     ${setup.DOM.Text.successlite("Contributors wanted!")} This room currently
     does not have any images. See
-    <a
-      target="_blank"
-      href="https://gitgud.io/darkofocdarko/fort-of-chains/-/issues/290"
-      >here</a
-    >
+    <a target="_blank" href="${setup.REPO_URL}/-/issues/290">here</a>
     for more information. Images for this room would go into the
     "img/room/${template.key}/" folder.
   </div>`;

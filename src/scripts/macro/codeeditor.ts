@@ -80,14 +80,14 @@ Macro.add("codeeditor", {
               <header>
                 <div>Output preview</div>
                 <a class="macro-codeeditor-previewbtn">
-                  <i class="sfa sfa-arrows-cw"></i>
+                  <i class="sfa sfa-sync-alt"></i>
                   Refresh
                 </a>
               </header>
               <div>
                 <div>
-                  <div class="graytext">Press [<i class="sfa sfa-arrows-cw"></i> Refresh] to preview</div>
-                  <div class="graytext">Press [<i class="sfa sfa-right-open"></i>] to hide</div>
+                  <div class="graytext">Press [<i class="sfa sfa-sync-alt"></i> Refresh] to preview</div>
+                  <div class="graytext">Press [<i class="sfa sfa-chevron-right"></i>] to hide</div>
                 </div>
               </div>
             </div>
@@ -155,14 +155,14 @@ Macro.add("codeeditor", {
           });
         }
         $previewpane.show();
-        $togglepreviewbtn.children().attr("class", "sfa sfa-right-open");
+        $togglepreviewbtn.children().attr("class", "sfa sfa-chevron-right");
       } else {
         if (split) {
           split.destroy();
           split = null;
         }
         $previewpane.hide();
-        $togglepreviewbtn.children().attr("class", "sfa sfa-left-open");
+        $togglepreviewbtn.children().attr("class", "sfa sfa-chevron-left");
       }
     }
 

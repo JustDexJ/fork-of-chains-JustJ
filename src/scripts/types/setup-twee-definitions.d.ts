@@ -6,7 +6,11 @@ import type { TraitKey, TraitTexts } from "../classes/trait/Trait";
 export interface SetupTweeDefinitions {
   INFINITY: number;
   INIT_DONE: boolean;
-  VERSION: `${number}.${number}.${number}.${number}`;
+
+  VERSION: `${number}.${number}.${number}`;
+
+  REPO_URL: string;
+  DISCORD_URL: string;
 
   ch: Record<string, (actor_name: string) => string>;
 

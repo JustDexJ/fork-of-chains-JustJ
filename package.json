@@ -17,6 +17,7 @@
   "scripts": {
     "open": "open-cli dist/index.html",
     "sanity": "sh deploy.sh sanity",
+    "start": "vite dev",
     "dev": "vite dev",
     "build": "vite build --mode=development",
     "build-watch": "vite build --watch --mode=development",
