@@ -1,51 +1,54 @@
-// @ts-nocheck
+import type { ItemPool, ItemPoolKey } from "../inventory/ItemPool";
+import type { Market, MarketKey } from "../market/Market";
 
-setup.qcImpl.ItemForSale = class ItemForSale extends setup.Cost {
-  /**
-   * @param {setup.Market | string} market 
-   * @param {setup.ItemPool | string} item_pool 
-   * @param {number} amount 
-   * @param {number} [markup]
-   */
-  constructor(market, item_pool, amount, markup) {
-    super()
+export default class ItemForSale extends Cost {
+  item_pool_key: ItemPoolKey;
+  market_key: MarketKey;
+  amount: number;
+  markup: number;
 
-    if (!market) throw new Error(`Missing market in itemforsale`)
-    if (!item_pool) throw new Error(`Missing item pool for item for sale in ${market}`)
+  constructor(
+    market: Market | MarketKey,
+    item_pool: ItemPool | ItemPoolKey,
+    amount?: number,
+    markup?: number,
+  ) {
+    super();
 
-    this.item_pool_key = setup.keyOrSelf(item_pool)
-    this.market_key = setup.keyOrSelf(market)
-    this.markup = markup || 1.0
+    if (!market) throw new Error(`Missing market in itemforsale`);
+    if (!item_pool)
+      throw new Error(`Missing item pool for item for sale in ${market}`);
 
-    if (!amount) {
-      this.amount = 1
-    } else {
-      this.amount = amount
-    }
+    this.item_pool_key = resolveKey(item_pool);
+    this.market_key = resolveKey(market);
+    this.markup = markup || 1.0;
+    this.amount = amount || 1;
   }
 
-  text() {
-    return `setup.qc.ItemForSale('${this.market_key}', '${this.item_pool_key}', ${this.amount}, ${this.markup})`
+  override text() {
+    return `setup.qc.ItemForSale('${this.market_key}', '${this.item_pool_key}', ${this.amount}, ${this.markup})`;
   }
 
-  apply(quest) {
-    let market = this.getMarket()
-    let pool = setup.itempool[this.item_pool_key]
+  override apply(context: CostContext) {
+    let market = this.getMarket();
+    let pool = setup.itempool[this.item_pool_key];
     for (let i = 0; i < this.amount; ++i) {
-      let item = pool.generateItem()
+      let item = pool.generateItem();
       new setup.MarketObject(
         item,
-        /* price = */ Math.round(item.getValue() * this.markup),
+        /* price = */ Math.round((item.getValue() ?? 0) * this.markup),
         setup.MARKET_OBJECT_ITEM_EXPIRATION,
         market,
-        quest,
-      )
+        context,
+      );
     }
   }
 
-  getMarket() { return State.variables.market[this.market_key] }
+  getMarket(): Market<Item> {
+    return State.variables.market[this.market_key] as Market<Item>;
+  }
 
-  explain(quest) {
-    return `${this.amount} new items in ${this.getMarket().rep()} at ${this.markup}x price`
+  override explain(context: CostContext) {
+    return `${this.amount} new items in ${this.getMarket().rep()} at ${this.markup}x price`;
   }
 }

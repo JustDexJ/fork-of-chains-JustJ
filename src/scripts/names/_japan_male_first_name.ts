@@ -1,9 +1,8 @@
-
-/* 
+/*
 https://raw.githubusercontent.com/sterpe/japanese-name-generator/master/data/names/male.json
 */
 
-setup.NAME_japanese_male_first_name = [
+export const NAME_japanese_male_first_name = [
   "Aguri",
   "Aito",
   "Akahito",
@@ -1741,4 +1740,4 @@ setup.NAME_japanese_male_first_name = [
   "Zenko",
   "Zennosuke",
   "Zeshin",
-]
+];

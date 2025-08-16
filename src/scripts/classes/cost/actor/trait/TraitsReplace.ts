@@ -1,46 +1,50 @@
-// @ts-nocheck
+import type { TraitKey } from "../../../trait/Trait";
 
+export default class TraitsReplace extends Cost {
+  trait_keys: TraitKey[];
 
-setup.qcImpl.TraitsReplace = class TraitsReplace extends setup.Cost {
-  constructor(actor_name, traits) {
-    super()
+  constructor(
+    public actor_name: string,
+    traits: (Trait | TraitKey)[],
+  ) {
+    super();
 
-    this.actor_name = actor_name
-    this.trait_keys = []
-    if (!Array.isArray(traits)) throw new Error(`Trait array must be array`)
-    for (let i = 0; i < traits.length; ++i) this.trait_keys.push(traits[i].key)
-  }
-
-  static NAME = 'Gain Traits (replacing old ones)'
-  static PASSAGE = 'CostTraitsReplace'
-
-  text() {
-    let texts = this.trait_keys.map(a => `setup.trait.${a}`)
-    return `setup.qc.TraitsReplace('${this.actor_name}', [${texts.join(', ')}])`
-  }
-
-  getTraits() {
-    let result = []
-    for (let i = 0; i < this.trait_keys.length; ++i) {
-      result.push(setup.trait[this.trait_keys[i]])
+    if (!Array.isArray(traits)) {
+      throw new Error(`Trait array must be array`);
     }
-    return result
+
+    this.trait_keys = [];
+    for (let i = 0; i < traits.length; ++i) {
+      this.trait_keys.push(resolveKey(traits[i]));
+    }
   }
 
-  apply(quest) {
-    let unit = quest.getActorUnit(this.actor_name)
-    let traits = this.getTraits()
+  static NAME = "Gain Traits (replacing old ones)";
+  static PASSAGE = "CostTraitsReplace";
+
+  override text() {
+    let texts = this.trait_keys.map((a) => `setup.trait.${a}`);
+    return `setup.qc.TraitsReplace('${this.actor_name}', [${texts.join(", ")}])`;
+  }
+
+  getTraits(): Trait[] {
+    return this.trait_keys.map((t) => setup.trait[t]);
+  }
+
+  override apply(context: CostContext) {
+    let unit = context.getActorUnit(this.actor_name)!;
+    let traits = this.getTraits();
     for (let i = 0; i < traits.length; ++i) {
       if (unit.isTraitCompatible(traits[i])) {
-        unit.addTrait(traits[i], /* group = */ null, /* replace = */ true)
+        unit.addTrait(traits[i], /* group = */ null, /* replace = */ true);
       }
     }
   }
 
-  explain(quest) {
-    let traits = this.getTraits()
-    let trait_strs = []
-    for (let i = 0; i < traits.length; ++i) trait_strs.push(traits[i].rep())
-    return `${this.actor_name} gain (forcefully) ${trait_strs.join('')}`
+  override explain(context: CostContext) {
+    let traits = this.getTraits();
+    let trait_strs = [];
+    for (let i = 0; i < traits.length; ++i) trait_strs.push(traits[i].rep());
+    return `${this.actor_name} gain (forcefully) ${trait_strs.join("")}`;
   }
 }

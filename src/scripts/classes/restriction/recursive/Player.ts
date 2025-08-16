@@ -1,26 +1,21 @@
-// @ts-nocheck
-
-
-setup.qresImpl.Player = class Player extends setup.Restriction {
-  constructor(restriction) {
-    super()
-
-    this.restriction = restriction
+export default class Player extends Restriction {
+  constructor(public restriction: Restriction) {
+    super();
   }
 
-  static NAME = 'Player satisfies a restriction'
-  static PASSAGE = 'RestrictionPlayer'
+  static NAME = "Player satisfies a restriction";
+  static PASSAGE = "RestrictionPlayer";
 
-  text() {
-    return `setup.qres.Player(${this.restriction.text()})`
+  override text() {
+    return `setup.qres.Player(${this.restriction.text()})`;
   }
 
-  explain(quest) {
-    return `You satisfies: (${this.restriction.explain(quest)})`
+  override explain(context?: unknown) {
+    return `You satisfies: (${this.restriction.explain(context)})`;
   }
 
-  isOk() {
-    return this.restriction.isOk(State.variables.unit.player)
+  override isOk() {
+    return this.restriction.isOk(State.variables.unit.player);
   }
 
   getLayout() {
@@ -30,9 +25,9 @@ setup.qresImpl.Player = class Player extends setup.Restriction {
         {
           passage: "RestrictionPlayerHeader",
           addpassage: "QGAddRestrictionUnit",
-          entrypath: ".restriction"
-        }
-      ]
-    }
+          entrypath: ".restriction",
+        },
+      ],
+    };
   }
 }

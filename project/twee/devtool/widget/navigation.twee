@@ -3,12 +3,12 @@
 /* Save the current passage, and switch to the new one supplied as argument */
 /* The saved passage can be restored using <<dtloadpassage>> */
 <<focwidget dtsavepassage>>
-  <<run setup.devQueue('devtoolmainpassage', $gDtSavePassageReturnPassage)>>
+  <<run setup.DevToolHelper.devQueue('devtoolmainpassage', $gDtSavePassageReturnPassage)>>
   <<set $gDtSavePassageReturnPassage = $args[0]>>
 <</focwidget>>
 
 <<focwidget dtloadpassage>>
-  <<set $gDtSavePassageReturnPassage = setup.devPop('devtoolmainpassage')>>
+  <<set $gDtSavePassageReturnPassage = setup.DevToolHelper.devPop('devtoolmainpassage')>>
 <</focwidget>>
 
 <<focwidget dtloadpassagelink>>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Reggae+One&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Reggae+One&display=swap");
 
 .rep {
   display: inline-block;
@@ -15,79 +15,79 @@
 }
 
 .text-subrace_humanvale {
-  font-family: 'Averia Serif Libre', cursive;
+  font-family: "Averia Serif Libre", cursive;
 }
 
 .text-subrace_humandesert {
-  font-family: 'Yatra One', cursive;
+  font-family: "Yatra One", cursive;
 }
 
 .text-subrace_humansea {
-  font-family: 'Yeseva One', cursive;
+  font-family: "Yeseva One", cursive;
 }
 
 .text-subrace_angel {
-  font-family: 'Berkshire Swash', cursive;
+  font-family: "Berkshire Swash", cursive;
 }
 
 .text-subrace_werewolf {
-  font-family: 'Reggae One', cursive;
+  font-family: "Reggae One", cursive;
 }
 
 .text-subrace_elf {
-  font-family: 'Cherry Swash', cursive;
+  font-family: "Cherry Swash", cursive;
   font-weight: bold;
   letter-spacing: 1px;
 }
 
 .text-subrace_drow {
-  font-family: 'Simonetta', cursive;
+  font-family: "Simonetta", cursive;
 }
 
 .text-subrace_fairy {
-  font-family: 'Griffy', cursive;
+  font-family: "Griffy", cursive;
   font-weight: bold;
   letter-spacing: 1px;
 }
 
 .text-subrace_neko {
-  font-family: 'Bubblegum Sans', cursive;
+  font-family: "Bubblegum Sans", cursive;
   letter-spacing: 1px;
 }
 
 .text-subrace_tigerkin {
-  font-family: 'New Rocker', cursive;
+  font-family: "New Rocker", cursive;
 }
 
 .text-subrace_orc {
-  font-family: 'Chelsea Market', cursive;
+  font-family: "Chelsea Market", cursive;
   letter-spacing: 1px;
 }
 
 .text-subrace_kobold {
-  font-family: 'Alegreya Sans SC', cursive;
+  font-family: "Alegreya Sans SC", cursive;
 }
 
 .text-subrace_lizardkin {
-  font-family: 'Metal Mania', cursive;
+  font-family: "Metal Mania", cursive;
   letter-spacing: 1px;
 }
 
 .text-subrace_dragonkin {
-  font-family: 'Girassol', cursive;
+  font-family: "Girassol", cursive;
   font-weight: bold;
   display: inline-block;
   letter-spacing: 1px;
 }
 
 .text-subrace_demonkin {
-  font-family: 'Emilys Candy', cursive;
+  font-family: "Emilys Candy", cursive;
   font-weight: bold;
   letter-spacing: 1px;
 }
 
 .text-subrace_demon {
-  font-family: 'Rye', cursive;
+  font-family: "Rye", cursive;
 }
 
 .rep-slaver-male {

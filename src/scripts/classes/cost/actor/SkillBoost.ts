@@ -1,31 +1,35 @@
-// @ts-nocheck
+import type { SkillKey } from "../../Skill";
 
-// gains a specific trauma for specified duration
-setup.qcImpl.SkillBoost = class SkillBoost extends setup.Cost {
-  /**
-   * @param {string} actor_name 
-   * @param {setup.Skill} skill 
-   */
-  constructor(actor_name, skill) {
-    super()
+/**
+ * Gains a specific trauma for specified duration
+ */
+export default class SkillBoost extends Cost {
+  skill_key: SkillKey;
 
-    this.actor_name = actor_name
-    this.skill_key = setup.keyOrSelf(skill)
+  constructor(
+    public actor_name: string,
+    skill: Skill,
+  ) {
+    super();
+
+    this.skill_key = resolveKey(skill);
   }
 
-  text() {
-    return `setup.qc.SkillBoost('${this.actor_name}', setup.skill.${this.getSkill().keyword})`
+  override text() {
+    return `setup.qc.SkillBoost('${this.actor_name}', setup.skill.${this.getSkill().keyword})`;
   }
 
-  getSkill() { return setup.skill[this.skill_key] }
-
-  apply(quest) {
-    const unit = quest.getActorUnit(this.actor_name)
-    const skill = this.getSkill()
-    State.variables.skillboost.addBoost(unit, skill)
+  getSkill(): Skill {
+    return setup.skill[this.skill_key];
   }
 
-  explain(quest) {
-    return `Boost ${this.actor_name}'s ${this.getSkill().rep()} permanently by 1`
+  override apply(context: CostContext) {
+    const unit = context.getActorUnit(this.actor_name)!;
+    const skill = this.getSkill();
+    State.variables.skillboost.addBoost(unit, skill);
+  }
+
+  override explain(context: CostContext) {
+    return `Boost ${this.actor_name}'s ${this.getSkill().rep()} permanently by 1`;
   }
 }

@@ -1,27 +1,19 @@
-// @ts-nocheck
+export default class WeeksWithCompanyAtMost extends Restriction.Unit {
+  constructor(public weeks: number) {
+    super();
 
-setup.qresImpl.WeeksWithCompanyAtMost = class WeeksWithCompanyAtMost extends setup.Restriction {
-  /**
-   * @param {number} weeks 
-   */
-  constructor(weeks) {
-    super()
-
-    this.weeks = weeks
+    this.weeks = weeks;
   }
 
-  text() {
-    return `setup.qres.WeeksWithCompanyAtMost(${this.weeks})`
+  override text() {
+    return `setup.qres.WeeksWithCompanyAtMost(${this.weeks})`;
   }
 
-  explain() {
-    return `Unit has been with your company for at most ${this.weeks} weeks`
+  override explain() {
+    return `Unit has been with your company for at most ${this.weeks} weeks`;
   }
 
-  /**
-   * @param {setup.Unit} unit 
-   */
-  isOk(unit) {
-    return unit.getWeeksWithCompany() <= this.weeks
+  override isOk(unit: Unit): boolean {
+    return unit.getWeeksWithCompany() <= this.weeks;
   }
 }

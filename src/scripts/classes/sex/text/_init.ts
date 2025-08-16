@@ -1,3 +1,11 @@
-// @ts-nocheck
+import abuse from "./abuse";
+import flavorstart from "./flavorstart";
+import proximity from "./proximity";
+import strip from "./strip";
 
-setup.SexText = {}
+export const SexText = {
+  ...abuse,
+  ...flavorstart,
+  ...proximity,
+  ...strip,
+};

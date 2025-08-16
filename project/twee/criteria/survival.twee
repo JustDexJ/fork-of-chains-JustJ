@@ -1,4 +1,4 @@
-:: InitCriteriaSurvivalCommon [nobr]
+:: InitCriteriaSurvivalCommon [nobr criteria]
 
 <<run new setup.UnitCriteria(
   'hunter', /* key */

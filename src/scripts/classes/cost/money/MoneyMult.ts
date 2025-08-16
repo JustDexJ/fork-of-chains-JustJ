@@ -1,9 +1,10 @@
-// @ts-nocheck
+import Money from "./Money";
 
-
-// money multipled by setup.MONEY_PER_SLAVER_WEEK = 500
-setup.qcImpl.MoneyMult = class MoneyMult extends setup.qcImpl.Money {
-  constructor(multi) {
-    super(multi * setup.MONEY_PER_SLAVER_WEEK)
+/**
+ * Money multipled by Constants.MONEY_PER_SLAVER_WEEK = 500
+ */
+export default class MoneyMult extends Money {
+  constructor(multi: number) {
+    super(multi * setup.MONEY_PER_SLAVER_WEEK);
   }
 }

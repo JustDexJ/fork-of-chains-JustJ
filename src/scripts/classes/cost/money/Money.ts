@@ -1,46 +1,46 @@
-// @ts-nocheck
+/**
+ * Quest cost, reward, etc. Some can also be used for non-quests:
+ * i.e., the ones whose apply(), isOk(), and explain() does not take a parameter.
+ *
+ * Can also be used as reward. Eg.., Money(-20) as cost, Money(20) as reward.
+ */
+export default class Money extends Cost {
+  money?: number;
 
-
-// Quest cost, reward, etc. Some can also be used for non-quests:
-// i.e., the ones whose apply(), isOk(), and explain() does not take a parameter.
-
-// can also be used as reward. Eg.., Money(-20) as cost, Money(20) as reward.
-setup.qcImpl.Money = class Money extends setup.Cost {
-  constructor(money) {
-    super()
+  constructor(money?: number) {
+    super();
 
     // Called from subclass, skip checks
-    if (this.constructor !== setup.qcImpl.Money && money === undefined)
-      return
+    if (this.constructor !== Money && money === undefined) return;
 
-    if (!Number.isInteger(money)) throw new Error(`Unknown money: ${money}`)
-    this.money = money
+    if (!Number.isInteger(money)) throw new Error(`Unknown money: ${money}`);
+    this.money = money;
   }
 
-  text() {
-    return `setup.qc.Money(${this.money})`
+  override text() {
+    return `setup.qc.Money(${this.money})`;
   }
 
-  getMoney(quest) {
-    return this.money
+  getMoney(quest?: CostContext) {
+    return this.money ?? 0;
   }
 
-  isOk(quest) {
-    let money = this.getMoney(quest)
-    if (money >= 0) return true
-    return (State.variables.company.player.getMoney() >= -money)
+  override isOk(context: CostContext): boolean {
+    let money = this.getMoney(context);
+    if (money >= 0) return true;
+    return State.variables.company.player.getMoney() >= -money;
   }
 
-  apply(quest) {
+  override apply(context?: CostContext) {
     // try to apply as best as you can.
-    State.variables.company.player.addMoney(this.getMoney(quest))
+    State.variables.company.player.addMoney(this.getMoney(context));
   }
 
-  undoApply(quest) {
-    State.variables.company.player.addMoney(-this.getMoney(quest))
+  override undoApply(context: CostContext) {
+    State.variables.company.player.addMoney(-this.getMoney(context));
   }
 
-  explain(quest) {
-    return setup.DOM.toString(setup.DOM.Util.money(this.getMoney(quest)))
+  override explain(context: CostContext) {
+    return setup.DOM.toString(setup.DOM.Util.money(this.getMoney(context)));
   }
 }

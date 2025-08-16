@@ -1,23 +1,17 @@
-// @ts-nocheck
-
-setup.qresImpl.TagNotBanned = class TagNotBanned extends setup.Restriction {
-  /**
-   * @param {string} tag
-   */
-  constructor(tag) {
-    super()
-    this.tag = tag
+export default class TagNotBanned extends Restriction {
+  constructor(public tag: string) {
+    super();
   }
 
-  text() {
-    return `setup.qres.TagNotBanned('${this.tag}')`
+  override text() {
+    return `setup.qres.TagNotBanned('${this.tag}')`;
   }
 
-  explain() {
-    return `${this.tag} is NOT banned`
+  override explain() {
+    return `${this.tag} is NOT banned`;
   }
 
-  isOk(quest) {
-    return !State.variables.settings.bannedtags[this.tag]
+  override isOk() {
+    return !State.variables.settings.bannedtags[this.tag];
   }
 }

@@ -1,24 +1,15 @@
-// @ts-nocheck
+import type { EquipmentSlot } from "../../../equipment/EquipmentSlot";
 
-setup.qresImpl.SexNoEquipment = class SexNoEquipment extends setup.SexRestriction {
-  /**
-   * @param {setup.EquipmentSlot} equipment_slot
-   */
-  constructor(equipment_slot) {
-    super()
-    this.equipment_slot = equipment_slot
+export default class SexNoEquipment extends SexRestriction {
+  constructor(public equipment_slot: EquipmentSlot) {
+    super();
   }
 
-  explain() {
-    return `No equipment in ${this.equipment_slot.rep()}`
+  override explain() {
+    return `No equipment in ${this.equipment_slot.rep()}`;
   }
 
-  /**
-   * @param {setup.Unit} unit 
-   */
-  isOk(unit) {
-    return !unit.getEquipmentAt(this.equipment_slot)
+  override isOk(unit: Unit) {
+    return !unit.getEquipmentAt(this.equipment_slot);
   }
 }
-
-

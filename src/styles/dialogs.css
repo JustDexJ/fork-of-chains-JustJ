@@ -1,4 +1,3 @@
-
 #ui-dialog-body.dialog-fullwidth {
   width: min(66em, calc(100vw - 32px));
 }
@@ -40,7 +39,6 @@
   }
 }
 
-
 .dialog-buttons {
   display: flex;
   justify-content: flex-end;
@@ -48,8 +46,6 @@
 .dialog-buttons > * + * {
   margin-left: 8px;
 }
-
-
 
 /** Unit Image (preview) dialog */
 
@@ -62,8 +58,6 @@
   display: block;
   text-align: center;
 }
-
-
 
 /** Unit Image Picker dialog */
 
@@ -119,7 +113,7 @@
   position: relative;
 }
 .dialog-imagepicker .thumbnails > div.disabled::after {
-  content: '✖';
+  content: "✖";
   display: block;
   position: absolute;
   right: 0;
@@ -138,7 +132,6 @@
 .dialog-imagepicker .thumbnails > div.selected {
   border-color: yellow;
 }
-
 
 .dialog-imagepicker-preview {
   display: grid;
@@ -189,4 +182,3 @@
 .dialog-imagepicker-preview figure > div.error > img {
   display: none;
 }
-

@@ -1,33 +1,24 @@
-// @ts-nocheck
-
-// levels up this unit.
-setup.qcImpl.LevelUpTo = class LevelUpTo extends setup.Cost {
-  /**
-   * @param {string} actor_name 
-   * @param {number} target_level 
-   */
-  constructor(actor_name, target_level) {
-    super()
-
-    this.actor_name = actor_name
-    this.target_level = target_level
+/** Levels up this unit. */
+export default class LevelUpTo extends Cost {
+  constructor(
+    public actor_name: string,
+    public target_level: number,
+  ) {
+    super();
   }
 
-  text() {
-    return `setup.qc.LevelUpTo('${this.actor_name}', ${this.target_level})`
+  override text() {
+    return `setup.qc.LevelUpTo('${this.actor_name}', ${this.target_level})`;
   }
 
-  apply(quest) {
-    /**
-     * @type {setup.Unit}
-     */
-    const unit = quest.getActorUnit(this.actor_name)
+  override apply(context: CostContext) {
+    const unit = context.getActorUnit(this.actor_name)!;
     while (unit.getLevel() < this.target_level) {
-      unit.levelUp()
+      unit.levelUp();
     }
   }
 
-  explain(quest) {
-    return `${this.actor_name} levels up to level ${this.target_level}`
+  override explain(context: CostContext) {
+    return `${this.actor_name} levels up to level ${this.target_level}`;
   }
 }

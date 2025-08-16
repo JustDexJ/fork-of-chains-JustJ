@@ -1,27 +1,24 @@
-// @ts-nocheck
-
-
-setup.Text.genital = function(unit) {
+export function TextUnit_genital(unit: Unit) {
   if (unit.isHasTrait(setup.trait.dick_huge)) {
-    return 'gigantic dick'
+    return "gigantic dick";
   }
   if (unit.isHasTrait(setup.trait.dick_small)) {
-    return 'dick'
+    return "dick";
   }
   if (unit.isHasTrait(setup.trait.dick_tiny)) {
-    return 'tiny dick'
+    return "tiny dick";
   }
   if (unit.isHasTrait(setup.trait.breast_huge)) {
-    return 'gigantic breasts'
+    return "gigantic breasts";
   }
   if (unit.isHasTrait(setup.trait.breast_small)) {
-    return 'breasts'
+    return "breasts";
   }
   if (unit.isHasTrait(setup.trait.breast_tiny)) {
-    return 'tiny breasts'
+    return "tiny breasts";
   }
   if (unit.isHasTrait(setup.trait.vagina_tight)) {
-    return 'vagina'
+    return "vagina";
   }
-  return 'anus'
+  return "anus";
 }

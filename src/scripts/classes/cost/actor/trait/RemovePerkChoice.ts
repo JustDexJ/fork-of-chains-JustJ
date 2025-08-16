@@ -1,33 +1,33 @@
-// @ts-nocheck
+import type { Perk } from "../../../trait/Perk";
+import type { TraitKey } from "../../../trait/Trait";
 
-setup.qcImpl.RemovePerkChoice = class RemovePerkChoice extends setup.Cost {
-  /**
-   * @param {string} actor_name
-   * @param {setup.Perk} perk
-   */
-  constructor(actor_name, perk) {
-    super()
+export default class RemovePerkChoice extends Cost {
+  perk_key: TraitKey;
 
-    this.actor_name = actor_name
-    this.perk_key = setup.keyOrSelf(perk)
+  constructor(
+    public actor_name: string,
+    perk: Perk | TraitKey,
+  ) {
+    super();
+
+    this.perk_key = resolveKey(perk);
   }
 
-  text() {
-    return `setup.qc.RemovePerkChoice('${this.actor_name}', '${this.perk_key}')`
+  override text() {
+    return `setup.qc.RemovePerkChoice('${this.actor_name}', '${this.perk_key}')`;
   }
 
-  getPerk() { return setup.trait[this.perk_key] }
-
-  apply(quest) {
-    /**
-     * @type {setup.Unit}
-     */
-    const unit = quest.getActorUnit(this.actor_name)
-    unit.removePerkChoice(this.getPerk())
+  getPerk(): Perk {
+    return setup.trait[this.perk_key] as Perk;
   }
 
-  explain(quest) {
-    const perk = this.getPerk()
-    return `${this.actor_name} loses access to the ${perk.rep()} perk`
+  override apply(context: CostContext) {
+    const unit = context.getActorUnit(this.actor_name)!;
+    unit.removePerkChoice(this.getPerk());
+  }
+
+  override explain(context: CostContext) {
+    const perk = this.getPerk();
+    return `${this.actor_name} loses access to the ${perk.rep()} perk`;
   }
 }

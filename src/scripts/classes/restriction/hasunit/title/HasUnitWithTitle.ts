@@ -1,63 +1,59 @@
-// @ts-nocheck
+import type { JobKey } from "../../../job/Job";
+import type { Title, TitleKey } from "../../../title/Title";
 
+export default class HasUnitWithTitle extends Restriction {
+  title_key: TitleKey;
+  params: {
+    job_key?: JobKey;
+  };
 
-setup.qresImpl.HasUnitWithTitle = class HasUnitWithTitle extends setup.Restriction {
-  constructor(title, params) {
-    super()
+  constructor(title: Title | TitleKey, params?: HasUnitWithTitle["params"]) {
+    super();
 
-    if (setup.isString(title)) {
-      this.title_key = title
-    } else {
-      this.title_key = title.key
-    }
-  
-    if (params) {
-      this.params = params
-    } else {
-      this.params = {}
-    }
+    this.title_key = resolveKey(title);
+    this.params = params || {};
   }
 
-  text() {
-    let paramtext = `{\n`
-    for (let paramkey in this.params) {
-      let paramval = this.params[paramkey]
-      paramtext += `${paramkey}: `
+  override text() {
+    let paramtext = `{\n`;
+    for (const [paramkey, paramval] of objectEntries(this.params)) {
+      paramtext += `${paramkey}: `;
       if (setup.isString(paramval)) {
-        paramtext += `"${paramval}",\n`
+        paramtext += `"${paramval}",\n`;
       } else {
-        paramtext += `${paramval},\n`
+        paramtext += `${paramval},\n`;
       }
     }
-    paramtext += `}`
-    return `setup.qres.HasUnitWithTitle('${this.title_key}', ${paramtext})`
+    paramtext += `}`;
+    return `setup.qres.HasUnitWithTitle('${this.title_key}', ${paramtext})`;
   }
 
-  explain() {
-    let title = setup.title[this.title_key]
-  
-    let paramtext = []
-    for (let paramkey in this.params) {
-      let paramval = this.params[paramkey]
-      paramtext.push(`${paramkey}: ${paramval}`)
+  override explain() {
+    let title = setup.title[this.title_key];
+
+    let paramtext = [];
+    for (const [paramkey, paramval] of objectEntries(this.params)) {
+      paramtext.push(`${paramkey}: ${paramval}`);
     }
-  
-    return `Must exists any unit that has "${title.rep()}" and also ${paramtext.join(', ')}`
+
+    return `Must exists any unit that has "${title.rep()}" and also ${paramtext.join(", ")}`;
   }
 
-  isOk() {
-    let title = setup.title[this.title_key]
-    let params = this.params
-  
-    let base = Object.values(State.variables.unit)
-    if ('job_key' in params) {
-      base = State.variables.company.player.getUnits({job: setup.job[params.job_key]})
+  override isOk() {
+    let title = setup.title[this.title_key];
+    let params = this.params;
+
+    let base = Object.values(State.variables.unit);
+    if (params.job_key) {
+      base = State.variables.company.player.getUnits({
+        job: setup.job[params.job_key],
+      });
     }
-  
+
     for (let i = 0; i < base.length; ++i) {
-      let unit = base[i]
-      if (State.variables.titlelist.isHasTitle(unit, title)) return true
+      let unit = base[i];
+      if (State.variables.titlelist.isHasTitle(unit, title)) return true;
     }
-    return false
+    return false;
   }
 }

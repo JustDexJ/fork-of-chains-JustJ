@@ -1,4 +1,4 @@
-:: InitCriteriaKnowledgeCommon [nobr]
+:: InitCriteriaKnowledgeCommon [nobr criteria]
 
 <<run new setup.UnitCriteria(
   'planner', /* key */

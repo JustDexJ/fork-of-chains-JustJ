@@ -1,42 +1,39 @@
-// @ts-nocheck
-
-/* Swap magic with another random one */
-setup.qcImpl.WildMagic = class WildMagic extends setup.Cost {
-  constructor(actor_name) {
-    super()
-
-    this.actor_name = actor_name
+/**
+ * Swap magic with another random one
+ */
+export default class WildMagic extends Cost {
+  constructor(public actor_name: string) {
+    super();
   }
 
-  text() {
-    return `setup.qc.WildMagic('${this.actor_name}')`
+  override text() {
+    return `setup.qc.WildMagic('${this.actor_name}')`;
   }
 
-  apply(quest) {
-    /**
-     * @type {setup.Unit}
-     */
-    const unit = quest.getActorUnit(this.actor_name)
-    const magic = unit.getRemovableTraits().filter(trait => trait.getTags().includes('magic'))
+  override apply(context: CostContext) {
+    const unit = context.getActorUnit(this.actor_name)!;
+    const magic = unit
+      .getRemovableTraits()
+      .filter((trait) => trait.getTags().includes("magic"));
     if (magic.length) {
-      const remove = setup.rng.choice(magic)
-      const other = setup.TraitHelper.getAllTraitsOfTags(['magicbasic']).filter(trait => !unit.isHasTrait(trait))
-      /**
-       * @type {setup.Trait}
-       */
-      const add = setup.rng.choice(other)
-      setup.qc.TraitRemove(this.actor_name, remove).apply(quest)
-      let candidate
-      if (remove.getTags().includes('magicmaster')) {
-        candidate = add.getTraitGroup().getLargestTrait()
+      const remove = setup.rng.choice(magic);
+      const other = setup.TraitHelper.getAllTraitsOfTags(["magicbasic"]).filter(
+        (trait) => !unit.isHasTrait(trait),
+      );
+      const add = setup.rng.choice(other);
+      setup.qc.TraitRemove(this.actor_name, remove).apply(context);
+
+      let candidate: Trait;
+      if (remove.getTags().includes("magicmaster")) {
+        candidate = add.getTraitGroup()!.getLargestTrait();
       } else {
-        candidate = add
+        candidate = add;
       }
-      setup.qc.TraitReplace(this.actor_name, candidate).apply(quest)
+      setup.qc.TraitReplace(this.actor_name, candidate).apply(context);
     }
   }
 
-  explain(quest) {
-    return `${this.actor_name} swaps one of their magic with a random one`
+  override explain(context: CostContext) {
+    return `${this.actor_name} swaps one of their magic with a random one`;
   }
 }

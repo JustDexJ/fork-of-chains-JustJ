@@ -1,58 +1,64 @@
-// @ts-nocheck
-
 /**
  * An advanced (yet basic) code editor for .twee passages
  * Usage is the same as for SugarCube's <<textarea>>:
- * 
+ *
  *  <<codeeditor '_outputvariablename' _initialvalue>>
- * 
+ *
  * It attempts to load modules from CDN, in case they are
  * not available (or features are not supported),
  * it falls back to a basic html <textarea> element
  */
 
-import { generateCodeEditorToolbarItems, insertTextIntoEditor } from "./codeeditor-toolbar.js"
-import { menuItem } from "../ui/menu"
-import Split from "split.js"
-import { display_errors } from "../dom/menu/devtool/devtoolverifycreate"
+import Split from "split.js";
+import { display_errors } from "../dom/menu/devtool/devtoolverifycreate";
+import { menuItem } from "../ui/menuitem";
+import {
+  generateCodeEditorToolbarItems,
+  insertTextIntoEditor,
+} from "./codeeditor-toolbar.js";
 
-/** @typedef {typeof import('@dynamic-module:devtool/third-party/codejar/codejar.js').CodeJar} CodeJar */
+type CodeJar =
+  typeof import("@dynamic-module:devtool/third-party/codejar/codejar.js").CodeJar;
 
-/** @type {ReturnType<typeof import('@dynamic-module:devtool/index.js')['initializeCodeJar']>|null} */
-let loadCodejarPromise = null
+let loadCodejarPromise: ReturnType<
+  (typeof import("@dynamic-module:devtool/index.js"))["initializeCodeJar"]
+> | null = null;
 
 // Lazy loading of the codejar editor (so it only loads if needed)
 function loadCodeJar() {
-  return loadCodejarPromise || (loadCodejarPromise = import('@dynamic-module:devtool').then(module => {
-    return module.initializeCodeJar()
-  }))
+  return (
+    loadCodejarPromise ||
+    (loadCodejarPromise = import("@dynamic-module:devtool").then((module) => {
+      return module.initializeCodeJar();
+    }))
+  );
 }
 
-Macro.add('codeeditor', {
+Macro.add("codeeditor", {
   //isAsync: true,
 
   handler() {
-    if (!this.args.length)
-      return this.error('no variable name specified')
+    if (!this.args.length) return this.error("no variable name specified");
 
-    if (typeof this.args[0] !== 'string')
-      return this.error('variable name argument is not a string')
+    if (typeof this.args[0] !== "string")
+      return this.error("variable name argument is not a string");
 
-    const varname = this.args[0].trim()
-    if (varname[0] !== '$' && varname[0] !== '_')
-      return this.error(`variable name "${this.args[0]}" is missing its sigil ($ or _)`)
+    const varname = this.args[0].trim();
+    if (varname[0] !== "$" && varname[0] !== "_")
+      return this.error(
+        `variable name "${this.args[0]}" is missing its sigil ($ or _)`,
+      );
 
-    const initial_value = this.args[1] || ''
+    const initial_value = this.args[1] || "";
 
-    let use_fallback = false
+    let use_fallback = false;
 
     /**
      * Editor (CodeJar) instance
-     * @type {ReturnType<CodeJar>|null}
      */
-    let editor = null
+    let editor: ReturnType<CodeJar> | null = null;
 
-    const $wrapper = $(/*html*/`
+    const $wrapper = $(/*html*/ `
       <div class="macro-codeeditor">
         <header class="macro-codeeditor-toolbar disabled">
           <div class="macro-codeeditor-toolbar-on menu toolbar"></div>
@@ -74,14 +80,14 @@ Macro.add('codeeditor', {
               <header>
                 <div>Output preview</div>
                 <a class="macro-codeeditor-previewbtn">
-                  <i class="sfa sfa-arrows-cw"></i>
+                  <i class="sfa sfa-sync-alt"></i>
                   Refresh
                 </a>
               </header>
               <div>
                 <div>
-                  <div class="graytext">Press [<i class="sfa sfa-arrows-cw"></i> Refresh] to preview</div>
-                  <div class="graytext">Press [<i class="sfa sfa-right-open"></i>] to hide</div>
+                  <div class="graytext">Press [<i class="sfa sfa-sync-alt"></i> Refresh] to preview</div>
+                  <div class="graytext">Press [<i class="sfa sfa-chevron-right"></i>] to hide</div>
                 </div>
               </div>
             </div>
@@ -92,112 +98,121 @@ Macro.add('codeeditor', {
 
     // helper that saves the current position of the cursor
     // before e.g. opening a dialog
-    const retainEditorFocus = (promise) => {
-      const textarea = use_fallback ? $textarea.get(0) : null
-      const selpos = textarea ? [textarea.selectionStart, textarea.selectionEnd] : editor.saveSelection()
-      return promise.then(result => {
-        $element.trigger('focus')
+    const retainEditorFocus = <T>(promise: Promise<T>): Promise<T> => {
+      const textarea = use_fallback ? $textarea.get(0) : null;
+      const selpos = textarea
+        ? [textarea.selectionStart, textarea.selectionEnd]
+        : editor?.saveSelection();
+      return promise.then((result) => {
+        $element.trigger("focus");
         if (textarea) {
-          textarea.selectionStart = selpos[0]
-          textarea.selectionEnd = selpos[1]
+          textarea.selectionStart = (selpos as [number, number])[0];
+          textarea.selectionEnd = (selpos as [number, number])[1];
         } else {
-          editor.restoreSelection(selpos)
+          editor?.restoreSelection(selpos);
         }
-        return result
-      })
-    }
+        return result;
+      });
+    };
 
-    const $element = $wrapper.find(`.macro-codeeditor-jar`)
-    const $fallback = $wrapper.find(`.macro-codeeditor-fallback`)
-    const $main = $wrapper.find(`.macro-codeeditor-main`)
-    const $textarea = $wrapper.find("textarea")
-    const $toggleimplbtn = $wrapper.find(`.macro-codeeditor-toggleimplbtn`)
-    const $togglepreviewbtn = $wrapper.find(`.macro-codeeditor-togglepreviewbtn`)
-    const $refreshpreviewbtn = $wrapper.find(`.macro-codeeditor-previewbtn`)
-    const $header = $wrapper.find(`> header`)
-    const $codepane = $wrapper.find('.macro-codeeditor-codepane')
-    const $previewpane = $wrapper.find('.macro-codeeditor-previewpane')
+    const $element = $wrapper.find(`.macro-codeeditor-jar`);
+    const $fallback = $wrapper.find(`.macro-codeeditor-fallback`);
+    const $main = $wrapper.find(`.macro-codeeditor-main`);
+    const $textarea = $wrapper.find("textarea");
+    const $toggleimplbtn = $wrapper.find(`.macro-codeeditor-toggleimplbtn`);
+    const $togglepreviewbtn = $wrapper.find(
+      `.macro-codeeditor-togglepreviewbtn`,
+    );
+    const $refreshpreviewbtn = $wrapper.find(`.macro-codeeditor-previewbtn`);
+    const $header = $wrapper.find(`> header`);
+    const $codepane = $wrapper.find(".macro-codeeditor-codepane");
+    const $previewpane = $wrapper.find(".macro-codeeditor-previewpane");
 
-    /** @type {ReturnType<typeof Split>|undefined} */
-    let split = undefined // Split.js instance
+    let split: ReturnType<typeof Split> | null | undefined = undefined; // Split.js instance
 
     function refreshPreview() {
-      const $target = $previewpane.children().last()
-      $target.empty()
-      $target.wiki(`<<devcodeeditorpreview ${varname} '${varname}'>>`)
+      const $target = $previewpane.children().last();
+      $target.empty();
+      $target.wiki(`<<devcodeeditorpreview ${varname} '${varname}'>>`);
     }
 
-    function setToolbarEnabled(value) {
+    function setToolbarEnabled(value: boolean) {
       if (value) {
-        $header.removeClass('disabled')
+        $header.removeClass("disabled");
       } else {
-        $header.addClass('disabled')
+        $header.addClass("disabled");
       }
     }
 
-    function setPreviewPaneVisible(value) {
+    function setPreviewPaneVisible(value: boolean) {
       if (value) {
         //if (split === undefined) // first time
         //refreshPreview()
         if (!split) {
-          split = Split([$codepane.get(0), $previewpane.get(0)], {
+          split = Split([$codepane.get(0)!, $previewpane.get(0)!], {
             sizes: [60, 40],
             minSize: [200, 100],
-          })
+          });
         }
-        $previewpane.show()
-        $togglepreviewbtn.children().attr("class", "sfa sfa-right-open")
+        $previewpane.show();
+        $togglepreviewbtn.children().attr("class", "sfa sfa-chevron-right");
       } else {
         if (split) {
-          split.destroy()
-          split = null
+          split.destroy();
+          split = null;
         }
-        $previewpane.hide()
-        $togglepreviewbtn.children().attr("class", "sfa sfa-left-open")
+        $previewpane.hide();
+        $togglepreviewbtn.children().attr("class", "sfa sfa-chevron-left");
       }
     }
 
-    $refreshpreviewbtn.on('click.macros', function () {
-      refreshPreview()
-    })
+    $refreshpreviewbtn.on("click.macros", function () {
+      refreshPreview();
+    });
 
-    $togglepreviewbtn.on('click.macros', function () {
-      setPreviewPaneVisible(!split)
-    })
+    $togglepreviewbtn.on("click.macros", function () {
+      setPreviewPaneVisible(!split);
+    });
 
-    function setUseFallback(newvalue) {
-      use_fallback = newvalue
+    function setUseFallback(newvalue: boolean) {
+      use_fallback = newvalue;
 
-      $main.css('display', use_fallback ? 'none' : 'block')
-      $fallback.css('display', use_fallback ? 'block' : 'none')
-      $toggleimplbtn.text(use_fallback ? '(switch to advanced editor)' : '(switch to simple editor)')
+      $main.css("display", use_fallback ? "none" : "block");
+      $fallback.css("display", use_fallback ? "block" : "none");
+      $toggleimplbtn.text(
+        use_fallback
+          ? "(switch to advanced editor)"
+          : "(switch to simple editor)",
+      );
 
-      const value = State.getVar(varname)
+      const value = State.getVar(varname);
       if (use_fallback) {
-        $textarea.val(value)
+        $textarea.val(value);
       } else {
-        if (editor)
-          editor.updateCode(value)
+        if (editor) editor.updateCode(value);
       }
     }
 
-    $toggleimplbtn.on('click.macros', function () {
-      setUseFallback(!use_fallback)
-    })
+    $toggleimplbtn.on("click.macros", function () {
+      setUseFallback(!use_fallback);
+    });
 
-    $textarea.on('change.macros', this.createShadowWrapper(function () {
-      if (use_fallback)
-        State.setVar(varname, this.value)
-    }))
+    $textarea.on(
+      "change.macros",
+      this.shadowHandler(function (ev) {
+        if (use_fallback)
+          State.setVar(varname, (ev.target as HTMLTextAreaElement).value);
+      }),
+    );
 
-    $element.on('focus', () => !use_fallback && setToolbarEnabled(true))
-    $element.on('blur', () => !use_fallback && setToolbarEnabled(false))
-    $textarea.on('focus', () => use_fallback && setToolbarEnabled(true))
-    $textarea.on('blur', () => use_fallback && setToolbarEnabled(false))
+    $element.on("focus", () => !use_fallback && setToolbarEnabled(true));
+    $element.on("blur", () => !use_fallback && setToolbarEnabled(false));
+    $textarea.on("focus", () => use_fallback && setToolbarEnabled(true));
+    $textarea.on("blur", () => use_fallback && setToolbarEnabled(false));
 
     // Toolbar
     {
-      const toolbar_items = generateCodeEditorToolbarItems(retainEditorFocus)
+      const toolbar_items = generateCodeEditorToolbarItems(retainEditorFocus);
 
       toolbar_items.push(
         menuItem({
@@ -208,18 +223,19 @@ Macro.add('codeeditor', {
               text: `Auto-indent and check brackets`,
               tooltip: `Automatically indentis your twine code based on the macros and html tags`,
               callback: () => {
-                const existing = editor.toString()
-                const result = setup.beautifyTwine(existing)
-                editor.updateCode(result.text)
+                if (!editor) return;
+                const existing = editor.toString();
+                const result = setup.beautifyTwine(existing);
+                editor.updateCode(result.text);
                 if (result.errors.length) {
                   display_errors({
                     error_details: [
                       {
-                        title: 'Custom',
+                        title: "Custom",
                         errors: result.errors,
-                      }
+                      },
                     ],
-                  })
+                  });
                 }
               },
             }),
@@ -237,62 +253,64 @@ Macro.add('codeeditor', {
 <p>
   <<Rep $g.character>> character|eat <<their $g.character>> <<= _food>> accompanied with a sip of <<= _drink>>.
 </p>
-`)
+`);
               },
             }),
           ],
         }),
-      )
+      );
 
-      toolbar_items.push( // settings
+      toolbar_items.push(
+        // settings
         menuItem({
-          text: '<i class="sfa sfa-cog"></i>', children: () => [
+          text: '<i class="sfa sfa-cog"></i>',
+          children: () => [
             menuItem({
               checked: !use_fallback,
               text: "Advanced editor",
-              callback: () => setUseFallback(!use_fallback)
+              callback: () => setUseFallback(!use_fallback),
             }),
             menuItem({
               checked: !!$(document.body).hasClass("codeeditor-simple"),
               text: "Simplified mode",
-              callback: () => $(document.body).toggleClass("codeeditor-simple")
+              callback: () => $(document.body).toggleClass("codeeditor-simple"),
             }),
-          ]
+          ],
         }),
-      )
+      );
 
-      const $menu = $wrapper.find(".menu")
-      for (const toolbaritem of toolbar_items)
-        toolbaritem.appendTo($menu)
+      const $menu = $wrapper.find(".menu");
+      for (const toolbaritem of toolbar_items) toolbaritem.appendTo($menu);
     }
 
     // Set the variable to the initial value
-    State.setVar(varname, initial_value)
+    State.setVar(varname, initial_value);
 
-    $wrapper.appendTo(this.output)
+    $wrapper.appendTo(this.output);
 
     // Begin loading modules asynchronously
-    loadCodeJar().then(({ Prism, CodeJar }) => {
-      editor = CodeJar($element.get(0), Prism.highlightElement, {
-        tab: ' '.repeat(2), // default is '\t'
-        //indentOn: /[(\[]$/, // default is /{$/
-        spellcheck: true,
-        addClosing: false,
-      })
+    loadCodeJar().then(
+      ({ Prism, CodeJar }) => {
+        editor = CodeJar($element.get(0), Prism.highlightElement, {
+          tab: " ".repeat(2), // default is '\t'
+          //indentOn: /[(\[]$/, // default is /{$/
+          spellcheck: true,
+          addClosing: false,
+        });
 
-      editor.onUpdate(code => {
-        State.setVar(varname, code) // save variable value to state
-      })
+        editor.onUpdate((code: string) => {
+          State.setVar(varname, code); // save variable value to state
+        });
 
-      setUseFallback(false)
-      setPreviewPaneVisible(true)
-
-    }, (err) => {
-      console.warn('Failed to load CodeJar-based code editor:', err)
-      // failed to load modules, so use fallback
-      $toggleimplbtn.css("display", "none")
-      setUseFallback(true)
-    })
-  }
-
-})
+        setUseFallback(false);
+        setPreviewPaneVisible(true);
+      },
+      (err) => {
+        console.warn("Failed to load CodeJar-based code editor:", err);
+        // failed to load modules, so use fallback
+        $toggleimplbtn.css("display", "none");
+        setUseFallback(true);
+      },
+    );
+  },
+});

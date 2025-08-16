@@ -1,6 +1,6 @@
 :: RestrictionVarEqual [nobr]
 
-Variable <<textbox '_key' ''>> must equals <<textbox '_value' ''>>.
+Variable <<textbox '_key' ''>> must equals <<textbox '_value' 0>>.
 
 <br/>
 <<link 'Done' 'QGRestrictionDone'>>
@@ -10,7 +10,7 @@ Variable <<textbox '_key' ''>> must equals <<textbox '_value' ''>>.
 
 :: RestrictionVarGte [nobr]
 
-Variable <<textbox '_key' ''>> must >= <<numberbox '_value' ''>>.
+Variable <<textbox '_key' ''>> must >= <<numberbox '_value' 0>>.
 
 <br/>
 <<link 'Done' 'QGRestrictionDone'>>
@@ -20,7 +20,7 @@ Variable <<textbox '_key' ''>> must >= <<numberbox '_value' ''>>.
 
 :: RestrictionVarLte [nobr]
 
-Variable <<textbox '_key' ''>> must <= <<numberbox '_value' ''>>.
+Variable <<textbox '_key' ''>> must <= <<numberbox '_value' 0>>.
 
 <br/>
 <<link 'Done' 'QGRestrictionDone'>>

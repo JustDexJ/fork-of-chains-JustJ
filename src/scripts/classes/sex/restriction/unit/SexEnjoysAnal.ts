@@ -1,20 +1,15 @@
-// @ts-nocheck
+import { SexBodypart_Anus } from "../../bodypart/bodyparts/anus";
 
-setup.qresImpl.SexEnjoysAnal = class SexEnjoysAnal extends setup.SexRestriction {
+export default class SexEnjoysAnal extends SexRestriction {
   constructor() {
-    super()
+    super();
   }
 
-  explain() {
-    return `Enjoys anal sex`
+  override explain() {
+    return `Enjoys anal sex`;
   }
 
-  /**
-   * @param {setup.Unit} unit
-   */
-  isOk(unit) {
-    return setup.SexBodypartClass.Anus.unitAnalEnjoymentMultiplier(unit) >= 1
+  override isOk(unit: Unit) {
+    return SexBodypart_Anus.unitAnalEnjoymentMultiplier(unit) >= 1;
   }
 }
-
-

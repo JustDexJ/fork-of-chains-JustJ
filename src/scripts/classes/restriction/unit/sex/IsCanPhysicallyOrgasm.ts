@@ -1,19 +1,17 @@
-// @ts-nocheck
-
-setup.qresImpl.IsCanPhysicallyOrgasm = class IsCanPhysicallyOrgasm extends setup.Restriction {
+export default class IsCanPhysicallyOrgasm extends Restriction.Unit {
   constructor() {
-    super()
+    super();
   }
 
-  text() {
-    return `setup.qres.IsCanPhysicallyOrgasm()`
+  override text() {
+    return `setup.qres.IsCanPhysicallyOrgasm()`;
   }
 
-  explain() {
-    return `Can physically orgasm: not blocked by chastity, but can be blocked by slave rule`
+  override explain() {
+    return `Can physically orgasm: not blocked by chastity, but can be blocked by slave rule`;
   }
 
-  isOk(unit) {
-    return unit.isCanPhysicallyOrgasm()
+  override isOk(unit: Unit): boolean {
+    return unit.isCanPhysicallyOrgasm();
   }
 }

@@ -1,26 +1,21 @@
-// @ts-nocheck
-
-
-setup.qresImpl.SlaveValueAtLeast = class SlaveValueAtLeast extends setup.Restriction {
-  constructor(slavevalue) {
-    super()
-
-    this.slavevalue = slavevalue
+export default class SlaveValueAtLeast extends Restriction.Unit {
+  constructor(public slavevalue: number) {
+    super();
   }
 
-  static NAME = 'Slave value is at least this much'
-  static PASSAGE = 'RestrictionSlaveValueAtLeast'
-  static UNIT = true
+  static NAME = "Slave value is at least this much";
+  static PASSAGE = "RestrictionSlaveValueAtLeast";
+  static UNIT = true;
 
-  text() {
-    return `setup.qres.SlaveValueAtLeast(${this.slavevalue})`
+  override text() {
+    return `setup.qres.SlaveValueAtLeast(${this.slavevalue})`;
   }
 
-  explain() {
-    return `Unit's slave value is at least ${this.slavevalue}` 
+  override explain() {
+    return `Unit's slave value is at least ${this.slavevalue}`;
   }
 
-  isOk(unit) {
-    return unit.getSlaveValue() >= this.slavevalue
+  override isOk(unit: Unit): boolean {
+    return unit.getSlaveValue() >= this.slavevalue;
   }
 }

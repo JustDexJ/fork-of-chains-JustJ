@@ -1,17 +1,14 @@
-// @ts-nocheck
-
-import { up, down } from "./AAA_filter"
-import { MenuFilterHelper } from "./filterhelper"
+import type { FilterMenu } from "./_filter";
 
 /* Not actually a filter, but just for storing quest team assignment type */
-setup.MenuFilter._MENUS.questassign = {
+export const _MENUS_questassign: FilterMenu<unknown> = {
   score: {
     title: '<i class="sfa sfa-cog"></i>',
-    default: 'Default',
+    default: "Default",
     hardreload: true,
     options: {
       crit: {
-        title: 'Max. Critical',
+        title: "Max. Critical",
       },
       /*
       success: {
@@ -19,9 +16,8 @@ setup.MenuFilter._MENUS.questassign = {
       },
       */
       failure: {
-        title: 'Min. Disaster',
+        title: "Min. Disaster",
       },
     },
   },
-}
-
+};

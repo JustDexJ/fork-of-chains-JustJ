@@ -118,8 +118,7 @@ setup.rarity.rare, /* Rarity */
 </p>
 
 <<choose>>
-<<opt "Let <<them $g.slave>>
-    eat">>
+<<opt "Let <<them $g.slave>> eat">>
 
     <p>
         You tell <<them $g.slave>> <<they $g.slave>>'s a good little <<succubus $g.slave>>, and you're going to let <<them $g.slave>> feed.
@@ -144,8 +143,7 @@ setup.rarity.rare, /* Rarity */
     <<run setup.qc.FriendshipWithYou('you', 50).apply($gQuest)>>
 
 <<optif $g.slave.isHasVagina() && $unit.player.isHasDick()>>
-<<opt "Feed <<them $g.slave>>
-    ">>
+<<opt "Feed <<them $g.slave>>">>
 
     <p>
         You tell <<them $g.slave>> <<they $g.slave>>'s a good little <<succubus $g.slave>>, and you're going to feed <<them $g.slave>>.
@@ -176,8 +174,7 @@ setup.rarity.rare, /* Rarity */
     </p>
 
 <<optif $unit.player.isHasDick()>>
-<<opt "Fuck <<them $g.slave>>
-    without feeding <<them $g.slave>>">>
+<<opt "Fuck <<them $g.slave>> without feeding <<them $g.slave>>">>
 
     <p>
         You tell <<them $g.slave>> <<they $g.slave>>'s a good little <<succubus $g.slave>>. Thinking <<they $g.slave>> understands, <<they $g.slave>>

@@ -1,28 +1,33 @@
-// @ts-nocheck
+import type {
+  ContactTemplate,
+  ContactTemplateKey,
+} from "../contact/ContactTemplate";
 
+export default class HasContact extends Restriction {
+  template_key: ContactTemplateKey;
 
-setup.qresImpl.HasContact = class HasContact extends setup.Restriction {
-  constructor(contact_template) {
-    super()
+  constructor(contact_template: ContactTemplate | ContactTemplateKey) {
+    super();
 
-    this.template_key = contact_template.key
-    if (!contact_template) throw new Error(`null template for has contact restriction`)
+    this.template_key = resolveKey(contact_template);
+    if (!contact_template)
+      throw new Error(`null template for has contact restriction`);
   }
 
-  static NAME = 'Must have a certain contact'
-  static PASSAGE = 'RestrictionHasContact'
+  static NAME = "Must have a certain contact";
+  static PASSAGE = "RestrictionHasContact";
 
-  text() {
-    return `setup.qres.HasContact(setup.contacttemplate.${this.template_key})`
+  override text() {
+    return `setup.qres.HasContact(setup.contacttemplate.${this.template_key})`;
   }
 
-  explain() {
-    let contact = setup.contacttemplate[this.template_key]
-    return `Must have the contact: ${contact.rep()}`
+  override explain() {
+    let contact = setup.contacttemplate[this.template_key];
+    return `Must have the contact: ${contact.rep()}`;
   }
 
-  isOk() {
-    let contact = setup.contacttemplate[this.template_key]
-    return State.variables.contactlist.isHasContact(contact)
+  override isOk() {
+    let contact = setup.contacttemplate[this.template_key];
+    return State.variables.contactlist.isHasContact(contact);
   }
 }

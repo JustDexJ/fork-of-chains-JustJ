@@ -1,19 +1,17 @@
-// @ts-nocheck
-
-setup.qresImpl.IsCanPhysicallyCum = class IsCanPhysicallyCum extends setup.Restriction {
+export default class IsCanPhysicallyCum extends Restriction.Unit {
   constructor() {
-    super()
+    super();
   }
 
-  text() {
-    return `setup.qres.IsCanPhysicallyCum()`
+  override text() {
+    return `setup.qres.IsCanPhysicallyCum()`;
   }
 
-  explain() {
-    return `Can physically cum with current equipment`
+  override explain() {
+    return `Can physically cum with current equipment`;
   }
 
-  isOk(unit) {
-    return unit.isCanPhysicallyCum()
+  override isOk(unit: Unit): boolean {
+    return unit.isCanPhysicallyCum();
   }
 }

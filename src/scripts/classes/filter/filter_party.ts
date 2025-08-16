@@ -1,25 +1,24 @@
-// @ts-nocheck
+import type { Party } from "../party/Party";
+import { down, type FilterMenu } from "./_filter";
+import { MenuFilterHelper } from "./filterhelper";
 
-import { up, down } from "./AAA_filter"
-import { MenuFilterHelper } from "./filterhelper"
-
-setup.MenuFilter._MENUS.party = {
+export const _MENUS_party: FilterMenu<Party> = {
   sort: {
-    title: 'Sort',
-    default: down('Obtained'),
+    title: "Sort",
+    default: down("Obtained"),
     options: {
       namedown: MenuFilterHelper.namedown,
       nameup: MenuFilterHelper.nameup,
-    }
+    },
   },
   display: {
-    title: 'Display',
-    default: 'Full',
+    title: "Display",
+    default: "Full",
     hardreload: true,
     options: {
       compact: {
-        title: 'Compact',
+        title: "Compact",
       },
     },
   },
-}
+};

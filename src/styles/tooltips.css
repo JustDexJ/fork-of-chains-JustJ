@@ -1,8 +1,7 @@
-
 /** '.tooltip' class is automatically added to the 
   * tooltip content container created by the 'tooltip' macro
   */
-  
+
 .tooltip > header > * {
   vertical-align: middle;
 }

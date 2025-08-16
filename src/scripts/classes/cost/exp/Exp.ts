@@ -1,49 +1,49 @@
-// @ts-nocheck
+/** Give exp to all participating slavers. */
+export default class Exp extends Cost {
+  exp_amount?: number;
 
-
-// give exp to all participating slavers.
-setup.qcImpl.Exp = class Exp extends setup.Cost {
-  constructor(exp_amount) {
-    super()
+  constructor(exp_amount?: number) {
+    super();
 
     // Called from subclass, skip checks
-    if (this.constructor !== setup.qcImpl.Exp && exp_amount === undefined)
-      return
+    if (this.constructor !== Exp && exp_amount === undefined) return;
 
-    if (!Number.isInteger(exp_amount)) throw new Error(`Unknown exp: ${exp_amount}`)
-    if (exp_amount < 0) throw new Error(`exp must be positive`)
+    if (typeof exp_amount !== "number" || !Number.isInteger(exp_amount))
+      throw new Error(`Invalid value for exp: ${exp_amount}`);
+    if (exp_amount < 0) throw new Error(`exp must be positive`);
 
-    this.exp_amount = exp_amount
+    this.exp_amount = exp_amount;
   }
 
-  isOk() {
-    throw new Error(`slaversexp should not be a cost`)
+  override text() {
+    return `setup.qc.Exp(${this.exp_amount!})`;
   }
 
-  getExp(quest) {
-    return this.exp_amount
+  getExp(quest: QuestInstance): number {
+    return this.exp_amount!;
   }
 
-  apply(quest) {
-    // try to apply as best as you can.
-    let exp_amount = this.getExp(quest)
-    let team = quest.getTeam()
-    let units = team.getUnits()
-    // give exp to all units, even those not participating.
-    for (let i = 0; i < units.length; ++i) {
-      let unit = units[i]
-      if (unit.isSlaver()) {
-        unit.gainExp(exp_amount)
+  override apply(quest: CostContext) {
+    if (quest instanceof setup.QuestInstance) {
+      // try to apply as best as you can.
+      let exp_amount = this.getExp(quest);
+
+      if (exp_amount) {
+        let team = quest.getTeam()!;
+        let units = team.getUnits();
+        // give exp to all units, even those not participating.
+        for (let i = 0; i < units.length; ++i) {
+          let unit = units[i];
+          if (unit.isSlaver()) {
+            unit.gainExp(exp_amount);
+          }
+        }
+        setup.notify(`Your slavers gain ${exp_amount} exp.`);
       }
     }
-    setup.notify(`Your slavers gain ${exp_amount} exp.`)
   }
 
-  undoApply() {
-    throw new Error(`exp should not be a cost`)
-  }
-
-  explain(quest) {
-    return `some exp`
+  override explain(context: CostContext) {
+    return `some exp`;
   }
 }

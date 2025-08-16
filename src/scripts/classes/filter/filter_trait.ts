@@ -1,57 +1,60 @@
-// @ts-nocheck
+import type { FilterMenu, FilterMenuOptions } from "./_filter";
+import { MenuFilterHelper } from "./filterhelper";
 
-import { up, down } from "./AAA_filter"
-import { MenuFilterHelper } from "./filterhelper"
-
-function getTraitTagFilter(tag) {
-  return trait => trait.getTags().includes(tag)
+function getTraitTagFilter(tag: string) {
+  return (trait: Trait) => trait.getTags().includes(tag);
 }
 
-function getTraitTagFilters(tag_type) {
+function getTraitTagFilters(tag_type: string) {
   return () => {
-    const base = {}
-    for (const tag of setup.TagHelper.getAllTagsOfType('trait', tag_type)) {
+    const base: FilterMenuOptions<Trait> = {};
+    for (const tag of setup.TagHelper.getAllTagsOfType("trait", tag_type)) {
       base[tag] = {
-        title: setup.TagHelper.tagRep('trait', tag, /* force = */ true),
+        title: setup.TagHelper.tagRep("trait", tag, /* force = */ true),
         filter: getTraitTagFilter(tag),
-      }
+      };
     }
-    return base
-  }
+    return base;
+  };
 }
 
-setup.MenuFilter._MENUS.trait = {
+export const _MENUS_trait: FilterMenu<Trait> = {
   type: {
-    title: 'Type',
-    default: 'All',
+    title: "Type",
+    default: "All",
     icon_menu: true,
-    options: getTraitTagFilters('type'),
+    options: getTraitTagFilters("type"),
   },
   rarity: {
-    title: 'Rarity',
-    default: 'All',
+    title: "Rarity",
+    default: "All",
     icon_menu: true,
     options: MenuFilterHelper.rarityFilters,
   },
   show: {
-    title: 'Show',
-    default: 'Default',
-    default_filter: trait => !(trait.getTags().filter(tag => ['perk', 'blessingcurse', 'trauma', 'boon'].includes(tag)).length),
+    title: "Show",
+    default: "Default",
+    default_filter: (trait) =>
+      !trait
+        .getTags()
+        .filter((tag) =>
+          ["perk", "blessingcurse", "trauma", "boon"].includes(tag),
+        ).length,
     options: {
       all: {
-        title: 'All',
-      }
+        title: "All",
+      },
     },
   },
   sort: {
-    title: 'Sort',
-    default: 'Type',
+    title: "Sort",
+    default: "Type",
     options: {
       namedown: MenuFilterHelper.namedown,
       nameup: MenuFilterHelper.nameup,
       slavevaluedown: MenuFilterHelper.slavevaluedown,
       slavevalueup: MenuFilterHelper.slavevalueup,
-    }
+    },
   },
   /* This is problematic, because in debug mode you're not supposed to refresh arbitrarily
   display: {
@@ -65,4 +68,4 @@ setup.MenuFilter._MENUS.trait = {
     }
   },
   */
-}
+};

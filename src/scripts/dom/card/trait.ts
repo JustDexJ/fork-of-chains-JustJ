@@ -1,79 +1,55 @@
-// @ts-nocheck
+import { menuItemExtras, menuItemTitle } from "../../ui/menuitem";
 
-import { menuItemExtras, menuItemTitle } from "../../ui/menu"
+function traitNameActionMenu(trait: Trait, hide_actions?: boolean): JQuery[] {
+  const menus: JQuery[] = [];
+  const extras: JQuery[] = [];
 
-/**
- * @param {setup.Trait} trait
- * @param {boolean} hide_actions 
- * @returns {JQLite[]}
- */
-function traitNameActionMenu(trait, hide_actions) {
-  /**
-   * @type {JQLite[]}
-   */
-  const menus = []
-  /**
-   * @type {JQLite[]}
-   */
-  const extras = []
-
-  menus.push(menuItemTitle({
-    text: `${trait.repFull()} ${State.variables.gDebug ? `(key: '${trait.key}')` : ''}`,
-  }))
+  menus.push(
+    menuItemTitle({
+      text: `${trait.repFull()} ${State.variables.gDebug ? `(key: '${trait.key}')` : ""}`,
+    }),
+  );
 
   if (extras.length) {
-    menus.push(menuItemExtras({
-      children: extras,
-    }))
+    menus.push(
+      menuItemExtras({
+        children: extras,
+      }),
+    );
   }
 
-  return menus
+  return menus;
 }
 
-
-/**
- * @param {setup.Trait} trait 
- * @returns {setup.DOM.Node}
- */
-export function getTraitEtcFragment(trait) {
-  const fragments = []
+export function getTraitEtcFragment(trait: Trait): DOM.Node {
+  const fragments: DOM.Attachable[] = [];
   fragments.push(html`
-      <div>
-      ${setup.DOM.Util.twine(trait.getDescription())}
-    </div>
-    `)
+    <div>${setup.DOM.Util.twine(trait.getDescription())}</div>
+  `);
 
   if (trait.isHasSkillBonuses()) {
     fragments.push(html`
-    <div>
-    ${setup.SkillHelper.explainSkillMods(trait.getSkillBonuses())}
-      </div>
-    `)
+      <div>${setup.SkillHelper.explainSkillMods(trait.getSkillBonuses())}</div>
+    `);
   }
-  const value = trait.getSlaveValue()
+  const value = trait.getSlaveValue();
   if (value) {
-    fragments.push(html`
-    <div>
-    Worth: ${setup.DOM.Util.money(value)}
-      </div>
-    `)
+    fragments.push(html` <div>Worth: ${setup.DOM.Util.money(value)}</div> `);
   }
-  return setup.DOM.create('div', {}, fragments)
+  return setup.DOM.create("div", {}, fragments);
 }
 
+export default {
+  trait(trait: Trait, hide_actions?: boolean): DOM.Node {
+    const fragments: DOM.Attachable[] = [];
 
-/**
- * @param {setup.Trait} trait
- * @param {boolean} [hide_actions]
- * @returns {setup.DOM.Node}
- */
-setup.DOM.Card.trait = function (trait, hide_actions) {
-  const fragments = []
+    fragments.push(html`
+      ${setup.DOM.Util.menuItemToolbar(
+        traitNameActionMenu(trait, hide_actions),
+      )}
+      ${getTraitEtcFragment(trait)}
+    `);
 
-  fragments.push(html`
-    ${setup.DOM.Util.menuItemToolbar(traitNameActionMenu(trait, hide_actions))}
-    ${getTraitEtcFragment(trait)}
-    `)
-
-  return setup.DOM.create('div', {}, fragments)
-}
+    return setup.DOM.create("div", {}, fragments);
+  },
+};

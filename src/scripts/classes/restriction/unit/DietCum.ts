@@ -1,22 +1,17 @@
-// @ts-nocheck
-
-setup.qresImpl.DietCum = class DietCum extends setup.Restriction {
+export default class DietCum extends Restriction.Unit {
   constructor() {
-    super()
+    super();
   }
 
-  text() {
-    return `setup.qres.DietCum()`
+  override text() {
+    return `setup.qres.DietCum()`;
   }
 
-  explain() {
-    return `On cum-based diet`
+  override explain() {
+    return `On cum-based diet`;
   }
 
-  /**
-   * @param {setup.Unit} unit 
-   */
-  isOk(unit) {
-    return unit.isDietCum()
+  override isOk(unit: Unit): boolean {
+    return unit.isDietCum();
   }
 }

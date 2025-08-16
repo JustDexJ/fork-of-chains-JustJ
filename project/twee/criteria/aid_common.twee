@@ -1,4 +1,4 @@
-:: InitCriteriaAidCommon [nobr]
+:: InitCriteriaAidCommon [nobr criteria]
 
 <<run new setup.UnitCriteria(
   'healer', /* key */

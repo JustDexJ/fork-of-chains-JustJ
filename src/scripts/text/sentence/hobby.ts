@@ -1,15 +1,12 @@
-// @ts-nocheck
+import type { Trait } from "../../classes/trait/Trait";
+import { unit_trait_texts } from "../text";
 
-import { unit_trait_texts } from "../aaa_text"
-
-setup.Text.Hobby = {}
-
-/* Return a hobby, e.g., "exercising in the courtyard". */
-/**
- * @param {setup.Unit} unit 
- * @param {setup.Trait} [trait]  // if supplied, used this trait's hobby instead.
- * @returns {string}
- */
-setup.Text.Hobby.verb = function (unit, trait) {
-  return unit_trait_texts({ unit: unit, field: 'hobby', trait: trait })
+export namespace TextHobby {
+  /**
+   * Return a hobby, e.g., "exercising in the courtyard".
+   * @param trait  // if supplied, used this trait's hobby instead.
+   */
+  export function verb(unit: Unit, trait?: Trait): string {
+    return unit_trait_texts({ unit: unit, field: "hobby", trait: trait });
+  }
 }

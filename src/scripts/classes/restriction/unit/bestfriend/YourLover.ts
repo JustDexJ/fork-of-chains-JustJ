@@ -1,22 +1,17 @@
-// @ts-nocheck
-
-setup.qresImpl.YourLover = class YourLover extends setup.Restriction {
+export default class YourLover extends Restriction.Unit {
   constructor() {
-    super()
+    super();
   }
 
-  text() {
-    return `setup.qres.YourLover()`
+  override text() {
+    return `setup.qres.YourLover()`;
   }
 
-  explain() {
-    return `Unit must be your lover` 
+  override explain() {
+    return `Unit must be your lover`;
   }
 
-  /**
-   * @param {setup.Unit} unit 
-   */
-  isOk(unit) {
-    return unit.getLover()?.isYou()
+  override isOk(unit: Unit): boolean {
+    return !!unit.getLover()?.isYou();
   }
 }

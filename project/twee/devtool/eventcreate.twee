@@ -50,6 +50,6 @@
 )>>
 
 """::""" <<= $epassagedesc >> [nobr]
-<<= setup.devToolFormat($edesc)>>
+<<= setup.DevToolHelper.devToolFormat($edesc)>>
 
 </code></div>

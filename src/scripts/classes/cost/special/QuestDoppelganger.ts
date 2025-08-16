@@ -1,32 +1,31 @@
-// @ts-nocheck
+import type { TitleKey } from "../../title/Title";
 
 /**
  * Morphs into its model.
  */
-setup.qcImpl.QuestDoppelganger = class QuestDoppelganger extends setup.Cost {
+export default class QuestDoppelganger extends Cost {
   constructor() {
-    super()
+    super();
   }
 
-  text() {
-    return `setup.qc.QuestDoppelganger()`
+  override text() {
+    return `setup.qc.QuestDoppelganger()`;
   }
 
-  /**
-   * @param {any} quest 
-   */
-  apply(quest) {
-    const unit = quest.getActorUnit('unit')
-    const target = setup.getUnit({ title: 'quest_doppelganged' })
+  override apply(context: CostContext) {
+    const unit = context.getActorUnit("unit")!;
+    const target = setup.getUnit({ title: "quest_doppelganged" as TitleKey });
     if (target) {
-      setup.qcImpl.Bodyswap.doBodySwap(unit, target, /* force */ false, /* one direction */ true)
+      setup.qcImpl.Bodyswap.doBodySwap(
+        unit,
+        target,
+        /* force */ false,
+        /* one direction */ true,
+      );
     }
   }
 
-  /**
-   * @param {*} quest 
-   */
-  explain(quest) {
-    return `You are captured or otherwise lost from the company`
+  override explain(context: CostContext) {
+    return `You are captured or otherwise lost from the company`;
   }
 }

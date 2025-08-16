@@ -1,35 +1,34 @@
-// @ts-nocheck
+import type { Company, CompanyKey } from "../../Company";
 
-setup.qcImpl.FavorUnitValue = class FavorUnitValue extends setup.Cost {
-  /**
-   * @param {string} actor_name
-   * @param {setup.Company | string} company
-   * @param {number} favor_per_value
-   */
-  constructor(actor_name, company, favor_per_value) {
-    super()
-    this.actor_name = actor_name
-    this.company_key = setup.keyOrSelf(company)
-    this.favor_per_value = favor_per_value
+export default class FavorUnitValue extends Cost {
+  company_key: CompanyKey;
+
+  constructor(
+    public actor_name: string,
+    company: Company | CompanyKey,
+    public favor_per_value: number,
+  ) {
+    super();
+
+    this.company_key = resolveKey(company);
   }
 
-  text() {
-    return `setup.qc.FavorUnitValue('${this.actor_name}', '${this.company_key}', ${this.favor_per_value})`
+  override text() {
+    return `setup.qc.FavorUnitValue('${this.actor_name}', '${this.company_key}', ${this.favor_per_value})`;
   }
 
-  /**
-   * @returns {setup.Company}
-   */
-  getCompany() { return State.variables.company[this.company_key] }
-
-  explain() {
-    const fpv = this.favor_per_value
-    return `Gain favor with ${this.getCompany().rep()} equals ${this.actor_name}'s value times ${fpv}`
+  getCompany(): Company {
+    return State.variables.company[this.company_key];
   }
 
-  apply(quest) {
-    const unit = quest.getActorUnit(this.actor_name)
-    const favor = unit.getSlaveValue() * this.favor_per_value
-    setup.qc.Favor(this.getCompany(), Math.round(favor)).apply()
+  override explain() {
+    const fpv = this.favor_per_value;
+    return `Gain favor with ${this.getCompany().rep()} equals ${this.actor_name}'s value times ${fpv}`;
+  }
+
+  override apply(context: CostContext) {
+    const unit = context.getActorUnit(this.actor_name)!;
+    const favor = unit.getSlaveValue() * this.favor_per_value;
+    setup.qc.Favor(this.getCompany(), Math.round(favor)).apply(context);
   }
 }

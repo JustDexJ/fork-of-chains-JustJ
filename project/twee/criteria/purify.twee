@@ -1,4 +1,4 @@
-:: InitCriteriaPurify [nobr]
+:: InitCriteriaPurify [nobr criteria]
 
 <<run new setup.UnitCriteria(
   'purify_head',

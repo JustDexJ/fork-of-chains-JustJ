@@ -1,30 +1,27 @@
-// @ts-nocheck
-
-
-setup.qresImpl.VarEqual = class VarEqual extends setup.Restriction {
-  constructor(key, value) {
-    super()
-
-    this.key = key
-    this.value = value
+export default class VarEqual extends Restriction {
+  constructor(
+    public key: string,
+    public value: any,
+  ) {
+    super();
   }
 
-  static NAME = 'Variable equals something'
-  static PASSAGE = 'RestrictionVarEqual'
+  static NAME = "Variable equals something";
+  static PASSAGE = "RestrictionVarEqual";
 
-  text() {
+  override text() {
     if (setup.isString(this.value)) {
-      return `setup.qres.VarEqual('${this.key}', '${this.value}')`
+      return `setup.qres.VarEqual('${this.key}', '${this.value}')`;
     } else {
-      return `setup.qres.VarEqual('${this.key}', ${this.value})`
+      return `setup.qres.VarEqual('${this.key}', ${this.value})`;
     }
   }
 
-  explain() {
-    return `Variable "${this.key}" must equals "${this.value}"`
+  override explain() {
+    return `Variable "${this.key}" must equals "${this.value}"`;
   }
 
-  isOk() {
-    return State.variables.varstore.get(this.key) == this.value
+  override isOk() {
+    return State.variables.varstore.get(this.key) == this.value;
   }
 }

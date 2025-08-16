@@ -67,8 +67,7 @@ setup.rarity.rare, /* Rarity */
 
 <<choose>>
 
-<<opt "Use <<them $g.slave>>
-    anyway">>
+<<opt "Use <<them $g.slave>> anyway">>
 
     <p>
         You reach out, grab <<their $g.slave>> shoulder, and shove <<them $g.slave>> against the wall.
@@ -140,8 +139,7 @@ setup.rarity.rare, /* Rarity */
 
     <<run setup.qc.FriendshipWithYou('slave', -50).apply($gQuest)>>
 
-<<opt "Manipulate <<their $g.slave>>
-    into asking to suck you off">>
+<<opt "Manipulate <<their $g.slave>> into asking to suck you off">>
 
     <p>
         You reach out, grab <<their $g.slave>> shoulder, and shove <<them $g.slave>> against the wall.
@@ -185,8 +183,7 @@ setup.rarity.rare, /* Rarity */
         , and push it into <<their $g.slave>> <<umouth $g.slave>> without waiting for <<them $g.slave>> to get ready. <<They $g.slave>> gags, but does <<their $g.slave>> best to work <<their $g.slave>> tired <<umouth $g.slave>>. When you're finally satisfied and you let <<them $g.slave>> up, you aim another slap at <<their $g.slave>> ass and let <<them $g.slave>> see it coming; <<they $g.slave>> accepts the spank due to fright at what you might do if <<they $g.slave>> dodged before fleeing.
     </p>
 
-<<opt "Just talk with <<them $g.slave>>
-    ">>
+<<opt "Just talk with <<them $g.slave>>">>
 
     <p>
         You take <<them $g.slave>> by the hand, lead <<them $g.slave>> to a nearby bench, and sit down with <<them $g.slave>>, letting <<them $g.slave>> seat <<themself $g.slave>> beside you so <<they $g.slave>> can lean against you without putting too much weight on <<their $g.slave>> poor overused butthole. You ask <<them $g.slave>> about <<their $g.slave>> day.
@@ -218,8 +215,7 @@ setup.rarity.rare, /* Rarity */
 
     <<choose>>
 
-    <<opt "Kiss <<them $g.slave>>
-        back">>
+    <<opt "Kiss <<them $g.slave>> back">>
 
         <p>
             You turn to kiss <<their $g.slave>> back, on the lips this time. <<They $g.slave>>
@@ -238,8 +234,7 @@ setup.rarity.rare, /* Rarity */
 
         <<run setup.qc.FriendshipWithYou('slave', 75).apply($gQuest)>>
 
-    <<opt "Rape <<them $g.slave>>
-        ">>
+    <<opt "Rape <<them $g.slave>>">>
 
         <p>
             But <<they $g.slave>>'s wrong to place that kind of faith in you. As <<they $g.slave>> withdraws from the kiss, you snake a betraying <<uhand $unit.player>> between <<their $g.slave>> butt and the bench, and shove

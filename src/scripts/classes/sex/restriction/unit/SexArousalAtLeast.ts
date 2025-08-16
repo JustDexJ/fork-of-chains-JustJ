@@ -1,21 +1,13 @@
-// @ts-nocheck
-
-setup.qresImpl.SexArousalAtLeast = class SexArousalAtLeast extends setup.SexRestriction {
-  /**
-   * @param {number} arousal
-   */
-  constructor(arousal) {
-    super()
-    this.arousal = arousal
+export default class SexArousalAtLeast extends SexRestriction {
+  constructor(public arousal: number) {
+    super();
   }
 
-  explain() {
-    return `Arousal at least ${this.arousal}`
+  override explain() {
+    return `Arousal at least ${this.arousal}`;
   }
 
-  isOk(unit) {
-    return this.sex.getArousal(unit) >= this.arousal
+  override isOk(unit: Unit) {
+    return this.sex.getArousal(unit) >= this.arousal;
   }
 }
-
-

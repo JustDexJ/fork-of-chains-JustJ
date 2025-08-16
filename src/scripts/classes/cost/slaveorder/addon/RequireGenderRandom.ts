@@ -1,25 +1,31 @@
-// @ts-nocheck
+import type { Job, JobKey } from "../../../job/Job";
+import { SlaveOrderAddonBase } from "./_SlaveOrderAddonBase";
 
+/**
+ * Requires either male or female.
+ * Will try to follow preferences whenever possible.
+ */
+export default class RequireGenderRandom extends SlaveOrderAddonBase {
+  job_key: JobKey;
 
-// requires either male or female.
-// will try to follow preferences whenever possible.
-setup.SlaveOrderAddonImpl.RequireGenderRandom = class RequireGenderRandom extends setup.SlaveOrderAddonBase {
-  constructor(job) {
-    super()
-    this.job_key = job.key
+  constructor(job: Job | JobKey) {
+    super();
+    this.job_key = resolveKey(job);
   }
 
-  text() {
-    return `setup.SlaveOrderAddon.RequireGenderRandom()`
+  override text() {
+    return `setup.SlaveOrderAddon.RequireGenderRandom()`;
   }
 
-  explain() {
-    return `Requires the slave to be of a random gender`
+  override explain() {
+    return `Requires the slave to be of a random gender`;
   }
 
-  apply(slave_order) {
-    let criteria = slave_order.criteria
-    let gender = State.variables.settings.getGenderRandom(setup.job[this.job_key])
-    criteria.restrictions.push(setup.qres.Trait(gender))
+  override apply(slave_order: SlaveOrder) {
+    let criteria = slave_order.criteria;
+    let gender = State.variables.settings.getGenderRandom(
+      setup.job[this.job_key],
+    );
+    criteria.restrictions.push(setup.qres.Trait(gender));
   }
 }

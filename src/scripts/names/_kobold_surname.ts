@@ -1,11 +1,10 @@
-
 /* from
 https://codexnomina.com/kobold-names/
 https://www.fantasynamegenerators.com/kobold-names.php
 https://github.com/LukeMS/lua-namegen/blob/master/data/creatures.cfg
 */
 
-setup.NAME_kobold_surname = function () {
+export const NAME_kobold_surname = function () {
   const firstpart = [
     "Ash",
     "Barb",
@@ -111,7 +110,7 @@ setup.NAME_kobold_surname = function () {
     "Tusk",
     "White",
     "Wild",
-  ]
+  ];
   const secondpart = [
     "arm",
     "ash",
@@ -218,9 +217,9 @@ setup.NAME_kobold_surname = function () {
     "watcher",
     "water",
     "woods",
-    "wound"
-  ]
-  let firstrand = setup.rng.choice(firstpart)
-  let secondrand = setup.rng.choice(secondpart)
-  return `${firstrand}${secondrand}`
-}
+    "wound",
+  ];
+  let firstrand = setup.rng.choice(firstpart);
+  let secondrand = setup.rng.choice(secondpart);
+  return `${firstrand}${secondrand}`;
+};

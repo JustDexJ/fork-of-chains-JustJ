@@ -1,4 +1,4 @@
-:: InitCriteriaBrawnCommon [nobr]
+:: InitCriteriaBrawnCommon [nobr criteria]
 
 <<run new setup.UnitCriteria(
   'builder', /* key */

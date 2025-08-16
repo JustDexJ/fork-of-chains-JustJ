@@ -1,27 +1,25 @@
-// @ts-nocheck
+import type { Company, CompanyKey } from "../Company";
 
-setup.qresImpl.HaveMetCompany = class HaveMetCompany extends setup.Restriction {
-  /**
-   * 
-   * @param {setup.Company} company 
-   */
-  constructor(company) {
-    super()
+export default class HaveMetCompany extends Restriction {
+  company_key: CompanyKey;
 
-    this.company_key = setup.keyOrSelf(company)
+  constructor(company: Company) {
+    super();
+
+    this.company_key = resolveKey(company);
   }
 
-  text() {
-    return `setup.qres.HaveMetCompany('${this.company_key}')`
+  override text() {
+    return `setup.qres.HaveMetCompany('${this.company_key}')`;
   }
 
-  isOk() {
-    const company = State.variables.company[this.company_key]
-    return State.variables.favor.isCompanyKnown(company)
+  override isOk() {
+    const company = State.variables.company[this.company_key];
+    return State.variables.favor.isCompanyKnown(company);
   }
 
-  explain() {
-    const company = State.variables.company[this.company_key]
-    return `Have met ${company.getName()}`
+  override explain() {
+    const company = State.variables.company[this.company_key];
+    return `Have met ${company.getName()}`;
   }
 }

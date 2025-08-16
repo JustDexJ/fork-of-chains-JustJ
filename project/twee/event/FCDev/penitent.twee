@@ -59,8 +59,7 @@ setup.rarity.rare, /* Rarity */
 <<choose>>
 
 <<optif !$settings.bannedtags.gore>>
-<<opt "Require <<them $g.slave>>
-    to self-flagellate">>
+<<opt "Require <<them $g.slave>> to self-flagellate">>
 
     <p>
         You tell <<them $g.slave>> that you will offer <<them $g.slave>> a method of expiating <<their $g.slave>> deep and troubling sin. <<They $g.slave>> looks almost hopeful at this, until you lead <<them $g.slave>> out onto
@@ -115,7 +114,7 @@ setup.rarity.rare, /* Rarity */
         <</if>>
     </p>
 
-<<opt "Sodomize <<them $g.slave>>
+<<opt "Sodomize <<them $g.slave>>">>
     while <<they $g.slave>> prays">>
 
     <p>

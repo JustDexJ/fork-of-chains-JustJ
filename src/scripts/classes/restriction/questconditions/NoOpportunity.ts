@@ -1,39 +1,32 @@
-// @ts-nocheck
+import type {
+  OpportunityTemplate,
+  OpportunityTemplateKey,
+} from "../../opportunity/OpportunityTemplate";
 
+export default class NoOpportunity extends Restriction {
+  template_key: OpportunityTemplateKey;
 
-setup.qresImpl.NoOpportunity = class NoOpportunity extends setup.Restriction {
-  constructor(template) {
-    super()
+  constructor(template: OpportunityTemplate | OpportunityTemplateKey) {
+    super();
 
-    if (!template) throw new Error(`Missing template for NoOpportunity`)
-    if (setup.isString(template)) {
-      this.template_key = template
-    } else {
-      this.template_key = template.key
-    }
+    if (!template) throw new Error(`Missing template for NoOpportunity`);
+    this.template_key = resolveKey(template);
   }
 
-  text() {
-    return `setup.qres.NoOpportunity('${this.template_key}')`
+  override text() {
+    return `setup.qres.NoOpportunity('${this.template_key}')`;
   }
 
-  isOk(template_arg) {
-    let template = setup.opportunitytemplate[this.template_key]
-    let opportunities = State.variables.opportunitylist.getOpportunities()
-    for (let i = 0; i < opportunities.length; ++i) if (opportunities[i].getTemplate() == template) return false
-    return true
+  override isOk() {
+    let template = setup.opportunitytemplate[this.template_key];
+    let opportunities = State.variables.opportunitylist.getOpportunities();
+    for (let i = 0; i < opportunities.length; ++i)
+      if (opportunities[i].getTemplate() == template) return false;
+    return true;
   }
 
-  apply(quest) {
-    throw new Error(`Not a reward`)
-  }
-
-  undoApply(quest) {
-    throw new Error(`Not a reward`)
-  }
-
-  explain() {
-    let template = setup.opportunitytemplate[this.template_key]
-    return `No opportunity : ${template.getName()}`
+  override explain() {
+    let template = setup.opportunitytemplate[this.template_key];
+    return `No opportunity : ${template.getName()}`;
   }
 }

@@ -1,24 +1,26 @@
-// @ts-nocheck
+import type { QuestTemplateKey } from "../../quest/QuestTemplate";
 
-setup.qresImpl.QuestOnCooldown = class QuestOnCooldown extends setup.Restriction {
-  constructor(template) {
-    super()
+export default class QuestOnCooldown extends Restriction {
+  template_key: QuestTemplateKey;
 
-    if (!template) throw new Error(`Missing template for QuestOnCooldown`)
-    this.template_key = setup.keyOrSelf(template)
+  constructor(template: QuestTemplate | QuestTemplateKey) {
+    super();
+
+    if (!template) throw new Error(`Missing template for QuestOnCooldown`);
+    this.template_key = resolveKey(template);
   }
 
-  text() {
-    return `setup.qres.QuestOnCooldown('${this.template_key}')`
+  override text() {
+    return `setup.qres.QuestOnCooldown('${this.template_key}')`;
   }
 
-  isOk() {
-    let template = setup.questtemplate[this.template_key]
-    return State.variables.calendar.isOnCooldown(template)
+  override isOk() {
+    let template = setup.questtemplate[this.template_key];
+    return State.variables.calendar.isOnCooldown(template);
   }
 
-  explain() {
-    let template = setup.questtemplate[this.template_key]
-    return `Quest on cooldown: ${template.getName()}`
+  override explain() {
+    let template = setup.questtemplate[this.template_key];
+    return `Quest on cooldown: ${template.getName()}`;
   }
 }

@@ -1,27 +1,20 @@
-// @ts-nocheck
+export default class InnateTrait extends Restriction.Unit {
+  trait_key: TraitKey;
 
-setup.qresImpl.InnateTrait = class InnateTrait extends setup.Restriction {
-  /**
-   * 
-   * @param {setup.Trait} trait 
-   */
-  constructor(trait) {
-    super()
-    this.trait_key = setup.keyOrSelf(trait)
+  constructor(trait: Trait | TraitKey) {
+    super();
+    this.trait_key = resolveKey(trait);
   }
 
-  text() {
-    return `setup.qres.InnateTrait(setup.trait.${this.trait_key})`
+  override text() {
+    return `setup.qres.InnateTrait(setup.trait.${this.trait_key})`;
   }
 
-  explain() {
-    return `Innate: ${setup.trait[this.trait_key].rep()}`
+  override explain() {
+    return `Innate: ${setup.trait[this.trait_key].rep()}`;
   }
 
-  /**
-   * @param {setup.Unit} unit 
-   */
-  isOk(unit) {
-    return unit.isHasInnateTrait(setup.trait[this.trait_key])
+  override isOk(unit: Unit): boolean {
+    return unit.isHasInnateTrait(setup.trait[this.trait_key]);
   }
 }

@@ -1,8 +1,5 @@
 :: InitItem [nobr]
 
-<<set setup.item = {}>>
-<<set setup.itempool = {}>>
-
 /* reset */
 <<include InitUsableItem>>
 <<include InitUsableFreeItem>>

@@ -1,35 +1,41 @@
-// @ts-nocheck
+import type { TraitKey } from "../../../trait/Trait";
 
+/**
+ * Exact removes a trait
+ */
+export default class TraitRemove extends Cost {
+  trait_key: TraitKey;
 
-// exact removes a trait
-setup.qcImpl.TraitRemove = class TraitRemove extends setup.Cost {
-  constructor(actor_name, trait) {
-    super()
+  constructor(
+    public actor_name: string,
+    trait: Trait | TraitKey,
+  ) {
+    super();
 
-    this.actor_name = actor_name
-    if (!trait) throw new Error(`Missing trait for setup.qc.TraitRemove(${actor_name})`)
-    this.trait_key = setup.keyOrSelf(trait)
+    if (!trait)
+      throw new Error(`Missing trait for setup.qc.TraitRemove(${actor_name})`);
+    this.trait_key = resolveKey(trait);
   }
 
-  static NAME = 'Remove exact trait'
-  static PASSAGE = 'CostTraitRemove'
-  static UNIT = true
+  static NAME = "Remove exact trait";
+  static PASSAGE = "CostTraitRemove";
+  static UNIT = true;
 
-  text() {
-    return `setup.qc.TraitRemove('${this.actor_name}', setup.trait.${this.trait_key})`
+  override text() {
+    return `setup.qc.TraitRemove('${this.actor_name}', setup.trait.${this.trait_key})`;
   }
 
-  apply(quest) {
-    let unit = quest.getActorUnit(this.actor_name)
-    let trait = setup.trait[this.trait_key]
-    if (!unit.isHasRemovableTrait(trait)) return
-    unit.removeTraitExact(trait)
+  override apply(context: CostContext) {
+    let unit = context.getActorUnit(this.actor_name)!;
+    let trait = setup.trait[this.trait_key];
+    if (!unit.isHasRemovableTrait(trait)) return;
+    unit.removeTraitExact(trait);
     if (unit.isYourCompany()) {
-      setup.notify(`a|Rep a|lose ${trait.rep()}`, { a: unit })
+      setup.notify(`a|Rep a|lose ${trait.rep()}`, { a: unit });
     }
   }
 
-  explain(quest) {
-    return `${this.actor_name} loses ${setup.trait[this.trait_key].rep()}`
+  override explain(context: CostContext) {
+    return `${this.actor_name} loses ${setup.trait[this.trait_key].rep()}`;
   }
 }

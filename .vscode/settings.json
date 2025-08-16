@@ -1,14 +1,30 @@
 {
   "editor.detectIndentation": false,
   "editor.tabSize": 2,
-  "twee3LanguageTools.storyformat.current": "",
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "typescript.preferences.preferTypeOnlyAutoImports": true,
+  "twee3LanguageTools.storyformat.current": "sugarcube-2",
   "twee3LanguageTools.passage.list": true,
   "search.exclude": {
     "**/index.html": true,
     "**/user.min.js": true,
+    "**/user.min.css": true,
     "**/vendor.min.js": true,
     "dev/tweeGo/": true,
     "src/modules/": true,
     "dist/": true
+  },
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "package.json": ".gitignore, .gitattributes, package-lock.json, vite.config.mjs, .eslint*, .prettier*, .editorconfig, tsconfig.json, tsconfig.*.json, *.twee-config.json",
+    "compile.sh": "*.sh",
+    "README.md": "CHANGELOG.md, LICENSE, logo.png"
+  },
+  "emmet.includeLanguages": {
+    "twee3-sugarcube-2": "html"
   }
 }

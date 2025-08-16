@@ -1,23 +1,18 @@
-// @ts-nocheck
-
-setup.qresImpl.CanBeUsedByRememberedUnit = class CanBeUsedByRememberedUnit extends setup.Restriction {
+export default class CanBeUsedByRememberedUnit extends Restriction.Unit {
   constructor() {
-    super()
+    super();
   }
 
-  text() {
-    return `setup.qres.CanBeUsedByRememberedUnit()`
+  override text() {
+    return `setup.qres.CanBeUsedByRememberedUnit()`;
   }
 
-  explain() {
-    return `Unit must be usable by remembered unit`
+  override explain() {
+    return `Unit must be usable by remembered unit`;
   }
 
-  /**
-   * @param {setup.Unit} unit 
-   */
-  isOk(unit) {
-    const owner = setup.qresImpl.RememberUnit.getRememberedUnit()
-    return unit.isUsableBy(owner)
+  override isOk(unit: Unit): boolean {
+    const owner = setup.qresImpl.RememberUnit.getRememberedUnit();
+    return unit.isUsableBy(owner);
   }
 }

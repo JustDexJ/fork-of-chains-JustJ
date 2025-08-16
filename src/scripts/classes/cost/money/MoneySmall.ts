@@ -1,44 +1,38 @@
-// @ts-nocheck
+import Money from "./Money";
 
+export default class MoneySmall extends Money {
+  multi: number | null;
 
-// give exp to all participating slavers.
-setup.qcImpl.MoneySmall = class MoneySmall extends setup.qcImpl.Money {
-  constructor(multiplier) {
-    super()
+  constructor(multiplier: number) {
+    super();
 
-    if (multiplier) {
-      this.multi = multiplier
+    this.multi = multiplier || null;
+  }
+
+  static NAME = "Money (Half of normal)";
+  static PASSAGE = "CostMoneySmall";
+
+  override text() {
+    return `setup.qc.MoneySmall(${this.multi || ""})`;
+  }
+
+  override explain(context: CostContext) {
+    if (context) {
+      return super.explain(context);
     } else {
-      this.multi = null
+      if (!this.multi) return "Money (auto, half)";
+      return `Money (auto, half) x ${this.multi}`;
     }
   }
 
-  static NAME = 'Money (Half of normal)'
-  static PASSAGE = 'CostMoneySmall'
-
-  text() {
-    let param = ''
-    if (this.multi) param = this.multi
-    return `setup.qc.MoneySmall(${param})`
-  }
-
-  explain(quest) {
-    if (quest) {
-      return super.explain(quest)
-    } else {
-      if (!this.multi) return 'Money (auto, half)'
-      return `Money (auto, half) x ${this.multi}`
-    }
-  }
-
-  getMoney(quest) {
-    let base = setup.qcImpl.MoneyNormal.computeBaseMoney(quest)
-    let multi = this.multi
+  override getMoney(context: CostContext) {
+    let base = setup.qcImpl.MoneyNormal.computeBaseMoney(context);
+    let multi = this.multi;
     if (multi) {
-      base *= multi
+      base *= multi;
     }
     // small is halved
-    base *= 0.5
-    return Math.round(base)
+    base *= 0.5;
+    return Math.round(base);
   }
 }

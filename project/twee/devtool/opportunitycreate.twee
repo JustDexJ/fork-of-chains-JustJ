@@ -132,16 +132,16 @@
 )>>
 
 """::""" <<= $opassagedesc >> [nobr]
-<<= setup.devToolFormat($odesc)>>
+<<= setup.DevToolHelper.devToolFormat($odesc)>>
 
 
 <<for _ioption, _option range $dtquest.options>>
 """::""" Opportunity_<<= $okey>>_<<= _ioption>> [nobr]
-<<= setup.devToolFormat($ooptiontitle[_ioption])>>
+<<= setup.DevToolHelper.devToolFormat($ooptiontitle[_ioption])>>
 
 <<if $ooptiondesc[_ioption]>>
   """::""" Opportunity_<<= $okey>>_<<= _ioption>>_flavor [nobr]
-  <<= setup.devToolFormat($ooptiondesc[_ioption])>>
+  <<= setup.DevToolHelper.devToolFormat($ooptiondesc[_ioption])>>
 <</if>>
 
 <</for>>

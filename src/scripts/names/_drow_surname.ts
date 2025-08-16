@@ -1,7 +1,7 @@
 /**
  * From: https://en.uesp.net/wiki/Lore:Dunmer_Names
  */
-setup.NAME_drow_surname = [
+export const NAME_drow_surname = [
   "Adas",
   "Adlaron",
   "Adram",
@@ -919,4 +919,4 @@ setup.NAME_drow_surname = [
   "Vox",
   "Vules",
   "Yahaz",
-]
+];

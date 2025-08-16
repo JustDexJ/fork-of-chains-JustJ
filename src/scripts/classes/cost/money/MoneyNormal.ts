@@ -1,54 +1,58 @@
-// @ts-nocheck
+import type { ContentTemplate } from "../../content/ContentTemplate";
+import Money from "./Money";
 
-// give exp to all participating slavers.
-setup.qcImpl.MoneyNormal = class MoneyNormal extends setup.qcImpl.Money {
-  constructor(multiplier) {
-    super()
+export default class MoneyNormal extends Money {
+  multi: number | null;
 
-    if (multiplier) {
-      this.multi = multiplier
+  constructor(multiplier: number) {
+    super();
+
+    this.multi = multiplier || null;
+  }
+
+  static NAME = "Money (Normal)";
+  static PASSAGE = "CostMoneyNormal";
+
+  override text() {
+    return `setup.qc.MoneyNormal(${this.multi || ""})`;
+  }
+
+  override explain(context: CostContext) {
+    if (context) {
+      return super.explain(context);
     } else {
-      this.multi = null
+      if (!this.multi) return "Money (auto, success)";
+      return `Money (auto, success) x ${this.multi}`;
     }
   }
 
-  static NAME = 'Money (Normal)'
-  static PASSAGE = 'CostMoneyNormal'
+  static computeBaseMoney(context: CostContext) {
+    let base = 0;
+    if (context.getTemplate) {
+      const template: ContentTemplate = context.getTemplate();
 
-  text() {
-    let param = ''
-    if (this.multi) param = this.multi
-    return `setup.qc.MoneyNormal(${param})`
-  }
+      base = template.getDifficulty().getMoney();
+      if (template.getWeeks) {
+        base *= template.getWeeks();
+      }
 
-  explain(quest) {
-    if (quest) {
-      return super.explain(quest)
-    } else {
-      if (!this.multi) return 'Money (auto, success)'
-      return `Money (auto, success) x ${this.multi}`
+      const team = context instanceof setup.QuestInstance && context.getTeam();
+      if (team) {
+        const slavers = team
+          .getUnits()
+          .filter((unit) => unit.isSlaver()).length;
+        base *= slavers / 3.0;
+      }
     }
+    return Math.round(base);
   }
 
-  /**
-   * @param {setup.QuestInstance | setup.OpportunityInstance} quest 
-   */
-  static computeBaseMoney(quest) {
-    let base = quest.getTemplate().getDifficulty().getMoney()
-    base *= quest.getTemplate().getWeeks()
-    if (quest instanceof setup.QuestInstance && quest.getTeam()) {
-      const slavers = quest.getTeam().getUnits().filter(unit => unit.isSlaver()).length
-      base *= (slavers / 3.0)
-    }
-    return Math.round(base)
-  }
-
-  getMoney(quest) {
-    let base = setup.qcImpl.MoneyNormal.computeBaseMoney(quest)
-    const multi = this.multi
+  override getMoney(context: CostContext) {
+    let base = setup.qcImpl.MoneyNormal.computeBaseMoney(context);
+    const multi = this.multi;
     if (multi) {
-      base *= multi
+      base *= multi;
     }
-    return Math.round(base)
+    return Math.round(base);
   }
 }

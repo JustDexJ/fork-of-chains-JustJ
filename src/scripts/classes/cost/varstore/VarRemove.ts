@@ -1,28 +1,23 @@
-// @ts-nocheck
-
-
-setup.qcImpl.VarRemove = class VarRemove extends setup.Cost {
-  constructor(key) {
-    super()
-
-    this.key = key
+export default class VarRemove extends Cost {
+  constructor(public key: string) {
+    super();
   }
 
-  static NAME = 'Remove a variable value'
-  static PASSAGE = 'CostVarRemove'
+  static NAME = "Remove a variable value";
+  static PASSAGE = "CostVarRemove";
 
-  text() {
-    return `setup.qc.VarRemove('${this.key}')`
+  override text() {
+    return `setup.qc.VarRemove('${this.key}')`;
   }
 
-  apply(quest) {
-    State.variables.varstore.remove(this.key)
+  override apply(context: CostContext) {
+    State.variables.varstore.remove(this.key);
   }
 
-  explain(quest) {
+  override explain(context: CostContext) {
     if (!State.variables.gDebug) {
-      return ''
+      return "";
     }
-    return `Variable "${this.key}" is removed.`
+    return `Variable "${this.key}" is removed.`;
   }
 }

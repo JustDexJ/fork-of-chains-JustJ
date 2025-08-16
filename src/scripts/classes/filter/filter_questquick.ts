@@ -1,12 +1,8 @@
-// @ts-nocheck
+import type { FilterMenu } from "./_filter";
+import { _MENUS_quest } from "./filter_quest";
 
-import { up, down } from "./AAA_filter"
-import { getJobFilters, getStatusFilters } from "./filter_unit"
-import { MenuFilterHelper } from "./filterhelper"
-import "./filter_quest";
-
-setup.MenuFilter._MENUS.questquick = {
-  tag_region: setup.MenuFilter._MENUS.quest.tag_region,
-  status: setup.MenuFilter._MENUS.quest.status,
-  sort: setup.MenuFilter._MENUS.quest.sort,
-}
+export const _MENUS_questquick: FilterMenu<QuestInstance> = {
+  tag_region: _MENUS_quest.tag_region,
+  status: _MENUS_quest.status,
+  sort: _MENUS_quest.sort,
+};

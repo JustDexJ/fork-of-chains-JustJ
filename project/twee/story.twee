@@ -34,14 +34,15 @@ check out the GUI-based <<successtext 'Content Creation Tool'>> below.
 This game is a passion project and will <<successtext 'always be a free game'>>.
 Contributing content is the preferred way to support this game -- you can contribute
 story, code, art, anything
-[[(more information)|https://gitgud.io/darkofocdarko/fort-of-chains#how-to-contribute-content]]!
+<a @href="`${setup.REPO_URL}#how-to-contribute-content`" target="_blank">(more information)</a>!
 </p>
 
 <hr/>
 
 <p>
 <b>Fort of Chains: Galvanized</b> is an
-[[open source|https://gitgud.io/darkofocdarko/fort-of-chains]] |
+<a @href="setup.REPO_URL" target="_blank">open source</a>
+|
 <b>TEXT-ONLY</b> fantasy game set in an entirely fictional world.
 The game contains explicit sexual content. By proceeding, you consent that
 you are of legal age, and it is legal for you to play this game in your demesne.
@@ -52,14 +53,14 @@ The game is entirely fictional, and in no way depicts any of the contributor's v
 The game would like to express its deepest gratitude to the various contributors to this project:
 </div>
 <div>
-<<focmove "(Artist Credits - Portraits)" "PortraitCredits">> · 
-<<focmove "(Artist Credits - Content Images)" "ContentImagesCredits">> · 
-<<focmove "(Artist Credits - Rooms)" "RoomCredits">> · 
-<<focmove "(Artist Credits - Tilesets)" "TilesetCredits">> · 
-<<focmove "(Author Credits)" "AuthorCredits">> · 
-<<focmove "(Coder Credits)" "CoderCredits">> · 
-<<focmove "(Other Credits)" "OtherCredits">> · 
-[[(License)|https://gitgud.io/darkofocdarko/fort-of-chains#license]]
+<<focmove "(Artist Credits - Portraits)" "PortraitCredits">> ·
+<<focmove "(Artist Credits - Content Images)" "ContentImagesCredits">> ·
+<<focmove "(Artist Credits - Rooms)" "RoomCredits">> ·
+<<focmove "(Artist Credits - Tilesets)" "TilesetCredits">> ·
+<<focmove "(Author Credits)" "AuthorCredits">> ·
+<<focmove "(Coder Credits)" "CoderCredits">> ·
+<<focmove "(Other Credits)" "OtherCredits">> ·
+<a @href="`${setup.REPO_URL}#license`" target="_blank">(License)</a>
 </div>
 
 <hr/>
@@ -72,7 +73,7 @@ The game would like to express its deepest gratitude to the various contributors
     <<run $menufilter.set('unit', 'display', 'compact')>>
   <</button>>
 
-  <<button "<<icon tags>> In-Game Database" "WikiLobby">>
+  <<button "<<icon info-circle>> In-Game Database" "WikiLobby">>
     <<run setup.DebugInit.contentCreatorInit()>>
     <<run $menufilter.set('unit', 'display', 'compact')>>
   <</button>>
@@ -97,8 +98,8 @@ The game would like to express its deepest gratitude to the various contributors
 
 :: StoryShare [nobr]
 
-[[(Download latest version)|https://gitgud.io/darkofocdarko/fort-of-chains#how-to-play-the-latest-version-of-the-game]] ·
-[[(Play on browser)|https://darkofoc.itch.io/fort-of-chains]] ·
-[[(Contribute)|https://gitgud.io/darkofocdarko/fort-of-chains#how-to-contribute-content]] ·
-[[(F.A.Q)|https://gitgud.io/darkofocdarko/fort-of-chains/-/blob/master/docs/faq.md]] ·
-[[(Official Discord server)|https://discord.com/invite/PTD9D7mZyg]]
+<a @href="`${setup.REPO_URL}#how-to-play-the-latest-version-of-the-game`" target="_blank">(Download latest version)</a>
+<!--[[(Play on browser)|https://darkofoc.itch.io/fort-of-chains]] ·-->
+<a @href="`${setup.REPO_URL}#how-to-contribute-content`" target="_blank">(Contribute)</a> ·
+<a @href="`${setup.REPO_URL}/-/blob/master/docs/faq.md`" target="_blank">(F.A.Q)</a> ·
+<a @href="setup.DISCORD_URL" target="_blank">(Official Discord server)</a>

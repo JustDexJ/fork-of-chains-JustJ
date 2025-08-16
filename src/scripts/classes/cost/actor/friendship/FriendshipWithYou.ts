@@ -1,32 +1,32 @@
-// @ts-nocheck
-
-// Two units gain friendship
-setup.qcImpl.FriendshipWithYou = class FriendshipWithYou extends setup.Cost {
-  constructor(actor_name, friendship_amt) {
-    super()
-
-    this.actor_name = actor_name
-    this.friendship_amt = friendship_amt
+/**
+ * Two units gain friendship
+ */
+export default class FriendshipWithYou extends Cost {
+  constructor(
+    public actor_name: string,
+    public friendship_amt: number,
+  ) {
+    super();
   }
 
-  text() {
-    return `setup.qc.FriendshipWithYou('${this.actor_name}', ${this.friendship_amt})`
+  override text() {
+    return `setup.qc.FriendshipWithYou('${this.actor_name}', ${this.friendship_amt})`;
   }
 
-  apply(quest) {
-    let unit = quest.getActorUnit(this.actor_name)
-    let target = State.variables.unit.player
+  override apply(context: CostContext) {
+    let unit = context.getActorUnit(this.actor_name)!;
+    let target = State.variables.unit.player;
     if (unit != target) {
-      setup.qc.Friendship('unit', 'target', this.friendship_amt).apply(
+      setup.qc.Friendship("unit", "target", this.friendship_amt).apply(
         setup.costUnitHelperDict({
           unit: unit,
           target: target,
-        })
-      )
+        }),
+      );
     }
   }
 
-  explain(quest) {
-    return `${this.actor_name} gain ${this.friendship_amt} friendship with you`
+  override explain(context: CostContext) {
+    return `${this.actor_name} gain ${this.friendship_amt} friendship with you`;
   }
 }

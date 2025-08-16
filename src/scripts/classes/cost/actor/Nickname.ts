@@ -1,25 +1,21 @@
-// @ts-nocheck
-
-
-// resets background trait to the given trait.
-setup.qcImpl.Nickname = class Nickname extends setup.Cost {
-  constructor(actor_name, nickname) {
-    super()
-
-    this.actor_name = actor_name
-    this.nickname = nickname
+export default class Nickname extends Cost {
+  constructor(
+    public actor_name: string,
+    public nickname: string,
+  ) {
+    super();
   }
 
-  text() {
-    return `setup.qc.Nickname('${this.actor_name}', '${setup.escapeJsString(this.nickname)}')`
+  override text() {
+    return `setup.qc.Nickname('${this.actor_name}', '${setup.escapeJsString(this.nickname)}')`;
   }
 
-  apply(quest) {
-    let unit = quest.getActorUnit(this.actor_name)
-    unit.nickname = this.nickname
+  override apply(context: CostContext) {
+    let unit = context.getActorUnit(this.actor_name)!;
+    unit.nickname = this.nickname;
   }
 
-  explain(quest) {
-    return `${this.actor_name} is nicknamed ${this.nickname}`
+  override explain(context: CostContext) {
+    return `${this.actor_name} is nicknamed ${this.nickname}`;
   }
 }

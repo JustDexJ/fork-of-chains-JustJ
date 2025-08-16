@@ -1,31 +1,26 @@
-// @ts-nocheck
-
 /**
  * Breaks up a unit with you
  */
-setup.qcImpl.BreakupWithYou = class BreakupWithYou extends setup.Cost {
-  /**
-   * @param {string} actor_name 
-   */
-  constructor(actor_name) {
-    super()
-
-    this.actor_name = actor_name
+export default class BreakupWithYou extends Cost {
+  constructor(public actor_name: string) {
+    super();
   }
 
-  text() {
-    return `setup.qc.BreakupWithYou('${this.actor_name}')`
+  override text() {
+    return `setup.qc.BreakupWithYou('${this.actor_name}')`;
   }
 
-  apply(quest) {
-    let unit = quest.getActorUnit(this.actor_name)
-    setup.qc.Breakup('unit', 'you').apply(setup.costUnitHelperDict({
-      unit: unit,
-      you: State.variables.unit.player,
-    }))
+  override apply(context: CostContext) {
+    let unit = context.getActorUnit(this.actor_name)!;
+    setup.qc.Breakup("unit", "you").apply(
+      setup.costUnitHelperDict({
+        unit: unit,
+        you: State.variables.unit.player,
+      }),
+    );
   }
 
-  explain(quest) {
-    return `You break up with ${this.actor_name}, if you were lovers`
+  override explain(context: CostContext) {
+    return `You break up with ${this.actor_name}, if you were lovers`;
   }
 }

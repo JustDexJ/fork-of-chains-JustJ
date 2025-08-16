@@ -1,25 +1,26 @@
-// @ts-nocheck
+export default class HasItem extends Restriction {
+  item_key: ItemKey;
 
+  constructor(item: Item | ItemKey | BuiltinItemKey) {
+    super();
 
-setup.qresImpl.HasItem = class HasItem extends setup.Restriction {
-  constructor(item) {
-    super()
-
-    if (!item) throw new Error(`Item null in HasItem`)
-    this.item_key = setup.keyOrSelf(item)
+    if (!item) throw new Error(`Item null in HasItem`);
+    this.item_key = resolveKey(item as Item | ItemKey);
   }
 
-  text() {
-    return `setup.qres.HasItem(setup.item.${this.item_key})`
+  override text() {
+    return `setup.qres.HasItem(setup.item.${this.item_key})`;
   }
 
-  getItem() { return setup.item[this.item_key] }
-
-  explain() {
-    return `${this.getItem().rep()}`
+  getItem() {
+    return setup.item[this.item_key];
   }
 
-  isOk() {
-    return State.variables.inventory.isHasItem(this.getItem())
+  override explain() {
+    return `${this.getItem().rep()}`;
+  }
+
+  override isOk() {
+    return State.variables.inventory.isHasItem(this.getItem());
   }
 }

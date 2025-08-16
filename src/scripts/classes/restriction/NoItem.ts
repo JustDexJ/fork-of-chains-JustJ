@@ -1,28 +1,29 @@
-// @ts-nocheck
+export default class NoItem extends Restriction {
+  item_key: ItemKey;
 
+  constructor(item: Item | ItemKey) {
+    super();
 
-setup.qresImpl.NoItem = class NoItem extends setup.Restriction {
-  constructor(item) {
-    super()
-
-    if (!item) throw new Error(`Item null in NoItem`)
-    this.item_key = item.key
+    if (!item) throw new Error(`Item null in NoItem`);
+    this.item_key = resolveKey(item);
   }
 
-  static NAME = 'Do not have an item'
-  static PASSAGE = 'RestrictionNoItem'
+  static NAME = "Do not have an item";
+  static PASSAGE = "RestrictionNoItem";
 
-  text() {
-    return `setup.qres.NoItem(setup.item.${this.item_key})`
+  override text() {
+    return `setup.qres.NoItem(setup.item.${this.item_key})`;
   }
 
-  getItem() { return setup.item[this.item_key] }
-
-  explain() {
-    return `Do not have ${this.getItem().rep()}`
+  getItem() {
+    return setup.item[this.item_key];
   }
 
-  isOk() {
-    return !State.variables.inventory.isHasItem(this.getItem())
+  override explain() {
+    return `Do not have ${this.getItem().rep()}`;
+  }
+
+  override isOk() {
+    return !State.variables.inventory.isHasItem(this.getItem());
   }
 }

@@ -1,27 +1,21 @@
-// @ts-nocheck
-
-
-setup.qresImpl.ExistUnitWithTag = class ExistUnitWithTag extends setup.Restriction {
-  constructor(tag_name) {
-    super()
-
-    this.tag_name = tag_name
+export default class ExistUnitWithTag extends Restriction {
+  constructor(public tag_name: string) {
+    super();
   }
 
-  text() {
-    return `setup.qres.ExistUnitWithTag('${this.tag_name}')`
+  override text() {
+    return `setup.qres.ExistUnitWithTag('${this.tag_name}')`;
   }
 
-  explain() {
-    let tagname = this.tag_name
-    return `Must EXIST any unit (anywhere in the world, not only in your company) with tag/flag: "${tagname}"`
+  override explain() {
+    let tagname = this.tag_name;
+    return `Must EXIST any unit (anywhere in the world, not only in your company) with tag/flag: "${tagname}"`;
   }
 
-  isOk() {
-    for (let iunitkey in State.variables.unit) {
-      let unit = State.variables.unit[iunitkey]
-      if (unit.isHasTag(this.tag_name)) return true
+  override isOk() {
+    for (const unit of Object.values(State.variables.unit)) {
+      if (unit.isHasTag(this.tag_name)) return true;
     }
-    return false
+    return false;
   }
 }

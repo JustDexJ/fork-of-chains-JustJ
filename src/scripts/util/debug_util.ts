@@ -1,22 +1,20 @@
-// @ts-nocheck
-
+import type { Unit } from "../classes/unit/Unit";
 
 // crash the game. for Debugging.
-setup.debugCrash = function () {
-  throw new Error('Test crash from debugCrash')
+export function debugCrash() {
+  throw new Error("Test crash from debugCrash");
 }
 
-setup.debugPrintRoomLocations = function () {
+export function debugPrintRoomLocations() {
   for (const room of Object.values(State.variables.roominstance)) {
     if (room.getLocation() && !room.getTemplate().isFixed()) {
-      console.log(`'${room.getTemplate().key}': [${room.getClockwiseRotations()}, ${room.getLocation().row}, ${room.getLocation().col}],`)
+      console.log(
+        `'${room.getTemplate().key}': [${room.getClockwiseRotations()}, ${room.getLocation().row}, ${room.getLocation().col}],`,
+      );
     }
   }
 }
 
-/**
- * @returns {setup.Unit}
- */
-setup.generateAnyUnit = function () {
-  return setup.unitgroup.all.getUnit()
+export function generateAnyUnit(): Unit {
+  return setup.unitgroup.all.getUnit();
 }

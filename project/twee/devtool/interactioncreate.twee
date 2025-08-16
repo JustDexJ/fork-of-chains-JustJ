@@ -41,6 +41,6 @@
 )>>
 
 """::""" <<= $ipassagedesc >> [nobr]
-<<= setup.devToolFormat($idesc)>>
+<<= setup.DevToolHelper.devToolFormat($idesc)>>
 
 </code></div>

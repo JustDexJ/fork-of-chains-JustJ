@@ -1,26 +1,20 @@
-// @ts-nocheck
-
-
 /**
  * Unit must be at home: on duty, injured, or idle
  */
-setup.qresImpl.Home = class Home extends setup.Restriction {
+export default class Home extends Restriction.Unit {
   constructor() {
-    super()
+    super();
   }
 
-  text() {
-    return `setup.qres.Home()`
+  override text() {
+    return `setup.qres.Home()`;
   }
 
-  explain() {
-    return `Unit is at home`
+  override explain() {
+    return `Unit is at home`;
   }
 
-  /**
-   * @param {any} unit 
-   */
-  isOk(unit) {
-    return unit.isHome()
+  override isOk(unit: Unit): boolean {
+    return unit.isHome();
   }
 }

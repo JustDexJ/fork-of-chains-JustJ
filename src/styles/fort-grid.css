@@ -19,7 +19,7 @@
   margin: 0px;
 }
 
-.fortgrid-table>tbody>tr>td {
+.fortgrid-table > tbody > tr > td {
   position: relative;
 }
 
@@ -69,9 +69,11 @@
   background-color: blue;
 }
 
-.fortgrid-table td:hover:not(.fortgrid-expansion)>:not(.activity-unit-container),
-.fortgrid-highlight>:not(.activity-unit-container) {
-  opacity: .5;
+.fortgrid-table
+  td:hover:not(.fortgrid-expansion)
+  > :not(.activity-unit-container),
+.fortgrid-highlight > :not(.activity-unit-container) {
+  opacity: 0.5;
 }
 
 .fortgrid-table .fortgrid-invalid:not(.fortgrid-expansion) {
@@ -98,7 +100,7 @@
   background-color: purple;
 }
 
-.fortgrid-expansion>div {
+.fortgrid-expansion > div {
   text-align: center;
 }
 

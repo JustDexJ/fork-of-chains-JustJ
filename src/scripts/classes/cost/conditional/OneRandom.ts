@@ -1,47 +1,35 @@
-// @ts-nocheck
-
-// gives one of the costs as reward, at random.
-setup.qcImpl.OneRandom = class OneRandom extends setup.Cost {
-  /**
-   * @param {setup.Cost[]} costs 
-   */
-  constructor(costs) {
-    super()
-
-    this.costs = costs
+/** Gives one of the costs as reward, at random. */
+export default class OneRandom extends Cost {
+  constructor(public costs: Cost[]) {
+    super();
   }
 
-  text() {
-    let texts = []
+  override text() {
+    let texts: string[] = [];
     for (let i = 0; i < this.costs.length; ++i) {
-      texts.push(this.costs[i].text())
+      texts.push(this.costs[i].text());
     }
-    return `setup.qc.OneRandom([\n${texts.join(',\n')}\n])`
+    return `setup.qc.OneRandom([\n${texts.join(",\n")}\n])`;
   }
 
-  isOk(quest) {
+  override isOk(context: CostContext): boolean {
     for (let i = 0; i < this.costs.length; ++i) {
-      // @ts-ignore
-      if (!this.costs[i].isOk(quest)) return false
+      if (!this.costs[i].isOk(context)) return false;
     }
-    return true
+    return true;
   }
 
-  apply(quest) {
-    let cost = setup.rng.choice(this.costs)
-    return cost.apply(quest)
+  override apply(context: CostContext) {
+    let cost = setup.rng.choice(this.costs);
+    return cost.apply(context);
   }
 
-  undoApply(quest) {
-    throw new Error(`Can't undo`)
-  }
-
-  explain(quest) {
-    let texts = []
+  override explain(context: CostContext) {
+    let texts = [];
     for (let i = 0; i < this.costs.length; ++i) {
-      texts.push(this.costs[i].explain())
+      texts.push(this.costs[i].explain());
     }
-    return `<div class='card lorecard'> A random effect out of:<br/>${texts.join('<br/>')}</div>`
+    return `<div class='card lorecard'> A random effect out of:<br/>${texts.join("<br/>")}</div>`;
   }
 
   getLayout() {
@@ -51,9 +39,9 @@ setup.qcImpl.OneRandom = class OneRandom extends setup.Cost {
         {
           passage: "CostOneRandomHeader",
           // addpassage: "QGAddCostActual",
-          listpath: ".costs"
+          listpath: ".costs",
         },
-      ]
-    }
+      ],
+    };
   }
 }

@@ -58,7 +58,7 @@ slavers on duties will gain experience each week.
 Would you like to make changes to the unit duty assignments?
 </p>
 
-<<set _dutylist = $dutylist.getDuties().sort(setup.DutyInstance.Cmp)>>
+<<set _dutylist = $dutylist.getDuties().sort(setup.DutyInstance.cmp)>>
 
 <<filterall 'duty' _dutylist>>
   <<if $menufilter.get('duty', 'display') == 'compact'>>

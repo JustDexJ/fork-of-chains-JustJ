@@ -1,4 +1,4 @@
-:: InitCriteriaCorruption [nobr]
+:: InitCriteriaCorruption [nobr criteria]
 
 <<run new setup.UnitCriteria(
   'corruption_head',

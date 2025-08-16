@@ -1,45 +1,40 @@
-// @ts-nocheck
+import Money from "./Money";
+import MoneyNormal from "./MoneyNormal";
 
+export default class MoneyCrit extends Money {
+  multi: number | null;
 
-// give exp to all participating slavers.
-setup.qcImpl.MoneyCrit = class MoneyCrit extends setup.qcImpl.Money {
-  constructor(multiplier) {
-    super()
+  constructor(multiplier: number) {
+    super();
 
-    if (multiplier) {
-      this.multi = multiplier
-    } else {
-      this.multi = null
-    }
+    this.multi = multiplier || null;
     // this.multi *= 2   // crit effect
   }
 
-  static NAME = 'Money (Critical)'
-  static PASSAGE = 'CostMoneyCrit'
+  static NAME = "Money (Critical)";
+  static PASSAGE = "CostMoneyCrit";
 
-  text() {
-    let param = ''
-    if (this.multi) param = this.multi
-    return `setup.qc.MoneyCrit(${param})`
+  override text() {
+    return `setup.qc.MoneyCrit(${this.multi || ""})`;
   }
 
-  explain(quest) {
-    if (quest) {
-      return super.explain(quest)
+  override explain(context: CostContext) {
+    if (context) {
+      return super.explain(context);
     } else {
-      if (!this.multi) return 'Money (auto, crit)'
-      return `Money (auto, crit) x ${this.multi}`
+      if (!this.multi) return "Money (auto, crit)";
+      return `Money (auto, crit) x ${this.multi}`;
     }
   }
 
-  getMoney(quest) {
-    let base = setup.qcImpl.MoneyNormal.computeBaseMoney(quest)
-    let multi = this.multi
+  override getMoney(context: CostContext) {
+    let base = MoneyNormal.computeBaseMoney(context);
+    let multi = this.multi;
     if (multi) {
-      base *= multi
+      base *= multi;
     }
     // crit
-    base *= setup.MONEY_CRIT_MULTIPLIER
-    return Math.round(base)
+    base *= setup.MONEY_CRIT_MULTIPLIER;
+    return Math.round(base);
   }
 }

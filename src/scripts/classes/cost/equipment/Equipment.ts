@@ -1,25 +1,30 @@
-// @ts-nocheck
+import type {
+  EquipmentPool,
+  EquipmentPoolKey,
+} from "../../equipment/EquipmentPool";
 
-setup.qcImpl.Equipment = class Equipment extends setup.Cost {
-  constructor(equipment_pool) {
-    super()
+export default class Equipment extends Cost {
+  pool_key: EquipmentPoolKey;
 
-    if (!equipment_pool) throw new Error(`Null equipment pool`)
-    this.pool_key = setup.keyOrSelf(equipment_pool)
+  constructor(equipment_pool: EquipmentPool | EquipmentPoolKey) {
+    super();
+
+    if (!equipment_pool) throw new Error(`Null equipment pool`);
+    this.pool_key = resolveKey(equipment_pool);
   }
 
-  text() {
-    return `setup.qc.Equipment(setup.equipmentpool.${this.pool_key})`
+  override text() {
+    return `setup.qc.Equipment(setup.equipmentpool.${this.pool_key})`;
   }
 
-  apply(quest) {
-    let pool = setup.equipmentpool[this.pool_key]
-    let equip = pool.generateEquipment()
-    State.variables.armory.addEquipment(equip)
+  override apply(context?: CostContext) {
+    let pool = setup.equipmentpool[this.pool_key];
+    let equip = pool.generateEquipment();
+    State.variables.armory.addEquipment(equip);
   }
 
-  explain() {
-    let pool = setup.equipmentpool[this.pool_key]
-    return `Gain an equipment from ${pool.rep()}`
+  override explain() {
+    let pool = setup.equipmentpool[this.pool_key];
+    return `Gain an equipment from ${pool.rep()}`;
   }
 }

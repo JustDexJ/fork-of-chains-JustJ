@@ -1,32 +1,23 @@
-// @ts-nocheck
-
-
-setup.qcImpl.Player = class Player extends setup.Cost {
-  constructor(cost) {
-    super()
-
-    this.cost = cost
+/**
+ * Applies the specified cost(s) to the player unit,
+ * instead of e.g. the units in the quest team.
+ */
+export default class Player extends Cost {
+  constructor(public cost: Cost) {
+    super();
   }
 
-  text() {
-    return `setup.qc.Player(${this.cost.text()})`
+  override text() {
+    return `setup.qc.Player(${this.cost.text()})`;
   }
 
-  isOk(quest) {
-    throw new Error(`not cost`)
-  }
-
-  apply(quest) {
+  override apply(context: CostContext) {
     this.cost.apply({
-      getActorUnit: () => State.variables.unit.player
-    })
+      getActorUnit: () => State.variables.unit.player,
+    });
   }
 
-  undoApply(quest) {
-    throw new Error(`Can't undo`)
-  }
-
-  explain(quest) {
-    return `Player gets: ${this.cost.explain()}`
+  override explain(context: CostContext) {
+    return `Player gets: ${this.cost.explain()}`;
   }
 }

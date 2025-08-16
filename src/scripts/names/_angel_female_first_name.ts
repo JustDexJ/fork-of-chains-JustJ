@@ -1,4 +1,4 @@
-/* from Wikipedia 
+/* from Wikipedia
 https://en.wikipedia.org/wiki/List_of_angels_in_theology
 and
 https://github.com/alxgiraud/fantasygen/blob/master/public/data/defaultDictionaries.json (ISC License):
@@ -18,7 +18,7 @@ OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 */
 
-setup.NAME_angel_female_first_name = function () {
+export const NAME_angel_female_first_name = function () {
   const firstpart = [
     "adr",
     "aer",

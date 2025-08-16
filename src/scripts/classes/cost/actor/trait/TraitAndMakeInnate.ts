@@ -1,59 +1,66 @@
-// @ts-nocheck
+import type { TraitKey } from "../../../trait/Trait";
+import type { TraitGroup, TraitGroupKey } from "../../../trait/TraitGroup";
 
-setup.qcImpl.TraitAndMakeInnate = class TraitAndMakeInnate extends setup.Cost {
-  /**
-   * 
-   * @param {string} actor_name 
-   * @param {setup.Trait | null} trait 
-   * @param {setup.TraitGroup} [trait_group]
-   */
-  constructor(actor_name, trait, trait_group) {
-    super()
+export default class TraitAndMakeInnate extends Cost {
+  trait_key: TraitKey | null;
+  trait_group_key: TraitGroupKey | null;
 
-    this.actor_name = actor_name
-    if (!trait && trait != null) throw new Error(`Missing trait for setup.qc.TraitAndMakeInnate(${actor_name})`)
-    if (trait) {
-      this.trait_key = trait.key
-    } else {
-      this.trait_key = null
-    }
-    if (trait_group) {
-      this.trait_group_key = trait_group.key
-    } else {
-      this.trait_group_key = null
-    }
+  constructor(
+    public actor_name: string,
+    trait: Trait | TraitKey | null,
+    trait_group?: TraitGroup | TraitGroupKey | null,
+  ) {
+    super();
+
+    if (trait === undefined)
+      throw new Error(
+        `Missing trait for setup.qc.TraitAndMakeInnate(${actor_name})`,
+      );
+
+    this.trait_key = trait ? resolveKey(trait as Trait | TraitKey) : null;
+    this.trait_group_key = trait_group ? resolveKey(trait_group) : null;
   }
 
-  text() {
+  override text() {
     if (this.trait_key) {
-      return `setup.qc.TraitAndMakeInnate('${this.actor_name}', setup.trait.${this.trait_key})`
+      return `setup.qc.TraitAndMakeInnate('${this.actor_name}', setup.trait.${this.trait_key})`;
     } else {
-      return `setup.qc.TraitAndMakeInnate('${this.actor_name}', null, setup.traitgroup[${this.trait_group_key}])`
+      return `setup.qc.TraitAndMakeInnate('${this.actor_name}', null, setup.traitgroup[${this.trait_group_key}])`;
     }
   }
 
+  override apply(context: CostContext) {
+    let unit = context.getActorUnit(this.actor_name)!;
 
-  apply(quest) {
-    /**
-     * @type {setup.Unit}
-     */
-    let unit = quest.getActorUnit(this.actor_name)
-    let trait_group = null
-    if (this.trait_group_key) trait_group = setup.traitgroup[this.trait_group_key]
-    let trait = null
-    if (this.trait_key) trait = setup.trait[this.trait_key]
+    let trait_group: TraitGroup | null = null;
+    if (this.trait_group_key) {
+      trait_group = setup.traitgroup[this.trait_group_key];
+    }
+
+    let trait: Trait | null = null;
+    if (this.trait_key) {
+      trait = setup.trait[this.trait_key];
+    }
+
     if (!trait || unit.isTraitCompatible(trait)) {
-      const added = unit.addTrait(trait, trait_group)
-      if (added) unit.addHistory(`<<dangertext "permanently">> gained ${added.rep()}.`, quest)
-      unit.makeInnateTrait(trait, trait_group)
+      const added = unit.addTrait(trait, trait_group);
+      if (added) {
+        unit.addHistory(
+          `<<dangertext "permanently">> gained ${added.rep()}.`,
+          context,
+        );
+      }
+      if (trait) {
+        unit.makeInnateTrait(trait, trait_group ?? undefined);
+      }
     }
   }
 
-  explain(quest) {
+  override explain(context: CostContext) {
     if (this.trait_key) {
-      return `${this.actor_name} permanently gain ${setup.trait[this.trait_key].rep()}`
+      return `${this.actor_name} permanently gain ${setup.trait[this.trait_key].rep()}`;
     } else {
-      return `${this.actor_name} permanently lose trait from class: ${setup.traitgroup[this.trait_group_key].getSmallestTrait().rep()}`
+      return `${this.actor_name} permanently lose trait from class: ${setup.traitgroup[this.trait_group_key!].getSmallestTrait().rep()}`;
     }
   }
 }

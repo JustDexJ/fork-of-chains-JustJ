@@ -1,25 +1,20 @@
-// @ts-nocheck
-
-
-setup.qresImpl.Never = class Never extends setup.Restriction {
-  constructor(keytext) {
-    super()
-
-    this.keytext = keytext || 'Never'
+export default class Never extends Restriction {
+  constructor(public keytext: string = "Never") {
+    super();
   }
 
-  static NAME = 'Never'
-  static PASSAGE = 'RestrictionNever'
+  static NAME = "Never";
+  static PASSAGE = "RestrictionNever";
 
-  text() {
-    return `setup.qres.Never('${this.keytext}')`
+  override text() {
+    return `setup.qres.Never('${this.keytext}')`;
   }
 
-  explain() {
-    return this.keytext
+  override explain() {
+    return this.keytext;
   }
 
-  isOk() {
-    return false
+  override isOk() {
+    return false;
   }
 }

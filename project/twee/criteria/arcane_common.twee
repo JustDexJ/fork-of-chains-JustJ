@@ -1,4 +1,4 @@
-:: InitCriteriaArcaneCommon [nobr]
+:: InitCriteriaArcaneCommon [nobr criteria]
 
 <<run new setup.UnitCriteria(
   'arcanefire', /* key */

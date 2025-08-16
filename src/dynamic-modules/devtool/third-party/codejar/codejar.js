@@ -1,3 +1,4 @@
+// @ts-nocheck
 export function CodeJar(editor, highlight, opt = {}) {
     const options = Object.assign({ tab: "\t", indentOn: /{$/, spellcheck: false, addClosing: true }, opt);
     let listeners = [];

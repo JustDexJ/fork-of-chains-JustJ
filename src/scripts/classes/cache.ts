@@ -1,60 +1,57 @@
-// @ts-nocheck
+import { TwineClass } from "./_TwineClass";
 
-// special variable $cache set to this.
-setup.Cache = class Cache extends setup.TwineClass {
+type CacheId = string;
+
+type CacheKey = string | number;
+
+/**
+ * State variable `$cache` is set to this singleton.
+ */
+export class Cache extends TwineClass {
+  cache: {
+    [cacheId: CacheId]: {
+      [k: CacheKey]: any;
+    };
+  } = {};
+
   constructor() {
-    super()
-    this.cache = {}
+    super();
   }
 
   /**
    * Caches a value.
-   * 
-   * @param {string} menu 
-   * @param {any} key 
-   * @param {any} value 
    */
-  set(menu, key, value) {
-    if (!(menu in this.cache)) this.cache[menu] = {}
-    this.cache[menu][key] = value
+  set(cacheId: CacheId, key: CacheKey, value: any): void {
+    (this.cache[cacheId] ??= {})[key] = value;
   }
 
-  /**
-   * @param {string} menu 
-   * @param {*} key 
-   * @returns {boolean}
-   */
-  has(menu, key) {
-    return (menu in this.cache && key in this.cache[menu])
+  has(cacheId: CacheId, key: CacheKey): boolean {
+    const cache_values = this.cache[cacheId];
+    return cache_values && key in cache_values;
   }
 
   /**
    * Gets a cached value
-   * @param {string} menu 
-   * @param {any} key 
-   * @returns {any}
    */
-  get(menu, key) {
-    if (!this.has(menu, key)) return null
-    return this.cache[menu][key]
+  get<T = any>(cacheId: CacheId, key: CacheKey): T | null {
+    const cache_values = this.cache[cacheId];
+    if (!cache_values || !(key in cache_values)) return null;
+    return cache_values[key] as T;
   }
 
   /**
    * Clear a cached value
-   * @param {string} menu
-   * @param {any} key
    */
-  clear(menu, key) {
-    if (!(menu in this.cache)) return null
-    if (!(key in this.cache[menu])) return null
-    delete this.cache[menu][key]
+  clear(cacheId: CacheId, key: CacheKey): void {
+    const cache_values = this.cache[cacheId];
+    if (!cache_values || !(key in cache_values)) return;
+    delete cache_values[key];
   }
 
   /**
    * Clear all values from the cache.
    */
-  clearAll() {
-    this.cache = {}
+  clearAll(): void {
+    this.cache = {};
   }
 }
-

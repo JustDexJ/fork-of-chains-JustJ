@@ -62,8 +62,7 @@ setup.rarity.rare, /* Rarity */
 
 <<choose>>
 
-<<opt "Share <<their $g.slave>>
-    body with the public">>
+<<opt "Share <<their $g.slave>> body with the public">>
 
     <p>
         <<name $g.slave>> is surprised to find you walking beside <<them $g.slave>>, but obediently falls in behind you as a proper slave should.
@@ -91,8 +90,7 @@ setup.rarity.rare, /* Rarity */
 
     <<run setup.qc.Favor('humanvale', 25).apply($gQuest)>>
 
-<<opt "Give <<them $g.slave>>
-    some aftercare">>
+<<opt "Give <<them $g.slave>> some aftercare">>
 
     <p>
         <<name $g.slave>> returns many hours later. <<They $g.slave>> carefully took breaks for <<their $g.slave>> own safety, and cleaned <<themself $g.slave>> periodically, so there isn't much evidence, but <<they $g.slave>>'s obviously bone tired. When you meet <<them $g.slave>> at the entrance to the dungeons, <<they $g.slave>>'s surprised to
@@ -116,8 +114,7 @@ setup.rarity.rare, /* Rarity */
 
     <<run setup.qc.FriendshipWithYou('slave', 50).apply($gQuest)>>
 
-<<opt "Chat about <<their $g.slave>>
-    day">>
+<<opt "Chat about <<their $g.slave>> day">>
 
     <p>
         <<name $g.slave>> returns many hours later. <<They $g.slave>>'s obviously bone tired. When you meet <<them $g.slave>> at the entrance to your penthouse <<they $g.slave>>'s surprised to

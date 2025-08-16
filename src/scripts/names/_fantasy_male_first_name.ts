@@ -1,11 +1,10 @@
-
 // From https://github.com/Kroket93/Fantasy-Name-Generator-python-script-
 
 // https://en.uesp.net/wiki/Lore:Imperial_Names
 
 // https://en.uesp.net/wiki/Lore:Breton_Names
 
-setup.NAME_fantasy_male_first_name = [
+export const NAME_fantasy_male_first_name = [
   "Aalart",
   "Aalef",
   "Aalot",
@@ -7673,4 +7672,4 @@ setup.NAME_fantasy_male_first_name = [
   "Zuriko",
   "Zuzen",
   "Zwentibold",
-]
+];

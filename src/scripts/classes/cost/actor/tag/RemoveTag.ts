@@ -1,36 +1,25 @@
-// @ts-nocheck
-
-
-setup.qcImpl.RemoveTag = class RemoveTag extends setup.Cost {
-  constructor(actor_name, tag_name) {
-    super()
-
-    this.actor_name = actor_name
-    this.tag_name = tag_name
+export default class RemoveTag extends Cost {
+  constructor(
+    public actor_name: string,
+    public tag_name: string,
+  ) {
+    super();
   }
 
-  static NAME = 'Remove a tag / flag from a unit.'
-  static PASSAGE = 'CostRemoveTag'
-  static UNIT = true
+  static NAME = "Remove a tag / flag from a unit.";
+  static PASSAGE = "CostRemoveTag";
+  static UNIT = true;
 
-  text() {
-    return `setup.qc.RemoveTag('${this.actor_name}', '${this.tag_name}')`
+  override text() {
+    return `setup.qc.RemoveTag('${this.actor_name}', '${this.tag_name}')`;
   }
 
-  isOk(quest) {
-    throw new Error(`Reward only`)
+  override apply(context: CostContext) {
+    let unit = context.getActorUnit(this.actor_name)!;
+    unit.removeTag(this.tag_name);
   }
 
-  apply(quest) {
-    let unit = quest.getActorUnit(this.actor_name)
-    unit.removeTag(this.tag_name)
-  }
-
-  undoApply(quest) {
-    throw new Error(`Can't undo`)
-  }
-
-  explain(quest) {
-    return `${this.actor_name} loses a tag: "${this.tag_name}"`
+  override explain(context: CostContext) {
+    return `${this.actor_name} loses a tag: "${this.tag_name}"`;
   }
 }

@@ -1,22 +1,17 @@
-// @ts-nocheck
+type ObjectWithName = { getName(): string };
 
-/**
- * Formats object's name. <<nameof>>
- * @param {object} object
- * @returns {setup.DOM.Node}
- */
-setup.DOM.Util.namebold = function(object) {
-  return html`
-    <span class='namespan'>${object.getName()}</span>
-  `
-}
+export default {
+  /**
+   * Formats object's name. <<nameof>>
+   */
+  namebold(object: ObjectWithName): DOM.Node {
+    return html` <span class="namespan">${object.getName()}</span> `;
+  },
 
-
-/**
- * Formats object's name. <<nameof>>
- * @param {object} object
- * @returns {setup.DOM.Node}
- */
-setup.DOM.Util.name = function(object) {
-  return html`${object.getName()}`
-}
+  /**
+   * Formats object's name. <<nameof>>
+   */
+  name(object: ObjectWithName): DOM.Node {
+    return html`${object.getName()}`;
+  },
+};

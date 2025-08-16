@@ -1,39 +1,39 @@
-// @ts-nocheck
+import type { Equipment, EquipmentKey } from "../../equipment/Equipment";
+import type { Market } from "../../market/Market";
 
+export default class EquipmentForSaleSingle extends Cost {
+  equipment_key: EquipmentKey;
 
-setup.qcImpl.EquipmentForSaleSingle = class EquipmentForSaleSingle extends setup.Cost {
-  /**
-   * 
-   * @param {setup.Equipment | string} equipment 
-   */
-  constructor(equipment) {
-    super()
+  constructor(equipment: Equipment | EquipmentKey) {
+    super();
 
-    if (!equipment) throw new Error(`Missing equipment for equipment for sale`)
+    if (!equipment) throw new Error(`Missing equipment for equipment for sale`);
 
-    this.equipment_key = setup.keyOrSelf(equipment)
+    this.equipment_key = resolveKey(equipment);
   }
 
-  apply(quest) {
-    const market = this.getMarket()
-    const equipment = setup.equipment[this.equipment_key]
+  override text() {
+    return `setup.qc.EquipmentForSaleSingle('${this.equipment_key}')`;
+  }
+
+  override apply(context: CostContext) {
+    const market = this.getMarket();
+    const equipment = setup.equipment[this.equipment_key];
     new setup.MarketObject(
       equipment,
       /* price = */ equipment.getValue(),
       setup.MARKET_OBJECT_EQUIPMENT_EXPIRATION,
       market,
-      quest,
-    )
+      context,
+    );
   }
 
-  undoApply(quest) {
-    throw new Error(`Can't undo`)
+  getMarket(): Market<Equipment> {
+    return State.variables.market.equipmentmarket;
   }
 
-  getMarket() { return State.variables.market.equipmentmarket }
-
-  explain(quest) {
-    const equipment = setup.equipment[this.equipment_key]
-    return `${this.getMarket().rep()} now sells ${equipment.rep()}`
+  override explain(context: CostContext) {
+    const equipment = setup.equipment[this.equipment_key];
+    return `${this.getMarket().rep()} now sells ${equipment.rep()}`;
   }
 }

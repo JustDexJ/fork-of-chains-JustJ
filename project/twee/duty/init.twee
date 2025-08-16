@@ -14,4 +14,4 @@
 )
 >>
 
-<<run setup.DutyTemplate.initialize()>>
+<<run setup.DutyTemplate.initializeSingletons()>>

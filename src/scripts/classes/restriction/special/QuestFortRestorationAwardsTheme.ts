@@ -1,30 +1,37 @@
-// @ts-nocheck
+import type { SkillKey } from "../../Skill";
 
-setup.qresImpl.QuestFortRestorationAwardsTheme = class QuestFortRestorationAwardsTheme extends setup.Restriction {
-  /**
-   * Randomly true with chance probability.
-   */
+export default class QuestFortRestorationAwardsTheme extends Restriction {
   constructor() {
-    super()
+    super();
   }
 
-  getSkill() {
-    return setup.skill[State.variables.varstore.get('quest_fort_restoration_skill')] || setup.skill.combat
+  getSkill(): Skill {
+    const skill_key = State.variables.varstore.get<SkillKey>(
+      "quest_fort_restoration_skill",
+    );
+    if (skill_key) {
+      return setup.skill[skill_key];
+    }
+    return setup.skill.combat;
   }
 
   getAmount() {
-    return setup.ROOM_MAX_SKILL_BOOST
+    return setup.ROOM_MAX_SKILL_BOOST;
   }
 
-  text() {
-    return `setup.qres.QuestFortRestorationAwardsTheme()`
+  override text() {
+    return `setup.qres.QuestFortRestorationAwardsTheme()`;
   }
 
-  explain(quest) {
-    return setup.qres.FortSkillBonusAtLeast(this.getSkill(), this.getAmount()).explain(quest)
+  override explain(context?: unknown) {
+    return setup.qres
+      .FortSkillBonusAtLeast(this.getSkill(), this.getAmount())
+      .explain();
   }
 
-  isOk(quest) {
-    return setup.qres.FortSkillBonusAtLeast(this.getSkill(), this.getAmount()).isOk(quest)
+  override isOk(context: unknown) {
+    return setup.qres
+      .FortSkillBonusAtLeast(this.getSkill(), this.getAmount())
+      .isOk();
   }
 }

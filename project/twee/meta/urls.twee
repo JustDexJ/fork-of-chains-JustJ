@@ -1,0 +1,4 @@
+:: GameUrls [nobr]
+
+<<set setup.REPO_URL = "https://github.com/Official-Husko/fork-of-chains">>
+<<set setup.DISCORD_URL = "https://discord.com/invite/PTD9D7mZyg">>

@@ -1,10 +1,9 @@
-
 /* from
 https://github.com/LukeMS/lua-namegen/blob/master/data/creatures.cfg
 https://en.uesp.net/wiki/Lore:Orc_Names
 */
 
-setup.NAME_orc_male_first_name = [
+export const NAME_orc_male_first_name = [
   "Abghat",
   "Abzag",
   "Abzrolg",
@@ -1111,4 +1110,4 @@ setup.NAME_orc_male_first_name = [
   "Zungarg",
   "Zunlog",
   "Zurpigig",
-]
+];

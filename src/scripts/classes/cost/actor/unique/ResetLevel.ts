@@ -1,23 +1,21 @@
-// @ts-nocheck
-
-/* Reset a unit level to level 1 */
-setup.qcImpl.ResetLevel = class ResetLevel extends setup.Cost {
-  constructor(actor_name) {
-    super()
-
-    this.actor_name = actor_name
+/**
+ * Reset a unit level to level 1
+ */
+export default class ResetLevel extends Cost {
+  constructor(public actor_name: string) {
+    super();
   }
 
-  text() {
-    return `setup.qc.ResetLevel('${this.actor_name}')`
+  override text() {
+    return `setup.qc.ResetLevel('${this.actor_name}')`;
   }
 
-  apply(quest) {
-    let unit = quest.getActorUnit(this.actor_name)
-    unit.resetLevel()
+  override apply(context: CostContext) {
+    let unit = context.getActorUnit(this.actor_name)!;
+    unit.resetLevel();
   }
 
-  explain(quest) {
-    return `reset the level of ${this.actor_name} to level 1`
+  override explain(context: CostContext) {
+    return `reset the level of ${this.actor_name} to level 1`;
   }
 }

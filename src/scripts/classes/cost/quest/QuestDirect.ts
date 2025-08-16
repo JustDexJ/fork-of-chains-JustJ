@@ -1,125 +1,108 @@
-// @ts-nocheck
+import type { QuestTemplateKey } from "../../quest/QuestTemplate";
 
-setup.qcImpl.QuestDirect = class QuestDirect extends setup.Cost {
-  /**
-   * @param {setup.QuestTemplate | string} template
-   */
-  constructor(template, default_assignment) {
-    super()
+export default class QuestDirect extends Cost {
+  template_key: QuestTemplateKey | null;
+  default_assignment?: Record<string, string>;
 
-    if (template) {
-      this.template_key = setup.keyOrSelf(template)
-    } else {
-      this.template_key = null
-    }
+  constructor(
+    template: QuestTemplate | QuestTemplateKey | null,
+    default_assignment?: Record<string, string>,
+  ) {
+    super();
 
-    this.default_assignment = default_assignment
+    this.template_key = template ? resolveKey(template) : null;
+    this.default_assignment = default_assignment;
   }
 
-  text() {
-    const assignment_text = setup.qcImpl.QuestDirect.assignmentTextHelper(this.default_assignment)
-    return `setup.qc.QuestDirect('${this.template_key}', ${assignment_text})`
+  override text() {
+    const assignment_text = setup.qcImpl.QuestDirect.assignmentTextHelper(
+      this.default_assignment,
+    );
+    return `setup.qc.QuestDirect('${this.template_key}', ${assignment_text})`;
   }
 
-  /**
-   * @returns {setup.QuestTemplate}
-   */
-  getQuestTemplate(quest) {
-    return setup.questtemplate[this.template_key]
+  getQuestTemplate(context?: CostContext): QuestTemplate {
+    return setup.questtemplate[this.template_key!];
   }
 
-  apply(quest) {
-    const template = this.getQuestTemplate(quest)
-    if (!template) throw new Error(`Quest template is missing`)
+  override apply(context?: CostContext) {
+    const template = this.getQuestTemplate(context);
+    if (!template) throw new Error(`Quest template is missing`);
 
     const assignment = setup.qcImpl.QuestDirect.getDefaultAssignment(
-      this.default_assignment, quest
-    )
+      this.default_assignment,
+      context,
+    );
 
-    const newquest = setup.QuestPool.instantiateQuest(template, assignment)
+    const newquest = setup.QuestPool.instantiateQuest(template, assignment);
 
     if (!newquest) {
-      console.log(`Something wrong when trying to generate quest ${template.key}`)
-      setup.notify(`Something wrong when trying to generate quest ${template.getName()}. Please save your game and report this bug, while attaching the save file.`)
+      console.log(
+        `Something wrong when trying to generate quest ${template.key}`,
+      );
+      setup.notify(
+        `Something wrong when trying to generate quest ${template.getName()}. Please save your game and report this bug, while attaching the save file.`,
+      );
     } else {
-      setup.notify(`New quest: ${newquest.rep()}`)
+      setup.notify(`New quest: ${newquest.rep()}`);
     }
   }
 
-  explain(quest) {
-    const assignment_text = setup.qcImpl.QuestDirect.assignmentExplainHelper(this.default_assignment)
-    let template = setup.questtemplate[this.template_key]
-    if (!template) throw new Error(`Quest ${this.template_key} is missing`)
-    return `New quest: ${template.getName()} ${assignment_text}`
+  override explain(context: CostContext) {
+    const assignment_text = setup.qcImpl.QuestDirect.assignmentExplainHelper(
+      this.default_assignment,
+    );
+    let template = setup.questtemplate[this.template_key!];
+    if (!template) throw new Error(`Quest ${this.template_key} is missing`);
+    return `New quest: ${template.getName()} ${assignment_text}`;
   }
 
   /**
-   * @param {object} default_assignment 
-   * @param {object} quest 
+   * Resolves a remapping of actor names.
+   *
+   * Used to spawn spinoff quests/events/etc. with some predefined actors from the current content instance.
+   *
+   * @param default_assignment e.g. { new_actor_name: old_actor_name }
    */
-  static getDefaultAssignment(default_assignment, quest) {
-    if (!default_assignment) return {}
+  static getDefaultAssignment(
+    default_assignment: Record<string, string> | null | undefined,
+    context?: CostContext,
+  ): ActorUnitMap {
+    if (!default_assignment || !context) return {};
 
-    const assignment = {}
+    const assignment: ActorUnitMap = {};
     for (const actor_name in default_assignment) {
-      const target_actor_name = default_assignment[actor_name]
-      assignment[actor_name] = quest.getActorUnit(target_actor_name)
+      const target_actor_name = default_assignment[actor_name];
+      const unit = context.getActorUnit(target_actor_name);
+      if (unit) {
+        assignment[actor_name] = unit;
+      }
     }
-    return assignment
+    return assignment;
   }
 
-  /**
-   * @param {object} default_assignment 
-   * @returns {string}
-   */
-  static assignmentTextHelper(default_assignment) {
-    if (!default_assignment) return `null`
-    let base = `{\n`
+  static assignmentTextHelper(
+    default_assignment: Record<string, string> | null | undefined,
+  ): string {
+    if (!default_assignment) return `null`;
+    let base = `{\n`;
     for (const actor_key in default_assignment) {
-      base += `${actor_key}: "${default_assignment[actor_key]}",\n`
+      base += `${actor_key}: "${default_assignment[actor_key]}",\n`;
     }
-    base += `}`
-    return base
+    base += `}`;
+    return base;
   }
 
-  /**
-   * @param {object} default_assignment 
-   * @returns {string}
-   */
-  static assignmentExplainHelper(default_assignment) {
-    if (!default_assignment) return ``
+  static assignmentExplainHelper(
+    default_assignment: Record<string, string> | null | undefined,
+  ): string {
+    if (!default_assignment) return ``;
 
-    let base = `with (`
+    let base = `with (`;
     for (const actor_key in default_assignment) {
-      base += `${actor_key}=${default_assignment[actor_key]}, `
+      base += `${actor_key}=${default_assignment[actor_key]}, `;
     }
-    base += `)`
-    return base
+    base += `)`;
+    return base;
   }
 }
-
-
-
-setup.qcImpl.QuestDirectSelf = class QuestDirectSelf extends setup.qcImpl.QuestDirect {
-  constructor(default_assignment) {
-    super(/* quest template = */ null, default_assignment)
-  }
-
-  /**
-   * @returns {setup.QuestTemplate}
-   */
-  getQuestTemplate(quest) {
-    return quest.getTemplate()
-  }
-
-  text() {
-    const assignment_text = setup.qcImpl.QuestDirect.assignmentTextHelper(this.default_assignment)
-    return `setup.qc.QuestDirectSelf(${assignment_text})`
-  }
-
-  explain(quest) {
-    const assignment_text = setup.qcImpl.QuestDirect.assignmentExplainHelper(this.default_assignment)
-    return `New quest: this quest again. ${assignment_text}`
-  }
-}
-

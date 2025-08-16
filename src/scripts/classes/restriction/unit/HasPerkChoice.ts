@@ -1,30 +1,27 @@
-// @ts-nocheck
+import type { Perk } from "../../trait/Perk";
 
-setup.qresImpl.HasPerkChoice = class HasPerkChoice extends setup.Restriction {
-  /**
-   * @param {setup.Perk} perk
-   */
-  constructor(perk) {
-    super()
-    this.perk_key = setup.keyOrSelf(perk)
+export default class HasPerkChoice extends Restriction.Unit {
+  perk_key: TraitKey;
+
+  constructor(perk: Perk) {
+    super();
+    this.perk_key = resolveKey(perk);
   }
 
-  text() {
-    return `setup.qres.HasPerkChoice('${this.perk_key}')`
+  override text() {
+    return `setup.qres.HasPerkChoice('${this.perk_key}')`;
   }
 
-  getPerk() { return setup.trait[this.perk_key] }
-
-  explain() {
-    const perk = this.getPerk()
-    return `Unit has ${perk.rep()} as one of their perk choices`
+  getPerk(): Perk {
+    return setup.trait[this.perk_key] as Perk;
   }
 
-  /**
-   * @param {setup.Unit} unit 
-   * @returns {boolean}
-   */
-  isOk(unit) {
-    return unit.isHasPerkChoice(this.getPerk())
+  override explain() {
+    const perk = this.getPerk();
+    return `Unit has ${perk.rep()} as one of their perk choices`;
+  }
+
+  override isOk(unit: Unit): boolean {
+    return unit.isHasPerkChoice(this.getPerk());
   }
 }

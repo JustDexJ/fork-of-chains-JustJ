@@ -1,8 +1,0 @@
-:: InitOpportunity [nobr]
-
-<<set setup.opportunitytemplate = {}>>
-
-<<set _passages = Story.lookup('tags', 'opportunity')>>
-<<for _ipassage, _passage range _passages>>
-  <<include _passage.title>>
-<</for>>

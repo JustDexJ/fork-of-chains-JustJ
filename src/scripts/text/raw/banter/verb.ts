@@ -1,6 +1,6 @@
-// @ts-nocheck
+import type { BanterVerbSpec } from "../../sentence/banter";
 
-export const BANTER_VERB_SLAVER_FRIEND = [
+export const BANTER_VERB_SLAVER_FRIEND: BanterVerbSpec[] = [
   {
     verbs: [
       `talked with b|rep`,
@@ -98,9 +98,9 @@ export const BANTER_VERB_SLAVER_FRIEND = [
       `won b|rep over with a|their superior knowledge on`,
     ],
   },
-]
+];
 
-export const BANTER_VERB_SLAVER_RIVAL = [
+export const BANTER_VERB_SLAVER_RIVAL: BanterVerbSpec[] = [
   {
     verbs: [
       `intimidated b|rep about`,
@@ -175,10 +175,9 @@ export const BANTER_VERB_SLAVER_RIVAL = [
       `silently judged b|reps thoughts on`,
     ],
   },
-]
+];
 
-
-export const BANTER_VERB_SLAVER_LOVER = [
+export const BANTER_VERB_SLAVER_LOVER: BanterVerbSpec[] = [
   {
     /* generic */
     verbs: [
@@ -248,10 +247,7 @@ export const BANTER_VERB_SLAVER_LOVER = [
   },
   {
     target: ["muscle_thin"],
-    verbs: [
-      `appreciated b|reps b|body`,
-      `traced b|reps waist`,
-    ],
+    verbs: [`appreciated b|reps b|body`, `traced b|reps waist`],
   },
   {
     target: ["per_submissive"],
@@ -266,17 +262,12 @@ export const BANTER_VERB_SLAVER_LOVER = [
   {
     initiator: ["per_dominant"],
     target: ["per_submissive"],
-    verbs: [
-      `abused b|rep`,
-    ],
+    verbs: [`abused b|rep`],
   },
   {
     initiator: ["dick_tiny"],
     target: ["vagina_tight"],
-    verbs: [
-      `fucked b|rep in the pussy`,
-      `pussy-fucked b|rep`,
-    ],
+    verbs: [`fucked b|rep in the pussy`, `pussy-fucked b|rep`],
   },
   {
     target: ["vagina_tight"],
@@ -296,10 +287,7 @@ export const BANTER_VERB_SLAVER_LOVER = [
   },
   {
     initiator: ["vagina_tight"],
-    verbs: [
-      `pussy-sit on b|rep`,
-      `offered vagina to b|rep`,
-    ],
+    verbs: [`pussy-sit on b|rep`, `offered vagina to b|rep`],
   },
   {
     target: ["dick_tiny"],
@@ -312,22 +300,16 @@ export const BANTER_VERB_SLAVER_LOVER = [
   },
   {
     target: ["breast_tiny"],
-    verbs: [
-      `groped b|reps b|breasts`,
-      `played with b|reps b|breasts`,
-    ],
+    verbs: [`groped b|reps b|breasts`, `played with b|reps b|breasts`],
   },
   {
     initiator: ["breast_tiny"],
     target: ["breast_tiny"],
-    verbs: [
-      `collided breasts with b|rep`,
-    ],
+    verbs: [`collided breasts with b|rep`],
   },
-]
+];
 
-
-export const BANTER_VERB_SLAVE_CARE = [
+export const BANTER_VERB_SLAVE_CARE: BanterVerbSpec[] = [
   {
     verbs: [
       `cared for b|rep`,
@@ -382,10 +364,9 @@ export const BANTER_VERB_SLAVE_CARE = [
       `gave b|rep some rest`,
     ],
   },
-]
+];
 
-
-export const BANTER_VERB_SLAVE_ABUSE = [
+export const BANTER_VERB_SLAVE_ABUSE: BanterVerbSpec[] = [
   {
     /* generic */
     verbs: [
@@ -499,7 +480,7 @@ export const BANTER_VERB_SLAVE_ABUSE = [
       `abused b|reps b|vagina`,
     ],
   },
-]
+];
 
 /* special case: slave with no training */
 export const BANTER_TRAINING_NONE = [
@@ -526,7 +507,7 @@ export const BANTER_TRAINING_NONE = [
   `passionately a|hate your company`,
   `a|is angered by a|their predicament`,
   `a|continue to swear to end your company`,
-]
+];
 
 /* special case: mindbroken slaves */
 export const BANTER_TRAINING_MINDBREAK = [
@@ -553,17 +534,23 @@ export const BANTER_TRAINING_MINDBREAK = [
   `a|give your slavers a blank stare`,
   `a|do not respond to your slavers' abuse`,
   `a|have neither free nor enforced will`,
-]
+];
 
 /* basic, advanced, master training */
 export const BANTER_TRAINING_VERB = [
   [
-    `reluctantly a|ask for`, `uncomfortably a|ask for`, `a|is made to beg for`,
-    `unwillingly a|ask for`, `a|is forced to ask for`,
+    `reluctantly a|ask for`,
+    `uncomfortably a|ask for`,
+    `a|is made to beg for`,
+    `unwillingly a|ask for`,
+    `a|is forced to ask for`,
   ],
   [
-    `a|beg for`, `a|crave`, `a|have been trained to beg for`,
-    `a|seek`, `a|ask permission for`,
+    `a|beg for`,
+    `a|crave`,
+    `a|have been trained to beg for`,
+    `a|seek`,
+    `a|ask permission for`,
   ],
   [
     `cannot help but beg for`,
@@ -573,7 +560,7 @@ export const BANTER_TRAINING_VERB = [
     `constantly a|degrade a|themself in hope for`,
     `a|have undergone extensive training to always crave`,
   ],
-]
+];
 
 /* training texts */
 export const BANTER_TRAINING_OBJECT = {
@@ -741,4 +728,4 @@ export const BANTER_TRAINING_OBJECT = {
     `your orders`,
     `your fort dirtiest places to clean`,
   ],
-}
+};

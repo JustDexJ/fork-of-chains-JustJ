@@ -1,4 +1,4 @@
-:: InitCriteriaSlavingCommon [nobr]
+:: InitCriteriaSlavingCommon [nobr criteria]
 
 <<run new setup.UnitCriteria(
   'slaver', /* key */

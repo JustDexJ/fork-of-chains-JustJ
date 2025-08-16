@@ -1,37 +1,32 @@
-// @ts-nocheck
-
 /**
  * True if its restriction is true.
- * 
+ *
  * Useful to circumvent missing items causing a building to not be displayed in the building menu. and masking text
  */
-setup.qresImpl.Through = class Through extends setup.Restriction {
-  /**
-   * @param {setup.Restriction} requirement 
-   * @param {string} [explain_text]
-   */
-  constructor(requirement, explain_text) {
-    super()
-
-    // true if requirements is false
-
-    this.requirement = requirement
-    this.explain_text = explain_text
+export default class Through<T = unknown> extends Restriction<T> {
+  constructor(
+    public requirement: Restriction,
+    public explain_text?: string,
+  ) {
+    super();
   }
 
-  text() {
-    return `setup.qres.Through(${this.requirement.text()}, '${this.explain_text || ''}')`
+  override text() {
+    return `setup.qres.Through(${this.requirement.text()}, '${this.explain_text || ""}')`;
   }
 
-  isOk(quest) {
-    return this.requirement.isOk(quest)
+  override isOk(context: T) {
+    return this.requirement.isOk(context);
   }
 
-  explain(quest) {
-    if (!State.variables.gDebug && (this.explain_text || this.explain_text == 'HIDE')) {
-      return `${this.explain_text || ''}`
+  override explain(context?: T) {
+    if (
+      !State.variables.gDebug &&
+      (this.explain_text || this.explain_text == "HIDE")
+    ) {
+      return `${this.explain_text || ""}`;
     } else {
-      return `${this.explain_text ? `[${this.explain_text}] ` : ''}${this.requirement.explain(quest)}`
+      return `${this.explain_text ? `[${this.explain_text}] ` : ""}${this.requirement.explain(context)}`;
     }
   }
 
@@ -41,9 +36,9 @@ setup.qresImpl.Through = class Through extends setup.Restriction {
         {
           passage: "RestrictionThroughHeader",
           //addpassage: "", // inherit
-          entrypath: ".requirement"
-        }
-      ]
-    }
+          entrypath: ".requirement",
+        },
+      ],
+    };
   }
 }

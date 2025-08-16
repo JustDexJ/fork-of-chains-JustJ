@@ -1,26 +1,21 @@
-// @ts-nocheck
-
-
-setup.qresImpl.Owner = class Owner extends setup.Restriction {
-  constructor(restriction) {
-    super()
-
-    this.restriction = restriction
+export default class Owner extends Restriction.Unit {
+  constructor(public restriction: Restriction) {
+    super();
   }
 
-  text() {
-    return `setup.qres.Owner(${this.restriction.text()})`
+  override text() {
+    return `setup.qres.Owner(${this.restriction.text()})`;
   }
 
-  explain(quest) {
-    return `Slave's owner satisfies: (${this.restriction.explain(quest)})`
+  override explain(context?: Unit) {
+    return `Slave's owner satisfies: (${this.restriction.explain(context)})`;
   }
 
-  isOk(unit) {
-    if (!unit.isSlave()) return false
-    let bedchamber = unit.getBedchamber()
-    if (!bedchamber) return false
-    return this.restriction.isOk(bedchamber.getSlaver())
+  override isOk(unit: Unit): boolean {
+    if (!unit.isSlave()) return false;
+    let bedchamber = unit.getBedchamber();
+    if (!bedchamber) return false;
+    return this.restriction.isOk(bedchamber.getSlaver());
   }
 
   getLayout() {
@@ -30,9 +25,9 @@ setup.qresImpl.Owner = class Owner extends setup.Restriction {
         {
           passage: "RestrictionOwnerHeader",
           addpassage: "QGAddRestrictionUnit",
-          entrypath: ".restriction"
-        }
-      ]
-    }
+          entrypath: ".restriction",
+        },
+      ],
+    };
   }
 }

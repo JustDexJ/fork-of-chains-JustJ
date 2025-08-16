@@ -1,25 +1,25 @@
-// @ts-nocheck
+import type { DutyTemplate, DutyTemplateKey } from "../../duty/DutyTemplate";
 
+export default class HasUnitOnDuty extends Restriction {
+  duty_template_key: DutyTemplateKey;
 
-setup.qresImpl.HasUnitOnDuty = class HasUnitOnDuty extends setup.Restriction {
-  /**
-   * @param {string | setup.DutyTemplate} duty_template 
-   */
-  constructor(duty_template) {
-    super()
+  constructor(duty_template: DutyTemplate | DutyTemplateKey) {
+    super();
 
-    this.duty_template_key = setup.keyOrSelf(duty_template)
+    this.duty_template_key = resolveKey(duty_template);
   }
 
-  text() {
-    return `setup.qres.HasUnitOnDuty('${this.duty_template_key}')`
+  override text() {
+    return `setup.qres.HasUnitOnDuty('${this.duty_template_key}')`;
   }
 
-  explain() {
-    return `Must EXIST available unit on duty: ${setup.dutytemplate[this.duty_template_key].getName()}`
+  override explain() {
+    return `Must EXIST available unit on duty: ${setup.dutytemplate[this.duty_template_key].getName()}`;
   }
 
-  isOk() {
-    return !!State.variables.dutylist.getUnitIfAvailable(this.duty_template_key)
+  override isOk() {
+    return !!State.variables.dutylist.getUnitIfAvailable(
+      this.duty_template_key,
+    );
   }
 }

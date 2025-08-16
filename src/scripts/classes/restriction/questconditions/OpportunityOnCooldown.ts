@@ -1,24 +1,30 @@
-// @ts-nocheck
+import type {
+  OpportunityTemplate,
+  OpportunityTemplateKey,
+} from "../../opportunity/OpportunityTemplate";
 
-setup.qresImpl.OpportunityOnCooldown = class OpportunityOnCooldown extends setup.Restriction {
-  constructor(template) {
-    super()
+export default class OpportunityOnCooldown extends Restriction {
+  template_key: OpportunityTemplateKey;
 
-    if (!template) throw new Error(`Missing template for OpportunityOnCooldown`)
-    this.template_key = setup.keyOrSelf(template)
+  constructor(template: OpportunityTemplate | OpportunityTemplateKey) {
+    super();
+
+    if (!template)
+      throw new Error(`Missing template for OpportunityOnCooldown`);
+    this.template_key = resolveKey(template);
   }
 
-  text() {
-    return `setup.qres.OpportunityOnCooldown('${this.template_key}')`
+  override text() {
+    return `setup.qres.OpportunityOnCooldown('${this.template_key}')`;
   }
 
-  isOk() {
-    let template = setup.opportunitytemplate[this.template_key]
-    return State.variables.calendar.isOnCooldown(template)
+  override isOk() {
+    let template = setup.opportunitytemplate[this.template_key];
+    return State.variables.calendar.isOnCooldown(template);
   }
 
-  explain() {
-    let template = setup.opportunitytemplate[this.template_key]
-    return `Opportunity on cooldown: ${template.getName()}`
+  override explain() {
+    let template = setup.opportunitytemplate[this.template_key];
+    return `Opportunity on cooldown: ${template.getName()}`;
   }
 }

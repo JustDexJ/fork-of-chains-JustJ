@@ -1,30 +1,27 @@
-// @ts-nocheck
-
-/* Permanently corrupt a unit, granting it a random demonic skin trait that cannot be purified. Extremely small chance to misfire. */
-setup.qcImpl.PermanentlyCorrupt = class PermanentlyCorrupt extends setup.Cost {
-  /**
-   * @param {string} actor_name 
-   */
-  constructor(actor_name) {
-    super()
-
-    this.actor_name = actor_name
+/**
+ * Permanently corrupt a unit, granting it a random demonic skin trait that cannot be purified. Extremely small chance to misfire.
+ */
+export default class PermanentlyCorrupt extends Cost {
+  constructor(public actor_name: string) {
+    super();
   }
 
-  text() {
-    return `setup.qc.PermanentlyCorrupt('${this.actor_name}')`
+  override text() {
+    return `setup.qc.PermanentlyCorrupt('${this.actor_name}')`;
   }
 
-  apply(quest) {
-    /** @type {setup.Unit} */
-    const unit = quest.getActorUnit(this.actor_name)
-    const result = unit.corruptPermanently()
+  override apply(context: CostContext) {
+    const unit = context.getActorUnit(this.actor_name)!;
+    const result = unit.corruptPermanently();
     if (result) {
-      unit.addHistory(`got permanently corrupted and gained ${result.rep()}.`, quest)
+      unit.addHistory(
+        `got permanently corrupted and gained ${result.rep()}.`,
+        context,
+      );
     }
   }
 
-  explain(quest) {
-    return `permanently corrupt ${this.actor_name}`
+  override explain(context: CostContext) {
+    return `permanently corrupt ${this.actor_name}`;
   }
 }

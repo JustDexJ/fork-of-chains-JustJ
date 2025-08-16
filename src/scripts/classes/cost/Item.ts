@@ -1,32 +1,32 @@
-// @ts-nocheck
+import type { Item as Item_, ItemKey } from "../inventory/Item";
 
+export default class Item extends Cost {
+  item_key: ItemKey;
+  quantity: number;
 
-setup.qcImpl.Item = class Item extends setup.Cost {
-  /**
-   * @param {setup.Item | string} item 
-   * @param {number} [quantity]
-   */
-  constructor(item, quantity) {
-    super()
+  constructor(item: Item_ | ItemKey, quantity?: number) {
+    super();
 
-    if (!item) throw new Error(`Null item`)
-    this.item_key = setup.keyOrSelf(item)
-    this.quantity = quantity || 1
+    if (!item) throw new Error(`Null item`);
+    this.item_key = resolveKey(item);
+    this.quantity = quantity || 1;
   }
 
-  text() {
-    return `setup.qc.Item(setup.item.${this.item_key}, ${this.quantity})`
+  override text() {
+    return `setup.qc.Item(setup.item.${this.item_key}, ${this.quantity})`;
   }
 
-  getItem() { return setup.item[this.item_key] }
+  getItem(): Item_ {
+    return setup.item[this.item_key];
+  }
 
-  apply(quest) {
+  override apply(context?: CostContext) {
     for (let i = 0; i < this.quantity; ++i) {
-      State.variables.inventory.addItem(this.getItem())
+      State.variables.inventory.addItem(this.getItem());
     }
   }
 
-  explain() {
-    return `Gain ${this.quantity}x ${this.getItem().rep()}`
+  override explain() {
+    return `Gain ${this.quantity}x ${this.getItem().rep()}`;
   }
 }

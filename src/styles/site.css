@@ -1,5 +1,5 @@
 .passage {
-	transition-property: none;
+  transition-property: none;
 }
 
 .hiddendiv {
@@ -7,7 +7,7 @@
 }
 
 .toprightspan {
-  float:right;
+  float: right;
   text-align: right;
 }
 

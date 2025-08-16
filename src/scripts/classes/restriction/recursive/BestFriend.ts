@@ -1,30 +1,20 @@
-// @ts-nocheck
-
-setup.qresImpl.BestFriend = class BestFriend extends setup.Restriction {
-  /**
-   * @param {setup.Restriction} restriction 
-   */
-  constructor(restriction) {
-    super()
-
-    this.restriction = restriction
+export default class BestFriend extends Restriction.Unit {
+  constructor(public restriction: Restriction) {
+    super();
   }
 
-  text() {
-    return `setup.qres.BestFriend(${this.restriction.text()})`
+  override text() {
+    return `setup.qres.BestFriend(${this.restriction.text()})`;
   }
 
-  explain(quest) {
-    return `Unit's best friend or lover satisfies: (${this.restriction.explain(quest)})`
+  override explain(context?: Unit) {
+    return `Unit's best friend or lover satisfies: (${this.restriction.explain(context)})`;
   }
 
-  /**
-   * @param {setup.Unit} unit 
-   */
-  isOk(unit) {
-    const best_friend = unit.getBestFriend()
-    if (!best_friend) return false
-    return this.restriction.isOk(best_friend)
+  override isOk(unit: Unit): boolean {
+    const best_friend = unit.getBestFriend();
+    if (!best_friend) return false;
+    return this.restriction.isOk(best_friend);
   }
 
   getLayout() {
@@ -34,9 +24,9 @@ setup.qresImpl.BestFriend = class BestFriend extends setup.Restriction {
         {
           passage: "RestrictionBestFriendHeader",
           addpassage: "QGAddRestrictionUnit",
-          entrypath: ".restriction"
-        }
-      ]
-    }
+          entrypath: ".restriction",
+        },
+      ],
+    };
   }
 }

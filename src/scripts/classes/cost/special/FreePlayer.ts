@@ -1,31 +1,23 @@
-// @ts-nocheck
-
 /**
  * Frees the player character
  */
-setup.qcImpl.FreePlayer = class FreePlayer extends setup.Cost {
+export default class FreePlayer extends Cost {
   constructor() {
-    super()
+    super();
   }
 
-  text() {
-    return `setup.qc.FreePlayer()`
+  override text() {
+    return `setup.qc.FreePlayer()`;
   }
 
-  /**
-   * @param {any} quest 
-   */
-  apply(quest) {
+  override apply(context: CostContext) {
     // frees yourself from leave
-    setup.qc.Return('unit').apply(
-      setup.costUnitHelper(State.variables.unit.player)
-    )
+    setup.qc
+      .Return("unit")
+      .apply(setup.costUnitHelper(State.variables.unit.player));
   }
 
-  /**
-   * @param {*} quest 
-   */
-  explain(quest) {
-    return `You returned to the company`
+  override explain(context: CostContext) {
+    return `You returned to the company`;
   }
 }

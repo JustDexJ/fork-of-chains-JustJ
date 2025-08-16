@@ -1,7 +1,5 @@
 :: InitUnitAction [nobr]
 
-<<set setup.unitaction = {}>>
-
 <<include InitUnitActionTraining>>
 <<include InitUnitActionFleshShape>>
 <<include InitUnitActionSurgery>>

@@ -1,7 +1,5 @@
 :: InitItemClass [nobr]
 
-<<set setup.itemclass = {}>>
-
 /* Actually a misnomer. Covers all items that has a single unit as its target */
 <<run new setup.ItemClass('usableitem', 'Usable Item (Single unit)')>>
 

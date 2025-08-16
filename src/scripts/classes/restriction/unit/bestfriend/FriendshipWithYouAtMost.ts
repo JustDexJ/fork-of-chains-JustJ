@@ -1,22 +1,22 @@
-// @ts-nocheck
-
-
-setup.qresImpl.FriendshipWithYouAtMost = class FriendshipWithYouAtMost extends setup.Restriction {
-  constructor(amt) {
-    super()
-
-    this.amt = amt
+export default class FriendshipWithYouAtMost extends Restriction.Unit {
+  constructor(public amt: number) {
+    super();
   }
 
-  text() {
-    return `setup.qres.FriendshipWithYouAtMost(${this.amt})`
+  override text() {
+    return `setup.qres.FriendshipWithYouAtMost(${this.amt})`;
   }
 
-  explain() {
-    return `Unit's friendship with you is at most ${this.amt}` 
+  override explain() {
+    return `Unit's friendship with you is at most ${this.amt}`;
   }
 
-  isOk(unit) {
-    return State.variables.friendship.getFriendship(State.variables.unit.player, unit) <= this.amt
+  override isOk(unit: Unit): boolean {
+    return (
+      State.variables.friendship.getFriendship(
+        State.variables.unit.player,
+        unit,
+      ) <= this.amt
+    );
   }
 }

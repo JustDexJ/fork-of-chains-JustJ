@@ -1,22 +1,17 @@
-// @ts-nocheck
-
-setup.qresImpl.BestFriendExist = class BestFriendExist extends setup.Restriction {
+export default class BestFriendExist extends Restriction.Unit {
   constructor() {
-    super()
+    super();
   }
 
-  text() {
-    return `setup.qres.BestFriendExist()`
+  override text() {
+    return `setup.qres.BestFriendExist()`;
   }
 
-  explain() {
-    return `Unit has a best friend/lover`
+  override explain() {
+    return `Unit has a best friend/lover`;
   }
 
-  /**
-   * @param {setup.Unit} unit 
-   */
-  isOk(unit) {
-    return !!unit.getBestFriend()
+  override isOk(unit: Unit): boolean {
+    return !!unit.getBestFriend();
   }
 }

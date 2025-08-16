@@ -21,17 +21,19 @@
 
 .trait.trait-fx-trmaster img {
   /* convert icon from black to pink */
-  filter: invert(64%) sepia(91%) saturate(4259%) hue-rotate(305deg) brightness(99%) contrast(103%);
+  filter: invert(64%) sepia(91%) saturate(4259%) hue-rotate(305deg)
+    brightness(99%) contrast(103%);
 }
 
 .trait.trait-fx-positive3 img {
   /* convert icon from black to green */
-  filter: invert(31%) sepia(85%) saturate(1493%) hue-rotate(67deg) brightness(94%) contrast(103%);
+  filter: invert(31%) sepia(85%) saturate(1493%) hue-rotate(67deg)
+    brightness(94%) contrast(103%);
 }
 
 /* trait backgrounds image (the variable is defined in the element style="...") */
-.trait>*::before {
-  content: '';
+.trait > *::before {
+  content: "";
   position: absolute;
   top: 0;
   bottom: 0;
@@ -43,7 +45,7 @@
 }
 
 /* tier text (I, IV, III, ...) */
-.trait>*::after {
+.trait > *::after {
   position: absolute;
   font-size: 16px;
   font-weight: bold;
@@ -57,61 +59,61 @@
   pointer-events: none;
 }
 
-.trait-tier1>*::after {
-  content: 'I';
+.trait-tier1 > *::after {
+  content: "I";
 }
 
-.trait-tier2>*::after {
-  content: 'II';
+.trait-tier2 > *::after {
+  content: "II";
 }
 
-.trait-tier3>*::after {
-  content: 'III';
+.trait-tier3 > *::after {
+  content: "III";
 }
 
-.trait-tier4>*::after {
-  content: 'IV';
+.trait-tier4 > *::after {
+  content: "IV";
 }
 
-.trait-tier5>*::after {
-  content: 'V';
+.trait-tier5 > *::after {
+  content: "V";
 }
 
-.trait-tier6>*::after {
-  content: 'VI';
+.trait-tier6 > *::after {
+  content: "VI";
 }
 
-.trait-tier7>*::after {
-  content: 'VII';
+.trait-tier7 > *::after {
+  content: "VII";
 }
 
-.trait-tier8>*::after {
-  content: 'VIII';
+.trait-tier8 > *::after {
+  content: "VIII";
 }
 
-.trait-tier9>*::after {
-  content: 'IX';
+.trait-tier9 > *::after {
+  content: "IX";
 }
 
-.trait-tier10>*::after {
-  content: 'X';
+.trait-tier10 > *::after {
+  content: "X";
 }
 
-.trait-plus>*::after {
-  content: '+';
+.trait-plus > *::after {
+  content: "+";
 }
 
-.trait-minus>*::after {
-  content: '-';
+.trait-minus > *::after {
+  content: "-";
 }
 
-.trait-cross>*::after {
-  content: 'X';
+.trait-cross > *::after {
+  content: "X";
 }
 
 /* CSS for rarity indicator */
-.rarity>*::before {
-  content: '';
+.rarity > *::before {
+  content: "";
   position: absolute;
   top: 0;
   bottom: 0;
@@ -124,7 +126,7 @@
 }
 
 /* More CSS for rarity indicators */
-.rarity>*::after {
+.rarity > *::after {
   position: absolute;
   font-size: 16px;
   font-weight: bold;
@@ -145,7 +147,7 @@
 .rarity-uncommon::before,
 .rarity-always::before,
 .rarity-never::before {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   right: 0;
@@ -165,7 +167,7 @@
 .rarity-uncommon::after,
 .rarity-always::after,
 .rarity-never::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   right: 0;
@@ -279,7 +281,7 @@
 .negtraitcard:before,
 .negtraitcard:after {
   position: absolute;
-  content: '';
+  content: "";
   background: red;
   display: block;
   width: 100%;

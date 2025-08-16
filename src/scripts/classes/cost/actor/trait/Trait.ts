@@ -1,50 +1,51 @@
-// @ts-nocheck
+import type { Trait as Trait_, TraitKey } from "../../../trait/Trait";
+import type { TraitGroup, TraitGroupKey } from "../../../trait/TraitGroup";
 
+export default class Trait extends Cost {
+  trait_key: TraitKey | null;
+  trait_group_key: TraitGroupKey | null;
 
-setup.qcImpl.Trait = class Trait extends setup.Cost {
-  constructor(actor_name, trait, trait_group) {
-    super()
+  constructor(
+    public actor_name: string,
+    trait?: Trait_ | TraitKey | BuiltinTraitKey | null,
+    trait_group?: TraitGroup | TraitGroupKey | null,
+  ) {
+    super();
 
-    this.actor_name = actor_name
-    if (!trait && trait != null) throw new Error(`Missing trait for setup.qc.Trait(${actor_name})`)
-    if (trait) {
-      this.trait_key = setup.keyOrSelf(trait)
-    } else {
-      this.trait_key = null
-    }
-    if (trait_group) {
-      this.trait_group_key = setup.keyOrSelf(trait_group)
-    } else {
-      this.trait_group_key = null
-    }
+    if (!trait && trait != null)
+      throw new Error(`Missing trait for setup.qc.Trait(${actor_name})`);
+
+    this.trait_key = trait ? resolveKey(trait as Trait_ | TraitKey) : null;
+    this.trait_group_key = trait_group ? resolveKey(trait_group) : null;
   }
 
-  text() {
+  override text() {
     if (this.trait_key) {
-      return `setup.qc.Trait('${this.actor_name}', setup.trait.${this.trait_key})`
+      return `setup.qc.Trait('${this.actor_name}', setup.trait.${this.trait_key})`;
     } else {
-      return `setup.qc.Trait('${this.actor_name}', null, setup.traitgroup[${this.trait_group_key}])`
+      return `setup.qc.Trait('${this.actor_name}', null, setup.traitgroup[${this.trait_group_key}])`;
     }
   }
 
-
-  apply(quest) {
-    let unit = quest.getActorUnit(this.actor_name)
-    let trait_group = null
-    if (this.trait_group_key) trait_group = setup.traitgroup[this.trait_group_key]
-    let trait = null
-    if (this.trait_key) trait = setup.trait[this.trait_key]
+  override apply(context: CostContext) {
+    let unit = context.getActorUnit(this.actor_name)!;
+    let trait_group = null;
+    if (this.trait_group_key)
+      trait_group = setup.traitgroup[this.trait_group_key];
+    let trait = null;
+    if (this.trait_key) trait = setup.trait[this.trait_key];
     if (!trait || unit.isTraitCompatible(trait)) {
-      let added = unit.addTrait(trait, trait_group)
-      if (added && unit.isHasTrait(added)) unit.addHistory(`gained ${added.rep()}.`, quest)
+      let added = unit.addTrait(trait, trait_group);
+      if (added && unit.isHasTrait(added))
+        unit.addHistory(`gained ${added.rep()}.`, context);
     }
   }
 
-  explain(quest) {
+  override explain(context: CostContext) {
     if (this.trait_key) {
-      return `${this.actor_name} gain ${setup.trait[this.trait_key].rep()}`
+      return `${this.actor_name} gain ${setup.trait[this.trait_key].rep()}`;
     } else {
-      return `${this.actor_name} lose trait from class: ${setup.traitgroup[this.trait_group_key].getSmallestTrait().rep()}`
+      return `${this.actor_name} gains trait from class: ${setup.traitgroup[this.trait_group_key!].getSmallestTrait().rep()}`;
     }
   }
 }

@@ -1,20 +1,13 @@
-// @ts-nocheck
-
-setup.qresImpl.SexIsOrgasming = class SexIsOrgasming extends setup.SexRestriction {
+export default class SexIsOrgasming extends SexRestriction {
   constructor() {
-    super()
+    super();
   }
 
-  explain() {
-    return `About to climax`
+  override explain() {
+    return `About to climax`;
   }
 
-  /**
-   * @param {setup.Unit} unit
-   */
-  isOk(unit) {
-    return this.sex.isOrgasming(unit)
+  override isOk(unit: Unit) {
+    return this.sex.isOrgasming(unit);
   }
 }
-
-

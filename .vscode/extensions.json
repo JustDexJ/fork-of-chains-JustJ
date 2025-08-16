@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "EditorConfig.EditorConfig",
+    "cyrusfirheir.twee3-language-tools",
+    "oderwat.indent-rainbow",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
+    "antiantisepticeye.vscode-color-picker"
+  ]
+}

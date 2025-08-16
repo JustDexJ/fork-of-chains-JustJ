@@ -1,24 +1,26 @@
-// @ts-nocheck
+import type { UnitGroup, UnitGroupKey } from "../unit/UnitGroup";
 
-setup.qresImpl.UnitGroupEmpty = class UnitGroupEmpty extends setup.Restriction {
-  constructor(unit_group) {
-    super()
+export default class UnitGroupEmpty extends Restriction {
+  unit_group_key: UnitGroupKey;
 
-    if (!unit_group) throw new Error(`Unit group cannot be empty`)
-    this.unit_group_key = setup.keyOrSelf(unit_group)
+  constructor(unit_group: UnitGroup | UnitGroupKey) {
+    super();
+
+    if (!unit_group) throw new Error(`Unit group cannot be empty`);
+    this.unit_group_key = resolveKey(unit_group);
   }
 
-  text() {
-    return `setup.qres.UnitGroupEmpty('${this.unit_group_key}')`
+  override text() {
+    return `setup.qres.UnitGroupEmpty('${this.unit_group_key}')`;
   }
 
-  explain() {
-    let unit_group = setup.unitgroup[this.unit_group_key]
-    return `Unit group ${unit_group.rep()} must be empty`
+  override explain() {
+    let unit_group = setup.unitgroup[this.unit_group_key];
+    return `Unit group ${unit_group.rep()} must be empty`;
   }
 
-  isOk() {
-    let unit_group = setup.unitgroup[this.unit_group_key]
-    return unit_group.isEmpty()
+  override isOk() {
+    let unit_group = setup.unitgroup[this.unit_group_key];
+    return unit_group.isEmpty();
   }
 }

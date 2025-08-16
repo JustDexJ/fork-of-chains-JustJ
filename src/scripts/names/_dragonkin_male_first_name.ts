@@ -1,10 +1,8 @@
-
 /* from
 https://github.com/LukeMS/lua-namegen/blob/master/data/creatures.cfg
 */
 
-setup.NAME_dragonkin_male_first_name = function () {
-
+export const NAME_dragonkin_male_first_name = function () {
   const firstpart = [
     "Abra",
     "Adastra",
@@ -88,7 +86,7 @@ setup.NAME_dragonkin_male_first_name = function () {
     "Zalar",
     "Zerul",
     "Iozu",
-  ]
+  ];
 
   const secondpart = [
     "amat",
@@ -141,9 +139,9 @@ setup.NAME_dragonkin_male_first_name = function () {
     "zuthrax",
     "zzebrax",
     "zzemal",
-  ]
+  ];
 
-  let firstrand = setup.rng.choice(firstpart)
-  let secondrand = setup.rng.choice(secondpart)
-  return `${firstrand}${secondrand}`
-}
+  let firstrand = setup.rng.choice(firstpart);
+  let secondrand = setup.rng.choice(secondpart);
+  return `${firstrand}${secondrand}`;
+};

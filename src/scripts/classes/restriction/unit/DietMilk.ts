@@ -1,22 +1,17 @@
-// @ts-nocheck
-
-setup.qresImpl.DietMilk = class DietMilk extends setup.Restriction {
+export default class DietMilk extends Restriction.Unit {
   constructor() {
-    super()
+    super();
   }
 
-  text() {
-    return `setup.qres.DietMilk()`
+  override text() {
+    return `setup.qres.DietMilk()`;
   }
 
-  explain() {
-    return `On milk-based diet`
+  override explain() {
+    return `On milk-based diet`;
   }
 
-  /**
-   * @param {setup.Unit} unit 
-   */
-  isOk(unit) {
-    return unit.isDietMilk()
+  override isOk(unit: Unit): boolean {
+    return unit.isDietMilk();
   }
 }

@@ -1,24 +1,26 @@
-// @ts-nocheck
+import type { UnitGroup, UnitGroupKey } from "../unit/UnitGroup";
 
-setup.qresImpl.UnitGroupNotBusy = class UnitGroupNotBusy extends setup.Restriction {
-  constructor(unit_group) {
-    super()
+export default class UnitGroupNotBusy extends Restriction {
+  unit_group_key: UnitGroupKey;
 
-    if (!unit_group) throw new Error(`Unit group cannot be empty`)
-    this.unit_group_key = setup.keyOrSelf(unit_group)
+  constructor(unit_group: UnitGroup | UnitGroupKey) {
+    super();
+
+    if (!unit_group) throw new Error(`Unit group cannot be empty`);
+    this.unit_group_key = resolveKey(unit_group);
   }
 
-  text() {
-    return `setup.qres.UnitGroupNotBusy('${this.unit_group_key}')`
+  override text() {
+    return `setup.qres.UnitGroupNotBusy('${this.unit_group_key}')`;
   }
 
-  explain() {
-    let unit_group = setup.unitgroup[this.unit_group_key]
-    return `No unit from ${unit_group.rep()} must be on any quest / event / opportunity`
+  override explain() {
+    let unit_group = setup.unitgroup[this.unit_group_key];
+    return `No unit from ${unit_group.rep()} must be on any quest / event / opportunity`;
   }
 
-  isOk() {
-    const unit_group = setup.unitgroup[this.unit_group_key]
-    return !unit_group.isBusy()
+  override isOk() {
+    const unit_group = setup.unitgroup[this.unit_group_key];
+    return !unit_group.isBusy();
   }
 }

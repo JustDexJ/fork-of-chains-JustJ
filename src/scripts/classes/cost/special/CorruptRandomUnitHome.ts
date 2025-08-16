@@ -1,32 +1,23 @@
-// @ts-nocheck
-
-
 /**
  * Corrupt a random unit at home
  */
-setup.qcImpl.CorruptRandomUnitHome = class CorruptRandomUnitHome extends setup.Cost {
+export default class CorruptRandomUnitHome extends Cost {
   constructor() {
-    super()
+    super();
   }
 
-  text() {
-    return `setup.qc.CorruptRandomUnitHome()`
+  override text() {
+    return `setup.qc.CorruptRandomUnitHome()`;
   }
 
-  /**
-   * @param {any} quest 
-   */
-  apply(quest) {
-    let units = State.variables.company.player.getUnits({home: true})
-    if (!units.length) return
-    let chosen = setup.rng.choice(units)
-    setup.qc.Corrupt('unit').apply(setup.costUnitHelper(chosen))
+  override apply(context: CostContext) {
+    let units = State.variables.company.player.getUnits({ home: true });
+    if (!units.length) return;
+    let chosen = setup.rng.choice(units);
+    setup.qc.Corrupt("unit").apply(setup.costUnitHelper(chosen));
   }
 
-  /**
-   * @param {*} quest 
-   */
-  explain(quest) {
-    return `Corrupt a random unit in your company`
+  override explain(context: CostContext) {
+    return `Corrupt a random unit in your company`;
   }
 }

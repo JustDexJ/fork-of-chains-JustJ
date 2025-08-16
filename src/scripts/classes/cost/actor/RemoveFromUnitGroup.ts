@@ -1,34 +1,21 @@
-// @ts-nocheck
-
-
-setup.qcImpl.RemoveFromUnitGroup = class RemoveFromUnitGroup extends setup.Cost {
-  constructor(actor_name) {
-    super()
-
-    this.actor_name = actor_name
+export default class RemoveFromUnitGroup extends Cost {
+  constructor(public actor_name: string) {
+    super();
   }
 
-  text() {
-    return `setup.qc.RemoveFromUnitGroup('${this.actor_name}')`
+  override text() {
+    return `setup.qc.RemoveFromUnitGroup('${this.actor_name}')`;
   }
 
-  isOk(quest) {
-    throw new Error(`Reward only`)
-  }
-
-  apply(quest) {
-    let unit = quest.getActorUnit(this.actor_name)
-    let group = unit.getUnitGroup()
+  override apply(context: CostContext) {
+    let unit = context.getActorUnit(this.actor_name)!;
+    let group = unit.getUnitGroup();
     if (group) {
-      group.removeUnit(unit)
+      group.removeUnit(unit);
     }
   }
 
-  undoApply(quest) {
-    throw new Error(`Can't undo`)
-  }
-
-  explain(quest) {
-    return `${this.actor_name} is removed from their unit group, if any`
+  override explain(context: CostContext) {
+    return `${this.actor_name} is removed from their unit group, if any`;
   }
 }

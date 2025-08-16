@@ -1,9 +1,8 @@
-
 /* from
 https://en.uesp.net/wiki/Lore:Dunmer_Names
 */
 
-setup.NAME_drow_female_first_name = [
+export const NAME_drow_female_first_name = [
   "Aamela",
   "Aamrila",
   "Aarela",
@@ -1209,5 +1208,4 @@ setup.NAME_drow_female_first_name = [
   "Xand",
   "Yakin",
   "Zaristesi",
-]
-
+];

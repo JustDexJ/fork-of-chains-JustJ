@@ -1,41 +1,51 @@
-// @ts-nocheck
+import type { TraitKey } from "../../../trait/Trait";
 
+export default class TraitDecrease extends Cost {
+  trait_key: TraitKey;
 
-setup.qcImpl.TraitDecrease = class TraitDecrease extends setup.Cost {
-  constructor(actor_name, trait) {
-    super()
+  constructor(
+    public actor_name: string,
+    trait: Trait | TraitKey,
+  ) {
+    super();
 
-    // decrease trait into the given trait.
+    if (trait === undefined) {
+      throw new Error(
+        `Missing trait for setup.qc.TraitDecrease(${actor_name})`,
+      );
+    }
 
-    this.actor_name = actor_name
-
-    if (!trait && trait != null) throw new Error(`Missing trait for setup.qc.TraitDecrease(${actor_name})`)
-    if (!trait.getTraitGroup()) throw new Error(`Trait ${trait.key} does not have a trait group and cannot be decreased`)
-    this.trait_key = trait.key
+    const traitObj = resolveObject(trait, setup.trait);
+    if (!traitObj.getTraitGroup()) {
+      throw new Error(
+        `Trait ${traitObj.key} does not have a trait group and cannot be decreased`,
+      );
+    }
+    this.trait_key = traitObj.key;
   }
 
-  static NAME = 'Decrease Trait Level'
-  static PASSAGE = 'CostTraitDecrease'
-  static UNIT = true
+  static NAME = "Decrease Trait Level";
+  static PASSAGE = "CostTraitDecrease";
+  static UNIT = true;
 
-  text() {
-    return `setup.qc.TraitDecrease('${this.actor_name}', setup.trait.${this.trait_key})`
+  override text() {
+    return `setup.qc.TraitDecrease('${this.actor_name}', setup.trait.${this.trait_key})`;
   }
 
-  apply(quest) {
-    /**
-     * @type {setup.Unit}
-     */
-    let unit = quest.getActorUnit(this.actor_name)
-    let trait = setup.trait[this.trait_key]
-    let trait_group = trait.getTraitGroup()
-    if (unit.isHasRemovableTrait(trait, /* include cover = */ true) && !unit.isHasRemovableTrait(trait)) {
-      let added = unit.decreaseTrait(trait_group)
-      if (added) unit.addHistory(`gained ${added.rep()}.`, quest)
+  override apply(context: CostContext) {
+    let unit = context.getActorUnit(this.actor_name)!;
+    let trait = setup.trait[this.trait_key];
+    let trait_group = trait.getTraitGroup()!;
+    if (
+      unit.isHasRemovableTrait(trait, /* include cover = */ true) &&
+      !unit.isHasRemovableTrait(trait)
+    ) {
+      let added = unit.decreaseTrait(trait_group);
+      if (added) unit.addHistory(`gained ${added.rep()}.`, context);
     }
   }
 
-  explain(quest) {
-    return `${this.actor_name}'s trait decreases to max ${setup.trait[this.trait_key].rep()}`
+  override explain(context: CostContext) {
+    return `${this.actor_name}'s trait decreases to max ${setup.trait[this.trait_key].rep()}`;
   }
 }

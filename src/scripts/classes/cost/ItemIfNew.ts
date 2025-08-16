@@ -1,30 +1,31 @@
-// @ts-nocheck
+import type { ItemKey } from "../inventory/Item";
 
-setup.qcImpl.ItemIfNew = class ItemIfNew extends setup.Cost {
-  /**
-   * @param {setup.Item} item 
-   */
-  constructor(item) {
-    super()
+export default class ItemIfNew extends Cost {
+  item_key: ItemKey;
 
-    if (!item) throw new Error(`Null item`)
-    this.item_key = setup.keyOrSelf(item)
+  constructor(item: Item | ItemKey) {
+    super();
+
+    if (!item) throw new Error(`Null item`);
+    this.item_key = resolveKey(item);
   }
 
-  text() {
-    return `setup.qc.ItemIfNew(setup.item.${this.item_key})`
+  override text() {
+    return `setup.qc.ItemIfNew(setup.item.${this.item_key})`;
   }
 
-  getItem() { return setup.item[this.item_key] }
+  getItem(): Item {
+    return setup.item[this.item_key];
+  }
 
-  apply(quest) {
-    const item = this.getItem()
+  override apply(context: CostContext) {
+    const item = this.getItem();
     if (!State.variables.inventory.isHasItem(item)) {
-      setup.qc.Item(this.getItem()).apply(quest)
+      setup.qc.Item(this.getItem()).apply(context);
     }
   }
 
-  explain() {
-    return `Gain ${this.getItem().rep()} unless you already have it`
+  override explain() {
+    return `Gain ${this.getItem().rep()} unless you already have it`;
   }
 }

@@ -1,11 +1,6 @@
 :: InitQuestTemplate [nobr]
 
-<<set setup.questtemplate = {}>>
-
-<<set _passages = Story.lookup('tags', 'quest')>>
-<<for _ipassage, _passage range _passages>>
-  <<include _passage.title>>
-<</for>>
+<<run setup.executePassagesWithTag('quest')>>
 
 
 /* Special quest pool containing only veteran quests */

@@ -1,23 +1,19 @@
-// @ts-nocheck
-
-
-setup.qresImpl.NotInjured = class NotInjured extends setup.Restriction {
+export default class NotInjured extends Restriction.Unit {
   constructor() {
-    super()
-
+    super();
   }
 
-  static UNIT = true
+  static UNIT = true;
 
-  text() {
-    return `setup.qres.NotInjured()`
+  override text() {
+    return `setup.qres.NotInjured()`;
   }
 
-  explain() {
-    return `Unit must NOT be injured`
+  override explain() {
+    return `Unit must NOT be injured`;
   }
 
-  isOk(unit) {
-    return !State.variables.hospital.isInjured(unit)
+  override isOk(unit: Unit): boolean {
+    return !State.variables.hospital.isInjured(unit);
   }
 }

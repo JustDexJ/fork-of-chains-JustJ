@@ -2,7 +2,7 @@
 https://en.uesp.net/wiki/Lore:Redguard_Names#Redguard_Family_Names_and_Derivation_Names
 */
 
-setup.NAME_arabic_surname = [
+export const NAME_arabic_surname = [
   "Abaza",
   "Abbas",
   "Abbas-Ghulam",
@@ -480,4 +480,4 @@ setup.NAME_arabic_surname = [
   "at-Werzhan",
   "at-Wildur",
   "at-Yashar",
-]
+];

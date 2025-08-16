@@ -1,25 +1,20 @@
-// @ts-nocheck
-
 /**
  * Unit must be available: at home and not injured. They can be on a duty.
  */
-setup.qresImpl.Available = class Available extends setup.Restriction {
+export default class Available extends Restriction.Unit {
   constructor() {
-    super()
+    super();
   }
 
-  text() {
-    return `setup.qres.Available()`
+  override text() {
+    return `setup.qres.Available()`;
   }
 
-  explain() {
-    return `Unit is available for work`
+  override explain() {
+    return `Unit is available for work`;
   }
 
-  /**
-   * @param {setup.Unit} unit 
-   */
-  isOk(unit) {
-    return unit.isAvailable()
+  override isOk(unit: Unit): boolean {
+    return unit.isAvailable();
   }
 }

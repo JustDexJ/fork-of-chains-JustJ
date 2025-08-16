@@ -1,0 +1,26 @@
+/* TEXT ADOPTED AND MODIFIED FROM LILITH'S THRONE BY INNOXIA :
+PenisVagina.USING_TAIL_START
+*/
+
+import { PenisHoleStartOther } from "../hole/PenisHoleStartOther";
+
+export class PenisVaginaStartOther extends PenisHoleStartOther {
+  getTags() {
+    return super.getTags().concat(["sub"]);
+  }
+  desc() {
+    return "Start getting fucked";
+  }
+
+  getPenetrationTarget() {
+    return setup.sexbodypart.vagina;
+  }
+
+  rawTitle(sex: SexInstance) {
+    return `Get fucked`;
+  }
+
+  rawDescription(sex: SexInstance) {
+    return `Slide b|reps b|dick into your a|vagina and get fucked.`;
+  }
+}

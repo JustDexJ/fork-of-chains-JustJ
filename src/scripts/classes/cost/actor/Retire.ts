@@ -1,22 +1,19 @@
-// @ts-nocheck
-
-// retire this unit
-setup.qcImpl.Retire = class Retire extends setup.Cost {
-  constructor(actor_name) {
-    super()
-    this.actor_name = actor_name
+/** Retire this unit */
+export default class Retire extends Cost {
+  constructor(public actor_name: string) {
+    super();
   }
 
-  text() {
-    return `setup.qc.Retire('${this.actor_name}')`
+  override text() {
+    return `setup.qc.Retire('${this.actor_name}')`;
   }
 
-  apply(quest) {
-    const unit = quest.getActorUnit(this.actor_name)
-    State.variables.retiredlist.retire(unit)
+  override apply(context: CostContext) {
+    const unit = context.getActorUnit(this.actor_name)!;
+    State.variables.retiredlist.retire(unit);
   }
 
-  explain(quest) {
-    return `Forcefully retires ${this.actor_name}`
+  override explain(context: CostContext) {
+    return `Forcefully retires ${this.actor_name}`;
   }
 }

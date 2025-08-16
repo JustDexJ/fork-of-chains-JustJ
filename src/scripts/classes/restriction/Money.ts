@@ -1,26 +1,21 @@
-// @ts-nocheck
-
-
-setup.qresImpl.Money = class Money extends setup.Restriction {
-  constructor(money) {
-    super()
-
-    this.money = money
+export default class Money extends Restriction {
+  constructor(public money: number) {
+    super();
   }
 
-  static NAME = 'Money minimum'
-  static PASSAGE = 'RestrictionMoney'
+  static NAME = "Money minimum";
+  static PASSAGE = "RestrictionMoney";
 
-  text() {
-    return `setup.qres.Money(${this.money})`
+  override text() {
+    return `setup.qres.Money(${this.money})`;
   }
 
-  explain() {
-    return `Minimum money: ${this.money}`
+  override explain() {
+    return `Minimum money: ${this.money}`;
   }
 
-  isOk() {
-    if (!this.money) return true
-    return State.variables.company.player.getMoney() >= this.money
+  override isOk() {
+    if (!this.money) return true;
+    return State.variables.company.player.getMoney() >= this.money;
   }
 }

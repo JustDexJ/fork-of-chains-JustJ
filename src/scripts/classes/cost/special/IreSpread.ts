@@ -1,57 +1,49 @@
-// @ts-nocheck
-
+import type { Company, CompanyKey } from "../../Company";
 
 /**
  * Increase ire of three other companies outside of the spreader.
  */
-setup.qcImpl.IreSpread = class IreSpread extends setup.Cost {
-  /**
-   * @param {setup.Company | string} company 
-   */
-  constructor(company) {
-    super()
-    this.company_key = setup.keyOrSelf(company)
+export default class IreSpread extends Cost {
+  company_key: CompanyKey;
+
+  constructor(company: Company | CompanyKey) {
+    super();
+    this.company_key = resolveKey(company);
   }
 
-  text() {
-    return `setup.qc.IreSpread('${this.company_key}')`
+  override text() {
+    return `setup.qc.IreSpread('${this.company_key}')`;
   }
 
-  /**
-   * @param {any} quest 
-   */
-  apply(quest) {
-    const companies = []
-    for (const companykey in State.variables.company) {
-      const company = State.variables.company[companykey]
+  override apply(context: CostContext) {
+    const companies = [];
+    for (const companykey of objectKeys(State.variables.company)) {
+      const company = State.variables.company[companykey];
 
-      if (!State.variables.favor.isCompanyKnown(company)) continue
+      if (!State.variables.favor.isCompanyKnown(company)) continue;
 
-      if (company == State.variables.company.player) continue
+      if (company == State.variables.company.player) continue;
 
       // cannot be the same with spreader
-      if (company.key == this.company_key) continue
+      if (company.key == this.company_key) continue;
 
-      companies.push(company)
+      companies.push(company);
     }
 
-    setup.rng.shuffleArray(companies)
+    setup.rng.shuffleArray(companies);
 
-    let limit = 3
-    if (this.company_key == 'royal') {
+    let limit = 3;
+    if (this.company_key == "royal") {
       // royal gets extra
-      limit += 1
+      limit += 1;
     }
     for (let i = 0; i < limit; ++i) {
-      if (companies.length <= i) break
-      setup.qc.Ire(companies[i], 10).apply(quest);
+      if (companies.length <= i) break;
+      setup.qc.Ire(companies[i], 10).apply(context);
     }
   }
 
-  /**
-   * @param {*} quest 
-   */
-  explain(quest) {
-    return `Gain ire with three other companies except ${State.variables.company[this.company_key].rep()}`
+  override explain(context: CostContext) {
+    return `Gain ire with three other companies except ${State.variables.company[this.company_key].rep()}`;
   }
 }

@@ -1,62 +1,58 @@
-// @ts-nocheck
+import type { Bedchamber } from "../../classes/bedchamber/BedChamber";
+import type { Furniture } from "../../classes/furniture/Furniture";
 
-/**
- * @param {setup.Bedchamber} bedchamber
- * @returns {setup.DOM.Node}
- */
-setup.DOM.Menu.bedchamberedit = function (bedchamber) {
-  const fragments = []
+export const DOM_Menu_bedchamberedit = function (
+  bedchamber: Bedchamber,
+): DOM.Node {
+  const fragments: DOM.Attachable[] = [];
 
   // show the bedchamber, as well as remove buttons
-  fragments.push(setup.DOM.Card.bedchamber(
-    bedchamber, /* hide actions = */ false, /* show_remove_button = */ true))
+  fragments.push(
+    setup.DOM.Card.bedchamber(
+      bedchamber,
+      /* hide actions = */ false,
+      /* show_remove_button = */ true,
+    ),
+  );
 
   // show the list of furniture to attach
-  /**
-   * @type {setup.Furniture[]}
-   */
-  // @ts-ignore
-  const furnitures = State.variables.inventory.getItems().map(item_obj => item_obj.item).filter(
-    item => item instanceof setup.Furniture
-  )
 
-  fragments.push(setup.DOM.Util.filterAll({
-    menu: 'furnitureattach',
-    filter_objects: furnitures,
-    /**
-     * @param {setup.Furniture} furniture
-     */
-    display_callback: furniture => {
-      const inner = []
-      const current = bedchamber.getFurniture(furniture.getSlot())
+  const furnitures = State.variables.inventory
+    .getItems()
+    .map((item_obj) => item_obj.item)
+    .filter((item) => item instanceof setup.Furniture);
 
-      const very_inner = []
-      if (current == furniture) {
-        very_inner.push(html` Already in room: `)
-      } else {
-        very_inner.push(html`
-            ${setup.DOM.Nav.button(
-          `Attach`,
-          () => {
-            bedchamber.setFurniture(furniture.getSlot(), furniture)
-            setup.DOM.Nav.goto()
-          },
-        )}
-        `)
-      }
+  fragments.push(
+    setup.DOM.Util.filterAll({
+      menu: "furnitureattach",
+      filter_objects: furnitures,
+      display_callback: (furniture: Furniture) => {
+        const inner = [];
+        const current = bedchamber.getFurniture(furniture.getSlot());
 
-      very_inner.push(html`${furniture.repFull()}`)
-      if (current != furniture && !current.isBasic()) {
-        very_inner.push(html`
-          (replacing ${current.repFull()})
-        `)
-      }
+        const very_inner = [];
+        if (current == furniture) {
+          very_inner.push(html` Already in room: `);
+        } else {
+          very_inner.push(html`
+            ${setup.DOM.Nav.button(`Attach`, () => {
+              bedchamber.setFurniture(furniture.getSlot(), furniture);
+              setup.DOM.Nav.goto();
+            })}
+          `);
+        }
 
-      inner.push(setup.DOM.create('div', {}, very_inner))
+        very_inner.push(html`${furniture.repFull()}`);
+        if (current != furniture && !current.isBasic()) {
+          very_inner.push(html` (replacing ${current.repFull()}) `);
+        }
 
-      return setup.DOM.create('div', {}, inner)
-    },
-  }))
+        inner.push(setup.DOM.create("div", {}, very_inner));
 
-  return setup.DOM.create('div', {}, fragments)
-}
+        return setup.DOM.create("div", {}, inner);
+      },
+    }),
+  );
+
+  return setup.DOM.create("div", {}, fragments);
+};
