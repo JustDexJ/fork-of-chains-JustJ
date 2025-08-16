@@ -25,9 +25,8 @@ export default class SlaveOrderHeadHunter extends SlaveOrderTemplate {
   }
 
   override getCriteria() {
-    const chances = setup.UnitPoolTraitAlloc.getBaseTraitPreferences(
-      setup.trait.gender_male,
-    ).per.chances;
+    const chances =
+      setup.UnitPoolTraitAlloc.getBaseTraitPreferences("male").per.chances;
     let randomtraits = setup.UnitPool.generateTraitsFromObj(chances, 5, 5);
 
     let critical = [

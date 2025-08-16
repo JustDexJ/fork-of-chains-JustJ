@@ -37,10 +37,9 @@ You had some time before you restart with a new company, and you've been spendin
 
 <div>
   <<link 'Choose your starting slavers...' 'PrologueCompanyGen'>>
-    <<set _preference = $settings.getGenderPreference(setup.job.slaver)>>
     <<for _i to 0; _i lt setup.STARTING_SLAVER_CHOICES; _i++>>
       <<run new setup.MarketObject(
-        setup.unitgroup.all.getUnit(_preference),
+        setup.unitgroup.all.getUnit({ job_hint: setup.job.slaver }),
         0,
         1,
         $market.initslavermarket,

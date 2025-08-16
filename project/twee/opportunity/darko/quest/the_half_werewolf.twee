@@ -57,7 +57,7 @@ setup.qdiff.normal40, /* difficulty */
 { /* actors */
   'wanderer': [
   ],
-  'weremale': 'subrace_werewolfmale',
+  'weremale': 'subrace_werewolf_male',
   'werefemale': 'subrace_werewolf_female',
 },
 [ /* expiration outcomes */

@@ -1,21 +1,15 @@
 :: InitUnitGroupForest [nobr]
 
-<<set _males = [
-  [setup.unitpool.subrace_neko_male, 15],
-  [setup.unitpool.subrace_elf_male, 15],
-  [setup.unitpool.subrace_fairy_male, 0.1],
-]>>
-
-<<set _females = [
-  [setup.unitpool.subrace_neko_female, 15],
-  [setup.unitpool.subrace_elf_female, 15],
-  [setup.unitpool.subrace_fairy_female, 0.1],
+<<set _additions = [
+  [setup.unitpool.subrace_neko, 15],
+  [setup.unitpool.subrace_elf, 15],
+  [setup.unitpool.subrace_fairy, 0.1],
 ]>>
 
 <<run new setup.UnitGroup(
   'forest_all',
   'Residents of the Western Forests: All gender',
-  setup.ALLUNITGROUPS.concat(_males).concat(_females),
+  setup.ALLUNITGROUPS.concat(_additions),
   0,
   []
 )>>
@@ -23,7 +17,7 @@
 <<run new setup.UnitGroup(
   'forest_allmale',
   'Residents of the Western Forests: Male',
-  setup.ALLUNITGROUPSMALE.concat(_males),
+  setup.ALLUNITGROUPS.concat(_additions),
   0,
   []
 )>>
@@ -31,7 +25,7 @@
 <<run new setup.UnitGroup(
   'forest_allfemale',
   'Residents of the Western Forests: Female',
-  setup.ALLUNITGROUPSFEMALE.concat(_females),
+  setup.ALLUNITGROUPS.concat(_additions),
   0,
   []
 )>>

@@ -27,12 +27,9 @@
 "a_merchant_s_revenge1",
 "Merchant Prince",
 [ /* pools */
-  [setup.unitpool.subrace_humankingdom_male, 0.16666666666666666],
-  [setup.unitpool.subrace_humankingdom_female, 0.16666666666666666],
-  [setup.unitpool.subrace_humanvale_male, 0.16666666666666666],
-  [setup.unitpool.subrace_humanvale_female, 0.16666666666666666],
-  [setup.unitpool.subrace_elf_male, 0.16666666666666666],
-  [setup.unitpool.subrace_elf_female, 0.16666666666666666],
+  [setup.unitpool.subrace_humankingdom, 0.16666666666666666],
+  [setup.unitpool.subrace_humanvale, 0.16666666666666666],
+  [setup.unitpool.subrace_elf, 0.16666666666666666],
 ],
 1, /* reuse chance */
 [ /* unit post process */
@@ -260,7 +257,7 @@ setup.qc.TraumatizeRandom('lookout', 5)
         <p>
             Perhaps you should speak to the owner at some point. It seems that even in a place such as this, laws mean little if you have enough wealth.
         </p>
-         
+
     <</if>>
 <</choose>>
 
@@ -280,10 +277,10 @@ True to your orders, they snuck in under the cover of night, dispatching the sen
 <<name $g.infiltrator>> found the bandit leader in the largest tent, as you'd expected,
 <<if $gOutcome == 'crit'>>
 and when the slavers stole into <<their $g.bandit>> tent, <<they $g.bandit>> was still asleep. It was a simple matter for <<name $g.guard>> to gag and bind them, eventually muffling <<their $g.bandit>> cries by sitting on <<their $g.bandit>> crushing <<their $g.bandit>> nose up against <<their $g.guard2>> sweaty
-<<if $g.guard2.isHasTrait('gender_male')>>
-ass.
-<<else>>
+<<if $g.guard2.isHasVagina()>>
 crotch.
+<<else>>
+ass.
 <</if>>
 
 <br/>
@@ -317,10 +314,10 @@ I look forward to visiting your fine establishment and enjoying the services of 
 
 <<elseif $gOutcome == 'success'>>
 and when the slavers stole into <<their $g.bandit>> tent, <<they $g.bandit>> was still asleep. It was a simple matter for <<name $g.guard>> to gag and bind them, eventually muffling <<their $g.bandit>> cries by sitting on <<their $g.bandit>> crushing <<their $g.bandit>> nose up against <<their $g.guard2>> sweaty
-<<if $g.guard2.isHasTrait('gender_male')>>
-ass.
-<<else>>
+<<if $g.guard2.isHasVagina()>>
 crotch.
+<<else>>
+ass.
 <</if>>
 
 <br/>
@@ -329,10 +326,10 @@ crotch.
 
 <<elseif $gOutcome == 'failure'>>
 and when the slavers stole into <<their $g.bandit>> tent, <<they $g.bandit>> was still asleep. It was a simple matter for <<name $g.guard>> to gag and bind them, eventually muffling <<their $g.bandit>> cries by sitting on <<their $g.bandit>> crushing <<their $g.bandit>> nose up against <<their $g.guard2>> sweaty
-<<if $g.guard2.isHasTrait('gender_male')>>
-ass.
-<<else>>
+<<if $g.guard2.isHasVagina()>>
 crotch.
+<<else>>
+ass.
 <</if>>
 
 <br/>
@@ -341,10 +338,10 @@ crotch.
 
 <<elseif $gOutcome == 'disaster'>>
 and when the slavers stole into <<their $g.bandit>> tent, <<they $g.bandit>> was still asleep. It was a simple matter for <<name $g.guard>> to gag and bind them, eventually muffling <<their $g.bandit>> cries by sitting on <<their $g.bandit>> crushing <<their $g.bandit>> nose up against <<their $g.guard2>> sweaty
-<<if $g.guard2.isHasTrait('gender_male')>>
-ass.
-<<else>>
+<<if $g.guard2.isHasVagina()>>
 crotch.
+<<else>>
+ass.
 <</if>>
 
 <br/>

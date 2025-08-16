@@ -1,8 +1,7 @@
 :: InitCompanyOutlaws [nobr company]
 
 <<set _getslave = setup.qc.Function((company) => {
-  var preference = State.variables.settings.getGenderPreference(setup.job.slave);
-  var unit = setup.unitgroup.all.getUnit(preference);
+  var unit = setup.unitgroup.all.getUnit({ job_hint: setup.job.slave });
   setup.qc.Slave('recruit', "", /* is mercenary = */ true).apply({
     getName: () => company.getName(),
     getActorUnit: () => unit});

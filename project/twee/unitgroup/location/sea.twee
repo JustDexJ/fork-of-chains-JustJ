@@ -1,21 +1,15 @@
 :: InitUnitGroupSea [nobr]
 
-<<set _males = [
-  [setup.unitpool.subrace_humansea_male, 5],
-  [setup.unitpool.subrace_lizardkin_male, 3.5],
-  [setup.unitpool.subrace_dragonkin_male, 0.1],
-]>>
-
-<<set _females = [
-  [setup.unitpool.subrace_humansea_female, 5],
-  [setup.unitpool.subrace_lizardkin_female, 3.5],
-  [setup.unitpool.subrace_dragonkin_female, 0.1],
+<<set _additions = [
+  [setup.unitpool.subrace_humansea, 5],
+  [setup.unitpool.subrace_lizardkin, 3.5],
+  [setup.unitpool.subrace_dragonkin, 0.1],
 ]>>
 
 <<run new setup.UnitGroup(
   'sea_all',
   'Residents of the Southern Seas: All gender',
-  setup.ALLUNITGROUPS.concat(_males).concat(_females),
+  setup.ALLUNITGROUPS.concat(_additions),
   0,
   []
 )>>
@@ -23,7 +17,7 @@
 <<run new setup.UnitGroup(
   'sea_allmale',
   'Residents of the Southern Seas: Male',
-  setup.ALLUNITGROUPSMALE.concat(_males),
+  setup.ALLUNITGROUPS.concat(_additions),
   0,
   []
 )>>
@@ -31,7 +25,7 @@
 <<run new setup.UnitGroup(
   'sea_allfemale',
   'Residents of the Southern Seas: Female',
-  setup.ALLUNITGROUPSFEMALE.concat(_females),
+  setup.ALLUNITGROUPS.concat(_additions),
   0,
   []
 )>>

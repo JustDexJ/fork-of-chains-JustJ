@@ -36,7 +36,7 @@ export namespace rng {
    * @param key_chance_map like: {something1: 0.5, something2: 0.4}
    */
   export function sampleObject<K extends string>(
-    key_chance_map: Record<K, number>,
+    key_chance_map: ChanceObject<K> | ChanceObjectPartial<K>,
     force_return?: boolean,
   ): K | null {
     const chances = Object.entries(key_chance_map) as Array<[K, number]>;

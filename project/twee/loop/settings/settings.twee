@@ -39,7 +39,7 @@ Other: <<cycle '$settings.other_gender_preference' autoselect>><<optionsfrom _pr
 <h2>Content Filter</h2>
 
 You can turn off content here, which means that the associated quest/opportunities will
-not be generated. Check all the tags that you want to <<dangertext 'ban'>>:
+not be generated. Uncheck all the tags that you want to <<dangertext 'ban'>>:
 
 <<include 'ShowBannedTags'>>
 
@@ -48,11 +48,20 @@ not be generated. Check all the tags that you want to <<dangertext 'ban'>>:
 </div>
 
 :: ShowBannedTags [nobr]
-<<for _itag range setup.TagHelper.getAllTagsOfType('quest', 'fetish')>>
-  <<capture _itag>>
-    <div>
-      <<set _varname = `$settings.bannedtags.${_itag}`>>
-      <<checkbox _varname false true autocheck>> <<= setup.TagHelper.tagRepLong('quest', _itag) >>
-    </div>
-  <</capture>>
-<</for>>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr 1fr">
+  <<for _itag range setup.TagHelper.getAllTagsOfType('quest', 'fetish')>>
+    <<capture _itag>>
+      <div>
+        <label>
+          <<set _varname = `$settings.bannedtags.${_itag}`>>
+          <span class="ToggleSwitch">
+            <<checkbox _varname true false autocheck>>
+            <span/>
+          </span>
+           <<= setup.TagHelper.tagRepLong('quest', _itag) >>
+        </label>
+      </div>
+    <</capture>>
+  <</for>>
+</div>

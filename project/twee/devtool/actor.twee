@@ -52,27 +52,16 @@ Choose unit group:
     ['Desert...', {ug: _ugall.filter(a => a.key.startsWith('desert'))}],
     ['Sea...', {ug: _ugall.filter(a => a.key.startsWith('sea'))}],
   ]],
-  ['Common races...', [
-    ['Human (vale)...', {ug: _ugall.filter(a => a.key.startsWith('subrace_humanvale'))}],
-    ['Human (kingdom)...', {ug: _ugall.filter(a => a.key.startsWith('subrace_humankingdom'))}],
-    ['Human (desert)...', {ug: _ugall.filter(a => a.key.startsWith('subrace_humandesert'))}],
-    ['Human (sea)...', {ug: _ugall.filter(a => a.key.startsWith('subrace_humansea'))}],
-    ['Werewolf...', {ug: _ugall.filter(a => a.key.startsWith('subrace_werewolf'))}],
-    ['Neko...', {ug: _ugall.filter(a => a.key.startsWith('subrace_neko'))}],
-    ['Wood elf...', {ug: _ugall.filter(a => a.key.startsWith('subrace_elf'))}],
-    ['Drow...', {ug: _ugall.filter(a => a.key.startsWith('subrace_drow'))}],
-    ['Orc...', {ug: _ugall.filter(a => a.key.startsWith('subrace_orc'))}],
-    ['Kobold...', {ug: _ugall.filter(a => a.key.startsWith('subrace_kobold'))}],
-    ['Lizardkin...', {ug: _ugall.filter(a => a.key.startsWith('subrace_lizardkin'))}],
-    ['Demonkin...', {ug: _ugall.filter(a => a.key.startsWith('subrace_demonkin'))}],
-  ]],
-  ['Rare races...', [
-    ['Tigerkin...', {ug: _ugall.filter(a => a.key.startsWith('subrace_tigerkin'))}],
-    ['Angel...', {ug: _ugall.filter(a => a.key.startsWith('subrace_angel'))}],
-    ['Fairy...', {ug: _ugall.filter(a => a.key.startsWith('subrace_fairy'))}],
-    ['Dragonkin...', {ug: _ugall.filter(a => a.key.startsWith('subrace_dragonkin'))}],
-    ['Demon...', {ug: _ugall.filter(a => a.key.startsWith('subrace_demon') && !a.key.startsWith('subrace_demonkin'))}],
-  ]],
+  ['Common races...',
+    Object.values(setup.subrace).filter(s => !s.rare).map(subrace =>
+      [subrace.name, {ug: _ugall.filter(a => a.key.startsWith(subrace.key))}],
+    )
+  ],
+  ['Rare races...',
+    Object.values(setup.subrace).filter(s => !!s.rare).map(subrace =>
+      [subrace.name, {ug: _ugall.filter(a => a.key.startsWith(subrace.key))}],
+    )
+  ],
   ['Persistent unit groups...', {ug: _ugall.filter(a => !(a.key in _customkeys) && a.reuse_chance)}],
   ['All unit groups...', {ug: _ugall.filter(a => !(a.key in _customkeys))}],
 ]>>

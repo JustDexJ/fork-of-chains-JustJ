@@ -28,21 +28,23 @@
 'quest_enlightenment_of_the_mind1',
 "Master",
 [
-[setup.unitpool.subrace_humankingdom_male, 0.1],
-[setup.unitpool.subrace_humanvale_male, 0.1],
-[setup.unitpool.subrace_humandesert_male, 0.1],
-[setup.unitpool.subrace_humansea_male, 0.1],
-[setup.unitpool.subrace_drow_male, 0.1],
-[setup.unitpool.subrace_elf_male, 0.1],
-[setup.unitpool.subrace_neko_male, 0.1],
-[setup.unitpool.subrace_werewolf_male, 0.1],
-[setup.unitpool.subrace_orc_male, 0.1],
-[setup.unitpool.subrace_lizardkin_male, 0.1],
-[setup.unitpool.subrace_demon_male, 0.1], ],
+[setup.unitpool.subrace_humankingdom, 0.1],
+[setup.unitpool.subrace_humanvale, 0.1],
+[setup.unitpool.subrace_humandesert, 0.1],
+[setup.unitpool.subrace_humansea, 0.1],
+[setup.unitpool.subrace_drow, 0.1],
+[setup.unitpool.subrace_elf, 0.1],
+[setup.unitpool.subrace_neko, 0.1],
+[setup.unitpool.subrace_werewolf, 0.1],
+[setup.unitpool.subrace_orc, 0.1],
+[setup.unitpool.subrace_lizardkin, 0.1],
+[setup.unitpool.subrace_demon, 0.1], ],
 1, /* reuse chance */
 [
 setup.qc.BgTraitReset('unit', setup.trait.bg_apprentice),
-setup.qc.TraitsReplace('unit', [setup.trait.gender_male, setup.trait.per_smart, setup.trait.magic_light_master, setup.trait.face_attractive, setup.trait.skill_alchemy]), ],
+setup.qc.TraitsReplace('unit', [setup.trait.gender_male, setup.trait.per_smart, setup.trait.magic_light_master, setup.trait.face_attractive, setup.trait.skill_alchemy]),
+],
+["gender_male"]
 )>>
 
 <<set _criteriapupil = new setup.UnitCriteria(
@@ -234,8 +236,7 @@ Tuition is costly and places are limited. If you mean to act, act now!
 <<run setup.qc.RemoveFromUnitGroup('master').apply($gQuest)>>
 
 <<set $g.master = setup.unitgroup.quest_enlightenment_of_the_mind1.getUnit({
-  retries: 100,
-  trait_key: $g.pupil.getRace().key,
+  unit_pool: $g.pupil.getRace().key,
 })>>
 
 :: Quest_enlightenment_of_the_mindCrit [nobr]

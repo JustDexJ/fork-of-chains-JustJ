@@ -31,7 +31,7 @@
     "deployfull": "sh deploy.sh deployfull",
     "deployitch": "sh deploy.sh deployitch",
     "set-version": "node dev/setVersion.js",
-    "check-type-errors": "tsc -p .",
+    "check-types": "tsc -p .",
     "reformat-all-files": "prettier --write ."
   },
   "keywords": [

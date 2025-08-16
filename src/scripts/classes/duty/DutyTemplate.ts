@@ -161,7 +161,7 @@ export class DutyTemplate<
     for (const [skillkey, skillvalue] of objectEntries(skillmap)) {
       const skill = setup.skill[skillkey as unknown as SkillKey];
       const unitskill = unit.getSkill(skill);
-      chance += unitskill * skillvalue;
+      chance += unitskill * skillvalue!;
     }
 
     const traitmap = this.getRelevantTraits();

@@ -5,14 +5,10 @@
 "an_offering_accepted0",
 "DemontoyMistwalker",
 [ /* pools */
-  [setup.unitpool.subrace_demonkin_male, 0.10],
-  [setup.unitpool.subrace_demonkin_female, 0.10],
-  [setup.unitpool.subrace_dragonkin_male, 0.01],
-  [setup.unitpool.subrace_dragonkin_female, 0.01],
-  [setup.unitpool.subrace_humandesert_male, 0.24],
-  [setup.unitpool.subrace_humandesert_female, 0.24],
-  [setup.unitpool.subrace_orc_male, 0.15],
-  [setup.unitpool.subrace_orc_female, 0.15],
+  [setup.unitpool.subrace_demonkin, 0.10],
+  [setup.unitpool.subrace_dragonkin, 0.01],
+  [setup.unitpool.subrace_humandesert, 0.24],
+  [setup.unitpool.subrace_orc, 0.15],
 ],
 0, /* reuse chance */
 [ /* unit post process */

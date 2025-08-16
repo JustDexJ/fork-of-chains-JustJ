@@ -15,7 +15,7 @@ combat: 2,brawn: 4,survival: 1,},
 <<run new setup.UnitGroup(
 "the_cold_dish0",
 "Father of the Half-Werewolf",
-'subrace_werewolfmale',  /* pools */
+'subrace_werewolf',  /* pools */
 0, /* reuse chance */
 [ /* unit post process */
   setup.qc.BgTraitReset('unit', setup.trait.bg_raider),
@@ -23,6 +23,7 @@ combat: 2,brawn: 4,survival: 1,},
   setup.qc.TraitsReplace('unit', [setup.trait.per_lustful, setup.trait.per_dominant]),
   setup.qc.AddTag('unit', 'half_werewolf_father'),
 ],
+['gender_male']
 )>>
 
 

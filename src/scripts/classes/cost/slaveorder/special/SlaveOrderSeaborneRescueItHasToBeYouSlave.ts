@@ -1,3 +1,4 @@
+import { SEXGENDERS } from "../../../../data/sexgenders";
 import { SlaveOrderTemplate } from "../SlaveOrderTemplate";
 
 export default class SlaveOrderSeaborneRescueItHasToBeYouSlave extends SlaveOrderTemplate {
@@ -42,9 +43,12 @@ export default class SlaveOrderSeaborneRescueItHasToBeYouSlave extends SlaveOrde
       [setup.trait.skill_hypnotic],
       [setup.trait.skill_ambidextrous],
     ];
-    let gender = State.variables.settings.getGenderRandom(setup.job.slave);
 
-    if (gender == setup.trait.gender_male) {
+    let sexgender = State.variables.settings.getSexgenderRandom(
+      setup.job.slave,
+    );
+    const sexgender_data = SEXGENDERS[sexgender];
+    if (sexgender_data.dick) {
       choices = choices.concat([
         [
           setup.trait.dick_large,
@@ -57,14 +61,17 @@ export default class SlaveOrderSeaborneRescueItHasToBeYouSlave extends SlaveOrde
           setup.trait.balls_titanic,
         ],
       ]);
-    } else {
+    }
+    if (sexgender_data.vagina) {
+      choices = choices.concat([[setup.trait.vagina_tight]]);
+    }
+    if (sexgender_data.breast) {
       choices = choices.concat([
         [
           setup.trait.breast_large,
           setup.trait.breast_huge,
           setup.trait.breast_titanic,
         ],
-        [setup.trait.vagina_tight],
       ]);
     }
 
@@ -77,7 +84,10 @@ export default class SlaveOrderSeaborneRescueItHasToBeYouSlave extends SlaveOrde
       }
     }
 
-    let req = [setup.qres.Job(setup.job.slave), setup.qres.Trait(gender)];
+    let req = [
+      setup.qres.Job(setup.job.slave),
+      setup.qres.Trait(sexgender_data.gender_trait_key),
+    ];
 
     let criteria = new setup.UnitCriteria(
       null /* key */,

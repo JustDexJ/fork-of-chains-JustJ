@@ -19,13 +19,10 @@ export default {
         menuItemAction({
           text: `Select`,
           callback: () => {
-            const preference = State.variables.settings.getGenderPreference(
-              setup.job.slaver,
-            );
             const child = setup.UnitBirth.generateChild(
               unit,
               pupil,
-              preference,
+              setup.job.slaver,
             );
 
             setup.qc

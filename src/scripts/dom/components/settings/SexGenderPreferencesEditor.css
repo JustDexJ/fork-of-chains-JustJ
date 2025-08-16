@@ -1,0 +1,20 @@
+.SexGenderPreferencesEditor-table {
+  display: grid;
+  gap: 0 0.25em;
+}
+
+.SexGenderPreferencesEditor-slider {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+
+  border-left: 1px solid #444;
+  padding-left: 0.5em;
+  margin-left: 0.5em;
+}
+.SexGenderPreferencesEditor-percent {
+  text-align: right;
+  font-size: 90%;
+  min-width: 4em;
+  min-width: 2.8em;
+}

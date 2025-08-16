@@ -162,10 +162,12 @@ mlangmerchantprincequest 5 = Caravan Raid tips incoming */
     By now, <<lore location_princeofcups>> is starting to feel familiar, from its polished wooden floors to the pressed white tablecloths, to the _pdrink waiting for you at the table, a <<uadjphys $g.merchant>> <<urace $g.merchant>> lounging on the opposite side, toying with a glass of deep red wine.<br>
     <<if setup.qres.VarEqual("mlangmerchantprinceflirt", "1").isOk($gQuest)>>
         "Nice to see you again." <<name $g.merchant>>'s eyes rake over your body, lingering on your
-        <<if $unit.player.isHasTrait('gender_male')>>
+        <<if $unit.player.isHasDick()>>
             crotch for a noticeable moment.
-        <<else>>
+        <<elseif $unit.player.isHasBreasts()>>
             breasts for a noticeable moment.
+        <<else>>
+            face for a noticeable moment.
         <</if>>
         "It has been a while."
     <<else>>
@@ -318,7 +320,7 @@ See if The Prince of Cups would like to buy a slave (Watersports Kink)
 
 
 :: Opportunity_a_merchant_s_revenge_payback_is_sweet_2_flavor [nobr]
-It takes a few minutes before your 
+It takes a few minutes before your
 <<if $unit.player.isHasTrait('per_direct')>>
     direct query to speak to the manager about slaves
 <<else>>

@@ -1,16 +1,14 @@
+import type { FAMILY_RELATION_DEFINTIONS } from "../../data/familyrelations";
 import { TwineClass } from "../_TwineClass";
 
-//export type FamilyRelationKey = BrandedType<string, "FamilyRelationKey">;
+export interface FamilyRelationDefinition {
+  key: string;
+  name: string;
+  tags: string[];
+  nicknames: Record<string, string[]>;
+}
 
-export type FamilyRelationKey =
-  | "brother"
-  | "sister"
-  | "twinbrother"
-  | "twinsister"
-  | "father"
-  | "mother"
-  | "son"
-  | "daughter";
+export type FamilyRelationKey = keyof typeof FAMILY_RELATION_DEFINTIONS;
 
 export class FamilyRelation extends TwineClass {
   key: FamilyRelationKey;
@@ -18,25 +16,22 @@ export class FamilyRelation extends TwineClass {
   tags: string[];
   nicknames: Record<string, string[]>;
 
-  constructor(
-    key: string,
-    name: string,
-    tags: string[],
-    nicknames: Record<string, string[]>,
-  ) {
+  constructor(def: FamilyRelationDefinition) {
     super();
+
+    const key = def.key as FamilyRelationKey;
 
     if (!key) throw new Error(`null key for family relation`);
     this.key = key as FamilyRelationKey;
 
-    if (!name) throw new Error(`null name for family relation ${key}`);
-    this.name = name;
+    if (!def.name) throw new Error(`null name for family relation ${key}`);
+    this.name = def.name;
 
-    if (!Array.isArray(tags))
+    if (!Array.isArray(def.tags))
       throw new Error(`${key} tags wrong for family relation ${name}`);
-    this.tags = tags;
+    this.tags = def.tags;
 
-    this.nicknames = nicknames;
+    this.nicknames = def.nicknames;
 
     if (key in setup.familyrelation)
       throw new Error(`Family relation ${key} duplicated`);

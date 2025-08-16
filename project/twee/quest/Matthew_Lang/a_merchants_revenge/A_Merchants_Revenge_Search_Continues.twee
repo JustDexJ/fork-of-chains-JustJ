@@ -253,7 +253,7 @@ True to your orders, they snuck in under the cover of night, dispatching the sen
 <<if $gOutcome == 'crit'>>
 <<if $g.guard.isYou()>>
 And when the slavers stole into <<their $g.bandit>> tent, <<they $g.bandit>> was still asleep. It was a simple matter for you to gag and bind them, eventually muffling <<their $g.bandit>> cries by sitting on <<their $g.bandit>> crushing <<their $g.bandit>> nose up against <<their $g.guard2>> sweaty
-<<if $g.guard2.isHasTrait('gender_male')>>
+<<if !$g.guard2.isHasVagina()>>
 ass.
 <<else>>
 crotch.
@@ -261,7 +261,7 @@ crotch.
 <<else>>
 <<name $g.infiltrator>> found the bandit leader in the largest tent, as you'd expected,
 and when the slavers stole into <<their $g.bandit>> tent, <<they $g.bandit>> was still asleep. It was a simple matter for <<name $g.guard>> to gag and bind them, eventually muffling <<their $g.bandit>> cries by sitting on <<their $g.bandit>> nose, crushing it up against <<their $g.guard2>> sweaty
-<<if $g.guard2.isHasTrait('gender_male')>>
+<<if !$g.guard2.isHasVagina()>>
 ass.
 <<else>>
 crotch.
@@ -288,7 +288,7 @@ I look forward to visiting your fine establishment and enjoying the services of 
 <<elseif $gOutcome == 'success'>>
 <<if $g.guard.isYou()>>
 and when the slavers stole into <<their $g.bandit>> tent, <<they $g.bandit>> was still asleep. It was a simple matter for you to gag and bind them, eventually muffling <<their $g.bandit>> cries by sitting on <<their $g.bandit>> crushing <<their $g.bandit>> nose up against <<their $g.guard2>> sweaty
-<<if $g.guard2.isHasTrait('gender_male')>>
+<<if !$g.guard2.isHasVagina()>>
 ass.
 <<else>>
 crotch.
@@ -296,7 +296,7 @@ crotch.
 <<else>>
 <<name $g.infiltrator>> found the bandit leader in the largest tent, as you'd expected,
 and when the slavers stole into <<their $g.bandit>> tent, <<they $g.bandit>> was still asleep. It was a simple matter for <<name $g.guard>> to gag and bind them, eventually muffling <<their $g.bandit>> cries by sitting on <<their $g.bandit>> crushing <<their $g.bandit>> nose up against <<their $g.guard2>> sweaty
-<<if $g.guard2.isHasTrait('gender_male')>>
+<<if !$g.guard2.isHasVagina()>>
 ass.
 <<else>>
 crotch.
@@ -308,7 +308,7 @@ crotch.
 <<elseif $gOutcome == 'failure'>>
 <<if $g.guard.isYou()>>
 and when the slavers stole into <<their $g.bandit>> tent, <<they $g.bandit>> was still asleep. It was a simple matter for you to gag and bind them, eventually muffling <<their $g.bandit>> cries by sitting on <<their $g.bandit>> crushing <<their $g.bandit>> nose up against <<their $g.guard2>> sweaty
-<<if $g.guard2.isHasTrait('gender_male')>>
+<<if !$g.guard2.isHasVagina()>>
 ass.
 <<else>>
 crotch.
@@ -316,7 +316,7 @@ crotch.
 <<else>>
 <<name $g.infiltrator>> found the bandit leader in the largest tent, as you'd expected,
 and when the slavers stole into <<their $g.bandit>> tent, <<they $g.bandit>> was still asleep. It was a simple matter for <<name $g.guard>> to gag and bind them, eventually muffling <<their $g.bandit>> cries by sitting on <<their $g.bandit>> crushing <<their $g.bandit>> nose up against <<their $g.guard2>> sweaty
-<<if $g.guard2.isHasTrait('gender_male')>>
+<<if !$g.guard2.isHasVagina()>>
 ass.
 <<else>>
 crotch.
@@ -328,7 +328,7 @@ crotch.
 <<elseif $gOutcome == 'disaster'>>
 <<if $g.guard.isYou()>>
 and when the slavers stole into <<their $g.bandit>> tent, <<they $g.bandit>> was still asleep. It was a simple matter for you to gag and bind them, eventually muffling <<their $g.bandit>> cries by sitting on <<their $g.bandit>> crushing <<their $g.bandit>> nose up against <<their $g.guard2>> sweaty
-<<if $g.guard2.isHasTrait('gender_male')>>
+<<if !$g.guard2.isHasVagina()>>
 ass.
 <<else>>
 crotch.
@@ -336,7 +336,7 @@ crotch.
 <<else>>
 <<name $g.infiltrator>> found the bandit leader in the largest tent, as you'd expected,
 and when the slavers stole into <<their $g.bandit>> tent, <<they $g.bandit>> was still asleep. It was a simple matter for <<name $g.guard>> to gag and bind them, eventually muffling <<their $g.bandit>> cries by sitting on <<their $g.bandit>> crushing <<their $g.bandit>> nose up against <<their $g.guard2>> sweaty
-<<if $g.guard2.isHasTrait('gender_male')>>
+<<if !$g.guard2.isHasVagina()>>
 ass.
 <<else>>
 crotch.

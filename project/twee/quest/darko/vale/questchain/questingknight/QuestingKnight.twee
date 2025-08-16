@@ -61,8 +61,7 @@
   'quest_humankingdom_knight',
   'knight of the kingdom',
   [
-    [setup.unitpool.subrace_humankingdom_male, 0.7],
-    [setup.unitpool.subrace_humankingdom_female, 0.3],
+    [setup.unitpool.subrace_humankingdom, 1],
   ],
   0,
   [

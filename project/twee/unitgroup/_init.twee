@@ -13,7 +13,7 @@
 <<include InitUnitGroupSlaves>>
 <<include InitUnitGroupSlavers>>
 
-/* Race Based and Others */
+/* Others */
 <<run setup.executePassagesWithTag('unitgroup')>>
 
 /* Quest based */

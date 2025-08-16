@@ -1,4 +1,5 @@
-import { Furniture, type FurnitureSlotKey } from "../furniture/Furniture";
+import { Furniture } from "../furniture/Furniture";
+import type { FurnitureSlotKey } from "../furniture/FurnitureSlot";
 import type { ItemClassKey } from "../inventory/ItemClass";
 import type { SkillKey } from "../Skill";
 import {

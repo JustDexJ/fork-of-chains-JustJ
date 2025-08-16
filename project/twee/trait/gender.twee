@@ -4,7 +4,7 @@
   new setup.Trait(
     'gender_male',
     'male',
-    'Has a penis but no vagina.',
+    'Has a masculine appearance.',
     0,
     {},
     ['common', 'needdick',],
@@ -12,7 +12,7 @@
   new setup.Trait(
     'gender_female',
     'female',
-    'Has a vagina but no penis.',
+    'Has a femenine appearance.',
     0,
     {},
     ['common', 'needvagina',],

@@ -148,8 +148,7 @@ Let the Pupilmaster impregnate her
 :: Opportunity_enlightenment_of_the_soul___prelude_0_flavor [nobr]
 Your original idea was simpler: she should just blow somebody and get the spellbook without all this “purificiation” nonsense. When the long-winded poetry's done, this is just a slower version of the same.
 
-<<set _preference = $settings.getGenderPreference(setup.job.slaver)>>
-<<set _child = setup.UnitBirth.generateChild($g.master, $g.pupil, _preference)>>
+<<set _child = setup.UnitBirth.generateChild($g.master, $g.pupil, setup.job.slaver)>>
 
 <<run setup.qc.QuestDirect('enlightenment_of_the_soul', {child: 'child'}).apply(
   setup.costUnitHelper(_child)
@@ -163,8 +162,7 @@ Impregnate her yourself
 :: Opportunity_enlightenment_of_the_soul___prelude_1_flavor [nobr]
 With all <i>you've</i> been paying, and all the time off she's had for these courses, the least she can do is let you enjoy her sweetness for a little while.
 
-<<set _preference = $settings.getGenderPreference(setup.job.slaver)>>
-<<set _child = setup.UnitBirth.generateChild($unit.player, $g.pupil, _preference)>>
+<<set _child = setup.UnitBirth.generateChild($unit.player, $g.pupil, setup.job.slaver)>>
 
 <<run setup.qc.Event('enlightenment_of_the_soul___interlude', 0, {child: 'child', pupil: 'pupil'}).apply(
   setup.costUnitHelperDict({child: _child, pupil: $g.pupil})

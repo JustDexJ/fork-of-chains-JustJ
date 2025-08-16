@@ -5,13 +5,15 @@
 
 // TODO: migrate all remaining to js/ts
 
-import { initEquipmentSlots } from "../data/equipmentslot";
-import { initFamilyRelations } from "../data/familyrelations";
-import { initFurnitureSlots } from "../data/furnitureslot";
-import { initJobs } from "../data/job";
-import { initSkills } from "../data/skills";
-import { initSpeeches } from "../data/speeches";
-import { initTitles } from "../data/titles";
+import { EQUIPMENT_SLOT_DEFINITIONS } from "../data/equipmentslots";
+import { FAMILY_RELATION_DEFINTIONS } from "../data/familyrelations";
+import { FURNITURE_SLOT_DEFINITIONS } from "../data/furnitureslots";
+import { JOB_DEFINITIONS } from "../data/jobs";
+import { SKILL_DEFINITIONS } from "../data/skills";
+import { SPEECHES_DEFINITIONS } from "../data/speeches";
+import { SUBRACE_DEFINITIONS } from "../data/subraces/_index";
+import { TITLE_DEFINITIONS } from "../data/titles";
+import { DataUtil } from "../util/DataUtil";
 import { initSetup, initState } from "./state_init";
 
 const executePassagesWithTag = setup.executePassagesWithTag;
@@ -27,26 +29,29 @@ function executePassage(passageName: string): void {
 // for example a lot of Unit Criterias reference the Jobs.
 //
 
-initJobs();
+DataUtil.load(setup.Job, JOB_DEFINITIONS);
 
-initEquipmentSlots();
+DataUtil.load(setup.EquipmentSlot, EQUIPMENT_SLOT_DEFINITIONS);
 
-initFurnitureSlots();
+DataUtil.load(setup.FurnitureSlot, FURNITURE_SLOT_DEFINITIONS);
 
 // Skills
-initSkills();
+DataUtil.load(setup.Skill, SKILL_DEFINITIONS);
 
 // Traits
 executePassage("InitTraits");
 
 // Titles
-initTitles();
+DataUtil.load(setup.Title, TITLE_DEFINITIONS);
 
 // Speeches (speech patterns)
-initSpeeches();
+DataUtil.load(setup.Speech, SPEECHES_DEFINITIONS);
 
 // Lores
 executePassagesWithTag("lore");
+
+// Races & Subraces
+DataUtil.load(setup.Subrace, SUBRACE_DEFINITIONS);
 
 // Items (ItemClass / Item / Furniture)
 {
@@ -68,11 +73,10 @@ executePassagesWithTag("criteria");
 // Company Templates
 executePassagesWithTag("company");
 
-// Unit Pools
-executePassagesWithTag("unitpool");
-
-// Unit Groups
+// Unit Pools & Unit Groups
 {
+  executePassagesWithTag("unitpool");
+
   // Define the special "null" unit group
   new setup.UnitGroup("none", "Special: Empty unit group", [], 0, []);
 
@@ -125,7 +129,7 @@ executePassagesWithTag("event");
 }
 
 // Family Relations
-initFamilyRelations();
+DataUtil.load(setup.FamilyRelation, FAMILY_RELATION_DEFINTIONS);
 
 // Activities
 {

@@ -1,10 +1,7 @@
-import type { _furnitureslot } from "../../data/furnitureslot.js";
 import type { Rarity } from "../deck/Rarity.js";
 import { Item } from "../inventory/Item.js";
 import type { Skill, SkillValuesArray, SkillValuesInit } from "../Skill.js";
-import type { FurnitureSlot } from "./FurnitureSlot.js";
-
-export type FurnitureSlotKey = keyof _furnitureslot;
+import type { FurnitureSlot, FurnitureSlotKey } from "./FurnitureSlot.js";
 
 interface FurnitureTexts {
   bedchamber?: string;

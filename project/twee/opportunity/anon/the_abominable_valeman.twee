@@ -17,12 +17,9 @@
 "abominable_valeman",
 "valeman",
 [ /* pools */
-  [setup.unitpool.subrace_werewolf_male, 0.3125],
-  [setup.unitpool.subrace_werewolf_female, 0.3125],
-  [setup.unitpool.subrace_humanvale_male, 0.15625],
-  [setup.unitpool.subrace_humanvale_female, 0.15625],
-  [setup.unitpool.subrace_neko_male, 0.03125],
-  [setup.unitpool.subrace_neko_female, 0.03125],
+  [setup.unitpool.subrace_werewolf, 0.3125],
+  [setup.unitpool.subrace_humanvale, 0.15625],
+  [setup.unitpool.subrace_neko, 0.03125],
 ],
 0, /* reuse chance */
 [ /* unit post process */
@@ -39,12 +36,9 @@
 "raider_valeman",
 "raiderman",
 [ /* pools */
-  [setup.unitpool.subrace_werewolf_male, 0.3125],
-  [setup.unitpool.subrace_werewolf_female, 0.3125],
-  [setup.unitpool.subrace_humanvale_male, 0.15625],
-  [setup.unitpool.subrace_humanvale_female, 0.15625],
-  [setup.unitpool.subrace_neko_male, 0.03125],
-  [setup.unitpool.subrace_neko_female, 0.03125],
+  [setup.unitpool.subrace_werewolf, 0.3125],
+  [setup.unitpool.subrace_humanvale, 0.15625],
+  [setup.unitpool.subrace_neko, 0.03125],
 ],
 0, /* reuse chance */
 [ /* unit post process */
@@ -82,8 +76,8 @@ setup.qdiff.easy5, /* difficulty */
       setup.qc.AddTitle('valeman', 'quest_the_abominable_valeman_abominable_valeman'),
       setup.qc.Slaver('valeman', _desc1, true)
       ], undefined),
-      setup.qc.Slaver('raiderman', _desc1, undefined)), 
-    ], 
+      setup.qc.Slaver('raiderman', _desc1, undefined)),
+    ],
   ],
   [
     'Opportunity_the_abominable_valeman_1',
@@ -99,7 +93,7 @@ setup.qdiff.easy5, /* difficulty */
       setup.qc.AddTitle('valeman', 'quest_the_abominable_valeman_abominable_valeman'),
       setup.qc.Slave('valeman', _desc1, undefined)
       ], undefined),
-      setup.qc.Slave('raiderman', _desc1, undefined)), 
+      setup.qc.Slave('raiderman', _desc1, undefined)),
     ],
   ],
   [

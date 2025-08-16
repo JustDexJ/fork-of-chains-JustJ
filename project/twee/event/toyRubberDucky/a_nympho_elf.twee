@@ -19,8 +19,7 @@
 "a_nympho_elf2",
 "Nympho Elf",
 [ /* pools */
-  [setup.unitpool.subrace_elf_female, 0.5],
-  [setup.unitpool.subrace_elf_male, 0.5],
+  [setup.unitpool.subrace_elf, 1],
 ],
 0, /* reuse chance */
 [ /* unit post process */
@@ -125,9 +124,9 @@ Going to see what is happening you are met by an elven <<woman $g.nymphoelf>> wh
         <<opt "Come! Come on this dick!">>
             <<They $g.nymphoelf>> moans loudly, <<their $g.nymphoelf>> body shuddering. <<Their $g.nymphoelf>> <<ugenital $g.nymphoelf>>
             <<if $g.nymphoelf.isHasDick()>>
-            squirts a load of <<ucum $g.nymphoelf>> onto the floor as <<they $g.nymphoelf>> cums. 
+            squirts a load of <<ucum $g.nymphoelf>> onto the floor as <<they $g.nymphoelf>> cums.
             <<else>>
-            leaks <<ucum $g.nymphoelf>> onto the floor as <<they $g.nymphoelf>> climaxes. 
+            leaks <<ucum $g.nymphoelf>> onto the floor as <<they $g.nymphoelf>> climaxes.
             <</if>>
             Satisfied they slide off your <<udickorstrap $unit.player>>, whispering in a daze.
             <<dialogue $g.nymphoelf>>

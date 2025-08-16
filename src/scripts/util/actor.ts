@@ -144,7 +144,7 @@ export namespace DebugActor {
             // just create new people for this
             unit =
               setup.unitpool[
-                "subrace_humankingdom_male" as UnitPoolKey
+                "subrace_humankingdom" as UnitPoolKey
               ].generateUnit();
             State.variables.company.player.addUnit(
               unit,

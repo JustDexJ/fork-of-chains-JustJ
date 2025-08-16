@@ -1,12 +1,22 @@
+import { SEXGENDERS } from "../../../data/sexgenders";
 import { generateUnitName } from "../../../names/namegen";
 import { TwineClass } from "../../_TwineClass";
+import type { JobKey } from "../../job/Job";
+import { SexgenderKey } from "../../Settings";
 import type { SkillValuesArray, SkillValuesInit } from "../../Skill";
 import type { Trait, TraitKey } from "../../trait/Trait";
+import type { TraitAllocEntry, UnitPoolTraitAlloc } from "./UnitPoolTraitAlloc";
 
-interface TraitAllocEntry {
-  chances: { [traitKey in TraitKey]: number };
-  min: number;
-  max: number;
+export interface GenerateUnitOptions {
+  /** Force the unit to be of this gender */
+  gender?: TraitKey | BuiltinTraitKey | keyof typeof SEXGENDERS;
+
+  /**
+   * If provided and "gender" is not specified,
+   * will use this job to determine which gender distribution to use to roll the gender.
+   * If not provided, will default to the distribution for "other units".
+   */
+  job_hint?: JobKey;
 }
 
 export type UnitPoolKey = BrandedType<string, "UnitPoolKey">;
@@ -14,14 +24,14 @@ export type UnitPoolKey = BrandedType<string, "UnitPoolKey">;
 export class UnitPool extends TwineClass {
   key: UnitPoolKey;
   name: string;
-  trait_alloc: { [k: string]: TraitAllocEntry };
+  trait_alloc: UnitPoolTraitAlloc;
   base_stat_ranges: SkillValuesArray<[number, number]>;
   post_process: Cost[];
 
   constructor(
     key: string,
     name: string,
-    trait_alloc: { [k: string]: TraitAllocEntry },
+    trait_alloc: UnitPoolTraitAlloc,
     base_stat_ranges: SkillValuesInit<[number, number]>,
     post_process: Cost[],
   ) {
@@ -38,30 +48,31 @@ export class UnitPool extends TwineClass {
     this.post_process = post_process || [];
 
     // verify trait alloc
-    for (const [traitallockey, tob] of Object.entries(trait_alloc)) {
-      if (!("chances" in tob))
-        throw new Error(`UnitPool ${key}'s ${traitallockey} missing chances`);
-      if (!("min" in tob))
-        throw new Error(`UnitPool ${key}'s ${traitallockey} missing min`);
-      if (!("max" in tob))
-        throw new Error(`UnitPool ${key}'s ${traitallockey} missing max`);
-      let ch = tob.chances;
-      for (const [traitkey, chance] of objectEntries(ch)) {
-        if (!(traitkey in setup.trait))
-          throw new Error(
-            `Unknown trait ${traitkey} in unitpool ${key}'s ${traitallockey}`,
-          );
-        if (isNaN(chance))
-          throw new Error(
-            `NaN for ${traitkey} in unitpool ${key}'s ${traitallockey}`,
-          );
-        if (!setup.trait[traitkey].getTags().includes(traitallockey)) {
-          throw new Error(
-            `Trait ${traitkey} in ${key} does not include ${traitallockey}`,
-          );
-        }
-      }
-    }
+    //for (const [traitallockey, tob] of Object.entries(trait_alloc)) {
+    //  if (!("chances" in tob))
+    //    throw new Error(`UnitPool ${key}'s ${traitallockey} missing chances`);
+    //  if (!("min" in tob))
+    //    throw new Error(`UnitPool ${key}'s ${traitallockey} missing min`);
+    //  if (!("max" in tob))
+    //    throw new Error(`UnitPool ${key}'s ${traitallockey} missing max`);
+    //
+    //  let ch = tob.chances;
+    //  for (const [traitkey, chance] of objectEntries(ch)) {
+    //    if (!(traitkey in setup.trait))
+    //      throw new Error(
+    //        `Unknown trait ${traitkey} in unitpool ${key}'s ${traitallockey}`,
+    //      );
+    //    if (isNaN(chance))
+    //      throw new Error(
+    //        `NaN for ${traitkey} in unitpool ${key}'s ${traitallockey}`,
+    //      );
+    //    if (!setup.trait[traitkey].getTags().includes(traitallockey)) {
+    //      throw new Error(
+    //        `Trait ${traitkey} in ${key} does not include ${traitallockey}`,
+    //      );
+    //    }
+    //  }
+    //}
 
     if (key in setup.unitpool)
       throw new Error(`Unitpool ${this.key} duplicated`);
@@ -99,7 +110,7 @@ export class UnitPool extends TwineClass {
     return base_array;
   }
 
-  _generateSkills() {
+  _generateSkills(options?: GenerateUnitOptions) {
     let skills = [];
     for (let i = 0; i < setup.skill.length; ++i) {
       let lower = this.base_stat_ranges[i][0];
@@ -212,12 +223,12 @@ export class UnitPool extends TwineClass {
     return obtained_trait_keys;
   }
 
-  _generateTraits() {
-    let trait_alloc = this.trait_alloc;
+  _generateTraits(sexgender: SexgenderKey, options?: GenerateUnitOptions) {
     let trait_keys: TraitKey[] = [];
 
-    for (let traitgroup in trait_alloc) {
-      let base_obj = trait_alloc[traitgroup];
+    const trait_alloc = this.trait_alloc.computePreferences(sexgender);
+
+    for (const [traitgroup, base_obj] of objectEntries(trait_alloc)) {
       let chances = base_obj.chances;
       let traitmin = base_obj.min;
       let traitmax = base_obj.max;
@@ -238,10 +249,26 @@ export class UnitPool extends TwineClass {
     return traits;
   }
 
-  generateUnit() {
-    // preference is from settings.GENDER_PREFERENCE
-    let traits = this._generateTraits();
-    let skills = this._generateSkills();
+  generateUnit(options?: GenerateUnitOptions) {
+    // Use the gender override if passed as an option
+    let sexgender: SexgenderKey | undefined = undefined;
+    if (options?.gender) {
+      let value = options.gender.startsWith("gender_")
+        ? options.gender.substring(7)
+        : options.gender;
+      if (value in SEXGENDERS) {
+        sexgender = value as SexgenderKey;
+      }
+    }
+    if (!sexgender) {
+      // Otherwise roll for a gender, according to the player gender preferences
+      let job = options?.job_hint ?? null;
+      const chances = State.variables.settings.getGenderPreferenceChances(job);
+      sexgender = setup.rng.sampleObject(chances)!;
+    }
+
+    let traits = this._generateTraits(sexgender, options);
+    let skills = this._generateSkills(options);
     let namearray = generateUnitName(traits);
     let unit = new setup.Unit(namearray, traits, skills);
 
@@ -251,6 +278,7 @@ export class UnitPool extends TwineClass {
       setup.costUnitHelper(unit),
     );
 
+    console.log(options, sexgender, traits, unit);
     return unit;
   }
 

@@ -13,23 +13,25 @@ combat: 3,brawn: 3,sex: 3,},
 <<run new setup.UnitGroup(
 "just_an_ordinary_desert_raider0",
 "Desert Raider (Female)",
-'subrace_humandesert_female', /* pools */
+'subrace_humandesert', /* pools */
 0, /* reuse chance */
 [ /* unit post process */
   setup.qc.BgTraitReset('unit', setup.trait.bg_raider),
   setup.qc.TraitReplace('unit', setup.trait.anus_gape),
   setup.qc.AddTraitsRandom('unit', [setup.trait.per_dominant, setup.trait.per_cruel, setup.trait.per_sexaddict, setup.trait.per_evil], 2, true, false),
 ],
+['gender_female'],
 )>> <<run new setup.UnitGroup(
 "just_an_ordinary_desert_raider1",
 "Desert Raider (Male)",
-'subrace_humandesert_male', /* pools */
+'subrace_humandesert', /* pools */
 0, /* reuse chance */
 [ /* unit post process */
   setup.qc.BgTraitReset('unit', setup.trait.bg_raider),
   setup.qc.TraitReplace('unit', setup.trait.anus_gape),
   setup.qc.AddTraitsRandom('unit', [setup.trait.per_dominant, setup.trait.per_cruel, setup.trait.per_sexaddict, setup.trait.per_evil], 2, true, false),
 ],
+['gender_male'],
 )>>
 
 

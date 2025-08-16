@@ -119,8 +119,7 @@ export default class SlaveOrderHighDemonCommunity extends SlaveOrderTemplate {
           const unit = (order as SlaveOrder).getUnit()!;
 
           const slaver = setup.unitgroup.subrace_demon.getUnit({
-            trait_key: unit.getGender().key,
-            retries: setup.INFINITY,
+            gender: unit.getGender().key,
           });
 
           State.variables.notification.disable();
@@ -162,8 +161,8 @@ export default class SlaveOrderHighDemonCommunity extends SlaveOrderTemplate {
   _getRandomTraits() {
     let acceptable = ["per", "skill", "muscle", "height", "tough", "face"];
     // add a few random traits commonly seen in demons
-    const t1 = setup.unitpool["subrace_demon_male" as UnitPoolKey]
-      ._generateTraits()
+    const t1 = setup.unitpool["subrace_demon" as UnitPoolKey]
+      ._generateTraits("male")
       .filter(
         (trait) =>
           !trait.isNeedGenital() &&

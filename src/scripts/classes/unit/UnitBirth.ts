@@ -1,40 +1,20 @@
-import type { TraitKey } from "../trait/Trait";
+import type { Job, JobKey } from "../job/Job";
 import type { Unit } from "./Unit";
 
 // Static method collection for handling childbirth
 export namespace UnitBirth {
   /**
    * Note that the parents does not have to be biologically male/female
+   * @param jobHint Used to determine which gender distribution to use.
    */
   export function generateChild(
     father: Unit,
     mother: Unit,
-    preference?: {
-      retries: number;
-      trait_key: TraitKey | BuiltinTraitKey;
-    },
+    job_hint: Job,
   ): Unit | null {
-    if (!preference)
-      throw new Error(`preference must be set for generateChild`);
+    if (!job_hint) throw new Error(`"job_hint" must be set for generateChild`);
 
-    // keep attempting to find the target unit
-    let max_retries = 1;
-    if (preference) max_retries = preference.retries + 1;
-
-    let unit: Unit;
-    let i = 0;
-    do {
-      unit = doGenerateChild(father, mother);
-      if (
-        i < max_retries - 1 &&
-        preference &&
-        !unit.isHasTraitExact(setup.trait[preference.trait_key])
-      ) {
-        unit.delete();
-      } else {
-        break;
-      }
-    } while (i++ < max_retries);
+    const unit = doGenerateChild(father, mother, job_hint.key);
 
     // set family
     State.variables.family.setParent(mother, unit);
@@ -47,11 +27,11 @@ export namespace UnitBirth {
 /**
  * Note that the parents does not have to be biologically male/female
  */
-function doGenerateChild(father: Unit, mother: Unit): Unit {
+function doGenerateChild(father: Unit, mother: Unit, job_hint: JobKey): Unit {
   const subrace = setup.rng.choice([father.getSubrace(), mother.getSubrace()]);
   const pool = setup.UnitPool.getUnitPool(subrace);
 
-  const base_unit = pool.generateUnit()!;
+  const base_unit = pool.generateUnit({ job_hint })!;
 
   // first, inherit background if lucky
   if (Math.random() < setup.CHILD_TRAIT_BACKGROUND_INHERIT_CHANCE) {

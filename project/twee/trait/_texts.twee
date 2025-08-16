@@ -12,95 +12,6 @@
 
 /* Description : xxx{description} */
 <<set setup.TRAIT_TEXTS = {
-  /* =======================
-      RACE TRAITS
-  ======================= */
-
-  subrace_humankingdom: {
-    noun: 'human',
-    region: setup.Text.Race.REGIONS.city,
-    company_key: 'humankingdom',
-  },
-  subrace_humanvale: {
-    noun: 'northerner',
-    region: setup.Text.Race.REGIONS.vale,
-    company_key: 'humanvale',
-  },
-  subrace_humandesert: {
-    noun: 'desertfolk',
-    region: setup.Text.Race.REGIONS.desert,
-    company_key: 'humandesert',
-  },
-  subrace_humansea: {
-    noun: 'foreigner',
-    region: setup.Text.Race.REGIONS.sea,
-    company_key: 'humansea',
-  },
-  subrace_angel: {
-    noun: 'angel',
-    region: setup.Text.Race.REGIONS.heaven,
-    company_key: 'humankingdom',
-  },
-  subrace_elf: {
-    noun: 'elf',
-    region: setup.Text.Race.REGIONS.forest,
-    company_key: 'elf',
-  },
-  subrace_drow: {
-    noun: 'drow',
-    region: setup.Text.Race.REGIONS.deep,
-    company_key: 'drow',
-  },
-  subrace_fairy: {
-    noun: 'fairy',
-    region: setup.Text.Race.REGIONS.forest,
-    company_key: 'elf',
-  },
-  subrace_neko: {
-    noun: 'neko',
-    region: setup.Text.Race.REGIONS.forest,
-    company_key: 'neko',
-  },
-  subrace_tigerkin: {
-    noun: 'tigerkin',
-    region: setup.Text.Race.REGIONS.forest,
-    company_key: 'neko',
-  },
-  subrace_werewolf: {
-    noun: 'werewolf',
-    region: setup.Text.Race.REGIONS.vale,
-    company_key: 'werewolf',
-  },
-  subrace_orc: {
-    noun: 'orc',
-    region: setup.Text.Race.REGIONS.desert,
-    company_key: 'orc',
-  },
-  subrace_kobold: {
-    noun: 'kobold',
-    region: setup.Text.Race.REGIONS.deep,
-    company_key: 'kobold',
-  },
-  subrace_lizardkin: {
-    noun: 'lizardkin',
-    region: setup.Text.Race.REGIONS.sea,
-    company_key: 'lizardkin',
-  },
-  subrace_dragonkin: {
-    noun: 'dragonkin',
-    region: setup.Text.Race.REGIONS.sea,
-    company_key: 'dragonkin',
-  },
-  subrace_demonkin: {
-    noun: 'demonkin',
-    region: setup.Text.Race.REGIONS.mist,
-    company_key: 'demon',
-  },
-  subrace_demon: {
-    noun: 'demon',
-    region: setup.Text.Race.REGIONS.mist,
-    company_key: 'demon',
-  },
 
   /* =======================
       BACKGROUND TRAITS
@@ -249,7 +160,7 @@
     description: "a|have a waist so thin a|they can almost circle a|their own waist by stretching a|their fingers",
     increase: '',
     decrease: 'a|their waist shrunk, and its circumference now frighteningly small',
-    nounbad: ['weakness', 'fragility', ], 
+    nounbad: ['weakness', 'fragility', ],
     hobby: ["rationing food",],
   },
   muscle_verythin: {
@@ -262,7 +173,7 @@
     increase: 'making a|their waist no longer unnaturally thin, although still very thin compared to most',
     decrease: 'a|their body is now so thin that people can even a|their bones through a|their a|skin',
     noungood: ['model-thin body', ],
-    nounbad: ['weakness', 'fragility', ], 
+    nounbad: ['weakness', 'fragility', ],
     hobby: ["rationing food",],
   },
   muscle_thin: {
@@ -275,7 +186,7 @@
     increase: 'a|they no longer looks unnaturally thin, but is still rather thin compared to most',
     decrease: 'a|their body is now slender, with a narrow waist pleasant on the eyes',
     noungood: ['slim body', ],
-    nounbad: ['weakness', 'fragility', ], 
+    nounbad: ['weakness', 'fragility', ],
     hobby: ["rationing food",],
   },
   muscle_strong: {
@@ -316,7 +227,7 @@
     noungood: ['extreme strength', 'six-pack', ],
     noungoodmale: ['manliness', ],
     hobby: ["lifting weights", "carrying building supplies", "training with weapons",],
-    nounbad: ['overly massive muscles', ], 
+    nounbad: ['overly massive muscles', ],
   },
   dick_tiny: {
     size_adjective: ['tiny', 'humiliatingly small', 'miniscule', 'petite', ],
@@ -326,7 +237,7 @@
     description: "a|have a humiliatingly small dick",
     increase: '',
     decrease: 'reducing it to a mere few centimeters long',
-    nounbad: ['embarrassingly small dick', ], 
+    nounbad: ['embarrassingly small dick', ],
   },
   dick_small: {
     size_adjective: ['small', 'below-average', 'little', ],
@@ -427,7 +338,7 @@
     description: "a|have a tiny almost mannish pair of breasts",
     increase: '',
     decrease: 'a|their breasts now barely visible and is almost mannish in appearance',
-    nounbad: ['embarrassingly small breasts', ], 
+    nounbad: ['embarrassingly small breasts', ],
   },
   breast_small: {
     size_adjective: ['small', 'modest', 'cute', ],
@@ -492,7 +403,7 @@
     description: "a|have a permanently gaping vagina",
     increase: 'the hole no longer capable of closing and remains a permanent gape',
     decrease: '',
-    nounbad: ['gaping vagina', ], 
+    nounbad: ['gaping vagina', ],
   },
   anus_tight: {
     size_adjective: ['tight', 'taut', ],
@@ -511,7 +422,7 @@
     description: "a|have a permanently loose anus",
     increase: 'the hole no longer capable of closing and remains a permanent gape',
     decrease: '',
-    nounbad: ['gaping anus', ], 
+    nounbad: ['gaping anus', ],
   },
   face_hideous: {
     size_adjective: ['terrifying', 'frightening', ],
@@ -522,7 +433,7 @@
     description: "a|have a hideously ugly face so much that it takes a lot of effort just to communicate with them",
     increase: '',
     decrease: 'the face is now painful to even look at',
-    nounbad: ['hideous face', ], 
+    nounbad: ['hideous face', ],
   },
   face_scary: {
     size_adjective: ['scary', 'intimidating', 'menacing', ],
@@ -533,7 +444,7 @@
     description: "a|have an unattractive face",
     increase: 'although it still remains ugly and unattractive',
     decrease: 'making the face ugly and unattractive',
-    nounbad: ['ugly face', ], 
+    nounbad: ['ugly face', ],
   },
   face_attractive: {
     size_adjective: ['attractive', 'good-looking', 'pretty', ],
@@ -567,7 +478,7 @@
     description: "a|is much shorter than normal and looks dwarven in appearance",
     increase: '',
     decrease: 'a|their height now barely half those of normal humans',
-    nounbad: ['lack of height', ], 
+    nounbad: ['lack of height', ],
   },
   height_short: {
     size_adjective: ['short', 'stubby', ],
@@ -609,7 +520,7 @@
     decrease: 'a|their body lither and more flexible',
     noungood: ['quickness', ],
     hobby: ["doing some sprints", ],
-    nounbad: ['lack of endurance', ], 
+    nounbad: ['lack of endurance', ],
   },
   tough_tough: {
     size_adjective: ['tough', 'resilient', 'sturdy', ],
@@ -623,7 +534,7 @@
     decrease: '',
     noungood: ['toughness', ],
     hobby: ["doing some long runs", ],
-    nounbad: ['lack of finesse', ], 
+    nounbad: ['lack of finesse', ],
   },
 
   /* =======================
@@ -931,7 +842,7 @@
     hobby: ["lying on a|their back watching the clouds,", ],
     adverbs: ['carefully' ],
     noungood: ['simple-mindedness', ],
-    nounbad: ['stupidity', ], 
+    nounbad: ['stupidity', ],
   },
   per_smart: {
     adjective: ['smart', 'clever', 'insightful', 'witty'],
@@ -954,7 +865,7 @@
     description: 'a|enjoy the company of others',
     adverbs: ['charmingly', 'cordially', 'warmly' ],
     noungood: ['eloquence', ],
-    nounbad: ['shamelessness', ], 
+    nounbad: ['shamelessness', ],
     hobby: ["chatting with other slavers", "telling ghost stories in broad daylight",],
     care: true,
   },
@@ -967,7 +878,7 @@
     adverbs: ['quietly', 'softly', 'awkwardly', ],
     hobby: ["spending time alone in a|their own room", ],
     noungood: ['self-dependence', ],
-    nounbad: ['aloofness', ], 
+    nounbad: ['aloofness', ],
     care: true,
     abuse: true,
   },
@@ -980,7 +891,7 @@
     adverbs: ['modestly', 'shyly',],
     noungood: ['temperance', ],
     hobby: ["finding a|their true love", ],
-    nounbad: ['prudeness', ], 
+    nounbad: ['prudeness', ],
     care: true,
     abuse: true,
   },
@@ -989,11 +900,11 @@
     adjbad: ['indecent', 'immodest', ],
     adjgood: ['seductive', ],
     description: 'actively a|seek sexual acts',
-    adverbs: ['lustfully', 'lewdly', 'sensually', 
+    adverbs: ['lustfully', 'lewdly', 'sensually',
     'sexily', 'passionately', 'amorously', ],
     noungood: ['passion', ],
     hobby: ["using some slaves for a|their amusement", ],
-    nounbad: ['immodesty', 'indecency', ], 
+    nounbad: ['immodesty', 'indecency', ],
     abuse: true,
   },
   per_sexaddict: {
@@ -1004,7 +915,7 @@
     adverbs: ['lasciviously', 'lustfully', 'salaciously', 'seductively', 'lecherously',],
     noungood: ['fiery passion', ],
     hobby: ["using some slaves for a|their amusement", ],
-    nounbad: ['perversion', ], 
+    nounbad: ['perversion', ],
     abuse: true,
   },
   per_lavish: {
@@ -1014,7 +925,7 @@
     description: 'a|spend more than necessary',
     adverbs: ['generously', 'openly', 'loftily',],
     noungood: ['generosity', ],
-    nounbad: ['naivety', ], 
+    nounbad: ['naivety', ],
     hobby: ["splurging money on one-night stands", "looking at expensive decorations for a|their room", "heading out for a fancy meal", "going to the theatre",],
     care: true,
   },
@@ -1025,7 +936,7 @@
     description: 'a|know how to save money',
     adverbs: ['carefully', 'cautiously', ],
     noungood: ['frugality', ],
-    nounbad: ['greed', ], 
+    nounbad: ['greed', ],
     hobby: ["saving some money for retirement", "taking a walk",],
     abuse: true,
   },
@@ -1036,7 +947,7 @@
     description: 'a|think highly of themself',
     adverbs: ['cockily', 'arrogantly', 'haughtily', ],
     noungood: ['pride', ],
-    nounbad: ['arrogance', ], 
+    nounbad: ['arrogance', ],
     hobby: ["gazing vainly into the mirror", "admiring a|their own reflection in the mirror", "cleaning a|their nails", "combing a|their hair", "shopping for the perfect fragrance", ],
     abuse: true,
   },
@@ -1048,8 +959,8 @@
     description: 'a|think modestly of a|themself',
     adverbs: ['modestly', 'humbly', 'respectfully', ],
     noungood: ['humbleness', ],
-    nounbad: ['lack of self-esteem', ], 
-    hobby: ["looking after others", "caring for the animals", "fetching water", "helping out around the fort",], 
+    nounbad: ['lack of self-esteem', ],
+    hobby: ["looking after others", "caring for the animals", "fetching water", "helping out around the fort",],
     care: true,
   },
   per_brave: {
@@ -1060,7 +971,7 @@
     description: 'a|is braver than most',
     adverbs: ['bravely', 'courageously', 'fearlessly', 'boldly',],
     noungood: ['bravado', 'bravery', ],
-    nounbad: ['carelessness', ], 
+    nounbad: ['carelessness', ],
     hobby: ["challenging others to increasingly risky dares", ],
     abuse: true,
   },
@@ -1072,7 +983,7 @@
     description: 'a|think before acting',
     adverbs: ['carefully', 'cautiously',],
     noungood: ['preparedness', ],
-    nounbad: ['cowardice', ], 
+    nounbad: ['cowardice', ],
     hobby: ["planning for tomorrow", "keeping an eye on things", "checking the stores",],
     care: true,
     abuse: true,
@@ -1085,7 +996,7 @@
     description: 'a|is kinder than most',
     adverbs: ['kindly', 'amiably'],
     noungood: ['kindness', ],
-    nounbad: ['bleeding heart', ], 
+    nounbad: ['bleeding heart', ],
     hobby: ["caring for a|their fellow slavers", ],
     care: true,
   },
@@ -1097,7 +1008,7 @@
     adverbs: ['cruelly', 'brutally', 'harshly', 'ruthlessly', 'sadistically', ],
 
     description: 'a|enjoy the suffering of others',
-    nounbad: ['cruelty', ], 
+    nounbad: ['cruelty', ],
     noungood: ['mercilessness', ],
     hobby: ["abusing slaves", ],
     abuse: true,
@@ -1111,8 +1022,8 @@
     description: 'a|act unpredictably',
 
     hobby: ["laughing maniacally", "staring unblinkingly at people without saying anything", "talking to Mr. Squigglesworth, the invisible pink rabbit no one else can see",],
-    noungood: ['unpredictability', ], 
-    nounbad: ['madness', 'lunacy', ], 
+    noungood: ['unpredictability', ],
+    nounbad: ['madness', 'lunacy', ],
     abuse: true,
   },
   per_masochistic: {
@@ -1124,8 +1035,8 @@
     description: 'a|derive pleasure from pain',
     /* masochistic intentionally appear twice because it is important for this trait */
     hobby: ["exchanging positions with a slave", "looking for someone to flog",],
-    noungood: ['pain tolerance'], 
-    nounbad: ['masochism', ], 
+    noungood: ['pain tolerance'],
+    nounbad: ['masochism', ],
     abuse: true,
   },
   per_loyal: {
@@ -1137,7 +1048,7 @@
 
     description: 'a|stay with a|their friends until the very end',
     noungood: ['loyalty', ],
-    nounbad: ['blind trust', ], 
+    nounbad: ['blind trust', ],
     hobby: ["admiring the company's achievements", ],
   },
   per_independent: {
@@ -1148,7 +1059,7 @@
 
     description: 'a|is more selfish than most',
     noungood: ['self-sufficiency', ],
-    nounbad: ['disloyalty', ], 
+    nounbad: ['disloyalty', ],
     hobby: ["thinking about a|their future away from your company", ],
     abuse: true,
   },
@@ -1161,7 +1072,7 @@
 
     description: 'a|go straight to the point',
     noungood: ['honesty', ],
-    nounbad: ['foolishness', 'artlessness', ], 
+    nounbad: ['foolishness', 'artlessness', ],
     hobby: ["listening to others", ],
     care: true,
   },
@@ -1174,7 +1085,7 @@
 
     description: 'a|enjoy scheming',
     noungood: ['cunningness', 'artfulness', ],
-    nounbad: ['deceptiveness', ], 
+    nounbad: ['deceptiveness', ],
     hobby: ["scheming nefariously", ],
     care: true,
   },
@@ -1187,7 +1098,7 @@
 
     description: 'a|is unwilling to change a|their convictions',
     noungood: ['stoutness', ],
-    nounbad: ['stubbornness', ], 
+    nounbad: ['stubbornness', ],
     hobby: ["having a friendly competition with others", ],
     abuse: true,
   },
@@ -1200,7 +1111,7 @@
 
     description: 'a|is curious about most things',
     noungood: ['curiosity', ],
-    nounbad: ['curiosity', ], 
+    nounbad: ['curiosity', ],
     hobby: ["exploring new hobbies", ],
     abuse: true,
   },
@@ -1213,7 +1124,7 @@
 
     description: 'a|prefer to dominate others',
     noungood: ['confidence', ],
-    nounbad: ['bad manners', ], 
+    nounbad: ['bad manners', ],
     hobby: ["instilling discipline to slaves", "leading the reconstruction efforts",],
     care: true,
     abuse: true,
@@ -1226,8 +1137,8 @@
     adverbs: ['meekly', 'uncomfortably', 'timidly', 'softly', 'gently', 'demurely',],
 
     description: 'a|prefer to be dominated by others',
-    nounbad: ['meekness', ], 
-    noungood: ['obedience'], 
+    nounbad: ['meekness', ],
+    noungood: ['obedience'],
     hobby: ["doing chores", "helping in the garden", "spending some quiet time looking out at the views",],
     care: true,
   },
@@ -1240,7 +1151,7 @@
 
     description: 'a|employ logic over emotions',
     noungood: ['rational mind', ],
-    nounbad: ['cold-heartedness', ], 
+    nounbad: ['cold-heartedness', ],
     hobby: ["calculating a|their chances in a|their next assignment", "playing chess", "playing word games with some fellow slavers",],
     care: true,
     abuse: true,
@@ -1254,7 +1165,7 @@
 
     description: 'a|employ emotions over logic',
     noungood: ['empathetic heart', ],
-    nounbad: ['empathetic heart', ], 
+    nounbad: ['empathetic heart', ],
     hobby: ["obsessing over a|their feelings", ],
     care: true,
     abuse: true,
@@ -1268,7 +1179,7 @@
 
     description: 'a|adhere to a strong moral code',
     noungood: ['honor', ],
-    nounbad: ['blind adherence to honor', ], 
+    nounbad: ['blind adherence to honor', ],
     hobby: ["questioning a|their choice of occupation", ],
     care: true,
   },
@@ -1280,7 +1191,7 @@
 
     description: 'a|do not get burdened by moral codes',
     noungood: ['debauchery', ],
-    nounbad: ['wickedness', ], 
+    nounbad: ['wickedness', ],
     hobby: ["planning world domination", ],
     abuse: true,
   },
@@ -1293,7 +1204,7 @@
 
     description: 'a|have a sensitive insight',
     noungood: ['attention', ],
-    nounbad: ['mistrust', ], 
+    nounbad: ['mistrust', ],
     hobby: ["paying attention to a|their surroundings", ],
     care: true,
   },
@@ -1306,7 +1217,7 @@
 
     description: 'a|have not a care in the world',
     noungood: ['optimism', ],
-    nounbad: ['clumsiness', ], 
+    nounbad: ['clumsiness', ],
     hobby: ["daydreaming", "lying on a|their back, watching the clouds", ],
     care: true,
   },
@@ -1319,7 +1230,7 @@
 
     description: 'a|is quick both to anger and to come into action',
     noungood: ['decisiveness', ],
-    nounbad: ['aggressiveness', ], 
+    nounbad: ['aggressiveness', ],
     hobby: ["looking for others interested in bare-knuckle boxing", "running an impromptu boxing tournament", ],
     abuse: true,
   },
@@ -1332,7 +1243,7 @@
 
     description: 'always a|maintain composure',
     noungood: ['calming presence', ],
-    nounbad: ['inability to make a decision', ], 
+    nounbad: ['inability to make a decision', ],
     hobby: ["resting", ],
     care: true,
     abuse: true,
@@ -1346,7 +1257,7 @@
 
     description: 'a|is fond of games and amusements',
     noungood: ['joyful presence', ],
-    nounbad: ['naughtiness', ], 
+    nounbad: ['naughtiness', ],
     hobby: ["playing with others", ],
     care: true,
     abuse: true,
@@ -1360,7 +1271,7 @@
 
     description: 'always a|appear with a serious expression',
     noungood: ['grim presence', ],
-    nounbad: ['grimness', ], 
+    nounbad: ['grimness', ],
     hobby: ["working", ],
     care: true,
     abuse: true,
@@ -1374,7 +1285,7 @@
 
     description: 'a|love studying',
     noungood: ['diligence', ],
-    nounbad: ['nerdiness', ], 
+    nounbad: ['nerdiness', ],
     hobby: ["studying in a|their room", ],
   },
   per_active: {
@@ -1386,7 +1297,7 @@
 
     description: 'a|enjoy physical activities',
     noungood: ['energy', ],
-    nounbad: ['dumbness', ], 
+    nounbad: ['dumbness', ],
     hobby: ["exercising in the courtyard", "playing football with some of the other slavers", ],
     care: true,
     abuse: true,

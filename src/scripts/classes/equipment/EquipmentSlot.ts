@@ -1,18 +1,25 @@
-import type { _equipmentslot } from "../../data/equipmentslot";
+import type { EQUIPMENT_SLOT_DEFINITIONS } from "../../data/equipmentslots";
 import { TwineClass } from "../_TwineClass";
 
+export interface EquipmentSlotDefinition {
+  key: string;
+  name: string;
+}
+
 //export type EquipmentSlotKey = BrandedType<string, 'EquipmentSlotKey'>
-export type EquipmentSlotKey = keyof _equipmentslot;
+export type EquipmentSlotKey = keyof typeof EQUIPMENT_SLOT_DEFINITIONS;
 
 export class EquipmentSlot extends TwineClass {
   key: EquipmentSlotKey;
   name: string;
 
-  constructor(key: string, name: string) {
+  constructor(def: EquipmentSlotDefinition) {
     super();
 
-    this.key = key as EquipmentSlotKey;
-    this.name = name;
+    const key = def.key as EquipmentSlotKey;
+
+    this.key = key;
+    this.name = def.name;
 
     if (key in setup.equipmentslot) {
       throw new Error(`Equipment Slot ${key} already exists`);

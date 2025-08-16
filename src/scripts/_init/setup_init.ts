@@ -177,6 +177,7 @@ import { Title } from "../classes/title/Title.js";
 import { TitleHelper } from "../classes/title/TitleHelper.js";
 import { TITLE_MAX_ASSIGNED, TitleList } from "../classes/title/TitleList.js";
 import { Perk } from "../classes/trait/Perk.js";
+import { Subrace } from "../classes/trait/Subrace.js";
 import { Trait, TraitHelper } from "../classes/trait/Trait.js";
 import { TraitGroup } from "../classes/trait/TraitGroup.js";
 import { Trauma } from "../classes/Trauma.js";
@@ -207,9 +208,7 @@ import { UnitAction_RepeatSelf } from "../classes/unitaction/UnitAction_RepeatSe
 import { UnitActionHelper } from "../classes/unitaction/UnitActionHelper.js";
 import { VarStore } from "../classes/VarStore.js";
 import { Constants } from "../constants.js";
-import type { _equipmentslot } from "../data/equipmentslot.js";
-import { type _furnitureslot } from "../data/furnitureslot.js";
-import type { _job } from "../data/job.js";
+import { SEXGENDERS } from "../data/sexgenders.js";
 import { renderDescription } from "../dom/card/quest.js";
 import { DOM } from "../dom/DOM.js";
 import { FortGridController } from "../dom/menu/fortgrid.js";
@@ -343,6 +342,7 @@ const setup_ = {
   Perk,
   Trait,
   TraitGroup,
+  Subrace,
   Unit,
   UnitGroup,
   UnitGroup_SoldSlaves,
@@ -425,6 +425,7 @@ const setup_ = {
   itempool: {} as RegistryWithBuiltins<ItemPool, BuiltinItemPoolKey>,
   itemclass: {} as RegistryWithBuiltins<ItemClass, BuiltinItemClassKey>,
   lore: {} as Registry<Lore>,
+  subrace: {} as Registry<Subrace>,
   opportunitytemplate: {} as RegistryWithBuiltins<
     OpportunityTemplate,
     BuiltinOpportunityTemplateKey
@@ -435,7 +436,7 @@ const setup_ = {
     BuiltinQuestTemplateKey
   >,
   roomtemplate: {} as Registry<RoomTemplate>,
-  speech: {} as RegistryWithBuiltins<Speech, BuiltinSpeechKey>,
+  speech: {} as Registry<Speech>,
   trait: {} as RegistryWithBuiltins<Trait, BuiltinTraitKey>,
   traitgroup: {} as Registry<TraitGroup>,
   unitaction: {} as Registry<UnitAction>,
@@ -454,13 +455,11 @@ const setup_ = {
   /** Holds singleton instances of DutyTemplate subclasses */
   dutytemplate,
 
-  equipmentslot: {} as unknown as _equipmentslot,
-  furnitureslot: {} as unknown as _furnitureslot,
-  job: {} as unknown as _job,
+  equipmentslot: {} as unknown as Registry<EquipmentSlot>,
+  furnitureslot: {} as unknown as Registry<FurnitureSlot>,
+  job: {} as unknown as Registry<Job>,
 
   SexActionClass,
-  //,
-  //,
   //SexBodypartClass,
   //SexFacingClass,
   //SexGoalClass,
@@ -559,6 +558,7 @@ const setup_ = {
   TAG_TRAIT,
   TAG_UNITACTION,
   TITLE_MAX_ASSIGNED,
+  SEXGENDERS,
   SETTINGS_GENDER_PREFERENCE,
 
   //

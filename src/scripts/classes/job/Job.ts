@@ -1,19 +1,25 @@
-import type { _job } from "../../data/job";
+import type { JOB_DEFINITIONS } from "../../data/jobs";
 import { TwineClass } from "../_TwineClass";
 import type { TraitKey } from "../trait/Trait";
 
-//export type JobKey = BrandedType<keyof typeof job, 'JobKey'>
-export type JobKey = keyof _job;
+export interface JobDefinition {
+  key: string;
+  name: string;
+}
+
+export type JobKey = keyof typeof JOB_DEFINITIONS;
 
 export class Job extends TwineClass {
   key: JobKey;
   name: string;
 
-  constructor(key: string, name: string) {
+  constructor(def: JobDefinition) {
     super();
 
-    this.key = key as JobKey;
-    this.name = name;
+    const key = def.key as JobKey;
+
+    this.key = key;
+    this.name = def.name;
 
     if (key in setup.job) throw new Error(`Job ${key} already exists`);
     setup.job[key as JobKey] = this;

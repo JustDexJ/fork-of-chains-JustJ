@@ -17,16 +17,16 @@ brawn: 1,intrigue: 3,slaving: 1,sex: 1,},
 "unlawfull_party0",
 "Outlaw Bandits Boss",
 [ /* pools */
-[setup.unitpool.subrace_humanvale_male, 0.16949152542372878],
-[setup.unitpool.subrace_humankingdom_male, 0.16949152542372878],
-[setup.unitpool.subrace_humandesert_male, 0.16949152542372878],
-[setup.unitpool.subrace_werewolf_male, 0.16949152542372878],
-[setup.unitpool.subrace_orc_male, 0.16949152542372878],
-[setup.unitpool.subrace_humankingdom_female, 0.033898305084745756],
-[setup.unitpool.subrace_humanvale_female, 0.033898305084745756],
-[setup.unitpool.subrace_humandesert_female, 0.033898305084745756],
-[setup.unitpool.subrace_demon_female, 0.025423728813559317],
-[setup.unitpool.subrace_lizardkin_female, 0.025423728813559317],
+[setup.unitpool.subrace_humanvale, 0.16949152542372878],
+[setup.unitpool.subrace_humankingdom, 0.16949152542372878],
+[setup.unitpool.subrace_humandesert, 0.16949152542372878],
+[setup.unitpool.subrace_werewolf, 0.16949152542372878],
+[setup.unitpool.subrace_orc, 0.16949152542372878],
+[setup.unitpool.subrace_humankingdom, 0.033898305084745756],
+[setup.unitpool.subrace_humanvale, 0.033898305084745756],
+[setup.unitpool.subrace_humandesert, 0.033898305084745756],
+[setup.unitpool.subrace_demon, 0.025423728813559317],
+[setup.unitpool.subrace_lizardkin, 0.025423728813559317],
 ],
 1, /* reuse chance */
 [ /* unit post process */
@@ -37,21 +37,21 @@ setup.qc.TraitsReplace('unit', [setup.trait.wings_demon, setup.trait.eyes_dragon
 <<run new setup.UnitGroup(
 "unlawfull_party2",
 "Elvish Arcanist",
-'subrace_elf_female',  /* pools */
+'subrace_elf',  /* pools */
 1, /* reuse chance */
 [ /* unit post process */
 setup.qc.Trait('unit', setup.trait.magic_wind_master),
 setup.qc.Trait('unit', setup.trait.magic_fire_master),
 setup.qc.Trait('unit', setup.trait.magic_dark),
 ],
+['gender_female']
 )>>
 
 <<run new setup.UnitGroup(
 "unlawfull_party3",
 "Kingdom Knights",
 [ /* pools */
-[setup.unitpool.subrace_humankingdom_male, 0.8695652173913044],
-[setup.unitpool.subrace_humankingdom_female, 0.13043478260869565],
+[setup.unitpool.subrace_humankingdom, 1],
 ],
 1, /* reuse chance */
 [ /* unit post process */

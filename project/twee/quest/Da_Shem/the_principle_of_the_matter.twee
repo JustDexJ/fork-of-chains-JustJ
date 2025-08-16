@@ -5,13 +5,14 @@
 <<run new setup.UnitGroup(
 "the_principle_of_the_matter0",
 "headteacher1",
-'subrace_humankingdom_male', /* pools */
+'subrace_humankingdom', /* pools */
 1, /* reuse chance */
 [ /* unit post process */
   setup.qc.Trait('unit', setup.trait.skill_hypnotic),
   setup.qc.Trait('unit', setup.trait.per_dominant),
   setup.qc.Trait('unit', setup.trait.per_evil),
 ],
+['gender_male']
 )>>
 
 

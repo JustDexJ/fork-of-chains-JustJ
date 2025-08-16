@@ -16,12 +16,10 @@
 'quest_the_seven_deadly_transformations__sloth2',
 "Fated One",
 [
-[setup.unitpool.subrace_humanvale_male, 0.16666666666666666],
-[setup.unitpool.subrace_humanvale_female, 0.16666666666666666],
-[setup.unitpool.subrace_humankingdom_male, 0.16666666666666666],
-[setup.unitpool.subrace_humankingdom_female, 0.16666666666666666],
-[setup.unitpool.subrace_humandesert_male, 0.16666666666666666],
-[setup.unitpool.subrace_humandesert_female, 0.16666666666666666], ],
+[setup.unitpool.subrace_humanvale, 0.16666666666666666],
+[setup.unitpool.subrace_humankingdom, 0.16666666666666666],
+[setup.unitpool.subrace_humandesert, 0.16666666666666666],
+],
 0, /* reuse chance */
 [
 setup.qc.BgTraitReset('unit', setup.trait.bg_adventurer),

@@ -8,8 +8,11 @@ import {
 import { TwineClass } from "../_TwineClass";
 import type { DutyInstanceKey } from "../duty/DutyInstance";
 import type { DutyInstanceBedchamberSlave } from "../duty/subtypes/BedchamberSlave";
-import { Furniture, type FurnitureSlotKey } from "../furniture/Furniture";
-import type { FurnitureSlot } from "../furniture/FurnitureSlot";
+import { Furniture } from "../furniture/Furniture";
+import type {
+  FurnitureSlot,
+  FurnitureSlotKey,
+} from "../furniture/FurnitureSlot";
 import type { ItemKey } from "../inventory/Item";
 import type { SkillValuesArray } from "../Skill";
 import type { UnitKey } from "../unit/Unit";

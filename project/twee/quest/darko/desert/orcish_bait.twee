@@ -6,8 +6,8 @@
 'quest_orcish_bait1',
 'Orc Raider',
 [
-[setup.unitpool.subrace_orc_male, 0.5],
-[setup.unitpool.subrace_orc_female, 0.5], ],
+[setup.unitpool.subrace_orc, 1],
+],
 0,
 [
 setup.qc.BgTraitReset('unit', setup.trait.bg_raider), ],

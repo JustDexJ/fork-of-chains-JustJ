@@ -8,7 +8,7 @@ import { SexBodypart_Tail } from "./bodyparts/tail";
 import { SexBodypart_Vagina } from "./bodyparts/vagina";
 
 /** Singleton instances for SexBodypart subclasses. */
-export const sexbodypart = /*typedRecord<SexBodypart>()(*/ {
+export const sexbodypart = /*typedObject<SexBodypart>()(*/ {
   anus: new SexBodypart_Anus(),
   arms: new SexBodypart_Arms(),
   breasts: new SexBodypart_Breasts(),

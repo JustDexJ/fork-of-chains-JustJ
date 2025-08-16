@@ -51,4 +51,21 @@ declare global {
     K,
     V,
   ][];
+
+  /**
+   * Typechecking helper that enforces all values of a map/record to be of a certain type,
+   * while also preserving the keys (so that `keyof` can still be used with the resulting map).
+   * Example usage:
+   * ```ts
+   *   type MyType = { someField: number };
+   *
+   *   typedObject<MyType>()({
+   *      value1: { someField: 1 },
+   *      value2: { someField: 2 },
+   *   })
+   * ```
+   */
+  export function typedObject<T>(): <K extends string>(obj: {
+    [k in K]: T;
+  }) => { [k in K]: T };
 }

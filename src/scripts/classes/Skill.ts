@@ -1,17 +1,14 @@
+import type { SKILL_DEFINITIONS } from "../data/skills";
 import { TwineClass } from "./_TwineClass";
 import { Unit } from "./unit/Unit";
 
-export type SkillKeyword =
-  | "combat"
-  | "brawn"
-  | "survival"
-  | "intrigue"
-  | "slaving"
-  | "knowledge"
-  | "social"
-  | "aid"
-  | "arcane"
-  | "sex";
+export interface SkillDefinition {
+  keyword: string;
+  name: string;
+  description: string;
+}
+
+export type SkillKeyword = keyof typeof SKILL_DEFINITIONS;
 
 export type SkillKey = BrandedType<number, "SkillKey">;
 
@@ -25,21 +22,22 @@ export class Skill extends TwineClass {
   /** Skill numeric key (its index) */
   key: SkillKey;
   /** Skill string key */
-  keyword: string;
+  keyword: SkillKeyword;
 
   name: string;
   description: string;
 
-  constructor(keyword: string, name: string, description: string) {
+  constructor(def: SkillDefinition) {
     super();
 
     this.key = setup.skill.length as SkillKey;
-    this.keyword = keyword;
-    this.name = name;
-    this.description = description;
+    this.keyword = def.keyword as SkillKeyword;
+    this.name = def.name;
+    this.description = def.description;
 
-    if (keyword in setup.skill) throw new Error(`Duplicate role ${keyword}`);
-    (setup.skill as any)[keyword] = this;
+    if (def.keyword in setup.skill)
+      throw new Error(`Duplicate role ${def.keyword}`);
+    (setup.skill as any)[def.keyword] = this;
     setup.skill.push(this);
   }
 

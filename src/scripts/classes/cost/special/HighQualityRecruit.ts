@@ -36,11 +36,10 @@ export default class HighQualityRecruit extends Cost {
 
   override apply(context: CostContext) {
     const job = this.getJob();
-    const preference = State.variables.settings.getGenderPreference(job);
     const ug = this.getUnitGroup();
-    let unit = ug.getUnit(preference);
+    let unit = ug.getUnit({ job_hint: job.key });
     for (let i = 0; i < this.tries - 1; ++i) {
-      let new_unit = ug.getUnit(preference);
+      let new_unit = ug.getUnit({ job_hint: job.key });
       if (new_unit.getSlaveValue() > unit.getSlaveValue()) {
         unit.delete();
         unit = new_unit;

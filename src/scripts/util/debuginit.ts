@@ -323,11 +323,15 @@ export namespace DebugInit {
     }
   }
 
-  export function createUnits(units: [UnitPoolKey, JobKey][]) {
+  export function createUnits(
+    units: [UnitPoolKey, JobKey, gender: TraitKey][],
+  ) {
     const sv = State.variables;
-    for (const [pool_key, job_key] of units) {
+    for (const [pool_key, job_key, gender_trait_key] of units) {
       const pool = setup.unitpool[pool_key];
-      const unit = pool.generateUnit();
+      const unit = pool.generateUnit({
+        gender: gender_trait_key,
+      });
       sv.company.player.addUnit(unit, setup.job[job_key]);
     }
   }
@@ -347,17 +351,17 @@ export namespace DebugInit {
 
     /* Make several slaves for easier testing */
     sv.company.player.addUnit(
-      setup.unitgroup.all.getUnit({ retries: 20, trait_key: "gender_female" }),
+      setup.unitgroup.all.getUnit({ gender: "gender_female" }),
       setup.job.slave,
     );
     sv.company.player.addUnit(
-      setup.unitgroup.all.getUnit({ retries: 20, trait_key: "gender_male" }),
+      setup.unitgroup.all.getUnit({ gender: "gender_male" }),
       setup.job.slave,
     );
 
     const to_train = [
-      setup.unitgroup.all.getUnit({ retries: 20, trait_key: "gender_male" }),
-      setup.unitgroup.all.getUnit({ retries: 20, trait_key: "gender_female" }),
+      setup.unitgroup.all.getUnit({ gender: "gender_male" }),
+      setup.unitgroup.all.getUnit({ gender: "gender_female" }),
     ];
 
     for (const unit of to_train) {
@@ -373,8 +377,8 @@ export namespace DebugInit {
     }
 
     const to_mindbreak = [
-      setup.unitgroup.all.getUnit({ retries: 20, trait_key: "gender_male" }),
-      setup.unitgroup.all.getUnit({ retries: 20, trait_key: "gender_female" }),
+      setup.unitgroup.all.getUnit({ gender: "gender_male" }),
+      setup.unitgroup.all.getUnit({ gender: "gender_female" }),
     ];
 
     for (const unit of to_mindbreak) {
@@ -392,24 +396,24 @@ export namespace DebugInit {
     const sv = State.variables;
 
     const units = [
-      ["subrace_humankingdom_female", "slaver"],
-      ["subrace_humanvale_male", "slaver"],
-      ["subrace_humansea_female", "slaver"],
-      ["subrace_humandesert_male", "slaver"],
-      ["subrace_angel_female", "slaver"],
-      ["subrace_elf_female", "slaver"],
-      ["subrace_drow_female", "slaver"],
-      ["subrace_fairy_female", "slaver"],
-      ["subrace_werewolf_male", "slaver"],
-      ["subrace_neko_female", "slaver"],
-      ["subrace_tigerkin_male", "slaver"],
-      ["subrace_kobold_male", "slaver"],
-      ["subrace_lizardkin_male", "slaver"],
-      ["subrace_dragonkin_male", "slaver"],
-      ["subrace_demon_female", "slaver"],
-      ["subrace_demonkin_female", "slaver"],
-      ["subrace_orc_male", "slaver"],
-    ] as [UnitPoolKey, JobKey][];
+      ["subrace_humankingdom", "slaver", "gender_female"],
+      ["subrace_humanvale", "slaver", "gender_male"],
+      ["subrace_humansea", "slaver", "gender_female"],
+      ["subrace_humandesert", "slaver", "gender_male"],
+      ["subrace_angel", "slaver", "gender_female"],
+      ["subrace_elf", "slaver", "gender_female"],
+      ["subrace_drow", "slaver", "gender_female"],
+      ["subrace_fairy", "slaver", "gender_female"],
+      ["subrace_werewolf", "slaver", "gender_male"],
+      ["subrace_neko", "slaver", "gender_female"],
+      ["subrace_tigerkin", "slaver", "gender_male"],
+      ["subrace_kobold", "slaver", "gender_male"],
+      ["subrace_lizardkin", "slaver", "gender_male"],
+      ["subrace_dragonkin", "slaver", "gender_male"],
+      ["subrace_demon", "slaver", "gender_female"],
+      ["subrace_demonkin", "slaver", "gender_female"],
+      ["subrace_orc", "slaver", "gender_male"],
+    ] as [UnitPoolKey, JobKey, TraitKey][];
     createUnits(units);
 
     initSlavesCommon();
@@ -437,41 +441,41 @@ export namespace DebugInit {
     const sv = State.variables;
 
     const units = [
-      ["subrace_humankingdom_male", "slaver"],
-      ["subrace_humankingdom_female", "slaver"],
-      ["subrace_humanvale_male", "slaver"],
-      ["subrace_humanvale_female", "slaver"],
-      ["subrace_humansea_male", "slaver"],
-      ["subrace_humansea_female", "slaver"],
-      ["subrace_humandesert_male", "slaver"],
-      ["subrace_humandesert_female", "slaver"],
-      ["subrace_elf_male", "slaver"],
-      ["subrace_elf_female", "slaver"],
-      ["subrace_drow_male", "slaver"],
-      ["subrace_drow_female", "slaver"],
-      ["subrace_werewolf_male", "slaver"],
-      ["subrace_werewolf_female", "slaver"],
-      ["subrace_neko_male", "slaver"],
-      ["subrace_neko_female", "slaver"],
-      ["subrace_kobold_male", "slaver"],
-      ["subrace_kobold_female", "slaver"],
-      ["subrace_lizardkin_male", "slaver"],
-      ["subrace_lizardkin_female", "slaver"],
-      ["subrace_demon_male", "slaver"],
-      ["subrace_demon_female", "slaver"],
-      ["subrace_orc_male", "slaver"],
-      ["subrace_orc_female", "slaver"],
-      ["subrace_tigerkin_male", "slaver"],
-      ["subrace_tigerkin_female", "slaver"],
-      ["subrace_angel_male", "slaver"],
-      ["subrace_angel_female", "slaver"],
-      ["subrace_fairy_male", "slaver"],
-      ["subrace_fairy_female", "slaver"],
-      ["subrace_dragonkin_male", "slaver"],
-      ["subrace_dragonkin_female", "slaver"],
-      ["subrace_demonkin_male", "slaver"],
-      ["subrace_demonkin_female", "slaver"],
-    ] as [UnitPoolKey, JobKey][];
+      ["subrace_humankingdom", "slaver", "gender_male"],
+      ["subrace_humankingdom", "slaver", "gender_female"],
+      ["subrace_humanvale", "slaver", "gender_male"],
+      ["subrace_humanvale", "slaver", "gender_female"],
+      ["subrace_humansea", "slaver", "gender_male"],
+      ["subrace_humansea", "slaver", "gender_female"],
+      ["subrace_humandesert", "slaver", "gender_male"],
+      ["subrace_humandesert", "slaver", "gender_female"],
+      ["subrace_elf", "slaver", "gender_male"],
+      ["subrace_elf", "slaver", "gender_female"],
+      ["subrace_drow", "slaver", "gender_male"],
+      ["subrace_drow", "slaver", "gender_female"],
+      ["subrace_werewolf", "slaver", "gender_male"],
+      ["subrace_werewolf", "slaver", "gender_female"],
+      ["subrace_neko", "slaver", "gender_male"],
+      ["subrace_neko", "slaver", "gender_female"],
+      ["subrace_kobold", "slaver", "gender_male"],
+      ["subrace_kobold", "slaver", "gender_female"],
+      ["subrace_lizardkin", "slaver", "gender_male"],
+      ["subrace_lizardkin", "slaver", "gender_female"],
+      ["subrace_demon", "slaver", "gender_male"],
+      ["subrace_demon", "slaver", "gender_female"],
+      ["subrace_orc", "slaver", "gender_male"],
+      ["subrace_orc", "slaver", "gender_female"],
+      ["subrace_tigerkin", "slaver", "gender_male"],
+      ["subrace_tigerkin", "slaver", "gender_female"],
+      ["subrace_angel", "slaver", "gender_male"],
+      ["subrace_angel", "slaver", "gender_female"],
+      ["subrace_fairy", "slaver", "gender_male"],
+      ["subrace_fairy", "slaver", "gender_female"],
+      ["subrace_dragonkin", "slaver", "gender_male"],
+      ["subrace_dragonkin", "slaver", "gender_female"],
+      ["subrace_demonkin", "slaver", "gender_male"],
+      ["subrace_demonkin", "slaver", "gender_female"],
+    ] as [UnitPoolKey, JobKey, TraitKey][];
     createUnits(units);
 
     initSlavesCommon();
@@ -680,8 +684,7 @@ export namespace DebugInit {
       const male = eqlistslave.concat([setup.equipment.chastity_dick]);
       const eqslavemale = setup.DebugInit.getEquipmentSet(male);
       const maleslave = setup.unitgroup.all.getUnit({
-        retries: 20,
-        trait_key: "gender_male",
+        gender: "gender_male",
       });
       sv.company.player.addUnit(maleslave, setup.job.slave);
       eqslavemale.equip(maleslave);
@@ -689,8 +692,7 @@ export namespace DebugInit {
       const female = eqlistslave.concat([setup.equipment.dildo]);
       const eqslavefemale = setup.DebugInit.getEquipmentSet(female);
       const femaleslave = setup.unitgroup.all.getUnit({
-        retries: 20,
-        trait_key: "gender_female",
+        gender: "gender_female",
       });
       sv.company.player.addUnit(femaleslave, setup.job.slave);
       eqslavefemale.equip(femaleslave);
@@ -726,15 +728,13 @@ export namespace DebugInit {
 
       for (const bc of [bc1, bc2]) {
         const maleslave = setup.unitgroup.all.getUnit({
-          retries: 20,
-          trait_key: "gender_male",
+          gender: "gender_male",
         });
         sv.company.player.addUnit(maleslave, setup.job.slave);
         bc.getDuties()[0].assignUnit(maleslave);
 
         const femaleslave = setup.unitgroup.all.getUnit({
-          retries: 20,
-          trait_key: "gender_female",
+          gender: "gender_female",
         });
         sv.company.player.addUnit(femaleslave, setup.job.slave);
         bc.getDuties()[1].assignUnit(femaleslave);

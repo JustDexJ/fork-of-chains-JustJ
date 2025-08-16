@@ -302,10 +302,10 @@ but it's over. That said, even after a hot bath you still feel cold. And you eve
 but it's over. You sit for a while longer, cupping your hands around a bowl of stew, and wondering you're ever going to be warm again.
 <<else>>
 but it's over. You member an elf you sold recently. Long hair,
-<<if $g.elfslave.isHasTrait('gender_male')>>
-nice butt.
-<<else>>
+<<if $g.elfslave.isHasBreasts()>>
 nice tits.
+<<else>>
+nice butt.
 <</if>>
 Could've brought you in more money though. Should have given all of this crap you had to go through.
 <</if>>

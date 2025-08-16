@@ -1,8 +1,7 @@
 :: InitCompanyHumanKingdom [nobr company]
 
 <<set _getslaver = setup.qc.Function((company) => {
-  var preference = State.variables.settings.getGenderPreference(setup.job.slaver);
-  var unit = setup.unitgroup.all.getUnit(preference);
+  var unit = setup.unitgroup.all.getUnit({ job_hint: setup.job.slaver });
   setup.qc.Slaver('recruit', "", /* is mercenary = */ true).apply({
     getName: () => company.getName(),
     getActorUnit: () => unit,

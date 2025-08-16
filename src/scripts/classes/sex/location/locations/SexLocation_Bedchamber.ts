@@ -1,5 +1,6 @@
 import type { Bedchamber, BedchamberKey } from "../../../bedchamber/BedChamber";
-import type { Furniture, FurnitureSlotKey } from "../../../furniture/Furniture";
+import type { Furniture } from "../../../furniture/Furniture";
+import type { FurnitureSlotKey } from "../../../furniture/FurnitureSlot";
 import { SexLocation } from "../SexLocation";
 
 export class SexLocation_Bedchamber extends SexLocation {

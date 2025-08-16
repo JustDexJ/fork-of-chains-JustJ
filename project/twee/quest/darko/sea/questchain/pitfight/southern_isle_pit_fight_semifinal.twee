@@ -5,14 +5,10 @@
 "southern_isle_pit_fights_semi_final1",
 "Semi-Final Gladiator",
 [ /* pools */
-  [setup.unitpool.subrace_orc_male, 0.125],
-  [setup.unitpool.subrace_orc_female, 0.125],
-  [setup.unitpool.subrace_humandesert_male, 0.125],
-  [setup.unitpool.subrace_humandesert_female, 0.125],
-  [setup.unitpool.subrace_humansea_male, 0.125],
-  [setup.unitpool.subrace_humansea_female, 0.125],
-  [setup.unitpool.subrace_werewolf_male, 0.125],
-  [setup.unitpool.subrace_werewolf_female, 0.125],
+  [setup.unitpool.subrace_orc, 0.125],
+  [setup.unitpool.subrace_humandesert, 0.125],
+  [setup.unitpool.subrace_humansea, 0.125],
+  [setup.unitpool.subrace_werewolf, 0.125],
 ],
 0, /* reuse chance */
 [ /* unit post process */

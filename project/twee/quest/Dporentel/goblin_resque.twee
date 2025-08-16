@@ -5,12 +5,13 @@
 <<run new setup.UnitGroup(
 'quest_goblin_resque2',
 "quest_broken_by_goblins",
-'subrace_humankingdom_female',  /* pools */
+'subrace_humankingdom',  /* pools */
 0, /* reuse chance */
 [
   setup.qc.Mindbreak('unit'),
   setup.qc.TraitReplace('unit', setup.trait.vagina_gape),
 ],
+['gender_female']
 )>>
 
 <<run new setup.QuestTemplate(

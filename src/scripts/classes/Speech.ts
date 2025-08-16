@@ -1,9 +1,16 @@
+import type { SPEECHES_DEFINITIONS } from "../data/speeches";
 import { TwineClass } from "./_TwineClass";
-import type { Trait, TraitKey } from "./trait/Trait";
+import type { TraitKey } from "./trait/Trait";
 import type { Unit } from "./unit/Unit";
 
-//export type SpeechKey = BrandedType<string, "SpeechKey">;
-export type SpeechKey = BuiltinSpeechKey;
+export type SpeechKey = keyof typeof SPEECHES_DEFINITIONS;
+
+export interface SpeechDefinition {
+  key: string;
+  name: string;
+  description: string;
+  traits: (TraitKey | BuiltinTraitKey)[];
+}
 
 export class Speech extends TwineClass {
   key: SpeechKey;
@@ -11,22 +18,20 @@ export class Speech extends TwineClass {
   description: string;
   trait_keys: TraitKey[];
 
-  constructor(key: string, name: string, description: string, traits: Trait[]) {
+  constructor(def: SpeechDefinition) {
     super();
 
+    const key = def.key as SpeechKey;
     if (!key) throw new Error(`null key for speech`);
-    this.key = key as SpeechKey;
+    this.key = key;
 
-    if (!name) throw new Error(`null name for speech ${key}`);
-    this.name = name;
+    if (!def.name) throw new Error(`null name for speech ${key}`);
+    this.name = def.name;
 
-    if (!description) throw new Error(`null description for speech ${key}`);
-    this.description = description;
+    if (!def.description) throw new Error(`null description for speech ${key}`);
+    this.description = def.description;
 
-    this.trait_keys = [];
-    for (let i = 0; i < traits.length; ++i) {
-      this.trait_keys.push(traits[i].key);
-    }
+    this.trait_keys = def.traits as TraitKey[];
 
     if (key in setup.speech) throw new Error(`Speech ${key} duplicated`);
     setup.speech[key as SpeechKey] = this;

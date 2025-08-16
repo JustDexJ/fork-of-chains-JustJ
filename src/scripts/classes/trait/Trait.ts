@@ -378,6 +378,7 @@ export class Trait extends TwineClass {
       throw new Error(
         `Gender in iscompatiblewithgender must be a gender, not ${gender.key}`,
       );
+    // TODO
     if (this.isNeedDick() && gender == setup.trait.gender_female) return false;
     if (this.isNeedVagina() && gender == setup.trait.gender_male) return false;
     return true;

@@ -5,7 +5,7 @@ import type { Unit } from "../unit/Unit";
 
 export type TitleKey = BrandedType<string, "TitleKey">;
 
-interface TitleInit {
+export interface TitleDefinition {
   key: string;
   name: string;
   description: string;
@@ -24,7 +24,7 @@ export class Title extends TwineClass {
   skill_adds: number[];
   is_negative: boolean;
 
-  constructor(options: TitleInit);
+  constructor(options: TitleDefinition);
   constructor(
     key: string,
     name: string,
@@ -40,7 +40,7 @@ export class Title extends TwineClass {
   constructor(...args: any[]) {
     super();
 
-    const init: TitleInit =
+    const init: TitleDefinition =
       args.length <= 1
         ? args[0]
         : {

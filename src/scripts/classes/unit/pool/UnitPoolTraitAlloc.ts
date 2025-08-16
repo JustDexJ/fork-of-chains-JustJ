@@ -1,22 +1,34 @@
+import { SEXGENDERS } from "../../../data/sexgenders";
 import { TwineClass } from "../../_TwineClass";
+import { type SexgenderKey } from "../../Settings";
 import { TraitHelper } from "../../trait/Trait";
 import type { ChancesWithMinMax } from "./UnitPoolHelper";
 
+export interface TraitAllocEntry {
+  chances: { [traitKey in TraitKey]: number };
+  min: number;
+  max: number;
+}
+
+export interface TraitAlloc {
+  [k: string]: TraitAllocEntry;
+}
+
 export class UnitPoolTraitAlloc extends TwineClass {
-  /** how much does this pool prefers a certain trait. */
+  /** How much does this pool prefers a certain trait. */
   trait_preferences: ChanceObject<TraitKey>;
 
-  /** how much does this pool hates a certain trait. */
+  /** How much does this pool hates a certain trait. */
   trait_dispreferences: ChanceObject<TraitKey>;
 
   constructor(
-    trait_preferences: ChanceObject<TraitKey>,
-    trait_dispreferences: ChanceObject<TraitKey>,
+    trait_preferences: { [k in TraitKey | BuiltinTraitKey]?: number },
+    trait_dispreferences: { [k in TraitKey | BuiltinTraitKey]?: number },
   ) {
     super();
 
-    this.trait_preferences = trait_preferences;
-    this.trait_dispreferences = trait_dispreferences;
+    this.trait_preferences = trait_preferences as ChanceObject<TraitKey>;
+    this.trait_dispreferences = trait_dispreferences as ChanceObject<TraitKey>;
 
     for (const [trait_key, value] of objectEntries(trait_preferences)) {
       if (!(trait_key in setup.trait))
@@ -136,8 +148,10 @@ export class UnitPoolTraitAlloc extends TwineClass {
     }
   }
 
-  computePreferences(gender: Trait) {
-    const prefs = setup.UnitPoolTraitAlloc.getBaseTraitPreferences(gender);
+  computePreferences(sexgender: SexgenderKey) {
+    const gender_trait = setup.trait[SEXGENDERS[sexgender].gender_trait_key];
+
+    const prefs = setup.UnitPoolTraitAlloc.getBaseTraitPreferences(sexgender);
 
     // apply modifiers
     this._applyModifiers(prefs);
@@ -146,20 +160,27 @@ export class UnitPoolTraitAlloc extends TwineClass {
     this._setupOneObj(prefs, "subrace");
 
     // setup skin traits and bg traits
-    this._setupTaggedTraits(prefs, "skin", gender);
-    this._setupTaggedTraits(prefs, "bg", gender, /* must_be_one = */ true);
+    this._setupTaggedTraits(prefs, "skin", gender_trait);
+    this._setupTaggedTraits(
+      prefs,
+      "bg",
+      gender_trait,
+      /* must_be_one = */ true,
+    );
 
     return prefs;
   }
 
-  static getBaseTraitPreferences(gender: Trait): {
+  static getBaseTraitPreferences(sexgender: SexgenderKey): {
     gender: ChancesWithMinMax;
     per: ChancesWithMinMax;
     skill: ChancesWithMinMax;
   } {
+    const gender_trait = setup.trait[SEXGENDERS[sexgender].gender_trait_key];
+
     const prefs: ReturnType<typeof this.getBaseTraitPreferences> = {
       // setup gender
-      gender: setup.UnitPoolHelper.getOneTraitObj(gender),
+      gender: setup.UnitPoolHelper.getOneTraitObj(gender_trait),
 
       // setup basic personality traits
       per: setup.UnitPoolHelper.getTraitChanceObj(
@@ -211,13 +232,7 @@ export class UnitPoolTraitAlloc extends TwineClass {
     };
 
     // physical traits
-    if (gender == setup.trait.gender_male) {
-      setup.UnitPoolHelper.physHelperMale(prefs);
-    } else if (gender == setup.trait.gender_female) {
-      setup.UnitPoolHelper.physHelperFemale(prefs);
-    } else {
-      throw new Error(`Unknown gender for unit pool generation: ${gender.key}`);
-    }
+    setup.UnitPoolHelper.physHelperSexgender(prefs, sexgender);
 
     return prefs;
   }

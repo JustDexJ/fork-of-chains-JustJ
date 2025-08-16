@@ -1,4 +1,5 @@
-import type { Furniture, FurnitureSlotKey } from "../../../furniture/Furniture";
+import type { Furniture } from "../../../furniture/Furniture";
+import type { FurnitureSlotKey } from "../../../furniture/FurnitureSlot";
 import type { SexInstance } from "../../engine/SexInstance";
 import { SexLocation } from "../SexLocation";
 

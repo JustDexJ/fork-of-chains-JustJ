@@ -213,9 +213,7 @@ export class EventTemplate extends ContentTemplate<EventTemplateKey> {
           unit_idx += 1;
         } else {
           assignment[actor_key] =
-            setup.unitpool[
-              "subrace_lizardkin_male" as UnitPoolKey
-            ].generateUnit();
+            setup.unitpool["subrace_lizardkin" as UnitPoolKey].generateUnit();
           State.variables.company.player.addUnit(
             assignment[actor_key],
             setup.job.slaver,

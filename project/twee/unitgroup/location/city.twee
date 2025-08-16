@@ -1,17 +1,13 @@
 :: InitUnitGroupCity [nobr]
 
-<<set _males = [
-  [setup.unitpool.subrace_humankingdom_male, 30],
-]>>
-
-<<set _females = [
-  [setup.unitpool.subrace_humankingdom_female, 30],
+<<set _additions = [
+  [setup.unitpool.subrace_humankingdom, 30],
 ]>>
 
 <<run new setup.UnitGroup(
   'city_all',
   'Residents of the City of Lucgate: All gender',
-  setup.ALLUNITGROUPS.concat(_males).concat(_females),
+  setup.ALLUNITGROUPS.concat(_additions),
   0,
   []
 )>>
@@ -19,16 +15,18 @@
 <<run new setup.UnitGroup(
   'city_allmale',
   'Residents of the City of Lucgate: Male',
-  setup.ALLUNITGROUPSMALE.concat(_males),
+  setup.ALLUNITGROUPS.concat(_additions),
   0,
-  []
+  [],
+  ['gender_male']
 )>>
 
 <<run new setup.UnitGroup(
   'city_allfemale',
   'Residents of the City of Lucgate: Female',
-  setup.ALLUNITGROUPSFEMALE.concat(_females),
+  setup.ALLUNITGROUPS.concat(_additions),
   0,
-  []
+  [],
+  ['gender_female']
 )>>
 

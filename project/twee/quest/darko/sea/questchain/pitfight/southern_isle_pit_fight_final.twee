@@ -34,14 +34,10 @@
 "southern_isle_pit_fights_final0",
 "final",
 [ /* pools */
-  [setup.unitpool.subrace_demonkin_male, 0.25],
-  [setup.unitpool.subrace_demonkin_female, 0.25],
-  [setup.unitpool.subrace_lizardkin_male, 0.25],
-  [setup.unitpool.subrace_lizardkin_female, 0.25],
-  [setup.unitpool.subrace_dragonkin_male, 0.01],
-  [setup.unitpool.subrace_dragonkin_female, 0.01],
-  [setup.unitpool.subrace_demon_male, 0.01],
-  [setup.unitpool.subrace_demon_female, 0.01],
+  [setup.unitpool.subrace_demonkin, 0.25],
+  [setup.unitpool.subrace_lizardkin, 0.25],
+  [setup.unitpool.subrace_dragonkin, 0.01],
+  [setup.unitpool.subrace_demon, 0.01],
 ],
 0, /* reuse chance */
 [ /* unit post process */

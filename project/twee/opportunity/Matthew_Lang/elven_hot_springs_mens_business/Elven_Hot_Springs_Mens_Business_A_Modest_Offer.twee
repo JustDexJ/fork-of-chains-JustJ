@@ -5,10 +5,11 @@
 <<run new setup.UnitGroup(
 "elven_hot_springs_men_s_business_a_modest_offer0",
 "Elf: Male",
-'subrace_elf_male', /* pools */
+'subrace_elf', /* pools */
 0, /* reuse chance */
 [ /* unit post process */
 ],
+['gender_male']
 )>>
 
 <<run new setup.OpportunityTemplate(

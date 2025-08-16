@@ -146,10 +146,9 @@ tight embrace, your <<daughter $g.child>> visibly child|transform before you.
 <<set _father = _u>>
 <</if>>
 
-<<set _preference = $settings.getGenderPreference(setup.job.slaver)>>
-
+<<set _preference = setup.job.slaver>>
 <<if Math.random() < 0.5>>
-<<set _preference = $settings.getGenderPreference(setup.job.slave)>>
+  <<set _preference = setup.job.slave>>
 <</if>>
 
 <<set _w = setup.UnitBirth.generateChild(_father, _mother, _preference)>>

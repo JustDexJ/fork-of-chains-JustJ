@@ -6,8 +6,8 @@
 'quest_gift_of_the_magi1',
 "Hermit",
 [
-[setup.unitpool.subrace_humanvale_male, 0.5],
-[setup.unitpool.subrace_humankingdom_male, 0.5], ],
+[setup.unitpool.subrace_humanvale, 1],
+],
 0, /* reuse chance */
 [
 setup.qc.BgTraitReset('unit', setup.trait.bg_wiseman),
@@ -259,7 +259,7 @@ setup.qc.OneRandom([
   setup.qc.AddTraitsRandom('firemagus',
     [setup.trait.per_attentive, setup.trait.per_humble, setup.trait.per_cautious, setup.trait.per_calm], 1, false),
   setup.qc.AddTraitsRandom('windmagus',
-    [setup.trait.per_attentive, setup.trait.per_humble, setup.trait.per_cautious, setup.trait.per_calm], 1, false), 
+    [setup.trait.per_attentive, setup.trait.per_humble, setup.trait.per_cautious, setup.trait.per_calm], 1, false),
 ]),
 ],
 ],

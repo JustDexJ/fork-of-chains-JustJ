@@ -27,6 +27,8 @@ Object.assign(globalThis as any, {
 
   resolveKey: SetupUtil.resolveKey,
   resolveObject: SetupUtil.resolveObject,
+
+  typedObject: (() => (obj: any) => obj) as typeof typedObject,
 });
 
 //

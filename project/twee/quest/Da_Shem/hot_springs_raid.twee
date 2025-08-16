@@ -5,11 +5,12 @@
 <<run new setup.UnitGroup(
 "hot_springs_raid0",
 "Elf: Female",
-'subrace_elf_female', /* pools */
+'subrace_elf', /* pools */
 0, /* reuse chance */
 [ /* unit post process */
   setup.qc.Trait('unit', setup.trait.face_beautiful),
 ],
+['gender_female']
 )>>
 
 <<set _criteriafakemaiden = new setup.UnitCriteria(
@@ -125,7 +126,7 @@ One of the ways they maintain this bond is by having their maidens bathe naked i
 
 <p>
 <<Rep $g.fakemaiden>> met up with a party who were on their way to bathe naked under
-one of the forest springs right outside of their village. 
+one of the forest springs right outside of their village.
 <<Yourrep $g.fakemaiden>> proceeded to ask to accompany them.
 
 <<if $g.fakemaiden.isHasTrait('race_elf')>>
@@ -159,7 +160,7 @@ They were interupted however by a sudden uproar and <<name $g.elfmaid>> yanked <
 
 <p>
 <<Rep $g.fakemaiden>> met up with a party who were on their way to bathe naked under
-one of the forest springs right outside of their village. 
+one of the forest springs right outside of their village.
 <<Yourrep $g.fakemaiden>> proceeded to ask to accompany them.
 
 <<if $g.fakemaiden.isHasTrait('race_elf')>>

@@ -167,8 +167,7 @@ export class QuestPool extends TwineClass {
         actors[actor_key] = found;
       } else if (unit_group instanceof setup.UnitGroup) {
         const job = template.getActorResultJob(actor_key);
-        const preference = State.variables.settings.getGenderPreference(job);
-        actors[actor_key] = unit_group.getUnit(preference);
+        actors[actor_key] = unit_group.getUnit({ job_hint: job });
       } else if (unit_group instanceof setup.ContactTemplate) {
         const contacts = State.variables.contactlist
           .getContacts(unit_group)

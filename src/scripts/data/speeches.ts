@@ -1,103 +1,130 @@
-export const initSpeeches = () => {
-  new setup.Speech("friendly", "Friendly", "Pleasant to others", [
-    setup.trait.bg_noble,
-    setup.trait.bg_royal,
-    setup.trait.bg_informer,
-    setup.trait.bg_priest,
-    setup.trait.bg_healer,
-    setup.trait.bg_merchant,
-    setup.trait.per_gregarious,
-    setup.trait.per_lavish,
-    setup.trait.per_humble,
-    setup.trait.per_kind,
-    setup.trait.per_dreamy,
-    setup.trait.per_empath,
-    setup.trait.per_submissive,
-  ]);
+import type { SpeechDefinition } from "../classes/Speech";
 
-  new setup.Speech("bold", "Bold", "Held themselves in high regards", [
-    setup.trait.bg_seaman,
-    setup.trait.bg_knight,
-    setup.trait.per_loyal,
-    setup.trait.per_aggressive,
-    setup.trait.per_proud,
-    setup.trait.per_brave,
-    setup.trait.per_honorable,
-    setup.trait.per_stubborn,
-    setup.trait.per_active,
-  ]);
+export const SPEECHES_DEFINITIONS = typedObject<SpeechDefinition>()({
+  friendly: {
+    key: "friendly",
+    name: "Friendly",
+    description: "Pleasant to others",
+    traits: [
+      "bg_noble",
+      "bg_royal",
+      "bg_informer",
+      "bg_priest",
+      "bg_healer",
+      "bg_merchant",
+      "per_gregarious",
+      "per_lavish",
+      "per_humble",
+      "per_kind",
+      "per_dreamy",
+      "per_empath",
+      "per_submissive",
+    ],
+  },
 
-  new setup.Speech("cool", "Cool", "Speaks only when needed", [
-    setup.trait.bg_woodsman,
-    setup.trait.bg_boss,
-    setup.trait.bg_assassin,
-    setup.trait.bg_monk,
-    setup.trait.bg_hunter,
-    setup.trait.per_direct,
-    setup.trait.per_loner,
-    setup.trait.per_chaste,
-    setup.trait.per_cautious,
-    setup.trait.per_independent,
-    setup.trait.per_calm,
-    setup.trait.per_serious,
-  ]);
+  bold: {
+    key: "bold",
+    name: "Bold",
+    description: "Held themselves in high regards",
+    traits: [
+      "bg_seaman",
+      "bg_knight",
+      "per_loyal",
+      "per_aggressive",
+      "per_proud",
+      "per_brave",
+      "per_honorable",
+      "per_stubborn",
+      "per_active",
+    ],
+  },
 
-  new setup.Speech("witty", "Witty", "Also come up with the worst puns", [
-    setup.trait.bg_scholar,
-    setup.trait.bg_adventurer,
-    setup.trait.bg_entertainer,
-    setup.trait.per_frugal,
-    setup.trait.per_sly,
-    setup.trait.per_logical,
-    setup.trait.per_playful,
-    setup.trait.per_curious,
-    setup.trait.per_studious,
-    setup.trait.per_attentive,
-  ]);
+  cool: {
+    key: "cool",
+    name: "Cool",
+    description: "Speaks only when needed",
+    traits: [
+      "bg_woodsman",
+      "bg_boss",
+      "bg_assassin",
+      "bg_monk",
+      "bg_hunter",
+      "per_direct",
+      "per_loner",
+      "per_chaste",
+      "per_cautious",
+      "per_independent",
+      "per_calm",
+      "per_serious",
+    ],
+  },
 
-  new setup.Speech("debauched", "Debauched", "Life is entertainment", [
-    setup.trait.bg_slaver,
-    setup.trait.bg_pirate,
-    setup.trait.bg_raider,
-    setup.trait.bg_thug,
-    setup.trait.bg_mist,
-    setup.trait.bg_whore,
-    setup.trait.per_lunatic,
-    setup.trait.per_masochistic,
-    setup.trait.per_lustful,
-    setup.trait.per_sexaddict,
-    setup.trait.per_cruel,
-    setup.trait.per_evil,
-    setup.trait.per_dominant,
-  ]);
+  witty: {
+    key: "witty",
+    name: "Witty",
+    description: "Also come up with the worst puns",
+    traits: [
+      "bg_scholar",
+      "bg_adventurer",
+      "bg_entertainer",
+      "per_frugal",
+      "per_sly",
+      "per_logical",
+      "per_playful",
+      "per_curious",
+      "per_studious",
+      "per_attentive",
+    ],
+  },
 
-  // prettier-ignore
-  setup.SPEECH_ADVERBS = {
-    friendly: [
-      'cordially', 'pleasantly', 'warmly', 'amiably', 'affably',
-      'congenially', 'gregariously', 'hospitably', 'openly', 'kindly',
-      'amicably', 'cordially', 'agreeably', 'obligingly', 'delightfully',
+  debauched: {
+    key: "debauched",
+    name: "Debauched",
+    description: "Life is entertainment",
+    traits: [
+      "bg_slaver",
+      "bg_pirate",
+      "bg_raider",
+      "bg_thug",
+      "bg_mist",
+      "bg_whore",
+      "per_lunatic",
+      "per_masochistic",
+      "per_lustful",
+      "per_sexaddict",
+      "per_cruel",
+      "per_evil",
+      "per_dominant",
     ],
-    bold: [
-      'angrily', 'proudly', 'arrogantly', 'vainly', 'smugly',
-      'pomposhly', 'haughtily', 'complacently', 'disdainfully', 'boastfully',
-      'irritably', 'forcefully', 'condescendingly', 'mightily', 'powerfully',
-      'boldly',
-    ],
-    cool: [
-      'coolly', 'coldly', 'aloofly', 'remotely', 'distantly',
-      'solemnly', 'seriously', 'sternly', 'stoically', 'grimly',
-      'calmly', 'reservedly', 'plainly', 'neutrally', 'indifferently',
-    ],
-    witty: [
-      'sarcastically', 'ridiculously', 'funnily', 'amusingly', 'humorously',
-      'comically', 'hilariously', 'wittily', 'absurdly', 'merrily',
-      'happily', 'jovially', 'lightheartedly', 'cheerfully', 'joyfully',
-    ],
-    debauched: [
-      'debauchedly', 'depravedly', 'shamelessly', 'immorally', 'impurely',
-      'crazily', 'madly', 'insanely', 'brazenly', 'brashly',
-      'directly', 'transparently', 'unabashedly', 'pervertedly', 'deviantly',
-    ],
-  };
+  },
+});
+
+// prettier-ignore
+setup.SPEECH_ADVERBS = {
+  friendly: [
+    'cordially', 'pleasantly', 'warmly', 'amiably', 'affably',
+    'congenially', 'gregariously', 'hospitably', 'openly', 'kindly',
+    'amicably', 'cordially', 'agreeably', 'obligingly', 'delightfully',
+  ],
+  bold: [
+    'angrily', 'proudly', 'arrogantly', 'vainly', 'smugly',
+    'pomposhly', 'haughtily', 'complacently', 'disdainfully', 'boastfully',
+    'irritably', 'forcefully', 'condescendingly', 'mightily', 'powerfully',
+    'boldly',
+  ],
+  cool: [
+    'coolly', 'coldly', 'aloofly', 'remotely', 'distantly',
+    'solemnly', 'seriously', 'sternly', 'stoically', 'grimly',
+    'calmly', 'reservedly', 'plainly', 'neutrally', 'indifferently',
+  ],
+  witty: [
+    'sarcastically', 'ridiculously', 'funnily', 'amusingly', 'humorously',
+    'comically', 'hilariously', 'wittily', 'absurdly', 'merrily',
+    'happily', 'jovially', 'lightheartedly', 'cheerfully', 'joyfully',
+  ],
+  debauched: [
+    'debauchedly', 'depravedly', 'shamelessly', 'immorally', 'impurely',
+    'crazily', 'madly', 'insanely', 'brazenly', 'brashly',
+    'directly', 'transparently', 'unabashedly', 'pervertedly', 'deviantly',
+  ],
 };

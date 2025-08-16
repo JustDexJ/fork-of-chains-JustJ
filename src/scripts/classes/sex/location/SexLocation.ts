@@ -1,7 +1,10 @@
-import type {} from "../../../data/furnitureslot";
+import type {} from "../../../data/furnitureslots";
 import { TwineClassCustom } from "../../_TwineClass";
-import { Furniture, type FurnitureSlotKey } from "../../furniture/Furniture";
-import type { FurnitureSlot } from "../../furniture/FurnitureSlot";
+import { Furniture } from "../../furniture/Furniture";
+import type {
+  FurnitureSlot,
+  FurnitureSlotKey,
+} from "../../furniture/FurnitureSlot";
 import type { Unit } from "../../unit/Unit";
 import type { SexInstance } from "../engine/SexInstance";
 

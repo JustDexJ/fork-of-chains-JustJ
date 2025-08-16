@@ -413,7 +413,7 @@ export class QuestTemplate extends ContentTemplate<QuestTemplateKey> {
           // console.log(`generating new unit for quest ${this.key}`)
           unit =
             setup.unitpool[
-              "subrace_humankingdom_male" as UnitPoolKey
+              "subrace_humankingdom" as UnitPoolKey
             ].generateUnit();
           State.variables.company.player.addUnit(
             unit,

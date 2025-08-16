@@ -42,7 +42,9 @@ function autoSave() {
     const week = State.variables.calendar.getWeek();
     // do it asynchronously
     setTimeout(() => {
-      Save.browser.slots.save(7, `Autosave Wk ${week}: ${name}`);
+      // @ts-ignore
+      // SugarCube types have a bug... it is in fact "slot" and not "slots"
+      Save.browser.slot.save(7, `Autosave Wk ${week}: ${name}`);
     }, 0);
   }
 }

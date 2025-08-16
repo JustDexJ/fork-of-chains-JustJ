@@ -72,7 +72,7 @@ setup.qdiff.normal25, /* difficulty */
 { /* actors */
   'elf': [
     setup.qres.Job(setup.job.slaver),
-    setup.qres.AllTraits([setup.trait.gender_male, setup.trait.race_elf], true),
+    setup.qres.AllTraits([setup.trait.gender_male, setup.trait.race_elf, setup.trait.dick_tiny], true),
     setup.qres.Home(),
   ],
 },

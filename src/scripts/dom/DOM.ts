@@ -1,5 +1,6 @@
 import { createComponent, render } from "solid-js/web";
 import { DOM_Card } from "./card/_index";
+import Components_ from "./components/_index";
 import { DOM_Helper } from "./helper/_index";
 import { DOM_Menu } from "./menu/_index";
 import { DOM_Nav } from "./nav/nav";
@@ -66,10 +67,10 @@ export namespace DOM {
    *
    * To render them in twee code, or inside DOM functions not in JSX, use:
    * ```
-   *   setup.DOM.renderComponent(setup.DOM.Components.MyComponent, { myProp1: 0, ... })
+   *   setup.DOM.renderComponent(setup.DOM.Component.MyComponent, { myProp1: 0, ... })
    * ```
    */
-  export const Components = {};
+  export const Component = Components_;
 
   //
   // Misc functions

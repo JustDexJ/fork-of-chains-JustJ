@@ -1,8 +1,7 @@
-import { typedRecord } from "../../util/typeutils";
 import { TwineClass } from "../_TwineClass";
 import { FamilyRelation, FamilyRelationKey } from "./FamilyRelation";
 
-const FAMILY_RELATION_TYPES = typedRecord<{
+const FAMILY_RELATION_TYPES = typedObject<{
   [k in BuiltinTraitKey]?: FamilyRelationKey;
 }>()({
   sibling: {

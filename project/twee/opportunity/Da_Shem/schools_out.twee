@@ -5,24 +5,26 @@
 <<run new setup.UnitGroup(
 "schools_out0",
 "dropout",
-"subrace_humankingdom_male",  /* pools */
+"subrace_humankingdom",  /* pools */
 0, /* reuse chance */
 [ /* unit post process */
   setup.qc.BgTraitReset('unit', setup.trait.bg_noble),
   setup.qc.Mindbreak('unit'),
 ],
+["gender_male"]
 )>>
 
 <<run new setup.UnitGroup(
 "schools_out1",
 "Graduate",
-'subrace_humankingdom_male',  /* pools */
+'subrace_humankingdom',  /* pools */
 0, /* reuse chance */
 [ /* unit post process */
   setup.qc.BgTraitReset('unit', setup.trait.bg_noble),
   setup.qc.Trait('unit', setup.trait.per_submissive),
   setup.qc.Trait('unit', setup.trait.training_obedience_basic),
 ],
+["gender_male"]
 )>>
 
 <<run new setup.OpportunityTemplate(

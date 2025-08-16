@@ -21,9 +21,8 @@ export default class SlaveOrderSeaborneRescueItHasToBeYouEasyToPleasePirate exte
   }
 
   override getCriteria() {
-    let chances = setup.UnitPoolTraitAlloc.getBaseTraitPreferences(
-      setup.trait.gender_male,
-    ).per.chances;
+    let chances =
+      setup.UnitPoolTraitAlloc.getBaseTraitPreferences("male").per.chances;
     let randomtraits = setup.UnitPool.generateTraitsFromObj(chances, 7, 7);
 
     let critical: Trait[] = randomtraits.map((a) => setup.trait[a]);

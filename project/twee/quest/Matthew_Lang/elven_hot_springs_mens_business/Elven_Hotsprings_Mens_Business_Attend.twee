@@ -34,7 +34,7 @@ null, /* key */
 ],
 [
   setup.qres.Job(setup.job.slaver),
-  setup.qres.AllTraits([setup.trait.race_elf, setup.trait.gender_male], true),
+  setup.qres.AllTraits([setup.trait.race_elf, setup.trait.gender_male, setup.trait.dick_tiny], true),
 ],
 {
   social: 2,
@@ -66,7 +66,7 @@ null, /* key */
   setup.qres.Job(setup.job.slave),
   setup.qres.Trait(setup.trait.training_obedience_basic),
   setup.qres.AnyTrait([setup.trait.training_domestic_basic, setup.trait.training_domestic_advanced, setup.trait.training_domestic_master], true),
-  setup.qres.AllTraits([setup.trait.gender_male], true),
+  setup.qres.AllTraits([setup.trait.gender_male, setup.trait.dick_tiny], true),
   setup.qres.NoTraits([setup.trait.race_elf], true),
 ],
 {
@@ -114,7 +114,7 @@ null, /* key */
 ],
 [
   setup.qres.Job(setup.job.slaver),
-  setup.qres.AllTraits([setup.trait.subrace_elf, setup.trait.gender_male], true),
+  setup.qres.AllTraits([setup.trait.subrace_elf, setup.trait.gender_male, setup.trait.dick_tiny], true),
 ],
 {
   intrigue: 1,

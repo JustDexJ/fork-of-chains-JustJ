@@ -235,8 +235,7 @@ recover from the mental trauma.
 
 <<if _u.getGender() != $g.shifter2.getGender()>>
   <<set _v = setup.unitgroup.desert_all.getUnit({
-    trait_key: _u.getGender().key,
-    retries: 1000,
+    gender: _u.getGender().key,
   })>>
   <<run setup.qcImpl.Bodyswap.doBodySwap(_v, $g.shifter2)>>
 <</if>>

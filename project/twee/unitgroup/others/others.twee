@@ -14,8 +14,7 @@
   'quest_humanvale_farmer',
   'farmers of the northern vale',
   [
-    [setup.unitpool.subrace_humanvale_male, 1],
-    [setup.unitpool.subrace_humanvale_female, 1],
+    [setup.unitpool.subrace_humanvale, 1],
   ],
   0,
   [
@@ -27,8 +26,7 @@
   'quest_humanvale_militia',
   'militias of the northern vale',
   [
-    [setup.unitpool.subrace_humanvale_male, 1],
-    [setup.unitpool.subrace_humanvale_female, 1],
+    [setup.unitpool.subrace_humanvale, 1],
   ],
   0,
   [
@@ -40,8 +38,7 @@
   'quest_humanvale_mystic',
   'mystic of the northern vale',
   [
-    [setup.unitpool.subrace_humanvale_male, 1],
-    [setup.unitpool.subrace_humanvale_female, 1],
+    [setup.unitpool.subrace_humanvale, 1],
   ],
   0,
   [
@@ -55,8 +52,7 @@
   'quest_humanvale_mysticleader',
   'mystic of the northern vale',
   [
-    [setup.unitpool.subrace_humanvale_male, 1],
-    [setup.unitpool.subrace_humanvale_female, 1],
+    [setup.unitpool.subrace_humanvale, 1],
   ],
   0,
   [
@@ -70,14 +66,13 @@
   'quest_humankingdom_squire',
   'squire of the kingdom',
   [
-    [setup.unitpool.subrace_humankingdom_male, 0.6],
-    [setup.unitpool.subrace_humankingdom_female, 0.4],
+    [setup.unitpool.subrace_humankingdom, 1],
   ],
   0,
   [
     setup.qc.BgTraitReset('unit', setup.trait.bg_soldier),
     setup.qc.AddTitle('unit', 'quest_knight_in_training_squire'),
-  ]
+  ],
 )>>
 
 
@@ -85,7 +80,7 @@
   'quest_humankingdom_cow_male',
   'male cow of the kingdom',
   [
-    [setup.unitpool.subrace_humankingdom_male, 1],
+    [setup.unitpool.subrace_humankingdom, 1],
   ],
   0,
   [
@@ -93,14 +88,15 @@
     setup.qc.TraitReplace('unit', setup.trait.balls_huge),
     setup.qc.TraitReplace('unit', setup.trait.anus_gape),
     setup.qc.Mindbreak('unit'),
-  ]
+  ],
+  ['gender_male']
 )>>
 
 <<run new setup.UnitGroup(
   'quest_humankingdom_cow_male_titanic',
   'male cow of the kingdom',
   [
-    [setup.unitpool.subrace_humankingdom_male, 1],
+    [setup.unitpool.subrace_humankingdom, 1],
   ],
   0,
   [
@@ -108,7 +104,8 @@
     setup.qc.TraitReplace('unit', setup.trait.balls_titanic),
     setup.qc.TraitReplace('unit', setup.trait.anus_gape),
     setup.qc.Mindbreak('unit'),
-  ]
+  ],
+  ['gender_male']
 )>>
 
 
@@ -116,7 +113,7 @@
   'quest_humankingdom_cow_female',
   'female cow of the kingdom',
   [
-    [setup.unitpool.subrace_humankingdom_female, 1],
+    [setup.unitpool.subrace_humankingdom, 1],
   ],
   0,
   [
@@ -125,14 +122,15 @@
     setup.qc.TraitReplace('unit', setup.trait.vagina_gape),
     setup.qc.TraitReplace('unit', setup.trait.anus_gape),
     setup.qc.Mindbreak('unit'),
-  ]
+  ],
+  ['gender_female']
 )>>
 
 <<run new setup.UnitGroup(
   'quest_humankingdom_cow_female_titanic',
   'female cow of the kingdom',
   [
-    [setup.unitpool.subrace_humankingdom_female, 1],
+    [setup.unitpool.subrace_humankingdom, 1],
   ],
   0,
   [
@@ -141,20 +139,22 @@
     setup.qc.TraitReplace('unit', setup.trait.vagina_gape),
     setup.qc.TraitReplace('unit', setup.trait.anus_gape),
     setup.qc.Mindbreak('unit'),
-  ]
+  ],
+  ['gender_female']
 )>>
 
 <<run new setup.UnitGroup(
   'quest_humankingdom_nobledaughter',
   'noble daughter of the kingdom',
   [
-    [setup.unitpool.subrace_humankingdom_female, 1],
+    [setup.unitpool.subrace_humankingdom, 1],
   ],
   0,
   [
     setup.qc.BgTraitReset('unit', setup.trait.bg_noble),
     setup.qc.TraitReplace('unit', setup.trait.face_attractive),
-  ]
+  ],
+  ['gender_female']
 )>>
 
 
@@ -163,7 +163,7 @@
   'noble daughter of the kingdom',
   [
     [
-      setup.unitpool.subrace_humankingdom_female, 1
+      setup.unitpool.subrace_humankingdom, 1
     ],
   ],
   0,
@@ -171,7 +171,8 @@
     setup.qc.BgTraitReset('unit', setup.trait.bg_noble),
     setup.qc.TraitReplace('unit', setup.trait.vagina_gape),
     setup.qc.TraitReplace('unit', setup.trait.anus_gape),
-  ]
+  ],
+  ['gender_female']
 )>>
 
 

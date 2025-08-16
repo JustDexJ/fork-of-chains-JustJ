@@ -64,7 +64,6 @@ export class Unit extends TwineClass {
   level: number;
   first_name: string;
   surname: string;
-  name: string;
   custom_image_name: string;
   nickname: string;
 
@@ -156,9 +155,6 @@ export class Unit extends TwineClass {
 
     // some surname can be empty.
     this.surname = bothnamearray[1];
-
-    if (this.surname) this.name = `${this.first_name} ${this.surname}`;
-    else this.name = this.first_name;
 
     this.custom_image_name = "";
 
@@ -427,8 +423,6 @@ export class Unit extends TwineClass {
     this.first_name = firstname;
     this.surname = surname;
     if (changenick) this.nickname = this.first_name;
-    if (this.surname) this.name = `${this.first_name} ${this.surname}`;
-    else this.name = this.first_name;
 
     this.resetCache();
   }
@@ -774,6 +768,11 @@ export class Unit extends TwineClass {
 
   getName(): string {
     return this.nickname;
+  }
+
+  get name(): string {
+    if (this.surname) return `${this.first_name} ${this.surname}`;
+    else return this.first_name;
   }
 
   getFullName(): string {

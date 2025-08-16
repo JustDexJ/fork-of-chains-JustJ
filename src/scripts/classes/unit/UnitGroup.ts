@@ -1,7 +1,16 @@
 import { TwineClass } from "../_TwineClass";
 import type { TraitKey } from "../trait/Trait";
-import { UnitPoolKey, type UnitPool } from "./pool/UnitPool";
+import {
+  UnitPoolKey,
+  type GenerateUnitOptions,
+  type UnitPool,
+} from "./pool/UnitPool";
 import type { Unit } from "./Unit";
+
+interface GetUnitOptions extends GenerateUnitOptions {
+  /** Override the unit pool to use to generate an unit (when needed) */
+  unit_pool?: UnitPool | UnitPoolKey;
+}
 
 export type UnitGroupKey = BrandedType<string, "UnitGroupKey">;
 
@@ -13,6 +22,8 @@ export class UnitGroup extends TwineClass {
 
   unitpool_keys: ChanceArray<UnitPoolKey> = [];
   unit_post_process: Cost[];
+
+  gender_traits: TraitKey[] | undefined;
 
   /**
    * Whether this unit group is a "base" unit group, and not a quest-made unit group.
@@ -29,6 +40,7 @@ export class UnitGroup extends TwineClass {
     unitpoolsOrUnitGroupKey: ChanceArray<UnitPool> | UnitGroupKey,
     reuse_chance: number,
     unit_post_process: Cost[],
+    gender_traits?: (TraitKey | BuiltinTraitKey)[],
   ) {
     super();
 
@@ -62,7 +74,9 @@ export class UnitGroup extends TwineClass {
     if (this.unitpool_keys.length) {
       setup.rng.normalizeChanceArray(this.unitpool_keys);
     }
+
     this.reuse_chance = reuse_chance;
+    this.gender_traits = gender_traits as TraitKey[];
 
     this.unit_post_process = unit_post_process || [];
     for (let i = 0; i < unit_post_process.length; ++i) {
@@ -135,6 +149,9 @@ export class UnitGroup extends TwineClass {
       base += `&nbsp; ${postprocess.text()},\n`;
     }
     base += `],\n`;
+    if (this.gender_traits) {
+      base += `${this.gender_traits}`;
+    }
     base += `)`;
     return base;
   }
@@ -195,31 +212,21 @@ export class UnitGroup extends TwineClass {
   /**
    * Generate a new unit
    */
-  _generateUnit(preference?: {
-    trait_key: TraitKey | BuiltinTraitKey;
-    retries: number;
-  }): Unit | null {
-    // keep attempting to find the target unit
-    let tries = 1;
-    if (preference) tries = preference.retries + 1;
-    let unit: Unit | null = null;
-    for (let i = 0; i < tries; ++i) {
-      const unitpool_key = setup.rng.sampleArray(this.unitpool_keys)!;
-      const unitpool = setup.unitpool[unitpool_key];
-      if (!unitpool) {
-        throw new Error(`Missing unit pool for ${this.key} unit group?`);
-      }
-      unit = unitpool.generateUnit();
-      if (
-        i < tries - 1 &&
-        preference &&
-        !unit.isHasTraitExact(setup.trait[preference.trait_key])
-      ) {
-        unit.delete();
-      } else {
-        break;
-      }
+  _generateUnit(options?: GetUnitOptions): Unit | null {
+    let unitpool_key: UnitPoolKey;
+    if (options?.unit_pool) {
+      // if an override was provided, use that
+      unitpool_key = resolveKey(options.unit_pool);
+    } else {
+      unitpool_key = setup.rng.sampleArray(this.unitpool_keys)!;
     }
+    const unitpool = setup.unitpool[unitpool_key];
+    if (!unitpool) {
+      throw new Error(`Missing unit pool for ${this.key} unit group?`);
+    }
+
+    const unit = unitpool.generateUnit(options)!;
+
     setup.RestrictionLib.applyAll(
       this.unit_post_process,
       setup.costUnitHelperDict({ unit: unit }),
@@ -227,7 +234,11 @@ export class UnitGroup extends TwineClass {
     return unit;
   }
 
-  getUnit(preference?: Parameters<UnitGroup["_generateUnit"]>[0]): Unit {
+  /**
+   * Generates a new unit in the group.
+   * If `this.reuse_chance` is > 0, might return an existing unit instead of generating a new one.
+   */
+  getUnit(options?: GetUnitOptions): Unit {
     this.resetUnitGroupUnitKeys();
     // cleanup first so that it doesnt get returned then cleaned.
     this.cleanUnits();
@@ -250,7 +261,7 @@ export class UnitGroup extends TwineClass {
       }
     }
 
-    const unit = this._generateUnit(preference)!;
+    const unit = this._generateUnit(options)!;
 
     // only give unit a group if it's going to be reused, otherwise will be garbage collected.
     if (this.reuse_chance) {

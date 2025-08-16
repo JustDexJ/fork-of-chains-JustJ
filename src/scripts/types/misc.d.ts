@@ -67,9 +67,10 @@ declare global {
   }
 
   /**
-   * Helper type to define a Map/Dictionary for an entity T, such that it maps: T['key'] -> T.
+   * Helper type to define a Map/Dictionary for an entity T,
+   * such that it maps: T['key'] -> T.
    *
-   * (Keys must be a string and/or number)
+   * (note: keys must be string and/or number)
    */
   type Registry<T extends { key: string | number }> = {
     [k in T["key"]]: T;

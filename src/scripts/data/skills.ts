@@ -1,64 +1,76 @@
-export const initSkills = () => {
-  new setup.Skill(
-    "combat",
-    "Combat",
-    "The skill of fighting other humanlikes. " +
+import { SkillDefinition } from "../classes/Skill";
+
+export const SKILL_DEFINITIONS = typedObject<SkillDefinition>()({
+  combat: {
+    keyword: "combat",
+    name: "Combat",
+    description:
+      "The skill of fighting other humanlikes. " +
       "Helpful on missions where you are expected to fight other humanlikes.",
-  );
-  new setup.Skill(
-    "brawn",
-    "Brawn",
-    "The measure of physical strength. " +
+  },
+  brawn: {
+    keyword: "brawn",
+    name: "Brawn",
+    description:
+      "The measure of physical strength. " +
       "Helpful on missions requiring physical feats, and also helps combat to some extent.",
-  );
-  new setup.Skill(
-    "survival",
-    "Survival",
-    "Skills for surviving, navigating, and conquering the wilds. " +
+  },
+  survival: {
+    keyword: "survival",
+    name: "Survival",
+    description:
+      "Skills for surviving, navigating, and conquering the wilds. " +
       "Helpful for scouting missions, as well as missions that venture far into the wilds.",
-  );
-  new setup.Skill(
-    "intrigue",
-    "Intrigue",
-    "The art of planning, scheming, and manipulating the stage from the shadows. " +
+  },
+  intrigue: {
+    keyword: "intrigue",
+    name: "Intrigue",
+    description:
+      "The art of planning, scheming, and manipulating the stage from the shadows. " +
       "Helpful for missions involving stealth, subterfuge, and infiltrations.",
-  );
-  new setup.Skill(
-    "slaving",
-    "Slaving",
-    "The skill of efficiently breaking slaves. " +
+  },
+  slaving: {
+    keyword: "slaving",
+    name: "Slaving",
+    description:
+      "The skill of efficiently breaking slaves. " +
       "Helpful for training slaves.",
-  );
+  },
   /* 5-9 */
 
-  new setup.Skill(
-    "knowledge",
-    "Knowledge",
-    "The understanding of the world. " +
+  knowledge: {
+    keyword: "knowledge",
+    name: "Knowledge",
+    description:
+      "The understanding of the world. " +
       "Helpful for most missions, as well as missions requiring expert knowledge.",
-  );
-  new setup.Skill(
-    "social",
-    "Social",
-    "The skill of manipulating others into doing your bidding with words. " +
+  },
+  social: {
+    keyword: "social",
+    name: "Social",
+    description:
+      "The skill of manipulating others into doing your bidding with words. " +
       "Helpful for diplomacy missions, as well as missions involving negotiations.",
-  );
-  new setup.Skill(
-    "aid",
-    "Aid",
-    "The skill of healing and restoring spirit. " +
+  },
+  aid: {
+    keyword: "aid",
+    name: "Aid",
+    description:
+      "The skill of healing and restoring spirit. " +
       "Helpful for rescue as well as missions involving long rounds of combat.",
-  );
-  new setup.Skill(
-    "arcane",
-    "Arcane",
-    "The understanding of the otherworldly. " +
+  },
+  arcane: {
+    keyword: "arcane",
+    name: "Arcane",
+    description:
+      "The understanding of the otherworldly. " +
       "Helpful for mysterious missions.",
-  );
-  new setup.Skill(
-    "sex",
-    "Sex",
-    "The ancient art of sex. " +
+  },
+  sex: {
+    keyword: "sex",
+    name: "Sex",
+    description:
+      "The ancient art of sex. " +
       "Helpful for sexual missions, as well as training slaves to some extent.",
-  );
-};
+  },
+});

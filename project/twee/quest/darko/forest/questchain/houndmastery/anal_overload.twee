@@ -16,23 +16,25 @@
 <<run new setup.UnitGroup(
 "anal_overload0",
 "Male Tigerkin Statue",
-'subrace_tigerkin_male',  /* pools */
+'subrace_tigerkin',  /* pools */
 0, /* reuse chance */
 [ /* unit post process */
   setup.qc.TraitsReplace('unit', [setup.trait.anus_gape]),
   setup.qc.Mindbreak('unit'),
   setup.qc.AddTitle('unit', 'born_tigerkin'),
 ],
+['gender_male']
 )>> <<run new setup.UnitGroup(
 "anal_overload1",
 "Female Tigerkin Statue",
-'subrace_tigerkin_female',  /* pools */
+'subrace_tigerkin',  /* pools */
 0, /* reuse chance */
 [ /* unit post process */
   setup.qc.TraitsReplace('unit', [setup.trait.anus_gape]),
   setup.qc.Mindbreak('unit'),
   setup.qc.AddTitle('unit', 'born_tigerkin'),
 ],
+['gender_female']
 )>>
 
 

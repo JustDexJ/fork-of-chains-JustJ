@@ -1,5 +1,6 @@
 import type { BuildingTemplateKey } from "../classes/BuildingTemplate";
 import type { RoomInstance } from "../classes/room/RoomInstance";
+import { SETTINGS_GENDER_PREFERENCE } from "../classes/Settings";
 import { initNewGamePlus } from "../dom/menu/newgameplus";
 import type { StateVariables } from "../types/state-variables";
 
@@ -187,6 +188,32 @@ export namespace BackwardsCompat {
       //  }
       //}
 
+      ////////////////////////////////////////////////////////////////////////////////
+      //
+      //  Fort of Chains 2.0.0
+      //
+      ////////////////////////////////////////////////////////////////////////////////
+
+      // Upgrade gender preferences
+      if (typeof sv.settings!.other_gender_preference === "string") {
+        const P = SETTINGS_GENDER_PREFERENCE;
+        type K = keyof typeof SETTINGS_GENDER_PREFERENCE;
+
+        sv.settings!.other_gender_preference = {
+          ...P[sv.settings!.other_gender_preference as unknown as K].chances,
+        };
+        sv.settings!.gender_preference.slave = {
+          ...P[sv.settings!.gender_preference.slave as unknown as K].chances,
+        };
+        sv.settings!.gender_preference.slaver = {
+          ...P[sv.settings!.gender_preference.slaver as unknown as K].chances,
+        };
+      }
+
+      ////////////////////////////
+      // Finish up
+      ////////////////////////////
+
       sv.cache!.clearAll();
 
       /* Reset decks, starting from v1.3.3.13 */
@@ -350,6 +377,10 @@ export function updatePostProcess() {
 
   /* Remove intersecting rooms */
   State.variables.fortgrid.removeIntersectingRooms();
+
+  ////////////////////////////
+  // Finish up
+  ////////////////////////////
 
   State.variables.gUpdatePostProcess = false;
 }

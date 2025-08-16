@@ -4,13 +4,14 @@
 "elven_hotsprings_men_s_business_raid_1",
 "Elf: Male",
 [ /* pools */
-  [setup.unitpool.subrace_elf_male, 0.8333333333333334],
-  [setup.unitpool.subrace_drow_male, 0.16666666666666669],
+  [setup.unitpool.subrace_elf, 0.8333333333333334],
+  [setup.unitpool.subrace_drow, 0.16666666666666669],
 ],
 0, /* reuse chance */
 [ /* unit post process */
   setup.qc.Trait('unit', setup.trait.face_beautiful),
 ],
+["gender_male"]
 )>>
 
 
@@ -55,7 +56,7 @@ null, /* key */
 ],
 [
   setup.qres.Job(setup.job.slaver),
-  setup.qres.AllTraits([setup.trait.gender_male, setup.trait.race_elf], true),
+  setup.qres.AllTraits([setup.trait.gender_male, setup.trait.race_elf, setup.trait.dick_tiny], true),
 ],
 {
   intrigue: 1,

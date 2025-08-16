@@ -20,8 +20,8 @@ setup.qdiff.normal9, /* difficulty */
 ],
 [ /* outcomes */
 setup.qc.Function(() => {
-  setup.unitgroup.quest_choose_your_own_adventure_hero1.getUnit({retries: 50, trait_key: 'gender_male'});
-  setup.unitgroup.quest_choose_your_own_adventure_hero2.getUnit({retries: 50, trait_key: 'gender_male'});
+  setup.unitgroup.quest_choose_your_own_adventure_hero1.getUnit({ gender: 'gender_male' });
+  setup.unitgroup.quest_choose_your_own_adventure_hero2.getUnit({ gender: 'gender_male' });
 }),
 setup.qc.VarAdd('choose_your_own_adventure_changes', 1, -1),
 setup.qc.VarSet('choose_your_own_adventure_progress', '1', -1), ],
@@ -34,8 +34,8 @@ setup.qc.VarSet('choose_your_own_adventure_progress', '1', -1), ],
 ],
 [ /* outcomes */
 setup.qc.Function(() => {
-  setup.unitgroup.quest_choose_your_own_adventure_hero1.getUnit({retries: 50, trait_key: 'gender_male'});
-  setup.unitgroup.quest_choose_your_own_adventure_hero2.getUnit({retries: 50, trait_key: 'gender_female'});
+  setup.unitgroup.quest_choose_your_own_adventure_hero1.getUnit({ gender: 'gender_male' });
+  setup.unitgroup.quest_choose_your_own_adventure_hero2.getUnit({ gender: 'gender_female' });
 }),
 setup.qc.VarAdd('choose_your_own_adventure_changes', 1, -1),
 setup.qc.VarSet('choose_your_own_adventure_progress', '1', -1),
@@ -49,8 +49,8 @@ setup.qc.VarSet('choose_your_own_adventure_progress', '1', -1),
 ],
 [ /* outcomes */
 setup.qc.Function(() => {
-  setup.unitgroup.quest_choose_your_own_adventure_hero1.getUnit({retries: 50, trait_key: 'gender_female'});
-  setup.unitgroup.quest_choose_your_own_adventure_hero2.getUnit({retries: 50, trait_key: 'gender_female'});
+  setup.unitgroup.quest_choose_your_own_adventure_hero1.getUnit({ gender: 'gender_female' });
+  setup.unitgroup.quest_choose_your_own_adventure_hero2.getUnit({ gender: 'gender_female' });
 }),
 setup.qc.VarSet('choose_your_own_adventure_progress', '1', -1),
 ],
@@ -85,8 +85,8 @@ setup.qdiff.normal9, /* difficulty */
 ],
 [ /* outcomes */
 setup.qc.Function(() => {
-  setup.unitgroup.quest_choose_your_own_adventure_hero1.getUnit({retries: 50, trait_key: 'gender_male'});
-  setup.unitgroup.quest_choose_your_own_adventure_hero2.getUnit({retries: 50, trait_key: 'gender_male'});
+  setup.unitgroup.quest_choose_your_own_adventure_hero1.getUnit({ gender: 'gender_male' });
+  setup.unitgroup.quest_choose_your_own_adventure_hero2.getUnit({ gender: 'gender_male' });
 }),
 setup.qc.VarAdd('choose_your_own_adventure_changes', 1, -1),
 setup.qc.VarSet('choose_your_own_adventure_progress', '1', -1), ],
@@ -99,8 +99,8 @@ setup.qc.VarSet('choose_your_own_adventure_progress', '1', -1), ],
 ],
 [ /* outcomes */
 setup.qc.Function(() => {
-  setup.unitgroup.quest_choose_your_own_adventure_hero1.getUnit({retries: 50, trait_key: 'gender_male'});
-  setup.unitgroup.quest_choose_your_own_adventure_hero2.getUnit({retries: 50, trait_key: 'gender_female'});
+  setup.unitgroup.quest_choose_your_own_adventure_hero1.getUnit({ gender: 'gender_male' });
+  setup.unitgroup.quest_choose_your_own_adventure_hero2.getUnit({ gender: 'gender_female' });
 }),
 setup.qc.VarSet('choose_your_own_adventure_progress', '1', -1),
 ],
@@ -113,8 +113,8 @@ setup.qc.VarSet('choose_your_own_adventure_progress', '1', -1),
 ],
 [ /* outcomes */
 setup.qc.Function(() => {
-  setup.unitgroup.quest_choose_your_own_adventure_hero1.getUnit({retries: 50, trait_key: 'gender_female'});
-  setup.unitgroup.quest_choose_your_own_adventure_hero2.getUnit({retries: 50, trait_key: 'gender_female'});
+  setup.unitgroup.quest_choose_your_own_adventure_hero1.getUnit({ gender: 'gender_female' });
+  setup.unitgroup.quest_choose_your_own_adventure_hero2.getUnit({ gender: 'gender_female' });
 }),
 setup.qc.VarSet('choose_your_own_adventure_progress', '1', -1),
 setup.qc.VarAdd('choose_your_own_adventure_changes', 1, -1), ],
@@ -149,8 +149,8 @@ setup.qdiff.normal9, /* difficulty */
 ],
 [ /* outcomes */
 setup.qc.Function(() => {
-  setup.unitgroup.quest_choose_your_own_adventure_hero1.getUnit({retries: 50, trait_key: 'gender_male'});
-  setup.unitgroup.quest_choose_your_own_adventure_hero2.getUnit({retries: 50, trait_key: 'gender_male'});
+  setup.unitgroup.quest_choose_your_own_adventure_hero1.getUnit({ gender: 'gender_male' });
+  setup.unitgroup.quest_choose_your_own_adventure_hero2.getUnit({ gender: 'gender_male' });
 }),
 setup.qc.VarSet('choose_your_own_adventure_progress', '1', -1), ],
 ], [
@@ -162,8 +162,8 @@ setup.qc.VarSet('choose_your_own_adventure_progress', '1', -1), ],
 ],
 [ /* outcomes */
 setup.qc.Function(() => {
-  setup.unitgroup.quest_choose_your_own_adventure_hero1.getUnit({retries: 50, trait_key: 'gender_male'});
-  setup.unitgroup.quest_choose_your_own_adventure_hero2.getUnit({retries: 50, trait_key: 'gender_female'});
+  setup.unitgroup.quest_choose_your_own_adventure_hero1.getUnit({ gender: 'gender_male' });
+  setup.unitgroup.quest_choose_your_own_adventure_hero2.getUnit({ gender: 'gender_female' });
 }),
 setup.qc.VarSet('choose_your_own_adventure_progress', '1', -1),
 setup.qc.VarAdd('choose_your_own_adventure_changes', 1, -1), ],
@@ -176,8 +176,8 @@ setup.qc.VarAdd('choose_your_own_adventure_changes', 1, -1), ],
 ],
 [ /* outcomes */
 setup.qc.Function(() => {
-  setup.unitgroup.quest_choose_your_own_adventure_hero1.getUnit({retries: 50, trait_key: 'gender_female'});
-  setup.unitgroup.quest_choose_your_own_adventure_hero2.getUnit({retries: 50, trait_key: 'gender_female'});
+  setup.unitgroup.quest_choose_your_own_adventure_hero1.getUnit({ gender: 'gender_female' });
+  setup.unitgroup.quest_choose_your_own_adventure_hero2.getUnit({ gender: 'gender_female' });
 }),
 setup.qc.VarSet('choose_your_own_adventure_progress', '1', -1),
 setup.qc.VarAdd('choose_your_own_adventure_changes', 1, -1), ],

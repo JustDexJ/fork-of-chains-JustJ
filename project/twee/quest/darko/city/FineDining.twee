@@ -27,14 +27,14 @@
       'QuestFineDiningCrit',
       [
         setup.qc.MoneyCrit(1.4),
-        
+
       ],
     ],
     [
       'QuestFineDiningCrit',
       [
         setup.qc.MoneyNormal(1.4),
-        
+
       ],
     ],
     [
@@ -103,7 +103,7 @@ use and abuse during the meeting.
   very classy restaurant.
 <</if>>
 
-<<if $settings.getGenderPreference(setup.job.slaver).trait_key == 'male'>>
+<<if $settings.getGenderRandom(setup.job.slaver).key == 'gender_male'>>
 A naked and muscularly built waiter
 <<else>>
 A naked and hugely endowed milf waiter

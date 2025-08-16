@@ -111,6 +111,7 @@ declare type BuiltinTraitKey =
   | "ears_elf"
   | "ears_neko"
   | "ears_werewolf"
+  | "ears_dragonkin"
   | "eq_blind"
   | "eq_chastity"
   | "eq_collar"

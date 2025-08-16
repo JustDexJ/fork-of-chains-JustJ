@@ -207,7 +207,7 @@ anytraits: ['skill_alchemy'],
             Hesitantly,
         <</if>>
         <<they $g.slave>> licks a small drop of orange-gold liquid from the stopper and groans, <<their $g.slave>>
-        <<if $g.slave.isHasTrait('gender_male')>>
+        <<if $g.slave.isHasDick()>>
             cock rising to full, throbbing hardness
         <<else>>
             pussy starting to visibly glisten
@@ -326,25 +326,25 @@ anytraits: ['skill_alchemy'],
     <p>
         The think smoke grey-blue smoke that filled the laboratory and sent you stumbling out the door, tearing off your clothes as your body starts burning up with heat and lust.<br>
         "<<unickname _u>>, are you all right?"
-        <<if $unit.player.isHasTrait('gender_male')>>
+        <<if $unit.player.isHasDick()>>
             Dropping to the floor, you grab your achingly hard cock, already oozing precum and start to fuck your fist even as your free hand brushes down past your balls to push against your hole. "I need to fuck, or get fucked," you groan. "Preferably both and right now."
             <<if $unit.player.getLover() == _u>>
                 <<name _u>>'s face breaks into a smile. "Well, who am I turn down that invitation?"<br>
                 You watch through glazed eyes as your lover hurried strips off their clothes and
 
-                <<if _u.isHasTrait('gender_male')>>
-                    kneels between your legs, pushing your knees up towards your chest as he spits on his dick and then your hole. The wet, slick heat against your fingers feels amazing as you mix his spit with your precum and slide first one, then two slick fingers deep into your ass.<br>
-                    "Damn, you really did a number on yourself, didn't you love?" <<name _u>> says as he gently removes your fingers and then slides his <<udick _u>> into your <<uhole $unit.player>> in one smooth motion.<br>
-                    You cry out as he plunges into you, his body covering yours as he leans in for a kiss.<br>
-                    "Harder," you growl as you wrap your arms and legs around his body, pushing your ass back to meet his thrusts.<br>
+                <<if _u.isHasDick()>>
+                    kneels between your legs, pushing your knees up towards your chest as <<they $g.alchemist>> spits on <<their $g.alchemist>> dick and then your hole. The wet, slick heat against your fingers feels amazing as you mix <<their $g.alchemist>> spit with your precum and slide first one, then two slick fingers deep into your ass.<br>
+                    "Damn, you really did a number on yourself, didn't you love?" <<name _u>> says as <<they $g.alchemist>> gently removes your fingers and then slides <<their $g.alchemist>> <<udick _u>> into your <<uhole $unit.player>> in one smooth motion.<br>
+                    You cry out as <<they $g.alchemist>> plunges into you, <<thir $g.alchemist>> body covering yours as <<they $g.alchemist>> leans in for a kiss.<br>
+                    "Harder," you growl as you wrap your arms and legs around <<their $g.alchemist>> body, pushing your ass back to meet <<their $g.alchemist>> thrusts.<br>
                     "Fuck babe, you're going to make me—"<br>
-                    The smell of his sweat, the taste of his skin and the breathy hitch in his voice as he tips over the edge soothe your soul as his body clenches, and his cock twitches inside of you, pumping your ass full with his cum. You sigh in happiness, but almost immediately the hunger is back, and there's an ache in your balls and deep inside your ass that needs to be sated.<br>
-                    "More," you murmur, kissing his neck as you push against him, urging him to go in for round 2.<br>
+                    The smell of <<their $g.alchemist>> sweat, the taste of <<their $g.alchemist>> skin and the breathy hitch in <<their $g.alchemist>> voice as <<they $g.alchemist>> tips over the edge soothe your soul as <<their $g.alchemist>> body clenches, and <<their $g.alchemist>> cock twitches inside of you, pumping your ass full with <<their $g.alchemist>> cum. You sigh in happiness, but almost immediately the hunger is back, and there's an ache in your balls and deep inside your ass that needs to be sated.<br>
+                    "More," you murmur, kissing <<their $g.alchemist>> neck as you push against <<them $g.alchemist>>, urging <<them $g.alchemist>> to go in for round 2.<br>
                     "More? Give me a minute to—"<br>
                     <i>"More."</i>
 
                 <<else>>
-                    straddles your hips, sinking you into her in one smooth motion.
+                    straddles your hips, sinking you into <<them $g.alchemist>> in one smooth motion.
 
                 <</if>>
 
@@ -356,20 +356,20 @@ anytraits: ['skill_alchemy'],
                 <<name _u>>'s face breaks into a smile. "Well, who am I turn down that invitation?"<br>
                 You watch through glazed eyes as <<they _u>> hurried strips off their clothes and
 
-                <<if _u.isHasTrait('gender_male')>>
-                    kneels between your legs, pushing your knees up towards your chest as he spits on his dick and then your hole. The wet, slick heat against your fingers feels amazing as you mix his spit with your precum and slide first one, then two slick fingers deep into your ass.<br>
-                    "Damn, you really did a number on yourself, didn't you?" <<name _u>> says with a chuckle as he lines himself up and shoves his <<udick _u>> into your <<uhole $unit.player>> in one hard shove.<br>
-                    You cry out as he plunges into you, his body covering yours as he leans in, covering your mouth with his hand.<br>
-                    "What? You asked for this," he reminds you. "And you're going to get it, you potion making slut."<br>
-                    By now the pain of entry has turned into a pleasant fullness and a hunger. "Harder," you growl as you wrap your arms and legs around his body, pushing your ass back to meet his thrusts.<br>
+                <<if _u.isHasDick()>>
+                    kneels between your legs, pushing your knees up towards your chest as <<they $g.alchemist>> spits on <<their $g.alchemist>> dick and then your hole. The wet, slick heat against your fingers feels amazing as you mix <<their $g.alchemist>> spit with your precum and slide first one, then two slick fingers deep into your ass.<br>
+                    "Damn, you really did a number on yourself, didn't you?" <<name _u>> says with a chuckle as <<they $g.alchemist>> lines himself up and shoves <<their $g.alchemist>> <<udick _u>> into your <<uhole $unit.player>> in one hard shove.<br>
+                    You cry out as <<they $g.alchemist>> plunges into you, <<their $g.alchemist>> body covering yours as <<they $g.alchemist>> leans in, covering your mouth with <<their $g.alchemist>> hand.<br>
+                    "What? You asked for this," <<they $g.alchemist>> reminds you. "And you're going to get it, you potion making slut."<br>
+                    By now the pain of entry has turned into a pleasant fullness and a hunger. "Harder," you growl as you wrap your arms and legs around <<their $g.alchemist>> body, pushing your ass back to meet <<their $g.alchemist>> thrusts.<br>
                     "Fuck man, you're going to make me—"<br>
-                    The smell of his sweat, the taste of his skin and the breathy hitch in his voice as he tips over the edge soothe your soul as his body clenches, and his cock twitches inside of you, pumping your ass full with his cum. You sigh in happiness, but almost immediately the hunger is back, and there's an ache in your balls and deep inside your ass that needs to be sated.<br>
-                    "More," you murmur, biting his neck as you push against him, urging him to go in for round 2.<br>
+                    The smell of <<their $g.alchemist>> sweat, the taste of <<their $g.alchemist>> skin and the breathy hitch in <<their $g.alchemist>> voice as <<they $g.alchemist>> tips over the edge soothe your soul as <<their $g.alchemist>> body clenches, and <<their $g.alchemist>> cock twitches inside of you, pumping your ass full with <<their $g.alchemist>> cum. You sigh in happiness, but almost immediately the hunger is back, and there's an ache in your balls and deep inside your ass that needs to be sated.<br>
+                    "More," you murmur, biting <<their $g.alchemist>> neck as you push against <<them $g.alchemist>>, urging <them $g.alchemist>> to go in for round 2.<br>
                     "More? Give me a minute to—"<br>
                     <i>"More."</i>
 
                 <<else>>
-                    reveals her strap on. "Let's have some fun," she says.
+                    reveals <<their $g.alchemist>> strap on. "Let's have some fun," <<they $g.alchemist>> says.
 
                 <</if>>
             <</if>>
@@ -389,28 +389,28 @@ anytraits: ['skill_alchemy'],
         <<if $unit.player.getLover() == $g.alchemist>>
             "I think I can help with that," you say with a grin. "Right here though? I didn't think you were into exhibi—"<br>
             "Right here," <<name $g.alchemist>> say firmly, starting to pull at your <<uequipslot $unit.player 'torso'>>. "I can't wait. I need this. Need it now."
-            <<if $g.alchemist.isHasTrait('gender_male')>>
-                Kicking off his pants, <<name $g.alchemist>> falls down onto his back, one hand stroking his <<udick $g.alchemist>>, and the other teasing his hole.<br>
+            <<if $g.alchemist.isHasDick()>>
+                Kicking off <<their $g.alchemist>> pants, <<name $g.alchemist>> falls down onto <<their $g.alchemist>> back, one hand stroking <<their $g.alchemist>> <<udick $g.alchemist>>, and the other teasing <<their $g.alchemist>> hole.<br>
                 "What the hell did you do in there?" you ask as you toss your clothes aside
                 <<if $unit.player.isHasDick()>>
-                    and kneel down between his legs, allowing a thick gob of spit to drop down from your lips to his ass before using your cock to smear it around his hole.<br>
+                    and kneel down between <<their $g.alchemist>> legs, allowing a thick gob of spit to drop down from your lips to <<their $g.alchemist>> ass before using your cock to smear it around <<their $g.alchemist>> hole.<br>
                     "Not sure," <<name $g.alchemist>> says, grunting as you slip just inside. "I think it was the last ingredient I added."<br>
                     "Which was?"<br>
-                    <<name $g.alchemist>> impatiently wraps his legs around your waist and pulls you into him, his ass clenching around you as you bottom out, your pubes nestling right up against his hole. "Shit!" he cries, his face screwing up in a mixture of pain and pleasure as he adjusts to having you inside of him. "Fucking shit, balls, it was _ingredient. Then there was smoke and I... really need cock."<br>
-                    Slipping your hands under his shoulders you start to thrust into his ass. "Well I'm here to give it to you," you gasp as he tightens around you, working your cock with his ass muscles and pushing back to meet each of your thrusts, desperate to cram every inch of you into him.<br>
+                    <<name $g.alchemist>> impatiently wraps <<their $g.alchemist>> legs around your waist and pulls you into <<them $g.alchemist>>, <<their $g.alchemist>> ass clenching around you as you bottom out, your pubes nestling right up against <<their $g.alchemist>> hole. "Shit!" <<they $g.alchemist>> cries, <<their $g.alchemist>> face screwing up in a mixture of pain and pleasure as <<they $g.alchemist>> adjusts to having you inside of <<them $g.alchemist>>. "Fucking shit, balls, it was _ingredient. Then there was smoke and I... really need cock."<br>
+                    Slipping your hands under <<their $g.alchemist>> shoulders you start to thrust into <<their $g.alchemist>> ass. "Well I'm here to give it to you," you gasp as <<they $g.alchemist>> tightens around you, working your cock with <<their $g.alchemist>> ass muscles and pushing back to meet each of your thrusts, desperate to cram every inch of you into <<them $g.alchemist>>.<br>
                     "Oh fuck, babe, please fuck me. Fuck me, harder, oh gods, yes, right there, right there, oh gods, <<name $unit.player>>!"<br>
-                    His hands are everywhere, gliding up your back and gripping your shoulders hard enough to leave bruises as he clenches around you, his mouth seeking yours as you tense and start to unload deep into him.<br>
-                    "Oh fuck yes," he moans, his voice breathy in your ear.<br>
+                    <<Their $g.alchemist>> hands are everywhere, gliding up your back and gripping your shoulders hard enough to leave bruises as <<they $g.alchemist>> clenches around you, <<their $g.alchemist>> mouth seeking yours as you tense and start to unload deep into <<them $g.alchemist>>.<br>
+                    "Oh fuck yes," <<they $g.alchemist>> moans, <<their $g.alchemist>> voice breathy in your ear.<br>
                     "what about you? you didn't—"<br>
-                    "Later," he mumbles, squeezing his ass around your cock. "Think you can go for round two?"
+                    "Later," <<they $g.alchemist>> mumbles, squeezing <<their $g.alchemist>> ass around your cock. "Think you can go for round two?"
 
                 <<else>>
-                    and straddle him, placing a hand on his chest to hold him down. "I'm on top," you say firmly.<br>
-                    He nods eagerly. "Okay, sure, anything you... fuck!" he swears, his eyes closing as you sink down onto him. "Fucking hell, oh gods..."
+                    and straddle <<them $g.alchemist>>, placing a hand on <<their $g.alchemist>> chest to hold <<them $g.alchemist>> down. "I'm on top," you say firmly.<br>
+                    <<They $g.alchemist>> nods eagerly. "Okay, sure, anything you... fuck!" <<they $g.alchemist>> swears, <<their $g.alchemist>> eyes closing as you sink down onto <<them $g.alchemist>>. "Fucking hell, oh gods..."
                 <</if>>
             <<else>>
                 /* Alchemist is female*/
-                Fully naked and breathing heavily, <<name $g.alchemist>> sits back on her haunches, her legs spread as she plays with her pussy, her other hand rubbing her nipples.<br>
+                Fully naked and breathing heavily, <<name $g.alchemist>> sits back on <<their $g.alchemist>> haunches, <<their $g.alchemist>> legs spread as <<they $g.alchemist>> plays with <<their $g.alchemist>> pussy, <<their $g.alchemist>> other hand rubbing <<their $g.alchemist>> nipples.<br>
                 "Fuck me," she whimpers, as you start pulling of your clothes, "For Gods' sake, just fuck me already."
             <</if>>
         <<elseif $unit.player.isHasTrait('per_chaste')>>
@@ -421,27 +421,27 @@ anytraits: ['skill_alchemy'],
             /* Player and Alchemist are not lovers. Player is not chaste*/
             "I think I can help with that," you say with a grin. "Want to take this somewhere else maybe? I can-"<br>
             "No. Here," <<name $g.alchemist>> say firmly, starting to pull at your <<uequipslot $unit.player 'torso'>>. "I can't wait. I need this. Need it now."
-            <<if $g.alchemist.isHasTrait('gender_male')>>
-                Kicking off his pants, <<name $g.alchemist>> falls down onto his back, one hand stroking his <<udick $g.alchemist>>, and the other teasing his hole.<br>
+            <<if $g.alchemist.isHasDick()>>
+                Kicking off <<their $g.alchemist>> pants, <<name $g.alchemist>> falls down onto <<their $g.alchemist>> back, one hand stroking <<their $g.alchemist>> <<udick $g.alchemist>>, and the other teasing <<their $g.alchemist>> hole.<br>
                 "What the hell did you do in there?" you ask as you toss your clothes aside
                 <<if $unit.player.isHasDick()>>
-                    and kneel down between his legs, allowing a thick gob of spit to drop down from your lips to his ass before using your cock to smear it around his hole.<br>
+                    and kneel down between <<their $g.alchemist>> legs, allowing a thick gob of spit to drop down from your lips to <<their $g.alchemist>> ass before using your cock to smear it around <<their $g.alchemist>> hole.<br>
                     "Not sure," <<name $g.alchemist>> says, grunting as you slip just inside. "I think it was the last ingredient I added."<br>
                     "Which was?"<br>
-                    <<name $g.alchemist>> impatiently wraps his legs around your waist and pulls you into him, his ass clenching around you as you bottom out, your pubes nestling right up against his hole. "Shit!" he cries, his face screwing up in a mixture of pain and pleasure as he adjusts to having you inside of him. "Fucking shit, balls, it was _ingredient. Then there was smoke and I... really need cock."<br>
-                    Slipping your hands under his shoulders you start to thrust into his ass. "Well I'm here to give it to you," you gasp as he tightens around you, working your cock with his ass muscles and pushing back to meet each of your thrusts, desperate to cram every inch of you into him.<br>
+                    <<name $g.alchemist>> impatiently wraps <<their $g.alchemist>> legs around your waist and pulls you into <<them $g.alchemist>>, <<their $g.alchemist>> ass clenching around you as you bottom out, your pubes nestling right up against <<their $g.alchemist>> hole. "Shit!" <<they $g.alchemist>> cries, <<their $g.alchemist>> face screwing up in a mixture of pain and pleasure as <<they $g.alchemist>> adjusts to having you inside of <<them $g.alchemist>>. "Fucking shit, balls, it was _ingredient. Then there was smoke and I... really need cock."<br>
+                    Slipping your hands under <<their $g.alchemist>> shoulders you start to thrust into <<their $g.alchemist>> ass. "Well I'm here to give it to you," you gasp as <<they $g.alchemist>> tightens around you, working your cock with <<their $g.alchemist>> ass muscles and pushing back to meet each of your thrusts, desperate to cram every inch of you into <<them $g.alchemist>>.<br>
                     "Oh fuck, babe, please fuck me. Fuck me, harder, oh gods, yes, right there, right there, oh gods, <<name $unit.player>>!"<br>
-                    His hands are everywhere, gliding up your back and gripping your shoulders hard enough to leave bruises as he clenches around you, his mouth seeking yours as you tense and start to unload deep into him.<br>
-                    "Oh fuck yes," he moans, his voice breathy in your ear.<br>
+                    <<Their $g.alchemist>> hands are everywhere, gliding up your back and gripping your shoulders hard enough to leave bruises as <<they $g.alchemist>> clenches around you, <<their $g.alchemist>> mouth seeking yours as you tense and start to unload deep into <<them $g.alchemist>>.<br>
+                    "Oh fuck yes," <<they $g.alchemist>> moans, <<their $g.alchemist>> voice breathy in your ear.<br>
                     "what about you? you didn't—"<br>
-                    "Later," he mumbles, squeezing his ass around your cock. "Think you can go for round two?"
+                    "Later," <<they $g.alchemist>> mumbles, squeezing <<their $g.alchemist>> ass around your cock. "Think you can go for round two?"
                 <<else>>
-                    and straddle him, placing a hand on his chest to hold him down. "I'm on top," you say firmly.<br>
-                    He nods eagerly. "Okay, sure, anything you... fuck!" he swears, his eyes closing as you sink down onto him. "Fucking hell, oh gods..."
+                    and straddle <<them $g.alchemist>>, placing a hand on <<their $g.alchemist>> chest to hold <<them $g.alchemist>> down. "I'm on top," you say firmly.<br>
+                    <<They $g.alchemist>> nods eagerly. "Okay, sure, anything you... fuck!" <<they $g.alchemist>> swears, <<their $g.alchemist>> eyes closing as you sink down onto <<them $g.alchemist>>. "Fucking hell, oh gods..."
                 <</if>>
             <<else>>
                 /* Alchemist is female*/
-                Fully naked and breathing heavily, <<name $g.alchemist>> sits back on her haunches, her legs spread as she plays with her pussy, her other hand rubbing her nipples.<br>
+                Fully naked and breathing heavily, <<name $g.alchemist>> sits back on <<them $g.alchemist>> haunches, <<their $g.alchemist>> legs spread as she plays with <<their $g.alchemist>> pussy, <<their $g.alchemist>> other hand rubbing <<their $g.alchemist>> nipples.<br>
                 "Fuck me," she whimpers, as you start pulling of your clothes, "For Gods' sake, just fuck me already."
 
             <</if>>
@@ -454,10 +454,10 @@ anytraits: ['skill_alchemy'],
             After <<they $g.alchemist>> wore you out, <<name $g.alchemist>> went through a number of slavers before becoming the focus of an orgy down in the dungeons—one that you happily joined in,
             <<if $unit.player.isHasAnyTraitExact(["per_lustful", "per_sexaddict"])>>
                 and when you wake up, you're still there, tangled in a pile of limbs and well fucked. Smiling, you taste the remnants of cum on your lips as you look over to where <<name $g.alchemist>> is sleeping, legs akimbo, and cum still dripping from their mouth
-                <<if $g.alchemist.isHasTrait('gender_male')>>
-                    and ass.
-                <<else>>
+                <<if $g.alchemist.isHasVagina()>>
                     , pussy and ass.
+                <<else>>
+                    and ass.
                 <</if>>
             <<else>>
                 although you left while it was still in full swing. When you finally peeked in yousee <<name $g.alchemist>> lying passed out in the middle of a pile of flesh. It looks like <<they $g.alchemist>> exhausted all the slaves, and more than a few slavers as well. The flaky white of dried cum patches dot <<their $g.alchemist>> skin.

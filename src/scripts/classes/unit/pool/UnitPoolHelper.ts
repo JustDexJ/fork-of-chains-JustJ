@@ -1,3 +1,6 @@
+import { SEXGENDERS } from "../../../data/sexgenders";
+import { type SexgenderKey } from "../../Settings";
+
 export interface ChancesWithMinMax {
   chances: ChanceObject<TraitKey>;
   min: number;
@@ -87,55 +90,61 @@ export namespace UnitPoolHelper {
     }
   }
 
-  export function physHelperMale(base_obj: Record<string, ChancesWithMinMax>) {
-    return setup.UnitPoolHelper.physHelper(
-      base_obj,
-      ["muscle", "dick", "balls", "anus", "height", "face", "tough"],
-      {
-        common: setup.UNIT_POOL_PHYS_TRAITS_AVERAGE_COMMON,
-        medium: setup.UNIT_POOL_PHYS_TRAITS_AVERAGE_MEDIUM,
-        rare: setup.UNIT_POOL_PHYS_TRAITS_AVERAGE_RARE,
-        unicorn: setup.UNIT_POOL_PHYS_TRAITS_AVERAGE_UNICORN,
-      },
-    );
-  }
-
-  export function physHelperFemale(
+  export function physHelperSexgender(
     base_obj: Record<string, ChancesWithMinMax>,
+    sexgender: SexgenderKey,
   ) {
-    return setup.UnitPoolHelper.physHelper(
-      base_obj,
-      ["muscle", "breast", "vagina", "anus", "height", "face", "tough"],
-      {
-        common: setup.UNIT_POOL_PHYS_TRAITS_AVERAGE_COMMON,
-        medium: setup.UNIT_POOL_PHYS_TRAITS_AVERAGE_MEDIUM,
-        rare: setup.UNIT_POOL_PHYS_TRAITS_AVERAGE_RARE,
-        unicorn: setup.UNIT_POOL_PHYS_TRAITS_AVERAGE_UNICORN,
-      },
-    );
+    const sexgender_data = SEXGENDERS[sexgender];
+
+    const tags: PhysicalTraitTag[] = [
+      "muscle",
+      "anus",
+      "height",
+      "face",
+      "tough",
+    ];
+    if (sexgender_data.dick) {
+      tags.push("dick", "balls");
+    }
+    if (sexgender_data.vagina) {
+      tags.push("vagina");
+    }
+    if (sexgender_data.breast) {
+      tags.push("breast");
+    }
+
+    return setup.UnitPoolHelper.physHelper(base_obj, tags, {
+      common: setup.UNIT_POOL_PHYS_TRAITS_AVERAGE_COMMON,
+      medium: setup.UNIT_POOL_PHYS_TRAITS_AVERAGE_MEDIUM,
+      rare: setup.UNIT_POOL_PHYS_TRAITS_AVERAGE_RARE,
+      unicorn: setup.UNIT_POOL_PHYS_TRAITS_AVERAGE_UNICORN,
+    });
   }
 
   export function getOneTraitObj(trait: Trait): ChancesWithMinMax {
     return setup.UnitPoolHelper.getTraitChanceObj([[[trait], 1.0]], 1, 1);
   }
 
+  /**
+      trait_sum_chance_list expects an array like:
+      ```
+        [
+          [
+            [trait1, trait2, trait3],
+            0.3
+          ],
+          [
+            [trait4, trait5],
+            0.2
+          ],
+        ]
+      ```
+  */
   export function getTraitChanceObj(
     trait_sum_chance_list: ChanceArray<Trait[]>,
     min_traits: number,
     max_traits: number,
   ): ChancesWithMinMax {
-    /* trait_sum_chance_list:
-    [
-      [
-        [trait1, trait2, trait3],
-        0.3
-      ],
-      [
-        [trait4, trait5],
-        0.2
-      ],
-    ]
-    */
     let chances: ChanceObject<TraitKey> = {};
     for (let i = 0; i < trait_sum_chance_list.length; ++i) {
       let traits = trait_sum_chance_list[i][0];

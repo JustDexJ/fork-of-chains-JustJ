@@ -1,21 +1,31 @@
+import type { FURNITURE_SLOT_DEFINITIONS } from "../../data/furnitureslots";
 import { TwineClass } from "../_TwineClass";
 import type { ItemKey } from "../inventory/Item";
-import type { Furniture, FurnitureSlotKey } from "./Furniture";
+import type { Furniture } from "./Furniture";
+
+export interface FurnitureSlotDefinition {
+  key: string;
+  name: string;
+}
+
+export type FurnitureSlotKey = keyof typeof FURNITURE_SLOT_DEFINITIONS;
 
 export class FurnitureSlot extends TwineClass {
   key: FurnitureSlotKey;
   name: string;
 
-  constructor(key: string, name: string) {
+  constructor(def: FurnitureSlotDefinition) {
     super();
 
-    this.key = key as FurnitureSlotKey;
-    this.name = name;
+    const key = def.key as FurnitureSlotKey;
+
+    this.key = key;
+    this.name = def.name;
 
     if (key in setup.furnitureslot) {
       throw new Error(`Furniture Slot ${key} already exists`);
     }
-    setup.furnitureslot[key as FurnitureSlotKey] = this;
+    setup.furnitureslot[key] = this;
   }
 
   getName(): string {
