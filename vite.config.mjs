@@ -31,15 +31,16 @@
 //   HOT_RELOAD=1 npx vite dev
 //
 
-import fs from 'node:fs/promises'
-import os from 'node:os'
-import url from 'node:url'
-import path from 'node:path'
-import child_process from 'node:child_process'
+import * as fs from 'node:fs/promises'
+import * as os from 'node:os'
+import * as url from 'node:url'
+import * as path from 'node:path'
+import * as child_process from 'node:child_process'
 
 import { defineConfig } from 'vite'
 import solidjsPlugin from 'vite-plugin-solid'
 import postcssAutoprefixer from 'autoprefixer'
+// @ts-ignore
 import postcssNesting from 'postcss-nesting'
 import glob from 'fast-glob'
 import CONFIG from './src/config.json'
@@ -111,6 +112,8 @@ export default defineConfig(({ command, mode }) => {
     plugins: [
       solidjsPlugin(),
       (function () {
+        /** @type {import('vite').ResolvedConfig} */
+        let config;
         return {
           name: 'foc-vite-plugin',
           resolveId(id) { // inject the virtual es6 module
@@ -123,6 +126,9 @@ export default defineConfig(({ command, mode }) => {
               return generateVirtualModuleCode()
             }
           },
+          configResolved(config_) {
+            config = config_;
+          },
           /**
            * Dev server: serve a modified index.html file, remap assets, and watch .twee files.
            * On .twee change, recompile and trigger a full browser reload.
@@ -132,17 +138,22 @@ export default defineConfig(({ command, mode }) => {
           async configureServer(server) {
             const enableHotReload = (server.config.env['HOT_RELOAD'] ?? '0') !== '0';
 
+            config.logger.warn('\x1b[35m' + 'Enabled EXPERIMENTAL hot-reload mode' + '\x1b[0m');
+
             await compileTwee('devserver', server.ws)
             const virtualModulePath = VIRTUAL_JS_MODULE.substring(1)
             // Watch .twee and .ts files in dev mode and recompile on change, then reload browser (debounced)
             server.watcher.add(path.join(__dirname, 'project/twee/**/*.twee'))
             server.watcher.add(path.join(__dirname, 'src/**/*.{ts,tsx,css}'))
 
-            let fullReloadTimeout = null
+            /** @type {ReturnType<typeof setTimeout>|undefined} */
+            let fullReloadTimeout = undefined
+            /** @type {Record<string, ReturnType<typeof setTimeout>|undefined>} */
             let tsHotReloadTimeouts = {}
             let hasTweeChanges = false
 
             server.watcher.on('change', (file) => {
+              console.log("CHANGED " + file);
               const isCodeFile = /\.(ts|tsx|css)$/.test(file);
               if (enableHotReload && isCodeFile) {
                 // Apply individual debounce for each file
@@ -195,7 +206,7 @@ export default defineConfig(({ command, mode }) => {
                 return fs.readFile(path.join(__dirname, indexHtmlPath), 'utf8').then(html => {
                   for (const [regexp, getReplacedValue] of replacements) {
                     let replaced = false;
-                    html = html.replace(regexp, (...args) => (replaced = true, getReplacedValue.apply(undefined, args)));
+                    html = html.replace(regexp, (...args) => (replaced = true, getReplacedValue.apply(undefined, /** @type {any} */ (args))));
                     if (!replaced) {
                       console.error(`Error serving the devmode html: failed to find \`${regexp}\` for hotpatching. Devmode won't work. If you updated the SugarCube storyformat, the patterns will need to be changed.`);
                     }

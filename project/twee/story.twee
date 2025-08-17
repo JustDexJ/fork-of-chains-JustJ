@@ -22,45 +22,45 @@ Welcome to <b>Fort of Chains: Galvanized</b>.
 </p>
 
 <p>
-<b>Contribute!</b>
-If you want to support this game,
-you too are invited to add your stories to the game:
-whenever you feel like it,
-check out the GUI-based <<successtext 'Content Creation Tool'>> below.
-''No programming knowledge whatsoever required.''
-</p>
-
-<p>
-This game is a passion project and will <<successtext 'always be a free game'>>.
-Contributing content is the preferred way to support this game -- you can contribute
-story, code, art, anything
-<a @href="`${setup.REPO_URL}#how-to-contribute-content`" target="_blank">(more information)</a>!
-</p>
-
-<hr/>
-
-<p>
 <b>Fort of Chains: Galvanized</b> is an
 <a @href="setup.REPO_URL" target="_blank">open source</a>
-|
-<b>TEXT-ONLY</b> fantasy game set in an entirely fictional world.
+<b>TEXT-BASED</b> fantasy game set in an entirely fictional world.
 The game contains explicit sexual content. By proceeding, you consent that
 you are of legal age, and it is legal for you to play this game in your demesne.
 The game is entirely fictional, and in no way depicts any of the contributor's views.
 </p>
 
+<hr/>
+
+<p>
+<b>You can contribute!</b>
+You are invited to add your stories to the game:
+if you feel like it,
+check out the GUI-based <<successtext 'Content Creation Tool'>> below.
+''No programming knowledge whatsoever required''! This game is a passion project and will <<successtext 'always be a free game'>>,
+and contributing content is the preferred way to support this game - you can contribute
+story, code, art, anything
+<a @href="`${setup.REPO_URL}#how-to-contribute-content`" target="_blank">(more information)</a>, and join the discord to ask any questions!
+</p>
+
+<hr/>
+
+
 <div>
-The game would like to express its deepest gratitude to the various contributors to this project:
+  We would like to express our deepest gratitude to the various contributors to this project.
+  <a @href="`${setup.REPO_URL}#license`" target="_blank">(License)</a>
 </div>
-<div>
-<<focmove "(Artist Credits - Portraits)" "PortraitCredits">> ·
-<<focmove "(Artist Credits - Content Images)" "ContentImagesCredits">> ·
-<<focmove "(Artist Credits - Rooms)" "RoomCredits">> ·
-<<focmove "(Artist Credits - Tilesets)" "TilesetCredits">> ·
-<<focmove "(Author Credits)" "AuthorCredits">> ·
-<<focmove "(Coder Credits)" "CoderCredits">> ·
-<<focmove "(Other Credits)" "OtherCredits">> ·
-<a @href="`${setup.REPO_URL}#license`" target="_blank">(License)</a>
+<div style="font-size: 95%">
+  <b>Credits:</b>
+  <span>
+    <<focmove "Portraits Art" "PortraitCredits">> ·
+    <<focmove "Content Art" "ContentImagesCredits">> ·
+    <<focmove "Room Art" "RoomCredits">> ·
+    <<focmove "Tileset Art" "TilesetCredits">> ·
+    <<focmove "Content Writers" "AuthorCredits">> ·
+    <<focmove "Coders" "CoderCredits">> ·
+    <<focmove "Other" "OtherCredits">>
+  </span>
 </div>
 
 <hr/>
@@ -68,7 +68,7 @@ The game would like to express its deepest gratitude to the various contributors
 <div class="StoryStart-buttons">
   <<focbutton "<<icon play>> Start a New Game" "ProloguePlayerGen">><</focbutton>>
 
-  <<button '<<icon magic>> Contribute: Content Creation Tool' 'DevToolLobby'>>
+  <<button '<<icon magic>> Content Creation Tool (contribute!)' 'DevToolLobby'>>
     <<run setup.DebugInit.contentCreatorInit()>>
     <<run $menufilter.set('unit', 'display', 'compact')>>
   <</button>>
@@ -79,26 +79,28 @@ The game would like to express its deepest gratitude to the various contributors
   <</button>>
 </div>
 
-<hr/>
+<<if setup.IS_DEV_BUILD>>
+  <hr/>
 
-<div>
-<<link '(Debug Start)'>>
-  <<run setup.DebugInit.debugModeInit()>>
-  <<focsavestategoto 'PrologueDebugGen'>>
-<</link>>
-·
-<<link '(Compute debug statistics in javascript console and then debug start)'>>
-  <<run setup.DebugInit.debugModeInit()>>
-  <<run setup.DOM.Menu.debugComputeStats()>>
-  <<focsavestategoto 'PrologueDebugGen'>>
-<</link>>
-</div>
+  <div>
+    <<link '(Debug Start)'>>
+      <<run setup.DebugInit.debugModeInit()>>
+      <<focsavestategoto 'PrologueDebugGen'>>
+    <</link>>
+    ·
+    <<link '(Compute debug statistics in javascript console and then debug start)'>>
+      <<run setup.DebugInit.debugModeInit()>>
+      <<run setup.DOM.Menu.debugComputeStats()>>
+      <<focsavestategoto 'PrologueDebugGen'>>
+    <</link>>
+  </div>
+<</if>>
 
 
 
 :: StoryShare [nobr]
 
-<a @href="`${setup.REPO_URL}#how-to-play-the-latest-version-of-the-game`" target="_blank">(Download latest version)</a>
+<a @href="`${setup.REPO_URL}#how-to-play-the-latest-version-of-the-game`" target="_blank">(Download latest version)</a> ·
 <!--[[(Play on browser)|https://darkofoc.itch.io/fort-of-chains]] ·-->
 <a @href="`${setup.REPO_URL}#how-to-contribute-content`" target="_blank">(Contribute)</a> ·
 <a @href="`${setup.REPO_URL}/-/blob/master/docs/faq.md`" target="_blank">(F.A.Q)</a> ·

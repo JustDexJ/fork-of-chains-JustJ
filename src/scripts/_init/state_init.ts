@@ -227,7 +227,11 @@ export function createMarkets() {
 export function initState(this: SugarCubeStoryVariables): void {
   if (this.gInitDone) {
     // already initialized
-    throw Error("State already initialized");
+    // (if in vite devmode, just ignore this error)
+    if (!import.meta.env.DEV) {
+      throw Error("State already initialized");
+    }
+    return;
   }
   Notification.disable();
 

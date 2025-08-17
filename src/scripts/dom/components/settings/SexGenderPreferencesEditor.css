@@ -1,6 +1,21 @@
 .SexGenderPreferencesEditor-table {
   display: grid;
   gap: 0 0.25em;
+  white-space: nowrap;
+
+  overflow-x: auto;
+
+  aside {
+    width: 25px;
+    height: 25px;
+    background-color: #222;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  & > header {
+    margin-right: 0.4em;
+  }
 }
 
 .SexGenderPreferencesEditor-slider {
@@ -12,9 +27,15 @@
   padding-left: 0.5em;
   margin-left: 0.5em;
 }
+
 .SexGenderPreferencesEditor-percent {
   text-align: right;
   font-size: 90%;
   min-width: 4em;
   min-width: 2.8em;
+
+  &.zero {
+    opacity: 0.2;
+    text-align: center;
+  }
 }

@@ -4,7 +4,7 @@ import {
   type SexgenderKey,
 } from "../../../classes/Settings";
 import { SEXGENDERS } from "../../../data/sexgenders";
-import { Twee } from "../common";
+import { Message, Twee } from "../common";
 import "./SexGenderPreferencesEditor.css";
 
 const TARGETS = [
@@ -15,19 +15,21 @@ const TARGETS = [
 
 function initDistributions() {
   const distributions: Record<string, SexgenderDistribution> = {};
-  for (const [target, varname] of TARGETS) {
+  for (const [varname] of TARGETS) {
     let distr = State.getVar(varname) as SexgenderDistribution | undefined;
     if (distr) {
       distr = { ...distr };
     } else {
       distr = { male: 0.5, female: 0.5 };
     }
-    distributions[target] = distr;
+    distributions[varname] = distr;
   }
   return distributions;
 }
 
-export const SexGenderPreferencesEditor: Component = () => {
+export const SexGenderPreferencesEditor: Component<{
+  char_creation?: boolean;
+}> = (props) => {
   const [getDistributions, setDistributions] =
     createSignal<Record<string, SexgenderDistribution>>(initDistributions());
 
@@ -63,12 +65,14 @@ export const SexGenderPreferencesEditor: Component = () => {
 
     if (to_reassign.length) {
       const sum = to_reassign.reduce(
-        (sum, it) => sum + (old_distr[it] || 0),
+        (sum, it) =>
+          sum + ((old_distr[it] || 0) < 0.01 ? 0 : old_distr[it] || 0),
         0,
       );
 
       for (const it of to_reassign) {
-        const old_ratio = old_distr[it] || 0;
+        let old_ratio = old_distr[it] || 0;
+        if (old_ratio < 0.01) old_ratio = 0;
         const normalized_ratio =
           sum > 0 ? old_ratio / sum : 1 / to_reassign.length;
         new_distr[it] = rem * normalized_ratio;
@@ -83,16 +87,21 @@ export const SexGenderPreferencesEditor: Component = () => {
     State.setVar(target, new_distr);
   };
 
-  //setup.SETTINGS_GENDER_PREFERENCE,
   return (
     <>
       <div>
-        Unit gender preferences (can also be changed later in the game):
-        {/*<message '(?)'>
-      <div class='helpcard'>
-        You can use this option to adjust the how often units of certain gender will be encountered in the game.
-      </div>
-    </message>*/}
+        Gender preferences for units:
+        <Show when={props.char_creation}>
+          <span class="lightgraytext">
+            &nbsp;(can also be changed later in the game)
+          </span>
+        </Show>
+        <Message label="(?)">
+          <div class="helpcard">
+            You can use this option to adjust the how often units of certain
+            gender will be encountered in the game.
+          </div>
+        </Message>
         <div
           class="SexGenderPreferencesEditor-table"
           style={{
@@ -110,30 +119,30 @@ export const SexGenderPreferencesEditor: Component = () => {
 
           {SEXGENDERS_KEYS.map((sexgender) => (
             <>
-              <div>
+              <header>
                 <span>{SEXGENDERS[sexgender].name}</span>
-              </div>
-              <span>
-                <Show when={SEXGENDERS[sexgender].dick}>
-                  <Twee code={setup.trait.dick_medium.rep()} />
-                </Show>
-              </span>
-              <span>
-                <Show when={SEXGENDERS[sexgender].vagina}>
-                  <Twee code={setup.trait.vagina_loose.rep()} />
-                </Show>
-              </span>
-              <span>
-                <Show when={SEXGENDERS[sexgender].breast}>
-                  <Twee code={setup.trait.breast_medium.rep()} />
-                </Show>
-              </span>
+              </header>
               <span>
                 <Twee
                   code={setup.trait[
                     SEXGENDERS[sexgender].gender_trait_key
                   ].rep()}
                 />
+              </span>
+              <span>
+                <Show when={SEXGENDERS[sexgender].dick} fallback={<aside />}>
+                  <Twee code={setup.trait.dick_medium.rep()} />
+                </Show>
+              </span>
+              <span>
+                <Show when={SEXGENDERS[sexgender].vagina} fallback={<aside />}>
+                  <Twee code={setup.trait.vagina_loose.rep()} />
+                </Show>
+              </span>
+              <span>
+                <Show when={SEXGENDERS[sexgender].breast} fallback={<aside />}>
+                  <Twee code={setup.trait.breast_medium.rep()} />
+                </Show>
               </span>
               {TARGETS.map(([target]) => (
                 <div class="SexGenderPreferencesEditor-slider">
@@ -148,17 +157,18 @@ export const SexGenderPreferencesEditor: Component = () => {
                     }
                   />
                   <div
-                    class="SexGenderPreferencesEditor-percent"
-                    style={{
-                      opacity: !(getDistributions()[target][sexgender] ?? 0)
-                        ? 0.3
-                        : undefined,
-                    }}
+                    class={
+                      "SexGenderPreferencesEditor-percent" +
+                      (!(getDistributions()[target][sexgender] ?? 0)
+                        ? " zero"
+                        : "")
+                    }
                   >
-                    {Math.round(
-                      100 * (getDistributions()[target][sexgender] ?? 0),
-                    )}
-                    %
+                    {!(getDistributions()[target][sexgender] ?? 0)
+                      ? "-"
+                      : `${Math.round(
+                          100 * (getDistributions()[target][sexgender] ?? 0),
+                        )}%`}
                   </div>
                 </div>
               ))}

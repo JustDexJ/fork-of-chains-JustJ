@@ -1,4 +1,4 @@
-import { For, Show, createSignal } from "solid-js";
+import { For, Show, createMemo, createSignal } from "solid-js";
 import {
   Button,
   Help,
@@ -11,6 +11,8 @@ import {
 
 export const ImagepacksManagement: Component = () => {
   const [getNewName, setNewName] = createSignal("");
+
+  const [getExampleImagesReroll, setExampleImagesReroll] = createSignal(0);
 
   const [isLoading, setIsLoading] = createSignal(
     !!setup.UnitImage.loading_promise,
@@ -71,7 +73,13 @@ export const ImagepacksManagement: Component = () => {
         </small>
       </p>
 
-      <div style={{ display: "grid", "grid-template-columns": "1fr auto" }}>
+      <div
+        style={{
+          display: "grid",
+          "grid-template-columns": "auto 1fr auto",
+          gap: "0.5em",
+        }}
+      >
         <Message label="(add image pack)">
           <div class="helpcard">
             <div>
@@ -140,6 +148,13 @@ export const ImagepacksManagement: Component = () => {
             </Show>
           </div>
         </Message>
+        <Link
+          onClick={() => {
+            setExampleImagesReroll(getExampleImagesReroll() + 1);
+          }}
+        >
+          (reroll example images)
+        </Link>
         <Show when={isLoading()}>
           <span>
             {` Reloading image packs  `}
@@ -162,6 +177,34 @@ export const ImagepacksManagement: Component = () => {
           {(imagepack) => {
             const isActive = () => getCurrentPacks().includes(imagepack);
             const meta = () => setup.UnitImage.getImagePackMetadata(imagepack);
+
+            const stats = createMemo(() => {
+              getExampleImagesReroll(); // subscribe to this signal
+              let males = 0;
+              let females = 0;
+              let images: ImageObject[] = [];
+              const imagepack_url = meta()?.url;
+              if (imagepack_url) {
+                images = Object.values(setup.UnitImage.UNIT_IMAGES).filter(
+                  (it) => {
+                    if (it.path.startsWith(imagepack_url)) {
+                      if (it.path.includes("gender_male")) males += 1;
+                      else if (it.path.includes("gender_female")) females += 1;
+                      return true;
+                    }
+                    return false;
+                  },
+                );
+              }
+              return { males, females, images };
+            });
+            const exampleImages = createMemo(() => {
+              const imgs = [...stats().images];
+
+              setup.rng.shuffleArray(imgs);
+              return imgs.slice(0, 6);
+            });
+
             return (
               <div
                 class={
@@ -170,8 +213,8 @@ export const ImagepacksManagement: Component = () => {
                     : "card inactiveimagepackcard"
                 }
               >
-                <div>
-                  <header>
+                <header>
+                  <div>
                     <Show
                       when={meta()}
                       fallback={Text.dangerlite("Unable to load image pack")}
@@ -181,51 +224,70 @@ export const ImagepacksManagement: Component = () => {
                         <i>{meta()?.author || "unknown"}</i>
                       </span>
                     </Show>
-                  </header>
-                  <div style={{ "padding-left": "1em" }}>
+                  </div>
+
+                  <div>
+                    <Show
+                      when={
+                        !setup.UnitImage.DEFAULT_IMAGE_PACKS_SHOWN.includes(
+                          imagepack,
+                        )
+                      }
+                      fallback={
+                        <ToggleSwitch
+                          color="green"
+                          value={isActive()}
+                          onChange={(value) =>
+                            setImagePackEnabled(imagepack, value)
+                          }
+                          disabled={isLoading()}
+                        />
+                      }
+                    >
+                      <Link
+                        onClick={() => setImagePackEnabled(imagepack, false)}
+                        disabled={isLoading()}
+                      >
+                        (remove)
+                      </Link>
+                    </Show>
+                  </div>
+                </header>
+                <div>
+                  <div>
+                    <div>
+                      <span class="lightgraytext">
+                        {meta()?.numimages} images · {stats().males} male ·{" "}
+                        {stats().females} female
+                      </span>
+                    </div>
                     <Show when={meta()}>
                       <div class="lightgraytext">
                         {meta()?.description || ""}
                       </div>
                     </Show>
-                    <div>
-                      <small class="lightgraytext">
-                        {"Located at: "}
-                        <span style={{ color: "darkkhaki" }}>{imagepack}</span>
-                      </small>
-                    </div>
                   </div>
-                </div>
-                <div>
-                  <Show
-                    when={
-                      !setup.UnitImage.DEFAULT_IMAGE_PACKS_SHOWN.includes(
-                        imagepack,
-                      )
-                    }
-                    fallback={
-                      <ToggleSwitch
-                        color="green"
-                        value={isActive()}
-                        onChange={(value) =>
-                          setImagePackEnabled(imagepack, value)
-                        }
-                        disabled={isLoading()}
-                      />
-                    }
-                  >
-                    <Link
-                      onClick={() => setImagePackEnabled(imagepack, false)}
-                      disabled={isLoading()}
-                    >
-                      (remove)
-                    </Link>
-                  </Show>
                   <div>
-                    <span class="lightgraytext">
-                      {meta()?.numimages} images
-                    </span>
+                    <small class="lightgraytext">
+                      {"Located at: "}
+                      <span style={{ color: "darkkhaki" }}>{imagepack}</span>
+                    </small>
                   </div>
+                  <aside class="ImagepacksManagement-exampleimgs">
+                    <For each={exampleImages()}>
+                      {(imgobj) => (
+                        <img
+                          src={imgobj.path}
+                          onClick={() => {
+                            //setup.Dialogs.openImage(
+                            //  imgobj,
+                            //  imgobj.info.title || "Unknown Title",
+                            //);
+                          }}
+                        />
+                      )}
+                    </For>
+                  </aside>
                 </div>
               </div>
             );

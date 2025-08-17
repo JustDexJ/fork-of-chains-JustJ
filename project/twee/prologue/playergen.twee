@@ -1,44 +1,149 @@
 :: ProloguePlayerGen [nobr]
 
+<<set $i = {}>>
+<<set $i.trait_keys = []>>
+<<run $i.firstname = "Robin">>
+<<run $i.lastname = "Doe">>
+
 <p>
 You will be playing as a head slaver, managing a slaving company.
 You should give both the player character a name, as well as the slaving company they will be managing.
 From now on, the player character will simply be referred to as "you".
 </p>
 
-<div>
-Your company name is <<textbox "$company.player.name" $company.player.getName()>>
+<div style="display: grid; grid-template-columns: auto auto 1fr; gap: 0.5em 1em; align-items: center;">
+  <div>
+    Your company name is
+  </div>
+  <<textbox "$company.player.name" $company.player.getName()>>
+  <div></div>
+
+  <div>
+    Your first name is
+  </div>
+  <<do tag 'firstname'>>
+    <<textbox "$i.firstname" $i.firstname>>
+  <</do>>
+  <div>
+    <span class="RerollBtn">
+      <<link '<i class="sfa sfa-sync-alt"></i> Male name'>>
+        <<set $i.firstname = setup.generateUnitName([setup.trait.gender_male])[0]>>
+        <<redo 'firstname'>>
+      <</link>>
+    </span>
+    <span class="RerollBtn">
+      <<link '<i class="sfa sfa-sync-alt"></i> Female name'>>
+        <<set $i.firstname = setup.generateUnitName([setup.trait.gender_female])[0]>>
+        <<redo 'firstname'>>
+      <</link>>
+    </span>
+  </div>
+
+
+  <div>
+    Your last name is
+  </div>
+  <<do tag 'lastname'>>
+    <<textbox "$i.lastname" $i.lastname>>
+  <</do>>
+  <div>
+    <span class="RerollBtn">
+      <<link '<i class="sfa sfa-sync-alt"></i> Last name'>>
+        <<set $i.lastname = setup.generateUnitName([setup.trait.gender_male])[1]>>
+        <<redo 'lastname'>>
+      <</link>>
+    </span>
+  </div>
 </div>
-
-<<set $i = {}>>
-
-<div>
-Your first name is <<textbox "$i.firstname" "Robin">>
-</div>
-
-<div>
-Your last name is <<textbox "$i.lastname" "Doe">>
-</div>
-
-<hr/>
-
-<<set $i.trait_keys = []>>
-
-<<component setup.DOM.Component.SexGenderPreferencesEditor>>
 
 <hr/>
 
 <p>
-You can turn off certain content (hover each for details):
-<<message '(?)'>>
-  <div class='helpcard'>
-    Banning a content tag means that content involving it will not be generated in your playthrough.
-    For example, banning furry will cause most quests dealing specifically with furries
-    to be hidden from you. You can also change this later in the game.
-  </div>
-<</message>>
+  To proceed, choose your player character's sex/gender:
+  <br/>
+  <small style="opacity: 0.6; margin-left: 0.5em;">
+    <b>Tip:</b> you can hover over most stuff like the traits below, in order to see a tooltip with more information.
+  </small>
+</p>
 
-<<include 'ShowBannedTags'>>
+<div class="Prologue-SexGenderButtons">
+  <<for _key, _data range setup.SEXGENDERS>>
+    <<capture _key, _data>>
+      <div>
+        <<button _data.name 'PrologueGenderPrefs'>>
+          <<set $i.gender_key = _data.gender_trait_key>>
+          <<set $i.sexgender_key = _key>>
+        <</button>>
+      </div>
+      <span>
+        <<= setup.trait[_data.gender_trait_key].rep()>>
+      </span>
+      <span>
+        <<if _data.dick>>
+          <<= setup.trait.dick_medium.rep()>>
+        <<else>>
+          <aside/>
+        <</if>>
+      </span>
+      <span>
+        <<if _data.vagina>>
+          <<= setup.trait.vagina_loose.rep()>>
+        <<else>>
+          <aside/>
+        <</if>>
+      </span>
+      <span>
+        <<if _data.breast>>
+          <<= setup.trait.breast_medium.rep()>>
+        <<else>>
+          <aside/>
+        <</if>>
+      </span>
+    <</capture>>
+  <</for>>
+</div>
+
+
+:: PrologueGenderPrefs [nobr]
+
+<h3>Game Settings</h3>
+
+<<component setup.DOM.Component.SexGenderPreferencesEditor char_creation true>>
+
+<hr/>
+
+<p>
+  <div style="display: grid; grid-template-columns: 1fr auto; gap: 1em; align-items: center;">
+    <p>
+      You can configure the <b>image packs</b> you wish to be available
+      to provide images to the units.
+      If this is the first time you are playing this game, you can skip this.
+    </p>
+    <div>
+      <!--<<attach setup.DOM.Menu.Settings.imagepacks()>>-->
+      <<button 'Configure image packs'>>
+        <<run setup.DOM.Menu.Settings.opendialog('imagepacks')>>
+      <</button>>
+    </div>
+  </div>
+</p>
+
+<hr/>
+
+<p>
+  <div style="margin-bottom: 0.5em">
+    You can choose to disable certain content (hover each for details):
+    <<message '(?)'>>
+      <div class='helpcard'>
+        Banning a content tag means that content involving it will not be generated in your playthrough.
+        For example, banning furry will cause most quests dealing specifically with furries
+        to be hidden from you. You can always change this later in the game.
+      </div>
+    <</message>>
+  </div>
+  <div style="margin-left: 0.5em">
+  <<include 'ShowBannedTags'>>
+  </div>
 </p>
 
 <hr/>
@@ -51,35 +156,13 @@ You can <<message 'change other game settings too.'>>
 <</message>>
 </p>
 
-<p>
-To proceed, choose your player character's gender:
-</p>
-
-<div>
-  <<for _key, _data range setup.SEXGENDERS>>
-    <<capture _key, _data>>
-      <<focbutton _data.name 'PrologueImagePack'>>
-        <<set $i.gender_key = _data.gender_trait_key>>
-        <<set $i.sexgender_key = _key>>
-      <</focbutton>>
-    <</capture>>
-  <</for>>
-</div>
-
-:: PrologueImagePack [nobr]
+<hr/>
 
 <p>
-Select the image packs you wish to use.
-If this is the first time you are playing this game, you can simply
-click "Continue" below.
-</p>
-
-<<attach setup.DOM.Menu.Settings.imagepacks()>>
-
-<p>
-<<button 'Continue' 'PrologueChoose'>>
+<<button 'Continue' PrologueChoose>>
 <</button>>
 </p>
+
 
 :: PrologueChoose [nobr]
 

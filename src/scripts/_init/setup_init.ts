@@ -214,6 +214,7 @@ import { DOM } from "../dom/DOM.js";
 import { FortGridController } from "../dom/menu/fortgrid.js";
 import { Article, ArticleOnly, articles } from "../lib/articles.js";
 import { ArgType, MacroUtil } from "../macro/_metadata.js";
+import { generateUnitName } from "../names/namegen.js";
 import { Text } from "../text/text.js";
 import { Dialogs } from "../ui/ux/Dialogs.js";
 import { ActorHelper, DebugActor } from "../util/actor.js";
@@ -544,6 +545,8 @@ const setup_ = {
   ...FriendshipConstants,
   SexConstants,
 
+  IS_DEV_BUILD: !import.meta.env.PROD,
+
   QUEST_OUTCOMES,
   BEDCHAMBER_OPTIONS,
   BEDCHAMBER_OPTION_CHANCES,
@@ -589,6 +592,7 @@ const setup_ = {
 
   getAuthorCredits,
   updatePostProcess,
+  generateUnitName,
 
   MacroUtil,
   ArgType,

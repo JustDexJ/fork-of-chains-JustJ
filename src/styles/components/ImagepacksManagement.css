@@ -5,11 +5,37 @@
 
   & > div {
     display: grid;
-    grid-template-columns: 1fr auto;
-    & > :last-child {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
+    grid-template-rows: auto 1fr;
+
+    & > header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.5em;
+    }
+
+    & > div {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-template-rows: 1fr auto;
+      & > aside {
+        grid-column: 2 / 3;
+        grid-row: 1 / -1;
+      }
+    }
+  }
+
+  .ImagepacksManagement-exampleimgs {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 4px;
+    margin-top: 4px;
+
+    & img {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      background-color: #333;
+      /*cursor: pointer;*/
     }
   }
 }

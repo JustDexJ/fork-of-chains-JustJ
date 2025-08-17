@@ -20,6 +20,7 @@
     "outDir": "src",
     "rootDir": "src"
   },
+  "references": [{ "path": "./jsconfig.node.json" }],
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": [
     "node_modules",

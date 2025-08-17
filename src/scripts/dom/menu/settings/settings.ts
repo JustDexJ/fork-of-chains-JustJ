@@ -238,7 +238,9 @@ export const DOM_Menu_settingsmain = function (): DOM.Node {
   const fragments: DOM.Attachable[] = [];
   fragments.push(setup.DOM.Menu.settingsbase());
   fragments.push(html`<hr />`);
-  fragments.push(setup.DOM.Util.include("SettingsGenderPreferences"));
+  fragments.push(
+    setup.DOM.renderComponent(setup.DOM.Component.SexGenderPreferencesEditor),
+  );
   fragments.push(html`<hr />`);
   fragments.push(html`
     <div>${setup.DOM.Nav.move("Set Content Filter", "BannedTagMenu")}</div>

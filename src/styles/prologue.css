@@ -1,0 +1,33 @@
+.RerollBtn {
+  opacity: 0.6;
+  cursor: pointer;
+  transition: all 0.5s;
+
+  margin-inline-end: 0.5em;
+
+  &:hover {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+.Prologue-SexGenderButtons {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  align-items: center;
+  gap: 0.4em 0.4em;
+  width: fit-content;
+
+  aside {
+    display: inline-block;
+    vertical-align: middle;
+    width: 25px;
+    height: 25px;
+    background-color: #222;
+  }
+
+  button {
+    min-width: 7em;
+    margin-right: 0.5em;
+  }
+}

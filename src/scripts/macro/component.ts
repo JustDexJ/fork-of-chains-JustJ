@@ -6,6 +6,8 @@ import type { JSX } from "solid-js/jsx-runtime";
  * ```html
  *   <<component setup.DOM.Component.MyComponent>>
  *
+ *   <<component setup.DOM.Component.MyComponent prop1 _value1 prop2 _value2 ...>>
+ *
  *   <<set _props = { value: 1 }>>
  *   <<component setup.DOM.Component.MyComponent _props>>
  * ```
@@ -13,7 +15,15 @@ import type { JSX } from "solid-js/jsx-runtime";
 Macro.add("component", {
   handler() {
     const componentFn = this.args[0] as (props: {}) => JSX.Element;
-    const props = this.args[1] || {};
+
+    let props: Record<string, any> = {};
+    if (this.args.length >= 3) {
+      for (let i = 1; i < this.args.length; i += 2) {
+        props[this.args[i]] = this.args[i + 1];
+      }
+    } else if (this.args.length === 2) {
+      props = this.args[1];
+    }
 
     if (!componentFn || !(typeof componentFn === "function")) {
       return this.error("No component specified or it is not a function");

@@ -53,6 +53,7 @@
   "devDependencies": {
     "@types/jquery": "^3.5.32",
     "@types/mousetrap": "^1.6.15",
+    "@types/node": "^24.3.0",
     "@types/prismjs": "^1.26.5",
     "@types/twine-sugarcube": "^2.37.2",
     "autoprefixer": "^10.4.21",

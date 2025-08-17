@@ -15,8 +15,12 @@ const tabs = {
   },
 };
 
-export const GlobalSettingsEdit = () => {
-  const [getTab, setTab] = createSignal<keyof typeof tabs>("imagepacks");
+export const GlobalSettingsEdit: Component<{
+  initial_tab?: keyof typeof tabs;
+}> = (props) => {
+  const [getTab, setTab] = createSignal<keyof typeof tabs>(
+    props.initial_tab ?? "imagepacks",
+  );
 
   return (
     <>
@@ -52,13 +56,19 @@ export const GlobalSettingsEdit = () => {
   );
 };
 
-export default function () {
+export default function (initial_tab?: keyof typeof tabs) {
   const dialog = Dialog.create(
     "Global Settings",
     "dialog-fullwidth dialog-fullheight dialog-globalsettings",
   );
 
-  setup.DOM.renderComponentInto(dialog.body(), GlobalSettingsEdit);
+  if (initial_tab && !(initial_tab in tabs)) {
+    initial_tab = undefined;
+  }
+
+  setup.DOM.renderComponentInto(dialog.body(), GlobalSettingsEdit, {
+    initial_tab,
+  });
 
   dialog.open();
 }

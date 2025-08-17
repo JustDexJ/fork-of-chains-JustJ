@@ -3,7 +3,9 @@
 
 # Re-include specific folders/files
 !/src
+!/dev/**/*/.js
 !/t3lt.twee-config.json
+#!/vite.config.mjs
 
-# Third-party code
+# Don't format third-party code
 src/**/*.js
