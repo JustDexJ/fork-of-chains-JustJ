@@ -15,8 +15,8 @@ export type SkillKey = BrandedType<number, "SkillKey">;
 export type SkillValuesArray<T = number> = T[];
 
 export type SkillValuesInit<T = number> =
-  | T[]
-  | { [k in SkillKey | SkillKeyword]?: T };
+  | readonly T[]
+  | Readonly<{ [k in SkillKey | SkillKeyword]?: T }>;
 
 export class Skill extends TwineClass {
   /** Skill numeric key (its index) */
@@ -27,7 +27,7 @@ export class Skill extends TwineClass {
   name: string;
   description: string;
 
-  constructor(def: SkillDefinition) {
+  constructor(def: Readonly<SkillDefinition>) {
     super();
 
     this.key = setup.skill.length as SkillKey;
@@ -70,7 +70,9 @@ export class Skill extends TwineClass {
     return `<span class='skillcardglow'>${this.rep()}</span>`;
   }
 
-  static translate<T>(array_or_obj: SkillValuesInit<T>): SkillValuesArray<T> {
+  static translate<T>(
+    array_or_obj: Readonly<SkillValuesInit<T>>,
+  ): SkillValuesArray<T> {
     // translates array or object skill into array
     // e.g., [1, 2, 3, 4, 5, ...] or {'brawn': 1}
     if (Array.isArray(array_or_obj)) {
@@ -79,7 +81,7 @@ export class Skill extends TwineClass {
       return array_or_obj;
     }
     let result = Array(setup.skill.length).fill(0);
-    for (const [key, value] of objectEntries(array_or_obj)) {
+    for (const [key, value] of Object.entries(array_or_obj)) {
       if (!(key in setup.skill)) throw new Error(`Unrecognized skill: ${key}`);
       let skill = setup.skill[key as unknown as number];
       result[skill.key] = value;
@@ -237,7 +239,7 @@ export namespace SkillHelper {
    * Given [0, 1, 2, 4, ...] explain it
    */
   export function explainSkills(
-    skill_array_raw: number[],
+    skill_array_raw: readonly number[],
     is_hide_skills?: boolean,
     is_to_fixed?: boolean,
   ): string {

@@ -2,7 +2,7 @@
  * Listen on the specified even for its first element child,
  * and runs a certain callback when that event is triggered
  * Example:
- *   setup.DOM.Util.onEvent('change', element, () => {console.log("hi")})
+ *   setup.DOM.Util.onEvent('change', element, () => {console.info("hi")})
  *
  * If the target element has a 'value' field, will pass it as a parameter to the callback.
  *

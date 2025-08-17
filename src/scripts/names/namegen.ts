@@ -184,7 +184,6 @@ export function generateUnitName(traits: Trait[]): string[] {
     firstname = nameset.female_first();
   }
   if (!firstname) {
-    console.log(traits);
     throw new Error(`Gender not found`);
   }
 

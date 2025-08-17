@@ -4,6 +4,11 @@ export const DEFINITION_SUBRACE_DEMONKIN: SubraceDefinition = {
   noun: "demonkin",
   homeland_region: setup.Text.Race.REGIONS.mist,
   company_key: "demon",
+  description:
+    "The most common <<rep setup.trait.race_demon>>, it is said that demonkin are the result of the numerous virgins violated by purebred demons. There are some who managed to cross the fog into our world, but those are extremely rare. Attuned to darkness, which is perhaps the strongest element. Most demonkin are found serving their pureblooded demon masters, although there are exceptions of free and master-less demonkin. Like all other demons, demonkin are unaffected by the negative skill and value penalties of demonic bodyparts.",
+  slave_value: 7500,
+  rarity: "rare",
+  race: "race_demon",
   trait_preferences: {
     /* trait preferences */
 

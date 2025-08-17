@@ -38,7 +38,7 @@ DataUtil.load(setup.FurnitureSlot, FURNITURE_SLOT_DEFINITIONS);
 // Skills
 DataUtil.load(setup.Skill, SKILL_DEFINITIONS);
 
-// Traits
+// Traits & TraitGroups
 executePassage("InitTraits");
 
 // Titles

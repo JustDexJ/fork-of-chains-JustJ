@@ -201,7 +201,7 @@ export class RoomTemplate extends TwineClass {
       }
     }
     const width = setup.FORTGRID_WIDTH;
-    console.log(
+    console.info(
       `Total tiles: ${total_tiles_in} in (${total_tiles_in / width} rows), ${total_tiles_out} out (${total_tiles_out / width} rows)`,
     );
 

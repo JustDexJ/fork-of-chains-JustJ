@@ -238,7 +238,7 @@
         perk_choice_restrictions: [],
         perk_end_of_week_effect: [],
         perk_extra_traits: [
-            setup.trait.subrace_kobold,
+            'subrace_kobold',
         ],
     },
 )>>

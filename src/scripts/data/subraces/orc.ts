@@ -4,6 +4,10 @@ export const DEFINITION_SUBRACE_ORC: SubraceDefinition = {
   noun: "orc",
   homeland_region: setup.Text.Race.REGIONS.desert,
   company_key: "orc",
+  description: "'<<rep setup.trait.race_greenskin>> living on the eastern mountain regions. While most are less intelligent than the average human, there are known exceptions. Attuned to fire, which makes them impervious to heat.",
+  slave_value: 500,
+  rarity: "medium",
+  race: "race_greenskin",
   trait_preferences: {
     /* trait preferences */
 

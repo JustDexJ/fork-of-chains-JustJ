@@ -19,7 +19,8 @@
   'Residents of the Southern Seas: Male',
   setup.ALLUNITGROUPS.concat(_additions),
   0,
-  []
+  [],
+  ["gender_male"]
 )>>
 
 <<run new setup.UnitGroup(
@@ -27,6 +28,7 @@
   'Residents of the Southern Seas: Female',
   setup.ALLUNITGROUPS.concat(_additions),
   0,
-  []
+  [],
+  ["gender_female"]
 )>>
 

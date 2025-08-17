@@ -37,7 +37,7 @@ export default class QuestDirect extends Cost {
     const newquest = setup.QuestPool.instantiateQuest(template, assignment);
 
     if (!newquest) {
-      console.log(
+      console.error(
         `Something wrong when trying to generate quest ${template.key}`,
       );
       setup.notify(

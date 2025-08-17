@@ -23,8 +23,8 @@ export class Perk extends Trait {
     }: {
       perk_choice_restrictions: Restriction[];
       perk_end_of_week_effect: Cost[];
-      perk_null_traits?: Trait[];
-      perk_extra_traits?: Trait[];
+      perk_null_traits?: (Trait | TraitKey)[];
+      perk_extra_traits?: (Trait | TraitKey)[];
     },
   ) {
     super(
@@ -39,11 +39,11 @@ export class Perk extends Trait {
 
     this.perk_choice_restrictions = perk_choice_restrictions;
     this.perk_end_of_week_effect = perk_end_of_week_effect;
-    this.perk_null_trait_keys = (perk_null_traits || []).map(
-      (perk) => perk.key,
+    this.perk_null_trait_keys = (perk_null_traits || []).map((trait) =>
+      resolveKey(trait),
     );
-    this.perk_extra_trait_keys = (perk_extra_traits || []).map(
-      (perk) => perk.key,
+    this.perk_extra_trait_keys = (perk_extra_traits || []).map((trait) =>
+      resolveKey(trait),
     );
   }
 

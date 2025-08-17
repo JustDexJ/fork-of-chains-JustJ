@@ -42,7 +42,7 @@ export function initializeRoomImageTable() {
       },
       () => {
         // imagemeta not found. It's fine, just give out a warning.
-        console.log(`Image meta for room ${directory} not found`);
+        console.warn(`Image meta for room ${directory} not found`);
       },
     );
   }

@@ -29,7 +29,7 @@ export default class RemoveDuty extends Cost {
       );
       State.variables.dutylist.removeDuty(duty);
     } else {
-      console.log(
+      console.error(
         `Trying to remove duty ${this.getDutyTemplate().getName()} but nothing found. If this happens during quest testing, you can ignore this error.`,
       );
     }

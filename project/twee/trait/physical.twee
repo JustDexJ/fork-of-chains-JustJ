@@ -1,7 +1,7 @@
 :: InitPhysicalTraits [nobr]
 
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('dick', [
   new setup.Trait(
     'dick_tiny',
     'tiny dick',
@@ -59,7 +59,7 @@
 ], ['clothed', 'dick', 'decreasable', 'physical', 'genital', 'needdick',])>>
 
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('balls', [
   new setup.Trait(
     'balls_tiny',
     'tiny balls',
@@ -117,7 +117,7 @@
 ], ['clothed', 'balls', 'decreasable', 'physical', 'genital', 'needdick', ])>>
 
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('breast', [
   new setup.Trait(
     'breast_tiny',
     'tiny breast',
@@ -175,7 +175,7 @@
 ], ['breast', 'decreasable', 'physical', 'genital', 'needvagina', ])>>
 
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('vagina', [
   new setup.Trait(
     'vagina_tight',
     'tight vagina',
@@ -206,7 +206,7 @@
 ], ['clothed', 'vagina', 'decreasable', 'physical', 'genital', 'needvagina', ])>>
 
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('anus', [
   new setup.Trait(
     'anus_tight',
     'tight anus',
@@ -237,7 +237,7 @@
 ], ['clothed', 'anus', 'decreasable', 'physical', 'genital',])>>
 
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('height', [
   new setup.Trait(
     'height_dwarf',
     'height: dwarf',
@@ -278,7 +278,7 @@
 ], ['height', 'physical', 'nongenital', ])>>
 
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('muscle', [
   new setup.Trait(
     'muscle_extremelythin',
     'extremely thin',
@@ -337,7 +337,7 @@
 ], ['muscle', 'physical', 'nongenital', ])>>
 
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('tough', [
   new setup.Trait(
     'tough_nimble',
     'nimble',
@@ -360,7 +360,7 @@
 ], ['tough', 'physical', 'medium', 'nongenital', ])>>
 
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('face', [
   new setup.Trait(
     'face_hideous',
     'frightening face',
@@ -413,7 +413,7 @@
 ], ['face', 'physical', 'nongenital', ])>>
 
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('corrupted', [
   new setup.Trait(
     'corrupted',
     'corrupted',

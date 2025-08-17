@@ -18,7 +18,8 @@
   'Residents of the Northern Vale: Male',
   setup.ALLUNITGROUPS.concat(_additions),
   0,
-  []
+  [],
+  ["gender_male"]
 )>>
 
 <<run new setup.UnitGroup(
@@ -26,6 +27,7 @@
   'Residents of the Northern Vale: Female',
   setup.ALLUNITGROUPS.concat(_additions),
   0,
-  []
+  [],
+  ["gender_female"]
 )>>
 

@@ -4,6 +4,11 @@ export const DEFINITION_SUBRACE_LIZARDKIN: SubraceDefinition = {
   noun: "lizardkin",
   homeland_region: setup.Text.Race.REGIONS.sea,
   company_key: "lizardkin",
+  description:
+    "These relatively aggressive variant of <<rep setup.trait.race_lizardkin>> that can occasionally be met across the <<lore region_sea>>. They are adept swimmers and also make excellent scouts, but hiring them is problematic as most lizardkin would prefer their own company. Unsurprisingly, these people are often attuned to <<lore magic_water>>.",
+  slave_value: 3000,
+  rarity: "rare",
+  race: "race_lizardkin",
   trait_preferences: {
     /* trait preferences */
 

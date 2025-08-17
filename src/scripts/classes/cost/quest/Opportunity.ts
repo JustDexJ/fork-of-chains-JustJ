@@ -37,7 +37,7 @@ export default class Opportunity extends Cost {
       assignment,
     );
     if (!opportunity) {
-      console.log(
+      console.error(
         `Something wrong when trying to generate opportunity ${template.key}`,
       );
       setup.notify(

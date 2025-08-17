@@ -1,4 +1,4 @@
-import { For, Show, createMemo, createSignal } from "solid-js";
+import { For, Show, createMemo, createSignal, onMount } from "solid-js";
 import {
   openModsDir,
   openUnpackedModDir,
@@ -21,12 +21,19 @@ import {
   Textbox,
   ToggleSwitch,
 } from "../common.js";
+import "./ModsManagement.css";
 
+/**
+ * Implements the UI for mod management.
+ * The actual load of mods is done via the `ModManager` singleton (see src/script/util/modmananger.ts)
+ */
 export const ModsManagement: Component = () => {
   const [isLoading, setIsLoading] = createSignal(
     !!ModManager.reloading_promise,
   );
   const [isDevMode, setIsDevMode] = createSignal(false);
+  const [canAccessLocalModsFolder, setCanAccessLocalModsFolder] =
+    createSignal(false);
 
   const [getNewName, setNewName] = createSignal("");
 
@@ -56,6 +63,10 @@ export const ModsManagement: Component = () => {
     }
   }
 
+  onMount(() => {
+    openModsDir(true).then((handle) => setCanAccessLocalModsFolder(!!handle));
+  });
+
   function installMod(mod_path_raw: string) {
     let mod_path = mod_path_raw.trim();
     const mods_dir_prefix = `${MODS_DIR_NAME}/`;
@@ -83,42 +94,79 @@ export const ModsManagement: Component = () => {
     setInstalledMods(setup.globalsettings.mods_installed);
   }
 
-  function autoinstallMods() {
-    return openModsDir().then((mods_dir_handle) => {
-      if (!mods_dir_handle) return;
+  function checkIfDirectoryIsUnpackedMod(
+    dir: FileSystemDirectoryHandle,
+  ): Promise<boolean> {
+    return dir.getFileHandle("focmod.js").then(
+      (value) => {
+        return true;
+      },
+      () => {
+        return false;
+      },
+    );
+  }
 
-      return resolveAsyncIterator(mods_dir_handle.entries()).then((entries) => {
-        const mods_installed = [...(setup.globalsettings.mods_installed || [])];
-        if (
-          entries.some(([k, v]) => {
-            if (
-              v.kind === "file" &&
-              v.name.endsWith(MOD_PACKED_EXTENSION) &&
-              !mods_installed.includes(v.name)
-            ) {
-              mods_installed.push(v.name);
-              return true;
+  function autoinstallMods(): Promise<boolean> {
+    return openModsDir().then((mods_dir_handle) => {
+      if (!mods_dir_handle) return false;
+
+      return resolveAsyncIterator(mods_dir_handle.entries()).then(
+        async (entries) => {
+          const mods_installed = [
+            ...(setup.globalsettings.mods_installed || []),
+          ];
+
+          let promises: Promise<unknown>[] = [];
+
+          let found_new_mods = false;
+          for (const [k, file] of entries) {
+            if (file.kind === "file") {
+              if (
+                file.name.endsWith(MOD_PACKED_EXTENSION) &&
+                !mods_installed.includes(file.name)
+              ) {
+                mods_installed.push(file.name);
+                found_new_mods = true;
+              }
+            } else if (file.kind === "directory") {
+              const dir = file as FileSystemDirectoryHandle;
+              if (!mods_installed.includes(dir.name)) {
+                promises.push(
+                  checkIfDirectoryIsUnpackedMod(dir).then((is_unpacked_mod) => {
+                    if (is_unpacked_mod) {
+                      mods_installed.push(dir.name);
+                      found_new_mods = true;
+                    }
+                  }),
+                );
+              }
             }
-            return false;
-          })
-        ) {
-          setup.globalsettings.mods_installed = mods_installed;
-          setInstalledMods(mods_installed);
-          reloadModsInfo();
-        }
-      });
+          }
+
+          return Promise.all(promises).then(() => {
+            console.info(`Found new mods: ${found_new_mods}`);
+            if (found_new_mods) {
+              setup.globalsettings.mods_installed = mods_installed;
+              setInstalledMods(mods_installed);
+              reloadModsInfo();
+            }
+            return true;
+          });
+        },
+      );
     });
   }
 
   function installUnpackedMod() {
-    return openUnpackedModDir().then((dir_handle) => {
+    return openUnpackedModDir(null).then((dir_handle) => {
       if (!dir_handle) return;
 
       return dir_handle
         .getFileHandle(MOD_UNPACKED_MANIFEST_FILE)
         .then((manifest_handle) => {
           const mod_path = dir_handle.name;
-          ModManager.mods_unpacked[mod_path] = dir_handle;
+          ModManager.mods_unpacked_dirhandles[mod_path] = dir_handle;
 
           const mods_installed = [
             ...(setup.globalsettings.mods_installed || []),
@@ -158,7 +206,7 @@ export const ModsManagement: Component = () => {
 
   function packMod(mod_path: string) {
     const mod = ModManager.mods[mod_path];
-    const dir_handle = ModManager.mods_unpacked[mod_path];
+    const dir_handle = ModManager.mods_unpacked_dirhandles[mod_path];
     if (mod) {
       const target_filename = `${dir_handle?.name ?? mod.key ?? "unnamed_mod"}${MOD_PACKED_EXTENSION}`;
 
@@ -240,12 +288,27 @@ export const ModsManagement: Component = () => {
 
               <Show when={setup.FileUtil.supportsDirectoryPicker()}>
                 <p>
-                  Alternatively, you can click the following button and browse
-                  to the "mods" folder inside the game directory, to
-                  automatically detect and install (but not enable) all mods
-                  found there:{" "}
-                  <Button onClick={() => autoinstallMods()}>
-                    Select mods folder...
+                  Alternatively, you can automatically scan and install (in
+                  disabled state) all mods in the local "mods" folder.
+                  <Show when={!canAccessLocalModsFolder()}>
+                    But first you will need to give permissions to the game.
+                    Click the button below and browse to the "mods" folder
+                    inside the game directory.
+                  </Show>
+                  <br />
+                  <Button
+                    onClick={() =>
+                      autoinstallMods().then((accessed) =>
+                        setCanAccessLocalModsFolder(accessed),
+                      )
+                    }
+                  >
+                    <Show
+                      when={canAccessLocalModsFolder()}
+                      fallback={<>Select mods folder...</>}
+                    >
+                      Rescan mods folder
+                    </Show>
                   </Button>
                 </p>
               </Show>
@@ -329,6 +392,9 @@ export const ModsManagement: Component = () => {
                   },
                   activities: { n: 0, label: ["activities", "activity"] },
                   passages: { n: 0, label: ["passages", "passage"] },
+
+                  subraces: { n: 0, label: ["subraces", "subrace"] },
+                  traits: { n: 0, label: ["traits", "trait"] },
                 };
                 const data = mod()?.data;
                 if (data) {
@@ -343,6 +409,14 @@ export const ModsManagement: Component = () => {
                     if (v instanceof setup.ActivityTemplate)
                       stats.activities.n += 1;
                   }
+                  if (data.definitions.subraces)
+                    stats.subraces.n = Object.keys(
+                      data.definitions.subraces,
+                    ).length;
+                  if (data.definitions.taits)
+                    stats.traits.n = Object.keys(
+                      data.definitions.traits,
+                    ).length;
                 }
                 return Object.values(stats).filter((entry) => entry.n > 0);
               });
@@ -376,9 +450,7 @@ export const ModsManagement: Component = () => {
                           <b>{mod()?.version || "unknown version"}</b>) by{" "}
                           <i>{mod()?.author || "unknown"}</i>
                           <Show when={isUnpacked()}>
-                            <span
-                              style={{ "margin-left": "0.5em", color: "khaki" }}
-                            >{` (unpacked)`}</span>
+                            <span class="ModsManagement-unpackedtag">{` (unpacked)`}</span>
                           </Show>
                         </span>
                       </Show>

@@ -8,7 +8,7 @@ Curse and Blessing traits. These traits does not affect skills, but have other g
 /*   INJURY BLESSINGS  */
 /* =================== */
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('injury_blessing', [
   new setup.Trait(
     'curse_weakness8',
     'curse of weakness (8)',
@@ -161,7 +161,7 @@ Curse and Blessing traits. These traits does not affect skills, but have other g
 /*   TRAUMA BLESSINGS  */
 /* =================== */
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('trauma_blessing', [
   new setup.Trait(
     'curse_madness8',
     'curse of madness (8)',
@@ -314,7 +314,7 @@ Curse and Blessing traits. These traits does not affect skills, but have other g
 /*   CORRUPTION BLESSINGS  */
 /* ======================= */
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('corruption_blessing', [
   new setup.Trait(
     'curse_vice8',
     'curse of vice (8)',
@@ -468,7 +468,7 @@ Curse and Blessing traits. These traits does not affect skills, but have other g
 /*   LIFE BLESSINGS   */
 /* ================== */
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('life_blessing', [
   new setup.Trait(
     'curse_demise8',
     'curse of demise (8)',
@@ -621,7 +621,7 @@ Curse and Blessing traits. These traits does not affect skills, but have other g
 /*   LUCK BLESSINGS   */
 /* ================== */
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('luck_blessing', [
   new setup.Trait(
     'curse_crow8',
     'curse of crow (8)',
@@ -774,7 +774,7 @@ Curse and Blessing traits. These traits does not affect skills, but have other g
 /*   VIRGIN BLESSINGS   */
 /* ================== */
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('virgin_blessing', [
   new setup.Trait(
     'curse_agape8',
     'curse of agape (8)',
@@ -927,7 +927,7 @@ Curse and Blessing traits. These traits does not affect skills, but have other g
 /*   DOMINANCE BLESSINGS   */
 /* ======================= */
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('dominance_blessing', [
   new setup.Trait(
     'curse_lamb8',
     'curse of lamb (8)',

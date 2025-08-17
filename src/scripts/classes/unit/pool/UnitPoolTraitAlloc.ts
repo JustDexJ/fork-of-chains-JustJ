@@ -1,3 +1,4 @@
+import { Constants } from "../../../constants";
 import { SEXGENDERS } from "../../../data/sexgenders";
 import { TwineClass } from "../../_TwineClass";
 import { type SexgenderKey } from "../../Settings";
@@ -13,7 +14,6 @@ export interface TraitAllocEntry {
 export interface TraitAlloc {
   [k: string]: TraitAllocEntry;
 }
-
 export class UnitPoolTraitAlloc extends TwineClass {
   /** How much does this pool prefers a certain trait. */
   trait_preferences: ChanceObject<TraitKey>;
@@ -22,26 +22,36 @@ export class UnitPoolTraitAlloc extends TwineClass {
   trait_dispreferences: ChanceObject<TraitKey>;
 
   constructor(
-    trait_preferences: { [k in TraitKey | BuiltinTraitKey]?: number },
-    trait_dispreferences: { [k in TraitKey | BuiltinTraitKey]?: number },
+    trait_preferences: { [k in TraitKey | BuiltinTraitKey]?: number | string },
+    trait_dispreferences: {
+      [k in TraitKey | BuiltinTraitKey]?: number | string;
+    },
   ) {
     super();
 
     this.trait_preferences = trait_preferences as ChanceObject<TraitKey>;
     this.trait_dispreferences = trait_dispreferences as ChanceObject<TraitKey>;
 
-    for (const [trait_key, value] of objectEntries(trait_preferences)) {
+    for (let [trait_key, value] of objectEntries(trait_preferences)) {
       if (!(trait_key in setup.trait))
         throw new Error(
           `Unknown trait key in preference unit pool trait alloc: ${trait_key}`,
         );
-      if (value === undefined || value === null)
+      if (typeof value === "string") {
+        const num = (Constants as any)[value];
+        if (typeof num !== "number") {
+          throw new Error(`Invalid constant "${value}"`);
+        }
+        trait_preferences[trait_key] = num;
+        value = num;
+      }
+      if (typeof value !== "number")
         throw new Error(
-          `Found ${value} value for trait ${trait_key} in triat alloc!`,
+          `Found invalid value ${value} for trait ${trait_key} in triat alloc!`,
         );
     }
 
-    // check all bg traits are tehre
+    // check all bg traits are there
     for (const trait of Object.values(setup.trait).filter((t) =>
       t.getTags().includes("bg"),
     )) {
@@ -51,10 +61,23 @@ export class UnitPoolTraitAlloc extends TwineClass {
         );
     }
 
-    for (const trait_key in trait_dispreferences) {
+    for (let [trait_key, value] of objectEntries(trait_dispreferences)) {
       if (!(trait_key in setup.trait))
         throw new Error(
           `Unknown trait key in dispreference unit pool trait alloc: ${trait_key}`,
+        );
+
+      if (typeof value === "string") {
+        const num = (Constants as any)[value];
+        if (typeof num !== "number") {
+          throw new Error(`Invalid constant "${value}"`);
+        }
+        trait_dispreferences[trait_key] = num;
+        value = num;
+      }
+      if (typeof value !== "number")
+        throw new Error(
+          `Found invalid value ${value} for trait ${trait_key} in triat alloc!`,
         );
     }
   }

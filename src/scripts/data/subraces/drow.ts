@@ -4,7 +4,11 @@ export const DEFINITION_SUBRACE_DROW: SubraceDefinition = {
   noun: "drow",
   homeland_region: setup.Text.Race.REGIONS.deep,
   company_key: "drow",
-
+  description:
+    "This subspecies of the <<rep setup.trait.race_elf>> race has adapted to live underground. Attuned to the dark element, allowing them to manipulate darkness and corrupt others.",
+  slave_value: 2500,
+  rarity: "rare",
+  race: "race_elf",
   trait_preferences: {
     /* trait preferences */
 

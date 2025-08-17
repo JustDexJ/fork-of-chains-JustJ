@@ -4,6 +4,11 @@ export const DEFINITION_SUBRACE_HUMANVALE: SubraceDefinition = {
   noun: "northerner",
   homeland_region: setup.Text.Race.REGIONS.vale,
   company_key: "humanvale",
+  description:
+    "<<rep setup.trait.race_human>> born on the northern vales. Hardy, if somewhat brash people. The harsh winters make these people attuned to the domain of <<lore magic_water>>.",
+  slave_value: 0,
+  rarity: "common",
+  race: "race_human",
   trait_preferences: {
     /* trait preferences */
 

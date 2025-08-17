@@ -1212,9 +1212,9 @@ export class Unit extends TwineClass {
    * Includes all in getTraits, and also: computed traits from equipments, join time, slave value, trauma, job
    */
   getBaseTraits(): Trait[] {
-    return objectKeys(this.getBaseTraitMapCache()).map(
-      (trait_key) => setup.trait[trait_key],
-    );
+    return objectKeys(this.getBaseTraitMapCache())
+      .map((trait_key) => setup.trait[trait_key])
+      .filter((t) => t);
   }
 
   /**
@@ -1223,9 +1223,9 @@ export class Unit extends TwineClass {
    * Includes: base traits, corruption, training, primary race
    */
   getTraits(): Trait[] {
-    return objectKeys(this.getTraitMapCache()).map(
-      (trait_key) => setup.trait[trait_key],
-    );
+    return objectKeys(this.getTraitMapCache())
+      .map((trait_key) => setup.trait[trait_key])
+      .filter((t) => t);
   }
 
   /**
@@ -1450,16 +1450,17 @@ export class Unit extends TwineClass {
 
   getSubrace(): Trait {
     // Don't use getTraitWithTag, because this is part of a unit's base traits
-    const traits = objectKeys(this.trait_key_map)
-      .map((trait_key) => setup.trait[trait_key])
-      .filter((trait) => trait.getTags().includes("subrace"));
+    const traits = objectKeys(this.trait_key_map).filter((trait_key) => {
+      const trait = setup.trait[trait_key];
+      return trait && trait.getTags().includes("subrace");
+    });
     if (traits.length > 1) {
       throw `Incorrect subrace for unit ${this.key}. Unit has ${traits.length} subraces.`;
     } else if (!traits.length) {
       // this is possible, when in the middle of transition between a trait being removed and then later added.
       return setup.trait.subrace_humankingdom;
     }
-    return traits[0];
+    return setup.trait[traits[0]];
   }
 
   getRace(): Trait {

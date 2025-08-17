@@ -1,14 +1,19 @@
-export namespace DataUtil {
-  export function load<T extends {}, C extends T>(
-    klass: { new (def: C): any },
-    defs: Record<string, T>,
-  ) {
-    for (const def of Object.values(defs)) {
-      new klass(def as C);
-    }
-  }
+import type { InstalledMod } from "./modmanager";
 
-  function loaderForClass<T extends {}>(klass: { new (def: T): any }) {
-    return (defs: Record<string, T>) => load(klass, defs);
+export namespace DataUtil {
+  /** Will reference the current mod being loaded, if any. */
+  export let CURRENT_MOD: InstalledMod | null = null;
+
+  export function load<T extends {}, A extends [Readonly<T>]>(
+    klass: { new (...args: A | any): any },
+    definitions: Record<string, T>,
+    mod?: InstalledMod,
+  ) {
+    for (let [key, def] of Object.entries(definitions)) {
+      if (mod && !("key" in def) && key) {
+        def = { ...def, key };
+      }
+      new klass(def);
+    }
   }
 }

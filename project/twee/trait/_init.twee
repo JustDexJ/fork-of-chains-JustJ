@@ -4,10 +4,13 @@
 default trait chance in unitpool.twee
 */
 
+<!-- Note that the subrace Traits are created by the Subrace instances themselves -->
+<<run new setup.TraitGroup('subrace', [], ['subrace'], true)>>
+
 <<include InitJobTraits>>
 <<include InitGenderTraits>>
 <<include InitRaceTraits>>
-<<include InitSubraceTraits>>
+<!--<<include InitSubraceTraits>>-->
 <<include InitBgTraits>>
 <<include InitPhysicalTraits>>
 <<include InitPersonalityTraits>>

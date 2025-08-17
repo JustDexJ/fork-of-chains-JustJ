@@ -2,12 +2,15 @@ export const DEFINITION_SUBRACE_DEMON: SubraceDefinition = {
   key: "subrace_demon",
   name: "Demon",
   noun: "demon",
-  rare: true,
   homeland_region: setup.Text.Race.REGIONS.mist,
   company_key: "demon",
+  description:
+    "Strange <<rep setup.trait.race_demon>> creatures that live on the other side of the great mist, these pure-blooded demons often wield great powers. There are some who managed to cross the fog into our world, but those are extremely rare. Attuned to darkness, which is perhaps the strongest element. They are unaffected by the negative skill and value penalties of demonic bodyparts.",
+  slave_value: 20000,
+  rarity: "rare",
+  race: "race_demon",
   trait_preferences: {
     /* trait preferences */
-
     /* =========== */
     /* RACE */
     /* =========== */
@@ -16,7 +19,6 @@ export const DEFINITION_SUBRACE_DEMON: SubraceDefinition = {
     /* =========== */
     /* BACKGROUNDS */
     /* =========== */
-
     bg_mystic: setup.POOL_BG_COMMON_1,
 
     bg_slaver: setup.POOL_BG_COMMON_1,
@@ -83,7 +85,6 @@ export const DEFINITION_SUBRACE_DEMON: SubraceDefinition = {
     /* =========== */
     /* PERSONALITY */
     /* =========== */
-
     per_lustful: setup.POOL_PER_UNCOMMON_2,
     per_sexaddict: setup.POOL_PER_UNCOMMON_2,
     per_cruel: setup.POOL_PER_UNCOMMON_2,
@@ -99,7 +100,6 @@ export const DEFINITION_SUBRACE_DEMON: SubraceDefinition = {
     /* =========== */
     /* MAGIC */
     /* =========== */
-
     magic_water: 0.015,
     magic_water_master: 0.0015,
     magic_fire: 0.015,
@@ -114,7 +114,6 @@ export const DEFINITION_SUBRACE_DEMON: SubraceDefinition = {
     /* =========== */
     /* PHYSICAL */
     /* =========== */
-
     muscle_strong: 0.2,
     muscle_verystrong: 0.1,
     muscle_extremelystrong: 0.01,
@@ -137,7 +136,6 @@ export const DEFINITION_SUBRACE_DEMON: SubraceDefinition = {
     /* =========== */
     /* SKIN */
     /* =========== */
-
     eyes_demon: 0.97,
     ears_demon: 0.97,
     mouth_demon: 0.97,

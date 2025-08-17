@@ -205,6 +205,10 @@ const DirHandles = {
     id: "foc-mods",
     expected_dir_name: MODS_DIR_NAME,
   },
+  unpacked_mod: {
+    id: "foc-mod-unpacked",
+    expected_dir_name: null,
+  },
   unit_custom_images: {
     id: "foc-unit-custom-images",
     expected_dir_name: "customunit",
@@ -279,16 +283,21 @@ export const IndexedDB = {
 };
 
 /**
- * @param silently If true, don't open a dialog if missing the handle
- * @param force_pick If true, just open the dialog
+ * @param silently If true, don't open a dialog if missing the handle (so just try to retrieve it from storage)
+ * @param force_pick If true, always open the dialog (ignore any stored handle)
+ * @param sub_id A discriminator, used e.g. for each unpacked mod.
  */
 export function openDir(
   options: (typeof DirHandles)[keyof typeof DirHandles],
   silently?: boolean,
   force_pick?: boolean,
+  is_unpacked_mod?: boolean,
+  sub_id?: string | null,
 ): Promise<FileSystemDirectoryHandle | null> {
+  let uid = sub_id ? `${options.id}:${sub_id}` : options.id;
+
   const pickDirectory = () => {
-    return window.showDirectoryPicker({ id: options.id, mode: "read" }).then(
+    return window.showDirectoryPicker({ id: uid, mode: "read" }).then(
       (dir_handle) => {
         if (
           options.expected_dir_name &&
@@ -299,8 +308,11 @@ export function openDir(
           );
           return null;
         }
-        dir_handles[options.id] = dir_handle;
-        IndexedDB.saveFilesystemHandle(options.id, dir_handle);
+        if (is_unpacked_mod && !sub_id) {
+          uid = `${options.id}:${dir_handle.name}`;
+        }
+        dir_handles[uid] = dir_handle;
+        IndexedDB.saveFilesystemHandle(uid, dir_handle);
         return dir_handle;
       },
       (err) => {
@@ -312,23 +324,44 @@ export function openDir(
 
   if (force_pick) return pickDirectory();
 
-  let dir_handle = dir_handles[options.id];
+  let dir_handle = dir_handles[uid];
   if (dir_handle) return Promise.resolve(dir_handle);
 
+  if (is_unpacked_mod && !sub_id) return Promise.resolve(null);
+
   // if first access in this session, try to recover handle from persistent browser storage
-  return IndexedDB.readFilesystemHandle(options.id).then((handleFromIDB) => {
+  return IndexedDB.readFilesystemHandle(uid).then((handleFromIDB) => {
     if (handleFromIDB && handleFromIDB.kind === "directory") {
       dir_handle = handleFromIDB as FileSystemDirectoryHandle;
-      dir_handles[options.id] = dir_handle;
-      return dir_handle;
+
+      const query_permission_promise: Promise<PermissionState> =
+        dir_handle.queryPermission
+          ? dir_handle.queryPermission()
+          : Promise.resolve("granted");
+
+      return query_permission_promise.then<FileSystemDirectoryHandle | null>(
+        (permission_state) => {
+          if (permission_state === "granted") {
+            dir_handles[uid] = dir_handle!;
+            return dir_handle!;
+          } else {
+            if (silently) {
+              dir_handles[uid] = null;
+              return null;
+            } else {
+              return pickDirectory();
+            }
+          }
+        },
+      );
     }
 
     if (silently) {
-      dir_handles[options.id] = null;
+      dir_handles[uid] = null;
       return null;
+    } else {
+      return pickDirectory();
     }
-
-    return pickDirectory();
   });
 }
 
@@ -338,17 +371,17 @@ export function openUnitCustomImagesDir(
   return openDir(DirHandles.unit_custom_images, silently);
 }
 
-export function openModsDir(): Promise<FileSystemDirectoryHandle | null> {
-  return openDir(DirHandles.mods);
+export function openModsDir(
+  silently?: boolean,
+): Promise<FileSystemDirectoryHandle | null> {
+  return openDir(DirHandles.mods, silently);
 }
 
-export function openUnpackedModDir(): Promise<FileSystemDirectoryHandle | null> {
-  return window
-    .showDirectoryPicker({ id: "foc-mod-unpacked", mode: "read" })
-    .then(
-      (dir_handle) => dir_handle,
-      () => null,
-    );
+export function openUnpackedModDir(
+  unpacked_mod_id: string | null,
+  silently?: boolean,
+): Promise<FileSystemDirectoryHandle | null> {
+  return openDir(DirHandles.mods, silently, undefined, true, unpacked_mod_id);
 }
 
 export function savePackedModFile(

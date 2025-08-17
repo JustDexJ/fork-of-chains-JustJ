@@ -3,11 +3,32 @@
 // [muscle_extremelythin, muscle_verythin, muscle_thin, null, muscle_strong, muscle_verystrong, muscle_extremelystrong]
 // the null means that if the trait were to "increase", it goes back to nothing.
 
+import { isDefinitionArgs } from "../../util/TypeUtil";
 import { TwineClass } from "../_TwineClass";
 import type { Unit } from "../unit/Unit";
 import type { Trait, TraitKey } from "./Trait";
 
-export type TraitGroupKey = BrandedType<number, "TraitGroupKey">;
+export interface TraitGroupDefinition {
+  key?: string | null;
+  trait_list: (Trait | TraitKey | null)[];
+  tags?: string[];
+  is_not_ordered?: boolean;
+}
+
+type LegacyArgsWithKey = [
+  key: string,
+  trait_list: (Trait | TraitKey | null)[],
+  tags?: string[],
+  is_not_ordered?: boolean,
+];
+
+type LegacyArgsWithoutKey = [
+  trait_list: (Trait | TraitKey | null)[],
+  tags?: string[],
+  is_not_ordered?: boolean,
+];
+
+export type TraitGroupKey = BrandedType<number | string, "TraitGroupKey">;
 
 // tags is shorthand to add the same tag to all traits in this group
 
@@ -17,27 +38,49 @@ export class TraitGroup extends TwineClass {
   key: TraitGroupKey;
   trait_key_list: (TraitKey | null)[];
   is_not_ordered: boolean;
+  tags: string[] | undefined;
 
   static keygen = 1;
 
-  constructor(trait_list: Trait[], tags?: string[], is_not_ordered?: boolean) {
+  constructor(
+    ...args:
+      | [Readonly<TraitGroupDefinition>]
+      | LegacyArgsWithKey
+      | LegacyArgsWithoutKey
+  ) {
     super();
 
-    this.key = setup.TraitGroup.keygen++ as TraitGroupKey;
+    let def: Readonly<TraitGroupDefinition>;
+    if (isDefinitionArgs(args)) {
+      def = args[0];
+    } else {
+      if (typeof args[0] === "string") {
+        let [key, trait_list, tags, is_not_ordered] = args as LegacyArgsWithKey;
+        def = { key, trait_list, tags, is_not_ordered };
+      } else {
+        let [trait_list, tags, is_not_ordered] = args as LegacyArgsWithoutKey;
+        def = { trait_list, tags, is_not_ordered };
+      }
+    }
+
+    const key = (def.key ?? setup.TraitGroup.keygen++) as TraitGroupKey;
+
+    this.key = key;
+
+    this.tags = def.tags;
 
     let nullcnt = 0;
     this.trait_key_list = [];
-    for (let i = 0; i < trait_list.length; ++i) {
-      let trait = trait_list[i];
+    for (let i = 0; i < def.trait_list.length; ++i) {
+      const value = def.trait_list[i];
+      let trait = value ? resolveObject(value, setup.trait) : null;
       if (trait) {
         this.trait_key_list.push(trait.key);
         if (trait.trait_group_key)
           throw new Error(`Trait ${trait.key} already have a trait group`);
         trait.trait_group_key = this.key;
-        if (tags) {
-          for (let j = 0; j < tags.length; ++j) {
-            trait.tags.push(tags[j]);
-          }
+        if (def.tags) {
+          trait.tags = [...trait.tags, ...def.tags];
         }
       } else {
         nullcnt += 1;
@@ -49,15 +92,23 @@ export class TraitGroup extends TwineClass {
         `Too many nulls for ${tags}. Did you forgot to add new to the trait?`,
       );
 
-    if (is_not_ordered) {
-      this.is_not_ordered = true;
-    } else {
-      this.is_not_ordered = false;
-    }
+    this.is_not_ordered = !!def.is_not_ordered;
 
     if (this.key in setup.traitgroup)
       throw new Error(`${this.key} duplicated on trait group`);
     setup.traitgroup[this.key] = this;
+  }
+
+  _addTrait(trait: Trait) {
+    this.trait_key_list.push(trait.key);
+    if (trait.trait_group_key)
+      throw new Error(`Trait ${trait.key} already have a trait group`);
+    trait.trait_group_key = this.key;
+    if (this.tags) {
+      for (let j = 0; j < this.tags.length; ++j) {
+        trait.tags = [...trait.tags, ...this.tags];
+      }
+    }
   }
 
   isOrdered() {

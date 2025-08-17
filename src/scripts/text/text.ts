@@ -93,7 +93,7 @@ export namespace Text {
           }
         }
         if (!unit || !(unit instanceof setup.Unit)) {
-          console.log(`Missing unit ${unitname}`);
+          console.warn(`Missing unit ${unitname}`);
           return `${unitname}|${unitverb}`;
         }
 
@@ -253,7 +253,7 @@ export namespace Text {
       (match, unitname: string, unitverb: string) => {
         const obj = object_map[unitname];
         if (!obj) {
-          console.log(`Missing object ${unitname}`);
+          console.warn(`Missing object ${unitname}`);
           return `${unitname}|${unitverb}`;
         }
 

@@ -1,6 +1,7 @@
 .ModsManagement-cards {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-content: flex-start;
   gap: 4px;
 
   & > div {
@@ -23,6 +24,12 @@
   }
 }
 
+@media (max-width: 1024px) {
+  .ModsManagement-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
 .ModsManagement-modicon {
   display: inline-flex;
   align-items: center;
@@ -39,4 +46,11 @@
     content: "?";
     opacity: 0.2;
   }
+}
+
+.ModsManagement-unpackedtag {
+  margin-left: 0.5em;
+  color: khaki;
+  font-size: 70%;
+  font-weight: bold;
 }

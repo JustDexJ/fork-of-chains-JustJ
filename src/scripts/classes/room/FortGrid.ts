@@ -91,7 +91,7 @@ export class FortGrid extends FortGridBase {
         }
       }
       if (!is_ok) {
-        console.log(
+        console.info(
           `Removing ${room.getTemplate().key} because its location is no longer valid`,
         );
         room._relocate(null);
@@ -103,7 +103,7 @@ export class FortGrid extends FortGridBase {
 
     // check if it cause the tile to be divided
     if (!this.isEmptySpaceRemainsConnected()) {
-      console.log(
+      console.info(
         `Removing all rooms because empty space becomes disconnected`,
       );
       for (const room of State.variables.roomlist

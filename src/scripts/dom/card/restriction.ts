@@ -1,11 +1,11 @@
 function restriction<T>(
-  restrictions: Restriction<T>[],
+  restrictions: readonly Restriction<T>[],
   obj: T,
   is_show_all?: boolean,
 ): DOM.Node;
 
 function restriction(
-  restrictions: Restriction<undefined>[],
+  restrictions: readonly Restriction<undefined>[],
   obj?: undefined,
   is_show_all?: boolean,
 ): DOM.Node;
@@ -17,7 +17,7 @@ function restriction(
  * @param Ws_show_all - Whether to show all restrictions, instead of hiding satisfied ones
  */
 function restriction<T>(
-  restrictions: Restriction<T>[],
+  restrictions: readonly Restriction<T>[],
   obj: T,
   is_show_all?: boolean,
 ): DOM.Node {

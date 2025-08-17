@@ -269,10 +269,10 @@ export class EventPool extends TwineClass {
 
     if (zero.length) {
       // Despite having some "should trigger" event, the event cannot trigger. Skip it.
-      console.log(
+      console.warn(
         "The following events should trigger, but some factor prevents it.",
       );
-      console.log(zero);
+      console.warn(zero);
     }
 
     // if only priority quest, then stop here

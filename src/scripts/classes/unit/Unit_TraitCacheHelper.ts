@@ -60,8 +60,11 @@ export namespace UnitTraitCacheHelper {
     }
 
     let traits = objectKeys(trait_map)
-      .map((key) => setup.trait[key])
-      .filter((trait) => !unit.isHasTrait(trait));
+      .map((key) => {
+        const trait = setup.trait[key];
+        return trait && !unit.isHasTrait(trait) ? trait : null;
+      })
+      .filter((t) => !!t);
 
     // Remove mindbroken traits
     // Can do this since mindbroken code is special
@@ -79,9 +82,9 @@ export namespace UnitTraitCacheHelper {
    * Compute all unit's base traits and return them as a list. Used internally once then cached.
    */
   export function _computeAllBaseTraits(unit: Unit): Trait[] {
-    let traits = objectKeys(unit.trait_key_map).map(
-      (trait_key) => setup.trait[trait_key],
-    );
+    let traits = objectKeys(unit.trait_key_map)
+      .map((trait_key) => setup.trait[trait_key])
+      .filter((t) => t);
     if (unit.isMindbroken()) {
       traits = UnitTraitsHelper.removeMindbrokenTraits(traits);
     }

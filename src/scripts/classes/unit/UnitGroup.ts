@@ -364,6 +364,10 @@ export class UnitGroup extends TwineClass {
     return this.name;
   }
 
+  _appendUnitPool(unitpool_key: UnitPoolKey, chance: number) {
+    this.unitpool_keys.push([unitpool_key, chance]);
+  }
+
   computeStatistics(): { mean: number; min: number; max: number } {
     try {
       let sumval = 0;

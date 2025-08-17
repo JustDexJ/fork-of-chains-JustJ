@@ -1,11 +1,15 @@
 import { Constants } from "../../constants";
+import { DataUtil } from "../../util/DataUtil";
 import { rng } from "../../util/rng";
+import { isDefinitionArgs } from "../../util/TypeUtil";
 import { TwineClass } from "../_TwineClass";
-import type { CompanyKey } from "../Company";
 import type { Rarity } from "../deck/Rarity";
 import type { SkillValuesInit } from "../Skill";
 import type { Unit } from "../unit/Unit";
 import { TraitGroup, type TraitGroupKey } from "./TraitGroup";
+import type { TraitTexts } from "./TraitTexts";
+
+export { TraitTexts };
 
 export type TraitKey = BrandedType<string, "TraitKey">;
 
@@ -17,48 +21,19 @@ export interface TraitIconSettings {
   minus?: boolean;
   plus?: boolean;
   cross?: boolean;
+
+  /** Used for mods; the full path to the image (can be a URL or a path relative to the game folder) */
+  path?: string;
 }
 
-export interface TraitTexts {
-  description?: string;
-  descriptionslave?: string;
-  descriptionslaver?: string;
-
-  flavor?: string;
-  flavorslave?: string;
-  flavorslaver?: string;
-
-  noun?: string;
-  noungood?: string[];
-  noungoodmale?: string[];
-  noungoodfemale?: string[];
-  nounbad?: string[];
-  nounbadmale?: string[];
-  nounbadfemale?: string[];
-  noun_extra?: string[];
-  hobby?: string[];
-
-  adjective?: string[];
-  size_adjective?: string[];
-  adjbad?: string[];
-  adjgood?: string[];
-  adj_extra?: string[];
-
-  adverbs?: string[];
-
-  decrease?: string;
-  increase?: string;
-
-  care?: boolean;
-  abuse?: boolean;
-
-  title?: string;
-
-  /** Used for race traits */
-  region?: string;
-
-  /** Used for race traits */
-  company_key?: CompanyKey;
+export interface TraitDefinition {
+  key: string;
+  name: string;
+  description: string;
+  slave_value?: number;
+  skill_bonuses?: SkillValuesInit;
+  tags?: readonly string[];
+  icon_settings?: TraitIconSettings;
 }
 
 export class Trait extends TwineClass {
@@ -66,7 +41,7 @@ export class Trait extends TwineClass {
   name: string;
   description: string;
   slave_value: number;
-  tags: string[];
+  tags: readonly string[];
   icon_settings: TraitIconSettings;
   order_no: number;
   trait_group_key: TraitGroupKey | null;
@@ -76,39 +51,86 @@ export class Trait extends TwineClass {
   static keygen = 1;
 
   constructor(
-    key: string,
-    name: string,
-    description: string,
-    slave_value: number,
-    skill_bonuses: SkillValuesInit,
-    tags: string[],
-    icon_settings: TraitIconSettings,
+    ...args:
+      | [Readonly<TraitDefinition>]
+      | [
+          key: string,
+          name: string,
+          description: string,
+          slave_value: number,
+          skill_bonuses: SkillValuesInit,
+          tags: readonly string[],
+          icon_settings: TraitIconSettings,
+        ]
   ) {
     super();
 
+    let def: Readonly<TraitDefinition>;
+    if (isDefinitionArgs(args)) {
+      def = args[0];
+    } else {
+      // Support for legacy constructor args
+      // prettier-ignore
+      const [ key, name, description, slave_value, skill_bonuses, tags, icon_settings ] = args;
+      // prettier-ignore
+      def = { key, name, description, slave_value, skill_bonuses, tags, icon_settings };
+    }
+
+    const key = def.key as TraitKey;
+
     if (!key) throw new Error(`null key for trait`);
-    this.key = key as TraitKey;
+    this.key = key;
 
-    if (!name) throw new Error(`null name for trait ${key}`);
-    this.name = name;
+    if (!def.name) throw new Error(`null name for trait ${key}`);
+    this.name = def.name;
 
-    if (!description) throw new Error(`null name for trait ${key}`);
-    this.description = description;
+    if (!def.description) throw new Error(`null name for trait ${key}`);
+    this.description = def.description;
 
-    if (tags) {
-      if (!Array.isArray(tags)) throw new Error(`${key} tags wrong: ${tags}`);
-      this.tags = tags;
+    if (def.tags) {
+      if (!Array.isArray(def.tags))
+        throw new Error(`${key} tags wrong: ${def.tags}`);
+      this.tags = def.tags;
     } else {
       this.tags = [];
     }
 
-    this.icon_settings = icon_settings || {};
+    this.icon_settings = def.icon_settings || {};
+
+    if (DataUtil.CURRENT_MOD) {
+      if (!this.icon_settings.icon) {
+        this.icon_settings = {
+          ...this.icon_settings,
+          icon: "per_curious", // TODO: use an unique default trait image
+        };
+      } else if (
+        this.icon_settings.icon.includes(".") ||
+        this.icon_settings.icon.includes("/")
+      ) {
+        // is not a builtin trait icon e.g. "per_curious" but rather a relative path
+        this.icon_settings = {
+          ...this.icon_settings,
+          path: `/mods/${DataUtil.CURRENT_MOD.path}/${this.icon_settings.icon}`,
+        };
+        delete this.icon_settings.icon;
+      }
+
+      // Add body parts to trait group automatically
+      for (const tag of this.tags) {
+        if (tag in setup.traitgroup) {
+          const traitgroup = setup.traitgroup[tag as TraitGroupKey];
+          if (traitgroup.is_not_ordered) {
+            traitgroup._addTrait(this);
+          }
+        }
+      }
+    }
 
     this.order_no = setup.Trait.keygen++;
 
     this.trait_group_key = null;
 
-    this.skill_bonuses = setup.Skill.translate(skill_bonuses);
+    this.skill_bonuses = setup.Skill.translate(def.skill_bonuses ?? {});
 
     this.is_has_skill_bonuses = false;
     for (let i = 0; i < setup.skill.length; ++i)
@@ -116,7 +138,7 @@ export class Trait extends TwineClass {
         this.is_has_skill_bonuses = true;
       }
 
-    if (slave_value) this.slave_value = slave_value;
+    if (def.slave_value) this.slave_value = def.slave_value;
     else this.slave_value = 0;
 
     if (key in setup.trait) throw new Error(`Trait ${key} duplicated`);
@@ -163,7 +185,11 @@ export class Trait extends TwineClass {
   }
 
   getImage() {
-    return "img/trait/" + (this.icon_settings.icon || this.key) + ".svg";
+    const icon_settings = this.icon_settings;
+    return (
+      icon_settings.path ??
+      "img/trait/" + (icon_settings.icon || this.key) + ".svg"
+    );
   }
 
   // warning: order matters! closer to beginning = more priority
@@ -316,7 +342,7 @@ export class Trait extends TwineClass {
     return my_index - null_index;
   }
 
-  getTags(): string[] {
+  getTags(): readonly string[] {
     return this.tags;
   }
 
@@ -411,7 +437,7 @@ export class Trait extends TwineClass {
 }
 
 export namespace TraitHelper {
-  export function getAllTraitsOfTags(tags: string[]): Trait[] {
+  export function getAllTraitsOfTags(tags: readonly string[]): Trait[] {
     if (!Array.isArray(tags))
       throw new Error(`getAllTraitsOftags must be called with array`);
     let traits = [];

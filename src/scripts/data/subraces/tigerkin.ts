@@ -5,6 +5,11 @@ export const DEFINITION_SUBRACE_TIGERKIN: SubraceDefinition = {
   rare: true,
   homeland_region: setup.Text.Race.REGIONS.forest,
   company_key: "neko",
+  description:
+    "These <<rep setup.trait.race_catkin>> are the ancestors of the modern day <<rep setup.trait.subrace_neko>> with all their furry glory. Similar with their modern counterpart, they are often attuned to <<lore magic_earth>>.",
+  slave_value: 12500,
+  rarity: "unicorn",
+  race: "race_catkin",
   trait_preferences: {
     /* trait preferences */
 

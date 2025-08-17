@@ -8,6 +8,7 @@ import {
   Textbox,
   ToggleSwitch,
 } from "../common";
+import "./ImagepacksManagement.css";
 
 export const ImagepacksManagement: Component = () => {
   const [getNewName, setNewName] = createSignal("");
@@ -73,13 +74,7 @@ export const ImagepacksManagement: Component = () => {
         </small>
       </p>
 
-      <div
-        style={{
-          display: "grid",
-          "grid-template-columns": "auto 1fr auto",
-          gap: "0.5em",
-        }}
-      >
+      <div class="ImagepacksManagement-subheader">
         <Message label="(add image pack)">
           <div class="helpcard">
             <div>
@@ -278,7 +273,8 @@ export const ImagepacksManagement: Component = () => {
                       {(imgobj) => (
                         <img
                           src={imgobj.path}
-                          onClick={() => {
+                          onClick={(ev) => {
+                            ev.currentTarget.classList.toggle("img-fullscreen");
                             //setup.Dialogs.openImage(
                             //  imgobj,
                             //  imgobj.info.title || "Unknown Title",

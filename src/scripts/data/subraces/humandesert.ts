@@ -4,6 +4,11 @@ export const DEFINITION_SUBRACE_HUMANDESERT: SubraceDefinition = {
   noun: "desertfolk",
   homeland_region: setup.Text.Race.REGIONS.desert,
   company_key: "humandesert",
+  description:
+    "<<rep setup.trait.race_human>> born in the east region. Strong people thriving in the harsh desert climate, and often attuned to the domain of <<lore magic_fire>>.",
+  slave_value: 0,
+  rarity: "common",
+  race: "race_human",
   trait_preferences: {
     /* trait preferences */
 

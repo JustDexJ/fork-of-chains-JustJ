@@ -2,7 +2,7 @@
 
 /* rarity here is "corruption rarity". That's why demonic are most common */
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('eyes', [
   new setup.Trait(
     'eyes_neko',
     'eyes (cat)',
@@ -32,7 +32,7 @@
 ], ['eyes', 'skin', 'genderless',], true)>>
 
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('ears', [
   new setup.Trait(
     'ears_werewolf',
     'ears (werewolf)',
@@ -80,7 +80,7 @@
 
 
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('mouth', [
   new setup.Trait(
     'mouth_werewolf',
     'mouth (werewolf)',
@@ -126,7 +126,7 @@
 ], ['mouth', 'skin', 'genderless', 'skin_demon', ], true)>>
 
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('body', [
   new setup.Trait(
     'body_drow',
     'body (drow)',
@@ -180,7 +180,7 @@
 ], ['body', 'skin', 'genderless',], true)>>
 
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('wings', [
   new setup.Trait(
     'wings_elf',
     'wings (elven)',
@@ -219,7 +219,7 @@
 ], ['wings', 'skin', 'genderless', 'skin_angel', ], true)>>
 
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('arms', [
   new setup.Trait(
     'arms_werewolf',
     'arms (werewolf)',
@@ -257,7 +257,7 @@
 ], ['arms', 'skin', 'genderless',], true)>>
 
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('legs', [
   new setup.Trait(
     'legs_werewolf',
     'legs (werewolf)',
@@ -295,7 +295,7 @@
 ], ['legs', 'skin', 'genderless',], true)>>
 
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('tail', [
   new setup.Trait(
     'tail_werewolf',
     'tail (werewolf)',
@@ -333,7 +333,7 @@
 ], ['tail', 'skin', 'genderless',], true)>>
 
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('dickshape', [
   new setup.Trait(
     'dick_werewolf',
     'dick (werewolf)',

@@ -8,7 +8,7 @@ export function debugCrash() {
 export function debugPrintRoomLocations() {
   for (const room of Object.values(State.variables.roominstance)) {
     if (room.getLocation() && !room.getTemplate().isFixed()) {
-      console.log(
+      console.info(
         `'${room.getTemplate().key}': [${room.getClockwiseRotations()}, ${room.getLocation().row}, ${room.getLocation().col}],`,
       );
     }

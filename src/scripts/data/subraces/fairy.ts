@@ -5,6 +5,11 @@ export const DEFINITION_SUBRACE_FAIRY: SubraceDefinition = {
   rare: true,
   homeland_region: setup.Text.Race.REGIONS.forest,
   company_key: "elf",
+  description:
+    'Colloquially known as "<<rep setup.trait.race_elf>> with wings", these mystical species is said to dwell somewhere in the <<lore region_forest>>. Unlike their elven brethrens, fairies are attuned to <<lore magic_wind>>.',
+  slave_value: 15000,
+  rarity: "unicorn",
+  race: "race_elf",
   trait_preferences: {
     /* trait preferences */
 

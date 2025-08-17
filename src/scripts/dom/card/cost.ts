@@ -3,7 +3,10 @@ export default {
    * Explain a cost array.
    * <<costcard>>
    */
-  cost(costs: Cost[] | Restriction[], obj?: CostContext): DOM.Node {
+  cost(
+    costs: readonly Cost[] | readonly Restriction[],
+    obj?: CostContext,
+  ): DOM.Node {
     return html`
       <span class="restrictioncard">
         ${costs

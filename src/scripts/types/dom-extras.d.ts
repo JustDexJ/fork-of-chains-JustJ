@@ -14,6 +14,12 @@ declare global {
     showSaveFilePicker: (options?: any) => Promise<FileSystemFileHandle>;
   }
 
+  interface FileSystemHandle {
+    queryPermission?(descriptor?: {
+      mode?: "read" | "write" | "readwrite";
+    }): Promise<PermissionState>;
+  }
+
   interface FileSystemDirectoryHandle {
     entries(): AsyncIterator<[key: string, value: FileSystemHandle]>;
   }

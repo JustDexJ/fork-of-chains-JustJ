@@ -42,7 +42,7 @@ export default class QuestDirectForceAssign extends Cost {
     let newquest = setup.QuestPool.instantiateQuest(template);
 
     if (!newquest) {
-      console.log(
+      console.error(
         `Something wrong when trying to generate quest ${template.key}`,
       );
       setup.notify(

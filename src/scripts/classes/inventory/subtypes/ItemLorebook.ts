@@ -28,6 +28,6 @@ export class ItemLorebook extends Item {
     });
 
     // add this book as a requirement to see the lore.
-    lore_obj.restrictions.push(setup.qres.HasItem(this));
+    (lore_obj.restrictions as any).push(setup.qres.HasItem(this));
   }
 }

@@ -15,7 +15,7 @@ export function showEndweekEvents(): {
 
     event_count += 1;
     if (event_count >= 500) {
-      console.log(
+      console.warn(
         `Error: too many quests generated. Last one: ${event.getName()}`,
       );
       break;

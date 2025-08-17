@@ -1,6 +1,6 @@
 :: InitComputedTraits [nobr]
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('value', [
   new setup.Trait(
     'value_low',
     'low value',
@@ -75,7 +75,7 @@
 ], ['value', 'computed',])>>
 
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('veteranity', [
   new setup.Trait(
     'join_junior',
     'new',

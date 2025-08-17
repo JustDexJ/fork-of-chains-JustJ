@@ -278,7 +278,6 @@ export class UnitPool extends TwineClass {
       setup.costUnitHelper(unit),
     );
 
-    console.log(options, sexgender, traits, unit);
     return unit;
   }
 

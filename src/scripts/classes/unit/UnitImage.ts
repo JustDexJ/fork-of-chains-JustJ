@@ -570,7 +570,7 @@ export class UnitImage extends TwineClass {
           },
           () => {
             // "imagepack.js" script not found, try to load the recursive "imagemeta.js" layout
-            console.log(
+            console.info(
               'If the error: "Failed to load resource: net::ERR_FILE_NOT_FOUND" is shown immediately above this for imagepack.js, it is normal and can be ignored.',
             );
             processImageMeta(

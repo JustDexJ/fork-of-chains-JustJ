@@ -4,6 +4,11 @@ export const DEFINITION_SUBRACE_WEREWOLF: SubraceDefinition = {
   noun: "werewolf",
   homeland_region: setup.Text.Race.REGIONS.vale,
   company_key: "werewolf",
+  description:
+    "A race of <<rep setup.trait.race_wolfkin>> living on the northern mountains. Attuned to water and ice, which allows them to withstood the cold.",
+  slave_value: 2500,
+  rarity: "rare",
+  race: "race_wolfkin",
   trait_preferences: {
     /* =========== */
     /* RACE */

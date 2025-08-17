@@ -81,7 +81,7 @@
   ['skill', 'medium', 'nonmagic', ],
 )>>
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('magic_fire', [
   new setup.Trait(
     'magic_fire',
     'magic: fire',
@@ -100,7 +100,7 @@
   ),
 ], ['skill', 'magic'])>>
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('magic_water', [
   new setup.Trait(
     'magic_water',
     'magic: water',
@@ -120,7 +120,7 @@
 ], ['skill', 'magic'])>>
 
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('magic_wind', [
   new setup.Trait(
     'magic_wind',
     'magic: wind',
@@ -140,7 +140,7 @@
 ], ['skill', 'magic'])>>
 
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('magic_earth', [
   new setup.Trait(
     'magic_earth',
     'magic: earth',
@@ -160,7 +160,7 @@
 ], ['skill', 'magic'])>>
 
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('magic_light', [
   new setup.Trait(
     'magic_light',
     'magic: light',
@@ -180,7 +180,7 @@
 ], ['skill', 'magic'])>>
 
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('magic_dark', [
   new setup.Trait(
     'magic_dark',
     'magic: dark',

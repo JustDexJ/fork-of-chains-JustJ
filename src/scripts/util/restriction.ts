@@ -7,7 +7,7 @@ export namespace RestrictionLib {
    * Whether this set of restrictions would allow defiant units to participate in that.
    */
   export function isRestrictionsAllowDefiant(
-    restrictions: Restriction[],
+    restrictions: readonly Restriction[],
   ): boolean {
     for (const restriction of restrictions) {
       if (restriction instanceof setup.qresImpl.AllowDefiant) {
@@ -19,7 +19,7 @@ export namespace RestrictionLib {
 
   export function isUnitSatisfyIncludeDefiancy(
     unit: Unit,
-    restrictions: Restriction[],
+    restrictions: readonly Restriction[],
   ) {
     // restriction is list of restrictions: [res1, res2, res3, ...]
 
@@ -34,7 +34,10 @@ export namespace RestrictionLib {
     return setup.RestrictionLib.isUnitSatisfy(unit, restrictions);
   }
 
-  export function isUnitSatisfy(unit: Unit, restrictions: Restriction[]) {
+  export function isUnitSatisfy(
+    unit: Unit,
+    restrictions: readonly Restriction[],
+  ) {
     // restriction is list of restrictions: [res1, res2, res3, ...]
 
     for (let i = 0; i < restrictions.length; ++i) {
@@ -46,16 +49,16 @@ export namespace RestrictionLib {
 
   export function isPrerequisitesSatisfied(
     obj: CostContext,
-    costs: Cost[],
+    costs: readonly Cost[],
   ): boolean;
   export function isPrerequisitesSatisfied<T>(
     obj: T,
-    costs: Restriction<T>[],
+    costs: readonly Restriction<T>[],
   ): boolean;
 
   export function isPrerequisitesSatisfied(
     obj: any,
-    prerequisites: Restriction[] | Cost[],
+    prerequisites: readonly Restriction[] | readonly Cost[],
   ): boolean {
     // prerequisites is list of costs: [cost1, cost2, cost3, ...]
     if (!Array.isArray(prerequisites))

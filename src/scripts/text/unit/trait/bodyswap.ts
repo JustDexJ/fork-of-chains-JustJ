@@ -12,7 +12,7 @@ export namespace TextUnitBodyswap {
   ): string | string[] {
     // Retrieve the traits. This is complicated because the traits can be null.
     let trait_group = null;
-    let tags = [];
+    let tags: readonly string[] = [];
     let new_desc;
     let old_desc;
     let new_noun = "";

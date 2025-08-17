@@ -5,6 +5,11 @@ export const DEFINITION_SUBRACE_DRAGONKIN: SubraceDefinition = {
   rare: true,
   homeland_region: setup.Text.Race.REGIONS.sea,
   company_key: "dragonkin",
+  description:
+    "A mythical subrace of <<rep setup.trait.race_lizardkin>> said to dwell somewhere beyond the <<lore region_sea>>. Even compared to the lizardkin, these winged relatives of them are extremely rare. Attuned to both <<lore magic_fire>> and <<lore magic_light>>, which they are often able to breathe out from their snouts.",
+  slave_value: 15000,
+  rarity: "unicorn",
+  race: "race_lizardkin",
   trait_preferences: {
     /* trait preferences */
 

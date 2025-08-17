@@ -1,4 +1,5 @@
-import { resolveAsyncIterator } from "./files";
+import { DataUtil } from "./DataUtil";
+import { openModsDir, openUnpackedModDir, resolveAsyncIterator } from "./files";
 import { globalsettings } from "./globalsettings";
 import { createLogger } from "./logger";
 
@@ -12,6 +13,7 @@ export type ModDefinition = import("../types/modding").FocModDefinition & {
 };
 
 export type InstalledMod = Partial<ModDefinition> & {
+  path: string;
   errors?: string[];
   data?: ModData;
 };
@@ -20,16 +22,32 @@ const logmsg = createLogger("ModManager", "royalblue");
 
 const MODDED = Symbol.for("FOC-MODDED");
 
+export function isUnpackedMod(mod_path: string): boolean {
+  return !mod_path.includes("/") && !mod_path.endsWith(MOD_PACKED_EXTENSION);
+}
+
 class ModData {
   setup: Record<string, any> = {};
+  definitions: Record<string, any> = {};
   passages: Record<string, { tags: string[]; content: string }> = {};
 }
 
+/**
+ * Handles temporary changes during a mod load phase,
+ * so that it can track what the mod changes on the `setup` object.
+ */
 class ModLoadContext {
   original_objects: Record<string, unknown> = {};
 
+  /** The resulting modded data will go here */
   data = new ModData();
 
+  /**
+   * Called before a mod is to be loaded.
+   *
+   * Creates a JS proxy over `setup` fields so that when a mod tries to modifies it while
+   * loading (e.g. via a new QuestTemplate call), it modifies instead the object at `this.data`.
+   */
   init() {
     for (const [k, v] of Object.entries(SugarCube.setup)) {
       if (v && (typeof v === "object" || typeof v === "function")) {
@@ -39,11 +57,14 @@ class ModLoadContext {
     }
   }
 
+  /**
+   * Undoes the effect of `this.init()` by restoring the original `setup` object.
+   */
   cleanup() {
     Object.assign(SugarCube.setup, this.original_objects);
   }
 
-  proxieated<T extends {}>(obj: T, prefix: string): T {
+  private proxieated<T extends {}>(obj: T, prefix: string): T {
     //let target = obj
     /*if (typeof obj === 'function') {
       target = Object.create(obj, {
@@ -98,18 +119,24 @@ class ModLoadContext {
   }
 }
 
+/** Incremental id used for dynamically adding twee passages (you can't replace them once added) */
 let next_passage_id = 50000;
 
+/**
+ * Singleton class that handles loading/unloading mods.
+ */
 export class ModManagerClass {
   /**
    * The info and data for the loaded mods
    */
   mods: { [k in string]?: InstalledMod } = {};
 
-  mods_unpacked: { [k in string]?: FileSystemDirectoryHandle } = {};
+  mods_unpacked_dirhandles: { [k in string]?: FileSystemDirectoryHandle } = {};
 
+  /** Set to the promise that will resolve when mods finish reloading. */
   reloading_promise: Promise<void> | null = null;
 
+  /** Keeps a `resolve` callback which will be called from each mod when it finishes loading */
   script_load_callbacks: Record<
     string,
     { data?: {}; resolve: (error: unknown | null) => void }
@@ -119,11 +146,11 @@ export class ModManagerClass {
 
   constructor() {
     /**
-     * The function used by mods to register themselves
+     * The global function `FocMod` used by mods to register themselves
      */
     (window as any).FocMod = this.registerMod.bind(this);
 
-    // initial load
+    // trigger the initial mod reload
     this.reloading_promise = new Promise((resolve) => {
       setTimeout(
         () =>
@@ -135,7 +162,7 @@ export class ModManagerClass {
     });
   }
 
-  resolveModScriptPath(mod_path: string, is_unpacked: boolean) {
+  private resolveModScriptPath(mod_path: string, is_unpacked: boolean) {
     let path = mod_path;
     if (!mod_path.includes("/")) {
       path = `./${MODS_DIR_NAME}/${mod_path}`;
@@ -146,7 +173,8 @@ export class ModManagerClass {
     return path;
   }
 
-  registerMod(manifest: any) {
+  /** The actual implementation of the `FocMod` global function */
+  private registerMod(manifest: any) {
     const mod_path = document.currentScript?.getAttribute?.("data-mod-path");
     const entry = mod_path && this.script_load_callbacks[mod_path];
     if (!entry) return;
@@ -155,15 +183,25 @@ export class ModManagerClass {
     entry.data = manifest;
   }
 
-  loadUnpackedMod(mod_path: string): Promise<void> {
-    const mod = (this.mods[mod_path] ??= {});
+  async loadUnpackedMod(mod_path: string): Promise<void> {
+    const mod = (this.mods[mod_path] ??= { path: mod_path });
     const mod_file_contents = (mod.files ??= {});
 
-    const mod_dir_handle = this.mods_unpacked[mod_path];
-    if (!mod_dir_handle)
-      throw new Error(
-        `Need to load the unpacked mod folder again (missing permissions)`,
-      );
+    let mod_dir_handle = this.mods_unpacked_dirhandles[mod_path] ?? null;
+    if (!mod_dir_handle) {
+      mod_dir_handle = await openUnpackedModDir(mod_path, true);
+      if (!mod_dir_handle) {
+        const mods_dir = await openModsDir(true);
+        if (mods_dir) {
+          mod_dir_handle = await mods_dir.getDirectoryHandle(mod_path);
+        }
+        if (!mod_dir_handle) {
+          throw new Error(
+            `Need to load the unpacked mod folder again (missing permissions)`,
+          );
+        }
+      }
+    }
 
     const file_to_ignore = new Set(["focmod.js"]);
 
@@ -218,6 +256,9 @@ export class ModManagerClass {
     });
   }
 
+  /**
+   * Reloads the mod list (doesn't apply their changes, only refreshes the list!)
+   */
   private _reloadMods(): Promise<void> {
     const t = Date.now();
 
@@ -228,8 +269,7 @@ export class ModManagerClass {
     const script_load_callbacks = this.script_load_callbacks;
 
     const promises = (globalsettings.mods_installed ?? []).map((mod_path) => {
-      const is_unpacked =
-        !mod_path.includes("/") && !mod_path.endsWith(MOD_PACKED_EXTENSION);
+      const is_unpacked = isUnpackedMod(mod_path);
       const script_path = this.resolveModScriptPath(mod_path, is_unpacked);
 
       return new Promise((resolve) => {
@@ -240,9 +280,13 @@ export class ModManagerClass {
           const entry = script_load_callbacks[mod_path];
           if (!entry.data) {
             // script crashed or didn't call FocMod(...)
+            console.error(`Mod info failed to load: ${mod_path}`);
             entry.resolve(new Error(`Mod info failed to load`));
           } else {
-            Object.assign((this.mods[mod_path] ??= {}), entry.data);
+            Object.assign(
+              (this.mods[mod_path] ??= { path: mod_path }),
+              entry.data,
+            );
             entry.resolve(null);
           }
         };
@@ -256,7 +300,7 @@ export class ModManagerClass {
             console.info(...logmsg(`Loaded mod info for "${mod_path}"`));
           },
           (err) => {
-            const moddata = (this.mods[mod_path] ??= {});
+            const moddata = (this.mods[mod_path] ??= { path: mod_path });
             const moddata_errors = (moddata.errors ??= []);
             if (Array.isArray(err)) {
               moddata_errors.push(...err);
@@ -311,7 +355,7 @@ export class ModManagerClass {
     });
   }
 
-  reloadModData() {
+  private reloadModData() {
     console.info(...logmsg("Reloading mod data"));
 
     const mods = /*State.variables.mods*/ (
@@ -339,6 +383,30 @@ export class ModManagerClass {
           mod_context.init();
 
           const all_files = Object.entries(mod.files || {}).sort();
+
+          const json_files = all_files.filter(([filename, content]) =>
+            /\.json$/i.test(filename),
+          );
+          if (json_files.length) {
+            for (const [filename, filecontent] of json_files) {
+              const STRIP_COMMENTS_REGEX = /(\/\/.*)|(\/\*[\s\S]*?\*\/)/g;
+              const json = filecontent.replace(STRIP_COMMENTS_REGEX, () => "");
+
+              let data: any;
+              try {
+                data = JSON.parse(json);
+              } catch (e) {
+                throw new Error(`Failed to parse json file: ${filename}`);
+              }
+              if (data) {
+                for (const [section_id, section_obj] of Object.entries(data)) {
+                  const defs = (mod_context.data.definitions[section_id] ??=
+                    {});
+                  Object.assign(defs, section_obj);
+                }
+              }
+            }
+          }
 
           const twee_files = all_files.filter(([filename, content]) =>
             /\.twee$/i.test(filename),
@@ -406,6 +474,14 @@ export class ModManagerClass {
     console.info(...logmsg(`Finished reloading mod datas (${mods.length})`));
   }
 
+  /**
+   * Reapplies the mod data for enabled mods to the `setup` object,
+   * effectively doing the actual modding part of the game content.
+   *
+   * How this work: it will replace setup objects with a object with them as their prototype,
+   * adding a [MODDED]: <the original object> "secret" value to them.
+   *
+   */
   reapplyMods() {
     {
       // cleanup of currently applied mods
@@ -447,6 +523,8 @@ export class ModManagerClass {
       const mod = this.mods[mod_path];
       if (!mod?.data) continue;
 
+      console.info(...logmsg(`Applying mod "${mod.key}"`));
+
       try {
         mod.onEnable?.();
       } catch (err) {
@@ -456,25 +534,86 @@ export class ModManagerClass {
 
       this.applied_mods.push(mod);
 
+      //
+      // Util functions
+      //
+
+      const getModdedObject = <T>(parent_obj: T, key: keyof T) => {
+        let obj = parent_obj[key] as any;
+        if (!(MODDED in obj)) {
+          let original_obj = obj;
+          //modded_obj = Object.create(obj, { [MODDED]: { value: original_obj } })
+          obj = Object.assign({ [MODDED]: original_obj }, original_obj);
+          parent_obj[key] = obj;
+        }
+        return obj;
+      };
+
+      //
+      // Reapply quests/etc embedded in the twee files
+      //
       for (const [path_str, val] of Object.entries(mod.data.setup)) {
         const path = path_str.split(".");
 
-        let container = setup as any;
+        let obj = setup as any;
         for (let i = 1; i < path.length - 1; ++i) {
-          let obj = container[path[i]];
-          if (!(MODDED in obj)) {
-            let original_obj = obj;
-            //modded_obj = Object.create(obj, { [MODDED]: { value: original_obj } })
-            obj = Object.assign({ [MODDED]: original_obj }, original_obj);
-            container[path[i]] = obj;
-          }
-          container = obj;
+          const key = path[i];
+          obj = getModdedObject(obj, key);
         }
 
-        container[path[path.length - 1]] = val;
+        obj[path[path.length - 1]] = val;
+      }
+
+      //
+      // Reaply JSON definitions
+      //
+
+      // NOTE: the order matters!
+      const moddable_sections = ["traits", "subraces", "titles"] as const;
+
+      try {
+        DataUtil.CURRENT_MOD = mod;
+
+        for (const section_key of moddable_sections) {
+          const section_values = mod.data.definitions[section_key];
+          if (section_values && Object.keys(section_values).length > 0) {
+            switch (section_key) {
+              case "titles":
+                getModdedObject(setup, "title");
+                DataUtil.load(setup.Title, section_values as any, mod);
+                break;
+              case "traits":
+                getModdedObject(setup, "trait");
+                DataUtil.load(setup.Trait, section_values as any, mod);
+                break;
+              case "subraces":
+                getModdedObject(setup, "trait");
+                getModdedObject(setup, "subrace");
+                getModdedObject(setup, "unitpool");
+                getModdedObject(setup, "unitgroup");
+                DataUtil.load(setup.Subrace, section_values as any, mod);
+                break;
+              default:
+                console.warn(
+                  `Ignoring unsupported mod section "${section_key}" for mod ${mod_path}`,
+                );
+            }
+          }
+        }
+      } catch (err) {
+        // TODO better error handling
+        throw new Error(
+          `Error loading mod "${mod.name}"${isUnpackedMod(mod_path) ? " (unpacked)" : ""}: ${err instanceof Error ? err.message : String(err)}`,
+          {
+            cause: err,
+          },
+        );
+      } finally {
+        DataUtil.CURRENT_MOD = null;
       }
     }
   }
 }
 
+/** The singleton instance of ModManagerClass */
 export const ModManager = new ModManagerClass();

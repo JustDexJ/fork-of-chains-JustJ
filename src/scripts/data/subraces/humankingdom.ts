@@ -4,6 +4,11 @@ export const DEFINITION_SUBRACE_HUMANKINGDOM: SubraceDefinition = {
   noun: "human",
   homeland_region: setup.Text.Race.REGIONS.city,
   company_key: "humankingdom",
+  description:
+    "<<rep setup.trait.race_human>> born in the kingdom blessed with fertile lands. Many are attuned to the domain of <<lore magic_wind>>.",
+  slave_value: 0,
+  rarity: "common",
+  race: "race_human",
   trait_preferences: {
     /* trait preferences */
 

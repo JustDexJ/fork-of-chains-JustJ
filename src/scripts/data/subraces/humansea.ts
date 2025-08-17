@@ -4,6 +4,11 @@ export const DEFINITION_SUBRACE_HUMANSEA: SubraceDefinition = {
   noun: "foreigner",
   homeland_region: setup.Text.Race.REGIONS.sea,
   company_key: "humansea",
+  description:
+    "<<rep setup.trait.race_human>> born far on the southern islands across the sea. They have cultures much unlike those found in the main region. Often attuned to the domain of <<lore magic_light>>.",
+  slave_value: 2500,
+  rarity: "rare",
+  race: "race_human",
   trait_preferences: {
     /* trait preferences */
 

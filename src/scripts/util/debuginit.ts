@@ -324,7 +324,7 @@ export namespace DebugInit {
   }
 
   export function createUnits(
-    units: [UnitPoolKey, JobKey, gender: TraitKey][],
+    units: readonly (readonly [UnitPoolKey, JobKey, gender: TraitKey])[],
   ) {
     const sv = State.variables;
     for (const [pool_key, job_key, gender_trait_key] of units) {
@@ -440,42 +440,16 @@ export namespace DebugInit {
 
     const sv = State.variables;
 
-    const units = [
-      ["subrace_humankingdom", "slaver", "gender_male"],
-      ["subrace_humankingdom", "slaver", "gender_female"],
-      ["subrace_humanvale", "slaver", "gender_male"],
-      ["subrace_humanvale", "slaver", "gender_female"],
-      ["subrace_humansea", "slaver", "gender_male"],
-      ["subrace_humansea", "slaver", "gender_female"],
-      ["subrace_humandesert", "slaver", "gender_male"],
-      ["subrace_humandesert", "slaver", "gender_female"],
-      ["subrace_elf", "slaver", "gender_male"],
-      ["subrace_elf", "slaver", "gender_female"],
-      ["subrace_drow", "slaver", "gender_male"],
-      ["subrace_drow", "slaver", "gender_female"],
-      ["subrace_werewolf", "slaver", "gender_male"],
-      ["subrace_werewolf", "slaver", "gender_female"],
-      ["subrace_neko", "slaver", "gender_male"],
-      ["subrace_neko", "slaver", "gender_female"],
-      ["subrace_kobold", "slaver", "gender_male"],
-      ["subrace_kobold", "slaver", "gender_female"],
-      ["subrace_lizardkin", "slaver", "gender_male"],
-      ["subrace_lizardkin", "slaver", "gender_female"],
-      ["subrace_demon", "slaver", "gender_male"],
-      ["subrace_demon", "slaver", "gender_female"],
-      ["subrace_orc", "slaver", "gender_male"],
-      ["subrace_orc", "slaver", "gender_female"],
-      ["subrace_tigerkin", "slaver", "gender_male"],
-      ["subrace_tigerkin", "slaver", "gender_female"],
-      ["subrace_angel", "slaver", "gender_male"],
-      ["subrace_angel", "slaver", "gender_female"],
-      ["subrace_fairy", "slaver", "gender_male"],
-      ["subrace_fairy", "slaver", "gender_female"],
-      ["subrace_dragonkin", "slaver", "gender_male"],
-      ["subrace_dragonkin", "slaver", "gender_female"],
-      ["subrace_demonkin", "slaver", "gender_male"],
-      ["subrace_demonkin", "slaver", "gender_female"],
-    ] as [UnitPoolKey, JobKey, TraitKey][];
+    const units = objectKeys(setup.unitpool)
+      .filter((k) => k.startsWith("subrace_"))
+      .flatMap(
+        (k) =>
+          [
+            [k, "slaver", "gender_male" as TraitKey],
+            [k, "slaver", "gender_female" as TraitKey],
+          ] as const,
+      );
+
     createUnits(units);
 
     initSlavesCommon();

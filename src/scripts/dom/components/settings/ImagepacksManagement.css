@@ -1,3 +1,13 @@
+.ImagepacksManagement-subheader {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.5em;
+  position: sticky;
+  top: 0;
+  background-color: #111111;
+  padding-bottom: 0.5em;
+}
+
 .ImagepacksManagement-cards {
   display: flex;
   flex-direction: column;
@@ -35,7 +45,16 @@
       height: 64px;
       object-fit: contain;
       background-color: #333;
-      /*cursor: pointer;*/
+      cursor: pointer;
     }
   }
+}
+
+.img-fullscreen {
+  position: fixed !important;
+  z-index: 99999;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
 }

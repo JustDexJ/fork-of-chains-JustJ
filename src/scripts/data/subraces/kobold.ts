@@ -4,6 +4,11 @@ export const DEFINITION_SUBRACE_KOBOLD: SubraceDefinition = {
   noun: "kobold",
   homeland_region: setup.Text.Race.REGIONS.deep,
   company_key: "kobold",
+  description:
+    "Distinct from their other <<rep setup.trait.race_lizardkin>> relatives, kobolds are often meek and small in stature. Compared to the other lizardkin species, kobolds are fairly common: Kobolds are present throughout <<lore geo_mestia>>, but most kobolds live in the <<lore region_deep>>. Kobolds may be lacking in the size and strength department, but they make up for it in cunning and cleverness. Attuned to both <<lore magic_fire>> and <<lore magic_earth>>.",
+  slave_value: 0,
+  rarity: "common",
+  race: "race_lizardkin",
   trait_preferences: {
     /* trait preferences */
 

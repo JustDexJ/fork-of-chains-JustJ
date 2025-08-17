@@ -2,53 +2,88 @@ import "../util/SetupUtil.js";
 
 // load SVG as raw string (cannot be loaded at runtime from localhost...)
 import worldmap_regions_svg from "../../assets/worldmap-regions.svg";
+import { isDefinitionArgs } from "../util/TypeUtil.js";
 import { TwineClass } from "./_TwineClass.js";
 
 export type LoreKey = BrandedType<string, "LoreKey">;
+
+export interface LoreDefinition {
+  key: string;
+  name: string;
+  tags?: string[];
+  restrictions?: Restriction[];
+  text?: string;
+}
 
 /**
  * Describes a piece of game lore, such as location, region, or an important person.
  */
 export class Lore extends TwineClass {
   key: LoreKey;
-  description_passage: string;
+  text_passage: string;
+  text: string | undefined;
+  name: string;
+  tags: readonly string[];
+  restrictions: readonly Restriction[];
 
   constructor(
-    key: string,
-    public name: string,
-    public tags: string[],
-    public restrictions: Restriction[],
+    ...args:
+      | [Readonly<LoreDefinition>]
+      | [key: string, name: string, tags: string[], restrictions: Restriction[]]
   ) {
     super();
 
-    this.key = key as LoreKey;
-    this.description_passage = `LORE_${key}`;
+    let def: Readonly<LoreDefinition>;
+    if (isDefinitionArgs(args)) {
+      def = args[0];
+    } else {
+      const [key, name, tags, restrictions] = args;
+      def = { key, name, tags, restrictions };
+    }
 
-    if (!Story.has(this.description_passage)) {
+    const key = def.key as LoreKey;
+
+    this.key = key;
+    this.name = def.name;
+    this.tags = def.tags ?? [];
+    this.restrictions = def.restrictions ?? [];
+    this.name = def.name;
+    if (def.text) {
+      if (def.text.startsWith("::")) {
+        this.text_passage = def.text.substring(2).trim();
+      } else {
+        this.text = def.text;
+        this.text_passage = "";
+      }
+    } else {
+      this.text_passage = `LORE_${key}`;
+    }
+
+    if (!Story.has(this.text_passage)) {
       throw new Error(
-        `Passage ${this.description_passage} not found for lore ${key}!`,
+        `Passage ${this.text_passage} not found for lore ${key}!`,
       );
     }
 
     if (key in setup.lore) {
       throw new Error(`Duplicate lore ${key}`);
     }
-    setup.lore[key as LoreKey] = this;
+    setup.lore[key] = this;
   }
 
   getName(): string {
     return this.name;
   }
 
-  getTags(): string[] {
+  getTags(): readonly string[] {
     return this.tags;
   }
 
-  getDescriptionPassage(): string {
-    return this.description_passage;
+  getLoreText(): string {
+    return this.text ?? Story.get(this.text_passage)?.text ?? "";
   }
 
-  getRestrictions(): Restriction[] {
+  getRestrictions(): readonly Restriction[] {
     return this.restrictions;
   }
 

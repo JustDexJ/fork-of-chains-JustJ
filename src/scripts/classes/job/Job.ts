@@ -13,7 +13,7 @@ export class Job extends TwineClass {
   key: JobKey;
   name: string;
 
-  constructor(def: JobDefinition) {
+  constructor(def: Readonly<JobDefinition>) {
     super();
 
     const key = def.key as JobKey;

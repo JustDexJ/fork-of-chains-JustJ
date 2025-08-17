@@ -89,7 +89,7 @@ export class TagHelper {
     return `${setup.TagHelper.tagRep(menu, tag)}<span data-tooltip="${tagobj.description}">${tagobj.title}</span>`;
   }
 
-  static getTagsRep(menu: MenuKey, tags: string[]): string {
+  static getTagsRep(menu: MenuKey, tags: readonly string[]): string {
     const tag_map = setup.TagHelper.getTagsMap(menu);
     const taglist = Object.keys(tag_map);
     const tag_copy = tags.filter((tag) => true);
@@ -101,7 +101,7 @@ export class TagHelper {
     return tag_copy.map((tag) => setup.TagHelper.tagRep(menu, tag)).join("");
   }
 
-  static getQuestCardClass(tags: string[]): string {
+  static getQuestCardClass(tags: readonly string[]): string {
     let panorama = setup.QUESTTAGS_DEFAULT_PANORAMA;
     let border = "";
     for (const tag of tags) {

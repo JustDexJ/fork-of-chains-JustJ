@@ -4,6 +4,11 @@ export const DEFINITION_SUBRACE_ELF: SubraceDefinition = {
   noun: "elf",
   homeland_region: setup.Text.Race.REGIONS.forest,
   company_key: "elf",
+  description:
+    "The most common <<rep setup.trait.race_elf>>, these graceful people lives in the western forest together with the <<rep setup.trait.subrace_neko>>. Attuned to the earth element, which grants them minor power to manipulate plants.",
+  slave_value: 0,
+  rarity: "common",
+  race: "race_elf",
   trait_preferences: {
     /* trait preferences */
 

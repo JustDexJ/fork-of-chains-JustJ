@@ -4,6 +4,11 @@ export const DEFINITION_SUBRACE_NEKO: SubraceDefinition = {
   noun: "neko",
   homeland_region: setup.Text.Race.REGIONS.forest,
   company_key: "neko",
+  description:
+    "These <<rep setup.trait.race_catkin>> descend from the <<lore race_tigerkin>> and live in the jungles on the western forest. Their furry pedigree has worn off completely, usually leaving only their ears, tails, and occasionally eyes being similar to that of a cat. Attuned to the earth domain like their neighbors, the elves.",
+  slave_value: 0,
+  rarity: "common",
+  race: "race_catkin",
   trait_preferences: {
     /* trait preferences */
 

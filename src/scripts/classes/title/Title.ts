@@ -21,10 +21,10 @@ export class Title extends TwineClass {
   description: string;
   unit_text: string;
   slave_value: number;
-  skill_adds: number[];
+  skill_adds: readonly number[];
   is_negative: boolean;
 
-  constructor(options: TitleDefinition);
+  constructor(options: Readonly<TitleDefinition>);
   constructor(
     key: string,
     name: string,
@@ -40,7 +40,7 @@ export class Title extends TwineClass {
   constructor(...args: any[]) {
     super();
 
-    const init: TitleDefinition =
+    const init: Readonly<TitleDefinition> =
       args.length <= 1
         ? args[0]
         : {

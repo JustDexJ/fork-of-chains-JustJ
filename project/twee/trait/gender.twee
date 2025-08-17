@@ -1,6 +1,6 @@
 :: InitGenderTraits [nobr]
 
-<<run new setup.TraitGroup([
+<<run new setup.TraitGroup('gender', [
   new setup.Trait(
     'gender_male',
     'male',

@@ -44,7 +44,7 @@ export default {
               /* show all = */ true,
             )}
           </div>
-          <div>${setup.DOM.Util.include(lore.getDescriptionPassage())}</div>
+          <div>${lore.getLoreText()}</div>
         </div>
       </div>
     `;

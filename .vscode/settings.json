@@ -18,6 +18,9 @@
     "src/modules/": true,
     "dist/": true
   },
+  "files.associations": {
+    "dist/mods/**/*.json": "jsonc"
+  },
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {
     "package.json": ".gitignore, .gitattributes, package-lock.json, vite.config.mjs, .eslint*, .prettier*, .editorconfig, tsconfig.json, tsconfig.*.json, jsconfig.*.json, *.twee-config.json",
