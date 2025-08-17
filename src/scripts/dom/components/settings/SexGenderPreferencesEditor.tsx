@@ -87,6 +87,12 @@ export const SexGenderPreferencesEditor: Component<{
     State.setVar(target, new_distr);
   };
 
+  const getPercentText = (ratio: number) => {
+    if (!ratio) return "-";
+    const val = Math.round(100 * ratio);
+    return `${val}%`;
+  };
+
   return (
     <>
       <div>
@@ -164,11 +170,7 @@ export const SexGenderPreferencesEditor: Component<{
                         : "")
                     }
                   >
-                    {!(getDistributions()[target][sexgender] ?? 0)
-                      ? "-"
-                      : `${Math.round(
-                          100 * (getDistributions()[target][sexgender] ?? 0),
-                        )}%`}
+                    {getPercentText(getDistributions()[target][sexgender] ?? 0)}
                   </div>
                 </div>
               ))}

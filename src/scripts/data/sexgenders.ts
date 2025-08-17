@@ -23,7 +23,7 @@ export const SEXGENDERS = {
   },
   futa: {
     gender_trait_key: "gender_female",
-    name: "Futanari",
+    name: "Dickgirl",
     dick: true,
     vagina: false,
     breast: true,

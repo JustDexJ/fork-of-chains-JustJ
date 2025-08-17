@@ -1,7 +1,6 @@
 :: ProloguePlayerGen [nobr]
 
 <<set $i = {}>>
-<<set $i.trait_keys = []>>
 <<run $i.firstname = "Robin">>
 <<run $i.lastname = "Doe">>
 
@@ -165,6 +164,8 @@ You can <<message 'change other game settings too.'>>
 
 
 :: PrologueChoose [nobr]
+
+<<set $i.trait_keys = []>>
 
 <p>
 You can either fully customize your player character:
@@ -491,7 +492,7 @@ can be changed anytime later in the game. You can also change your player's port
 */
 
 <<focwidget 'generatechar'>>
-  <<set _unit = _unitgroup.getUnit({ gender: $i.gender_key })>>
+  <<set _unit = _unitgroup.getUnit({ gender: $i.sexgender_key })>>
 
   /* remove background and skills */
   <<run _unit.removeTraitsWithTag('bg')>>
@@ -524,7 +525,7 @@ can be changed anytime later in the game. You can also change your player's port
   <<generatechar>>
 <</focwidget>>
 
-<<link '(regenerate unit)'>>
+<<link '(reroll unit)'>>
   <<refreshgenerate>>
 <</link>>
 

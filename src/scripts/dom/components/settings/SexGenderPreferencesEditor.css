@@ -19,8 +19,9 @@
 }
 
 .SexGenderPreferencesEditor-slider {
-  display: flex;
-  gap: 0.5em;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.2em;
   align-items: center;
 
   border-left: 1px solid #444;
@@ -29,10 +30,9 @@
 }
 
 .SexGenderPreferencesEditor-percent {
-  text-align: right;
   font-size: 90%;
-  min-width: 4em;
-  min-width: 2.8em;
+  width: 3em;
+  text-align: right;
 
   &.zero {
     opacity: 0.2;
