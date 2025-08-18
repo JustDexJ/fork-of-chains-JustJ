@@ -21,77 +21,77 @@ export const DEFINITION_SUBRACE_DROW: SubraceDefinition = {
     /* BACKGROUNDS */
     /* =========== */
 
-    bg_slaver: setup.POOL_BG_COMMON_1,
-    bg_mercenary: setup.POOL_BG_COMMON_1,
-    bg_hunter: setup.POOL_BG_COMMON_1,
-    bg_informer: setup.POOL_BG_COMMON_1,
-    bg_artisan: setup.POOL_BG_COMMON_1,
-    bg_priest: setup.POOL_BG_COMMON_1,
+    bg_slaver: "POOL_BG_COMMON_1",
+    bg_mercenary: "POOL_BG_COMMON_1",
+    bg_hunter: "POOL_BG_COMMON_1",
+    bg_informer: "POOL_BG_COMMON_1",
+    bg_artisan: "POOL_BG_COMMON_1",
+    bg_priest: "POOL_BG_COMMON_1",
 
-    bg_soldier: setup.POOL_BG_COMMON_1,
-    bg_thief: setup.POOL_BG_COMMON_1,
+    bg_soldier: "POOL_BG_COMMON_1",
+    bg_thief: "POOL_BG_COMMON_1",
 
-    bg_mystic: setup.POOL_BG_UNCOMMON_2,
-    bg_adventurer: setup.POOL_BG_UNCOMMON_2,
-    bg_assassin: setup.POOL_BG_UNCOMMON_2,
+    bg_mystic: "POOL_BG_UNCOMMON_2",
+    bg_adventurer: "POOL_BG_UNCOMMON_2",
+    bg_assassin: "POOL_BG_UNCOMMON_2",
 
-    bg_apprentice: setup.POOL_BG_UNCOMMON_2,
-    bg_artist: setup.POOL_BG_UNCOMMON_2,
-    bg_wiseman: setup.POOL_BG_UNCOMMON_2,
+    bg_apprentice: "POOL_BG_UNCOMMON_2",
+    bg_artist: "POOL_BG_UNCOMMON_2",
+    bg_wiseman: "POOL_BG_UNCOMMON_2",
 
-    bg_entertainer: setup.POOL_BG_UNCOMMON_2,
-    bg_merchant: setup.POOL_BG_UNCOMMON_2,
-    bg_raider: setup.POOL_BG_UNCOMMON_2,
-    bg_thug: setup.POOL_BG_UNCOMMON_2,
+    bg_entertainer: "POOL_BG_UNCOMMON_2",
+    bg_merchant: "POOL_BG_UNCOMMON_2",
+    bg_raider: "POOL_BG_UNCOMMON_2",
+    bg_thug: "POOL_BG_UNCOMMON_2",
 
-    bg_scholar: setup.POOL_BG_RARE_3,
-    bg_knight: setup.POOL_BG_RARE_3,
+    bg_scholar: "POOL_BG_RARE_3",
+    bg_knight: "POOL_BG_RARE_3",
 
-    bg_clerk: setup.POOL_BG_RARE_3,
-    bg_farmer: setup.POOL_BG_RARE_3,
-    bg_foodworker: setup.POOL_BG_RARE_3,
+    bg_clerk: "POOL_BG_RARE_3",
+    bg_farmer: "POOL_BG_RARE_3",
+    bg_foodworker: "POOL_BG_RARE_3",
 
-    bg_courtesan: setup.POOL_BG_EPIC_4,
-    bg_engineer: setup.POOL_BG_EPIC_4,
-    bg_noble: setup.POOL_BG_EPIC_4,
-    bg_metalworker: setup.POOL_BG_EPIC_4,
+    bg_courtesan: "POOL_BG_EPIC_4",
+    bg_engineer: "POOL_BG_EPIC_4",
+    bg_noble: "POOL_BG_EPIC_4",
+    bg_metalworker: "POOL_BG_EPIC_4",
 
-    bg_maid: setup.POOL_BG_EPIC_4,
-    bg_whore: setup.POOL_BG_EPIC_4,
+    bg_maid: "POOL_BG_EPIC_4",
+    bg_whore: "POOL_BG_EPIC_4",
 
-    bg_laborer: setup.POOL_BG_EPIC_4,
+    bg_laborer: "POOL_BG_EPIC_4",
 
-    bg_mist: setup.POOL_BG_LEGENDARY_5,
+    bg_mist: "POOL_BG_LEGENDARY_5",
 
-    bg_healer: setup.POOL_BG_LEGENDARY_5,
+    bg_healer: "POOL_BG_LEGENDARY_5",
 
-    bg_woodsman: setup.POOL_BG_LEGENDARY_5,
-    bg_seaman: setup.POOL_BG_LEGENDARY_5,
-    bg_pirate: setup.POOL_BG_LEGENDARY_5,
+    bg_woodsman: "POOL_BG_LEGENDARY_5",
+    bg_seaman: "POOL_BG_LEGENDARY_5",
+    bg_pirate: "POOL_BG_LEGENDARY_5",
 
-    bg_unemployed: setup.POOL_BG_LEGENDARY_5,
-    bg_slave: setup.POOL_BG_LEGENDARY_5,
+    bg_unemployed: "POOL_BG_LEGENDARY_5",
+    bg_slave: "POOL_BG_LEGENDARY_5",
 
-    bg_monk: setup.POOL_BG_LEGENDARY_5,
+    bg_monk: "POOL_BG_LEGENDARY_5",
 
-    bg_boss: setup.POOL_BG_MYTHIC_6,
+    bg_boss: "POOL_BG_MYTHIC_6",
 
-    bg_wildman: setup.POOL_BG_MYTHIC_6,
-    bg_nomad: setup.POOL_BG_MYTHIC_6,
+    bg_wildman: "POOL_BG_MYTHIC_6",
+    bg_nomad: "POOL_BG_MYTHIC_6",
 
-    bg_mythical: setup.POOL_BG_ULTRA_7,
-    bg_royal: setup.POOL_BG_ULTRA_7,
+    bg_mythical: "POOL_BG_ULTRA_7",
+    bg_royal: "POOL_BG_ULTRA_7",
 
     /* =========== */
     /* PERSONALITY */
     /* =========== */
 
-    per_cruel: setup.POOL_PER_UNCOMMON_2,
-    per_independent: setup.POOL_PER_UNCOMMON_2,
-    per_sly: setup.POOL_PER_UNCOMMON_2,
+    per_cruel: "POOL_PER_UNCOMMON_2",
+    per_independent: "POOL_PER_UNCOMMON_2",
+    per_sly: "POOL_PER_UNCOMMON_2",
 
-    per_evil: setup.POOL_PER_RARE_3,
-    per_logical: setup.POOL_PER_RARE_3,
+    per_evil: "POOL_PER_RARE_3",
+    per_logical: "POOL_PER_RARE_3",
 
     /* =========== */
     /* MAGIC */

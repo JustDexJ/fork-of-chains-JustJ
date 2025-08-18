@@ -38,7 +38,7 @@ export default class SlaveOrderTheRearDeal extends SlaveOrderTemplate {
   override getCriteria() {
     // retrieve a random master training and four random advanced trainings.
     let adv = setup.rng.choicesRandom(
-      setup.TraitHelper.TRAINING_ADVANCED_GENDERLESS,
+      setup.TraitHelper.TRAINING_ADVANCED_GENDERLESS(),
       12,
     );
 

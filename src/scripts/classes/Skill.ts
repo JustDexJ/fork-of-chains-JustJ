@@ -3,7 +3,6 @@ import { TwineClass } from "./_TwineClass";
 import { Unit } from "./unit/Unit";
 
 export interface SkillDefinition {
-  keyword: string;
   name: string;
   description: string;
 }
@@ -27,17 +26,16 @@ export class Skill extends TwineClass {
   name: string;
   description: string;
 
-  constructor(def: Readonly<SkillDefinition>) {
+  constructor(keyword: string, def: Readonly<SkillDefinition>) {
     super();
 
     this.key = setup.skill.length as SkillKey;
-    this.keyword = def.keyword as SkillKeyword;
+    this.keyword = keyword as SkillKeyword;
     this.name = def.name;
     this.description = def.description;
 
-    if (def.keyword in setup.skill)
-      throw new Error(`Duplicate role ${def.keyword}`);
-    (setup.skill as any)[def.keyword] = this;
+    if (keyword in setup.skill) throw new Error(`Duplicate role ${keyword}`);
+    (setup.skill as any)[keyword] = this;
     setup.skill.push(this);
   }
 

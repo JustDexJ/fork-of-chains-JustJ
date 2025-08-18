@@ -1,3 +1,4 @@
+import type { Constants } from "../../constants";
 import type { SUBRACE_DEFINITIONS } from "../../data/subraces/_index";
 import { TwineClass } from "../_TwineClass";
 import type { CompanyKey } from "../Company";
@@ -6,7 +7,9 @@ import type { UnitGroupKey } from "../unit/UnitGroup";
 import type { TraitGroupKey } from "./TraitGroup";
 
 export interface SubraceDefinition {
-  key: string;
+  /** @deprecated Unused */
+  key?: string;
+
   name: string;
   noun: string;
   rare?: boolean;
@@ -14,10 +17,14 @@ export interface SubraceDefinition {
   company_key?: CompanyKey | BuiltinCompanyTemplateKey;
 
   /** How much does the trait pool for this race will prefer a certain trait. */
-  trait_preferences: { [k in TraitKey | BuiltinTraitKey]?: number | string };
+  trait_preferences: {
+    [k in TraitKey | BuiltinTraitKey]?: number | keyof typeof Constants;
+  };
 
   /** How much does the trait pool for this race will hate a certain trait. */
-  trait_dispreferences: { [k in TraitKey | BuiltinTraitKey]?: number | string };
+  trait_dispreferences: {
+    [k in TraitKey | BuiltinTraitKey]?: number | keyof typeof Constants;
+  };
 
   description: string;
   slave_value: number;
@@ -47,7 +54,6 @@ export class Subrace extends TwineClass {
   key: SubraceKey;
   name: string;
   noun: string;
-  rare: boolean;
   homeland_region: string | undefined;
   company_key: CompanyKey | undefined;
 
@@ -61,15 +67,14 @@ export class Subrace extends TwineClass {
 
   unitgroups: ChanceArray<UnitGroupKey> | undefined;
 
-  constructor(def: Readonly<SubraceDefinition>) {
+  constructor(key_: string, def: Readonly<SubraceDefinition>) {
     super();
 
-    const key = def.key as SubraceKey;
+    const key = key_ as SubraceKey;
 
     this.key = key;
     this.name = def.name;
     this.noun = def.noun;
-    this.rare = !!def.rare;
     this.homeland_region = def.homeland_region;
     this.company_key = def.company_key as CompanyKey;
 
@@ -87,17 +92,18 @@ export class Subrace extends TwineClass {
     }
     setup.subrace[key] = this;
 
+    const prefixed_key = `subrace_${this.key}`;
+
     //
     // Create the subrace trait
     //
 
-    const subrace_trait = new setup.Trait({
-      key: this.key,
+    const subrace_trait = new setup.Trait(prefixed_key, {
       name: this.name.toLowerCase(),
       description: this.description,
       slave_value: this.slave_value,
       skill_bonuses: this.skill_bonuses,
-      tags: [this.rarity, this.race],
+      tags: ["subrace", this.race, this.rarity],
       icon_settings: {
         icon: this.icon,
         colors: true,
@@ -111,7 +117,7 @@ export class Subrace extends TwineClass {
     //
     if (this.lore) {
       const lore = new setup.Lore({
-        key: this.key.replace("subrace", "race"),
+        key: prefixed_key.replace("subrace", "race"),
         name: this.name,
         tags: ["race"],
         text: this.lore,
@@ -128,7 +134,7 @@ export class Subrace extends TwineClass {
     );
 
     const unitpool = new setup.UnitPool(
-      this.key,
+      prefixed_key,
       this.name,
       pool_trait_alloc,
       setup.DEFAULT_INITIAL_SKILLS,
@@ -140,7 +146,7 @@ export class Subrace extends TwineClass {
     //
 
     new setup.UnitGroup(
-      `${this.key}`,
+      `${prefixed_key}`,
       `${this.name}: Any Gender`,
       [[unitpool, 1]],
       0,
@@ -148,7 +154,7 @@ export class Subrace extends TwineClass {
     );
 
     new setup.UnitGroup(
-      `${this.key}_male`,
+      `${prefixed_key}_male`,
       `${this.name}: Male`,
       [[unitpool, 1]],
       0,
@@ -157,7 +163,7 @@ export class Subrace extends TwineClass {
     );
 
     new setup.UnitGroup(
-      `${this.key}_female`,
+      `${prefixed_key}_female`,
       `${this.name}: Female`,
       [[unitpool, 1]],
       0,

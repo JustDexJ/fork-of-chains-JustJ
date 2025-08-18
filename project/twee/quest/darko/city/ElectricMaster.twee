@@ -77,7 +77,8 @@
     setup.trait.per_masochistic,
     setup.trait.per_honorable,
     setup.trait.skill_entertain,
-  ].concat(setup.TraitHelper.EQUIPMENT_SLUTTY), /* disaster traits */
+    ...setup.TraitHelper.EQUIPMENT_SLUTTY
+  ], /* disaster traits */
   [
     setup.qres.Job(setup.job.slaver),
   ], /* requirement */
@@ -142,7 +143,7 @@
       [
         setup.qc.Slave('slave', _desc2),
         setup.qc.MoneyNormal(),
-        
+
       ],
     ],
     [
@@ -193,7 +194,7 @@
       'QuestElectricMasterCrit',
       [
         setup.qc.MoneyCrit(1.2),
-        
+
       ],
     ],
     [
@@ -201,7 +202,7 @@
       [
         setup.qc.Slave('slave', _desc2),
         setup.qc.MoneyNormal(),
-        
+
       ],
     ],
     [

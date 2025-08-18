@@ -1,8 +1,8 @@
 import { TwineClass } from "../_TwineClass";
 import type { QuestInstance } from "../quest/QuestInstance";
 import type { QuestTemplate, QuestTemplateKey } from "../quest/QuestTemplate";
-import NoTrait from "../restriction/unit/NoTrait";
-import NoTraits from "../restriction/unit/NoTraits";
+import NoTrait from "../restriction/unit/trait/NoTrait";
+import NoTraits from "../restriction/unit/trait/NoTraits";
 import type { Trait, TraitKey } from "../trait/Trait";
 import type { Unit } from "../unit/Unit";
 

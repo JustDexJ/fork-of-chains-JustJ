@@ -99,8 +99,6 @@ import NotBusy from "./unit/NotBusy";
 import NotEngaged from "./unit/NotEngaged";
 import NotInjured from "./unit/NotInjured";
 import NotOnActivity from "./unit/NotOnActivity";
-import NoTrait from "./unit/NoTrait";
-import NoTraits from "./unit/NoTraits";
 import NotYou from "./unit/NotYou";
 import OnDuty from "./unit/OnDuty";
 import RememberUnit from "./unit/RememberUnit";
@@ -123,6 +121,10 @@ import ZeroTitle from "./unit/title/ZeroTitle";
 import Trait from "./unit/Trait";
 import AllTraits from "./unit/trait/AllTraits";
 import AnyTrait from "./unit/trait/AnyTrait";
+import AnyTraitWithTag from "./unit/trait/AnyTraitWithTag";
+import NoTrait from "./unit/trait/NoTrait";
+import NoTraits from "./unit/trait/NoTraits";
+import NoTraitsWithTag from "./unit/trait/NoTraitsWithTag";
 import XTraits from "./unit/trait/XTraits";
 import TraitExact from "./unit/TraitExact";
 import WeeksWithCompanyAtLeast from "./unit/WeeksWithCompanyAtLeast";
@@ -276,6 +278,8 @@ export const qresImpl = {
   NoTag,
   AllTraits,
   AnyTrait,
+  AnyTraitWithTag,
+  NoTraitsWithTag,
   XTraits,
   BestFriends,
   Lovers,

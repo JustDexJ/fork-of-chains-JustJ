@@ -6,7 +6,6 @@ import type { Unit } from "../unit/Unit";
 export type TitleKey = BrandedType<string, "TitleKey">;
 
 export interface TitleDefinition {
-  key: string;
   name: string;
   description: string;
   unit_text: string;
@@ -24,7 +23,7 @@ export class Title extends TwineClass {
   skill_adds: readonly number[];
   is_negative: boolean;
 
-  constructor(options: Readonly<TitleDefinition>);
+  constructor(key: string, options: Readonly<TitleDefinition>);
   constructor(
     key: string,
     name: string,
@@ -37,39 +36,36 @@ export class Title extends TwineClass {
     },
   );
 
-  constructor(...args: any[]) {
+  constructor(key_: string, ...restArgs: any[]) {
     super();
 
-    const init: Readonly<TitleDefinition> =
-      args.length <= 1
-        ? args[0]
-        : {
-            key: args[0],
-            name: args[1],
-            description: args[2],
-            unit_text: args[3],
-            slave_value: args[4],
-            skill_adds: args[5],
-            is_negative: args[6]?.is_negative,
-          };
+    let def: Readonly<TitleDefinition>;
+    if (restArgs.length === 1) {
+      def = restArgs[0] as Readonly<TitleDefinition>;
+    } else {
+      // prettier-ignore
+      const [ name, description, unit_text, slave_value, skill_adds, is_negative ] = restArgs;
+      // prettier-ignore
+      def = { name, description, unit_text, slave_value, skill_adds, is_negative };
+    }
 
-    if (!init.key) throw new Error(`null key for title`);
-    const key = init.key as TitleKey;
+    if (!key_) throw new Error(`null key for title`);
+    const key = key_ as TitleKey;
     this.key = key;
 
-    if (!init.name) throw new Error(`null name for title ${key}`);
-    this.name = init.name;
+    if (!def.name) throw new Error(`null name for title ${key}`);
+    this.name = def.name;
 
-    if (!init.description) throw new Error(`null name for title ${key}`);
-    this.description = init.description;
+    if (!def.description) throw new Error(`null name for title ${key}`);
+    this.description = def.description;
 
     // unit text can be null. In which case it'll be hidden.
-    this.unit_text = init.unit_text;
+    this.unit_text = def.unit_text;
 
-    this.slave_value = init.slave_value;
-    this.skill_adds = Skill.translate(init.skill_adds);
+    this.slave_value = def.slave_value;
+    this.skill_adds = Skill.translate(def.skill_adds);
 
-    this.is_negative = !!init.is_negative;
+    this.is_negative = !!def.is_negative;
 
     if (key in setup.title) throw new Error(`Title ${key} duplicated`);
     setup.title[key] = this;

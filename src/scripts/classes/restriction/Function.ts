@@ -1,7 +1,7 @@
 export default class Function<T> extends Restriction<T> {
   constructor(
     public func: (context: T) => boolean,
-    public display_text: string,
+    public display_text?: string,
   ) {
     super();
   }
@@ -10,7 +10,7 @@ export default class Function<T> extends Restriction<T> {
     let text = this.func.toString();
     return `setup.qres.Function(
       ${text},
-      "${this.display_text}",
+      ${JSON.stringify(this.display_text)},
     )`;
   }
 
@@ -19,9 +19,6 @@ export default class Function<T> extends Restriction<T> {
   }
 
   override explain() {
-    if (this.display_text) {
-      return this.display_text;
-    }
-    return `Runs a custom function`;
+    return this.display_text || `Runs a custom function`;
   }
 }

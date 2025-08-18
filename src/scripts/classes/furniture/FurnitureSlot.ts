@@ -4,7 +4,6 @@ import type { ItemKey } from "../inventory/Item";
 import type { Furniture } from "./Furniture";
 
 export interface FurnitureSlotDefinition {
-  key: string;
   name: string;
 }
 
@@ -14,10 +13,10 @@ export class FurnitureSlot extends TwineClass {
   key: FurnitureSlotKey;
   name: string;
 
-  constructor(def: FurnitureSlotDefinition) {
+  constructor(key_: string, def: FurnitureSlotDefinition) {
     super();
 
-    const key = def.key as FurnitureSlotKey;
+    const key = key_ as FurnitureSlotKey;
 
     this.key = key;
     this.name = def.name;

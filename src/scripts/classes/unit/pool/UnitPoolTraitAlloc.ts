@@ -52,14 +52,14 @@ export class UnitPoolTraitAlloc extends TwineClass {
     }
 
     // check all bg traits are there
-    for (const trait of Object.values(setup.trait).filter((t) =>
-      t.getTags().includes("bg"),
-    )) {
-      if (!(trait.key in trait_preferences))
-        throw new Error(
-          `Missing background trait from unit pool trait alloc: ${trait.key}`,
-        );
-    }
+    //for (const trait of Object.values(setup.trait).filter((t) =>
+    //  t.getTags().includes("bg"),
+    //)) {
+    //  if (!(trait.key in trait_preferences))
+    //    throw new Error(
+    //      `Missing background trait from unit pool trait alloc: ${trait.key}`,
+    //    );
+    //}
 
     for (let [trait_key, value] of objectEntries(trait_dispreferences)) {
       if (!(trait_key in setup.trait))

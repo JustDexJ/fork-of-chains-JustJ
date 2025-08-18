@@ -37,7 +37,7 @@ export default class SlaveOrderHeadHunter extends SlaveOrderTemplate {
     let disaster = [setup.trait[randomtraits[3]], setup.trait[randomtraits[4]]];
 
     // retrieve a random training
-    let trainings = setup.TraitHelper.TRAINING_BASIC_GENDERLESS;
+    let trainings = setup.TraitHelper.TRAINING_BASIC_GENDERLESS();
     let training = trainings[Math.floor(Math.random() * trainings.length)];
     critical.push(training);
 

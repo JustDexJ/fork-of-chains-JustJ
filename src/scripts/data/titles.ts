@@ -6,7 +6,6 @@ export const TITLE_DEFINITIONS = typedObject<TitleDefinition>()({
   //
 
   leader: {
-    key: "leader",
     name: "Leader of the Company",
     description: "A title held by the leader of this company, you",
     unit_text: "a|is the leader of this company",
@@ -26,7 +25,6 @@ export const TITLE_DEFINITIONS = typedObject<TitleDefinition>()({
   },
 
   bodyswapped: {
-    key: "bodyswapped",
     name: "Bodyswap Survivor",
     description: "Has undergone a bodyswap at some point in their life",
     unit_text: "a|is occupying a body not necessarily a|their own",
@@ -35,7 +33,6 @@ export const TITLE_DEFINITIONS = typedObject<TitleDefinition>()({
   },
 
   ex_slave: {
-    key: "ex_slave",
     name: "Ex-Slave",
     description: "Used to be a slave",
     unit_text: "a|was a slave at some point in a|their life",
@@ -47,7 +44,6 @@ export const TITLE_DEFINITIONS = typedObject<TitleDefinition>()({
   },
 
   ex_slaver: {
-    key: "ex_slaver",
     name: "Ex-Slaver",
     description: "Used to belong to another slaving company",
     unit_text:
@@ -68,7 +64,6 @@ export const TITLE_DEFINITIONS = typedObject<TitleDefinition>()({
   },
 
   ex_leader: {
-    key: "ex_leader",
     name: "Retired Leader of a Company",
     description: "Once held the title of the Leader of the Company",
     unit_text: "a|used to lead a slaving company in some distant past",
@@ -92,7 +87,6 @@ export const TITLE_DEFINITIONS = typedObject<TitleDefinition>()({
   // ============================
 
   value_add_5000: {
-    key: "value_add_5000",
     name: "Valuable (5000)",
     description:
       "One way or another, this unit is valued somewhat higher than most",
@@ -102,7 +96,6 @@ export const TITLE_DEFINITIONS = typedObject<TitleDefinition>()({
   },
 
   value_add_10000: {
-    key: "value_add_10000",
     name: "Valuable (10000)",
     description: "One way or another, this unit is valued higher than most",
     unit_text: "a|is valued higher than most",
@@ -111,7 +104,6 @@ export const TITLE_DEFINITIONS = typedObject<TitleDefinition>()({
   },
 
   value_add_20000: {
-    key: "value_add_20000",
     name: "Valuable (20000)",
     description:
       "One way or another, this unit is valued quite a bit higher than most",
@@ -121,7 +113,6 @@ export const TITLE_DEFINITIONS = typedObject<TitleDefinition>()({
   },
 
   value_add_40000: {
-    key: "value_add_40000",
     name: "Valuable (40000)",
     description:
       "One way or another, this unit is valued much higher than most",
@@ -131,7 +122,6 @@ export const TITLE_DEFINITIONS = typedObject<TitleDefinition>()({
   },
 
   value_add_80000: {
-    key: "value_add_80000",
     name: "Valuable (80000)",
     description: "One way or another, this unit is valued extremely highly",
     unit_text: "a|is valued extremely highly",
@@ -144,7 +134,6 @@ export const TITLE_DEFINITIONS = typedObject<TitleDefinition>()({
   // ============================
 
   high_society_demon: {
-    key: "high_society_demon",
     name: "High Demon Society Member",
     description:
       "Is a member of the High Demon Society who entered the mortal realm by possessing an unfortunate mortal body",
@@ -159,7 +148,6 @@ export const TITLE_DEFINITIONS = typedObject<TitleDefinition>()({
   },
 
   quest_doppelganged: {
-    key: "quest_doppelganged",
     name: "Doppelganged",
     description: "Is the model of a doppelganger living in your company",
     unit_text: "a|is the model of a doppelganger living in your company",
@@ -168,7 +156,6 @@ export const TITLE_DEFINITIONS = typedObject<TitleDefinition>()({
   },
 
   quest_doppelganger: {
-    key: "quest_doppelganger",
     name: "Doppelganger",
     description: "A doppelganger living in your company",
     unit_text: "a|is a doppelganger living in your company",

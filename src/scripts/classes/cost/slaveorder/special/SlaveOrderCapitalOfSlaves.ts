@@ -23,15 +23,15 @@ export default class SlaveOrderCapitalOfSlaves extends SlaveOrderTemplate {
   override getCriteria() {
     // retrieve three random basic trainings, two advanced, one master.
     let basics = setup.rng.choicesRandom(
-      setup.TraitHelper.TRAINING_BASIC_GENDERLESS,
+      setup.TraitHelper.TRAINING_BASIC_GENDERLESS(),
       2,
     );
     let adv = setup.rng.choicesRandom(
-      setup.TraitHelper.TRAINING_ADVANCED_GENDERLESS,
+      setup.TraitHelper.TRAINING_ADVANCED_GENDERLESS(),
       2,
     );
     let mas = setup.rng.choicesRandom(
-      setup.TraitHelper.TRAINING_MASTER_GENDERLESS,
+      setup.TraitHelper.TRAINING_MASTER_GENDERLESS(),
       1,
     );
 

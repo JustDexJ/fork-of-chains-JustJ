@@ -8,19 +8,22 @@
 import { EQUIPMENT_SLOT_DEFINITIONS } from "../data/equipmentslots";
 import { FAMILY_RELATION_DEFINTIONS } from "../data/familyrelations";
 import { FURNITURE_SLOT_DEFINITIONS } from "../data/furnitureslots";
+import { ITEM_CLASS_DEFINITIONS } from "../data/itemclasses";
 import { JOB_DEFINITIONS } from "../data/jobs";
 import { SKILL_DEFINITIONS } from "../data/skills";
 import { SPEECHES_DEFINITIONS } from "../data/speeches";
 import { SUBRACE_DEFINITIONS } from "../data/subraces/_index";
 import { TITLE_DEFINITIONS } from "../data/titles";
+import { TRAIT_DEFINITIONS } from "../data/traits/_index";
+import { TRAIT_GROUP_DEFINITIONS } from "../data/traits/_traitgroups";
+import { PERK_DEFINTIONS } from "../data/traits/perks/traits_perk";
 import { DataUtil } from "../util/DataUtil";
 import { initSetup, initState } from "./state_init";
 
 const executePassagesWithTag = setup.executePassagesWithTag;
 
 function executePassage(passageName: string): void {
-  const passage = Story.get(passageName);
-  new Wikifier(null, passage.text);
+  new Wikifier(null, Story.get(passageName).text);
 }
 
 //
@@ -39,7 +42,10 @@ DataUtil.load(setup.FurnitureSlot, FURNITURE_SLOT_DEFINITIONS);
 DataUtil.load(setup.Skill, SKILL_DEFINITIONS);
 
 // Traits & TraitGroups
-executePassage("InitTraits");
+DataUtil.loadTraitsAndInlineTraitGroups(TRAIT_DEFINITIONS);
+DataUtil.load(setup.Perk, PERK_DEFINTIONS());
+DataUtil.load(setup.TraitGroup, TRAIT_GROUP_DEFINITIONS);
+executePassage("InitTraitTexts");
 
 // Titles
 DataUtil.load(setup.Title, TITLE_DEFINITIONS);
@@ -55,7 +61,7 @@ DataUtil.load(setup.Subrace, SUBRACE_DEFINITIONS);
 
 // Items (ItemClass / Item / Furniture)
 {
-  executePassage("InitItemClass");
+  DataUtil.load(setup.ItemClass, ITEM_CLASS_DEFINITIONS);
 
   executePassage("InitItem");
 

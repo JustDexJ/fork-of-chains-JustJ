@@ -2,7 +2,7 @@ export default class IfThenElse extends Cost {
   constructor(
     public requirement: Restriction,
     public thenwhat: Cost,
-    public elsewhat: Cost,
+    public elsewhat?: Cost,
   ) {
     super();
   }

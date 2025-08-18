@@ -2,7 +2,6 @@ import type { FAMILY_RELATION_DEFINTIONS } from "../../data/familyrelations";
 import { TwineClass } from "../_TwineClass";
 
 export interface FamilyRelationDefinition {
-  key: string;
   name: string;
   tags: string[];
   nicknames: Record<string, string[]>;
@@ -16,10 +15,10 @@ export class FamilyRelation extends TwineClass {
   tags: string[];
   nicknames: Record<string, string[]>;
 
-  constructor(def: FamilyRelationDefinition) {
+  constructor(key_: string, def: Readonly<FamilyRelationDefinition>) {
     super();
 
-    const key = def.key as FamilyRelationKey;
+    const key = key_ as FamilyRelationKey;
 
     if (!key) throw new Error(`null key for family relation`);
     this.key = key as FamilyRelationKey;

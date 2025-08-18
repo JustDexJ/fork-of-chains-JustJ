@@ -3,30 +3,17 @@
 // [muscle_extremelythin, muscle_verythin, muscle_thin, null, muscle_strong, muscle_verystrong, muscle_extremelystrong]
 // the null means that if the trait were to "increase", it goes back to nothing.
 
-import { isDefinitionArgs } from "../../util/TypeUtil";
 import { TwineClass } from "../_TwineClass";
 import type { Unit } from "../unit/Unit";
 import type { Trait, TraitKey } from "./Trait";
 
 export interface TraitGroupDefinition {
   key?: string | null;
-  trait_list: (Trait | TraitKey | null)[];
-  tags?: string[];
-  is_not_ordered?: boolean;
+
+  sequence?: (Trait | TraitKey | BuiltinTraitKey | null)[];
+  pool?: (Trait | TraitKey | BuiltinTraitKey)[];
+  trait_tag?: string;
 }
-
-type LegacyArgsWithKey = [
-  key: string,
-  trait_list: (Trait | TraitKey | null)[],
-  tags?: string[],
-  is_not_ordered?: boolean,
-];
-
-type LegacyArgsWithoutKey = [
-  trait_list: (Trait | TraitKey | null)[],
-  tags?: string[],
-  is_not_ordered?: boolean,
-];
 
 export type TraitGroupKey = BrandedType<number | string, "TraitGroupKey">;
 
@@ -38,50 +25,31 @@ export class TraitGroup extends TwineClass {
   key: TraitGroupKey;
   trait_key_list: (TraitKey | null)[];
   is_not_ordered: boolean;
-  tags: string[] | undefined;
+
+  trait_tag: string | undefined;
 
   static keygen = 1;
 
-  constructor(
-    ...args:
-      | [Readonly<TraitGroupDefinition>]
-      | LegacyArgsWithKey
-      | LegacyArgsWithoutKey
-  ) {
+  constructor(key_: string | undefined, def: Readonly<TraitGroupDefinition>) {
     super();
 
-    let def: Readonly<TraitGroupDefinition>;
-    if (isDefinitionArgs(args)) {
-      def = args[0];
-    } else {
-      if (typeof args[0] === "string") {
-        let [key, trait_list, tags, is_not_ordered] = args as LegacyArgsWithKey;
-        def = { key, trait_list, tags, is_not_ordered };
-      } else {
-        let [trait_list, tags, is_not_ordered] = args as LegacyArgsWithoutKey;
-        def = { trait_list, tags, is_not_ordered };
-      }
-    }
-
-    const key = (def.key ?? setup.TraitGroup.keygen++) as TraitGroupKey;
+    const key = (key_ ?? TraitGroup.keygen++) as TraitGroupKey;
 
     this.key = key;
 
-    this.tags = def.tags;
+    const is_sequence = !!def.sequence;
+    const traits = def.sequence ?? def.pool ?? [];
 
     let nullcnt = 0;
     this.trait_key_list = [];
-    for (let i = 0; i < def.trait_list.length; ++i) {
-      const value = def.trait_list[i];
-      let trait = value ? resolveObject(value, setup.trait) : null;
+    for (const value of traits) {
+      const trait = value ? resolveObject(value, setup.trait) : null;
       if (trait) {
         this.trait_key_list.push(trait.key);
+
         if (trait.trait_group_key)
           throw new Error(`Trait ${trait.key} already have a trait group`);
         trait.trait_group_key = this.key;
-        if (def.tags) {
-          trait.tags = [...trait.tags, ...def.tags];
-        }
       } else {
         nullcnt += 1;
         this.trait_key_list.push(null);
@@ -92,7 +60,12 @@ export class TraitGroup extends TwineClass {
         `Too many nulls for ${tags}. Did you forgot to add new to the trait?`,
       );
 
-    this.is_not_ordered = !!def.is_not_ordered;
+    this.is_not_ordered = !is_sequence;
+
+    this.trait_tag = def.trait_tag;
+    if (def.trait_tag) {
+      this._checkAndAddMissingTraits();
+    }
 
     if (this.key in setup.traitgroup)
       throw new Error(`${this.key} duplicated on trait group`);
@@ -101,12 +74,21 @@ export class TraitGroup extends TwineClass {
 
   _addTrait(trait: Trait) {
     this.trait_key_list.push(trait.key);
+
     if (trait.trait_group_key)
       throw new Error(`Trait ${trait.key} already have a trait group`);
     trait.trait_group_key = this.key;
-    if (this.tags) {
-      for (let j = 0; j < this.tags.length; ++j) {
-        trait.tags = [...trait.tags, ...this.tags];
+  }
+
+  _checkAndAddMissingTraits() {
+    if (this.trait_tag) {
+      for (const trait of Object.values(setup.trait)) {
+        if (
+          trait.trait_group_key !== this.key &&
+          trait.tags.includes(this.trait_tag)
+        ) {
+          this._addTrait(trait);
+        }
       }
     }
   }

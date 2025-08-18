@@ -10,7 +10,7 @@ export default class SlaveOrderSafariZone extends SlaveOrderTemplate {
 
     let criteria = setup.CriteriaHelper.DisasterTraits(
       [setup.trait.eq_valuable, setup.trait.eq_veryvaluable].concat(
-        setup.TraitHelper.TRAINING_ALL_INCL_MINDBREAK,
+        setup.TraitHelper.TRAINING_ALL_INCL_MINDBREAK(),
       ),
       setup.qu.slave,
     );

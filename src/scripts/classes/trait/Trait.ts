@@ -1,7 +1,6 @@
 import { Constants } from "../../constants";
 import { DataUtil } from "../../util/DataUtil";
 import { rng } from "../../util/rng";
-import { isDefinitionArgs } from "../../util/TypeUtil";
 import { TwineClass } from "../_TwineClass";
 import type { Rarity } from "../deck/Rarity";
 import type { SkillValuesInit } from "../Skill";
@@ -26,8 +25,13 @@ export interface TraitIconSettings {
   path?: string;
 }
 
+export interface InlineTraitGroupDefinition {
+  add_tags?: string[];
+  sequence?: ((TraitDefinition & { key: string }) | null)[];
+  pool?: (TraitDefinition & { key: string })[];
+}
+
 export interface TraitDefinition {
-  key: string;
   name: string;
   description: string;
   slave_value?: number;
@@ -35,6 +39,10 @@ export interface TraitDefinition {
   tags?: readonly string[];
   icon_settings?: TraitIconSettings;
 }
+
+export type TraitOrGroupDefinition =
+  | TraitDefinition
+  | InlineTraitGroupDefinition;
 
 export class Trait extends TwineClass {
   key: TraitKey;
@@ -50,33 +58,10 @@ export class Trait extends TwineClass {
 
   static keygen = 1;
 
-  constructor(
-    ...args:
-      | [Readonly<TraitDefinition>]
-      | [
-          key: string,
-          name: string,
-          description: string,
-          slave_value: number,
-          skill_bonuses: SkillValuesInit,
-          tags: readonly string[],
-          icon_settings: TraitIconSettings,
-        ]
-  ) {
+  constructor(key_: string, def: Readonly<TraitDefinition>) {
     super();
 
-    let def: Readonly<TraitDefinition>;
-    if (isDefinitionArgs(args)) {
-      def = args[0];
-    } else {
-      // Support for legacy constructor args
-      // prettier-ignore
-      const [ key, name, description, slave_value, skill_bonuses, tags, icon_settings ] = args;
-      // prettier-ignore
-      def = { key, name, description, slave_value, skill_bonuses, tags, icon_settings };
-    }
-
-    const key = def.key as TraitKey;
+    const key = key_ as TraitKey;
 
     if (!key) throw new Error(`null key for trait`);
     this.key = key;
@@ -437,6 +422,15 @@ export class Trait extends TwineClass {
 }
 
 export namespace TraitHelper {
+  export function getAllTraitsOfTag(tag: string): Trait[] {
+    let traits = [];
+    for (let traitkey of objectKeys(setup.trait)) {
+      let trait = setup.trait[traitkey];
+      if (trait.isHasTag(tag)) traits.push(trait);
+    }
+    return traits;
+  }
+
   export function getAllTraitsOfTags(tags: readonly string[]): Trait[] {
     if (!Array.isArray(tags))
       throw new Error(`getAllTraitsOftags must be called with array`);
@@ -471,55 +465,37 @@ export namespace TraitHelper {
     );
   }
 
-  export let TRAINING_BASIC_GENDERLESS: Trait[] = [];
-  export let TRAINING_BASIC: Trait[] = [];
-  export let TRAINING_ADVANCED: Trait[] = [];
-  export let TRAINING_ADVANCED_GENDERLESS: Trait[] = [];
-  export let TRAINING_MASTER: Trait[] = [];
-  export let TRAINING_MASTER_GENDERLESS: Trait[] = [];
-  export let TRAINING_ALL: Trait[] = [];
-  export let TRAINING_ALL_GENDERLESS: Trait[] = [];
-  export let TRAINING_ALL_INCL_MINDBREAK: Trait[] = [];
+  export let EQUIPMENT_SLUTTY: (TraitKey | BuiltinTraitKey)[] = [];
 
-  export function _init() {
-    TRAINING_BASIC_GENDERLESS = getAllTraitsOfTags([
-      "trbasic",
-      "trmale",
-      "trfemale",
-    ]);
+  export const TRAINING_BASIC_GENDERLESS = () =>
+    getAllTraitsOfTags(["trbasic", "trmale", "trfemale"]);
 
-    TRAINING_BASIC = getAllTraitsOfTags(["trbasic"]);
+  export const TRAINING_BASIC = () => getAllTraitsOfTags(["trbasic"]);
 
-    TRAINING_ADVANCED = getAllTraitsOfTags(["tradvanced"]);
+  export const TRAINING_ADVANCED = () => getAllTraitsOfTags(["tradvanced"]);
 
-    TRAINING_ADVANCED_GENDERLESS = getAllTraitsOfTags([
-      "tradvanced",
-      "trmale",
-      "trfemale",
-    ]);
+  export const TRAINING_ADVANCED_GENDERLESS = () =>
+    getAllTraitsOfTags(["tradvanced", "trmale", "trfemale"]);
 
-    TRAINING_MASTER = getAllTraitsOfTags(["trmaster"]);
+  export const TRAINING_MASTER = () => getAllTraitsOfTags(["trmaster"]);
 
-    TRAINING_MASTER_GENDERLESS = getAllTraitsOfTags([
-      "trmaster",
-      "trmale",
-      "trfemale",
-    ]);
+  export const TRAINING_MASTER_GENDERLESS = () =>
+    getAllTraitsOfTags(["trmaster", "trmale", "trfemale"]);
 
-    TRAINING_ALL = [
-      ...TRAINING_BASIC,
-      ...TRAINING_ADVANCED,
-      ...TRAINING_MASTER,
-    ];
+  export const TRAINING_ALL = () => [
+    ...TRAINING_BASIC(),
+    ...TRAINING_ADVANCED(),
+    ...TRAINING_MASTER(),
+  ];
 
-    TRAINING_ALL_GENDERLESS = [
-      ...TRAINING_BASIC_GENDERLESS,
-      ...TRAINING_ADVANCED_GENDERLESS,
-      ...TRAINING_MASTER_GENDERLESS,
-    ];
+  export const TRAINING_ALL_GENDERLESS = () => [
+    ...TRAINING_BASIC_GENDERLESS(),
+    ...TRAINING_ADVANCED_GENDERLESS(),
+    ...TRAINING_MASTER_GENDERLESS(),
+  ];
 
-    TRAINING_ALL_INCL_MINDBREAK = TRAINING_ALL.concat([
-      setup.trait.training_mindbreak,
-    ]);
-  }
+  export const TRAINING_ALL_INCL_MINDBREAK = () => [
+    ...TRAINING_ALL(),
+    setup.trait.training_mindbreak,
+  ];
 }

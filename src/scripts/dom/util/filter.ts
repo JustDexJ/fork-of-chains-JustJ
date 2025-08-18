@@ -6,7 +6,10 @@
 
 import type { MenuKey } from "../../classes/filter/_filter";
 
-function filterToolbarInternal(menu: MenuKey, objects: any[]): DOM.Node {
+function filterToolbarInternal(
+  menu: MenuKey,
+  objects: readonly any[],
+): DOM.Node {
   if (!(menu in setup.MenuFilter._MENUS)) {
     throw new Error(`menu ${menu} not found`);
   }
@@ -23,13 +26,13 @@ function filterToolbarInternal(menu: MenuKey, objects: any[]): DOM.Node {
   );
 }
 
-type ObjectWithKey = { key: string | number };
+export type ObjectWithKey = { key: string | number };
 
-interface FilterAllArgs<T extends ObjectWithKey, D = T> {
+export interface FilterAllArgs<T extends ObjectWithKey, D = T> {
   menu: MenuKey;
-  filter_objects: T[];
-  display_callback: (obj: D) => DOM.Node;
-  display_objects?: D[];
+  filter_objects: readonly T[];
+  display_callback: (obj: D) => DOM.Attachable;
+  display_objects?: readonly D[];
   style_override?: string;
 }
 

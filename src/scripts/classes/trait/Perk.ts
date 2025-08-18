@@ -1,5 +1,11 @@
-import type { SkillValuesInit } from "../Skill";
-import { Trait, type TraitIconSettings } from "./Trait";
+import { Trait, type TraitDefinition } from "./Trait";
+
+export interface PerkDefinition extends TraitDefinition {
+  perk_choice_restrictions: Restriction[];
+  perk_end_of_week_effect: Cost[];
+  perk_null_traits?: (Trait | TraitKey | BuiltinTraitKey)[];
+  perk_extra_traits?: (Trait | TraitKey | BuiltinTraitKey)[];
+}
 
 export class Perk extends Trait {
   perk_choice_restrictions: Restriction[];
@@ -7,43 +13,16 @@ export class Perk extends Trait {
   perk_null_trait_keys: TraitKey[];
   perk_extra_trait_keys: TraitKey[];
 
-  constructor(
-    key: string,
-    name: string,
-    description: string,
-    slave_value: number,
-    skill_bonuses: SkillValuesInit,
-    tags: string[],
-    icon_settings: TraitIconSettings,
-    {
-      perk_choice_restrictions,
-      perk_end_of_week_effect,
-      perk_null_traits,
-      perk_extra_traits,
-    }: {
-      perk_choice_restrictions: Restriction[];
-      perk_end_of_week_effect: Cost[];
-      perk_null_traits?: (Trait | TraitKey)[];
-      perk_extra_traits?: (Trait | TraitKey)[];
-    },
-  ) {
-    super(
-      key,
-      name,
-      description,
-      slave_value,
-      skill_bonuses,
-      tags,
-      icon_settings,
-    );
+  constructor(key: string, def: Readonly<PerkDefinition>) {
+    super(key, def);
 
-    this.perk_choice_restrictions = perk_choice_restrictions;
-    this.perk_end_of_week_effect = perk_end_of_week_effect;
-    this.perk_null_trait_keys = (perk_null_traits || []).map((trait) =>
-      resolveKey(trait),
+    this.perk_choice_restrictions = def.perk_choice_restrictions;
+    this.perk_end_of_week_effect = def.perk_end_of_week_effect;
+    this.perk_null_trait_keys = (def.perk_null_traits || []).map((trait) =>
+      resolveKey(trait as TraitKey | Trait),
     );
-    this.perk_extra_trait_keys = (perk_extra_traits || []).map((trait) =>
-      resolveKey(trait),
+    this.perk_extra_trait_keys = (def.perk_extra_traits || []).map((trait) =>
+      resolveKey(trait as TraitKey | Trait),
     );
   }
 

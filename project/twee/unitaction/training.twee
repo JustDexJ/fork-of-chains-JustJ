@@ -12,8 +12,8 @@
     setup.qres.NoTrait(setup.trait.training_mindbreak),
   ],
   is_multitrain: true,
-  result_traits: [setup.trait.training_obedience_basic], 
-  prerequisite_traits: [], 
+  result_traits: [setup.trait.training_obedience_basic],
+  prerequisite_traits: [],
 })>>
 
 <<run new setup.UnitAction({
@@ -26,7 +26,7 @@
     setup.qres.Job(setup.job.slave),
     setup.qres.TraitExact(setup.trait.training_obedience_basic),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_obedience_advanced],
@@ -42,9 +42,9 @@
     setup.qres.Building(setup.buildingtemplate.obediencetrainingroom),
     setup.qres.Job(setup.job.slave),
     setup.qres.TraitExact(setup.trait.training_obedience_advanced),
-    setup.qres.NoTraits(setup.TraitHelper.TRAINING_MASTER),
+    setup.qres.NoTraitsWithTag("trmaster"),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_obedience_master],
@@ -63,7 +63,7 @@
     setup.qres.Trait(setup.trait.training_obedience_basic),
     setup.qres.NoTrait(setup.trait.training_domestic_basic),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_domestic_basic],
@@ -81,7 +81,7 @@
     setup.qres.Trait(setup.trait.training_obedience_advanced),
     setup.qres.TraitExact(setup.trait.training_domestic_basic),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_domestic_advanced],
@@ -97,9 +97,9 @@
     setup.qres.Building(setup.buildingtemplate.domestictrainingroom),
     setup.qres.Job(setup.job.slave),
     setup.qres.TraitExact(setup.trait.training_domestic_advanced),
-    setup.qres.NoTraits(setup.TraitHelper.TRAINING_MASTER),
+    setup.qres.NoTraitsWithTag("trmaster"),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_domestic_master],
@@ -118,7 +118,7 @@
     setup.qres.Trait(setup.trait.training_obedience_basic),
     setup.qres.NoTrait(setup.trait.training_endurance_basic),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_endurance_basic],
@@ -136,7 +136,7 @@
     setup.qres.Trait(setup.trait.training_obedience_advanced),
     setup.qres.TraitExact(setup.trait.training_endurance_basic),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_endurance_advanced],
@@ -152,9 +152,9 @@
     setup.qres.Building(setup.buildingtemplate.endurancetrainingroom),
     setup.qres.Job(setup.job.slave),
     setup.qres.TraitExact(setup.trait.training_endurance_advanced),
-    setup.qres.NoTraits(setup.TraitHelper.TRAINING_MASTER),
+    setup.qres.NoTraitsWithTag("trmaster"),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_endurance_master],
@@ -174,7 +174,7 @@
     setup.qres.Trait(setup.trait.training_obedience_basic),
     setup.qres.NoTrait(setup.trait.training_oral_basic),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_oral_basic],
@@ -192,7 +192,7 @@
     setup.qres.Trait(setup.trait.training_obedience_advanced),
     setup.qres.TraitExact(setup.trait.training_oral_basic),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_oral_advanced],
@@ -208,9 +208,9 @@
     setup.qres.Building(setup.buildingtemplate.oraltrainingroom),
     setup.qres.Job(setup.job.slave),
     setup.qres.TraitExact(setup.trait.training_oral_advanced),
-    setup.qres.NoTraits(setup.TraitHelper.TRAINING_MASTER),
+    setup.qres.NoTraitsWithTag("trmaster"),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_oral_master],
@@ -232,7 +232,7 @@
     setup.qres.Trait(setup.trait.training_obedience_basic),
     setup.qres.NoTrait(setup.trait.training_vagina_basic),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_vagina_basic],
@@ -251,7 +251,7 @@
     setup.qres.Trait(setup.trait.training_obedience_advanced),
     setup.qres.TraitExact(setup.trait.training_vagina_basic),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_vagina_advanced],
@@ -268,9 +268,9 @@
     setup.qres.Job(setup.job.slave),
     setup.qres.Trait(setup.trait.vagina_tight),
     setup.qres.TraitExact(setup.trait.training_vagina_advanced),
-    setup.qres.NoTraits(setup.TraitHelper.TRAINING_MASTER),
+    setup.qres.NoTraitsWithTag("trmaster"),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_vagina_master],
@@ -289,7 +289,7 @@
     setup.qres.Trait(setup.trait.training_obedience_basic),
     setup.qres.NoTrait(setup.trait.training_anal_basic),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_anal_basic],
@@ -307,7 +307,7 @@
     setup.qres.Trait(setup.trait.training_obedience_advanced),
     setup.qres.TraitExact(setup.trait.training_anal_basic),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_anal_advanced],
@@ -323,9 +323,9 @@
     setup.qres.Building(setup.buildingtemplate.analtrainingroom),
     setup.qres.Job(setup.job.slave),
     setup.qres.TraitExact(setup.trait.training_anal_advanced),
-    setup.qres.NoTraits(setup.TraitHelper.TRAINING_MASTER),
+    setup.qres.NoTraitsWithTag("trmaster"),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_anal_master],
@@ -345,7 +345,7 @@
     setup.qres.Trait(setup.trait.training_obedience_advanced),
     setup.qres.NoTrait(setup.trait.training_dominance_basic),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_dominance_basic],
@@ -363,7 +363,7 @@
     setup.qres.Trait(setup.trait.training_obedience_advanced),
     setup.qres.TraitExact(setup.trait.training_dominance_basic),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_dominance_advanced],
@@ -379,9 +379,9 @@
     setup.qres.Building(setup.buildingtemplate.dominancetrainingroom),
     setup.qres.Job(setup.job.slave),
     setup.qres.TraitExact(setup.trait.training_dominance_advanced),
-    setup.qres.NoTraits(setup.TraitHelper.TRAINING_MASTER),
+    setup.qres.NoTraitsWithTag("trmaster"),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_dominance_master],
@@ -400,7 +400,7 @@
     setup.qres.Trait(setup.trait.training_obedience_basic),
     setup.qres.NoTrait(setup.trait.training_masochist_basic),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_masochist_basic],
@@ -418,7 +418,7 @@
     setup.qres.Trait(setup.trait.training_obedience_advanced),
     setup.qres.TraitExact(setup.trait.training_masochist_basic),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_masochist_advanced],
@@ -434,9 +434,9 @@
     setup.qres.Building(setup.buildingtemplate.masochisttrainingroom),
     setup.qres.Job(setup.job.slave),
     setup.qres.TraitExact(setup.trait.training_masochist_advanced),
-    setup.qres.NoTraits(setup.TraitHelper.TRAINING_MASTER),
+    setup.qres.NoTraitsWithTag("trmaster"),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_masochist_master],
@@ -455,7 +455,7 @@
     setup.qres.Trait(setup.trait.training_obedience_basic),
     setup.qres.NoTrait(setup.trait.training_toilet_basic),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_toilet_basic],
@@ -473,7 +473,7 @@
     setup.qres.Trait(setup.trait.training_obedience_advanced),
     setup.qres.TraitExact(setup.trait.training_toilet_basic),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_toilet_advanced],
@@ -489,9 +489,9 @@
     setup.qres.Building(setup.buildingtemplate.toilettrainingroom),
     setup.qres.Job(setup.job.slave),
     setup.qres.TraitExact(setup.trait.training_toilet_advanced),
-    setup.qres.NoTraits(setup.TraitHelper.TRAINING_MASTER),
+    setup.qres.NoTraitsWithTag("trmaster"),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_toilet_master],
@@ -510,7 +510,7 @@
     setup.qres.Trait(setup.trait.training_obedience_basic),
     setup.qres.NoTrait(setup.trait.training_horny_basic),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_horny_basic],
@@ -528,7 +528,7 @@
     setup.qres.Trait(setup.trait.training_obedience_advanced),
     setup.qres.TraitExact(setup.trait.training_horny_basic),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_horny_advanced],
@@ -544,9 +544,9 @@
     setup.qres.Building(setup.buildingtemplate.hornytrainingroom),
     setup.qres.Job(setup.job.slave),
     setup.qres.TraitExact(setup.trait.training_horny_advanced),
-    setup.qres.NoTraits(setup.TraitHelper.TRAINING_MASTER),
+    setup.qres.NoTraitsWithTag("trmaster"),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_horny_master],
@@ -565,7 +565,7 @@
     setup.qres.Trait(setup.trait.training_obedience_basic),
     setup.qres.NoTrait(setup.trait.training_roleplay_basic),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_roleplay_basic],
@@ -583,7 +583,7 @@
     setup.qres.Trait(setup.trait.training_obedience_advanced),
     setup.qres.TraitExact(setup.trait.training_roleplay_basic),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_roleplay_advanced],
@@ -599,9 +599,9 @@
     setup.qres.Building(setup.buildingtemplate.roleplaytrainingroom),
     setup.qres.Job(setup.job.slave),
     setup.qres.TraitExact(setup.trait.training_roleplay_advanced),
-    setup.qres.NoTraits(setup.TraitHelper.TRAINING_MASTER),
+    setup.qres.NoTraitsWithTag("trmaster"),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_roleplay_master],
@@ -621,7 +621,7 @@
     setup.qres.Trait(setup.trait.training_obedience_basic),
     setup.qres.NoTrait(setup.trait.training_sissy_basic),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_sissy_basic],
@@ -640,7 +640,7 @@
     setup.qres.Trait(setup.trait.training_obedience_advanced),
     setup.qres.TraitExact(setup.trait.training_sissy_basic),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_sissy_advanced],
@@ -657,9 +657,9 @@
     setup.qres.Job(setup.job.slave),
     setup.qres.Trait(setup.trait.gender_male),
     setup.qres.TraitExact(setup.trait.training_sissy_advanced),
-    setup.qres.NoTraits(setup.TraitHelper.TRAINING_MASTER),
+    setup.qres.NoTraitsWithTag("trmaster"),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_sissy_master],
@@ -678,7 +678,7 @@
     setup.qres.Trait(setup.trait.training_obedience_basic),
     setup.qres.NoTrait(setup.trait.training_pet_basic),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_pet_basic],
@@ -696,7 +696,7 @@
     setup.qres.Trait(setup.trait.training_obedience_advanced),
     setup.qres.TraitExact(setup.trait.training_pet_basic),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_pet_advanced],
@@ -712,9 +712,9 @@
     setup.qres.Building(setup.buildingtemplate.pettrainingroom),
     setup.qres.Job(setup.job.slave),
     setup.qres.TraitExact(setup.trait.training_pet_advanced),
-    setup.qres.NoTraits(setup.TraitHelper.TRAINING_MASTER),
+    setup.qres.NoTraitsWithTag("trmaster"),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_pet_master],
@@ -733,7 +733,7 @@
     setup.qres.Trait(setup.trait.training_obedience_basic),
     setup.qres.NoTrait(setup.trait.training_pony_basic),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_pony_basic],
@@ -752,7 +752,7 @@
     setup.qres.Trait(setup.trait.training_obedience_advanced),
     setup.qres.TraitExact(setup.trait.training_pony_basic),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_pony_advanced],
@@ -769,9 +769,9 @@
     setup.qres.Job(setup.job.slave),
     setup.qres.Trait(setup.trait.training_endurance_advanced),
     setup.qres.TraitExact(setup.trait.training_pony_advanced),
-    setup.qres.NoTraits(setup.TraitHelper.TRAINING_MASTER),
+    setup.qres.NoTraitsWithTag("trmaster"),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   is_multitrain: true,
   result_traits: [setup.trait.training_pony_master],
@@ -786,9 +786,9 @@
   unit_requirements: [
     setup.qres.Building(setup.buildingtemplate.torturechamber),
     setup.qres.Job(setup.job.slave),
-    setup.qres.NoTraits(setup.TraitHelper.TRAINING_MASTER),
+    setup.qres.NoTraitsWithTag("trmaster"),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    
+
   ],
   result_traits: [setup.trait.training_mindbreak],
   prerequisite_traits: [],
@@ -825,7 +825,7 @@
     setup.qres.Building(setup.buildingtemplate.convincingroom),
     setup.qres.Job(setup.job.slave),
     setup.qres.Trait(setup.trait.training_none),
-    
+
   ],
 })>>
 
@@ -839,7 +839,7 @@
     setup.qres.Building(setup.buildingtemplate.brainwashingroom),
     setup.qres.Job(setup.job.slave),
     setup.qres.NoTrait(setup.trait.training_mindbreak),
-    setup.qres.NoTraits(setup.TraitHelper.TRAINING_MASTER),
+    setup.qres.NoTraitsWithTag("trmaster"),
   ],
 })>>
 

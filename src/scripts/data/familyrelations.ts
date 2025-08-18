@@ -3,7 +3,6 @@ import type { FamilyRelationDefinition } from "../classes/family/FamilyRelation"
 export const FAMILY_RELATION_DEFINTIONS =
   typedObject<FamilyRelationDefinition>()({
     brother: {
-      key: "brother",
       name: "brother",
       tags: ["sibling"],
       nicknames: {
@@ -16,7 +15,6 @@ export const FAMILY_RELATION_DEFINTIONS =
     },
 
     sister: {
-      key: "sister",
       name: "sister",
       tags: ["sibling"],
       nicknames: {
@@ -29,7 +27,6 @@ export const FAMILY_RELATION_DEFINTIONS =
     },
 
     twinbrother: {
-      key: "twinbrother",
       name: "twin brother",
       tags: ["twin", "sibling"],
       nicknames: {
@@ -42,7 +39,6 @@ export const FAMILY_RELATION_DEFINTIONS =
     },
 
     twinsister: {
-      key: "twinsister",
       name: "twin sister",
       tags: ["twin", "sibling"],
       nicknames: {
@@ -55,7 +51,6 @@ export const FAMILY_RELATION_DEFINTIONS =
     },
 
     father: {
-      key: "father",
       name: "father",
       tags: ["parent"],
       nicknames: {
@@ -68,7 +63,6 @@ export const FAMILY_RELATION_DEFINTIONS =
     },
 
     mother: {
-      key: "mother",
       name: "mother",
       tags: ["parent"],
       nicknames: {
@@ -81,7 +75,6 @@ export const FAMILY_RELATION_DEFINTIONS =
     },
 
     son: {
-      key: "son",
       name: "son",
       tags: ["child"],
       nicknames: {
@@ -94,7 +87,6 @@ export const FAMILY_RELATION_DEFINTIONS =
     },
 
     daughter: {
-      key: "daughter",
       name: "daughter",
       tags: ["child"],
       nicknames: {

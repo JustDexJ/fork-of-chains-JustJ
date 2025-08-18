@@ -28,8 +28,8 @@ export class UnitCriteria extends TwineClass {
   constructor(
     key: string | null,
     name: string,
-    crit_traits: Trait[],
-    disaster_traits: Trait[],
+    crit_traits_raw: (Trait | TraitKey)[],
+    disaster_traits_raw: (Trait | TraitKey)[],
     restrictions: Restriction[],
     skill_multis: SkillValuesInit,
   ) {
@@ -46,6 +46,9 @@ export class UnitCriteria extends TwineClass {
     // translate trait effects to keys
     // crit_traits and disaster_traits are arrays (which may contain duplicates)
     // indicating the traits that are crit or disaster for this.
+    const crit_traits = crit_traits_raw.map((it) =>
+      resolveObject(it, setup.trait),
+    );
     crit_traits.sort(Trait.cmp);
     this.crit_trait_map = {};
     for (let i = 0; i < crit_traits.length; ++i) {
@@ -58,6 +61,9 @@ export class UnitCriteria extends TwineClass {
       this.crit_trait_map[crit_traits[i].key] = true;
     }
 
+    const disaster_traits = disaster_traits_raw.map((it) =>
+      resolveObject(it, setup.trait),
+    );
     disaster_traits.sort(Trait.cmp);
     this.disaster_trait_map = {};
     for (let i = 0; i < disaster_traits.length; ++i) {

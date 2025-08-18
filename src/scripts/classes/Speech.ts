@@ -6,7 +6,6 @@ import type { Unit } from "./unit/Unit";
 export type SpeechKey = keyof typeof SPEECHES_DEFINITIONS;
 
 export interface SpeechDefinition {
-  key: string;
   name: string;
   description: string;
   traits: (TraitKey | BuiltinTraitKey)[];
@@ -18,10 +17,10 @@ export class Speech extends TwineClass {
   description: string;
   trait_keys: TraitKey[];
 
-  constructor(def: SpeechDefinition) {
+  constructor(key_: string, def: Readonly<SpeechDefinition>) {
     super();
 
-    const key = def.key as SpeechKey;
+    const key = key_ as SpeechKey;
     if (!key) throw new Error(`null key for speech`);
     this.key = key;
 

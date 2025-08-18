@@ -38,7 +38,7 @@
   description: "Reduces a unit's trauma duration by 2 weeks",
   value: 1500,   /* value */
   unit_restrictions: [ /* restrictions */
-    setup.qres.AnyTrait(setup.TraitHelper.TRAUMA),
+    setup.qres.AnyTraitWithTag("trauma"),
   ],
   effects: [ /* effects */
     setup.qc.TraumaHeal('unit', 2),

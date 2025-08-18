@@ -2,15 +2,19 @@ import { TwineClass } from "../_TwineClass";
 
 export type ItemClassKey = BrandedType<string, "ItemClassKey">;
 
+export interface ItemClassDefinition {
+  name: string;
+}
+
 export class ItemClass extends TwineClass {
   key: ItemClassKey;
   name: string;
 
-  constructor(key: string, name: string) {
+  constructor(key: string, def: Readonly<ItemClassDefinition>) {
     super();
 
     this.key = key as ItemClassKey;
-    this.name = name;
+    this.name = def.name;
 
     if (key in setup.itemclass) {
       throw new Error(`Item Class ${key} already exists`);

@@ -10,7 +10,7 @@
     setup.qres.HasItem(setup.item.healing_potion),
     setup.qres.Building(setup.buildingtemplate.treatmentroom),
     setup.qres.IsInjured(),
-    
+
   ],
   is_allow_injured: true,
 })>>
@@ -25,7 +25,7 @@
     setup.qres.HasItem(setup.item.healing_potion_greater),
     setup.qres.Building(setup.buildingtemplate.treatmentroom),
     setup.qres.IsInjured(),
-    
+
   ],
   is_allow_injured: true,
 })>>
@@ -38,11 +38,11 @@
   ],
   unit_requirements: [
     setup.qres.Job(setup.job.slave),
-    setup.qres.AnyTrait(setup.TraitHelper.TRAINING_ALL),
+    setup.qres.AnyTrait(setup.TraitHelper.TRAINING_ALL()),
     setup.qres.HasItem(setup.item.blank_potion),
     setup.qres.Building(setup.buildingtemplate.treatmentroomblank),
     setup.qres.Available(),
-    
+
   ],
 })>>
 
@@ -57,7 +57,7 @@
     setup.qres.HasItem(setup.item.reset_potion),
     setup.qres.Building(setup.buildingtemplate.treatmentroomresetlevel),
     setup.qres.Available(),
-    
+
   ],
 })>>
 
@@ -73,7 +73,7 @@
     setup.qres.HasItem(setup.item.mindmend_potion),
     setup.qres.Building(setup.buildingtemplate.treatmentroommindmend),
     setup.qres.Available(),
-    
+
   ],
 })>>
 
@@ -88,7 +88,7 @@
     setup.qres.HasItem(setup.item.potion_isolation),
     setup.qres.Building(setup.buildingtemplate.treatmentroomisolation),
     setup.qres.Available(),
-    
+
   ],
 })>>
 
@@ -103,7 +103,7 @@
     setup.qres.HasItem(setup.item.hate_potion),
     setup.qres.Building(setup.buildingtemplate.treatmentroomhate),
     setup.qres.Available(),
-    
+
   ],
 })>>
 
@@ -118,7 +118,7 @@
     setup.qres.HasItem(setup.item.love_potion),
     setup.qres.Building(setup.buildingtemplate.treatmentroomlove),
     setup.qres.Available(),
-    
+
   ],
 })>>
 
@@ -133,7 +133,7 @@
     setup.qres.HasItem(setup.item.love_potion_true),
     setup.qres.Building(setup.buildingtemplate.treatmentroomlovetrue),
     setup.qres.Available(),
-    
+
   ],
 })>>
 
@@ -149,7 +149,7 @@
     setup.qres.HasItem(setup.item.forget_potion),
     setup.qres.Building(setup.buildingtemplate.treatmentroomforget),
     setup.qres.Available(),
-    
+
   ],
 })>>
 
@@ -165,7 +165,7 @@
     setup.qres.Building(setup.buildingtemplate.treatmentroomtransformation),
     setup.qres.NoTrait(setup.trait.race_demon),
     setup.qres.Available(),
-    
+
   ],
 })>>
 
@@ -181,6 +181,6 @@
     setup.qres.HasItem(setup.item.potion_alternative),
     setup.qres.Building(setup.buildingtemplate.treatmentroomalternative),
     setup.qres.Available(),
-    
+
   ],
 })>>

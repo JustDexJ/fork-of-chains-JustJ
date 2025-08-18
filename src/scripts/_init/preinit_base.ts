@@ -39,3 +39,13 @@ Object.assign(setup, {
   ...SetupUtil,
   globalsettings,
 });
+
+if (!import.meta.env.PROD) {
+  // Only runs in development builds (devmode, or the non-dist build)
+  // This eases debugging in the JS console
+  Object.assign(window, {
+    State: SugarCube.State,
+    Engine: SugarCube.Engine,
+    setup: SugarCube.setup,
+  });
+}

@@ -5,7 +5,7 @@ export default class TraitsReplace extends Cost {
 
   constructor(
     public actor_name: string,
-    traits: (Trait | TraitKey)[],
+    traits: (Trait | TraitKey | BuiltinTraitKey)[],
   ) {
     super();
 
@@ -15,7 +15,7 @@ export default class TraitsReplace extends Cost {
 
     this.trait_keys = [];
     for (let i = 0; i < traits.length; ++i) {
-      this.trait_keys.push(resolveKey(traits[i]));
+      this.trait_keys.push(resolveKey(traits[i] as Trait | TraitKey));
     }
   }
 

@@ -1,5 +1,5 @@
-import type { Trait, TraitKey } from "../../trait/Trait";
-import type { Unit } from "../../unit/Unit";
+import type { Trait, TraitKey } from "../../../trait/Trait";
+import type { Unit } from "../../../unit/Unit";
 
 export default class NoTrait extends Restriction {
   trait_key: TraitKey;

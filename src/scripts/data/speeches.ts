@@ -2,7 +2,6 @@ import type { SpeechDefinition } from "../classes/Speech";
 
 export const SPEECHES_DEFINITIONS = typedObject<SpeechDefinition>()({
   friendly: {
-    key: "friendly",
     name: "Friendly",
     description: "Pleasant to others",
     traits: [
@@ -23,7 +22,6 @@ export const SPEECHES_DEFINITIONS = typedObject<SpeechDefinition>()({
   },
 
   bold: {
-    key: "bold",
     name: "Bold",
     description: "Held themselves in high regards",
     traits: [
@@ -40,7 +38,6 @@ export const SPEECHES_DEFINITIONS = typedObject<SpeechDefinition>()({
   },
 
   cool: {
-    key: "cool",
     name: "Cool",
     description: "Speaks only when needed",
     traits: [
@@ -60,7 +57,6 @@ export const SPEECHES_DEFINITIONS = typedObject<SpeechDefinition>()({
   },
 
   witty: {
-    key: "witty",
     name: "Witty",
     description: "Also come up with the worst puns",
     traits: [
@@ -78,7 +74,6 @@ export const SPEECHES_DEFINITIONS = typedObject<SpeechDefinition>()({
   },
 
   debauched: {
-    key: "debauched",
     name: "Debauched",
     description: "Life is entertainment",
     traits: [

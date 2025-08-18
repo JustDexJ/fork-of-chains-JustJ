@@ -53,12 +53,12 @@ Choose unit group:
     ['Sea...', {ug: _ugall.filter(a => a.key.startsWith('sea'))}],
   ]],
   ['Common races...',
-    Object.values(setup.subrace).filter(s => !s.rare).map(subrace =>
+    Object.values(setup.subrace).filter(s => s.rarity === 'common' || r.rarity === 'medium').map(subrace =>
       [subrace.name, {ug: _ugall.filter(a => a.key.startsWith(subrace.key))}],
     )
   ],
   ['Rare races...',
-    Object.values(setup.subrace).filter(s => !!s.rare).map(subrace =>
+    Object.values(setup.subrace).filter(s => !(s.rarity === 'common' || r.rarity === 'medium')).map(subrace =>
       [subrace.name, {ug: _ugall.filter(a => a.key.startsWith(subrace.key))}],
     )
   ],

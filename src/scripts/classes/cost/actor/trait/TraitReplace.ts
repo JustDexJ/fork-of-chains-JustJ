@@ -7,7 +7,7 @@ export default class TraitReplace extends Cost {
 
   constructor(
     public actor_name: string,
-    trait: Trait | TraitKey | null | undefined,
+    trait: Trait | TraitKey | BuiltinTraitKey | null | undefined,
     trait_group?: TraitGroup | TraitGroupKey | null,
   ) {
     super();
@@ -15,7 +15,7 @@ export default class TraitReplace extends Cost {
     if (!trait && trait != null)
       throw new Error(`Missing trait for setup.qc.TraitReplace(${actor_name})`);
 
-    this.trait_key = trait ? resolveKey(trait) : null;
+    this.trait_key = trait ? resolveKey(trait as Trait | TraitKey) : null;
     this.trait_group_key = trait_group ? resolveKey(trait_group) : null;
 
     if (!this.trait_key && !this.trait_group_key)

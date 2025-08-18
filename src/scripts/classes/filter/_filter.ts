@@ -249,7 +249,7 @@ export class MenuFilter extends TwineClass {
     menu_parsed: MenuParsed,
     menu: MenuKey,
     key: string,
-    units: Unit[],
+    units: readonly Unit[],
   ): JQuery {
     const menu_obj = menu_parsed[menu]![key];
 
@@ -302,7 +302,7 @@ export class MenuFilter extends TwineClass {
   renderIconMenu<T extends { key: string | number }>(
     menu: MenuKey,
     menus: MenuParsed,
-    objects: T[],
+    objects: readonly T[],
   ) {
     const toolbar_items = [];
 
@@ -361,7 +361,7 @@ export class MenuFilter extends TwineClass {
   renderNonIconMenu<T>(
     menu: MenuKey,
     menu_parsed: MenuParsed,
-    objects: T[],
+    objects: readonly T[],
   ): JQuery[] {
     if (!(menu in MenuFilter._MENUS))
       throw new Error(`Unrecognized menu filter: ${menu}`);
@@ -377,7 +377,7 @@ export class MenuFilter extends TwineClass {
           menu_parsed,
           menu,
           key,
-          objects as Unit[],
+          objects as readonly Unit[],
         );
       } else {
         menu_item = this.getMenuFilterToolbarSingleMenu(menu_parsed, menu, key);
@@ -390,7 +390,7 @@ export class MenuFilter extends TwineClass {
 
   getMenuFilterToolbarRender<T extends { key: string | number }>(
     menu: MenuKey,
-    objects: T[],
+    objects: readonly T[],
   ) {
     const menu_parsed = MenuFilter.getMenus();
 
@@ -455,7 +455,7 @@ export class MenuFilter extends TwineClass {
 
   getFilterFunc<K extends string | number, T extends { key: K }>(
     menu: MenuKey,
-    objects_raw_raw: T[],
+    objects_raw_raw: readonly T[],
     ignored_keys?: string[],
   ): () => string[] {
     if (!(menu in MenuFilter._MENUS))

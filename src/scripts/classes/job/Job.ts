@@ -3,7 +3,6 @@ import { TwineClass } from "../_TwineClass";
 import type { TraitKey } from "../trait/Trait";
 
 export interface JobDefinition {
-  key: string;
   name: string;
 }
 
@@ -13,10 +12,10 @@ export class Job extends TwineClass {
   key: JobKey;
   name: string;
 
-  constructor(def: Readonly<JobDefinition>) {
+  constructor(key_: string, def: Readonly<JobDefinition>) {
     super();
 
-    const key = def.key as JobKey;
+    const key = key_ as JobKey;
 
     this.key = key;
     this.name = def.name;

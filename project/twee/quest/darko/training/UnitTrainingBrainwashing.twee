@@ -3,7 +3,7 @@
 /* PROOFREAD COMPLETE */
 
 <<set _removeall = []>>
-<<for _itrait, _trait range setup.TraitHelper.TRAINING_ALL>>
+<<for _itrait, _trait range setup.TraitHelper.TRAINING_ALL()>>
   <<run _removeall.push(setup.qc.TraitRemove('trainee', _trait))>>
 <</for>>
 

@@ -2,7 +2,6 @@ import type { EQUIPMENT_SLOT_DEFINITIONS } from "../../data/equipmentslots";
 import { TwineClass } from "../_TwineClass";
 
 export interface EquipmentSlotDefinition {
-  key: string;
   name: string;
 }
 
@@ -13,10 +12,10 @@ export class EquipmentSlot extends TwineClass {
   key: EquipmentSlotKey;
   name: string;
 
-  constructor(def: EquipmentSlotDefinition) {
+  constructor(key_: string, def: Readonly<EquipmentSlotDefinition>) {
     super();
 
-    const key = def.key as EquipmentSlotKey;
+    const key = key_ as EquipmentSlotKey;
 
     this.key = key;
     this.name = def.name;
