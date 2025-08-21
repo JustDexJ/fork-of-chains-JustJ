@@ -137,8 +137,9 @@ export default defineConfig(({ command, mode }) => {
            */
           async configureServer(server) {
             const enableHotReload = (server.config.env['HOT_RELOAD'] ?? '0') !== '0';
-
-            config.logger.warn('\x1b[35m' + 'Enabled EXPERIMENTAL hot-reload mode' + '\x1b[0m');
+            if (enableHotReload) {
+              config.logger.warn('\x1b[35m' + 'Enabled EXPERIMENTAL hot-reload mode' + '\x1b[0m');
+            }
 
             await compileTwee('devserver', server.ws)
             const virtualModulePath = VIRTUAL_JS_MODULE.substring(1)
