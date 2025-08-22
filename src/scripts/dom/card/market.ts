@@ -35,6 +35,7 @@ function marketObjectNameActionMenu(
   if ("rep" in market_object.getObject()) {
     menus.push(
       menuItemTitle({
+        // @ts-ignore
         text: domCardRep(market_object.getObject()),
       }),
     );

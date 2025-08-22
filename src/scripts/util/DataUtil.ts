@@ -24,7 +24,6 @@ export namespace DataUtil {
   export function loadTraitsAndInlineTraitGroups(
     defs: Record<string, TraitOrGroupDefinition | PerkDefinition>,
   ) {
-    debugger;
     for (const [key, def] of objectEntries(defs)) {
       if (key.startsWith("group:")) {
         const group_key = key.substring(6);

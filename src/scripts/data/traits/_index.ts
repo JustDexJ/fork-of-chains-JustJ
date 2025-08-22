@@ -20,18 +20,21 @@ import traits_trauma from "./traits_trauma";
 //  default trait chance in unitpool.twee
 //
 
+// The order in which they're defined will also be
+// the one in they appear in units.
+
 export const TRAIT_DEFINITIONS = {
-  ...traits_background,
-  ...traits_blessing,
-  ...traits_computed,
-  ...traits_equipment,
-  ...traits_gender,
   ...traits_job,
-  ...traits_personality,
-  ...traits_physical,
+  ...traits_gender,
   ...traits_race,
+  ...traits_background,
+  ...traits_physical,
+  ...traits_personality,
   ...traits_skill,
-  ...traits_skin,
   ...traits_training,
+  ...traits_skin,
+  ...traits_equipment,
+  ...traits_computed,
+  ...traits_blessing,
   ...traits_trauma,
 } satisfies Record<string, TraitOrGroupDefinition>;

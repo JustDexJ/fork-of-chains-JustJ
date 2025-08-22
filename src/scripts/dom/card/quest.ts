@@ -47,7 +47,7 @@ function getQuestUnitRolesFragment(quest: QuestInstance): DOM.Node {
 function getQuestTitleFragment(quest: QuestInstance): DOM.Node {
   const template = quest.getTemplate();
   return html`
-    <div>${setup.TagHelper.getTagsRep("quest", template.getTags())}</div>
+    <span>${setup.TagHelper.getTagsRep("quest", template.getTags())}</span>
     ${State.variables.statistics.isHasSuccess(template)
       ? ""
       : '<span class="quest-new">NEW</span>'}
@@ -121,10 +121,10 @@ function questNameActionMenu(
   menus.push(
     menuItemAction({
       text: html`${template.getSkillSummary()}
-        <div class="questcard-numunits" data-tooltip="Number of units">
+        <span class="questcard-numunits" data-tooltip="Number of units">
           ${Object.values(template.getUnitCriterias()).length}
           <img src="${setup.resolveImageUrl(`img/special/unit.svg`)}" />
-        </div>`,
+        </span>`,
       callback: () => {
         setup.Dialogs.open({
           title: `Full quest roles`,
@@ -164,7 +164,7 @@ function questNameActionMenu(
         text: html`${expires == 1
           ? setup.DOM.Text.danger(expires)
           : `${expires}`}
-        wks left`,
+        wk${expires === 1 ? "" : "s"} left`,
       }),
     );
   }

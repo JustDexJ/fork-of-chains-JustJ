@@ -361,7 +361,7 @@ img {
 }
 
 .questcard-numunits {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 1px;
   margin-left: 0.5em;

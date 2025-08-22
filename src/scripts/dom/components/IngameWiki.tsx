@@ -129,7 +129,7 @@ const WIKI_SECTIONS = [
     },
   }),
 
-  wikiSection({
+  wikiSection<any, any>({
     title: "Sex Actions",
     menu: "sexaction",
     get_objects: () => setup.sexaction.filter((action) => action.desc()),
