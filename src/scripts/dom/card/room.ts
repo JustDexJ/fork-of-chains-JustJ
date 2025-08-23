@@ -229,11 +229,9 @@ function getRoomAndTemplateCommonFragment(
   show_actions?: boolean,
 ): DOM.Node {
   const fragments: DOM.Attachable[] = [];
-  const description_passage = template.getDescriptionPassage();
-  if (description_passage) {
-    fragments.push(
-      setup.DOM.create("div", {}, setup.DOM.Util.include(description_passage)),
-    );
+  const description = template.getDescription();
+  if (description) {
+    fragments.push(setup.DOM.Util.twine(description));
   } else {
     const building = template.getBuildingTemplate();
     if (building) {
@@ -268,7 +266,7 @@ function getRoomAndTemplateCommonFragment(
           </div>
         `);
       } else {
-        const room_template_key = adj.room_template_key!;
+        const room_template_key = adj.room_template_key as RoomTemplateKey;
         const template = setup.roomtemplate[room_template_key];
         if (!template)
           throw new Error(`Missing room with template ${room_template_key}!`);

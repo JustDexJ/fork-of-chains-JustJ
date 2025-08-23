@@ -9,7 +9,7 @@ export class QuestUnitCriteriaRapeFetishist extends UnitCriteria {
       [],
       [],
       [
-        setup.qres.Job(setup.job.slave),
+        setup.qres.Job("slave"),
         setup.qres.AnyTrait([
           setup.trait.training_none,
           setup.trait.training_roleplay_advanced,

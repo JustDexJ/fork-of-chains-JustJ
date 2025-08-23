@@ -1,4 +1,5 @@
 import { Constants } from "../../constants";
+import type { _RoomTemplateKey } from "../../data/buildings/_buildings";
 import { TwineClass } from "../_TwineClass";
 import type {
   BuildingTemplate,
@@ -12,33 +13,67 @@ export interface RoomImageObject {
   info: ImageMetadata;
 }
 
-export type RoomTemplateKey = BrandedType<string, "RoomTemplateKey">;
+export interface RoomDefinition {
+  tags: string[];
+  width: number;
+  height: number;
+  name?: string;
+  description?: string;
+  skill_bonus?: RoomTemplate["raw_skill_bonus"];
+  door_column?: number;
+  is_fixed?: boolean;
+  is_passable?: boolean;
+  is_door?: boolean;
+  is_optional?: boolean;
+  is_outdoors?: boolean;
+}
+
+//export type RoomTemplateKey = BrandedType<string, "RoomTemplateKey">;
+export type RoomTemplateKey = _RoomTemplateKey;
 
 export class RoomTemplate extends TwineClass {
   static ROOM_IMAGES: Record<string, RoomImageObject> = {};
-  static PORTAL_ROOM_TEMPLATE_KEYS = [
+  static PORTAL_ROOM_TEMPLATE_KEYS: RoomTemplateKey[] = [
     "portalindoors",
     "portaloutdoors",
-  ] as RoomTemplateKey[];
+  ];
 
   key: RoomTemplateKey;
   tags: string[];
   width: number;
   height: number;
   name: string | undefined;
-  description_passage: string | undefined;
-  raw_skill_bonus: Array<{
-    type: "always" | "near" | "adjacent";
-    skill_key: SkillKeyword;
-    bonus_amount?: number;
-    room_keys: RoomTemplateKey[];
-  }>;
-  skill_bonus: Array<{
-    type: "always" | "near" | "adjacent";
-    skill_key: SkillKeyword;
-    bonus: number;
-    room_template_key?: RoomTemplateKey;
-  }>;
+  description: string | undefined;
+  raw_skill_bonus: Array<
+    {
+      skill_key: SkillKeyword;
+      bonus_amount?: number;
+    } & (
+      | { type: "always" }
+      | {
+          type: "near" | "adjacent";
+
+          // TODO: find way to avoid circular type reference :/
+          //room_keys: RoomTemplateKey[];
+          room_keys: string[];
+        }
+    )
+  >;
+  skill_bonus: Array<
+    {
+      skill_key: SkillKeyword;
+      bonus: number;
+    } & (
+      | { type: "always" }
+      | {
+          type: "near" | "adjacent";
+
+          // TODO: find way to avoid circular type reference :/
+          //room_template_key: RoomTemplateKey;
+          room_template_key: string;
+        }
+    )
+  >;
   door_column: number | undefined;
   is_fixed: boolean;
   is_passable: boolean;
@@ -59,40 +94,28 @@ export class RoomTemplate extends TwineClass {
   cached_type_tag: string | null = null;
   max_room_count: number | null = null;
 
-  constructor({
-    key,
-    name,
-    description_passage,
-    tags,
-    width,
-    height,
-    skill_bonus,
-    door_column,
-    is_fixed,
-    is_passable,
-    is_door,
-    is_optional,
-    is_outdoors,
-  }: {
-    key: string;
-    tags: string[];
-    width: number;
-    height: number;
-    name?: string;
-    description_passage?: string;
-    skill_bonus?: RoomTemplate["raw_skill_bonus"];
-    door_column?: number;
-    is_fixed?: boolean;
-    is_passable?: boolean;
-    is_door?: boolean;
-    is_optional?: boolean;
-    is_outdoors?: boolean;
-  }) {
+  constructor(
+    key: string,
+    {
+      name,
+      description,
+      tags,
+      width,
+      height,
+      skill_bonus,
+      door_column,
+      is_fixed,
+      is_passable,
+      is_door,
+      is_optional,
+      is_outdoors,
+    }: RoomDefinition,
+  ) {
     super();
 
     this.key = key as RoomTemplateKey;
     this.name = name;
-    this.description_passage = description_passage;
+    this.description = description;
     this.tags = tags;
     if (!Array.isArray(tags)) throw new Error(`${key} room tags must be array`);
     this.tags.sort();
@@ -230,7 +253,7 @@ export class RoomTemplate extends TwineClass {
             skill_found[setup.skill[sb.skill_key].key];
           if (sb.type == "adjacent" || sb.type == "near") {
             let neighbors = 0;
-            for (const room_template_key of sb.room_keys) {
+            for (const room_template_key of sb.room_keys as RoomTemplateKey[]) {
               if (!(room_template_key in setup.roomtemplate)) {
                 throw new Error(
                   `Missing room template key ${room_template_key} in ${template.key}`,
@@ -256,7 +279,7 @@ export class RoomTemplate extends TwineClass {
             bonus: sb.bonus_amount!,
           });
         } else {
-          for (const room_template_key of sb.room_keys) {
+          for (const room_template_key of sb.room_keys as RoomTemplateKey[]) {
             const bonus = {
               type: sb.type,
               skill_key: sb.skill_key,
@@ -346,8 +369,9 @@ export class RoomTemplate extends TwineClass {
       throw new Error(`Unknown name for room ${this.key}`);
     return this.name || this.getBuildingTemplate()!.getName();
   }
-  getDescriptionPassage(): string | undefined {
-    return this.description_passage;
+
+  getDescription(): string | undefined {
+    return this.description;
   }
 
   getTags(): string[] {

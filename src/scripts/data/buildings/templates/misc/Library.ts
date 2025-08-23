@@ -1,0 +1,39 @@
+export const ROOMS = definitions<RoomDefinition>()({
+  library: {
+    tags: [],
+    width: 4,
+    height: 4,
+    door_column: 1,
+    skill_bonus: [
+      {
+        type: "near",
+        skill_key: "knowledge",
+        room_keys: [
+          "greathall",
+          "classroom",
+          "questoffice",
+          "mailroom",
+          "hospital",
+          "researchroom",
+        ],
+      },
+    ],
+    is_fixed: false,
+    is_passable: false,
+    is_door: true,
+    is_optional: false,
+    is_outdoors: false,
+  },
+});
+
+export const BUILDINGS = definitions<BuildingDefinition>()({
+  library: {
+    name: "Library",
+    tags: ["critical", "misc"],
+    description: `A room full of books for the more studious slavers.
+Unlocks viewing game lores at your leisure.`,
+    costs: [[qc.Money(-2000)]],
+    restrictions: [[qres.Building("greathall")]],
+    main_room_template_key: "library",
+  },
+});

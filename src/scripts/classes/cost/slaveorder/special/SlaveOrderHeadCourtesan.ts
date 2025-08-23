@@ -39,7 +39,7 @@ export default class SlaveOrderHeadCourtesan extends SlaveOrderTemplate {
     const sub = dutytemplate.sub();
 
     const req: Restriction[] = [
-      setup.qres.Job(setup.job.slave),
+      setup.qres.Job("slave"),
       setup.qres.Trait(setup.trait.training_obedience_advanced),
       setup.qres.AnyTrait([
         setup.trait.magic_fire,

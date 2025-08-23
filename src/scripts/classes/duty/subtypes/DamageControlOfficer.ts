@@ -8,7 +8,7 @@ export class DutyTemplateDamageControlOfficer extends DutyTemplate {
       type: "util",
       name: "Damage Control Officer",
       description_passage: "DutyDamageControlOfficer",
-      unit_restrictions: [setup.qres.Job(setup.job.slaver)],
+      unit_restrictions: [setup.qres.Job("slaver")],
       relevant_skills: {
         knowledge: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 2,
         intrigue: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 2,

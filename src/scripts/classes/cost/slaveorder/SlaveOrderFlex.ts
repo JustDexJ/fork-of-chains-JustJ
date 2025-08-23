@@ -34,7 +34,7 @@ export default class SlaveOrderFlex extends SlaveOrderTemplate {
     this.expires_in = expires_in;
     this.fulfilled_outcomes = fulfilled;
     this.unfulfilled_outcomes = unfulfilled;
-    this.destination_unit_group_key = setup.unitgroup.soldslaves.key;
+    this.destination_unit_group_key = "soldslaves";
 
     this.criteria = new setup.UnitCriteria(
       /* key = */ null,

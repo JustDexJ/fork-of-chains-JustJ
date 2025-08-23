@@ -11,7 +11,7 @@ export class DutyTemplateQuestLivingGod extends DutyTemplate {
       description_passage: "DutyQuestLivingGod",
       type: "util",
       unit_restrictions: [
-        setup.qres.Job(setup.job.slaver),
+        setup.qres.Job("slaver"),
         setup.qres.Trait("bg_mythical"),
         setup.qres.HasTitle("quest_living_god"),
       ],

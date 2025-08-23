@@ -32,6 +32,6 @@ export default class QuestFortRestorationAwardsTheme extends Restriction {
   override isOk(context: unknown): boolean {
     return setup.qres
       .FortSkillBonusAtLeast(this.getSkill(), this.getAmount())
-      .isOk();
+      .isOk(context);
   }
 }

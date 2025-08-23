@@ -20,7 +20,7 @@ export default class SlaveOrderHoundmastery extends SlaveOrderTemplate {
       ),
     ];
     this.unfulfilled_outcomes = [];
-    this.destination_unit_group_key = setup.unitgroup.soldslaves.key;
+    this.destination_unit_group_key = "soldslaves";
     this.trait_key = resolveKey(required_trait);
   }
 
@@ -33,7 +33,7 @@ export default class SlaveOrderHoundmastery extends SlaveOrderTemplate {
     const disaster: Trait[] = [];
 
     const req: Restriction[] = [
-      setup.qres.Job(setup.job.slave),
+      setup.qres.Job("slave"),
       setup.qres.Trait(this.trait_key),
       setup.qres.Trait(setup.trait.training_pet_advanced),
     ];

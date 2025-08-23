@@ -7,6 +7,11 @@ interface GetRoomInstancesArgs {
   template?: RoomTemplate;
 }
 
+const DEFAULT_ROOM_COUNT = Object.freeze({
+  unplaced: 0,
+  placed: 0,
+});
+
 /**
  * List of rooms.
  * Actual list of rooms is stored in $roominstance
@@ -19,10 +24,11 @@ export class RoomList extends TwineClass {
     setup.skill.length,
   ).fill(0);
 
-  cached_room_count: Record<
-    RoomTemplateKey,
-    { placed: number; unplaced: number }
-  > | null = null;
+  cached_room_count:
+    | {
+        [k in RoomTemplateKey]?: { placed: number; unplaced: number };
+      }
+    | null = null;
 
   cached_template_key_to_room_key: Record<string, RoomInstanceKey[]> | null =
     null;
@@ -45,16 +51,11 @@ export class RoomList extends TwineClass {
     }
   }
 
-  getRoomCount(template: RoomTemplate): { placed: number; unplaced: number } {
+  getRoomCount(
+    template: RoomTemplate,
+  ): Readonly<{ placed: number; unplaced: number }> {
     if (!this.cached_room_count) this.recomputeRoomCountsAndInstance();
-    if (template.key in this.cached_room_count!) {
-      return this.cached_room_count![template.key];
-    } else {
-      return {
-        unplaced: 0,
-        placed: 0,
-      };
-    }
+    return this.cached_room_count![template.key] ?? DEFAULT_ROOM_COUNT;
   }
 
   recomputeRoomCountsAndInstance(): void {
@@ -65,8 +66,10 @@ export class RoomList extends TwineClass {
 
     for (const room of all_rooms) {
       const key = room.getTemplate().key;
-      if (!(key in this.cached_room_count)) {
-        this.cached_room_count[key] = {
+
+      let counts = this.cached_room_count[key];
+      if (!counts) {
+        this.cached_room_count[key] = counts = {
           placed: 0,
           unplaced: 0,
         };
@@ -76,9 +79,9 @@ export class RoomList extends TwineClass {
       this.cached_template_key_to_room_key[key].push(room.key);
 
       if (room.isPlaced()) {
-        this.cached_room_count[key].placed += 1;
+        counts.placed += 1;
       } else {
-        this.cached_room_count[key].unplaced += 1;
+        counts.unplaced += 1;
       }
     }
   }

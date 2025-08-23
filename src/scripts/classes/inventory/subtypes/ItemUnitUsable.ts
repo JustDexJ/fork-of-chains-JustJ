@@ -72,7 +72,7 @@ export class ItemUnitUsable extends Item {
       const perk = trait as Perk;
 
       const restrictions: Restriction[] = [
-        setup.qres.Job(setup.job.slaver),
+        setup.qres.Job("slaver"),
         setup.qres.Not(setup.qres.HasPerkChoice(perk)),
       ];
       restrictions.push(...perk.getPerkChoiceRestrictions());

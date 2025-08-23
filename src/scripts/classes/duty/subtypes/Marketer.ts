@@ -9,7 +9,7 @@ export class DutyTemplateMarketer extends DutyTemplate {
       name: "Marketer",
       description_passage: "DutyMarketer",
       type: "util",
-      unit_restrictions: [setup.qres.Job(setup.job.slaver)],
+      unit_restrictions: [setup.qres.Job("slaver")],
       relevant_skills: {
         slaving: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 2,
         social: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 2,

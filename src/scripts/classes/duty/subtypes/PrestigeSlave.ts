@@ -87,7 +87,7 @@ function initSubclasses() {
             anus_gape: -setup.DUTY_TRAIT_PRESTIGE2,
           },
           unit_restrictions: [
-            setup.qres.Job(setup.job.slave),
+            setup.qres.Job("slave"),
             setup.qres.Trait(setup.trait.training_anal_basic),
           ],
         });
@@ -121,7 +121,7 @@ function initSubclasses() {
             muscle_extremelystrong: -setup.DUTY_TRAIT_PRESTIGE3,
           },
           unit_restrictions: [
-            setup.qres.Job(setup.job.slave),
+            setup.qres.Job("slave"),
             setup.qres.Trait(setup.trait.training_sissy_basic),
           ],
         });
@@ -152,7 +152,7 @@ function initSubclasses() {
             per_cautious: -setup.DUTY_TRAIT_PRESTIGE2,
           },
           unit_restrictions: [
-            setup.qres.Job(setup.job.slave),
+            setup.qres.Job("slave"),
             setup.qres.Trait(setup.trait.training_toilet_basic),
           ],
         });
@@ -183,7 +183,7 @@ function initSubclasses() {
             per_sexaddict: -setup.DUTY_TRAIT_PRESTIGE3,
           },
           unit_restrictions: [
-            setup.qres.Job(setup.job.slave),
+            setup.qres.Job("slave"),
             setup.qres.Trait(setup.trait.training_domestic_basic),
           ],
         });
@@ -214,7 +214,7 @@ function initSubclasses() {
             per_playful: -setup.DUTY_TRAIT_PRESTIGE2,
           },
           unit_restrictions: [
-            setup.qres.Job(setup.job.slave),
+            setup.qres.Job("slave"),
             setup.qres.Trait(setup.trait.training_endurance_basic),
           ],
         });
@@ -245,7 +245,7 @@ function initSubclasses() {
             per_lunatic: -setup.DUTY_TRAIT_PRESTIGE2,
           },
           unit_restrictions: [
-            setup.qres.Job(setup.job.slave),
+            setup.qres.Job("slave"),
             setup.qres.Trait(setup.trait.training_masochist_basic),
           ],
         });
@@ -276,7 +276,7 @@ function initSubclasses() {
             per_independent: -setup.DUTY_TRAIT_PRESTIGE2,
           },
           unit_restrictions: [
-            setup.qres.Job(setup.job.slave),
+            setup.qres.Job("slave"),
             setup.qres.Trait(setup.trait.training_pet_basic),
           ],
         });
@@ -307,7 +307,7 @@ function initSubclasses() {
             per_chaste: -setup.DUTY_TRAIT_PRESTIGE2,
           },
           unit_restrictions: [
-            setup.qres.Job(setup.job.slave),
+            setup.qres.Job("slave"),
             setup.qres.Trait(setup.trait.training_horny_basic),
           ],
         });
@@ -340,7 +340,7 @@ function initSubclasses() {
             face_hideous: -setup.DUTY_TRAIT_PRESTIGE3,
           },
           unit_restrictions: [
-            setup.qres.Job(setup.job.slave),
+            setup.qres.Job("slave"),
             setup.qres.Trait(setup.trait.training_oral_basic),
           ],
         });
@@ -370,7 +370,7 @@ function initSubclasses() {
             per_loner: -setup.DUTY_TRAIT_PRESTIGE2,
           },
           unit_restrictions: [
-            setup.qres.Job(setup.job.slave),
+            setup.qres.Job("slave"),
             setup.qres.Trait(setup.trait.training_obedience_basic),
           ],
         });
@@ -404,7 +404,7 @@ function initSubclasses() {
             muscle_extremelythin: -setup.DUTY_TRAIT_PRESTIGE3,
           },
           unit_restrictions: [
-            setup.qres.Job(setup.job.slave),
+            setup.qres.Job("slave"),
             setup.qres.Trait(setup.trait.training_pony_basic),
           ],
         });
@@ -434,7 +434,7 @@ function initSubclasses() {
             per_submissive: -setup.DUTY_TRAIT_PRESTIGE2,
           },
           unit_restrictions: [
-            setup.qres.Job(setup.job.slave),
+            setup.qres.Job("slave"),
             setup.qres.Trait(setup.trait.training_dominance_basic),
           ],
         });
@@ -464,7 +464,7 @@ function initSubclasses() {
             per_attentive: -setup.DUTY_TRAIT_PRESTIGE2,
           },
           unit_restrictions: [
-            setup.qres.Job(setup.job.slave),
+            setup.qres.Job("slave"),
             setup.qres.Trait(setup.trait.training_roleplay_basic),
           ],
         });
@@ -495,7 +495,7 @@ function initSubclasses() {
             vagina_gape: -setup.DUTY_TRAIT_PRESTIGE2,
           },
           unit_restrictions: [
-            setup.qres.Job(setup.job.slave),
+            setup.qres.Job("slave"),
             setup.qres.Trait(setup.trait.training_vagina_basic),
           ],
         });
@@ -524,7 +524,7 @@ function initSubclasses() {
             value_high7: setup.DUTY_TRAIT_PRESTIGE6,
           },
           unit_restrictions: [
-            setup.qres.Job(setup.job.slave),
+            setup.qres.Job("slave"),
             setup.qres.Trait(setup.trait.balls_tiny),
             setup.qres.Trait(setup.trait.dick_tiny),
           ],
@@ -554,7 +554,7 @@ function initSubclasses() {
             value_high7: setup.DUTY_TRAIT_PRESTIGE6,
           },
           unit_restrictions: [
-            setup.qres.Job(setup.job.slave),
+            setup.qres.Job("slave"),
             setup.qres.Trait(setup.trait.breast_tiny),
           ],
         });

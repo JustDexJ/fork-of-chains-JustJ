@@ -16,7 +16,7 @@ export default class SlaveOrderLonelyAlchemist extends SlaveOrderItem {
     this.expires_in = 14;
     this.fulfilled_outcomes = [];
     this.unfulfilled_outcomes = [];
-    this.destination_unit_group_key = setup.unitgroup.soldslaves.key;
+    this.destination_unit_group_key = "soldslaves";
   }
 
   override text(): string {
@@ -48,7 +48,7 @@ export default class SlaveOrderLonelyAlchemist extends SlaveOrderItem {
       .reduce((a, b) => a.concat(b), []);
 
     const req = [
-      setup.qres.Job(setup.job.slave),
+      setup.qres.Job("slave"),
       setup.qres.Trait(setup.trait.training_obedience_basic),
     ];
 

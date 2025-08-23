@@ -12,12 +12,12 @@ export default class TraitReplaceExisting extends Cost {
   ) {
     super();
 
-    const traitObj = resolveObject(trait, setup.trait);
-    if (!traitObj.getTraitGroup())
-      throw new Error(
-        `Trait ${traitObj.key} does not have a trait group and cannot be decreased`,
-      );
-    this.trait_key = traitObj.key;
+    //const traitObj = resolveObject(trait, setup.trait);
+    //if (!traitObj.getTraitGroup())
+    //  throw new Error(
+    //    `Trait ${traitObj.key} does not have a trait group and cannot be decreased`,
+    //  );
+    this.trait_key = resolveKey(trait);
   }
 
   override text(): string {

@@ -21,7 +21,7 @@ export default class SlaveOrderSafariZone extends SlaveOrderTemplate {
     this.expires_in = 6;
     this.fulfilled_outcomes = [];
     this.unfulfilled_outcomes = [];
-    this.destination_unit_group_key = setup.unitgroup.soldslaves.key;
+    this.destination_unit_group_key = "soldslaves";
   }
 
   override text(): string {

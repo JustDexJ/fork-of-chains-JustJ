@@ -9,7 +9,7 @@ export class DutyTemplateBedchamberSlave extends DutyTemplate {
       type: "bedchamber",
       name: "Bedchamber Slave",
       description_passage: "DutyBedchamberSlave",
-      unit_restrictions: [setup.qres.Job(setup.job.slave)],
+      unit_restrictions: [setup.qres.Job("slave")],
     });
   }
 }

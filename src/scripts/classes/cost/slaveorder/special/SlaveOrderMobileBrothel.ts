@@ -13,7 +13,7 @@ export default class SlaveOrderMobileBrothel extends SlaveOrderTemplate {
     this.expires_in = 8;
     this.fulfilled_outcomes = [];
     this.unfulfilled_outcomes = [];
-    this.destination_unit_group_key = setup.unitgroup.soldslaves.key;
+    this.destination_unit_group_key = "soldslaves";
   }
 
   override text(): string {
@@ -44,7 +44,7 @@ export default class SlaveOrderMobileBrothel extends SlaveOrderTemplate {
     ];
     let disaster = [setup.trait[traitkeypool[3]], setup.trait[traitkeypool[4]]];
 
-    let req = [setup.qres.Job(setup.job.slave)];
+    let req = [setup.qres.Job("slave")];
 
     let criteria = new setup.UnitCriteria(
       null /* key */,

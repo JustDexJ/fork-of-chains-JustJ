@@ -12,7 +12,7 @@ export const DOM_Menu_roomlist = function (): DOM.Node {
   const all_rooms = State.variables.roomlist.getRoomInstances();
 
   const repr = [];
-  const found: Record<RoomTemplateKey, boolean> = {};
+  const found: { [k in RoomTemplateKey]?: boolean } = {};
   // get room representatives
   for (const room of all_rooms) {
     const key = room.getTemplate().key;

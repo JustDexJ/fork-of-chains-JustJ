@@ -21,15 +21,21 @@ const qc = {} as any as {
  * Contains helper constructor functions for the subclasses of setup.Restriction in setup.qresImpl
  */
 const qres = {} as any as {
-  [k in keyof qresImpl_]: ((
+  [k in keyof qresImpl_]: (
     ...args: ConstructorParameters<qresImpl_[k]>
-  ) => InstanceType<qresImpl_[k]>) & { class: qresImpl_[k] };
+  ) => Restriction;
+  //) => InstanceType<qresImpl_[k]>) & { class: qresImpl_[k] };
 };
 
 Object.assign(setup, {
   qcImpl,
   qc,
   qresImpl,
+  qres,
+});
+
+Object.assign(globalThis, {
+  qc,
   qres,
 });
 

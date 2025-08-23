@@ -13,7 +13,7 @@ export default class SlaveOrderSeaborneRescueItHasToBeYouEasyToPleasePirate exte
     this.expires_in = 4;
     this.fulfilled_outcomes = [];
     this.unfulfilled_outcomes = [];
-    this.destination_unit_group_key = setup.unitgroup.soldslaves.key;
+    this.destination_unit_group_key = "soldslaves";
   }
 
   override text(): string {
@@ -30,7 +30,7 @@ export default class SlaveOrderSeaborneRescueItHasToBeYouEasyToPleasePirate exte
 
     let gender = State.variables.settings.getGenderRandom(setup.job.slave);
 
-    let req = [setup.qres.Job(setup.job.slave), setup.qres.Trait(gender)];
+    let req = [setup.qres.Job("slave"), setup.qres.Trait(gender)];
 
     let criteria = new setup.UnitCriteria(
       null /* key */,

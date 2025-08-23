@@ -7,7 +7,7 @@ export class DutyTemplateDoctor extends DutyTemplate {
       name: "Doctor",
       description_passage: "DutyDoctor",
       type: "util",
-      unit_restrictions: [setup.qres.Job(setup.job.slaver)],
+      unit_restrictions: [setup.qres.Job("slaver")],
       relevant_skills: {
         aid: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 2,
         arcane: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 2,

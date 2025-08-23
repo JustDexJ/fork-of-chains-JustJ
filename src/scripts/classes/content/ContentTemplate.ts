@@ -32,7 +32,12 @@ import type { UnitGroup, UnitGroupKey } from "../unit/UnitGroup";
  * the first entry will be considered the primary actor
  */
 export type ActorUnitgroupsInit = {
-  [actorname in string]?: UnitGroup | UnitGroupKey | Restriction[] | null;
+  [actorname in string]?:
+    | UnitGroup
+    | UnitGroupKey
+    | ContactTemplate
+    | Restriction[]
+    | null;
 };
 
 export type ActorUnitgroupKeyMap = {

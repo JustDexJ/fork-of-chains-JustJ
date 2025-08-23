@@ -6,7 +6,7 @@ export default definitions<ContactTemplateDefinition>()({
     tags: [],
     description:
       "A contact in the city who agrees to supply you with potential quest leads every week.",
-    apply_objs: [setup.qc.QuestDelay("scoutcity")],
+    apply_objs: [qc.QuestDelay("scoutcity")],
   },
 
   forestlead: {
@@ -14,7 +14,7 @@ export default definitions<ContactTemplateDefinition>()({
     tags: [],
     description:
       "You have established contact with some of the elven people at the <<lore region_forest>> which supplies you with potential quest leads every week.",
-    apply_objs: [setup.qc.QuestDelay("scoutforest")],
+    apply_objs: [qc.QuestDelay("scoutforest")],
   },
 
   valelead: {
@@ -22,7 +22,7 @@ export default definitions<ContactTemplateDefinition>()({
     tags: [],
     description:
       "You have established contact with the locals at the <<lore region_vale>>, which supplies you with potential quest leads every week.",
-    apply_objs: [setup.qc.QuestDelay("scoutvale")],
+    apply_objs: [qc.QuestDelay("scoutvale")],
   },
 
   desertlead: {
@@ -30,7 +30,7 @@ export default definitions<ContactTemplateDefinition>()({
     tags: [],
     description:
       "A small orcish nomads who agrees to supply you with potential quest lead every week.",
-    apply_objs: [setup.qc.QuestDelay("scoutdesert")],
+    apply_objs: [qc.QuestDelay("scoutdesert")],
   },
 
   sealead: {
@@ -38,7 +38,7 @@ export default definitions<ContactTemplateDefinition>()({
     tags: [],
     description:
       "A contact residing in faraway land who agrees to send you mails regarding potential leads in the southern lands.",
-    apply_objs: [setup.qc.QuestDelay("scoutsea")],
+    apply_objs: [qc.QuestDelay("scoutsea")],
   },
 
   deeplead: {
@@ -46,6 +46,6 @@ export default definitions<ContactTemplateDefinition>()({
     tags: [],
     description:
       "A small Deep settlement who agrees to supply you with potential quest lead every week.",
-    apply_objs: [setup.qc.QuestDelay("scoutdeep")],
+    apply_objs: [qc.QuestDelay("scoutdeep")],
   },
 });

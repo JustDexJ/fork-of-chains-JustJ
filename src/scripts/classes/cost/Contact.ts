@@ -10,7 +10,7 @@ export default class Contact extends Cost {
 
   constructor(
     contacttemplate: ContactTemplate | ContactTemplateKey,
-    actor_name?: string,
+    actor_name?: string | null,
     unit_group?: UnitGroup | UnitGroupKey,
   ) {
     super();

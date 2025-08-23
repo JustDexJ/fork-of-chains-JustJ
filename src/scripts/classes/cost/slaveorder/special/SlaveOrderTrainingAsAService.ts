@@ -22,7 +22,7 @@ export default class SlaveOrderTrainingAsAService extends SlaveOrderTemplate {
       setup.qc.RemoveTitleGlobal("training_as_a_service"),
     ];
 
-    this.destination_unit_group_key = setup.unitgroup.soldslaves.key;
+    this.destination_unit_group_key = "soldslaves";
   }
 
   override text(): string {
@@ -48,7 +48,7 @@ export default class SlaveOrderTrainingAsAService extends SlaveOrderTemplate {
     let critical = cover;
 
     let req = [
-      setup.qres.Job(setup.job.slave),
+      setup.qres.Job("slave"),
       setup.qres.Trait(setup.trait.training_obedience_basic),
       setup.qres.HasTitle("training_as_a_service"),
     ];

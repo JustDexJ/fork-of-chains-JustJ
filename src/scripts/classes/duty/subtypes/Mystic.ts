@@ -7,7 +7,7 @@ export class DutyTemplateMystic extends DutyTemplate {
       name: "Mystic",
       description_passage: "DutyMystic",
       type: "util",
-      unit_restrictions: [setup.qres.Job(setup.job.slaver)],
+      unit_restrictions: [setup.qres.Job("slaver")],
       relevant_skills: {
         arcane: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 2,
         knowledge: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 2,

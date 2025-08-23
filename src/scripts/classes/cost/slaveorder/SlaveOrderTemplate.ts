@@ -13,7 +13,7 @@ export abstract class SlaveOrderTemplate extends Cost {
   //
 
   name = "unknown";
-  company_key: CompanyKey | BuiltinCompanyTemplateKey = "independent";
+  company_key: CompanyKey = "independent";
 
   criteria: UnitCriteria = setup.qu.slave;
 

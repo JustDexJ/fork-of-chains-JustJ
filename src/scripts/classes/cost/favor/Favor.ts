@@ -4,7 +4,7 @@ export default class Favor extends Cost {
   company_key: CompanyKey;
 
   constructor(
-    company: Company | CompanyKey | BuiltinCompanyTemplateKey,
+    company: Company | CompanyKey,
     public favor_amt: number,
   ) {
     super();

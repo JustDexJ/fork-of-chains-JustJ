@@ -8,7 +8,7 @@ export class DutyTemplateLeader extends DutyTemplate {
       name: "Leader",
       description_passage: "DutyLeader",
       type: "util",
-      unit_restrictions: [setup.qres.Job(setup.job.slaver), setup.qres.You()],
+      unit_restrictions: [setup.qres.Job("slaver"), setup.qres.You()],
       relevant_skills: {
         combat: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 10,
         brawn: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 10,

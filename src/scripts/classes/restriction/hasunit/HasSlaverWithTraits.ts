@@ -3,7 +3,7 @@ import type { TraitKey } from "../../trait/Trait";
 export default class HasSlaverWithTraits extends Restriction {
   trait_keys: TraitKey[] = [];
 
-  constructor(traits: Trait[]) {
+  constructor(traits: (Trait | TraitKey)[]) {
     super();
 
     if (!Array.isArray(traits))
@@ -12,9 +12,10 @@ export default class HasSlaverWithTraits extends Restriction {
       );
 
     for (let i = 0; i < traits.length; ++i) {
-      if (!traits[i].key)
+      const trait_key = resolveKey(traits[i]);
+      if (!trait_key)
         throw new Error(`HasSlaverWithTraits: ${i}-th trait is missing`);
-      this.trait_keys.push(traits[i].key);
+      this.trait_keys.push(trait_key);
     }
   }
 

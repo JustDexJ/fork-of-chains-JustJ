@@ -38,7 +38,7 @@ export default class SlaveOrderCapitalOfSlaves extends SlaveOrderTemplate {
     let critical = [basics[0], basics[1], adv[0], adv[1], mas[0]];
     let disaster = [setup.trait.training_none];
 
-    let req = [setup.qres.Job(setup.job.slave)];
+    let req = [setup.qres.Job("slave")];
 
     let criteria = new setup.UnitCriteria(
       null /* key */,

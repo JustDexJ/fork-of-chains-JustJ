@@ -4,7 +4,7 @@ export default class Ire extends Cost {
   company_key: CompanyKey;
 
   constructor(
-    company: Company | CompanyKey | BuiltinCompanyTemplateKey,
+    company: Company | CompanyKey,
     public ire_amt: number,
   ) {
     super();

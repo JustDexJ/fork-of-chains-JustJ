@@ -1,0 +1,28 @@
+export const ROOMS = definitions<RoomDefinition>()({
+  road: {
+    tags: ["hidename", "structural"],
+    description: "The road leading into your fort.",
+    name: "Road",
+    width: 2,
+    height: 1,
+    skill_bonus: [],
+    is_fixed: true,
+    is_passable: true,
+    is_door: false,
+    is_optional: false,
+    is_outdoors: true,
+  },
+  roadindoor: {
+    tags: ["hidename", "structural"],
+    description: "The entrance of your fort.",
+    name: "Fort entrance",
+    width: 2,
+    height: 1,
+    skill_bonus: [],
+    is_fixed: true,
+    is_passable: true,
+    is_door: false,
+    is_optional: false,
+    is_outdoors: false,
+  },
+});

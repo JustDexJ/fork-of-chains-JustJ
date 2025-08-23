@@ -30,7 +30,8 @@ export default class QuestFortRestorationAwardsEfficiency extends Restriction {
       if (bonus.type == "near") {
         bonuses[setup.skill[bonus.skill_key].key] +=
           bonus.bonus *
-          (setup.roomtemplate[bonus.room_template_key!].max_room_count ?? 0);
+          (setup.roomtemplate[bonus.room_template_key as RoomTemplateKey]
+            .max_room_count ?? 0);
       }
     }
     return bonuses.map((a) => a * 0.9);

@@ -6,10 +6,10 @@ export default definitions<ContactTemplateDefinition>()({
     tags: ["hasunit"],
     description: "A burly vendor selling iron armors and gears at your fort.",
     apply_objs: [
-      setup.qc.EquipmentForSale(
+      qc.EquipmentForSale(
         "blacksmith",
         /* amount = */ 1,
-        /* markup = */ setup.CONTACT_PEDDLER_MARKUP,
+        /* markup = */ Constants.CONTACT_PEDDLER_MARKUP,
       ),
     ],
   },
@@ -20,11 +20,11 @@ export default definitions<ContactTemplateDefinition>()({
     description:
       "A ruff and gruff resident of the <<lore region_vale>> who sells furnitures for your fort freshly made from lumber in the forest.",
     apply_objs: [
-      setup.qc.ItemForSale(
+      qc.ItemForSale(
         "itemmarket",
         "furniture_normal",
         /* amount = */ 1,
-        /* markup = */ setup.CONTACT_PEDDLER_MARKUP,
+        /* markup = */ Constants.CONTACT_PEDDLER_MARKUP,
       ),
     ],
   },
@@ -35,11 +35,11 @@ export default definitions<ContactTemplateDefinition>()({
     description:
       "The fort alchemist who sells potions for you and your slavers at your fort.",
     apply_objs: [
-      setup.qc.ItemForSale(
+      qc.ItemForSale(
         "itemmarket",
         "all",
         /* amount = */ 1,
-        /* markup = */ setup.CONTACT_PEDDLER_MARKUP,
+        /* markup = */ Constants.CONTACT_PEDDLER_MARKUP,
       ),
     ],
   },
@@ -50,10 +50,10 @@ export default definitions<ContactTemplateDefinition>()({
     description:
       "Random traveling peddlers who sell sex-related equipment at your fort.",
     apply_objs: [
-      setup.qc.EquipmentForSale(
+      qc.EquipmentForSale(
         "all_sex",
         /* amount = */ 1,
-        /* markup = */ setup.CONTACT_PEDDLER_MARKUP,
+        /* markup = */ Constants.CONTACT_PEDDLER_MARKUP,
       ),
     ],
   },
@@ -64,10 +64,10 @@ export default definitions<ContactTemplateDefinition>()({
     description:
       "A well-dressed tailor selling high quality outfits and clothes.",
     apply_objs: [
-      setup.qc.EquipmentForSale(
+      qc.EquipmentForSale(
         "tailor",
         /* amount = */ 1,
-        /* markup = */ setup.CONTACT_PEDDLER_MARKUP,
+        /* markup = */ Constants.CONTACT_PEDDLER_MARKUP,
       ),
     ],
   },
@@ -78,10 +78,10 @@ export default definitions<ContactTemplateDefinition>()({
     description:
       "A vendor from the south selling various colored robes for your perusal.",
     apply_objs: [
-      setup.qc.EquipmentForSale(
+      qc.EquipmentForSale(
         "weaver",
         /* amount = */ 1,
-        /* markup = */ setup.CONTACT_PEDDLER_MARKUP,
+        /* markup = */ Constants.CONTACT_PEDDLER_MARKUP,
       ),
     ],
   },

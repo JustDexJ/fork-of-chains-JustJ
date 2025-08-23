@@ -3,16 +3,21 @@
 // Mostly fills the static data objects/registries in setup (e.g. `setup.item` or `setup.trait`)
 //
 
-// TODO: migrate all remaining to js/ts
-
+import { BuildingTemplate } from "../classes/BuildingTemplate";
 import { CompanyTemplate } from "../classes/CompanyTemplate";
 import { ContactTemplate } from "../classes/contact/ContactTemplate";
 import { UnitCriteria } from "../classes/criteria/UnitCriteria";
+import { DutyTemplate } from "../classes/duty/DutyTemplate";
 import { Equipment } from "../classes/equipment/Equipment";
 import { EquipmentPool } from "../classes/equipment/EquipmentPool";
 import { EquipmentPoolGroup } from "../classes/equipment/EquipmentPoolGroup";
 import { QuestPool } from "../classes/quest/QuestPool";
+import { RoomTemplate } from "../classes/room/RoomTemplate";
 import { UnitGroup } from "../classes/unit/UnitGroup";
+import {
+  BUILDING_DEFINITIONS,
+  ROOM_DEFINITIONS,
+} from "../data/buildings/_buildings";
 import { COMPANY_DEFINITIONS } from "../data/companies";
 import { CONTACT_TEMPLATE_DEFINITIONS } from "../data/contacts/_index";
 import { CRITERIA_DEFINITIONS } from "../data/criteria/_index";
@@ -144,10 +149,16 @@ DataUtil.load(QuestPool, QUEST_POOL_DEFINITIONS);
 DataUtil.load(ContactTemplate, CONTACT_TEMPLATE_DEFINITIONS);
 
 // Duty Templates
-setup.DutyTemplate.initializeSingletons();
+DutyTemplate.initializeSingletons();
 
-// Building Templates
-executePassage("InitBuildingTemplate");
+// Building Templates & Room Templates
+{
+  DataUtil.load(RoomTemplate, ROOM_DEFINITIONS);
+  DataUtil.load(BuildingTemplate, BUILDING_DEFINITIONS);
+
+  RoomTemplate.initialize();
+  setup.initializeRoomImageTable();
+}
 
 // Opportunities
 executePassagesWithTag("opportunity");

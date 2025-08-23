@@ -1,59 +1,54 @@
+import { qc, qres } from "../_init/preinit_costrestrictions";
+import type { _BuildingTemplateKey } from "../data/buildings/_buildings";
+import { RestrictionLib } from "../util/restriction";
 import { TwineClass } from "./_TwineClass";
 import type { RoomTemplate, RoomTemplateKey } from "./room/RoomTemplate";
 import { BUILDING_TAGS, type BuildingTag } from "./tag/tag_building";
 
-export type BuildingTemplateKey = BrandedType<string, "BuildingTemplateKey">;
+export interface BuildingDefinition {
+  name: string;
+  tags: BuildingTag[];
+  description: string;
+  costs: Array<Cost[]>;
+  restrictions: Array<Restriction[]>;
+  on_build?: Array<Cost[]>;
+  main_room_template_key: RoomTemplateKey;
+  sub_room_template_key?: RoomTemplateKey;
+}
+
+//export type BuildingTemplateKey = BrandedType<string, "BuildingTemplateKey">;
+export type BuildingTemplateKey = _BuildingTemplateKey;
 
 export class BuildingTemplate extends TwineClass {
   key: BuildingTemplateKey;
   name: string;
   tags: string[];
-  description_passage: string;
+  description: string;
   costs: Array<Cost[]>;
   prerequisites: Array<Restriction[]>;
   on_build: Array<Cost[]>;
   main_room_template_key: RoomTemplateKey;
   sub_room_template_key?: RoomTemplateKey;
 
-  constructor({
-    key,
-    name,
-    tags,
-    description_passage,
-    costs,
-    restrictions,
-    on_build,
-    main_room_template_key,
-    sub_room_template_key,
-  }: {
-    key: string;
-    name: string;
-    tags: string[];
-    description_passage: string;
-    costs: Array<Cost[]>;
-    restrictions: Array<Restriction[]>;
-    on_build?: Array<Cost[]>;
-    main_room_template_key: RoomTemplateKey;
-    sub_room_template_key?: RoomTemplateKey;
-  }) {
+  constructor(key: string, def: Readonly<BuildingDefinition>) {
     super();
 
     // costs = [buildcost, upgrade to lv2cost, upgrade to lv3cost, ...]
     // prerequisites = [buildprerqe, upgrade to lv2prereq, upgrade to lv3prereq, ...]
     // on_build: optional, these are run right after building is built. E.g., add duty slot, etc.
     this.key = key as BuildingTemplateKey;
-    this.name = name;
-    this.tags = tags;
-    if (!Array.isArray(tags)) {
+    this.name = def.name;
+    this.tags = def.tags;
+    if (!Array.isArray(def.tags)) {
       throw new Error(`${key} building tags must be array`);
     }
-    for (let i = 0; i < tags.length; ++i) {
-      if (!(tags[i] in BUILDING_TAGS))
-        throw new Error(`Building ${key} tag ${tags[i]} not recognized`);
+    for (let i = 0; i < def.tags.length; ++i) {
+      if (!(def.tags[i] in BUILDING_TAGS))
+        throw new Error(`Building ${key} tag ${def.tags[i]} not recognized`);
     }
 
     // check exactly one type tag
-    const type_tags = (tags as BuildingTag[]).filter(
+    const type_tags = def.tags.filter(
       (tag) => BUILDING_TAGS[tag].type == "type",
     );
     if (type_tags.length != 1) {
@@ -61,26 +56,26 @@ export class BuildingTemplate extends TwineClass {
     }
 
     this.tags.sort();
-    this.description_passage = description_passage;
-    this.costs = costs;
-    this.prerequisites = restrictions;
-    if (costs.length != restrictions.length)
+    this.description = def.description;
+    this.costs = def.costs;
+    this.prerequisites = def.restrictions;
+    if (def.costs.length != def.restrictions.length)
       throw new Error(`Cost and prereq of ${key} differs in length`);
 
-    if (on_build) {
-      this.on_build = on_build;
+    if (def.on_build) {
+      this.on_build = def.on_build;
     } else {
       this.on_build = [];
     }
 
-    this.main_room_template_key = main_room_template_key;
+    this.main_room_template_key = def.main_room_template_key;
     /*
     if (!main_room_template_key) {
       throw new Error(`Buidling template ${key} missing its main room!`)
     }
     */
 
-    this.sub_room_template_key = sub_room_template_key;
+    this.sub_room_template_key = def.sub_room_template_key;
     /*
     if (this.getMaxLevel() > 1 && !this.sub_room_template_key) {
       throw new Error(`Building template ${key} needs a sub room!`)
@@ -89,7 +84,10 @@ export class BuildingTemplate extends TwineClass {
     }
     */
 
-    for (const room_key of [main_room_template_key, sub_room_template_key]) {
+    for (const room_key of [
+      def.main_room_template_key,
+      def.sub_room_template_key,
+    ]) {
       if (room_key) {
         const room = setup.roomtemplate[room_key];
         if (!room) throw new Error(`Not found room with key ${room}!`);
@@ -112,8 +110,8 @@ export class BuildingTemplate extends TwineClass {
     return setup.roomtemplate[this.sub_room_template_key];
   }
 
-  getDescriptionPassage(): string {
-    return this.description_passage;
+  getDescription(): string {
+    return this.description;
   }
 
   getTags(): string[] {
@@ -150,11 +148,11 @@ export class BuildingTemplate extends TwineClass {
     return this.prerequisites[0];
   }
 
-  getRepMacro() {
+  getRepMacro(): string {
     return "buildingtemplatecard";
   }
 
-  rep() {
+  rep(): string {
     // return setup.repMessage(this, undefined, this.getImageRep())
     return setup.repMessage(this);
   }
@@ -177,15 +175,15 @@ export class BuildingTemplate extends TwineClass {
     return true;
   }
 
-  payCosts(current_level: number) {
+  payCosts(current_level: number): void {
     if (current_level < 0 || current_level >= this.costs.length)
       throw new Error(`weird level`);
     let to_pay = this.getCost(current_level);
-    setup.RestrictionLib.applyAll(to_pay, undefined as any);
+    RestrictionLib.applyAll(to_pay, undefined as any);
   }
 
   // Whether this building's existence should be hidden from the player
-  isHidden() {
+  isHidden(): boolean {
     // if already built, hide it
     if (State.variables.fort.player.isHasBuilding(this)) return true;
 
@@ -223,30 +221,30 @@ export class BuildingTemplate extends TwineClass {
 
   static getLodgingsCost(init_price: number): Cost[][] {
     const base = [
-      [setup.qc.Money(-init_price)],
-      [setup.qc.Money(-300)],
-      [setup.qc.Money(-400)],
-      [setup.qc.Money(-500)],
-      [setup.qc.Money(-800)],
+      [qc.Money(-init_price)],
+      [qc.Money(-300)],
+      [qc.Money(-400)],
+      [qc.Money(-500)],
+      [qc.Money(-800)],
 
       /* 10 people */
 
-      [setup.qc.Money(-1000)],
-      [setup.qc.Money(-2000)],
-      [setup.qc.Money(-5000)],
-      [setup.qc.Money(-10000)],
+      [qc.Money(-1000)],
+      [qc.Money(-2000)],
+      [qc.Money(-5000)],
+      [qc.Money(-10000)],
 
       /* 18 people */
 
-      [setup.qc.Money(-50000)],
+      [qc.Money(-50000)],
 
       /* 20 people, softcap starts */
 
-      [setup.qc.Money(-500000)],
-      [setup.qc.Money(-5000000)],
-      [setup.qc.Money(-20000000)],
-      [setup.qc.Money(-50000000)],
-      [setup.qc.Money(-120000000)],
+      [qc.Money(-500000)],
+      [qc.Money(-5000000)],
+      [qc.Money(-20000000)],
+      [qc.Money(-50000000)],
+      [qc.Money(-120000000)],
     ];
 
     if (init_price == 0) {
@@ -264,13 +262,13 @@ export class BuildingTemplate extends TwineClass {
       [],
       [],
       /* 10 people */
-      [setup.qres.Building("greathall")],
+      [qres.Building("greathall")],
       [],
 
       [],
       [],
       /* 18 people */
-      [setup.qres.Building("veteranhall")],
+      [qres.Building("veteranhall")],
       [],
       [],
 
@@ -284,25 +282,25 @@ export class BuildingTemplate extends TwineClass {
     ];
   }
 
-  static getDecorationCosts(init_price: Cost[][]) {
+  static getDecorationCosts(): Cost[][] {
     return [
-      [setup.qc.Money(-500)],
-      [setup.qc.Money(-1000)],
-      [setup.qc.Money(-2000)],
-      [setup.qc.Money(-4000)],
-      [setup.qc.Money(-8000)],
+      [qc.Money(-500)],
+      [qc.Money(-1000)],
+      [qc.Money(-2000)],
+      [qc.Money(-4000)],
+      [qc.Money(-8000)],
 
-      [setup.qc.Money(-16000)],
-      [setup.qc.Money(-32000)],
-      [setup.qc.Money(-64000)],
-      [setup.qc.Money(-128000)],
-      [setup.qc.Money(-256000)],
+      [qc.Money(-16000)],
+      [qc.Money(-32000)],
+      [qc.Money(-64000)],
+      [qc.Money(-128000)],
+      [qc.Money(-256000)],
     ];
   }
 
-  static getDecorationRestrictions(init_price: number): Restriction[][] {
+  static getDecorationRestrictions(): Restriction[][] {
     return [
-      [setup.qres.Building("landscapingoffice")],
+      [qres.Building("landscapingoffice")],
       [],
       [],
       [],

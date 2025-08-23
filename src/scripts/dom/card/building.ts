@@ -20,11 +20,7 @@ export function buildingTemplateNameFragment(
 export function buildingTemplateDescriptionFragment(
   template: BuildingTemplate,
 ): DOM.Node {
-  return setup.DOM.create(
-    "div",
-    {},
-    setup.DOM.Util.include(template.getDescriptionPassage()),
-  );
+  return setup.DOM.Util.twine(template.getDescription());
 }
 
 function buildingNameFragment(building: BuildingInstance): DOM.Node {
@@ -133,18 +129,10 @@ function buildingDescriptionFragment(
     State.variables.menufilter.get("buildinginstance", "display") == "short"
   ) {
     return setup.DOM.Util.message("(description)", () => {
-      return setup.DOM.Util.include(
-        building.getTemplate().getDescriptionPassage(),
-      );
+      return setup.DOM.Util.twine(building.getTemplate().getDescription());
     });
   } else {
-    return html`
-      <div>
-        ${setup.DOM.Util.include(
-          building.getTemplate().getDescriptionPassage(),
-        )}
-      </div>
-    `;
+    return setup.DOM.Util.twine(building.getTemplate().getDescription());
   }
 }
 

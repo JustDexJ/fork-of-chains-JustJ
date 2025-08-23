@@ -11,11 +11,13 @@
  * @property {string|number|null} unit_key - Key of the associated unit, or null if none.
  */
 
+import type { CONTACT_TEMPLATE_DEFINITIONS } from "../../data/contacts/_index";
 import { TwineClass } from "../_TwineClass";
 import type { UnitKey } from "../unit/Unit";
 import type { ContactTemplate, ContactTemplateKey } from "./ContactTemplate";
 
-export type ContactKey = BrandedType<string | number, "ContactKey">;
+export type ContactKey = keyof typeof CONTACT_TEMPLATE_DEFINITIONS | number;
+//export type ContactKey = BrandedType<string | number, "ContactKey">;
 
 export class Contact extends TwineClass {
   key: ContactKey;

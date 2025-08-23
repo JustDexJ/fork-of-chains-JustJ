@@ -9,7 +9,7 @@ export class DutyTemplateRescuer extends DutyTemplate {
       name: "Rescuer",
       description_passage: "DutyRescuer",
       type: "util",
-      unit_restrictions: [setup.qres.Job(setup.job.slaver)],
+      unit_restrictions: [setup.qres.Job("slaver")],
       relevant_skills: {
         intrigue: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 6,
         aid: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 6,

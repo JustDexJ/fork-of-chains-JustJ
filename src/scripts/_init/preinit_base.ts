@@ -10,6 +10,7 @@ import {
   Restriction,
   SexRestriction,
 } from "../classes/restriction/_Restriction";
+import { Constants } from "../constants";
 import { SetupUtil } from "../util/SetupUtil";
 import { globalsettings } from "../util/globalsettings";
 
@@ -21,6 +22,8 @@ Object.assign(globalThis, {
   SexCost,
   Restriction,
   SexRestriction,
+
+  Constants,
 
   objectKeys: Object.keys,
   objectEntries: Object.entries,

@@ -178,10 +178,7 @@ export const ActivityTemplateInitFuck = function () {
     let bres: Restriction[] = [];
 
     if (fuckdata.type == "slave") {
-      bres = [
-        setup.qres.Job(setup.job.slave),
-        setup.qres.CanBeUsedByRememberedUnit(),
-      ];
+      bres = [setup.qres.Job("slave"), setup.qres.CanBeUsedByRememberedUnit()];
       if (fuckdata.target_bodypart == setup.sexbodypart.penis) {
         bres.push(
           setup.qres.AnyTrait(
@@ -199,7 +196,7 @@ export const ActivityTemplateInitFuck = function () {
       }
     } else if (fuckdata.type == "slaver") {
       bres = [
-        setup.qres.Job(setup.job.slaver),
+        setup.qres.Job("slaver"),
         setup.qres.NoTrait(setup.trait.per_chaste),
       ];
     }
@@ -226,7 +223,7 @@ export const ActivityTemplateInitFuck = function () {
       tags: [],
       actor_unitgroups: {
         a: [
-          setup.qres.Job(setup.job.slaver),
+          setup.qres.Job("slaver"),
           setup.qres.NoTrait(setup.trait.per_chaste),
           setup.qres.RememberUnit(),
         ].concat(fuckdata.unit_bodypart.getHasRestrictions()),

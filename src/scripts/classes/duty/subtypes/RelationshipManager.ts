@@ -7,7 +7,7 @@ export class DutyTemplateRelationshipManager extends DutyTemplate {
       name: "Relationship Manager",
       description_passage: "DutyRelationshipManager",
       type: "util",
-      unit_restrictions: [setup.qres.Job(setup.job.slaver)],
+      unit_restrictions: [setup.qres.Job("slaver")],
       relevant_skills: {
         aid: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 2,
         social: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 2,

@@ -19,7 +19,7 @@ export default class SlaveOrderSeaborneRescueItHasToBeYouAssPirate extends Slave
       ],
       [],
       [
-        setup.qres.Job(setup.job.slave),
+        setup.qres.Job("slave"),
         setup.qres.Or([
           setup.qres.Trait(setup.trait.training_anal_basic),
           setup.qres.Trait(setup.trait.anus_tight),
@@ -33,7 +33,7 @@ export default class SlaveOrderSeaborneRescueItHasToBeYouAssPirate extends Slave
     this.expires_in = 4;
     this.fulfilled_outcomes = [];
     this.unfulfilled_outcomes = [];
-    this.destination_unit_group_key = setup.unitgroup.soldslaves.key;
+    this.destination_unit_group_key = "soldslaves";
   }
 
   override text(): string {

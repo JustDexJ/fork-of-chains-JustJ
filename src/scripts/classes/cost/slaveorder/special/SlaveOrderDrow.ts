@@ -20,7 +20,7 @@ export default class SlaveOrderDrow extends SlaveOrderTemplate {
     ];
 
     const req = [
-      setup.qres.Job(setup.job.slave),
+      setup.qres.Job("slave"),
       setup.qres.NoTrait(setup.trait.training_mindbreak),
     ];
 

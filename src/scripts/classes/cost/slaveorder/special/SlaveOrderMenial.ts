@@ -12,14 +12,14 @@ export default class SlaveOrderMenial extends SlaveOrderTemplate {
       "Menial Slave Order" /* title */,
       [] /* critical, */,
       [] /* disaster, */,
-      [/* restrictions */ setup.qres.Job(setup.job.slave)],
+      [/* restrictions */ setup.qres.Job("slave")],
       {} /* skill effects */,
     );
     this.name = "Order for a menial slave from a nearby mine";
     this.company_key = "independent";
     this.expires_in = setup.INFINITY;
 
-    this.destination_unit_group_key = setup.unitgroup.soldslaves.key;
+    this.destination_unit_group_key = "soldslaves";
   }
 
   override getFulfilledOutcomes() {

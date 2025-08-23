@@ -27,7 +27,7 @@ export abstract class DutyTemplatePimp extends DutyTemplate {
       name: name,
       description_passage: `Duty${key}_DescriptionPassage`,
       type: "pimp",
-      unit_restrictions: [setup.qres.Job(setup.job.slaver)],
+      unit_restrictions: [setup.qres.Job("slaver")],
       relevant_skills: relevant_skills,
       relevant_traits: relevant_traits,
       is_can_replace_with_specialist: true,

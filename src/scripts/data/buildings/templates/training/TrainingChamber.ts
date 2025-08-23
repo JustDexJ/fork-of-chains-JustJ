@@ -1,0 +1,51 @@
+export const ROOMS = definitions<RoomDefinition>()({
+  trainingchamber: {
+    tags: [],
+    width: 5,
+    height: 5,
+    door_column: 2,
+    skill_bonus: [
+      {
+        type: "near",
+        skill_key: "slaving",
+        room_keys: ["dungeons", "lodgings", "sexshop", "hospital"],
+      },
+      {
+        type: "near",
+        skill_key: "slaving",
+        room_keys: [
+          "fetishtrainingroom",
+          "torturechamber",
+          "milkerroom",
+          "trainingbedroom",
+          "trainingfield",
+          "researchroom",
+          "convincingroom",
+          "brainwashingroom",
+        ],
+      },
+    ],
+    is_fixed: false,
+    is_passable: false,
+    is_door: true,
+    is_optional: false,
+    is_outdoors: false,
+  },
+});
+
+export const BUILDINGS = definitions<BuildingDefinition>()({
+  trainingchamber: {
+    name: "Training Chamber",
+    tags: ["training", "critical", "unlocker"],
+    description: `
+Unlocks basic and advanced obedience training for slaves.
+This improvement is critical to fulfill
+some of the more lucrative slave demands, which requires
+that the slaves are pre-trained.
+Can build further improvements to unlock special types of slave training.
+`,
+    costs: [[qc.Money(-1700)]],
+    restrictions: [[qres.Building("greathall")]],
+    main_room_template_key: "trainingchamber",
+  },
+});

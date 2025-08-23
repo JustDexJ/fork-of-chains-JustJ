@@ -404,10 +404,9 @@ const setup_ = {
   skill: [] as unknown as Record<SkillKey | SkillKeyword, Skill> &
     Array<InstanceType<typeof Skill>>,
   activitytemplate: {} as Registry<ActivityTemplate>,
-  buildingtemplate: {} as RegistryWithBuiltins<
-    BuildingTemplate,
-    BuiltinBuildingTemplateKey
-  >,
+  // TODO: fix circular type references
+  //buildingtemplate: {} as Registry<BuildingTemplate>,
+  buildingtemplate: {} as Record<string, BuildingTemplate>,
   companytemplate: {} as Registry<CompanyTemplate>,
   contacttemplate: {} as Registry<ContactTemplate>,
   qu: {} as { [k in UnitCriteriaKey]: UnitCriteria },

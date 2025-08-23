@@ -1,4 +1,3 @@
-import type { BuildingTemplateKey } from "../classes/BuildingTemplate";
 import type { RoomInstance } from "../classes/room/RoomInstance";
 import { SETTINGS_GENDER_PREFERENCE } from "../classes/Settings";
 import { initNewGamePlus } from "../dom/menu/newgameplus";
@@ -130,10 +129,10 @@ export namespace BackwardsCompat {
         "bar",
         "edgingtrainingroom",
         "grandhall",
-      ] as BuildingTemplateKey[];
+      ];
       if (sv.fort) {
         for (const rm of removed_buildings) {
-          delete sv.fort.player.template_key_to_building_key[rm];
+          delete (sv.fort.player.template_key_to_building_key as any)[rm];
           for (const b of Object.values(sv.buildinginstance!)) {
             if (b.template_key == rm) {
               console.info(`removing building ${rm}`);

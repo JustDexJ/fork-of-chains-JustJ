@@ -31,12 +31,12 @@ export default class Money extends Cost {
     return State.variables.company.player.getMoney() >= -money;
   }
 
-  override apply(context?: CostContext) {
+  override apply(context?: CostContext): void {
     // try to apply as best as you can.
     State.variables.company.player.addMoney(this.getMoney(context));
   }
 
-  override undoApply(context: CostContext) {
+  override undoApply(context: CostContext): void {
     State.variables.company.player.addMoney(-this.getMoney(context));
   }
 

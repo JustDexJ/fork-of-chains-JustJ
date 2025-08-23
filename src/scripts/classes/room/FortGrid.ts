@@ -576,7 +576,8 @@ export class FortGrid extends FortGridBase {
         continue;
       }
 
-      const room_template = setup.roomtemplate[adj_bonus.room_template_key!];
+      const room_template =
+        setup.roomtemplate[adj_bonus.room_template_key as RoomTemplateKey];
       if (!room_template)
         throw new Error(
           `Missing room template for ${room.getName()} vicinity bonus!`,

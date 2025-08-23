@@ -5,18 +5,17 @@ import type { Job } from "./job/Job";
 import type { RoomInstance } from "./room/RoomInstance";
 import type { Unit } from "./unit/Unit";
 
-export type FortKey = BrandedType<string, "FortKey">;
+export type FortKey = "player";
 
 export class Fort extends TwineClass {
   key: FortKey;
   name: string;
   base_max_buildings: number;
   building_keys: BuildingInstanceKey[] = [];
-  template_key_to_building_key: Record<
-    BuildingTemplateKey,
-    BuildingInstanceKey
-  > = {};
-  ignored_building_template_key: Record<BuildingTemplateKey, boolean> = {};
+  template_key_to_building_key: {
+    [k in BuildingTemplateKey]?: BuildingInstanceKey;
+  } = {};
+  ignored_building_template_key: { [k in BuildingTemplateKey]?: boolean } = {};
 
   // also count towards building space.
   upgrades = 0;
@@ -63,7 +62,7 @@ export class Fort extends TwineClass {
   }
 
   isTrainingUnlocked(unit: Unit): boolean {
-    let candidates: BuiltinBuildingTemplateKey[] = [];
+    let candidates: BuildingTemplateKey[] = [];
     if (unit.getJob() == setup.job.slaver) {
       candidates = ["deepritualchamber", "surgery", "temple", "treatmentroom"];
     } else if (unit.getJob() == setup.job.slave) {
@@ -83,12 +82,11 @@ export class Fort extends TwineClass {
 
   getBuilding(template: BuildingTemplate): BuildingInstance | null {
     if (!template) throw new Error(`Missing building in getBuilding`);
-    if (!(template.key in this.template_key_to_building_key)) {
+    const key = this.template_key_to_building_key[template.key];
+    if (!key) {
       return null;
     }
-    return State.variables.buildinginstance[
-      this.template_key_to_building_key[template.key]
-    ];
+    return State.variables.buildinginstance[key];
   }
 
   getName(): string {
@@ -133,10 +131,7 @@ export class Fort extends TwineClass {
    * @param level If given, building must be at least this level to return true
    */
   isHasBuilding(
-    template:
-      | BuildingTemplate
-      | BuildingTemplateKey
-      | BuiltinBuildingTemplateKey,
+    template: BuildingTemplate | BuildingTemplateKey,
     level?: number,
   ): boolean {
     const building_template = resolveObject(template, setup.buildingtemplate);

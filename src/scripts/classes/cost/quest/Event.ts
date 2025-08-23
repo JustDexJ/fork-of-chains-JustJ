@@ -17,7 +17,7 @@ export default class Event extends Cost {
   constructor(
     template: EventTemplate | EventTemplateKey,
     weeks: number,
-    default_assignment?: Record<string, string>,
+    default_assignment?: Record<string, string> | null,
     is_visible_in_calendar?: boolean,
   ) {
     super();
@@ -31,7 +31,7 @@ export default class Event extends Cost {
         `Default assignment must be an object or null, not ${default_assignment}!`,
       );
     }
-    this.default_assignment = default_assignment;
+    this.default_assignment = default_assignment ?? undefined;
     this.is_visible_in_calendar = is_visible_in_calendar;
   }
 

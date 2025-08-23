@@ -8,7 +8,7 @@ import type { QuestDifficulty } from "../quest/QuestDifficulty";
 import type { UnitPoolKey } from "../unit/pool/UnitPool";
 import type { UnitGroup } from "../unit/UnitGroup";
 
-export type EventTemplateKey = BrandedType<string, "EventTemplateKey">;
+export type EventTemplateKey = BuiltinEventTemplateKey; //BrandedType<string, "EventTemplateKey">;
 
 /**
  * Exists both as `setup.EventTemplate` and `setup.Event`

@@ -90,7 +90,7 @@ export class Trait extends TwineClass {
       if (!this.icon_settings.icon) {
         this.icon_settings = {
           ...this.icon_settings,
-          icon: "per_curious", // TODO: use an unique default trait image
+          icon: "fallback",
         };
       } else if (
         this.icon_settings.icon.includes(".") ||

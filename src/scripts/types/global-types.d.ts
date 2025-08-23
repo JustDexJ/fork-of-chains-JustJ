@@ -2,7 +2,6 @@
 // This file define some common types in the global namespace (e.g. Unit),
 // to avoid excessive imports bloating
 //
-
 export namespace Types {
   export type ContentTemplate =
     import("../classes/content/ContentTemplate").ContentTemplate;
@@ -34,6 +33,15 @@ export namespace Types {
     import("../classes/quest/QuestDifficulty").QuestDifficultyKey;
   export type UnitCriteria =
     import("../classes/criteria/UnitCriteria").UnitCriteria;
+
+  export type BuildingTemplate =
+    import("../classes/BuildingTemplate").BuildingTemplate;
+  export type BuildingDefinition =
+    import("../classes/BuildingTemplate").BuildingDefinition;
+  export type RoomTemplate =
+    import("../classes/room/RoomTemplate").RoomTemplate;
+  export type RoomDefinition =
+    import("../classes/room/RoomTemplate").RoomDefinition;
 }
 
 declare global {
@@ -70,6 +78,11 @@ declare global {
     type ContentTemplate = Types.ContentTemplate;
     type SlaveOrder = Types.SlaveOrder;
     type QuestDifficultyKey = Types.QuestDifficultyKey;
+
+    type BuildingTemplate = Types.BuildingTemplate;
+    type BuildingDefinition = Types.BuildingDefinition;
+    type RoomTemplate = Types.RoomTemplate;
+    type RoomDefinition = Types.RoomDefinition;
 
     type SexAction = Types.SexAction;
     type SexBodypart = Types.SexBodypart;

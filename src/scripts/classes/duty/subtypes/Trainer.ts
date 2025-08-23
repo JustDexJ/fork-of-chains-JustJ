@@ -8,7 +8,7 @@ export class DutyTemplateTrainer extends DutyTemplate {
       name: "Drill Sergeant",
       description_passage: "DutyTrainer",
       type: "util",
-      unit_restrictions: [setup.qres.Job(setup.job.slaver)],
+      unit_restrictions: [setup.qres.Job("slaver")],
       relevant_skills: {
         brawn: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 2,
         knowledge: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 2,

@@ -77,7 +77,7 @@ export default class Sluttify extends SluttifyDomifyCostBase {
       },
       // curse of lambification
       {
-        requirements: [setup.qres.Not(setup.qres.Job(setup.job.slave))],
+        requirements: [setup.qres.Not(setup.qres.Job("slave"))],
         effect: setup.qc.Blessing(this.actor_name, 2, setup.trait.curse_lamb8),
         texts: [
           `a|Rep a|is cursed to forever be a submissive`,
@@ -108,7 +108,7 @@ export default class Sluttify extends SluttifyDomifyCostBase {
       },
       // mindbreak
       {
-        requirements: [setup.qres.Job(setup.job.slave)],
+        requirements: [setup.qres.Job("slave")],
         effect: setup.qc.Mindbreak(this.actor_name),
         texts: [
           `a|Rep a|have finally lost it completely, a|their mind now permanently broken`,

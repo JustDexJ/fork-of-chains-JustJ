@@ -17,7 +17,7 @@ export default class SlaveOrderHeadHunter extends SlaveOrderTemplate {
     this.expires_in = 14;
     this.fulfilled_outcomes = [];
     this.unfulfilled_outcomes = [setup.qc.MoneyMult(-3)];
-    this.destination_unit_group_key = setup.unitgroup.soldslaves.key;
+    this.destination_unit_group_key = "soldslaves";
   }
 
   override text(): string {
@@ -52,7 +52,7 @@ export default class SlaveOrderHeadHunter extends SlaveOrderTemplate {
     let race = races[Math.floor(Math.random() * races.length)];
 
     let req = [
-      setup.qres.Job(setup.job.slave),
+      setup.qres.Job("slave"),
       setup.qres.Trait(race),
       setup.qres.Trait(setup.trait.training_obedience_basic),
     ];

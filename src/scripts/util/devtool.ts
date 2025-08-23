@@ -7,8 +7,13 @@ import type { SkillKey } from "../classes/Skill";
 import type { Title } from "../classes/title/Title";
 
 export namespace DevToolHelper {
+  const REGEX_STRIP_NEWLINE_1 = /^\n+|\n+$/g;
+  const REGEX_STRIP_NEWLINE_2 = /\n+/g;
+
   export function stripNewLine(text: string): string {
-    return text.replace(/(\r\n|\n|\r)/gm, " ");
+    return text
+      .replace(REGEX_STRIP_NEWLINE_1, "")
+      .replace(REGEX_STRIP_NEWLINE_2, " ");
   }
 
   export function fixDisplay(text: string): string {

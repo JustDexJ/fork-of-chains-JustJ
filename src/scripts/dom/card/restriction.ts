@@ -52,6 +52,4 @@ function restriction<T>(
   return setup.DOM.create("div", {}, fragments);
 }
 
-export default {
-  restriction,
-};
+export default { restriction };

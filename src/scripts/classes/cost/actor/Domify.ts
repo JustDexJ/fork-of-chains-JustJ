@@ -77,7 +77,7 @@ export default class Domify extends SluttifyDomifyCostBase {
       },
       // blessing of wolfication
       {
-        requirements: [setup.qres.Not(setup.qres.Job(setup.job.slave))],
+        requirements: [setup.qres.Not(setup.qres.Job("slave"))],
         effect: setup.qc.Blessing(
           this.actor_name,
           1,

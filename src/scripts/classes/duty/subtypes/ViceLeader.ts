@@ -7,7 +7,7 @@ export class DutyTemplateViceLeader extends DutyTemplate {
       name: "Vice Leader",
       description_passage: "DutyViceLeader",
       type: "util",
-      unit_restrictions: [setup.qres.Job(setup.job.slaver)],
+      unit_restrictions: [setup.qres.Job("slaver")],
       relevant_skills: {
         combat: 0.001,
         brawn: 0.001,

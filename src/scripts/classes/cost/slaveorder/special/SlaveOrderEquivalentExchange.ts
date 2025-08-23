@@ -38,7 +38,7 @@ export default class SlaveOrderEquivalentExchange extends SlaveOrderTemplate {
     const req = [];
     const your_value = State.variables.unit.player.getSlaveValue();
 
-    req.push(setup.qres.Job(setup.job.slave));
+    req.push(setup.qres.Job("slave"));
     req.push(setup.qres.Trait(setup.trait.training_none));
     req.push(setup.qres.SlaveValueAtLeast(Math.round(your_value * 2)));
 

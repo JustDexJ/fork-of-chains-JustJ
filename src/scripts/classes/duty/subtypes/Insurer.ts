@@ -7,7 +7,7 @@ export class DutyTemplateInsurer extends DutyTemplate {
       name: "Insurer",
       description_passage: "DutyInsurer",
       type: "util",
-      unit_restrictions: [setup.qres.Job(setup.job.slaver)],
+      unit_restrictions: [setup.qres.Job("slaver")],
       relevant_skills: {
         intrigue: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 2,
         survival: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 2,

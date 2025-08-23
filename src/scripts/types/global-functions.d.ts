@@ -5,12 +5,17 @@
 // Their actual implementations/definitions are done at `preinit.ts`
 //
 
+import type {
+  qc as qc_,
+  qres as qres_,
+} from "../_init/preinit_costrestrictions";
 import { Cost as Cost_, SexCost as SexCost_ } from "../classes/cost/_Cost";
 import {
   Restriction as Restriction_,
   RestrictionType,
   SexRestriction as SexRestriction_,
 } from "../classes/restriction/_Restriction";
+import type { Constants as Constants_ } from "../constants";
 import type { SetupUtil } from "../util/SetupUtil";
 
 export {};
@@ -31,6 +36,10 @@ declare global {
 
     var resolveKey: typeof SetupUtil.resolveKey;
     var resolveObject: typeof SetupUtil.resolveObject;
+
+    var qc: typeof qc_;
+    var qres: typeof qres_;
+    var Constants: typeof Constants_;
   }
 
   /** Type-safe version of `Object.keys` that preserves the type of the keys. */

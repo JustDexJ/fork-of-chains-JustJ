@@ -22,7 +22,7 @@ export default class SlaveOrderMoreWhoreForYourBrothel extends SlaveOrderTemplat
         "Improves your brothel",
       ),
     ];
-    this.destination_unit_group_key = setup.unitgroup.soldslaves.key;
+    this.destination_unit_group_key = "soldslaves";
   }
 
   override text(): string {
@@ -87,7 +87,7 @@ export default class SlaveOrderMoreWhoreForYourBrothel extends SlaveOrderTemplat
     const sub = dutytemplate.sub();
 
     const req = [
-      setup.qres.Job(setup.job.slave),
+      setup.qres.Job("slave"),
       setup.qres.Trait(setup.trait.training_obedience_advanced),
     ];
 

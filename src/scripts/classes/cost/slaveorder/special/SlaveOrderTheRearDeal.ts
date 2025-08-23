@@ -12,7 +12,7 @@ export default class SlaveOrderTheRearDeal extends SlaveOrderTemplate {
     this.company_key = "humankingdom";
     this.expires_in = 18;
     this.unfulfilled_outcomes = [setup.qc.VarRemove("the_rear_deal_active")];
-    this.destination_unit_group_key = setup.unitgroup.soldslaves.key;
+    this.destination_unit_group_key = "soldslaves";
   }
 
   override text(): string {
@@ -45,7 +45,7 @@ export default class SlaveOrderTheRearDeal extends SlaveOrderTemplate {
     let critical: Trait[] = [];
     let disaster: Trait[] = [];
 
-    let req: Restriction[] = [setup.qres.Job(setup.job.slave)];
+    let req: Restriction[] = [setup.qres.Job("slave")];
 
     let alltrait = [
       adv[0].getTraitGroup()!.getLargestTrait(),

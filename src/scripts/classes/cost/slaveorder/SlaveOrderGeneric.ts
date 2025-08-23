@@ -29,7 +29,7 @@ export default class SlaveOrderGeneric extends SlaveOrderTemplate {
     this.unfulfilled_outcomes = [];
     if (unfulfilled) this.unfulfilled_outcomes = unfulfilled;
 
-    this.destination_unit_group_key = setup.unitgroup.soldslaves.key;
+    this.destination_unit_group_key = "soldslaves";
   }
 
   override text(): string {

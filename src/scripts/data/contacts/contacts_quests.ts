@@ -14,7 +14,7 @@ export default definitions<ContactTemplateDefinition>()({
     tags: [],
     description: "ContactFuckholeFair",
     apply_objs: [
-      setup.qc.Money(Math.round((setup.MONEY_PER_SLAVER_WEEK * 3) / 10)),
+      qc.Money(Math.round((Constants.MONEY_PER_SLAVER_WEEK * 3) / 10)),
     ],
     expires_in: 10,
   },

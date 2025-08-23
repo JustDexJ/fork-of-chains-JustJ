@@ -19,7 +19,7 @@ export class SlaveOrder extends TwineClass {
 
   constructor(
     public name: string,
-    source_company: Company | CompanyKey | BuiltinCompanyTemplateKey | null,
+    source_company: Company | CompanyKey | null,
     criteria: UnitCriteria,
     public base_price: number,
     public trait_multiplier: number,

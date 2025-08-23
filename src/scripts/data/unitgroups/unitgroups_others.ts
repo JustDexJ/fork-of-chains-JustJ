@@ -3,14 +3,6 @@ import type { UnitGroupDefinition } from "../../classes/unit/UnitGroup";
 import { GLOBAL_UNITPOOL_CHANCES } from "./unitgroups_regions";
 
 export default definitions<UnitGroupDefinition>()({
-  // Define the special "null" unit group
-  none: {
-    name: "Special: Empty unit group",
-    chances: [],
-    reuse_chance: 0,
-    unit_post_process: [],
-  },
-
   quest_all_noble: {
     name: "nobles from all around the world",
     chances: [...GLOBAL_UNITPOOL_CHANCES],
@@ -164,13 +156,6 @@ export default definitions<UnitGroupDefinition>()({
     name: "fuckholeslaves",
     chances: [],
     reuse_chance: 0,
-    unit_post_process: [],
-  },
-
-  new_game_plus_slaves: {
-    name: "new game plus slaves",
-    chances: [],
-    reuse_chance: 1,
     unit_post_process: [],
   },
 });

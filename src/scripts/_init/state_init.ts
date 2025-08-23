@@ -87,7 +87,7 @@ function createEmptyState() {
     gFortGridControl: undefined as FortGridController | null | undefined,
 
     // Init Companies
-    company: {} as RegistryWithBuiltins<Company, BuiltinCompanyTemplateKey>,
+    company: {} as Registry<Company>,
 
     // Init Teams
     team: {} as Registry<Team>,
@@ -156,7 +156,7 @@ function createEmptyState() {
     opportunitylist: new OpportunityList(),
 
     // Init Fort
-    fort: {} as RegistryWithBuiltins<Fort, "player">,
+    fort: {} as Registry<Fort>,
 
     // Init QuestGen and instances
     questinstance: {} as Registry<QuestInstance>,

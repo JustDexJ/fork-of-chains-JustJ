@@ -1,4 +1,9 @@
 import type { SaveDetails, SaveObject } from "twine-sugarcube";
+import type { ActivityTemplateKey } from "../classes/activity/ActivityTemplate";
+import type { EventTemplateKey } from "../classes/event/EventTemplate";
+import type { InteractionTemplateKey } from "../classes/interaction/InteractionTemplate";
+import type { OpportunityTemplateKey } from "../classes/opportunity/OpportunityTemplate";
+import type { QuestTemplateKey } from "../classes/quest/QuestTemplate";
 import { BackwardsCompat } from "./backwardscompat";
 
 export namespace SaveUtil {
@@ -168,15 +173,15 @@ export namespace SaveGlobalFunctions {
       if ("dtquest" in sv) {
         let dt = sv.dtquest;
         if (dt.TYPE == "quest") {
-          setup.questtemplate[dt.key] = dt;
+          setup.questtemplate[dt.key as QuestTemplateKey] = dt;
         } else if (dt.TYPE == "opportunity") {
-          setup.opportunitytemplate[dt.key] = dt;
+          setup.opportunitytemplate[dt.key as OpportunityTemplateKey] = dt;
         } else if (dt.TYPE == "event") {
-          setup.event[dt.key] = dt;
+          setup.event[dt.key as EventTemplateKey] = dt;
         } else if (dt.TYPE == "interaction") {
-          setup.interaction[dt.key] = dt;
+          setup.interaction[dt.key as InteractionTemplateKey] = dt;
         } else if (dt.TYPE == "activity") {
-          setup.activitytemplate[dt.key] = dt;
+          setup.activitytemplate[dt.key as ActivityTemplateKey] = dt;
         }
       }
 

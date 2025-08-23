@@ -8,10 +8,11 @@ export default class Building extends Restriction {
   level: number;
 
   constructor(
-    template:
-      | BuildingTemplate
-      | BuildingTemplateKey
-      | BuiltinBuildingTemplateKey,
+    // TODO: find a way to solve circular reference issues with BuildingTemplate definitions...
+    template: BuildingTemplate | string,
+    //template:
+    //  | BuildingTemplate
+    //  | BuildingTemplateKey,
     level?: number,
   ) {
     super();

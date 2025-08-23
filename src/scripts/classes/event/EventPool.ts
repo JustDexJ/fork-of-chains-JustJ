@@ -40,7 +40,7 @@ export class EventPool extends TwineClass {
   /**
    * Registered events (static field)
    */
-  static event_rarity_map: { [k: EventTemplateKey]: Rarity } = {};
+  static event_rarity_map: { [k in EventTemplateKey]?: Rarity } = {};
 
   //
   /**
@@ -53,7 +53,7 @@ export class EventPool extends TwineClass {
     setup.EventPool.event_rarity_map[event.key] = rarity;
   }
 
-  getDeck(): Deck {
+  getDeck(): Deck<EventTemplateKey> {
     return setup.Deck.get(`eventpooldeck`);
   }
 

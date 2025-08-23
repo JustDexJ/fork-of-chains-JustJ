@@ -52,7 +52,7 @@ export default class SlaveOrderHighDemonCommunity extends SlaveOrderTemplate {
     this.company_key = "demon";
     this.expires_in = 24;
 
-    this.destination_unit_group_key = setup.unitgroup.soldslaves.key;
+    this.destination_unit_group_key = "soldslaves";
   }
 
   override text(): string {
@@ -176,7 +176,7 @@ export default class SlaveOrderHighDemonCommunity extends SlaveOrderTemplate {
     const disaster: Trait[] = [];
 
     const req: Restriction[] = [
-      setup.qres.Job(setup.job.slave),
+      setup.qres.Job("slave"),
       setup.qres.NoTrait(setup.trait.race_demon),
     ];
 
