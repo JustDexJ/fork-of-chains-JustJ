@@ -11,11 +11,11 @@ export default class TraitExact extends Restriction.Unit {
   static PASSAGE = "RestrictionTraitExact";
   static UNIT = true;
 
-  override text() {
+  override text(): string {
     return `setup.qres.TraitExact(setup.trait.${this.trait_key})`;
   }
 
-  override explain() {
+  override explain(): string {
     let trait = setup.trait[this.trait_key];
     return trait.rep();
   }

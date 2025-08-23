@@ -9,11 +9,11 @@ export default class NoTitle extends Restriction.Unit {
     this.title_key = resolveKey(title);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.NoTitle('${this.title_key}')`;
   }
 
-  override explain() {
+  override explain(): string {
     let title = setup.title[this.title_key];
     return `Unit does not have ${title.rep()}`;
   }

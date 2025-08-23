@@ -8,11 +8,11 @@ export default class OpportunityUnique extends Restriction.ContentTemplate {
   static NAME = "Unique opportunity (DO NOT USE THIS FOR QUESTS)";
   static PASSAGE = "RestrictionOpportunityUnique";
 
-  override text() {
+  override text(): string {
     return `setup.qres.OpportunityUnique()`;
   }
 
-  override isOk(template: ContentTemplate) {
+  override isOk(template: ContentTemplate): boolean {
     let opportunitys = State.variables.opportunitylist.getOpportunities();
     for (let i = 0; i < opportunitys.length; ++i) {
       if (opportunitys[i].getTemplate() == template) {
@@ -22,7 +22,7 @@ export default class OpportunityUnique extends Restriction.ContentTemplate {
     return true;
   }
 
-  override explain() {
+  override explain(): string {
     return `unique`;
   }
 }

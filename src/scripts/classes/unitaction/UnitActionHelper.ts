@@ -5,7 +5,8 @@ export namespace UnitActionHelper {
    * Returns all the possible traits to select from for this unit.
    */
   export function getTraitChoices(unit: Unit): Trait[] {
-    const raw_traits: Record<TraitKey, boolean> = {};
+    const raw_traits: { [k in TraitKey]?: boolean } = {};
+
     for (const action of Object.values(setup.unitaction)) {
       if (action.isMultiTrain() && action.isUnlocked(unit)) {
         const targets = action.getFinalTraits(unit);

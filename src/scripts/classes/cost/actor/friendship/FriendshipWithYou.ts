@@ -9,7 +9,7 @@ export default class FriendshipWithYou extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.FriendshipWithYou('${this.actor_name}', ${this.friendship_amt})`;
   }
 
@@ -26,7 +26,7 @@ export default class FriendshipWithYou extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name} gain ${this.friendship_amt} friendship with you`;
   }
 }

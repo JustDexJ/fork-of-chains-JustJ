@@ -9,7 +9,7 @@ export default class Duty extends Cost {
     this.duty_template_key = resolveKey(duty_template);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.Duty("${this.duty_template_key}")`;
   }
 
@@ -29,7 +29,7 @@ export default class Duty extends Cost {
     State.variables.dutylist.addDuty(duty);
   }
 
-  override explain() {
+  override explain(): string {
     return `Gain ${setup.Article(setup.dutytemplate[this.duty_template_key].getName())} slot`;
   }
 }

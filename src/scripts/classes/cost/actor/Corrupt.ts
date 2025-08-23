@@ -17,7 +17,7 @@ export default class Corrupt extends Cost {
     }
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.Corrupt('${this.actor_name}', ${this.trait_tag}, ${this.amount})`;
   }
 
@@ -31,7 +31,7 @@ export default class Corrupt extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `corrupt ${this.actor_name}'s ${this.trait_tag || "random aspect"} ${this.amount} times`;
   }
 }

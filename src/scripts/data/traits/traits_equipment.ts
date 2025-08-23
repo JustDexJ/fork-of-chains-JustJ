@@ -1,4 +1,4 @@
-import type { TraitDefinition } from "../../classes/trait/Trait";
+import type { TraitOrGroupDefinitions } from "../../classes/trait/Trait";
 
 setup.TraitHelper.EQUIPMENT_SLUTTY = [
   "eq_slutty",
@@ -13,7 +13,7 @@ setup.TraitHelper.EQUIPMENT_SLUTTY = [
   "eq_pet",
 ];
 
-export default typedObject<TraitDefinition>()({
+export default {
   eq_slutty: {
     name: "eq: slutty",
     description: "Wears a noticably slutty clothing",
@@ -169,4 +169,4 @@ export default typedObject<TraitDefinition>()({
     },
     tags: ["equipment"],
   },
-});
+} satisfies TraitOrGroupDefinitions;

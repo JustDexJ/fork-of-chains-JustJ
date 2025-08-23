@@ -1,4 +1,4 @@
-import type { SkillKey } from "../../Skill";
+import type { SkillKey, SkillKeyword } from "../../Skill";
 
 /**
  * Gains a specific trauma for specified duration
@@ -8,14 +8,14 @@ export default class SkillBoost extends Cost {
 
   constructor(
     public actor_name: string,
-    skill: Skill,
+    skill: Skill | SkillKeyword,
   ) {
     super();
 
-    this.skill_key = resolveKey(skill);
+    this.skill_key = resolveKey(skill as Skill);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.SkillBoost('${this.actor_name}', setup.skill.${this.getSkill().keyword})`;
   }
 
@@ -29,7 +29,7 @@ export default class SkillBoost extends Cost {
     State.variables.skillboost.addBoost(unit, skill);
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `Boost ${this.actor_name}'s ${this.getSkill().rep()} permanently by 1`;
   }
 }

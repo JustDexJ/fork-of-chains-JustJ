@@ -6,7 +6,7 @@ export default class Trait extends Restriction.Unit {
   trait_group_key: TraitGroupKey | null;
 
   constructor(
-    trait: Trait_ | TraitKey | BuiltinTraitKey | null | undefined,
+    trait: Trait_ | TraitKey | null | undefined,
     trait_group?: TraitGroup | TraitGroupKey | null,
   ) {
     super();
@@ -19,7 +19,7 @@ export default class Trait extends Restriction.Unit {
     }
   }
 
-  override text() {
+  override text(): string {
     if (this.trait_key) {
       return `setup.qres.Trait(setup.trait.${this.trait_key})`;
     } else {

@@ -3,7 +3,6 @@
  * https://github.com/Innoxia/liliths-throne-public/blob/c863c6d5ad1ed625200b16791c4c707d57aa4e03/src/com/lilithsthrone/game/character/GameCharacter.java
  */
 
-import type { EquipmentKey } from "../../classes/equipment/Equipment";
 import type { UnitAndBodypart } from "../../classes/sex/engine/SexInstance";
 
 export namespace TextDirty {
@@ -251,13 +250,10 @@ export namespace TextDirty {
         sex.displaceAllEquipments();
       }
       if (unit_bodypart == setup.sexbodypart.penis && !unit.isHasDick()) {
-        sex.equipTemporarily(unit, setup.equipment["strapon" as EquipmentKey]);
+        sex.equipTemporarily(unit, setup.equipment.strapon);
       }
       if (target_bodypart == setup.sexbodypart.penis && !target.isHasDick()) {
-        sex.equipTemporarily(
-          target,
-          setup.equipment["strapon" as EquipmentKey],
-        );
+        sex.equipTemporarily(target, setup.equipment.strapon);
       }
     }
 

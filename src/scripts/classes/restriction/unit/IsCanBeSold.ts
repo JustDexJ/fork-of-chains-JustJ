@@ -3,11 +3,11 @@ export default class IsCanBeSold extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.IsCanBeSold()`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Can be sold and not in a party`;
   }
 

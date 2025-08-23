@@ -13,11 +13,11 @@ export default class RequireGenderRandom extends SlaveOrderAddonBase {
     this.job_key = resolveKey(job);
   }
 
-  override text() {
+  override text(): string {
     return `setup.SlaveOrderAddon.RequireGenderRandom()`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Requires the slave to be of a random gender`;
   }
 

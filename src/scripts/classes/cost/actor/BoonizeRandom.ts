@@ -10,7 +10,7 @@ export default class BoonizeRandom extends Cost {
   static PASSAGE = "CostBoonizeRandom";
   static UNIT = true;
 
-  override text() {
+  override text(): string {
     return `setup.qc.BoonizeRandom('${this.actor_name}', ${this.duration})`;
   }
 
@@ -19,7 +19,7 @@ export default class BoonizeRandom extends Cost {
     State.variables.trauma.boonize(unit, this.duration);
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name} gains a random and temporary boon for ${this.duration} weeks`;
   }
 }

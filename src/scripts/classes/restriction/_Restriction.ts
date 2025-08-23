@@ -2,6 +2,7 @@ import { TwineClass } from "../_TwineClass";
 import type { ContentTemplate } from "../content/ContentTemplate";
 import type { SexInstance } from "../sex/engine/SexInstance";
 import type { Unit } from "../unit/Unit";
+import type { qresImpl } from "./_index";
 
 /**
  * Base class of all restrictions (defined in setup.qresImpl)
@@ -11,7 +12,7 @@ export abstract class Restriction<T = unknown> extends TwineClass {
   /**
    * Initializes setup.qres
    */
-  static initConstructors() {
+  static initConstructors(): void {
     // freeze the classes namespace
     //  when trying to add a new class after this, it will throw an error
     //  if it happens, that most likely means the file load order is wrong
@@ -27,7 +28,9 @@ export abstract class Restriction<T = unknown> extends TwineClass {
   }
 
   static deserialize(classname: string, data: {}): Restriction {
-    const restrclass = setup.qresImpl[classname as keyof typeof setup.qresImpl];
+    const restrclass: Function =
+      setup.qresImpl[classname as keyof typeof qresImpl];
+
     if (restrclass) {
       const obj = Object.create(restrclass.prototype);
       return Object.assign(obj, data);
@@ -40,7 +43,7 @@ export abstract class Restriction<T = unknown> extends TwineClass {
   }
 
   // used by Twine serialization (overrides default from TwineClass)
-  toJSON() {
+  toJSON(): {} {
     const data = { ...this };
     return Serial.createReviver(
       `setup.Restriction.deserialize("${this.constructor.name}", $ReviveData$)`,

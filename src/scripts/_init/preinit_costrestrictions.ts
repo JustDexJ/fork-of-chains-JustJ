@@ -13,6 +13,10 @@ const qc = {} as any as {
   ) => InstanceType<qcImpl_[k]>) & { class: qcImpl_[k] };
 };
 
+//const qc = {} as any as {
+//  [k in keyof qcImpl_]: (...args: ConstructorParameters<qcImpl_[k]>) => Cost;
+//};
+
 /**
  * Contains helper constructor functions for the subclasses of setup.Restriction in setup.qresImpl
  */

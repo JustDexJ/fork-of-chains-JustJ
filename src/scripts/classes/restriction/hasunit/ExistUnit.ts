@@ -6,17 +6,17 @@ export default class ExistUnit extends Restriction {
     super();
   }
 
-  override text() {
+  override text(): string {
     let texts = this.restrictions.map((a) => a.text());
     return `setup.qres.ExistUnit([<br/>${texts.join(",<br/>")}<br/>], ${this.amount})`;
   }
 
-  override explain(context?: unknown) {
+  override explain(context?: unknown): string {
     let texts = this.restrictions.map((a) => a.explain(context));
     return `Must EXIST at least ${this.amount} units with: [ ${texts.join(" ")} ]`;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     let hits = 0;
     for (const unit of Object.values(State.variables.unit)) {
       if (setup.RestrictionLib.isUnitSatisfy(unit, this.restrictions))

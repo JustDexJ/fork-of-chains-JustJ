@@ -6,20 +6,21 @@ import NoTraits from "../restriction/unit/trait/NoTraits";
 import type { Trait, TraitKey } from "../trait/Trait";
 import type { Unit } from "../unit/Unit";
 
-export interface UnitActionInit {
-  key: string;
+export interface UnitActionDefinition {
   tags: Array<string>;
-  quest_template: QuestTemplate;
+  quest_template: QuestTemplate | QuestTemplateKey;
   prerequisites: Restriction[];
   unit_requirements: Restriction<Unit>[];
   /** Whether this training can be used with the multitrain feature. */
   is_multitrain?: boolean;
-  result_traits?: Trait[];
-  prerequisite_traits?: Trait[];
+  result_traits?: TraitKey[];
+  prerequisite_traits?: TraitKey[];
   /** whether this training will decrease the trait to achieve the final trait. For flesh-shaping */
   is_decrease?: boolean;
   /** can do this action on injured units? */
   is_allow_injured?: boolean;
+
+  repeat_self?: boolean;
 }
 
 export type UnitActionKey = BrandedType<string, "UnitActionKey">;
@@ -37,18 +38,20 @@ export class UnitAction extends TwineClass {
   is_multitrain: boolean;
   is_allow_injured: boolean;
 
-  constructor({
-    key,
-    tags,
-    quest_template,
-    prerequisites,
-    unit_requirements,
-    result_traits,
-    prerequisite_traits,
-    is_decrease,
-    is_multitrain,
-    is_allow_injured,
-  }: UnitActionInit) {
+  constructor(
+    key: string,
+    {
+      tags,
+      quest_template,
+      prerequisites,
+      unit_requirements,
+      result_traits,
+      prerequisite_traits,
+      is_decrease,
+      is_multitrain,
+      is_allow_injured,
+    }: Readonly<UnitActionDefinition>,
+  ) {
     super();
 
     // assumes quest has an actor named "trainee"
@@ -61,11 +64,12 @@ export class UnitAction extends TwineClass {
     this.tags = tags;
 
     if (!quest_template) throw new Error(`null quest base for ${key}`);
-    this.quest_template_key = quest_template.key;
+    this.quest_template_key = resolveKey(quest_template);
 
-    if (!("trainee" in quest_template.getActorUnitGroups())) {
+    const quest_template_obj = setup.questtemplate[this.quest_template_key];
+    if (!("trainee" in quest_template_obj.getActorUnitGroups())) {
       throw new Error(
-        `actor trainee not found in quest ${quest_template.key} in training ${key}`,
+        `actor trainee not found in quest ${this.quest_template_key} in training ${key}`,
       );
     }
 
@@ -84,13 +88,11 @@ export class UnitAction extends TwineClass {
       }
     }
 
-    this.result_trait_keys = (result_traits || []).map((trait) => trait.key);
+    this.result_trait_keys = result_traits || [];
     if (this.result_trait_keys.filter((t) => !t).length)
       throw new Error(`Missing result trait for ${this.key}`);
 
-    this.prerequisite_trait_keys = (prerequisite_traits || []).map(
-      (trait) => trait.key,
-    );
+    this.prerequisite_trait_keys = prerequisite_traits || [];
     if (this.prerequisite_trait_keys.filter((t) => !t).length)
       throw new Error(`Missing prerequisite trait for ${this.key}`);
 

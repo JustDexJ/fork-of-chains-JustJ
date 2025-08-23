@@ -3,7 +3,7 @@ export default class ClearMentalTraits extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.ClearMentalTraits('${this.actor_name}')`;
   }
 
@@ -15,7 +15,7 @@ export default class ClearMentalTraits extends Cost {
     setup.qc.RemoveTraitsWithTag(this.actor_name, "perk");
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name} loses all personality, skill, background, training, and perk traits`;
   }
 }

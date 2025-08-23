@@ -34,14 +34,14 @@ abstract class SetCooldown<T extends ContentTemplate> extends Cost {
     State.variables.calendar.setCooldown(template, this.cooldown);
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     const template = this.getTemplate();
     return `Cannot generate ${template ? template.getName() : "this"} for the next ${this.cooldown} weeks`;
   }
 }
 
 export class SetCooldownQuest extends SetCooldown<QuestTemplate> {
-  override text() {
+  override text(): string {
     return `setup.qc.SetCooldownQuest(${this.template_key ? `'${this.template_key}'` : `null`}, ${this.cooldown})`;
   }
 
@@ -55,7 +55,7 @@ export class SetCooldownQuest extends SetCooldown<QuestTemplate> {
 }
 
 export class SetCooldownOpportunity extends SetCooldown<OpportunityTemplate> {
-  override text() {
+  override text(): string {
     return `setup.qc.SetCooldownOpportunity(${this.template_key ? `'${this.template_key}'` : `null`}, ${this.cooldown})`;
   }
 
@@ -69,7 +69,7 @@ export class SetCooldownOpportunity extends SetCooldown<OpportunityTemplate> {
 }
 
 export class SetCooldownEvent extends SetCooldown<EventTemplate> {
-  override text() {
+  override text(): string {
     return `setup.qc.SetCooldownEvent(${this.template_key ? `'${this.template_key}'` : `null`}, ${this.cooldown})`;
   }
 

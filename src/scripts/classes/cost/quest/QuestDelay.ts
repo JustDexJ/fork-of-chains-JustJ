@@ -4,7 +4,7 @@ export default class QuestDelay extends Cost {
   questpool_key: QuestPoolKey;
   quantity: number;
 
-  constructor(questpool: QuestPool | QuestPoolKey, quantity: number) {
+  constructor(questpool: QuestPool | QuestPoolKey, quantity?: number) {
     super();
 
     this.questpool_key = resolveKey(questpool);
@@ -13,7 +13,7 @@ export default class QuestDelay extends Cost {
     this.quantity = quantity ?? 1;
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.QuestDelay(setup.questpool.${this.questpool_key}, ${this.quantity})`;
   }
 
@@ -25,7 +25,7 @@ export default class QuestDelay extends Cost {
     );
   }
 
-  override explain() {
+  override explain(): string {
     let questpool = setup.questpool[this.questpool_key];
     return `${this.quantity} new quests from ${questpool.getName()}`;
   }

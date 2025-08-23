@@ -14,11 +14,11 @@ export default class Equipped extends Restriction.Unit {
     return setup.equipment[this.equipment_key];
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.Equipped('${this.equipment_key}')`;
   }
 
-  override explain() {
+  override explain(): string {
     return `equips ${this.getEquipment().rep()}`;
   }
 

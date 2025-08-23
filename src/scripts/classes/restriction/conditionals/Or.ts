@@ -10,18 +10,18 @@ export default class Or<T = unknown> extends Restriction<T> {
       );
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.Or([\n${this.requirements.map((a) => a.text()).join(",\n")}\n])`;
   }
 
-  override isOk(context: T) {
+  override isOk(context: T): boolean {
     for (let i = 0; i < this.requirements.length; ++i) {
       if (this.requirements[i].isOk(context)) return true;
     }
     return false;
   }
 
-  override explain(context?: T) {
+  override explain(context?: T): string {
     let texts = [];
     for (let i = 0; i < this.requirements.length; ++i)
       texts.push(this.requirements[i].explain(context));

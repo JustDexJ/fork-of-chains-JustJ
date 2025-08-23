@@ -1,15 +1,15 @@
 import { Trait, type TraitDefinition } from "./Trait";
 
 export interface PerkDefinition extends TraitDefinition {
-  perk_choice_restrictions: Restriction[];
-  perk_end_of_week_effect: Cost[];
-  perk_null_traits?: (Trait | TraitKey | BuiltinTraitKey)[];
-  perk_extra_traits?: (Trait | TraitKey | BuiltinTraitKey)[];
+  perk_choice_restrictions: Restriction[] | (() => Restriction[]);
+  perk_end_of_week_effect: Cost[] | (() => Cost[]);
+  perk_null_traits?: /*(Trait | TraitKey)[] |*/ () => (Trait | TraitKey)[];
+  perk_extra_traits?: /*(Trait | TraitKey)[] |*/ () => (Trait | TraitKey)[];
 }
 
 export class Perk extends Trait {
-  perk_choice_restrictions: Restriction[];
-  perk_end_of_week_effect: Cost[];
+  perk_choice_restrictions: Restriction[] | (() => Restriction[]);
+  perk_end_of_week_effect: Cost[] | (() => Cost[]);
   perk_null_trait_keys: TraitKey[];
   perk_extra_trait_keys: TraitKey[];
 
@@ -18,20 +18,34 @@ export class Perk extends Trait {
 
     this.perk_choice_restrictions = def.perk_choice_restrictions;
     this.perk_end_of_week_effect = def.perk_end_of_week_effect;
-    this.perk_null_trait_keys = (def.perk_null_traits || []).map((trait) =>
-      resolveKey(trait as TraitKey | Trait),
+
+    const perk_null_traits =
+      typeof def.perk_null_traits === "function"
+        ? def.perk_null_traits()
+        : def.perk_null_traits;
+    this.perk_null_trait_keys = (perk_null_traits || []).map((trait) =>
+      resolveKey(trait),
     );
-    this.perk_extra_trait_keys = (def.perk_extra_traits || []).map((trait) =>
-      resolveKey(trait as TraitKey | Trait),
+
+    const perk_extra_traits =
+      typeof def.perk_extra_traits === "function"
+        ? def.perk_extra_traits()
+        : def.perk_extra_traits;
+    this.perk_extra_trait_keys = (perk_extra_traits || []).map((trait) =>
+      resolveKey(trait),
     );
   }
 
   getPerkChoiceRestrictions(): Restriction[] {
-    return this.perk_choice_restrictions;
+    return typeof this.perk_choice_restrictions === "function"
+      ? this.perk_choice_restrictions()
+      : this.perk_choice_restrictions;
   }
 
   getEndOfWeekEffect(): Cost[] {
-    return this.perk_end_of_week_effect;
+    return typeof this.perk_end_of_week_effect === "function"
+      ? this.perk_end_of_week_effect()
+      : this.perk_end_of_week_effect;
   }
 
   /**

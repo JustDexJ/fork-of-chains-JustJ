@@ -22,7 +22,7 @@ export default class Traits extends Cost {
   static NAME = "Gain Traits";
   static PASSAGE = "CostTraits";
 
-  override text() {
+  override text(): string {
     let texts = this.trait_keys.map((k) => `setup.trait.${k}`);
     return `setup.qc.Traits('${this.actor_name}', [${texts.join(", ")}])`;
   }
@@ -41,7 +41,7 @@ export default class Traits extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     let traits = this.getTraits();
     let trait_strs = [];
     for (let i = 0; i < traits.length; ++i) trait_strs.push(traits[i].rep());

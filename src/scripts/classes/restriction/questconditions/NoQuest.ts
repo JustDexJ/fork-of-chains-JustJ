@@ -13,11 +13,11 @@ export default class NoQuest extends Restriction {
   static NAME = "Do not already have or doing a particular quest";
   static PASSAGE = "RestrictionNoQuest";
 
-  override text() {
+  override text(): string {
     return `setup.qres.NoQuest('${this.template_key}')`;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     let template = setup.questtemplate[this.template_key];
     let quests = State.variables.company.player.getQuests();
     for (let i = 0; i < quests.length; ++i)
@@ -25,7 +25,7 @@ export default class NoQuest extends Restriction {
     return true;
   }
 
-  override explain() {
+  override explain(): string {
     let template = setup.questtemplate[this.template_key];
     return `No quest: ${template.getName()}`;
   }

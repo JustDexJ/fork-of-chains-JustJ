@@ -27,7 +27,7 @@ export class Favor extends TwineClass {
   /**
    * Maps company keys to their current favor value.
    */
-  company_favor_map: Record<CompanyKey, number> = {};
+  company_favor_map: { [k in CompanyKey]?: number } = {};
 
   /**
    * Set of company keys currently managed by the relationship manager.
@@ -126,9 +126,7 @@ export class Favor extends TwineClass {
   getFavor(company: Company): number {
     if (!company || typeof company.key !== "string")
       throw new Error("Invalid company");
-    return Object.hasOwn(this.company_favor_map, company.key)
-      ? this.company_favor_map[company.key]
-      : 0;
+    return this.company_favor_map[company.key] ?? 0;
   }
 
   /**
@@ -148,9 +146,8 @@ export class Favor extends TwineClass {
    */
   advanceWeek() {
     // Apply favor-based effects for each company
-    for (const key of objectKeys(this.company_favor_map)) {
+    for (const [key, favor] of objectEntries(this.company_favor_map)) {
       const company = State.variables.company[key];
-      const favor = this.company_favor_map[key];
       if (company.isFavorActive()) {
         const effectsArr = company.getFavorEffects();
         for (let i = setup.FAVOR_EFFECT_THRESHOLDS.length - 1; i >= 0; --i) {

@@ -13,7 +13,7 @@ export default class Slaver extends Cost {
     return true;
   }
 
-  override text() {
+  override text(): string {
     let pricemulttext = "";
     if (this.price_mult) pricemulttext = `, ${this.price_mult}`;
     return `setup.qc.Slaver('${this.actor_name}', "${setup.escapeJsString(this.origin_text ?? "")}", ${this.is_mercenary}${pricemulttext})`;
@@ -64,7 +64,7 @@ export default class Slaver extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     let base = `gain a slaver: ${this.actor_name} with background ${this.origin_text}`;
     if (this.is_mercenary) base += " who needs to be paid to join";
     if (this.price_mult) base += ` (${this.price_mult}x price)`;

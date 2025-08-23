@@ -1,8 +1,0 @@
-:: InitUnitAction [nobr]
-
-<<include InitUnitActionTraining>>
-<<include InitUnitActionFleshShape>>
-<<include InitUnitActionSurgery>>
-<<include InitUnitActionCorrupt>>
-<<include InitUnitActionPurify>>
-<<include InitUnitActionTreatment>>

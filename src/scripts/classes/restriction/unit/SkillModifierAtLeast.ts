@@ -11,7 +11,7 @@ export default class SkillModifierAtLeast extends Restriction.Unit {
     this.modifier = modifier;
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.SkillModifierAtLeast(setup.skill.${this.getSkill().keyword}, ${this.modifier})`;
   }
 
@@ -19,7 +19,7 @@ export default class SkillModifierAtLeast extends Restriction.Unit {
     return setup.skill[this.skill_key];
   }
 
-  override explain() {
+  override explain(): string {
     return `Unit's ${this.getSkill().rep()} has at least +${this.modifier}x modifier at base`;
   }
 

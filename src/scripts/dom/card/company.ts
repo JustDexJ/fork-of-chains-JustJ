@@ -146,9 +146,7 @@ export default {
       ${setup.DOM.Util.menuItemToolbar(
         companyNameActionMenu(company, show_actions),
       )}
-      <div>
-        ${setup.DOM.Util.include(company.getTemplate().getDescriptionPassage())}
-      </div>
+      <div>${company.getTemplate().getDescription()}</div>
     `);
 
     return setup.DOM.create("div", { class: "companycard" }, fragments);

@@ -23,7 +23,7 @@ export default class MissingUnitRecapture extends Cost {
       throw new Error(`Unknown quest pool for recapture: ${questpool_key}`);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.MissingUnitRecapture('${this.actor_name}', '${this.questpool_key}')`;
   }
 
@@ -65,7 +65,7 @@ export default class MissingUnitRecapture extends Cost {
     unit.removeTag(tag);
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name} will be lost from your company, but immediately regainable with quest (${this.questpool_key})`;
   }
 }

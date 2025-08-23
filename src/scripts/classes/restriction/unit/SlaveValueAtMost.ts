@@ -7,11 +7,11 @@ export default class SlaveValueAtMost extends Restriction.Unit {
   static PASSAGE = "RestrictionSlaveValueAtMost";
   static UNIT = true;
 
-  override text() {
+  override text(): string {
     return `setup.qres.SlaveValueAtMost(${this.slavevalue})`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Unit's slave value is at most ${this.slavevalue}`;
   }
 

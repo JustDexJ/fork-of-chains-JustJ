@@ -1,0 +1,55 @@
+import type { ItemDefinition } from "../../classes/inventory/Item";
+
+//
+// Key items involved in quests
+//
+
+export default definitions<ItemDefinition>()({
+  quest_for_science_list: {
+    name: "Inventor item list",
+    description:
+      'A list of items to procure for the inventor in the <<lore region_city>>. First, a thick sturdy box from the <<lore region_vale>>. Second, the "Sine Pregnol" fruit from the forests. Finally, a long thin pole of conducting iron from the deserts.',
+    type: "quest",
+    tags: [],
+  },
+
+  quest_for_science_box: {
+    name: "Thick sturdy box",
+    description:
+      "An empty box made of strong materials, capable of withstanding intense pressure. The first item on the list given by the inventor in the <<lore region_city>>.",
+    type: "quest",
+    tags: [],
+  },
+
+  quest_for_science_fruit: {
+    name: "Sine Pregnol fruit",
+    description:
+      "A rare fruit in the western forests. It is flexible and rubbery, with an oddly familiar shape. The third item on the list given by the inventor in the <<lore region_city>>.",
+    type: "quest",
+    tags: [],
+  },
+
+  quest_for_science_stick: {
+    name: "Long strong pole of iron",
+    description:
+      "A long pole of conducting iron. The third item on the list given by the inventor in the <<lore region_city>>.",
+    type: "quest",
+    tags: [],
+  },
+
+  quest_bewitchment_nectar: {
+    name: "Nectar of the gods",
+    description:
+      "An incredibly rare honey found in the <<lore region_sea>>. It is said that fae creatures would often trade their services in exchange for a mere taste of this goodness.",
+    type: "quest",
+    tags: [],
+  },
+
+  quest_bewitchment_trap: {
+    name: "Giant rat trap",
+    description:
+      "An incredibly large rat trap. You don't think anyone would fall for such an obvious trap, even the most gullible ones...",
+    type: "quest",
+    tags: [],
+  },
+});

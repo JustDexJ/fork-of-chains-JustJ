@@ -17,16 +17,16 @@ export default class HasContact extends Restriction {
   static NAME = "Must have a certain contact";
   static PASSAGE = "RestrictionHasContact";
 
-  override text() {
+  override text(): string {
     return `setup.qres.HasContact(setup.contacttemplate.${this.template_key})`;
   }
 
-  override explain() {
+  override explain(): string {
     let contact = setup.contacttemplate[this.template_key];
     return `Must have the contact: ${contact.rep()}`;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     let contact = setup.contacttemplate[this.template_key];
     return State.variables.contactlist.isHasContact(contact);
   }

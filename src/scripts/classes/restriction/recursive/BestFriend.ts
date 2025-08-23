@@ -3,11 +3,11 @@ export default class BestFriend extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.BestFriend(${this.restriction.text()})`;
   }
 
-  override explain(context?: Unit) {
+  override explain(context?: Unit): string {
     return `Unit's best friend or lover satisfies: (${this.restriction.explain(context)})`;
   }
 

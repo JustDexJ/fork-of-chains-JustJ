@@ -1,9 +1,5 @@
-import type { EquipmentKey } from "../../equipment/Equipment";
-import type {
-  EquipmentPool,
-  EquipmentPoolKey,
-} from "../../equipment/EquipmentPool";
-import type { ItemPool, ItemPoolKey } from "../../inventory/ItemPool";
+import type { EquipmentPool } from "../../equipment/EquipmentPool";
+import type { ItemPool } from "../../inventory/ItemPool";
 
 function get_item_pool_callback(pool: ItemPool): () => void {
   return () => {
@@ -63,7 +59,7 @@ function get_random_trinket_bad(value_average: number): () => void {
 }
 
 function get_dwarven_axe() {
-  const axe = setup.equipment["dwarf_axe" as EquipmentKey];
+  const axe = setup.equipment.dwarf_axe;
 
   const company = State.variables.company.kobold.rep();
   let t = [
@@ -92,7 +88,7 @@ export default class RandomDeeprealmItem extends Cost {
     }
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.RandomDeeprealmItem(${this.value})`;
   }
 
@@ -101,23 +97,14 @@ export default class RandomDeeprealmItem extends Cost {
     const avg: ChanceArray<number> = [];
 
     if (this.value < 1000) {
-      pools.push([
-        get_item_pool_callback(setup.itempool["all_normal" as ItemPoolKey]),
-        1.0,
-      ]);
-      avg.push([
-        setup.itempool["all_normal" as ItemPoolKey].getAverageValue(),
-        1.0,
-      ]);
+      pools.push([get_item_pool_callback(setup.itempool.all_normal), 1.0]);
+      avg.push([setup.itempool.all_normal.getAverageValue(), 1.0]);
     } else {
-      pools.push([
-        get_item_pool_callback(setup.itempool["all" as ItemPoolKey]),
-        1.0,
-      ]);
-      avg.push([setup.itempool["all" as ItemPoolKey].getAverageValue(), 1.0]);
+      pools.push([get_item_pool_callback(setup.itempool.all), 1.0]);
+      avg.push([setup.itempool.all.getAverageValue(), 1.0]);
     }
 
-    const axe = setup.equipment["dwarf_axe" as EquipmentKey];
+    const axe = setup.equipment.dwarf_axe;
     if (this.value >= 1500) {
       pools.push([get_dwarven_axe, 0.4]);
       avg.push([axe.getValue(), 0.4]);
@@ -127,40 +114,16 @@ export default class RandomDeeprealmItem extends Cost {
     }
 
     pools.push(
-      [
-        get_item_pool_callback(
-          setup.itempool["furniture_normal" as ItemPoolKey],
-        ),
-        1.0,
-      ],
-      [
-        get_equipment_pool_callback(
-          setup.equipmentpool["all_combat" as EquipmentPoolKey],
-        ),
-        1.0,
-      ],
-      [
-        get_equipment_pool_callback(
-          setup.equipmentpool["all_sex" as EquipmentPoolKey],
-        ),
-        1.0,
-      ],
+      [get_item_pool_callback(setup.itempool.furniture_normal), 1.0],
+      [get_equipment_pool_callback(setup.equipmentpool.all_combat), 1.0],
+      [get_equipment_pool_callback(setup.equipmentpool.all_sex), 1.0],
       [get_random_trinket_bad(100), 4.0],
       [get_random_trinket_good((this.value * 2) / 3), 2.5],
     );
     avg.push(
-      [
-        setup.itempool["furniture_normal" as ItemPoolKey].getAverageValue(),
-        1.0,
-      ],
-      [
-        setup.equipmentpool["all_combat" as EquipmentPoolKey].getAverageValue(),
-        1.0,
-      ],
-      [
-        setup.equipmentpool["all_sex" as EquipmentPoolKey].getAverageValue(),
-        1.0,
-      ],
+      [setup.itempool.furniture_normal.getAverageValue(), 1.0],
+      [setup.equipmentpool.all_combat.getAverageValue(), 1.0],
+      [setup.equipmentpool.all_sex.getAverageValue(), 1.0],
       [100, 4.0],
       [(this.value * 2) / 3, 2.5],
     );
@@ -178,7 +141,7 @@ export default class RandomDeeprealmItem extends Cost {
     return sampled();
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `Sometimes gain a random deeprealm item. Average weekly value: ${this.value}`;
   }
 }

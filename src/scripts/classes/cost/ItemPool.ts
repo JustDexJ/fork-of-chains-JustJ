@@ -10,7 +10,7 @@ export default class ItemPool extends Cost {
     this.itempool_key = resolveKey(item_pool);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.ItemPool(setup.itempool.${this.itempool_key})`;
   }
 
@@ -22,7 +22,7 @@ export default class ItemPool extends Cost {
     State.variables.inventory.addItem(this.getItemPool().generateItem());
   }
 
-  override explain() {
+  override explain(): string {
     return `Gain item from ${this.getItemPool().rep()}`;
   }
 }

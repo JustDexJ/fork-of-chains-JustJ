@@ -8,7 +8,7 @@ export default class SlaveBedchamberHasFurniture extends Restriction.Unit {
     this.item_key = resolveKey(item);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.SlaveBedchamberHasFurniture(setup.item.${this.item_key})`;
   }
 
@@ -16,7 +16,7 @@ export default class SlaveBedchamberHasFurniture extends Restriction.Unit {
     return setup.item[this.item_key];
   }
 
-  override explain() {
+  override explain(): string {
     return `Unit is a slave in a bedchamber with ${this.getItem().rep()}`;
   }
 

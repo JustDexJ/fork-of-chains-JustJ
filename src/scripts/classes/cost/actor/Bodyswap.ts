@@ -16,7 +16,7 @@ export default class Bodyswap extends Cost {
   static NAME = "Swaps the bodies of two units";
   static PASSAGE = "CostBodyswap";
 
-  override text() {
+  override text(): string {
     return `setup.qc.Bodyswap('${this.actor_name}', '${this.target_actor_name}', ${!!this.skip_title})`;
   }
 
@@ -149,7 +149,7 @@ export default class Bodyswap extends Cost {
     }
   }
 
-  explain(context: CostContext) {
+  explain(context: CostContext): string {
     return `${this.actor_name} and ${this.target_actor_name} swap bodies`;
   }
 }

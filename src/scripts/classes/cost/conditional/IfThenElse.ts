@@ -7,7 +7,7 @@ export default class IfThenElse extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     if (this.elsewhat) {
       return `setup.qc.IfThenElse(\n${this.requirement.text()},\n${this.thenwhat.text()},\n${this.elsewhat.text()})`;
     } else {
@@ -33,7 +33,7 @@ export default class IfThenElse extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     if (this.elsewhat) {
       return `<div class='card livingcard'> If ${this.requirement.explain()} <br/> then: ${this.thenwhat.explain()} <br/> else: ${this.elsewhat.explain()}</div>`;
     } else {

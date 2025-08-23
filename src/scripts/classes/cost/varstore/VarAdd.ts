@@ -7,7 +7,7 @@ export default class VarAdd extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.VarAdd('${this.key}', ${this.value}, ${this.expires})`;
   }
 
@@ -18,7 +18,7 @@ export default class VarAdd extends Cost {
     State.variables.varstore.set(this.key, new_value, this.expires);
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     if (context) return ""; // ???
     return `Variable "${this.key}" is added by "${this.value}" and reset expiration to ${this.expires} weeks.`;
   }

@@ -26,7 +26,7 @@ export default class SlaveOrderHeadCourtesan extends SlaveOrderTemplate {
       setup.unitgroup.brothel_head_courtesan.key;
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.SlaveOrderHeadCourtesan()`;
   }
 

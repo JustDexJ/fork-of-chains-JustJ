@@ -580,18 +580,18 @@ export class ModManagerClass {
             switch (section_key) {
               case "titles":
                 getModdedObject(setup, "title");
-                DataUtil.load(setup.Title, section_values as any, mod);
+                DataUtil.load(setup.Title as any, section_values, mod);
                 break;
               case "traits":
                 getModdedObject(setup, "trait");
-                DataUtil.load(setup.Trait, section_values as any, mod);
+                DataUtil.load(setup.Trait, section_values, mod);
                 break;
               case "subraces":
                 getModdedObject(setup, "trait");
                 getModdedObject(setup, "subrace");
                 getModdedObject(setup, "unitpool");
                 getModdedObject(setup, "unitgroup");
-                DataUtil.load(setup.Subrace, section_values as any, mod);
+                DataUtil.load(setup.Subrace, section_values, mod);
                 break;
               default:
                 console.warn(

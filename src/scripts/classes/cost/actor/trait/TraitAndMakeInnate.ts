@@ -17,11 +17,11 @@ export default class TraitAndMakeInnate extends Cost {
         `Missing trait for setup.qc.TraitAndMakeInnate(${actor_name})`,
       );
 
-    this.trait_key = trait ? resolveKey(trait as Trait | TraitKey) : null;
+    this.trait_key = trait ? resolveKey(trait) : null;
     this.trait_group_key = trait_group ? resolveKey(trait_group) : null;
   }
 
-  override text() {
+  override text(): string {
     if (this.trait_key) {
       return `setup.qc.TraitAndMakeInnate('${this.actor_name}', setup.trait.${this.trait_key})`;
     } else {
@@ -56,7 +56,7 @@ export default class TraitAndMakeInnate extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     if (this.trait_key) {
       return `${this.actor_name} permanently gain ${setup.trait[this.trait_key].rep()}`;
     } else {

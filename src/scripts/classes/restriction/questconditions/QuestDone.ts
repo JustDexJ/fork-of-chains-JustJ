@@ -13,7 +13,7 @@ export default class QuestDone extends Restriction.ContentTemplate {
     this.template_key = template ? resolveKey(template) : null;
   }
 
-  override text() {
+  override text(): string {
     if (this.template_key) {
       return `setup.qres.QuestDone('${this.template_key}')`;
     } else {
@@ -33,7 +33,7 @@ export default class QuestDone extends Restriction.ContentTemplate {
     return State.variables.statistics.isHasSuccess(template_to_check);
   }
 
-  override explain() {
+  override explain(): string {
     if (this.template_key) {
       const template = setup.questtemplate[this.template_key];
       return `Have ever completed quest: ${template.getName()}`;

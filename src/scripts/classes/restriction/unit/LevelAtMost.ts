@@ -7,11 +7,11 @@ export default class LevelAtMost extends Restriction.Unit {
   static PASSAGE = "RestrictionLevelAtMost";
   static UNIT = true;
 
-  override text() {
+  override text(): string {
     return `setup.qres.LevelAtMost(${this.level})`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Unit's level is at most ${this.level}`;
   }
 

@@ -9,6 +9,12 @@
 
 import type { QuestDifficultyKey } from "./classes/quest/QuestDifficulty";
 
+export type NumericConstant = {
+  [k in keyof typeof Constants]: (typeof Constants)[k] extends number
+    ? k
+    : never;
+}[keyof typeof Constants];
+
 /** These values are also accessible at `setup.<CONSTANT_NAME>` */
 export namespace Constants {
   // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX

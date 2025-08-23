@@ -3,7 +3,7 @@ export default class RemoveFromUnitGroup extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.RemoveFromUnitGroup('${this.actor_name}')`;
   }
 
@@ -15,7 +15,7 @@ export default class RemoveFromUnitGroup extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name} is removed from their unit group, if any`;
   }
 }

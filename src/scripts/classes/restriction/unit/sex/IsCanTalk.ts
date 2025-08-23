@@ -3,11 +3,11 @@ export default class IsCanTalk extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.IsCanTalk()`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Can talk: not blocked by slave rule or by gag`;
   }
 

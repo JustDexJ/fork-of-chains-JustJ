@@ -6,15 +6,15 @@ export default class Never extends Restriction {
   static NAME = "Never";
   static PASSAGE = "RestrictionNever";
 
-  override text() {
+  override text(): string {
     return `setup.qres.Never('${this.keytext}')`;
   }
 
-  override explain() {
+  override explain(): string {
     return this.keytext;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     return false;
   }
 }

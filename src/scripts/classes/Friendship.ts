@@ -48,7 +48,7 @@ export namespace FriendshipConstants {
   /**
    * Special traits where slavers with these traits will tend to care for their slaves.
    */
-  export const FRIENDSHIP_TRAIT_SLAVE_CARE: BuiltinTraitKey[] = [
+  export const FRIENDSHIP_TRAIT_SLAVE_CARE: TraitKey[] = [
     "bg_slave",
     "bg_healer",
     "bg_priest",
@@ -63,7 +63,7 @@ export namespace FriendshipConstants {
   /**
    * Special traits where slavers with these traits will tend to abuse their slaves.
    */
-  export const FRIENDSHIP_TRAIT_SLAVE_ABUSE: BuiltinTraitKey[] = [
+  export const FRIENDSHIP_TRAIT_SLAVE_ABUSE: TraitKey[] = [
     "bg_slaver",
     "bg_raider",
     "bg_mist",

@@ -6,7 +6,7 @@ export default class CurseRandomSlaverHome extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.CurseRandomSlaverHome()`;
   }
 
@@ -22,7 +22,7 @@ export default class CurseRandomSlaverHome extends Cost {
       .apply(setup.costUnitHelper(chosen));
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `Curse a random unit in your company`;
   }
 }

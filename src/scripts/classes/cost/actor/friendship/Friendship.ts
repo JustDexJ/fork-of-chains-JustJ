@@ -14,7 +14,7 @@ export default class Friendship extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.Friendship('${this.actor_name}', '${this.target_actor_name}', ${this.friendship_amt})`;
   }
 
@@ -54,7 +54,7 @@ export default class Friendship extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     if (this.friendship_amt == "reset") {
       return `Reset friendship between ${this.actor_name} and ${this.target_actor_name}`;
     } else {

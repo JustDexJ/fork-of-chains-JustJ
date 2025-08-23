@@ -16,7 +16,7 @@ export default class Quest extends Cost {
   static NAME = "Gain a quest from a quest pool";
   static PASSAGE = "CostQuest";
 
-  override text() {
+  override text(): string {
     return `setup.qc.Quest(setup.questpool.${this.questpool_key}, ${this.quantity})`;
   }
 
@@ -35,7 +35,7 @@ export default class Quest extends Cost {
     }
   }
 
-  override explain() {
+  override explain(): string {
     let questpool = setup.questpool[this.questpool_key];
     return `${this.quantity} new quests from ${questpool.getName()} (immediately)`;
   }

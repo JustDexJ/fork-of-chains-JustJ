@@ -3,11 +3,11 @@ export default class CanBeLoverWithYou extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.CanBeLoverWithYou()`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Can become lover with you`;
   }
 

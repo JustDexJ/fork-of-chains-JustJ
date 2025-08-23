@@ -9,7 +9,7 @@ export default class ContactLose extends Cost {
     this.contacttemplate_key = resolveKey(contacttemplate);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.ContactLose(setup.contacttemplate.${this.contacttemplate_key})`;
   }
 
@@ -25,7 +25,7 @@ export default class ContactLose extends Cost {
     }
   }
 
-  override explain() {
+  override explain(): string {
     return `Lose contact: ${this.getTemplate().rep()}`;
   }
 }

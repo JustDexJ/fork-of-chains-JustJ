@@ -18,7 +18,7 @@ export default class MoneyUnitValue extends Money {
       throw new Error(`Missing multiplier for MoneyUnitValue(${actor_name})`);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.MoneyUnitValue("${this.actor_name}", ${this.multiplier}, ${this.cap})`;
   }
 
@@ -32,7 +32,7 @@ export default class MoneyUnitValue extends Money {
     return money;
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     if (context) {
       return super.explain(context);
     } else {

@@ -18,12 +18,12 @@ export interface SubraceDefinition {
 
   /** How much does the trait pool for this race will prefer a certain trait. */
   trait_preferences: {
-    [k in TraitKey | BuiltinTraitKey]?: number | keyof typeof Constants;
+    [k in TraitKey]?: number | keyof typeof Constants;
   };
 
   /** How much does the trait pool for this race will hate a certain trait. */
   trait_dispreferences: {
-    [k in TraitKey | BuiltinTraitKey]?: number | keyof typeof Constants;
+    [k in TraitKey]?: number | keyof typeof Constants;
   };
 
   description: string;

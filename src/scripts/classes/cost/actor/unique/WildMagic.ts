@@ -6,7 +6,7 @@ export default class WildMagic extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.WildMagic('${this.actor_name}')`;
   }
 
@@ -33,7 +33,7 @@ export default class WildMagic extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name} swaps one of their magic with a random one`;
   }
 }

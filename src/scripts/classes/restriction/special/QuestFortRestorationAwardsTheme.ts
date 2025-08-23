@@ -19,17 +19,17 @@ export default class QuestFortRestorationAwardsTheme extends Restriction {
     return setup.ROOM_MAX_SKILL_BOOST;
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.QuestFortRestorationAwardsTheme()`;
   }
 
-  override explain(context?: unknown) {
+  override explain(context?: unknown): string {
     return setup.qres
       .FortSkillBonusAtLeast(this.getSkill(), this.getAmount())
       .explain();
   }
 
-  override isOk(context: unknown) {
+  override isOk(context: unknown): boolean {
     return setup.qres
       .FortSkillBonusAtLeast(this.getSkill(), this.getAmount())
       .isOk();

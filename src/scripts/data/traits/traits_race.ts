@@ -1,11 +1,11 @@
-import type { TraitDefinition } from "../../classes/trait/Trait";
+import type { TraitOrGroupDefinitions } from "../../classes/trait/Trait";
 
 //
 // NOTE: most logic regarding races is implemented at the "subrace" level.
 // Races are just visual "computed" traits based on the subrace.
 //
 
-export default typedObject<TraitDefinition>()({
+export default {
   race_human: {
     name: "human",
     description:
@@ -68,4 +68,4 @@ export default typedObject<TraitDefinition>()({
     skill_bonuses: {},
     tags: ["race", "computed"],
   },
-});
+} satisfies TraitOrGroupDefinitions;

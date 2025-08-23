@@ -14,16 +14,16 @@ export default class AllowLovers extends Restriction {
     return [setup.trait[this.gender1_key], setup.trait[this.gender2_key]];
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.AllowLovers('${this.gender1_key}', '${this.gender2_key}')`;
   }
 
-  override explain() {
+  override explain(): string {
     const genders = this.getGenders();
     return `Settings allow ${genders[0].rep()} to love ${genders[1].rep()}`;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     const genders = this.getGenders();
     return State.variables.settings.isCanBecomeLovers(genders[0], genders[1]);
   }

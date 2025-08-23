@@ -22,7 +22,7 @@ export default class HighQualityRecruit extends Cost {
     }
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.HighQualityRecruit('${this.unitgroup_key}', '${this.job_key}', ${this.tries}, '${setup.escapeJsString(this.origin_text)}')`;
   }
 
@@ -34,7 +34,7 @@ export default class HighQualityRecruit extends Cost {
     return setup.unitgroup[this.unitgroup_key];
   }
 
-  override apply(context: CostContext) {
+  override apply(context: CostContext): void {
     const job = this.getJob();
     const ug = this.getUnitGroup();
     let unit = ug.getUnit({ job_hint: job.key });
@@ -67,7 +67,7 @@ export default class HighQualityRecruit extends Cost {
     });
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `Receive a high quality recruit from ${this.unitgroup_key} (${this.tries} tries) as ${this.job_key}`;
   }
 }

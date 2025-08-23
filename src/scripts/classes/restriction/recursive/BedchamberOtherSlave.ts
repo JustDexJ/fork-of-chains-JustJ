@@ -3,11 +3,11 @@ export default class BedchamberOtherSlave extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.BedchamberOtherSlave(${this.restriction.text()})`;
   }
 
-  override explain(context?: unknown) {
+  override explain(context?: unknown): string {
     return `The other slave in bedchamber satisfies: (${this.restriction.explain(context)})`;
   }
 

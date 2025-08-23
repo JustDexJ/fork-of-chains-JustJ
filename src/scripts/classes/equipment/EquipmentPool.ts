@@ -1,8 +1,17 @@
+import type { EQUIPMENT_POOL_GROUP_DEFINITIONS } from "../../data/equipments/_equipmentpools";
+import { EQUIPMENT_POOL_DEFINITIONS } from "../../data/equipments/_index";
 import { rng } from "../../util/rng";
 import { TwineClass } from "../_TwineClass";
 import type { Equipment, EquipmentKey } from "./Equipment";
 
-export type EquipmentPoolKey = BrandedType<string, "EquipmentPoolKey">;
+export interface EquipmentPoolDefinition {
+  chances: ChanceObject<string>;
+}
+
+//export type EquipmentPoolKey = BrandedType<string, "EquipmentPoolKey">;
+export type EquipmentPoolKey =
+  | keyof typeof EQUIPMENT_POOL_GROUP_DEFINITIONS
+  | keyof typeof EQUIPMENT_POOL_DEFINITIONS;
 
 export class EquipmentPool extends TwineClass {
   key: EquipmentPoolKey;
@@ -10,11 +19,11 @@ export class EquipmentPool extends TwineClass {
   /** equip_chances: {equipment_key: chance} */
   equip_chances: ChanceObject<EquipmentKey>;
 
-  constructor(key: string, equip_chances: ChanceObject<EquipmentKey>) {
+  constructor(key: string, def: Readonly<EquipmentPoolDefinition>) {
     super();
 
     this.key = key as EquipmentPoolKey;
-    this.equip_chances = equip_chances;
+    this.equip_chances = def.chances;
 
     if (key in setup.equipmentpool) {
       throw new Error(`Duplicate equipment pool key ${key}`);
@@ -35,9 +44,10 @@ export class EquipmentPool extends TwineClass {
   }
 
   getEquipmentChances(is_normalize?: boolean): ChanceArray<EquipmentKey> {
-    const chances: ChanceArray<EquipmentKey> = objectEntries(
+    const chances = objectEntries(
       this.equip_chances,
-    );
+    ) as ChanceArray<EquipmentKey>;
+
     if (is_normalize) {
       setup.rng.normalizeChanceArray(chances);
     }

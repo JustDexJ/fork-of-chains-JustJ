@@ -255,25 +255,25 @@ export class EquipmentSet extends TwineClass {
   /**
    * @returns A mapping like {trait1: true, trait2: true, ...} from wearing this armor.
    */
-  getTraitsObj(): Record<TraitKey, boolean> {
+  getTraitsObj(): { [k in TraitKey]?: boolean } {
     const equipments = this.getEquipmentsList();
 
-    const trait_accum: Record<TraitKey, number> = {};
+    const trait_accum: { [k in TraitKey]?: number } = {};
 
     for (let i = 0; i < equipments.length; ++i) {
       const equipment = equipments[i][1];
       if (equipment) {
         const base_traits = equipment.getTraitMods();
         for (const trait_key of objectKeys(base_traits)) {
-          if (!(trait_key in trait_accum)) trait_accum[trait_key] = 0.0;
-          trait_accum[trait_key] += 1.0 / base_traits[trait_key];
+          trait_accum[trait_key] =
+            (trait_accum[trait_key] ?? 0) + 1.0 / base_traits[trait_key];
         }
       }
     }
 
-    const traits: Record<TraitKey, boolean> = {};
+    const traits: { [k in TraitKey]?: boolean } = {};
     for (const trait_key of objectKeys(trait_accum)) {
-      if (trait_accum[trait_key] >= 0.9999) {
+      if (trait_accum[trait_key]! >= 0.9999) {
         traits[trait_key] = true;
       }
     }
@@ -281,17 +281,17 @@ export class EquipmentSet extends TwineClass {
     /* Special: slutty traits depends on sluttiness */
     const sluttiness = this.getSluttiness();
     if (sluttiness >= setup.EQUIPMENT_VERYSLUTTY_THRESHOLD) {
-      traits["eq_veryslutty" as TraitKey] = true;
+      traits.eq_veryslutty = true;
     } else if (sluttiness >= setup.EQUIPMENT_SLUTTY_THRESHOLD) {
-      traits["eq_slutty" as TraitKey] = true;
+      traits.eq_slutty = true;
     }
 
     /* Special: value traits depends on sluttiness */
     let value = this.getValue();
     if (value >= setup.EQUIPMENT_VERYVALUABLE_THRESHOLD) {
-      traits["eq_veryvaluable" as TraitKey] = true;
+      traits.eq_veryvaluable = true;
     } else if (value >= setup.EQUIPMENT_VALUABLE_THRESHOLD) {
-      traits["eq_valuable" as TraitKey] = true;
+      traits.eq_valuable = true;
     }
 
     return traits;

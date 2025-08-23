@@ -2,26 +2,21 @@ export default class AnyTrait extends Restriction.Unit {
   trait_keys: TraitKey[];
   is_exact: boolean;
 
-  constructor(
-    traits: (Trait | TraitKey | BuiltinTraitKey)[],
-    is_exact?: boolean,
-  ) {
+  constructor(traits: (Trait | TraitKey)[], is_exact?: boolean) {
     super();
 
     if (!Array.isArray(traits))
       throw new Error(`traits must be array in AnyTrait`);
-    this.trait_keys = traits.map((trait) =>
-      resolveKey(trait as Trait | TraitKey),
-    );
+    this.trait_keys = traits.map((trait) => resolveKey(trait));
     this.is_exact = !!is_exact;
   }
 
-  override text() {
+  override text(): string {
     let trait_texts = this.trait_keys.map((a) => `setup.trait.${a}`);
     return `setup.qres.AnyTrait([${trait_texts.join(", ")}], ${this.is_exact})`;
   }
 
-  override explain() {
+  override explain(): string {
     let res = "Any of: ";
     let traittext = [];
     for (let i = 0; i < this.trait_keys.length; ++i) {

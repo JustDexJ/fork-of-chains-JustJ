@@ -7,7 +7,7 @@ export default class Player extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.Player(${this.cost.text()})`;
   }
 
@@ -17,7 +17,7 @@ export default class Player extends Cost {
     });
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `Player gets: ${this.cost.explain()}`;
   }
 }

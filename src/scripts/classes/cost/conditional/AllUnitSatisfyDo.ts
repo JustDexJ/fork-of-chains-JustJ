@@ -6,7 +6,7 @@ export default class AllUnitSatisfyDo extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.AllUnitSatisfyDo([${this.requirement.map((res) => res.text()).join(", ")}],\n[${this.dowhat.map((cost) => cost.text()).join(", ")}],\n)`;
   }
 
@@ -30,7 +30,7 @@ export default class AllUnitSatisfyDo extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `<div class='card livingcard'>For all units that satisfy: ${this.requirement.map((r) => r.explain()).join(", ")} <br/> do:
       <br/>
       ${this.dowhat.map((cost) => `${cost.explain()}<br/>`).join("")}

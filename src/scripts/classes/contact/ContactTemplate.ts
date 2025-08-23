@@ -1,6 +1,14 @@
 import { TwineClass } from "../_TwineClass";
 import type { ContactKey } from "./Contact";
 
+export interface ContactTemplateDefinition {
+  name: string;
+  tags: string[];
+  description: string | null;
+  apply_objs: Cost[];
+  expires_in?: number;
+}
+
 export type ContactTemplateKey = ContactKey;
 
 /**
@@ -16,8 +24,8 @@ export class ContactTemplate extends TwineClass {
   /** Array of tags describing the template's properties. */
   tags: string[];
 
-  /** Passage name for the template's description, or null if none. */
-  description_passage: string | null;
+  /** The template's description, or null if none. */
+  description: string | null;
 
   /** Array of costs/apply objects for this template.  */
   apply_objs: Cost[];
@@ -25,33 +33,33 @@ export class ContactTemplate extends TwineClass {
   /** Number of weeks until expiration, or undefined if permanent. */
   expires_in?: number;
 
-  constructor(
-    key: string,
-    name: string,
-    tags: string[],
-    description_passage: string | null,
-    apply_objs: Cost[],
-    expires_in?: number,
-  ) {
+  constructor(key: string, def: Readonly<ContactTemplateDefinition>) {
     super();
+
     if (!key) throw new Error(`Missing key for contact template`);
     this.key = key as ContactTemplateKey;
-    if (!name) throw new Error(`Missing name for contact template ${key}`);
-    this.name = name;
-    if (!Array.isArray(tags))
+
+    if (!def.name) throw new Error(`Missing name for contact template ${key}`);
+    this.name = def.name;
+
+    if (!Array.isArray(def.tags))
       throw new Error(`Tags must be an array for contact template ${key}`);
-    this.tags = tags;
-    this.description_passage = description_passage ?? null;
-    if (!Array.isArray(apply_objs))
+    this.tags = def.tags;
+
+    this.description = def.description ?? null;
+    if (!Array.isArray(def.apply_objs))
       throw new Error(
         `apply_objs must be an array for contact template ${key}`,
       );
-    this.apply_objs = apply_objs;
+
+    this.apply_objs = def.apply_objs;
     for (let i = 0; i < this.apply_objs.length; ++i) {
       if (!this.apply_objs[i])
         throw new Error(`${i}-th applyobj for contact template ${key} missing`);
     }
-    this.expires_in = expires_in;
+
+    this.expires_in = def.expires_in;
+
     if (this.key in setup.contacttemplate)
       throw new Error(`Duplicate key ${this.key} for contact template`);
     setup.contacttemplate[this.key as ContactTemplateKey] = this;
@@ -65,8 +73,8 @@ export class ContactTemplate extends TwineClass {
     return this.tags;
   }
 
-  getDescriptionPassage(): string | null {
-    return this.description_passage;
+  getDescription(): string | null {
+    return this.description;
   }
 
   getName(): string {

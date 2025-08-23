@@ -10,7 +10,7 @@ export default class Injury extends Cost {
   static PASSAGE = "CostInjury";
   static UNIT = true;
 
-  override text() {
+  override text(): string {
     return `setup.qc.Injury('${this.actor_name}', ${this.injury_amt})`;
   }
 
@@ -24,7 +24,7 @@ export default class Injury extends Cost {
     State.variables.hospital.healUnit(unit, this.injury_amt);
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return (
       `${this.actor_name} injured for ${this.injury_amt} week` +
       (this.injury_amt === 1 ? "" : "s")

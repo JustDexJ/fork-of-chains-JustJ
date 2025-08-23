@@ -1,6 +1,6 @@
-import type { TraitDefinition } from "../../classes/trait/Trait";
+import type { TraitOrGroupDefinitions } from "../../classes/trait/Trait";
 
-export default typedObject<TraitDefinition>()({
+export default {
   job_slaver: {
     name: "slaver",
     description: "A slaver in your employ",
@@ -32,4 +32,4 @@ export default typedObject<TraitDefinition>()({
     skill_bonuses: {},
     tags: ["job", "computed"],
   },
-});
+} satisfies TraitOrGroupDefinitions;

@@ -4,7 +4,7 @@ export default class Mindbreak extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.Mindbreak('${this.actor_name}')`;
   }
 
@@ -18,7 +18,7 @@ export default class Mindbreak extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name} is mindbroken`;
   }
 }

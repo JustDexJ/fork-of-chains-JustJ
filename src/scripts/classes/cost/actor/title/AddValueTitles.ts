@@ -8,7 +8,7 @@ export default class AddValueTitles extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.AddValueTitles('${this.actor_name}', ${this.amount})`;
   }
 
@@ -24,7 +24,7 @@ export default class AddValueTitles extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name} gains titles to increase its value by at most ${this.amount}g`;
   }
 }

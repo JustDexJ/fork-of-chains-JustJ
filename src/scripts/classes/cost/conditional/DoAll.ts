@@ -11,7 +11,7 @@ export default class DoAll extends Cost {
       );
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.DoAll([\n${this.costs.map((a) => a.text()).join(",\n")}\n], ${this.probability})`;
   }
 
@@ -23,7 +23,7 @@ export default class DoAll extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     let _prob = "";
     if (this.probability !== undefined)
       _prob = ` (with ${(this.probability * 100).toFixed(1)}% chance)`;

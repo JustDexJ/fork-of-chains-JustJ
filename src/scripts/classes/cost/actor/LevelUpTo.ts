@@ -7,7 +7,7 @@ export default class LevelUpTo extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.LevelUpTo('${this.actor_name}', ${this.target_level})`;
   }
 
@@ -18,7 +18,7 @@ export default class LevelUpTo extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name} levels up to level ${this.target_level}`;
   }
 }

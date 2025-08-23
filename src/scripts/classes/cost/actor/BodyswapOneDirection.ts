@@ -9,7 +9,7 @@ export default class BodyswapOneDirection extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.BodyswapOneDirection('${this.actor_name}', '${this.target_actor_name}')`;
   }
 
@@ -25,7 +25,7 @@ export default class BodyswapOneDirection extends Cost {
     unit.addHistory(`copied ${target.getName()}'s body`);
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name} copies ${this.target_actor_name}'s body`;
   }
 }

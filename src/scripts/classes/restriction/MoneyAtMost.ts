@@ -3,15 +3,15 @@ export default class MoneyAtMost extends Restriction {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.MoneyAtMost(${this.money})`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Maximum money: ${this.money}`;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     return State.variables.company.player.getMoney() <= this.money;
   }
 }

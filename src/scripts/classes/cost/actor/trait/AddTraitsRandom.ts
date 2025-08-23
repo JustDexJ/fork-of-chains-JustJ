@@ -7,7 +7,7 @@ export default class AddTraitsRandom extends Cost {
 
   constructor(
     public actor_name: string,
-    traits: (Trait | TraitKey | BuiltinTraitKey)[],
+    traits: (Trait | TraitKey)[],
     public no_of_traits: number,
     public is_replace?: boolean,
     public is_guaranteed?: boolean,
@@ -17,10 +17,10 @@ export default class AddTraitsRandom extends Cost {
     if (!Array.isArray(traits)) throw new Error(`Trait array must be array`);
     if (no_of_traits > traits.length)
       throw new Error(`Too few traits: ${traits.length} vs ${no_of_traits}`);
-    this.trait_keys = traits.map((a) => resolveKey(a as Trait | TraitKey));
+    this.trait_keys = traits.map((a) => resolveKey(a));
   }
 
-  override text() {
+  override text(): string {
     let texts = this.trait_keys.map((a) => `setup.trait.${a}`);
     return `setup.qc.AddTraitsRandom('${this.actor_name}', [${texts.join(", ")}], ${this.no_of_traits}, ${this.is_replace}, ${this.is_guaranteed})`;
   }
@@ -56,7 +56,7 @@ export default class AddTraitsRandom extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     let trait_strs = this.getTraits().map((a) => a.rep());
     let verb = `gains ${this.no_of_traits} random traits from`;
     if (this.is_replace) verb = `${verb} (exact)`;

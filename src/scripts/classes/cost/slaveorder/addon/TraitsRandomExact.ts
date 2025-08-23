@@ -19,12 +19,12 @@ export default class TraitsRandomExact extends SlaveOrderAddonBase {
     this.trait_keys = traits.map((a) => a.key);
   }
 
-  override text() {
+  override text(): string {
     let texts = this.trait_keys.map((a) => `setup.trait.${a}`);
     return `setup.SlaveOrderAddon.TraitsRandomExact([<br/>${texts.join(",<br/>")}<br/>], ${this.num_crit}, ${this.num_disaster}, ${this.num_restriction})`;
   }
 
-  override explain() {
+  override explain(): string {
     let traits = this.trait_keys.map((a) => setup.trait[a].rep());
     return `Randomly: select ${this.num_crit} critical, ${this.num_disaster} disaster, and ${this.num_restriction} must-have traits from ${traits.join("")}`;
   }

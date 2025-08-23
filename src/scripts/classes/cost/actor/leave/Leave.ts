@@ -8,7 +8,7 @@ export default class Leave extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.Leave('${this.actor_name}', "${setup.escapeJsString(this.reason)}", ${this.duration})`;
   }
 
@@ -17,7 +17,7 @@ export default class Leave extends Cost {
     State.variables.leave.leave(unit, this.reason, this.duration);
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     const reason = this.reason;
     if (this.duration) {
       return `${this.actor_name} will be on leave from the company for ${this.duration} weeks because ${this.actor_name} ${reason}`;

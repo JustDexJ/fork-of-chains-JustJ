@@ -3,7 +3,7 @@ export default class PerkChaoticPersonality extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.PerkChaoticPersonality('${this.actor_name}')`;
   }
 
@@ -30,7 +30,7 @@ export default class PerkChaoticPersonality extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name} reverse their personalities`;
   }
 }

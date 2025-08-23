@@ -14,7 +14,7 @@ export default class HasUnitWithTitle extends Restriction {
     this.params = params || {};
   }
 
-  override text() {
+  override text(): string {
     let paramtext = `{\n`;
     for (const [paramkey, paramval] of objectEntries(this.params)) {
       paramtext += `${paramkey}: `;
@@ -28,7 +28,7 @@ export default class HasUnitWithTitle extends Restriction {
     return `setup.qres.HasUnitWithTitle('${this.title_key}', ${paramtext})`;
   }
 
-  override explain() {
+  override explain(): string {
     let title = setup.title[this.title_key];
 
     let paramtext = [];
@@ -39,7 +39,7 @@ export default class HasUnitWithTitle extends Restriction {
     return `Must exists any unit that has "${title.rep()}" and also ${paramtext.join(", ")}`;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     let title = setup.title[this.title_key];
     let params = this.params;
 

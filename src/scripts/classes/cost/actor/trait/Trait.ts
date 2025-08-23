@@ -7,7 +7,7 @@ export default class Trait extends Cost {
 
   constructor(
     public actor_name: string,
-    trait?: Trait_ | TraitKey | BuiltinTraitKey | null,
+    trait?: Trait_ | TraitKey | null,
     trait_group?: TraitGroup | TraitGroupKey | null,
   ) {
     super();
@@ -15,11 +15,11 @@ export default class Trait extends Cost {
     if (!trait && trait != null)
       throw new Error(`Missing trait for setup.qc.Trait(${actor_name})`);
 
-    this.trait_key = trait ? resolveKey(trait as Trait_ | TraitKey) : null;
+    this.trait_key = trait ? resolveKey(trait) : null;
     this.trait_group_key = trait_group ? resolveKey(trait_group) : null;
   }
 
-  override text() {
+  override text(): string {
     if (this.trait_key) {
       return `setup.qc.Trait('${this.actor_name}', setup.trait.${this.trait_key})`;
     } else {
@@ -41,7 +41,7 @@ export default class Trait extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     if (this.trait_key) {
       return `${this.actor_name} gain ${setup.trait[this.trait_key].rep()}`;
     } else {

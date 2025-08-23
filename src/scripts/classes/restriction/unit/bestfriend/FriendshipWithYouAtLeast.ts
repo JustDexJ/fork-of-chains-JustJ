@@ -3,11 +3,11 @@ export default class FriendshipWithYouAtLeast extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.FriendshipWithYouAtLeast(${this.amt})`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Unit's friendship with you is at least ${this.amt}`;
   }
 

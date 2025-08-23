@@ -26,11 +26,11 @@ export default class SlaveOrderMenial extends SlaveOrderTemplate {
     return [new setup.qcImpl.SlaveOrderMenial()];
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `Another menial slave order`;
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.SlaveOrderMenial()`;
   }
 

@@ -3,11 +3,11 @@ export default class IsCanPhysicallyTalk extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.IsCanPhysicallyTalk()`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Can talk physically: not blocked by gag, but can be blocked by slave rule`;
   }
 

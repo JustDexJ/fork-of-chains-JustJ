@@ -3,11 +3,11 @@ export default class LoverExist extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.LoverExist()`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Unit has a lover`;
   }
 

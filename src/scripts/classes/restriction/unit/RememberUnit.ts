@@ -3,11 +3,11 @@ export default class RememberUnit extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.RememberUnit()`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Remember this unit (used with setup.qres.BestFriendWithRememberedUnit, setup.qres.CanUseRememberedUnit, and setup.qres.CanBeUsedWithRememberedUnit)`;
   }
 

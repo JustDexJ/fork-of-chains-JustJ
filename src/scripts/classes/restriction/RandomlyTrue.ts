@@ -6,11 +6,11 @@ export default class RandomlyTrue extends Restriction {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.RandomlyTrue(${this.chance})`;
   }
 
-  override explain() {
+  override explain(): string {
     if (State.variables.gDebug) {
       return `With ${(this.chance * 100).toFixed(1)}% chance`;
     } else {
@@ -18,7 +18,7 @@ export default class RandomlyTrue extends Restriction {
     }
   }
 
-  override isOk() {
+  override isOk(): boolean {
     return Math.random() < this.chance;
   }
 }

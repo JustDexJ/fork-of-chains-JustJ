@@ -7,11 +7,11 @@ export default class SlaveValueAtLeast extends Restriction.Unit {
   static PASSAGE = "RestrictionSlaveValueAtLeast";
   static UNIT = true;
 
-  override text() {
+  override text(): string {
     return `setup.qres.SlaveValueAtLeast(${this.slavevalue})`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Unit's slave value is at least ${this.slavevalue}`;
   }
 

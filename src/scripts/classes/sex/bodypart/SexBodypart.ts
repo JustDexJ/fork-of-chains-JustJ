@@ -123,7 +123,7 @@ export abstract class SexBodypart extends TwineClassCustom {
   /**
    * Return trait: number for determining size
    */
-  getTraitSizeMap(): Record<TraitKey, number> {
+  getTraitSizeMap(): { [k in TraitKey | "default"]?: number } {
     return {};
   }
 
@@ -141,7 +141,7 @@ export abstract class SexBodypart extends TwineClassCustom {
   /**
    * Get modifier to size from trainings, etc.
    */
-  getTraitSizeModifierMap(): Record<TraitKey, number> {
+  getTraitSizeModifierMap(): { [k in TraitKey | "default"]?: number } {
     return {};
   }
 

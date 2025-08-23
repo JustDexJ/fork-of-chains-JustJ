@@ -12,7 +12,7 @@ export default class Favor extends Cost {
     this.company_key = resolveKey(company as Company | CompanyKey);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.Favor('${this.company_key}', ${this.favor_amt})`;
   }
 
@@ -44,7 +44,7 @@ export default class Favor extends Cost {
     State.variables.favor.adjustFavor(this.getCompany(), -this.favor_amt);
   }
 
-  override explain() {
+  override explain(): string {
     const adjustment = this.favor_amt;
     const company = this.getCompany();
     if (adjustment < 0) {

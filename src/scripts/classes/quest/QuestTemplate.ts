@@ -25,7 +25,9 @@ export type QuestOutcome = (typeof QUEST_OUTCOMES)[number];
 export type QuestOutcomeValues = { [k in QuestOutcome]: number };
 export type QuestOutcomeMap<T> = { [k in QuestOutcome]: T };
 
-export type QuestTemplateKey = BrandedType<string, "QuestTemplateKey">;
+export type QuestTemplateKey =
+  | BrandedType<string, "QuestTemplateKey">
+  | BuiltinQuestTemplateKey;
 
 export type QuestUnitCriteria = { criteria: UnitCriteria; offsetmod?: number };
 

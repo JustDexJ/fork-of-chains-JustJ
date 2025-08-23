@@ -1,6 +1,6 @@
-import type { TraitDefinition } from "../../classes/trait/Trait";
+import type { TraitOrGroupDefinitions } from "../../classes/trait/Trait";
 
-export default typedObject<TraitDefinition>()({
+export default {
   gender_male: {
     name: "male",
     description: "Has a masculine appearance.",
@@ -15,4 +15,4 @@ export default typedObject<TraitDefinition>()({
     skill_bonuses: {},
     tags: ["gender", "common"],
   },
-});
+} satisfies TraitOrGroupDefinitions;

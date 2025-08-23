@@ -75,7 +75,7 @@ export class TagHelper {
     if (!force && tagobj.hide) return "";
 
     const folder =
-      setup.TagHelper.TAG_INFO[menu as keyof typeof setup.TagHelper.TAG_INFO]
+      setup.TagHelper.TAG_INFO[menu as keyof typeof TagHelper.TAG_INFO]
         .img_folder;
 
     return setup.repImg({

@@ -105,7 +105,7 @@ namespace SexUtil_ {
 
   export function sumTraitMultipliers(
     unit: Unit,
-    trait_effects: { [k in TraitKey | BuiltinTraitKey]?: number } & {
+    trait_effects: { [k in TraitKey]?: number } & {
       default?: number;
     },
   ): number {
@@ -138,7 +138,7 @@ namespace SexUtil_ {
 
   export function calculateTraitMultiplier(
     unit: Unit,
-    trait_effects: { [k in TraitKey | BuiltinTraitKey]?: number },
+    trait_effects: { [k in TraitKey]?: number },
   ): number {
     const multiplier = SexUtil.sumTraitMultipliers(unit, trait_effects) + 1.0;
     return Math.max(multiplier, 0);
@@ -150,7 +150,7 @@ namespace SexUtil_ {
    */
   export function traitSelect<T>(
     unit: Unit,
-    trait_choices: { [k in TraitKey | BuiltinTraitKey]?: T } & {
+    trait_choices: { [k in TraitKey]?: T } & {
       default?: T;
     },
   ): T {
@@ -173,7 +173,7 @@ namespace SexUtil_ {
   export function traitSelectArray<T>(
     unit: Unit,
     trait_choices: {
-      [k in TraitKey | BuiltinTraitKey]?: T[];
+      [k in TraitKey]?: T[];
     } & { default?: T[] },
   ): T {
     const chosen = SexUtil.traitSelect(unit, trait_choices);

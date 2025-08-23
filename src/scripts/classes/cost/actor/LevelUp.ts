@@ -7,7 +7,7 @@ export default class levelUp extends Cost {
   static NAME = "Level up a unit";
   static PASSAGE = "CostlevelUp";
 
-  override text() {
+  override text(): string {
     return `setup.qc.levelUp('${this.actor_name}')`;
   }
 
@@ -16,7 +16,7 @@ export default class levelUp extends Cost {
     unit.levelUp();
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name} levels up`;
   }
 }

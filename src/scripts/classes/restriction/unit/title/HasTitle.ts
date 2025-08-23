@@ -9,11 +9,11 @@ export default class HasTitle extends Restriction.Unit {
     this.title_key = resolveKey(title as Title | TitleKey);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.HasTitle('${this.title_key}')`;
   }
 
-  override explain() {
+  override explain(): string {
     let title = setup.title[this.title_key];
     return `${title.rep()}`;
   }

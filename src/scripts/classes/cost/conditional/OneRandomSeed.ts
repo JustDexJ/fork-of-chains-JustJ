@@ -8,7 +8,7 @@ export default class OneRandomSeed extends Cost {
     this.costs = costs;
   }
 
-  override text() {
+  override text(): string {
     let texts = [];
     for (let i = 0; i < this.costs.length; ++i) {
       texts.push(this.costs[i].text());
@@ -26,7 +26,7 @@ export default class OneRandomSeed extends Cost {
     return cost.apply(context);
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     if (context) {
       const cost = this.getSeededCost(context);
       return cost.explain(context);

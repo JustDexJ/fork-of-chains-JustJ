@@ -13,7 +13,7 @@ export default class Function extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     let text = this.func.toString();
     return `setup.qc.Function(
       ${text},
@@ -25,7 +25,7 @@ export default class Function extends Cost {
     this.func(context);
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     if (this.display_text) {
       return this.display_text;
     }

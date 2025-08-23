@@ -10,7 +10,7 @@ export type GenderPreference = keyof typeof SETTINGS_GENDER_PREFERENCE;
 export type GenderPreferenceValues =
   (typeof SETTINGS_GENDER_PREFERENCE)[GenderPreference];
 
-export type SexgenderDistribution = ChanceObjectPartial<SexgenderKey>;
+export type SexgenderDistribution = ChanceObject<SexgenderKey>;
 
 export const DEFAULT_SEXGENDER_DISTRIBUTION: SexgenderDistribution =
   Object.freeze({
@@ -150,11 +150,11 @@ export class Settings extends TwineClass {
     // randomly pick a gender based on preferences
     const chances = this.getGenderPreferenceChances(job);
     //let retries = preferences.retries;
-    //let gender_trait: BuiltinTraitKey = "gender_female";
+    //let gender_trait: TraitKey = "gender_female";
     //if (Math.random() < 0.5) gender_trait = "gender_male";
     //while (retries && gender_trait != preferences.trait_key) {
     //  if (Math.random() < 0.5) {
-    //    gender_trait = preferences.trait_key as BuiltinTraitKey;
+    //    gender_trait = preferences.trait_key as TraitKey;
     //    break;
     //  }
     //  --retries;
@@ -203,7 +203,7 @@ export type SexgenderKey = keyof typeof SEXGENDERS;
 
 /** @deprecated Kept only for compatibility for upgrading old saves */
 export const SETTINGS_GENDER_PREFERENCE = typedObject<{
-  trait_key: BuiltinTraitKey;
+  trait_key: TraitKey;
   chances: SexgenderDistribution;
 }>()({
   allfemale: {

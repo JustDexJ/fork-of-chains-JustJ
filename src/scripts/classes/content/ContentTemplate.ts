@@ -176,11 +176,11 @@ export abstract class ContentTemplate<
   getActorSubraces(): Trait[] {
     const subraces = TraitHelper.getAllTraitsOfTags(["subrace"]);
     const unit_groups = this.getActorUnitGroups();
-    const found: Record<TraitKey, boolean> = {};
+    const found: { [k in TraitKey]?: boolean } = {};
     for (const group of Object.values(unit_groups)) {
       if (group instanceof setup.UnitGroup) {
         const pools_objs = group.getUnitPools();
-        const races: Record<TraitKey, boolean> = {};
+        const races: { [k in TraitKey]?: boolean } = {};
         for (const pool_obj of pools_objs) {
           const pool = Array.isArray(pool_obj) ? pool_obj[0] : pool_obj;
           let subrace = null;

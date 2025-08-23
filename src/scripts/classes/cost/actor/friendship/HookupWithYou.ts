@@ -6,7 +6,7 @@ export default class HookupWithYou extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.HookupWithYou('${this.actor_name}')`;
   }
 
@@ -20,7 +20,7 @@ export default class HookupWithYou extends Cost {
     );
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name} becomes your lover, breaking up with any existing units if any`;
   }
 }

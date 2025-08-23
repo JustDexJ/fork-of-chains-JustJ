@@ -3,11 +3,11 @@ export default class IsCanOrgasm extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.IsCanOrgasm()`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Can orgasm: not blocked by slave rule or by chastity`;
   }
 

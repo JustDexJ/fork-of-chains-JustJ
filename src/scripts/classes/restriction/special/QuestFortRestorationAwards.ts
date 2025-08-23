@@ -6,7 +6,7 @@ export default class QuestFortRestorationAwards extends Restriction {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.QuestFortRestorationAwards()`;
   }
 
@@ -17,11 +17,11 @@ export default class QuestFortRestorationAwards extends Restriction {
     return Math.round(setup.ROOM_BONUS_SKILL_BONUS_DEFAULT * frac);
   }
 
-  override explain() {
+  override explain(): string {
     return `Your fort grants at least ${this.getAmount()} ${setup.skill.map((skill) => skill.rep()).join("")}`;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     const amt = this.getAmount();
     const boosts = State.variables.roomlist.getTotalSkillBonuses();
     return boosts.filter((i) => i < amt).length == 0;

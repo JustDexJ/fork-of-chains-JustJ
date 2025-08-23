@@ -4,11 +4,11 @@ export default class SlaveBedchamberFullUsableByYou extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.SlaveBedchamberFullUsableByYou()`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Unit must be in a full bedchamber usable by you`;
   }
 

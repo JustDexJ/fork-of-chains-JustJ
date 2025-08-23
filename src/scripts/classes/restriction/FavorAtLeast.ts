@@ -11,16 +11,16 @@ export default class FavorAtLeast extends Restriction {
     this.favor_amt = favor_amt;
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.FavorAtLeast('${this.company_key}', ${this.favor_amt})`;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     let company = State.variables.company[this.company_key];
     return State.variables.favor.getFavor(company) >= this.favor_amt;
   }
 
-  override explain() {
+  override explain(): string {
     let company = State.variables.company[this.company_key];
     return `Favor with ${company.rep()} at least ${setup.DOM.toString(setup.DOM.Util.favor(this.favor_amt))}`;
   }

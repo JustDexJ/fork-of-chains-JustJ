@@ -3,11 +3,11 @@ export default class ZeroTitle extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.ZeroTitle()`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Unit does not have any title`;
   }
 

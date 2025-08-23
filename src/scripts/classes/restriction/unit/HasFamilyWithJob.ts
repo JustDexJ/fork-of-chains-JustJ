@@ -13,11 +13,11 @@ export default class HasFamilyWithJob extends Restriction.Unit {
   static PASSAGE = "RestrictionHasFamilyWithJob";
   static UNIT = true;
 
-  override text() {
+  override text(): string {
     return `setup.qres.HasFamilyWithJob(setup.job.${this.job_key})`;
   }
 
-  override explain() {
+  override explain(): string {
     return `${setup.job[this.job_key].rep()}`;
   }
 

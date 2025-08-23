@@ -9,7 +9,7 @@ export default class Sibling extends Cost {
   static NAME = "Two units become siblings";
   static PASSAGE = "CostSibling";
 
-  override text() {
+  override text(): string {
     return `setup.qc.Sibling('${this.actor_name}', '${this.target_actor_name}')`;
   }
 
@@ -19,7 +19,7 @@ export default class Sibling extends Cost {
     State.variables.family.setSibling(unit, target);
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name} and ${this.target_actor_name} becomes siblings`;
   }
 }

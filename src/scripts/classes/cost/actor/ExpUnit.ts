@@ -10,7 +10,7 @@ export default class ExpUnit extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.ExpUnit('${this.actor_name}', ${this.week_multiplier})`;
   }
 
@@ -27,7 +27,7 @@ export default class ExpUnit extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name} gain some exp (multiplier: ${this.week_multiplier})`;
   }
 }

@@ -3,11 +3,11 @@ export default class BestFriendWithRememberedUnit extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.BestFriendWithRememberedUnit()`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Unit must be the best friend/lover of the remembered unit`;
   }
 

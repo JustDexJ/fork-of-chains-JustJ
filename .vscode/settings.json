@@ -7,6 +7,7 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "typescript.preferences.preferTypeOnlyAutoImports": true,
+  "typescript.tsserver.experimental.enableProjectDiagnostics": true,
   "twee3LanguageTools.storyformat.current": "sugarcube-2",
   "twee3LanguageTools.passage.list": true,
   "search.exclude": {

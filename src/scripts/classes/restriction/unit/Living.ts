@@ -8,7 +8,7 @@ export default class Living extends Restriction.Unit {
     this.living_key = resolveKey(living);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.Living(setup.living.${this.living_key})`;
   }
 
@@ -16,7 +16,7 @@ export default class Living extends Restriction.Unit {
     return setup.living[this.living_key];
   }
 
-  override explain() {
+  override explain(): string {
     return `Unit is retired and has the following living: ${this.getLiving().rep()}`;
   }
 

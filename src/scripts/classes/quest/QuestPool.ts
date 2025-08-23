@@ -1,3 +1,4 @@
+import type { QUEST_POOL_DEFINITIONS } from "../../data/questpools";
 import { TwineClass } from "../_TwineClass";
 import type { ContentTemplate } from "../content/ContentTemplate";
 import type { Deck } from "../deck/Deck";
@@ -14,7 +15,11 @@ interface AllQuestGeneratableRes {
   rarity: Rarity;
 }
 
-export type QuestPoolKey = BrandedType<string, "QuestPoolKey">;
+export interface QuestPoolDefinition {
+  name: string;
+}
+
+export type QuestPoolKey = keyof typeof QUEST_POOL_DEFINITIONS;
 
 /**
  * Represents a group of quest bases. Responsible for generating quests.
@@ -24,14 +29,15 @@ export class QuestPool extends TwineClass {
   key: QuestPoolKey;
   name: string;
 
-  quest_template_rarity_map: Record<QuestTemplateKey, Rarity> = {};
-  opportunity_template_rarity_map: Record<OpportunityTemplateKey, Rarity> = {};
+  quest_template_rarity_map: { [k in QuestTemplateKey]?: Rarity } = {};
+  opportunity_template_rarity_map: { [k in OpportunityTemplateKey]?: Rarity } =
+    {};
 
-  constructor(key: string, name: string) {
+  constructor(key: string, def: Readonly<QuestPoolDefinition>) {
     super();
 
     this.key = key as QuestPoolKey;
-    this.name = name;
+    this.name = def.name;
 
     if (key in setup.questpool)
       throw new Error(`Quest Pool ${key} already exists`);
@@ -72,7 +78,7 @@ export class QuestPool extends TwineClass {
       const opportunity_template = setup.opportunitytemplate[opp_key];
       result.push({
         template: opportunity_template,
-        rarity,
+        rarity: rarity!,
       });
     }
 

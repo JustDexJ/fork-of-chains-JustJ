@@ -48,7 +48,7 @@ export default class SlaveOrderFlex extends SlaveOrderTemplate {
     this.addons = addons;
   }
 
-  override text() {
+  override text(): string {
     let text = "setup.qc.SlaveOrderFlex(\n";
     text += `  '${setup.escapeJsString(this.name)}',  """/* name */"""\n`;
     text += `  '${this.company_key}',  """/* company */"""\n`;
@@ -94,7 +94,7 @@ export default class SlaveOrderFlex extends SlaveOrderTemplate {
     return text;
   }
 
-  override explain() {
+  override explain(): string {
     let text = `${this.getName()} `;
     text += `<<message "(+)">>`;
     text += `${this.getName()} from ${State.variables.company[this.company_key].rep()}<br/>`;

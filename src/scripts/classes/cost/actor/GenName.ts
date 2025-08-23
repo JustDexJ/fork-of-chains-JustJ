@@ -28,7 +28,7 @@ export default class GenName extends Cost {
     this.subrace_found = subrace_found;
   }
 
-  override text() {
+  override text(): string {
     let texts = [];
     for (let i = 0; i < this.trait_keys.length; ++i) {
       texts.push(`setup.trait.${this.trait_keys[i]}`);
@@ -52,7 +52,7 @@ export default class GenName extends Cost {
     unit.addHistory(` changed name from ${oldname} to ${newname}.`, context);
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     let texts = [];
     let traits = this.getTraits();
     for (let i = 0; i < traits.length; ++i) {

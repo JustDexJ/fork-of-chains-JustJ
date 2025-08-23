@@ -7,11 +7,11 @@ export default class NoTag extends Restriction.Unit {
   static PASSAGE = "RestrictionNoTag";
   static UNIT = true;
 
-  override text() {
+  override text(): string {
     return `setup.qres.NoTag('${this.tag_name}')`;
   }
 
-  override explain() {
+  override explain(): string {
     let tagname = this.tag_name;
     return `Must NOT have tag/flag: "${tagname}"`;
   }

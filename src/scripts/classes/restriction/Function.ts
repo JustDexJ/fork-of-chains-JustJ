@@ -6,7 +6,7 @@ export default class Function<T> extends Restriction<T> {
     super();
   }
 
-  override text() {
+  override text(): string {
     let text = this.func.toString();
     return `setup.qres.Function(
       ${text},
@@ -18,7 +18,7 @@ export default class Function<T> extends Restriction<T> {
     return this.func(context);
   }
 
-  override explain() {
+  override explain(): string {
     return this.display_text || `Runs a custom function`;
   }
 }

@@ -6,7 +6,7 @@ export default class ResetLevel extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.ResetLevel('${this.actor_name}')`;
   }
 
@@ -15,7 +15,7 @@ export default class ResetLevel extends Cost {
     unit.resetLevel();
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `reset the level of ${this.actor_name} to level 1`;
   }
 }

@@ -16,7 +16,7 @@ export default class AddUnitToUnitGroup extends Cost {
     this.unit_group_key = resolveKey(unit_group);
   }
 
-  override text() {
+  override text(): string {
     let unitgroup = setup.unitgroup[this.unit_group_key];
     let qcu = State.variables.qcustomunitgroup;
     if (!qcu) qcu = [];
@@ -40,7 +40,7 @@ export default class AddUnitToUnitGroup extends Cost {
     setup.unitgroup[this.unit_group_key].addUnit(unit);
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name} is added to unit group ${setup.unitgroup[this.unit_group_key].rep()}`;
   }
 }

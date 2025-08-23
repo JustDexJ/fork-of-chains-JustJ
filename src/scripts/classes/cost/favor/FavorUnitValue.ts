@@ -13,7 +13,7 @@ export default class FavorUnitValue extends Cost {
     this.company_key = resolveKey(company);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.FavorUnitValue('${this.actor_name}', '${this.company_key}', ${this.favor_per_value})`;
   }
 
@@ -21,7 +21,7 @@ export default class FavorUnitValue extends Cost {
     return State.variables.company[this.company_key];
   }
 
-  override explain() {
+  override explain(): string {
     const fpv = this.favor_per_value;
     return `Gain favor with ${this.getCompany().rep()} equals ${this.actor_name}'s value times ${fpv}`;
   }

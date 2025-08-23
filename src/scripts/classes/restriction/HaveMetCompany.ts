@@ -9,16 +9,16 @@ export default class HaveMetCompany extends Restriction {
     this.company_key = resolveKey(company);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.HaveMetCompany('${this.company_key}')`;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     const company = State.variables.company[this.company_key];
     return State.variables.favor.isCompanyKnown(company);
   }
 
-  override explain() {
+  override explain(): string {
     const company = State.variables.company[this.company_key];
     return `Have met ${company.getName()}`;
   }

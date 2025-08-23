@@ -5,11 +5,11 @@ export default class AnyTraitWithTag extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.AnyTraitWithTag(${JSON.stringify(this.tag)})`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Any trait with tag: ${this.tag}`;
   }
 

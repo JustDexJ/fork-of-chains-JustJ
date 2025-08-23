@@ -10,7 +10,7 @@ export default class ItemIfNew extends Cost {
     this.item_key = resolveKey(item);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.ItemIfNew(setup.item.${this.item_key})`;
   }
 
@@ -25,7 +25,7 @@ export default class ItemIfNew extends Cost {
     }
   }
 
-  override explain() {
+  override explain(): string {
     return `Gain ${this.getItem().rep()} unless you already have it`;
   }
 }

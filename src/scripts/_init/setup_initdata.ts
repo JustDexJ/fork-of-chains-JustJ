@@ -5,11 +5,32 @@
 
 // TODO: migrate all remaining to js/ts
 
+import { CompanyTemplate } from "../classes/CompanyTemplate";
+import { ContactTemplate } from "../classes/contact/ContactTemplate";
+import { UnitCriteria } from "../classes/criteria/UnitCriteria";
+import { Equipment } from "../classes/equipment/Equipment";
+import { EquipmentPool } from "../classes/equipment/EquipmentPool";
+import { EquipmentPoolGroup } from "../classes/equipment/EquipmentPoolGroup";
+import { QuestPool } from "../classes/quest/QuestPool";
+import { UnitGroup } from "../classes/unit/UnitGroup";
+import { COMPANY_DEFINITIONS } from "../data/companies";
+import { CONTACT_TEMPLATE_DEFINITIONS } from "../data/contacts/_index";
+import { CRITERIA_DEFINITIONS } from "../data/criteria/_index";
+import { EQUIPMENT_POOL_GROUP_DEFINITIONS } from "../data/equipments/_equipmentpools";
+import {
+  EQUIPMENT_DEFINITIONS,
+  EQUIPMENT_POOL_DEFINITIONS,
+} from "../data/equipments/_index";
 import { EQUIPMENT_SLOT_DEFINITIONS } from "../data/equipmentslots";
 import { FAMILY_RELATION_DEFINTIONS } from "../data/familyrelations";
 import { FURNITURE_SLOT_DEFINITIONS } from "../data/furnitureslots";
 import { ITEM_CLASS_DEFINITIONS } from "../data/itemclasses";
+import { ITEM_DEFINITIONS } from "../data/items/_index";
+import { ITEM_POOL_DEFINITIONS } from "../data/items/_itempools";
+import { FURNITURE_ITEM_POOL_DEFINITIONS } from "../data/items/furnitures/_furrnitturepools";
+import { FURNITURE_DEFINITIONS } from "../data/items/furnitures/_index";
 import { JOB_DEFINITIONS } from "../data/jobs";
+import { QUEST_POOL_DEFINITIONS } from "../data/questpools";
 import { SKILL_DEFINITIONS } from "../data/skills";
 import { SPEECHES_DEFINITIONS } from "../data/speeches";
 import { SUBRACE_DEFINITIONS } from "../data/subraces/_index";
@@ -17,6 +38,8 @@ import { TITLE_DEFINITIONS } from "../data/titles";
 import { TRAIT_DEFINITIONS } from "../data/traits/_index";
 import { TRAIT_GROUP_DEFINITIONS } from "../data/traits/_traitgroups";
 import { PERK_DEFINTIONS } from "../data/traits/perks/traits_perk";
+import { UNIT_ACTION_DEFINITIONS } from "../data/unitactions/_index";
+import { UNIT_GROUP_DEFINITIONS } from "../data/unitgroups/_index";
 import { DataUtil } from "../util/DataUtil";
 import { initSetup, initState } from "./state_init";
 
@@ -63,9 +86,14 @@ DataUtil.load(setup.Subrace, SUBRACE_DEFINITIONS);
 {
   DataUtil.load(setup.ItemClass, ITEM_CLASS_DEFINITIONS);
 
-  executePassage("InitItem");
+  DataUtil.loadItems(ITEM_DEFINITIONS);
 
-  executePassage("InitFurniture");
+  setup.ItemUnitUsable.make_perk_potions();
+
+  DataUtil.load(setup.Furniture, FURNITURE_DEFINITIONS);
+
+  DataUtil.load(setup.ItemPool, ITEM_POOL_DEFINITIONS);
+  DataUtil.load(setup.ItemPool, FURNITURE_ITEM_POOL_DEFINITIONS);
 }
 
 // Quest Difficulties
@@ -74,19 +102,25 @@ DataUtil.load(setup.Subrace, SUBRACE_DEFINITIONS);
 }
 
 // Unit Criterias
-executePassagesWithTag("criteria");
+DataUtil.load(UnitCriteria, CRITERIA_DEFINITIONS);
 
 // Company Templates
-executePassagesWithTag("company");
+DataUtil.load(CompanyTemplate, COMPANY_DEFINITIONS);
 
 // Unit Pools & Unit Groups
 {
   executePassagesWithTag("unitpool");
 
-  // Define the special "null" unit group
-  new setup.UnitGroup("none", "Special: Empty unit group", [], 0, []);
+  // Define the special "soldslaves" unit group
+  new setup.UnitGroup_SoldSlaves("soldslaves", {
+    name: "Special: Sold Slaves",
+    chances: [],
+    reuse_chance: 0,
+    unit_post_process: [],
+  });
 
-  executePassage("InitUnitGroups");
+  DataUtil.load(UnitGroup, UNIT_GROUP_DEFINITIONS);
+  executePassagesWithTag("unitgroup");
 
   // Mark all statically-registered unit groups as "base"
   for (const unitgroup of Object.values(setup.unitgroup)) {
@@ -94,23 +128,23 @@ executePassagesWithTag("company");
   }
 }
 
-// Equipment Pools
-//executePassage("InitEquipmentPool");
-
-// Equipments
-executePassage("InitEquipment");
+// Equipments & Equipment Pools
+DataUtil.load(Equipment, EQUIPMENT_DEFINITIONS);
+DataUtil.load(EquipmentPool, EQUIPMENT_POOL_DEFINITIONS);
+DataUtil.load(EquipmentPoolGroup, EQUIPMENT_POOL_GROUP_DEFINITIONS);
+setup.EquipmentSet.initDefaultEquipmentSets();
 
 // Livings
 executePassagesWithTag("living");
 
 // Quest Pools
-executePassage("InitQuestPool");
+DataUtil.load(QuestPool, QUEST_POOL_DEFINITIONS);
 
-// Contact Template
-executePassagesWithTag("contact");
+// Contact Templates
+DataUtil.load(ContactTemplate, CONTACT_TEMPLATE_DEFINITIONS);
 
 // Duty Templates
-executePassage("InitDutyTemplates");
+setup.DutyTemplate.initializeSingletons();
 
 // Building Templates
 executePassage("InitBuildingTemplate");
@@ -118,11 +152,12 @@ executePassage("InitBuildingTemplate");
 // Opportunities
 executePassagesWithTag("opportunity");
 
-// Quests
-executePassage("InitQuestTemplate");
+// Quests (Quest Templates)
+executePassagesWithTag("quest");
+DataUtil.registerVeteranQuests();
 
 // Unit action
-executePassage("InitUnitAction");
+DataUtil.loadUnitActions(UNIT_ACTION_DEFINITIONS);
 
 // Events
 executePassagesWithTag("event");

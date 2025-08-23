@@ -14,7 +14,7 @@ export abstract class SexGoal extends TwineClassCustom {
     public title: string,
     public description: string,
     public base_chance: number,
-    public trait_preference: { [k in TraitKey | BuiltinTraitKey]?: number },
+    public trait_preference: { [k in TraitKey]?: number },
   ) {
     super();
   }

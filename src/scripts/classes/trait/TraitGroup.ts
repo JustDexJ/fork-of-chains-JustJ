@@ -3,6 +3,7 @@
 // [muscle_extremelythin, muscle_verythin, muscle_thin, null, muscle_strong, muscle_verystrong, muscle_extremelystrong]
 // the null means that if the trait were to "increase", it goes back to nothing.
 
+import type { _TraitGroupKey } from "../../data/traits/_index";
 import { TwineClass } from "../_TwineClass";
 import type { Unit } from "../unit/Unit";
 import type { Trait, TraitKey } from "./Trait";
@@ -10,12 +11,13 @@ import type { Trait, TraitKey } from "./Trait";
 export interface TraitGroupDefinition {
   key?: string | null;
 
-  sequence?: (Trait | TraitKey | BuiltinTraitKey | null)[];
-  pool?: (Trait | TraitKey | BuiltinTraitKey)[];
+  sequence?: (Trait | TraitKey | null)[];
+  pool?: (Trait | TraitKey)[];
   trait_tag?: string;
 }
 
-export type TraitGroupKey = BrandedType<number | string, "TraitGroupKey">;
+//export type TraitGroupKey = BrandedType<number | string, "TraitGroupKey">;
+export type TraitGroupKey = _TraitGroupKey;
 
 // tags is shorthand to add the same tag to all traits in this group
 

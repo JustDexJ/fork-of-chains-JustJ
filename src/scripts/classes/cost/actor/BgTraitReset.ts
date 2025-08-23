@@ -19,7 +19,7 @@ export default class BgTraitReset extends Cost {
   static PASSAGE = "CostBgTraitReset";
   static UNIT = true;
 
-  override text() {
+  override text(): string {
     return `setup.qc.BgTraitReset('${this.actor_name}', setup.trait.${this.trait_key})`;
   }
 
@@ -31,7 +31,7 @@ export default class BgTraitReset extends Cost {
     pb.apply(context);
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name}'s background is reset to ${setup.trait[this.trait_key].rep()}`;
   }
 }

@@ -11,15 +11,15 @@ export default class Through<T = unknown> extends Restriction<T> {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.Through(${this.requirement.text()}, '${this.explain_text || ""}')`;
   }
 
-  override isOk(context: T) {
+  override isOk(context: T): boolean {
     return this.requirement.isOk(context);
   }
 
-  override explain(context?: T) {
+  override explain(context?: T): string {
     if (
       !State.variables.gDebug &&
       (this.explain_text || this.explain_text == "HIDE")

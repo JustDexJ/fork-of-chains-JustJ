@@ -3,11 +3,11 @@ export default class IsCanSee extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.IsCanSee()`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Can see: not blocked by slave rule or by blindfold`;
   }
 

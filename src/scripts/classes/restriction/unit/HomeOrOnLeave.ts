@@ -6,11 +6,11 @@ export default class HomeExceptOnLeave extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.HomeExceptOnLeave()`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Unit is at home OR on leave`;
   }
 

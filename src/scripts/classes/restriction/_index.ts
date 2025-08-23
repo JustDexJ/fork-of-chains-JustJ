@@ -91,7 +91,7 @@ import HomeExceptOnLeave from "./unit/HomeOrOnLeave";
 import InnateTrait from "./unit/InnateTrait";
 import IsCanBeSold from "./unit/IsCanBeSold";
 import IsInjured from "./unit/IsInjured";
-import Job from "./unit/Job";
+import Job_ from "./unit/Job";
 import LevelAtLeast from "./unit/LevelAtLeast";
 import LevelAtMost from "./unit/LevelAtMost";
 import Living from "./unit/Living";
@@ -118,7 +118,7 @@ import NoTitle from "./unit/title/NoTitle";
 import HasTag from "./unit/title/tag/HasTag";
 import NoTag from "./unit/title/tag/NoTag";
 import ZeroTitle from "./unit/title/ZeroTitle";
-import Trait from "./unit/Trait";
+import Trait_ from "./unit/Trait";
 import AllTraits from "./unit/trait/AllTraits";
 import AnyTrait from "./unit/trait/AnyTrait";
 import AnyTraitWithTag from "./unit/trait/AnyTraitWithTag";
@@ -223,7 +223,7 @@ export const qresImpl = {
   InnateTrait,
   IsCanBeSold,
   IsInjured,
-  Job,
+  Job: Job_,
   LevelAtLeast,
   LevelAtMost,
   Living,
@@ -240,7 +240,7 @@ export const qresImpl = {
   SkillModifierAtLeast,
   SlaveValueAtLeast,
   SlaveValueAtMost,
-  Trait,
+  Trait: Trait_,
   TraitExact,
   WeeksWithCompanyAtLeast,
   WeeksWithCompanyAtMost,

@@ -3,11 +3,11 @@ export default class DietCum extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.DietCum()`;
   }
 
-  override explain() {
+  override explain(): string {
     return `On cum-based diet`;
   }
 

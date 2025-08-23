@@ -1,17 +1,17 @@
-import type { SkillKey } from "../../Skill";
+import type { SkillKey, SkillKeyword } from "../../Skill";
 
 export default class SkillAtLeast extends Restriction.Unit {
-  skill_key: SkillKey;
+  skill_key: SkillKey | SkillKeyword;
   amount: number;
 
-  constructor(skill: Skill | SkillKey, amount: number) {
+  constructor(skill: Skill | SkillKey | SkillKeyword, amount: number) {
     super();
 
     this.skill_key = resolveKey(skill);
     this.amount = amount;
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.SkillAtLeast(setup.skill.${this.getSkill().keyword}, ${this.amount})`;
   }
 
@@ -19,7 +19,7 @@ export default class SkillAtLeast extends Restriction.Unit {
     return setup.skill[this.skill_key];
   }
 
-  override explain() {
+  override explain(): string {
     return `Unit's ${this.getSkill().rep()} is at least ${this.amount}`;
   }
 

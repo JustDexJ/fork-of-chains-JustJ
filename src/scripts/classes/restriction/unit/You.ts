@@ -3,11 +3,11 @@ export default class You extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.You()`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Unit must be you`;
   }
 

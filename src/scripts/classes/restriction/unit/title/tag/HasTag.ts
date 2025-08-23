@@ -3,11 +3,11 @@ export default class HasTag extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.HasTag('${this.tag_name}')`;
   }
 
-  override explain() {
+  override explain(): string {
     if (!("devtooltype" in State.variables)) {
       const eligible = State.variables.company.player.getUnits({
         tag: this.tag_name,

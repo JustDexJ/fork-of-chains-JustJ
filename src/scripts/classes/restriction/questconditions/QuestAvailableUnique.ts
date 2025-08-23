@@ -6,11 +6,11 @@ export default class QuestAvailableUnique extends Restriction.ContentTemplate {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.QuestAvailableUnique()`;
   }
 
-  override isOk(template: ContentTemplate) {
+  override isOk(template: ContentTemplate): boolean {
     let quests = State.variables.company.player.getQuests();
     for (let i = 0; i < quests.length; ++i)
       if (!quests[i].getTeam() && quests[i].getTemplate() == template)
@@ -18,7 +18,7 @@ export default class QuestAvailableUnique extends Restriction.ContentTemplate {
     return true;
   }
 
-  override explain() {
+  override explain(): string {
     return `unique (available)`;
   }
 }

@@ -4,11 +4,11 @@ export default class SlaveUsableByYou extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.SlaveUsableByYou()`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Unit must be usable by you`;
   }
 

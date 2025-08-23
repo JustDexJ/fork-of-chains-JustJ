@@ -4,7 +4,7 @@ export default class OneRandom extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     let texts: string[] = [];
     for (let i = 0; i < this.costs.length; ++i) {
       texts.push(this.costs[i].text());
@@ -24,7 +24,7 @@ export default class OneRandom extends Cost {
     return cost.apply(context);
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     let texts = [];
     for (let i = 0; i < this.costs.length; ++i) {
       texts.push(this.costs[i].explain());

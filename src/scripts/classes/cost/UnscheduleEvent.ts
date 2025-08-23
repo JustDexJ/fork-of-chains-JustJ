@@ -12,7 +12,7 @@ export default class UnscheduleEvent extends Cost {
     this.template_key = resolveKey(template);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.UnscheduleEvent('${this.template_key}')`;
   }
 
@@ -21,7 +21,7 @@ export default class UnscheduleEvent extends Cost {
     State.variables.eventpool.unscheduleEvent(template);
   }
 
-  override explain() {
+  override explain(): string {
     let template = setup.event[this.template_key];
     if (!template)
       throw new Error(`UnscheduleEvent ${this.template_key} is missing`);

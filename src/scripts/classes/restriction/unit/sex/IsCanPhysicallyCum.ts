@@ -3,11 +3,11 @@ export default class IsCanPhysicallyCum extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.IsCanPhysicallyCum()`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Can physically cum with current equipment`;
   }
 

@@ -1,19 +1,80 @@
+import { Constants, type NumericConstant } from "../../constants";
+import type { ITEM_DEFINITIONS } from "../../data/items/_index";
+import { FURNITURE_DEFINITIONS } from "../../data/items/furnitures/_index";
 import { TwineClass } from "../_TwineClass";
 import type { Rarity } from "../deck/Rarity";
+import type { FurnitureTexts } from "../furniture/Furniture";
+import type { FurnitureSlotKey } from "../furniture/FurnitureSlot";
+import type { LoreKey } from "../Lore";
+import type { SkillValuesInit } from "../Skill";
 import type { ItemClass, ItemClassKey } from "./ItemClass";
 
-export type ItemKey = BrandedType<string, "ItemKey">;
+//export type ItemKey = BrandedType<string, "ItemKey"> | FurnitureKey;
+export type ItemKey =
+  | keyof typeof ITEM_DEFINITIONS
+  | keyof typeof FURNITURE_DEFINITIONS;
 
-interface ItemInit {
-  key: string;
+export interface ItemInit {
   name: string;
   description: string;
-  item_class: ItemClass;
+  item_class: ItemClass | ItemClassKey;
   tags: string[];
-  value?: number | null;
+  value?: number | NumericConstant | null;
 }
 
-export class Item extends TwineClass {
+export interface ItemDefinitionBase {
+  name: string;
+  tags: string[];
+}
+
+export type ItemDefinition = ItemDefinitionBase &
+  (
+    | {
+        type: "lore";
+        lore: LoreKey;
+      }
+    | {
+        type: "notusable";
+        description: string;
+        value: number;
+      }
+    | {
+        type: "quest";
+        description: string;
+      }
+    | {
+        type: "sexmanual";
+        description: string;
+      }
+    | {
+        type: "technology";
+        description: string;
+      }
+    | {
+        type: "unitusable";
+        description: string;
+        value: number;
+        unit_restrictions: Restriction[];
+        effects: Cost[];
+      }
+    | {
+        type: "usable";
+        description: string;
+        value: number;
+        restrictions: Restriction[];
+        effects: Cost[];
+      }
+    | {
+        type: "furniture";
+        description: string;
+        value: number;
+        slot: FurnitureSlotKey;
+        skillmods: SkillValuesInit;
+        texts: FurnitureTexts;
+      }
+  );
+
+export abstract class Item extends TwineClass {
   key: ItemKey;
   name: string;
   description: string;
@@ -24,7 +85,7 @@ export class Item extends TwineClass {
 
   static keygen = 1;
 
-  constructor({ key, name, description, item_class, value, tags }: ItemInit) {
+  constructor(key: string, def: Readonly<ItemInit>) {
     super();
 
     if (!key) {
@@ -34,15 +95,18 @@ export class Item extends TwineClass {
 
     this.order_key = Item.keygen++;
 
-    this.name = name;
-    this.description = description;
+    this.name = def.name;
+    this.description = def.description;
 
-    this.itemclass_key = item_class.key;
-    this.value = value ?? null;
+    this.itemclass_key = resolveKey(def.item_class);
+    this.value =
+      typeof def.value === "string"
+        ? Constants[def.value]
+        : (def.value ?? null);
 
-    if (!Array.isArray(tags))
+    if (!Array.isArray(def.tags))
       throw new Error(`Missing array tag for item ${key}`);
-    this.tags = tags;
+    this.tags = def.tags;
 
     if (!this.itemclass_key) throw new Error(`Define item_class_key`);
 
@@ -61,10 +125,10 @@ export class Item extends TwineClass {
   getRarity(): Rarity {
     const value = this.getValue();
     if (value !== null) {
-      if (value >= setup.ITEM_PRICE_MASTER) return setup.rarity.legendary;
-      else if (value >= setup.ITEM_PRICE_GOOD) return setup.rarity.epic;
-      else if (value >= setup.ITEM_PRICE_NORMAL) return setup.rarity.rare;
-      else if (value >= setup.ITEM_PRICE_LOW) return setup.rarity.uncommon;
+      if (value >= Constants.ITEM_PRICE_MASTER) return setup.rarity.legendary;
+      else if (value >= Constants.ITEM_PRICE_GOOD) return setup.rarity.epic;
+      else if (value >= Constants.ITEM_PRICE_NORMAL) return setup.rarity.rare;
+      else if (value >= Constants.ITEM_PRICE_LOW) return setup.rarity.uncommon;
     }
     return setup.rarity.common;
   }

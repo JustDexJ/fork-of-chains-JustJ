@@ -16,16 +16,16 @@ export default class NoContact extends Restriction {
   static NAME = "Do NOT have a certain contact";
   static PASSAGE = "RestrictionNoContact";
 
-  override text() {
+  override text(): string {
     return `setup.qres.NoContact(setup.contacttemplate.${this.template_key})`;
   }
 
-  override explain() {
+  override explain(): string {
     let contact = setup.contacttemplate[this.template_key];
     return `Do not have the contact: ${contact.rep()}`;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     let contact = setup.contacttemplate[this.template_key];
     return !State.variables.contactlist.isHasContact(contact);
   }

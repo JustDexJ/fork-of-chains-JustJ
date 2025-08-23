@@ -6,15 +6,15 @@ export default class Player extends Restriction {
   static NAME = "Player satisfies a restriction";
   static PASSAGE = "RestrictionPlayer";
 
-  override text() {
+  override text(): string {
     return `setup.qres.Player(${this.restriction.text()})`;
   }
 
-  override explain(context?: unknown) {
+  override explain(context?: unknown): string {
     return `You satisfies: (${this.restriction.explain(context)})`;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     return this.restriction.isOk(State.variables.unit.player);
   }
 

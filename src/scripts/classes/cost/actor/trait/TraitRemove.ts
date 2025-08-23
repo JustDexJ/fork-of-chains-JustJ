@@ -21,7 +21,7 @@ export default class TraitRemove extends Cost {
   static PASSAGE = "CostTraitRemove";
   static UNIT = true;
 
-  override text() {
+  override text(): string {
     return `setup.qc.TraitRemove('${this.actor_name}', setup.trait.${this.trait_key})`;
   }
 
@@ -35,7 +35,7 @@ export default class TraitRemove extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name} loses ${setup.trait[this.trait_key].rep()}`;
   }
 }

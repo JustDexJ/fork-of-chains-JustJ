@@ -1,4 +1,7 @@
+import type { UNIT_GROUP_DEFINITIONS } from "../../data/unitgroups/_index";
+import { isDefinitionArgs } from "../../util/TypeUtil";
 import { TwineClass } from "../_TwineClass";
+import type { SubraceKey } from "../trait/Subrace";
 import type { TraitKey } from "../trait/Trait";
 import {
   UnitPoolKey,
@@ -7,14 +10,50 @@ import {
 } from "./pool/UnitPool";
 import type { Unit } from "./Unit";
 
+export interface UnitGroupDefinition {
+  name: string;
+  chances: ChanceArray<UnitPool | UnitPoolKey> | string;
+  reuse_chance: number;
+  unit_post_process: Cost[];
+  gender_traits?: TraitKey[];
+
+  /**
+   * If true, defines additional UnitGroups for each gender.
+   * For example if you define a group "city_all" with this set to true,
+   * it will also create "city_allmale" and "city_allfemale".
+   */
+  make_gender_variants?: boolean;
+}
+
 interface GetUnitOptions extends GenerateUnitOptions {
   /** Override the unit pool to use to generate an unit (when needed) */
   unit_pool?: UnitPool | UnitPoolKey;
 }
 
-export type UnitGroupKey = BrandedType<string, "UnitGroupKey">;
+//export type UnitGroupKey = BrandedType<string, "UnitGroupKey">;
+export type UnitGroupKey =
+  | keyof typeof UNIT_GROUP_DEFINITIONS
+  | keyof CustomUnitGroups
+  | {
+      // Unit groups created by setting "make_gender_variants = true"
+      [k in keyof typeof UNIT_GROUP_DEFINITIONS]: true extends (typeof UNIT_GROUP_DEFINITIONS)[k]["make_gender_variants"]
+        ? `${k}male` | `${k}female`
+        : never;
+    }[keyof typeof UNIT_GROUP_DEFINITIONS]
+  | {
+      // Unit groups created by subraces
+      [k in SubraceKey]:
+        | `subrace_${k}`
+        | `subrace_${k}_male`
+        | `subrace_${k}_female`;
+    }[SubraceKey];
 
-// not made into proper class due to unitgroupcompose
+// Represents a group of people. E.g.,
+// farmers in citizens,
+// slaves in docks, etc.
+// A quest may request one of these units as actor
+// A quest may also offer some unit back to this pool.
+// unitpools: [[unitpool1, weight], ...]
 export class UnitGroup extends TwineClass {
   key: UnitGroupKey;
   name: string;
@@ -36,20 +75,27 @@ export class UnitGroup extends TwineClass {
 
   constructor(
     key: string,
-    name: string,
-    unitpoolsOrUnitGroupKey: ChanceArray<UnitPool> | UnitGroupKey,
-    reuse_chance: number,
-    unit_post_process: Cost[],
-    gender_traits?: (TraitKey | BuiltinTraitKey)[],
+    ...args:
+      | [Readonly<UnitGroupDefinition>]
+      | [
+          name: string,
+          unitpoolsOrUnitGroupKey: ChanceArray<UnitPool> | string,
+          reuse_chance: number,
+          unit_post_process: Cost[],
+          gender_traits?: TraitKey[],
+        ]
   ) {
     super();
 
-    // Represents a group of people. E.g.,
-    // farmers in citizens,
-    // slaves in docks, etc.
-    // A quest may request one of these units as actor
-    // A quest may also offer some unit back to this pool.
-    // unitpools: [[unitpool1, weight], ...]
+    let def: Readonly<UnitGroupDefinition>;
+    if (isDefinitionArgs(args)) {
+      def = args[0];
+    } else {
+      // prettier-ignore
+      const [ name, chances, reuse_chance, unit_post_process, gender_traits ] = args;
+      // prettier-ignore
+      def = { name, chances, reuse_chance, unit_post_process, gender_traits };
+    }
 
     // unit_post_process: a series of cost objects. Actor name is
     // "unit". So e.g., setup.qc.Trait('unit', 'bg_farmer') to give them farmer background.
@@ -59,28 +105,28 @@ export class UnitGroup extends TwineClass {
       this.key = key as UnitGroupKey;
     }
 
-    this.name = name;
+    this.name = def.name;
 
-    let unitpools: ChanceArray<UnitPool>;
-    if (typeof unitpoolsOrUnitGroupKey === "string") {
-      unitpools = setup.unitgroup[unitpoolsOrUnitGroupKey].getUnitPools();
+    let unitpools: ChanceArray<UnitPool | UnitPoolKey>;
+    if (typeof def.chances === "string") {
+      unitpools = setup.unitgroup[def.chances as UnitGroupKey].getUnitPools();
     } else {
-      unitpools = unitpoolsOrUnitGroupKey;
+      unitpools = def.chances;
     }
 
-    for (let i = 0; i < unitpools.length; ++i) {
-      this.unitpool_keys.push([unitpools[i][0].key, unitpools[i][1]]);
-    }
+    this.unitpool_keys = unitpools.map(([unitpool_or_key, chance]) => {
+      return [resolveKey(unitpool_or_key), chance];
+    });
     if (this.unitpool_keys.length) {
       setup.rng.normalizeChanceArray(this.unitpool_keys);
     }
 
-    this.reuse_chance = reuse_chance;
-    this.gender_traits = gender_traits as TraitKey[];
+    this.reuse_chance = def.reuse_chance;
+    this.gender_traits = def.gender_traits as TraitKey[];
 
-    this.unit_post_process = unit_post_process || [];
-    for (let i = 0; i < unit_post_process.length; ++i) {
-      let k = unit_post_process[i];
+    this.unit_post_process = def.unit_post_process || [];
+    for (let i = 0; i < def.unit_post_process.length; ++i) {
+      let k = def.unit_post_process[i];
       if (!k) {
         throw new Error(`unit group ${key} missing unit post process ${i}`);
       }
@@ -96,6 +142,19 @@ export class UnitGroup extends TwineClass {
       // do nothing
     } else {
       setup.unitgroup[this.key] = this;
+    }
+
+    if (def.make_gender_variants) {
+      new UnitGroup(`${key}male`, {
+        ...def,
+        make_gender_variants: false,
+        gender_traits: ["gender_male"],
+      });
+      new UnitGroup(`${key}female`, {
+        ...def,
+        make_gender_variants: false,
+        gender_traits: ["gender_female"],
+      });
     }
   }
 

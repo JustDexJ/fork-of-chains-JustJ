@@ -5,7 +5,7 @@ export default class TraitsReplace extends Cost {
 
   constructor(
     public actor_name: string,
-    traits: (Trait | TraitKey | BuiltinTraitKey)[],
+    traits: (Trait | TraitKey)[],
   ) {
     super();
 
@@ -15,14 +15,14 @@ export default class TraitsReplace extends Cost {
 
     this.trait_keys = [];
     for (let i = 0; i < traits.length; ++i) {
-      this.trait_keys.push(resolveKey(traits[i] as Trait | TraitKey));
+      this.trait_keys.push(resolveKey(traits[i]));
     }
   }
 
   static NAME = "Gain Traits (replacing old ones)";
   static PASSAGE = "CostTraitsReplace";
 
-  override text() {
+  override text(): string {
     let texts = this.trait_keys.map((a) => `setup.trait.${a}`);
     return `setup.qc.TraitsReplace('${this.actor_name}', [${texts.join(", ")}])`;
   }
@@ -41,7 +41,7 @@ export default class TraitsReplace extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     let traits = this.getTraits();
     let trait_strs = [];
     for (let i = 0; i < traits.length; ++i) trait_strs.push(traits[i].rep());

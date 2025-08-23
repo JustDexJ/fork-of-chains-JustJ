@@ -1,6 +1,7 @@
-import type { TraitDefinition } from "../../classes/trait/Trait";
+import type { TraitOrGroupDefinitions } from "../../classes/trait/Trait";
+import { Constants } from "../../constants";
 
-export default typedObject<TraitDefinition>()({
+export default {
   /* ####################### */
   /* UNICORN    TOTAL: 0.25  */
   /* ####################### */
@@ -9,7 +10,7 @@ export default typedObject<TraitDefinition>()({
   bg_royal: {
     name: "royal",
     description: "Born to rule",
-    slave_value: setup.MONEY_TRAIT_EPIC,
+    slave_value: "MONEY_TRAIT_EPIC",
     skill_bonuses: {
       combat: 0.12,
       aid: 0.12,
@@ -24,7 +25,7 @@ export default typedObject<TraitDefinition>()({
   bg_boss: {
     name: "boss",
     description: "A royalty in the criminal underworld",
-    slave_value: setup.MONEY_TRAIT_EPIC,
+    slave_value: "MONEY_TRAIT_EPIC",
     skill_bonuses: {
       survival: 0.12,
       intrigue: 0.12,
@@ -39,7 +40,7 @@ export default typedObject<TraitDefinition>()({
   bg_mythical: {
     name: "mythical",
     description: "Revered as god by some",
-    slave_value: setup.MONEY_TRAIT_EPIC,
+    slave_value: "MONEY_TRAIT_EPIC",
     skill_bonuses: {
       arcane: 0.12,
       knowledge: 0.12,
@@ -54,7 +55,7 @@ export default typedObject<TraitDefinition>()({
   bg_mist: {
     name: "mistwalker",
     description: "Travel frequently between this world and the next",
-    slave_value: setup.MONEY_TRAIT_EPIC,
+    slave_value: "MONEY_TRAIT_EPIC",
     skill_bonuses: {
       arcane: 0.12,
       slaving: 0.12,
@@ -73,7 +74,7 @@ export default typedObject<TraitDefinition>()({
   bg_knight: {
     name: "knight",
     description: "In service to a lord",
-    slave_value: setup.MONEY_TRAIT_RARE,
+    slave_value: "MONEY_TRAIT_RARE",
     skill_bonuses: { combat: 0.3, aid: 0.1, sex: -0.25 },
     tags: ["bg", "rare"],
   },
@@ -81,7 +82,7 @@ export default typedObject<TraitDefinition>()({
   bg_adventurer: {
     name: "adventurer",
     description: "Travels the land seeking greater adventure",
-    slave_value: setup.MONEY_TRAIT_RARE,
+    slave_value: "MONEY_TRAIT_RARE",
     skill_bonuses: {
       combat: 0.1,
       knowledge: 0.1,
@@ -96,7 +97,7 @@ export default typedObject<TraitDefinition>()({
   bg_metalworker: {
     name: "metalworker",
     description: "Temper metal for a living",
-    slave_value: setup.MONEY_TRAIT_RARE,
+    slave_value: "MONEY_TRAIT_RARE",
     skill_bonuses: { brawn: 0.3, slaving: 0.1, intrigue: -0.25 },
     tags: ["bg", "rare"],
   },
@@ -105,7 +106,7 @@ export default typedObject<TraitDefinition>()({
   bg_wildman: {
     name: "wildman",
     description: "Living off the bounty of nature",
-    slave_value: setup.MONEY_TRAIT_RARE,
+    slave_value: "MONEY_TRAIT_RARE",
     skill_bonuses: { survival: 0.3, brawn: 0.1, social: -0.25 },
     tags: ["bg", "rare"],
   },
@@ -114,7 +115,7 @@ export default typedObject<TraitDefinition>()({
   bg_assassin: {
     name: "assassin",
     description: "Preys on the weakness of other men",
-    slave_value: setup.MONEY_TRAIT_RARE,
+    slave_value: "MONEY_TRAIT_RARE",
     skill_bonuses: { intrigue: 0.3, combat: 0.1, aid: -0.25 },
     tags: ["bg", "rare"],
   },
@@ -123,7 +124,7 @@ export default typedObject<TraitDefinition>()({
   bg_engineer: {
     name: "engineer",
     description: "Invents and familiar with the workings of machineries",
-    slave_value: setup.MONEY_TRAIT_RARE,
+    slave_value: "MONEY_TRAIT_RARE",
     skill_bonuses: { slaving: 0.3, knowledge: 0.1, arcane: -0.25 },
     tags: ["bg", "rare"],
   },
@@ -132,7 +133,7 @@ export default typedObject<TraitDefinition>()({
   bg_scholar: {
     name: "scholar",
     description: "A walking encyclopedia",
-    slave_value: setup.MONEY_TRAIT_RARE,
+    slave_value: "MONEY_TRAIT_RARE",
     skill_bonuses: { knowledge: 0.3, aid: 0.1, brawn: -0.25 },
     tags: ["bg", "rare"],
   },
@@ -142,7 +143,7 @@ export default typedObject<TraitDefinition>()({
     name: "noble",
     description:
       "Nobles receive the best educations on the land as well as some martial training",
-    slave_value: setup.MONEY_TRAIT_RARE,
+    slave_value: "MONEY_TRAIT_RARE",
     skill_bonuses: { social: 0.3, combat: 0.1, slaving: -0.25 },
     tags: ["bg", "rare", "rich"],
   },
@@ -151,7 +152,7 @@ export default typedObject<TraitDefinition>()({
   bg_healer: {
     name: "healer",
     description: "Heals the wounds of others",
-    slave_value: setup.MONEY_TRAIT_RARE,
+    slave_value: "MONEY_TRAIT_RARE",
     skill_bonuses: { aid: 0.3, arcane: 0.1, combat: -0.25 },
     tags: ["bg", "rare"],
   },
@@ -160,7 +161,7 @@ export default typedObject<TraitDefinition>()({
   bg_mystic: {
     name: "mystic",
     description: "Studies subjects of this world and beyond",
-    slave_value: setup.MONEY_TRAIT_RARE,
+    slave_value: "MONEY_TRAIT_RARE",
     skill_bonuses: { arcane: 0.3, knowledge: 0.1, survival: -0.25 },
     tags: ["bg", "rare"],
   },
@@ -169,7 +170,7 @@ export default typedObject<TraitDefinition>()({
   bg_courtesan: {
     name: "courtesan",
     description: "Master of the bedroom arts",
-    slave_value: setup.MONEY_TRAIT_RARE,
+    slave_value: "MONEY_TRAIT_RARE",
     skill_bonuses: { sex: 0.3, arcane: 0.1, knowledge: -0.25 },
     tags: ["bg", "rare"],
   },
@@ -182,7 +183,7 @@ export default typedObject<TraitDefinition>()({
   bg_mercenary: {
     name: "mercenary",
     description: "Mercenaries travel the land in search of bloody work",
-    slave_value: setup.MONEY_TRAIT_MEDIUM,
+    slave_value: "MONEY_TRAIT_MEDIUM",
     skill_bonuses: { combat: 0.15 },
     tags: ["bg", "medium"],
   },
@@ -191,7 +192,7 @@ export default typedObject<TraitDefinition>()({
   bg_monk: {
     name: "monk",
     description: "Hones the body and the mind... but mostly the body",
-    slave_value: setup.MONEY_TRAIT_MEDIUM,
+    slave_value: "MONEY_TRAIT_MEDIUM",
     skill_bonuses: { brawn: 0.15 },
     tags: ["bg", "medium"],
   },
@@ -200,7 +201,7 @@ export default typedObject<TraitDefinition>()({
   bg_hunter: {
     name: "hunter",
     description: "Hunting game for a living",
-    slave_value: setup.MONEY_TRAIT_MEDIUM,
+    slave_value: "MONEY_TRAIT_MEDIUM",
     skill_bonuses: { survival: 0.15 },
     tags: ["bg", "medium"],
   },
@@ -209,7 +210,7 @@ export default typedObject<TraitDefinition>()({
   bg_informer: {
     name: "informer",
     description: "Information has a price",
-    slave_value: setup.MONEY_TRAIT_MEDIUM,
+    slave_value: "MONEY_TRAIT_MEDIUM",
     skill_bonuses: { intrigue: 0.15 },
     tags: ["bg", "medium"],
   },
@@ -218,7 +219,7 @@ export default typedObject<TraitDefinition>()({
   bg_slaver: {
     name: "slaver",
     description: "Handles the right side of the whip",
-    slave_value: setup.MONEY_TRAIT_MEDIUM,
+    slave_value: "MONEY_TRAIT_MEDIUM",
     skill_bonuses: { slaving: 0.15 },
     tags: ["bg", "medium"],
   },
@@ -227,7 +228,7 @@ export default typedObject<TraitDefinition>()({
   bg_artisan: {
     name: "crafter",
     description: "Have a dextrous set of hands",
-    slave_value: setup.MONEY_TRAIT_MEDIUM,
+    slave_value: "MONEY_TRAIT_MEDIUM",
     skill_bonuses: { knowledge: 0.15 },
     tags: ["bg", "medium"],
   },
@@ -236,7 +237,7 @@ export default typedObject<TraitDefinition>()({
   bg_wiseman: {
     name: "wiseman",
     description: "Advises the less wise",
-    slave_value: setup.MONEY_TRAIT_MEDIUM,
+    slave_value: "MONEY_TRAIT_MEDIUM",
     skill_bonuses: { social: 0.15 },
     tags: ["bg", "medium"],
   },
@@ -245,7 +246,7 @@ export default typedObject<TraitDefinition>()({
   bg_priest: {
     name: "priest",
     description: "Devout to the gods",
-    slave_value: setup.MONEY_TRAIT_MEDIUM,
+    slave_value: "MONEY_TRAIT_MEDIUM",
     skill_bonuses: { aid: 0.15 },
     tags: ["bg", "medium"],
   },
@@ -254,7 +255,7 @@ export default typedObject<TraitDefinition>()({
   bg_apprentice: {
     name: "apprentice",
     description: "May master the magical arts one day",
-    slave_value: setup.MONEY_TRAIT_MEDIUM,
+    slave_value: "MONEY_TRAIT_MEDIUM",
     skill_bonuses: { arcane: 0.15 },
     tags: ["bg", "medium"],
   },
@@ -263,7 +264,7 @@ export default typedObject<TraitDefinition>()({
   bg_artist: {
     name: "artist",
     description: "For what is a world without art?",
-    slave_value: setup.MONEY_TRAIT_MEDIUM,
+    slave_value: "MONEY_TRAIT_MEDIUM",
     skill_bonuses: { sex: 0.15 },
     tags: ["bg", "medium"],
   },
@@ -419,7 +420,7 @@ export default typedObject<TraitDefinition>()({
   bg_unemployed: {
     name: "unemployed",
     description: "Does not have a living",
-    slave_value: -setup.MONEY_TRAIT_MEDIUM,
+    slave_value: -Constants.MONEY_TRAIT_MEDIUM,
     skill_bonuses: { intrigue: 0.1, survival: 0.1, brawn: -0.1, combat: -0.1 },
     tags: ["bg", "common", "poor"],
   },
@@ -428,8 +429,8 @@ export default typedObject<TraitDefinition>()({
     name: "slave",
     description:
       "Grow up as a slave and dangerously familiar with the workings of the whip",
-    slave_value: -setup.MONEY_TRAIT_MEDIUM,
+    slave_value: -Constants.MONEY_TRAIT_MEDIUM,
     skill_bonuses: { knowledge: -0.1, social: -0.1, brawn: 0.1, slaving: 0.1 },
     tags: ["bg", "common", "poor"],
   },
-});
+} satisfies TraitOrGroupDefinitions;

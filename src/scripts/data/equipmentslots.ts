@@ -1,5 +1,5 @@
 export const EQUIPMENT_SLOT_DEFINITIONS =
-  typedObject<EquipmentSlotDefinition>()({
+  definitions<EquipmentSlotDefinition>()({
     head: { name: "head" },
     neck: { name: "neck" },
     torso: { name: "torso" },

@@ -3,11 +3,11 @@ export default class BestFriendExist extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.BestFriendExist()`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Unit has a best friend/lover`;
   }
 

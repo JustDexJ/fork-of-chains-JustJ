@@ -1,3 +1,5 @@
+import type { CRITERIA_DEFINITIONS } from "../../data/criteria/_index";
+import { isDefinitionArgs } from "../../util/TypeUtil";
 import { TwineClass } from "../_TwineClass";
 import type { Job } from "../job/Job";
 import type { QuestDifficulty } from "../quest/QuestDifficulty";
@@ -9,7 +11,15 @@ import { Skill, type SkillValuesArray, type SkillValuesInit } from "../Skill";
 import { Trait, TraitKey } from "../trait/Trait";
 import type { Unit } from "../unit/Unit";
 
-export type UnitCriteriaKey = BrandedType<string, "UnitCriteriaKey">;
+export interface UnitCriteriaDefinition {
+  name: string;
+  crit_traits: (Trait | TraitKey)[];
+  disaster_traits: (Trait | TraitKey)[];
+  restrictions: Restriction[];
+  skill_multis: SkillValuesInit;
+}
+
+export type UnitCriteriaKey = keyof typeof CRITERIA_DEFINITIONS;
 
 /**
  * This class instances exists in two forms:
@@ -17,23 +27,37 @@ export type UnitCriteriaKey = BrandedType<string, "UnitCriteriaKey">;
  *  - Transient instances with a null key (e.g. used in the SlaveOrderFlex cost)
  */
 export class UnitCriteria extends TwineClass {
-  key: UnitCriteriaKey | null;
-  name: string;
+  readonly key: UnitCriteriaKey | null;
+  readonly name: string;
 
-  crit_trait_map: { [traitKey in TraitKey]?: boolean };
-  disaster_trait_map: { [traitKey in TraitKey]?: boolean };
-  restrictions: Restriction[];
-  skill_multis: SkillValuesArray;
+  readonly crit_trait_map: { [traitKey in TraitKey]?: boolean };
+  readonly disaster_trait_map: { [traitKey in TraitKey]?: boolean };
+  readonly restrictions: Restriction[];
+  readonly skill_multis: SkillValuesArray;
 
   constructor(
     key: string | null,
-    name: string,
-    crit_traits_raw: (Trait | TraitKey)[],
-    disaster_traits_raw: (Trait | TraitKey)[],
-    restrictions: Restriction[],
-    skill_multis: SkillValuesInit,
+    ...args:
+      | [
+          name: string,
+          crit_traits: UnitCriteriaDefinition["crit_traits"],
+          disaster_traits: UnitCriteriaDefinition["disaster_traits"],
+          restrictions: UnitCriteriaDefinition["restrictions"],
+          skill_multis: UnitCriteriaDefinition["skill_multis"],
+        ]
+      | [Readonly<UnitCriteriaDefinition>]
   ) {
     super();
+
+    let def: Readonly<UnitCriteriaDefinition>;
+    if (isDefinitionArgs(args)) {
+      def = args[0];
+    } else {
+      // prettier-ignore
+      const [ name, crit_traits, disaster_traits, restrictions, skill_multis ] = args;
+      // prettier-ignore
+      def = { name, crit_traits, disaster_traits, restrictions, skill_multis };
+    }
 
     // skill_multis: a skill where each skill is associated a multiplier, indicating
     // how important it is for this quest.
@@ -41,12 +65,12 @@ export class UnitCriteria extends TwineClass {
     // criteria can be keyless, i.e., for the dynamically generated ones.
     // e.g., one time use criterias or the ones used to generate slave order.
     this.key = key as UnitCriteriaKey;
-    this.name = name;
+    this.name = def.name;
 
     // translate trait effects to keys
     // crit_traits and disaster_traits are arrays (which may contain duplicates)
     // indicating the traits that are crit or disaster for this.
-    const crit_traits = crit_traits_raw.map((it) =>
+    const crit_traits = def.crit_traits.map((it) =>
       resolveObject(it, setup.trait),
     );
     crit_traits.sort(Trait.cmp);
@@ -61,7 +85,7 @@ export class UnitCriteria extends TwineClass {
       this.crit_trait_map[crit_traits[i].key] = true;
     }
 
-    const disaster_traits = disaster_traits_raw.map((it) =>
+    const disaster_traits = def.disaster_traits.map((it) =>
       resolveObject(it, setup.trait),
     );
     disaster_traits.sort(Trait.cmp);
@@ -76,8 +100,8 @@ export class UnitCriteria extends TwineClass {
       this.disaster_trait_map[disaster_traits[i].key] = true;
     }
 
-    this.restrictions = restrictions;
-    this.skill_multis = Skill.translate(skill_multis);
+    this.restrictions = def.restrictions;
+    this.skill_multis = Skill.translate(def.skill_multis);
 
     if (key) {
       if (key in setup.qu)
@@ -103,7 +127,7 @@ export class UnitCriteria extends TwineClass {
     return this.name;
   }
 
-  getRestrictions(): Restriction[] {
+  getRestrictions(): readonly Restriction[] {
     return this.restrictions;
   }
 

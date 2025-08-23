@@ -3,11 +3,11 @@ export default class CanBeLoverWithBestFriend extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.CanBeLoverWithBestFriend()`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Can become lover with their best friend`;
   }
 

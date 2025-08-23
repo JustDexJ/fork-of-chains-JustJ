@@ -5,7 +5,7 @@ import worldmap_regions_svg from "../../assets/worldmap-regions.svg?raw";
 import { isDefinitionArgs } from "../util/TypeUtil.js";
 import { TwineClass } from "./_TwineClass.js";
 
-export type LoreKey = BrandedType<string, "LoreKey">;
+export type LoreKey = BrandedType<string, "LoreKey"> | string; // TODO
 
 export interface LoreDefinition {
   key: string;

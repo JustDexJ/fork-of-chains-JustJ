@@ -1,6 +1,7 @@
+import { ITEM_CLASS_DEFINITIONS } from "../../data/itemclasses";
 import { TwineClass } from "../_TwineClass";
 
-export type ItemClassKey = BrandedType<string, "ItemClassKey">;
+export type ItemClassKey = keyof typeof ITEM_CLASS_DEFINITIONS;
 
 export interface ItemClassDefinition {
   name: string;

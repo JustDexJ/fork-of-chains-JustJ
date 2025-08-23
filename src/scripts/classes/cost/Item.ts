@@ -12,7 +12,7 @@ export default class Item extends Cost {
     this.quantity = quantity || 1;
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.Item(setup.item.${this.item_key}, ${this.quantity})`;
   }
 
@@ -26,7 +26,7 @@ export default class Item extends Cost {
     }
   }
 
-  override explain() {
+  override explain(): string {
     return `Gain ${this.quantity}x ${this.getItem().rep()}`;
   }
 }

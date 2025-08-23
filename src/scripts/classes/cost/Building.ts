@@ -12,7 +12,7 @@ export default class Building extends Cost {
     this.template_key = resolveKey(building_template);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.Building(setup.buildingtemplate.${this.template_key})`;
   }
 
@@ -21,7 +21,7 @@ export default class Building extends Cost {
     State.variables.fort.player.build(template);
   }
 
-  override explain() {
+  override explain(): string {
     let template = setup.buildingtemplate[this.template_key];
     return `${template.rep()}`;
   }

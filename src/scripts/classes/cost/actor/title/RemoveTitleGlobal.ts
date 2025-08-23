@@ -11,7 +11,7 @@ export default class RemoveTitleGlobal extends Cost {
       throw new Error(`Remove Title Global missing title: ${title}`);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.RemoveTitleGlobal('${this.title_key}')`;
   }
 
@@ -27,7 +27,7 @@ export default class RemoveTitleGlobal extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     let title = setup.title[this.title_key];
     return `All units loses ${title.rep()}`;
   }

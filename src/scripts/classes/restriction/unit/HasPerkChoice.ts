@@ -8,7 +8,7 @@ export default class HasPerkChoice extends Restriction.Unit {
     this.perk_key = resolveKey(perk);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.HasPerkChoice('${this.perk_key}')`;
   }
 
@@ -16,7 +16,7 @@ export default class HasPerkChoice extends Restriction.Unit {
     return setup.trait[this.perk_key] as Perk;
   }
 
-  override explain() {
+  override explain(): string {
     const perk = this.getPerk();
     return `Unit has ${perk.rep()} as one of their perk choices`;
   }

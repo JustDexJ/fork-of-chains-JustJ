@@ -19,8 +19,9 @@ export namespace TextUnitEquipment {
   ): Equipment | null {
     let equipmentset = setup.Text.Unit.Equipment.getEquipmentSetFallback(unit);
 
-    if (State.temporary.gSex && State.temporary.gSex.isParticipant(unit)) {
-      const participant = State.temporary.gSex._getParticipant(unit);
+    const gSex = State.temporary.gSex as SexInstance | undefined;
+    if (gSex && gSex.isParticipant(unit)) {
+      const participant = gSex._getParticipant(unit);
       const tmp_equipment = participant.temporary_equipment[slot.key];
 
       // overridden temporarily

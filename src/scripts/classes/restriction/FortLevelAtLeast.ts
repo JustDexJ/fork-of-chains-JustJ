@@ -3,16 +3,16 @@ export default class FortLevelAtLeast extends Restriction {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.FortLevelAtLeast(${this.level})`;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     const level = State.variables.fortgrid.getTotalExpansions();
     return level >= this.level;
   }
 
-  override explain() {
+  override explain(): string {
     return `Have expanded fort at least ${this.level} times`;
   }
 }

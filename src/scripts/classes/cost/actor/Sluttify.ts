@@ -8,7 +8,7 @@ export default class Sluttify extends SluttifyDomifyCostBase {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.Sluttify('${this.actor_name}')`;
   }
 
@@ -120,7 +120,7 @@ export default class Sluttify extends SluttifyDomifyCostBase {
     return this._do_apply(context, unit, slut_candidates);
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name} becomes sluttier`;
   }
 }

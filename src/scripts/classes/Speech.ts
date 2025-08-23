@@ -8,7 +8,7 @@ export type SpeechKey = keyof typeof SPEECHES_DEFINITIONS;
 export interface SpeechDefinition {
   name: string;
   description: string;
-  traits: (TraitKey | BuiltinTraitKey)[];
+  traits: TraitKey[];
 }
 
 export class Speech extends TwineClass {
@@ -30,7 +30,7 @@ export class Speech extends TwineClass {
     if (!def.description) throw new Error(`null description for speech ${key}`);
     this.description = def.description;
 
-    this.trait_keys = def.traits as TraitKey[];
+    this.trait_keys = def.traits;
 
     if (key in setup.speech) throw new Error(`Speech ${key} duplicated`);
     setup.speech[key as SpeechKey] = this;

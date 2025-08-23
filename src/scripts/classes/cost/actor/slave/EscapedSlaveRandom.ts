@@ -8,7 +8,7 @@ export default class EscapedSlaveRandom extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.EscapedSlaveRandom()`;
   }
 
@@ -27,7 +27,7 @@ export default class EscapedSlaveRandom extends Cost {
     setup.unitgroup.missingslaves.addUnit(escaped);
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `A random slave escaped`;
   }
 }

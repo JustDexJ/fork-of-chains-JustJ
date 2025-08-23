@@ -7,16 +7,16 @@ export default class NoUnitWithTag extends Restriction {
   static PASSAGE = "RestrictionNoUnitWithTag";
   static UNIT = true;
 
-  override text() {
+  override text(): string {
     return `setup.qres.NoUnitWithTag('${this.tag_name}')`;
   }
 
-  override explain() {
+  override explain(): string {
     let tagname = this.tag_name;
     return `Must NOT exists any unit (anywhere in the world, not only in your company) with tag/flag: "${tagname}"`;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     for (const unit of Object.values(State.variables.unit)) {
       if (unit.isHasTag(this.tag_name)) return false;
     }

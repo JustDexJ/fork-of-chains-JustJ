@@ -8,7 +8,7 @@ export class Ire extends TwineClass {
   /**
    * company_key: ire amount
    */
-  company_ire_map: Record<CompanyKey, number> = {};
+  company_ire_map: { [k in CompanyKey]?: number } = {};
 
   constructor() {
     super();
@@ -18,27 +18,17 @@ export class Ire extends TwineClass {
    * ire with company += ire
    */
   adjustIre(company: Company, ire: number) {
-    if (!(company.key in this.company_ire_map)) {
-      this.company_ire_map[company.key] = 0;
-    }
+    const previous_ire = this.company_ire_map[company.key] ?? 0;
 
-    const init_ire = this.company_ire_map[company.key];
+    const final_ire = Math.max(previous_ire + ire, 0);
 
-    this.company_ire_map[company.key] += ire;
+    this.company_ire_map[company.key] = final_ire;
 
-    this.company_ire_map[company.key] = Math.max(
-      this.company_ire_map[company.key],
-      0,
-    );
-
-    const final_ire = this.company_ire_map[company.key];
-
-    return final_ire - init_ire;
+    return final_ire - previous_ire;
   }
 
   getIre(company: Company): number {
-    if (!(company.key in this.company_ire_map)) return 0;
-    return this.company_ire_map[company.key];
+    return this.company_ire_map[company.key] ?? 0;
   }
 
   /**

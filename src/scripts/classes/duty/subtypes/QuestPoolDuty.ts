@@ -1,3 +1,4 @@
+import { Constants } from "../../../constants";
 import type { QuestPool, QuestPoolKey } from "../../quest/QuestPool";
 import type { DutyInstance } from "../DutyInstance";
 import { DutyTemplate, type DutyTemplateInit } from "../DutyTemplate";
@@ -8,13 +9,13 @@ export abstract class DutyTemplateQuestPoolDuty extends DutyTemplate {
 
   constructor(
     args: DutyTemplateInit & {
-      quest_pool: QuestPool;
+      quest_pool: QuestPoolKey;
       quest_amount: number;
     },
   ) {
     super(args);
 
-    this.quest_pool_key = args.quest_pool.key;
+    this.quest_pool_key = args.quest_pool;
     this.quest_amount = args.quest_amount;
   }
 
@@ -65,18 +66,18 @@ function initSubclasses() {
           type: "scout",
           name: "Vale Scout",
           description_passage: "DutyScoutVale",
-          unit_restrictions: [setup.qres.Job(setup.job.slaver)],
+          unit_restrictions: [setup.qres.Job("slaver")],
           relevant_skills: {
-            brawn: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 2,
-            survival: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 2,
+            brawn: Constants.DUTY_SKILL_MULTIPLIER_TOTAL / 2,
+            survival: Constants.DUTY_SKILL_MULTIPLIER_TOTAL / 2,
           },
           relevant_traits: {
-            skill_intimidating: setup.DUTY_TRAIT_CRIT_CHANCE,
-            per_loner: setup.DUTY_TRAIT_NORMAL_CHANCE,
-            per_gregarious: -setup.DUTY_TRAIT_NORMAL_CHANCE,
+            skill_intimidating: Constants.DUTY_TRAIT_CRIT_CHANCE,
+            per_loner: Constants.DUTY_TRAIT_NORMAL_CHANCE,
+            per_gregarious: -Constants.DUTY_TRAIT_NORMAL_CHANCE,
           },
           is_can_replace_with_specialist: true,
-          quest_pool: setup.questpool["vale" as QuestPoolKey],
+          quest_pool: "vale",
           quest_amount: 3,
         });
       }
@@ -89,18 +90,18 @@ function initSubclasses() {
           type: "scout",
           name: "Forest Scout",
           description_passage: "DutyScoutForest",
-          unit_restrictions: [setup.qres.Job(setup.job.slaver)],
+          unit_restrictions: [setup.qres.Job("slaver")],
           relevant_skills: {
-            survival: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 2,
-            arcane: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 2,
+            survival: Constants.DUTY_SKILL_MULTIPLIER_TOTAL / 2,
+            arcane: Constants.DUTY_SKILL_MULTIPLIER_TOTAL / 2,
           },
           relevant_traits: {
-            skill_animal: setup.DUTY_TRAIT_CRIT_CHANCE,
-            tough_nimble: setup.DUTY_TRAIT_NORMAL_CHANCE,
-            tough_tough: -setup.DUTY_TRAIT_NORMAL_CHANCE,
+            skill_animal: Constants.DUTY_TRAIT_CRIT_CHANCE,
+            tough_nimble: Constants.DUTY_TRAIT_NORMAL_CHANCE,
+            tough_tough: -Constants.DUTY_TRAIT_NORMAL_CHANCE,
           },
           is_can_replace_with_specialist: true,
-          quest_pool: setup.questpool["forest" as QuestPoolKey],
+          quest_pool: "forest",
           quest_amount: 2,
         });
       }
@@ -113,18 +114,18 @@ function initSubclasses() {
           type: "scout",
           name: "City Scout",
           description_passage: "DutyScoutCity",
-          unit_restrictions: [setup.qres.Job(setup.job.slaver)],
+          unit_restrictions: [setup.qres.Job("slaver")],
           relevant_skills: {
-            social: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 2,
-            sex: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 2,
+            social: Constants.DUTY_SKILL_MULTIPLIER_TOTAL / 2,
+            sex: Constants.DUTY_SKILL_MULTIPLIER_TOTAL / 2,
           },
           relevant_traits: {
-            skill_hypnotic: setup.DUTY_TRAIT_CRIT_CHANCE,
-            per_curious: setup.DUTY_TRAIT_NORMAL_CHANCE,
-            per_stubborn: -setup.DUTY_TRAIT_NORMAL_CHANCE,
+            skill_hypnotic: Constants.DUTY_TRAIT_CRIT_CHANCE,
+            per_curious: Constants.DUTY_TRAIT_NORMAL_CHANCE,
+            per_stubborn: -Constants.DUTY_TRAIT_NORMAL_CHANCE,
           },
           is_can_replace_with_specialist: true,
-          quest_pool: setup.questpool["city" as QuestPoolKey],
+          quest_pool: "city",
           quest_amount: 2,
         });
       }
@@ -137,19 +138,19 @@ function initSubclasses() {
           type: "scout",
           name: "Deep Scout",
           description_passage: "DutyScoutDeep",
-          unit_restrictions: [setup.qres.Job(setup.job.slaver)],
+          unit_restrictions: [setup.qres.Job("slaver")],
           relevant_skills: {
-            combat: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 2,
-            social: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 2,
+            combat: Constants.DUTY_SKILL_MULTIPLIER_TOTAL / 2,
+            social: Constants.DUTY_SKILL_MULTIPLIER_TOTAL / 2,
           },
           relevant_traits: {
-            magic_dark: setup.DUTY_TRAIT_NORMAL_CHANCE,
-            magic_dark_master: setup.DUTY_TRAIT_CRIT_CHANCE,
-            per_brave: setup.DUTY_TRAIT_NORMAL_CHANCE,
-            per_cautious: -setup.DUTY_TRAIT_NORMAL_CHANCE,
+            magic_dark: Constants.DUTY_TRAIT_NORMAL_CHANCE,
+            magic_dark_master: Constants.DUTY_TRAIT_CRIT_CHANCE,
+            per_brave: Constants.DUTY_TRAIT_NORMAL_CHANCE,
+            per_cautious: -Constants.DUTY_TRAIT_NORMAL_CHANCE,
           },
           is_can_replace_with_specialist: true,
-          quest_pool: setup.questpool["deep" as QuestPoolKey],
+          quest_pool: "deep",
           quest_amount: 2,
         });
       }
@@ -162,18 +163,18 @@ function initSubclasses() {
           type: "scout",
           name: "Desert Scout",
           description_passage: "DutyScoutDesert",
-          unit_restrictions: [setup.qres.Job(setup.job.slaver)],
+          unit_restrictions: [setup.qres.Job("slaver")],
           relevant_skills: {
-            combat: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 2,
-            brawn: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 2,
+            combat: Constants.DUTY_SKILL_MULTIPLIER_TOTAL / 2,
+            brawn: Constants.DUTY_SKILL_MULTIPLIER_TOTAL / 2,
           },
           relevant_traits: {
-            skill_ambidextrous: setup.DUTY_TRAIT_CRIT_CHANCE,
-            per_aggressive: setup.DUTY_TRAIT_NORMAL_CHANCE,
-            per_calm: -setup.DUTY_TRAIT_NORMAL_CHANCE,
+            skill_ambidextrous: Constants.DUTY_TRAIT_CRIT_CHANCE,
+            per_aggressive: Constants.DUTY_TRAIT_NORMAL_CHANCE,
+            per_calm: -Constants.DUTY_TRAIT_NORMAL_CHANCE,
           },
           is_can_replace_with_specialist: true,
-          quest_pool: setup.questpool["desert" as QuestPoolKey],
+          quest_pool: "desert",
           quest_amount: 1,
         });
       }
@@ -186,18 +187,18 @@ function initSubclasses() {
           type: "scout",
           name: "Sea Scout",
           description_passage: "DutyScoutSea",
-          unit_restrictions: [setup.qres.Job(setup.job.slaver)],
+          unit_restrictions: [setup.qres.Job("slaver")],
           relevant_skills: {
-            combat: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 3,
-            slaving: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 3,
+            combat: Constants.DUTY_SKILL_MULTIPLIER_TOTAL / 3,
+            slaving: Constants.DUTY_SKILL_MULTIPLIER_TOTAL / 3,
           },
           relevant_traits: {
-            skill_flight: setup.DUTY_TRAIT_CRIT_CHANCE / 3,
-            per_honorable: setup.DUTY_TRAIT_NORMAL_CHANCE / 3,
-            per_evil: -setup.DUTY_TRAIT_NORMAL_CHANCE / 3,
+            skill_flight: Constants.DUTY_TRAIT_CRIT_CHANCE / 3,
+            per_honorable: Constants.DUTY_TRAIT_NORMAL_CHANCE / 3,
+            per_evil: -Constants.DUTY_TRAIT_NORMAL_CHANCE / 3,
           },
           is_can_replace_with_specialist: true,
-          quest_pool: setup.questpool["sea" as QuestPoolKey],
+          quest_pool: "sea",
           quest_amount: 1,
         });
       }

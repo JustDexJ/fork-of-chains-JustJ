@@ -13,11 +13,11 @@ export default class MoneyNormal extends Money {
   static NAME = "Money (Normal)";
   static PASSAGE = "CostMoneyNormal";
 
-  override text() {
+  override text(): string {
     return `setup.qc.MoneyNormal(${this.multi || ""})`;
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     if (context) {
       return super.explain(context);
     } else {

@@ -9,15 +9,15 @@ export default class VarGte extends Restriction {
   static NAME = "Variable >= something";
   static PASSAGE = "RestrictionVarGte";
 
-  override text() {
+  override text(): string {
     return `setup.qres.VarGte('${this.key}', ${this.value})`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Variable "${this.key}" must >= ${this.value}`;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     return +(State.variables.varstore.get(this.key) || 0) >= this.value;
   }
 }

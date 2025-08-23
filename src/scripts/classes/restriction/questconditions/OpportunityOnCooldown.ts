@@ -14,16 +14,16 @@ export default class OpportunityOnCooldown extends Restriction {
     this.template_key = resolveKey(template);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.OpportunityOnCooldown('${this.template_key}')`;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     let template = setup.opportunitytemplate[this.template_key];
     return State.variables.calendar.isOnCooldown(template);
   }
 
-  override explain() {
+  override explain(): string {
     let template = setup.opportunitytemplate[this.template_key];
     return `Opportunity on cooldown: ${template.getName()}`;
   }

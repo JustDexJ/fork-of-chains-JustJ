@@ -4,17 +4,17 @@ import type { Unit } from "../../../unit/Unit";
 export default class NoTrait extends Restriction {
   trait_key: TraitKey;
 
-  constructor(trait: Trait | TraitKey | BuiltinTraitKey) {
+  constructor(trait: Trait | TraitKey) {
     super();
 
-    this.trait_key = resolveKey(trait as Trait | TraitKey);
+    this.trait_key = resolveKey(trait);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.NoTrait(setup.trait.${this.trait_key})`;
   }
 
-  override explain() {
+  override explain(): string {
     let trait = setup.trait[this.trait_key];
     let cover: (Trait | null)[] = [trait];
 
@@ -30,7 +30,7 @@ export default class NoTrait extends Restriction {
     return text;
   }
 
-  override isOk(unit: Unit) {
+  override isOk(unit: Unit): boolean {
     let trait = setup.trait[this.trait_key];
     return !unit.isHasTrait(trait);
   }

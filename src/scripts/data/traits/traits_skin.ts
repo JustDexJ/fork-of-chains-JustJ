@@ -1,4 +1,5 @@
-import type { TraitDefinition } from "../../classes/trait/Trait";
+import type { TraitOrGroupDefinitions } from "../../classes/trait/Trait";
+import { Constants } from "../../constants";
 
 /** List of tags that represent body parts */
 setup.TRAIT_SKIN_TAGS = [
@@ -16,7 +17,7 @@ setup.TRAIT_SKIN_TAGS = [
 
 /* rarity here is "corruption rarity". That's why demonic are most common */
 
-export default typedObject<TraitDefinition>()({
+export default {
   //
   // EYES
   //
@@ -52,7 +53,7 @@ export default typedObject<TraitDefinition>()({
   eyes_demon: {
     name: "eyes (demonic)",
     description: "Posses pitch-black demonic eyes.",
-    slave_value: -setup.MONEY_TRAIT_MEDIUM,
+    slave_value: -Constants.MONEY_TRAIT_MEDIUM,
     skill_bonuses: {
       knowledge: -0.35,
     },
@@ -126,7 +127,7 @@ export default typedObject<TraitDefinition>()({
   ears_demon: {
     name: "ears (demonic)",
     description: "Posses pointy ears and a pair of horns",
-    slave_value: -setup.MONEY_TRAIT_MEDIUM,
+    slave_value: -Constants.MONEY_TRAIT_MEDIUM,
     skill_bonuses: {
       survival: -0.35,
     },
@@ -165,7 +166,7 @@ export default typedObject<TraitDefinition>()({
   mouth_neko: {
     name: "mouth (neko)",
     description: "Several sensitive whiskers grow from their cheeks",
-    slave_value: setup.MONEY_TRAIT_RARE,
+    slave_value: "MONEY_TRAIT_RARE",
     skill_bonuses: {},
     tags: [
       "mouth",
@@ -211,7 +212,7 @@ export default typedObject<TraitDefinition>()({
   mouth_demon: {
     name: "mouth (demonic)",
     description: "Posses elongated tongue clearly beyond what is normal",
-    slave_value: -setup.MONEY_TRAIT_MEDIUM,
+    slave_value: -Constants.MONEY_TRAIT_MEDIUM,
     skill_bonuses: {
       social: -0.35,
     },
@@ -240,7 +241,7 @@ export default typedObject<TraitDefinition>()({
   body_neko: {
     name: "body (cat)",
     description: "Tiger-like black stripes cover their entire body",
-    slave_value: setup.MONEY_TRAIT_RARE,
+    slave_value: "MONEY_TRAIT_RARE",
     skill_bonuses: {},
     tags: ["body", "skin", "genderless", "rare", "furry", "skin_tigerkin"],
   },
@@ -268,7 +269,7 @@ export default typedObject<TraitDefinition>()({
   body_demon: {
     name: "body (demonic)",
     description: "Posses a reddish body covered in tough skin",
-    slave_value: -setup.MONEY_TRAIT_MEDIUM,
+    slave_value: -Constants.MONEY_TRAIT_MEDIUM,
     skill_bonuses: {
       brawn: -0.35,
     },
@@ -291,14 +292,14 @@ export default typedObject<TraitDefinition>()({
     name: "wings (elven)",
     description:
       "Possess a beautiful pair of transluscent butterfly-like wings",
-    slave_value: setup.MONEY_TRAIT_EPIC,
+    slave_value: "MONEY_TRAIT_EPIC",
     skill_bonuses: {},
     tags: ["wings", "skin", "genderless", "skin_angel", "rare", "skin_fairy"],
   },
   wings_dragonkin: {
     name: "wings (dragonkin)",
     description: "Posses a pair of scaley wings",
-    slave_value: setup.MONEY_TRAIT_EPIC,
+    slave_value: "MONEY_TRAIT_EPIC",
     skill_bonuses: {},
     tags: [
       "wings",
@@ -312,7 +313,7 @@ export default typedObject<TraitDefinition>()({
   wings_demon: {
     name: "wings (demonic)",
     description: "Posses a pair of bat-like wings",
-    slave_value: setup.MONEY_TRAIT_MEDIUM,
+    slave_value: "MONEY_TRAIT_MEDIUM",
     skill_bonuses: {
       aid: -0.35,
       slaving: -0.35,
@@ -330,7 +331,7 @@ export default typedObject<TraitDefinition>()({
   wings_angel: {
     name: "wings (angelic)",
     description: "Posses a pair of angel-like wings",
-    slave_value: setup.MONEY_TRAIT_EPIC,
+    slave_value: "MONEY_TRAIT_EPIC",
     skill_bonuses: {},
     tags: ["wings", "skin", "genderless", "skin_angel", "rare"],
   },
@@ -349,7 +350,7 @@ export default typedObject<TraitDefinition>()({
   arms_neko: {
     name: "arms (cat)",
     description: "Tiger-like black stripes cover their clawed arms",
-    slave_value: setup.MONEY_TRAIT_RARE,
+    slave_value: "MONEY_TRAIT_RARE",
     skill_bonuses: {},
     tags: ["arms", "skin", "genderless", "rare", "skin_tigerkin"],
   },
@@ -370,7 +371,7 @@ export default typedObject<TraitDefinition>()({
   arms_demon: {
     name: "arms (demonic)",
     description: "Posses a pair of arms ending in deadly lethal claws",
-    slave_value: -setup.MONEY_TRAIT_MEDIUM,
+    slave_value: -Constants.MONEY_TRAIT_MEDIUM,
     skill_bonuses: {
       combat: -0.35,
     },
@@ -391,7 +392,7 @@ export default typedObject<TraitDefinition>()({
   legs_neko: {
     name: "legs (cat)",
     description: "Legs covered in black stripes akin to tigers",
-    slave_value: setup.MONEY_TRAIT_RARE,
+    slave_value: "MONEY_TRAIT_RARE",
     skill_bonuses: {},
     tags: ["legs", "skin", "genderless", "rare", "skin_tigerkin"],
   },
@@ -413,7 +414,7 @@ export default typedObject<TraitDefinition>()({
     name: "legs (demonic)",
     description:
       "Posses a pair of legs with sharp spikes protruding out of the skins",
-    slave_value: -setup.MONEY_TRAIT_MEDIUM,
+    slave_value: -Constants.MONEY_TRAIT_MEDIUM,
     skill_bonuses: {
       intrigue: -0.35,
     },
@@ -462,7 +463,7 @@ export default typedObject<TraitDefinition>()({
   tail_demon: {
     name: "tail (demonic)",
     description: "Posses a thin elongated tail ending in sharp arrow",
-    slave_value: -setup.MONEY_TRAIT_MEDIUM,
+    slave_value: -Constants.MONEY_TRAIT_MEDIUM,
     skill_bonuses: {
       sex: -0.35,
     },
@@ -524,4 +525,4 @@ export default typedObject<TraitDefinition>()({
   //
 
   // TODO
-});
+} satisfies TraitOrGroupDefinitions;

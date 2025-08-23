@@ -1,23 +1,17 @@
 import { Item } from "../Item";
 
 export class ItemTechnology extends Item {
-  constructor({
-    key,
-    name,
-    description,
-    tags,
-  }: {
-    key: string;
-    name: string;
-    description: string;
-    tags: string[];
-  }) {
-    super({
-      key: key,
-      name: name,
-      description: description,
+  constructor(
+    key: string,
+    def: {
+      name: string;
+      description: string;
+      tags: string[];
+    },
+  ) {
+    super(key, {
+      ...def,
       item_class: setup.itemclass.technologyitem,
-      tags: tags,
     });
   }
 }

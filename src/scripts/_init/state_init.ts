@@ -200,19 +200,19 @@ export function createMarkets() {
       "slavermarket",
       "New Slavers Candidates",
       "unit",
-      setup.job.slaver,
+      "slaver",
     ),
     slavemarket: new MarketUnit(
       "slavemarket",
       "Temporary Slave Pens",
       "unit",
-      setup.job.slave,
+      "slave",
     ),
     initslavermarket: new MarketUnit(
       "initslavermarket",
       "Initial Slavers",
       "unit",
-      setup.job.slaver,
+      "slaver",
     ),
 
     equipmentmarket: new MarketEquipment("equipmentmarket", "Buy Equipment"),

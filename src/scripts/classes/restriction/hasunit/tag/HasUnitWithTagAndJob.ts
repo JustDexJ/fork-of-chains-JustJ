@@ -16,16 +16,16 @@ export default class HasUnitWithTagAndJob extends Restriction {
   static PASSAGE = "RestrictionHasUnitWithTagAndJob";
   static UNIT = true;
 
-  override text() {
+  override text(): string {
     return `setup.qres.HasUnitWithTagAndJob('${this.tag_name}', setup.job.${this.job_key})`;
   }
 
-  override explain() {
+  override explain(): string {
     let tagname = this.tag_name;
     return `Must have a unit with job: ${this.job_key} and tag/flag : "${tagname}"`;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     let units = State.variables.company.player.getUnits({
       job: setup.job[this.job_key],
     });

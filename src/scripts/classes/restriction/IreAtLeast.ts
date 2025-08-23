@@ -11,16 +11,16 @@ export default class IreAtLeast extends Restriction {
     this.ire_amt = ire_amt;
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.IreAtLeast('${this.company_key}', ${this.ire_amt})`;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     let company = State.variables.company[this.company_key];
     return State.variables.ire.getIre(company) >= this.ire_amt;
   }
 
-  override explain() {
+  override explain(): string {
     let company = State.variables.company[this.company_key];
     return `Ire with ${company.rep()} at least ${setup.DOM.toString(setup.DOM.Text.dangerlite(this.ire_amt))}`;
   }

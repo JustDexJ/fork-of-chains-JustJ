@@ -13,16 +13,16 @@ export default class NoEvent extends Restriction {
     this.template_key = resolveKey(template);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.NoEvent('${this.template_key}')`;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     let template = setup.event[this.template_key];
     return !State.variables.eventpool.isEventScheduled(template);
   }
 
-  override explain() {
+  override explain(): string {
     let template = setup.event[this.template_key];
     return `Event not scheduled: ${template.getName()}`;
   }

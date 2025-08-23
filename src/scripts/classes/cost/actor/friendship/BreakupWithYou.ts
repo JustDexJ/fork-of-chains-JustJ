@@ -6,7 +6,7 @@ export default class BreakupWithYou extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.BreakupWithYou('${this.actor_name}')`;
   }
 
@@ -20,7 +20,7 @@ export default class BreakupWithYou extends Cost {
     );
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `You break up with ${this.actor_name}, if you were lovers`;
   }
 }

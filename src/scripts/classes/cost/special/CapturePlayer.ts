@@ -6,7 +6,7 @@ export default class CapturePlayer extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.CapturePlayer()`;
   }
 
@@ -37,7 +37,7 @@ export default class CapturePlayer extends Cost {
       .apply(setup.costUnitHelper(State.variables.unit.player));
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `You are captured or otherwise lost from the company`;
   }
 }

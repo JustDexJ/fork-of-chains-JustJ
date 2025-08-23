@@ -1,6 +1,6 @@
 import type { TitleDefinition } from "../classes/title/Title";
 
-export const TITLE_DEFINITIONS = typedObject<TitleDefinition>()({
+export const TITLE_DEFINITIONS = definitions<TitleDefinition>()({
   //
   // Basic titles
   //
@@ -161,5 +161,18 @@ export const TITLE_DEFINITIONS = typedObject<TitleDefinition>()({
     unit_text: "a|is a doppelganger living in your company",
     slave_value: 5000,
     skill_adds: {},
+  },
+
+  quest_living_god: {
+    name: "Living God",
+    description:
+      "Worshipped as a living god, and has a small shrine dedicated to them within your fort.",
+    unit_text: "a|is currently being worshipped within your fort",
+    slave_value: 5000,
+    skill_adds: {
+      social: 3,
+      intrigue: 3,
+      aid: 3,
+    },
   },
 });

@@ -1,6 +1,6 @@
 import type { SpeechDefinition } from "../classes/Speech";
 
-export const SPEECHES_DEFINITIONS = typedObject<SpeechDefinition>()({
+export const SPEECHES_DEFINITIONS = definitions<SpeechDefinition>()({
   friendly: {
     name: "Friendly",
     description: "Pleasant to others",

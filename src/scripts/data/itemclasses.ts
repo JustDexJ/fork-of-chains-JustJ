@@ -1,6 +1,6 @@
 import { ItemClassDefinition } from "../classes/inventory/ItemClass";
 
-export const ITEM_CLASS_DEFINITIONS = typedObject<ItemClassDefinition>()({
+export const ITEM_CLASS_DEFINITIONS = definitions<ItemClassDefinition>()({
   /* Actually a misnomer. Covers all items that has a single unit as its target */
   usableitem: { name: "Usable Item (Single unit)" },
 

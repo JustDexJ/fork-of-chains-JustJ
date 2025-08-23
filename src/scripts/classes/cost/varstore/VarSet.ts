@@ -7,7 +7,7 @@ export default class VarSet extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.VarSet('${this.key}', ${JSON.stringify(this.value)}, ${this.expires})`;
   }
 
@@ -15,7 +15,7 @@ export default class VarSet extends Cost {
     State.variables.varstore.set(this.key, this.value, this.expires);
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     if (context) return ""; // ???
     return `Variable "${this.key}" is set to "${this.value}" for ${this.expires} weeks.`;
   }

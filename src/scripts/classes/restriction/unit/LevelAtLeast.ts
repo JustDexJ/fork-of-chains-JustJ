@@ -7,11 +7,11 @@ export default class LevelAtLeast extends Restriction.Unit {
   static PASSAGE = "RestrictionLevelAtLeast";
   static UNIT = true;
 
-  override text() {
+  override text(): string {
     return `setup.qres.LevelAtLeast(${this.level})`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Unit's level is at least ${this.level}`;
   }
 

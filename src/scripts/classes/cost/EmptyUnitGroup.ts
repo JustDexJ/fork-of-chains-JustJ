@@ -3,16 +3,16 @@ import type { UnitGroup, UnitGroupKey } from "../unit/UnitGroup";
 export default class EmptyUnitGroup extends Cost {
   unit_group_key: UnitGroupKey;
 
-  constructor(unit_group: UnitGroup | UnitGroupKey | BuiltinUnitGroupKey) {
+  constructor(unit_group: UnitGroup | UnitGroupKey) {
     super();
 
-    this.unit_group_key = resolveKey(unit_group as UnitGroup | UnitGroupKey);
+    this.unit_group_key = resolveKey(unit_group);
 
     if (!this.unit_group_key)
       throw new Error(`no key for unit group ${unit_group} in EmptyUnitGroup`);
   }
 
-  override text() {
+  override text(): string {
     let unitgroup = setup.unitgroup[this.unit_group_key];
     let qcu = State.variables.qcustomunitgroup;
     if (!qcu) qcu = [];
@@ -35,7 +35,7 @@ export default class EmptyUnitGroup extends Cost {
     unitgroup.removeAllUnits();
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     let unitgroup = setup.unitgroup[this.unit_group_key];
     return `Unitgroup ${unitgroup.rep()} is cleared of all units`;
   }

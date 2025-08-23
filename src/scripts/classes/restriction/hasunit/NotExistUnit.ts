@@ -3,17 +3,17 @@ export default class NotExistUnit extends Restriction {
     super();
   }
 
-  override text() {
+  override text(): string {
     let texts = this.restrictions.map((a) => a.text());
     return `setup.qres.NotExistUnit([<br/>${texts.join(",<br/>")}<br/>])`;
   }
 
-  override explain() {
+  override explain(): string {
     let texts = this.restrictions.map((a) => a.explain());
     return `Must NOT exist any unit with: [ ${texts.join(" ")} ]`;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     for (const unit of Object.values(State.variables.unit)) {
       if (setup.RestrictionLib.isUnitSatisfy(unit, this.restrictions))
         return false;

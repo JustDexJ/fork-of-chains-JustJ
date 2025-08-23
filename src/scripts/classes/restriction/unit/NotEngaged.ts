@@ -6,11 +6,11 @@ export default class NotEngaged extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.NotEngaged()`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Unit is not engaged`;
   }
 

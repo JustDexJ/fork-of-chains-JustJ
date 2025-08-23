@@ -13,7 +13,7 @@ export default class UnitValueToFavor extends Cost {
     this.company_key = resolveKey(company as Company | CompanyKey);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.UnitValueToFavor('${this.company_key}', ${this.favor_per_value}, ${this.favor_per_crit})`;
   }
 
@@ -21,7 +21,7 @@ export default class UnitValueToFavor extends Cost {
     return State.variables.company[this.company_key];
   }
 
-  override explain() {
+  override explain(): string {
     const fpv = this.favor_per_value;
     const fpc = this.favor_per_crit;
     return `Favor with ${this.getCompany().rep()} = value * ${fpv} + crit * ${fpc}`;
@@ -59,7 +59,7 @@ export const UnitValueToFavor_Addon = class UnitValueToFavor extends SlaveOrderA
     this.favor_per_crit = favor_per_crit;
   }
 
-  override text() {
+  override text(): string {
     return `setup.SlaveOrderAddon.UnitValueToFavor('${this.company_key}', ${this.favor_per_value}, ${this.favor_per_crit})`;
   }
 
@@ -67,7 +67,7 @@ export const UnitValueToFavor_Addon = class UnitValueToFavor extends SlaveOrderA
     return State.variables.company[this.company_key];
   }
 
-  override explain() {
+  override explain(): string {
     return `Gain favor with ${this.getCompany().rep()} equal to:
       Unit value * ${this.favor_per_value} +
       Crit traits * ${this.favor_per_crit}`;

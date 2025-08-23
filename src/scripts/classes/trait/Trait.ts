@@ -1,16 +1,18 @@
-import { Constants } from "../../constants";
+import { Constants, type NumericConstant } from "../../constants";
+import type { _TraitKey } from "../../data/traits/_index";
 import { DataUtil } from "../../util/DataUtil";
 import { rng } from "../../util/rng";
 import { TwineClass } from "../_TwineClass";
 import type { Rarity } from "../deck/Rarity";
-import type { SkillValuesInit } from "../Skill";
+import type { SkillValuesArray, SkillValuesInit } from "../Skill";
 import type { Unit } from "../unit/Unit";
 import { TraitGroup, type TraitGroupKey } from "./TraitGroup";
 import type { TraitTexts } from "./TraitTexts";
 
 export { TraitTexts };
 
-export type TraitKey = BrandedType<string, "TraitKey">;
+//export type TraitKey = BrandedType<string, "TraitKey">;
+export type TraitKey = _TraitKey;
 
 export interface TraitIconSettings {
   tier?: number;
@@ -25,16 +27,16 @@ export interface TraitIconSettings {
   path?: string;
 }
 
-export interface InlineTraitGroupDefinition {
+export interface InlineTraitGroupDefinition<K extends string> {
   add_tags?: string[];
-  sequence?: ((TraitDefinition & { key: string }) | null)[];
-  pool?: (TraitDefinition & { key: string })[];
+  sequence?: { [k in K]: TraitDefinition | null };
+  pool?: { [k in K]: TraitDefinition };
 }
 
 export interface TraitDefinition {
   name: string;
   description: string;
-  slave_value?: number;
+  slave_value?: number | NumericConstant;
   skill_bonuses?: SkillValuesInit;
   tags?: readonly string[];
   icon_settings?: TraitIconSettings;
@@ -42,7 +44,9 @@ export interface TraitDefinition {
 
 export type TraitOrGroupDefinition =
   | TraitDefinition
-  | InlineTraitGroupDefinition;
+  | InlineTraitGroupDefinition<string>;
+
+export type TraitOrGroupDefinitions = Record<string, TraitOrGroupDefinition>;
 
 export class Trait extends TwineClass {
   key: TraitKey;
@@ -111,7 +115,7 @@ export class Trait extends TwineClass {
       }
     }
 
-    this.order_no = setup.Trait.keygen++;
+    this.order_no = Trait.keygen++;
 
     this.trait_group_key = null;
 
@@ -123,8 +127,13 @@ export class Trait extends TwineClass {
         this.is_has_skill_bonuses = true;
       }
 
-    if (def.slave_value) this.slave_value = def.slave_value;
-    else this.slave_value = 0;
+    if (typeof def.slave_value === "string") {
+      this.slave_value = Constants[def.slave_value];
+    } else if (def.slave_value) {
+      this.slave_value = def.slave_value;
+    } else {
+      this.slave_value = 0;
+    }
 
     if (key in setup.trait) throw new Error(`Trait ${key} duplicated`);
     setup.trait[key as TraitKey] = this;
@@ -133,7 +142,7 @@ export class Trait extends TwineClass {
   /**
    * Called at end of each week from the unit.
    */
-  advanceWeek(unit: Unit) {}
+  advanceWeek(unit: Unit): void {}
 
   /**
    * @deprecated Use getTexts()
@@ -161,15 +170,15 @@ export class Trait extends TwineClass {
     return base;
   }
 
-  isHasSkillBonuses() {
+  isHasSkillBonuses(): boolean {
     return this.is_has_skill_bonuses;
   }
 
-  getSkillBonuses() {
+  getSkillBonuses(): SkillValuesArray {
     return this.skill_bonuses;
   }
 
-  getImage() {
+  getImage(): string {
     const icon_settings = this.icon_settings;
     return (
       icon_settings.path ??
@@ -307,11 +316,11 @@ export class Trait extends TwineClass {
     return rng.choice(this.text().nounbad ?? [""]);
   }
 
-  getName() {
+  getName(): string {
     return this.name;
   }
 
-  getSlaveValue() {
+  getSlaveValue(): number {
     return this.slave_value;
   }
 
@@ -331,7 +340,7 @@ export class Trait extends TwineClass {
     return this.tags;
   }
 
-  isHasTag(tag: string) {
+  isHasTag(tag: string): boolean {
     return this.getTags().includes(tag);
   }
 
@@ -375,7 +384,7 @@ export class Trait extends TwineClass {
     ).length;
   }
 
-  isAttachableInContentCreator() {
+  isAttachableInContentCreator(): boolean {
     return (
       this.isAttachable() &&
       !this.getTags().includes("perk") &&
@@ -414,7 +423,7 @@ export class Trait extends TwineClass {
     return true;
   }
 
-  static cmp(trait1: Trait, trait2: Trait) {
+  static cmp(trait1: Trait, trait2: Trait): number {
     if (trait1.order_no < trait2.order_no) return -1;
     if (trait1.order_no > trait2.order_no) return 1;
     return 0;
@@ -465,7 +474,7 @@ export namespace TraitHelper {
     );
   }
 
-  export let EQUIPMENT_SLUTTY: (TraitKey | BuiltinTraitKey)[] = [];
+  export let EQUIPMENT_SLUTTY: TraitKey[] = [];
 
   export const TRAINING_BASIC_GENDERLESS = () =>
     getAllTraitsOfTags(["trbasic", "trmale", "trfemale"]);

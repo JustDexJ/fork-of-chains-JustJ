@@ -9,7 +9,7 @@ export default class RemoveTagGlobal extends Cost {
   static NAME = "Remove a tag / flag from ALL unit.";
   static PASSAGE = "CostRemoveTagGlobal";
 
-  override text() {
+  override text(): string {
     return `setup.qc.RemoveTagGlobal('${this.tag_name}')`;
   }
 
@@ -19,7 +19,7 @@ export default class RemoveTagGlobal extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     let tagname = this.tag_name;
     return `All units loses: "${tagname}"`;
   }

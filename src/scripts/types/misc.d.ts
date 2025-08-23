@@ -1,3 +1,4 @@
+import type { SpeechKey } from "../classes/Speech";
 import type { UnitKey } from "../classes/unit/Unit";
 
 declare global {
@@ -85,7 +86,7 @@ declare global {
   //type Rarity = "legendary" | "epic" | "rare" | "uncommon" | "common" | "negative"
 
   type DialogueText = {
-    [k in BuiltinSpeechKey]: string[];
+    [k in SpeechKey]: string[];
   };
 
   interface Dialogue {

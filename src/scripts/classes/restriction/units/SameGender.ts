@@ -6,11 +6,11 @@ export default class SameGender extends Restriction.ContentContext {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.SameGender('${this.actor_name1}', '${this.actor_name2}')`;
   }
 
-  override explain(context?: ContentContext) {
+  override explain(context?: ContentContext): string {
     if (context) {
       const unit1 = context.getActorUnit(this.actor_name1)!;
       const unit2 = context.getActorUnit(this.actor_name2)!;

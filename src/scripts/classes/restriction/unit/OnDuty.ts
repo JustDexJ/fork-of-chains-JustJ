@@ -9,11 +9,11 @@ export default class OnDuty extends Restriction.Unit {
     this.duty_template_key = resolveKey(duty_template);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.OnDuty('${this.duty_template_key}')`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Unit must be on duty: ${setup.dutytemplate[this.duty_template_key].getName()}`;
   }
 

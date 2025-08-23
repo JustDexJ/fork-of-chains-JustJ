@@ -6,9 +6,9 @@ import type { MarketObject } from "../MarketObject";
 export class MarketUnit extends Market<Unit> {
   job_key: JobKey;
 
-  constructor(key: string, name: string, varname: string, job: Job) {
+  constructor(key: string, name: string, varname: string, job_key: JobKey) {
     super(key, name, varname);
-    this.job_key = job.key;
+    this.job_key = job_key;
   }
 
   getJob(): Job {

@@ -7,11 +7,11 @@ export default class NotBusy extends Restriction.Unit {
   static PASSAGE = "RestrictionNotBusy";
   static UNIT = true;
 
-  override text() {
+  override text(): string {
     return `setup.qres.NotBusy()`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Unit is [<<successtextlite 'IDLE'>>]`;
   }
 

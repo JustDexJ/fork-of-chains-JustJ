@@ -17,7 +17,7 @@ export default class Money extends Cost {
     this.money = money;
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.Money(${this.money})`;
   }
 
@@ -40,7 +40,7 @@ export default class Money extends Cost {
     State.variables.company.player.addMoney(-this.getMoney(context));
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return setup.DOM.toString(setup.DOM.Util.money(this.getMoney(context)));
   }
 }

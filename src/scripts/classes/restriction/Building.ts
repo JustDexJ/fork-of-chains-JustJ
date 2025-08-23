@@ -25,17 +25,17 @@ export default class Building extends Restriction {
     this.level = level || 1;
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.Building(setup.buildingtemplate.${this.template_key})`;
   }
 
-  override explain() {
+  override explain(): string {
     let base = `${setup.buildingtemplate[this.template_key].rep()}`;
     if (this.level > 1) base = `Lv. ${this.level}` + base;
     return base;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     return State.variables.fort.player.isHasBuilding(
       setup.buildingtemplate[this.template_key],
       this.level,

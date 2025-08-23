@@ -16,17 +16,17 @@ export default class HasUnitWithTagAndJobAndTrait extends Restriction {
     this.trait_key = resolveKey(trait);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.HasUnitWithTagAndJobAndTrait('${this.tag_name}', setup.job.${this.job_key}, setup.trait.${this.trait_key})`;
   }
 
-  override explain() {
+  override explain(): string {
     let tagname = this.tag_name;
     let trait = setup.trait[this.trait_key];
     return `Must have a unit with job: ${this.job_key} and trait: ${trait.rep()} and tag/flag : "${tagname}"`;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     let units = State.variables.company.player.getUnits({
       job: setup.job[this.job_key],
     });

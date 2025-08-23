@@ -1,6 +1,6 @@
 import type { TraitGroupDefinition } from "../../classes/trait/TraitGroup";
 
-export const TRAIT_GROUP_DEFINITIONS = typedObject<TraitGroupDefinition>()({
+export const TRAIT_GROUP_DEFINITIONS = definitions<TraitGroupDefinition>()({
   //
   // RACES
   //

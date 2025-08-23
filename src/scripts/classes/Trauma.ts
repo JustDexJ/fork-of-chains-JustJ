@@ -11,7 +11,7 @@ export class Trauma extends TwineClass {
    */
   unit_traumas: {
     [unitkey: UnitKey]: {
-      [traitkey: TraitKey]: number;
+      [traitkey in TraitKey]?: number;
     };
   } = {};
 
@@ -87,11 +87,8 @@ export class Trauma extends TwineClass {
     }
 
     let unitkey = unit.key;
-    if (!(unitkey in this.unit_traumas)) {
-      this.unit_traumas[unitkey] = {};
-    }
 
-    let traumas = this.unit_traumas[unitkey];
+    let traumas = (this.unit_traumas[unitkey] ??= {});
 
     let traitkey = trait.key;
     if (!(traitkey in traumas)) {
@@ -101,19 +98,20 @@ export class Trauma extends TwineClass {
         });
         setup.notify(`${base} ${trait.rep()}`);
       }
-      traumas[traitkey] = 0;
     }
 
-    traumas[traitkey] += duration;
+    const new_duration = (traumas[traitkey] ?? 0) + duration;
+    traumas[traitkey] = new_duration;
+
     if (unit.isSlaver()) {
       if (trait.getTags().includes("trauma")) {
-        State.variables.statistics.setMax("trauma_week_max", traumas[traitkey]);
+        State.variables.statistics.setMax("trauma_week_max", new_duration);
       } else if (trait.getTags().includes("boon")) {
-        State.variables.statistics.setMax("boon_week_max", traumas[traitkey]);
+        State.variables.statistics.setMax("boon_week_max", new_duration);
       }
     }
 
-    if (traumas[traitkey] <= 0) {
+    if (new_duration <= 0) {
       if (unit.isYourCompany()) {
         const base = setup.Text.replaceUnitMacros(`a|Rep a|lose`, { a: unit });
         setup.notify(`${base} ${trait.rep()}`);
@@ -216,11 +214,8 @@ export class Trauma extends TwineClass {
     let unitkey = unit.key;
     if (!(unitkey in this.unit_traumas)) return [];
     let result: Array<[trait: Trait, duration: number]> = [];
-    for (let traitkey of objectKeys(this.unit_traumas[unitkey]) as TraitKey[])
-      result.push([
-        setup.trait[traitkey],
-        this.unit_traumas[unitkey][traitkey],
-      ]);
+    for (let [traitkey, duration] of objectEntries(this.unit_traumas[unitkey]))
+      result.push([setup.trait[traitkey], duration]);
     return result;
   }
 

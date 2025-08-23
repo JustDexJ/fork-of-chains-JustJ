@@ -10,16 +10,16 @@ export default class QuestOnCooldown extends Restriction {
     this.template_key = resolveKey(template);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.QuestOnCooldown('${this.template_key}')`;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     let template = setup.questtemplate[this.template_key];
     return State.variables.calendar.isOnCooldown(template);
   }
 
-  override explain() {
+  override explain(): string {
     let template = setup.questtemplate[this.template_key];
     return `Quest on cooldown: ${template.getName()}`;
   }

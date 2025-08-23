@@ -12,34 +12,24 @@ export class ItemUnitUsable extends Item {
 
   temporary_unit_key?: UnitKey;
 
-  constructor({
-    key,
-    name,
-    description,
-    value,
-    unit_restrictions,
-    effects,
-    tags,
-  }: {
-    key: string;
-    name: string;
-    description: string;
-    value: number;
-    unit_restrictions: Restriction[];
-    effects: Cost[];
-    tags: string[];
-  }) {
-    super({
-      key: key,
-      name: name,
-      description: description,
+  constructor(
+    key: string,
+    def: {
+      name: string;
+      description: string;
+      value: number;
+      unit_restrictions: Restriction[];
+      effects: Cost[];
+      tags: string[];
+    },
+  ) {
+    super(key, {
+      ...def,
       item_class: setup.itemclass.usableitem,
-      value: value,
-      tags: tags,
     });
 
-    this.unit_restrictions = unit_restrictions;
-    this.effects = effects;
+    this.unit_restrictions = def.unit_restrictions;
+    this.effects = def.effects;
   }
 
   getActorUnit(actor_name: string): Unit {
@@ -74,7 +64,7 @@ export class ItemUnitUsable extends Item {
   }
 
   static make_perk_potions() {
-    const potions: Record<ItemKey, number> = {};
+    const potions: { [k in ItemKey]?: number } = {};
 
     for (const trait of TraitHelper.getAllTraitsOfTags(["perkstandard"]).filter(
       (trait) => !trait.getTags().includes("perkbasic"),
@@ -87,8 +77,7 @@ export class ItemUnitUsable extends Item {
       ];
       restrictions.push(...perk.getPerkChoiceRestrictions());
 
-      const pot = new setup.ItemUnitUsable({
-        key: `potion_${perk.key}`,
+      const pot = new setup.ItemUnitUsable(`potion_${perk.key}`, {
         name: `Potion of ${setup.title_case(perk.getName())}`,
         description: `Make a unit able to learn the <<rep setup.trait.${perk.key}>> perk.`,
         value: setup.PERK_POTION_STANDARD_PRICE,
@@ -99,6 +88,6 @@ export class ItemUnitUsable extends Item {
       potions[pot.key] = 1;
     }
 
-    new setup.ItemPool("perk_potions", potions);
+    new setup.ItemPool("perk_potions", { chances: potions });
   }
 }

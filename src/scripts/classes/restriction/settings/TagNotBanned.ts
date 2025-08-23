@@ -3,15 +3,15 @@ export default class TagNotBanned extends Restriction {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.TagNotBanned('${this.tag}')`;
   }
 
-  override explain() {
+  override explain(): string {
     return `${this.tag} is NOT banned`;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     return !State.variables.settings.bannedtags[this.tag];
   }
 }

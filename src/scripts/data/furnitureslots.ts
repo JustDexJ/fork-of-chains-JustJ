@@ -1,5 +1,7 @@
+import type { FurnitureSlotDefinition } from "../classes/furniture/FurnitureSlot";
+
 export const FURNITURE_SLOT_DEFINITIONS =
-  typedObject<EquipmentSlotDefinition>()({
+  definitions<FurnitureSlotDefinition>()({
     slaverbed: { name: "slaver bed" },
     slavebed: { name: "slaves beds" },
     foodtray: { name: "food tray" },

@@ -16,7 +16,7 @@ export default class SlaveOrderItem extends SlaveOrderTemplate {
     this.maximum = maximum;
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.SlaveOrderItem('${this.item_key}')`;
   }
 

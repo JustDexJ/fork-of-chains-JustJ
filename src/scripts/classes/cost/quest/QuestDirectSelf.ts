@@ -13,14 +13,14 @@ export default class QuestDirectSelf extends QuestDirect {
     return template;
   }
 
-  override text() {
+  override text(): string {
     const assignment_text = setup.qcImpl.QuestDirect.assignmentTextHelper(
       this.default_assignment,
     );
     return `setup.qc.QuestDirectSelf(${assignment_text})`;
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     const assignment_text = setup.qcImpl.QuestDirect.assignmentExplainHelper(
       this.default_assignment,
     );

@@ -6,7 +6,7 @@ export default class Alternative extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.Alternative('${this.actor_name}')`;
   }
 
@@ -23,7 +23,7 @@ export default class Alternative extends Cost {
     setup.notify(`a|Reps skills have been respecced.`, { a: unit });
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `Respec ${this.actor_name}`;
   }
 }

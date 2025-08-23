@@ -11,7 +11,7 @@ export default class NoItem extends Restriction {
   static NAME = "Do not have an item";
   static PASSAGE = "RestrictionNoItem";
 
-  override text() {
+  override text(): string {
     return `setup.qres.NoItem(setup.item.${this.item_key})`;
   }
 
@@ -19,11 +19,11 @@ export default class NoItem extends Restriction {
     return setup.item[this.item_key];
   }
 
-  override explain() {
+  override explain(): string {
     return `Do not have ${this.getItem().rep()}`;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     return !State.variables.inventory.isHasItem(this.getItem());
   }
 }

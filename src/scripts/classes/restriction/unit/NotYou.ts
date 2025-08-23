@@ -7,11 +7,11 @@ export default class NotYou extends Restriction.Unit {
   static PASSAGE = "RestrictionNotYou";
   static UNIT = true;
 
-  override text() {
+  override text(): string {
     return `setup.qres.NotYou()`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Unit cannot be you`;
   }
 

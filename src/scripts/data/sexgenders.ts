@@ -1,5 +1,5 @@
 interface SexgenderDefinition {
-  gender_trait_key: BuiltinTraitKey;
+  gender_trait_key: TraitKey;
   name: string;
   dick: boolean;
   vagina: boolean;

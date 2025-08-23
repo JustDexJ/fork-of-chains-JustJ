@@ -1,6 +1,5 @@
 import type { SkillValuesArray } from "../classes/Skill";
 import type { TraitKey, TraitTexts } from "../classes/trait/Trait";
-import type { UnitGroup } from "../classes/unit/UnitGroup";
 
 // Type for 'setup' global (SugarCube.setup)
 // declare stuff that is defined in the .twee files
@@ -34,7 +33,6 @@ export interface SetupTweeDefinitions {
   TRAITRACESKINMAP: Record<string, Record<string, number>>;
   TRAIT_SKIN_TAGS: string[];
 
-  ALLUNITGROUPS: ChanceArray<UnitGroup>;
   DEFAULT_INITIAL_SKILLS: SkillValuesArray;
 }
 

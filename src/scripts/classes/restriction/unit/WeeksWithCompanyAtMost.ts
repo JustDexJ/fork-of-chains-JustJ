@@ -5,11 +5,11 @@ export default class WeeksWithCompanyAtMost extends Restriction.Unit {
     this.weeks = weeks;
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.WeeksWithCompanyAtMost(${this.weeks})`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Unit has been with your company for at most ${this.weeks} weeks`;
   }
 

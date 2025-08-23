@@ -1,5 +1,6 @@
 import { TwineClass } from "../_TwineClass";
 import type { SexInstance } from "../sex/engine/SexInstance";
+import type { qcImpl } from "./_index";
 
 /**
  * Base class of all costs (defined in setup.qcImpl)
@@ -23,9 +24,9 @@ export abstract class Cost extends TwineClass {
   }
 
   static deserialize(classname: string, data: {}): Cost {
-    const costclass = setup.qcImpl[classname as keyof typeof setup.qcImpl];
+    const costclass: Function = setup.qcImpl[classname as keyof typeof qcImpl];
     if (costclass) {
-      const obj = Object.create(costclass.prototype);
+      const obj: Cost = Object.create(costclass.prototype);
       return Object.assign(obj, data);
     } else {
       console.error(

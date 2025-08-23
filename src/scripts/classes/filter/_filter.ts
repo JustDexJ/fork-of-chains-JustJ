@@ -270,7 +270,7 @@ export class MenuFilter extends TwineClass {
     text = `${text} <i class="sfa sfa-caret-down"></i>`;
 
     // compute choice traits
-    const trait_map: Record<TraitKey, boolean> = {};
+    const trait_map: { [k in TraitKey]?: boolean } = {};
     for (const unit of units) {
       for (const trait of unit.getTraits()) {
         trait_map[trait.key] = true;

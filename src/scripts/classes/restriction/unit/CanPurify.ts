@@ -1,13 +1,13 @@
 export default class CanPurify extends Restriction.Unit {
-  constructor(public trait_tag: string) {
+  constructor(public trait_tag?: string) {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.CanPurify(${this.trait_tag})`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Unit can be purified in: ${this.trait_tag || "anything"}`;
   }
 

@@ -26,7 +26,7 @@ export default class Contact extends Cost {
     }
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.Contact(setup.contacttemplate.${this.contacttemplate_key}, ${this.actor_name ? `'${this.actor_name}'` : "null"}, ${this.unit_group_key ? `'${this.unit_group_key}'` : "null"})`;
   }
 
@@ -61,7 +61,7 @@ export default class Contact extends Cost {
     );
   }
 
-  override explain() {
+  override explain(): string {
     let base = `Get a new contact: ${this.getTemplate().rep()}`;
     const unitgroup = this.getUnitGroup();
     if (unitgroup) {

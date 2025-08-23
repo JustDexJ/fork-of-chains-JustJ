@@ -14,7 +14,7 @@ export default class PerkChoice extends Cost {
     this.no_learn = no_learn;
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.PerkChoice('${this.actor_name}', '${this.perk_key}', ${this.no_learn})`;
   }
 
@@ -29,7 +29,7 @@ export default class PerkChoice extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     const perk = this.getPerk();
     return `${this.actor_name} gains access to the ${perk.rep()} perk, which they can learn by resetting their perks${this.no_learn ? " (not automatically learned)" : ""}`;
   }

@@ -12,8 +12,8 @@ import {
 } from "../raw/banter/verb";
 
 export interface BanterVerbSpec {
-  initiator?: (TraitKey | BuiltinTraitKey)[];
-  target?: (TraitKey | BuiltinTraitKey)[];
+  initiator?: TraitKey[];
+  target?: TraitKey[];
   verbs: string[];
 }
 

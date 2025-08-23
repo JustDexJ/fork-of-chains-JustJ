@@ -9,7 +9,7 @@ export default class ExpCrit extends Exp {
     return true;
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.ExpCrit(${this.multi ? this.multi : ""})`;
   }
 
@@ -25,7 +25,7 @@ export default class ExpCrit extends Exp {
     return Math.round(base);
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     if (context instanceof setup.QuestInstance) {
       return `<<exp ${this.getExp(context)}>>`;
     } else {

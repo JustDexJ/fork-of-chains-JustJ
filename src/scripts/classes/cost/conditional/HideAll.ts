@@ -14,7 +14,7 @@ export default class HideAll extends Cost {
       );
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.HideAll([\n${this.costs.map((a) => a.text()).join(",\n")}\n], "${setup.escapeJsString(this.explanation_text)}")`;
   }
 
@@ -24,7 +24,7 @@ export default class HideAll extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return this.explanation_text;
   }
 

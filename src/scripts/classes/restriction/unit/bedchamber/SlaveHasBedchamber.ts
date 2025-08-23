@@ -4,11 +4,11 @@ export default class SlaveHasBedchamber extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.SlaveHasBedchamber()`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Unit must be a slave serving in some bedchamber`;
   }
 

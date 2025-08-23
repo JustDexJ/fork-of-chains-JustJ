@@ -7,7 +7,7 @@ export default class Blessing extends Cost {
   constructor(
     public actor_name: string,
     public amount: number = 1,
-    max_trait?: Trait | null,
+    max_trait?: Trait | TraitKey | null,
     /** Whether to curse instead of bless randomly */
     public is_curse?: boolean,
   ) {
@@ -16,7 +16,8 @@ export default class Blessing extends Cost {
     if (max_trait) {
       this.max_trait_key = resolveKey(max_trait);
       if (
-        !setup.trait[this.max_trait_key].getTags().includes("blessingcursemax")
+        typeof max_trait !== "string" &&
+        !max_trait.getTags().includes("blessingcursemax")
       ) {
         throw new Error(
           `${this.max_trait_key} is not a max blessing/curse trait for qc.Blessing!`,
@@ -31,7 +32,7 @@ export default class Blessing extends Cost {
     }
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.Blessing('${this.actor_name}', ${this.amount}, ${this.max_trait_key ? `'${this.max_trait_key}'` : `null`}, ${this.is_curse})`;
   }
 
@@ -142,7 +143,7 @@ export default class Blessing extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     if (this.max_trait_key) {
       const trait = setup.trait[this.max_trait_key];
       return `${this.actor_name} gains up to ${this.amount} stacks of ${trait.rep()}`;

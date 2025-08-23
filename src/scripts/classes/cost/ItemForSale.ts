@@ -25,11 +25,11 @@ export default class ItemForSale extends Cost {
     this.amount = amount || 1;
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.ItemForSale('${this.market_key}', '${this.item_pool_key}', ${this.amount}, ${this.markup})`;
   }
 
-  override apply(context: CostContext) {
+  override apply(context: CostContext): void {
     let market = this.getMarket();
     let pool = setup.itempool[this.item_pool_key];
     for (let i = 0; i < this.amount; ++i) {
@@ -48,7 +48,7 @@ export default class ItemForSale extends Cost {
     return State.variables.market[this.market_key] as Market<Item>;
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.amount} new items in ${this.getMarket().rep()} at ${this.markup}x price`;
   }
 }

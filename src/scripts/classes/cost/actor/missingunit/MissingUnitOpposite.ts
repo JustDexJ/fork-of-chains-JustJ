@@ -14,7 +14,7 @@ export default class MissingUnitOpposite extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.MissingUnitOpposite('${this.actor_name}')`;
   }
 
@@ -46,7 +46,7 @@ export default class MissingUnitOpposite extends Cost {
     unit.resetWeeksWithCompany();
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name} would be gone from your company, and immediately available as the opposite of your job (i.e., slave becomes slaver, slaver becomes slave), with background: ${this.origin_text}`;
   }
 }

@@ -9,7 +9,7 @@ export default class Hookup extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.Hookup('${this.actor_name}', '${this.target_actor_name}')`;
   }
 
@@ -34,7 +34,7 @@ export default class Hookup extends Cost {
     State.variables.friendship.hookup(unit, target);
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name} and ${this.target_actor_name} becomes lovers, breaking up with their previous ones`;
   }
 }

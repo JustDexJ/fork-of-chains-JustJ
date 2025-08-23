@@ -12,7 +12,7 @@ export default class Ire extends Cost {
     this.company_key = resolveKey(company as Company | CompanyKey);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.Ire('${this.company_key}', ${this.ire_amt})`;
   }
 
@@ -51,7 +51,7 @@ export default class Ire extends Cost {
     }
   }
 
-  override explain() {
+  override explain(): string {
     const adjustment = this.ire_amt;
     const company = this.getCompany();
     if (adjustment < 0) {

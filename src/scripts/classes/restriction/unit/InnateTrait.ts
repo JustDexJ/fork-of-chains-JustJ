@@ -6,11 +6,11 @@ export default class InnateTrait extends Restriction.Unit {
     this.trait_key = resolveKey(trait);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.InnateTrait(setup.trait.${this.trait_key})`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Innate: ${setup.trait[this.trait_key].rep()}`;
   }
 

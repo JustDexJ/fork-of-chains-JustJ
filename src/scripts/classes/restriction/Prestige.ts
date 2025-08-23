@@ -6,15 +6,15 @@ export default class Prestige extends Restriction {
   static NAME = "Prestige minimum";
   static PASSAGE = "RestrictionPrestige";
 
-  override text() {
+  override text(): string {
     return `setup.qres.Prestige(${this.prestige})`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Minimum prestige: ${this.prestige}`;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     return State.variables.company.player.getPrestige() >= this.prestige;
   }
 }

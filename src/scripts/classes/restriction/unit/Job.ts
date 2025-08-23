@@ -10,11 +10,11 @@ export default class Job extends Restriction.Unit {
     this.job_key = resolveKey(job);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.Job(setup.job.${this.job_key})`;
   }
 
-  override explain() {
+  override explain(): string {
     return `${setup.job[this.job_key].rep()}`;
   }
 

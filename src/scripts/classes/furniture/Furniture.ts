@@ -1,41 +1,42 @@
+import type { NumericConstant } from "../../constants.js";
+import type { FURNITURE_DEFINITIONS } from "../../data/items/furnitures/_index.js";
 import type { Rarity } from "../deck/Rarity.js";
 import { Item } from "../inventory/Item.js";
 import type { Skill, SkillValuesArray, SkillValuesInit } from "../Skill.js";
 import type { FurnitureSlot, FurnitureSlotKey } from "./FurnitureSlot.js";
 
-interface FurnitureTexts {
+export interface FurnitureDefinition {
+  name: string;
+  description: string;
+  value: number | NumericConstant;
+  slot: FurnitureSlotKey;
+  tags: string[];
+  skillmods: SkillValuesInit<number | NumericConstant>;
+  texts: FurnitureTexts;
+}
+
+export interface FurnitureTexts {
   bedchamber?: string;
   ambience?: string[];
 }
+
+export type FurnitureKey = keyof typeof FURNITURE_DEFINITIONS;
 
 export class Furniture extends Item {
   slot_key: FurnitureSlotKey;
   skillmods: SkillValuesArray;
   texts: FurnitureTexts;
 
-  constructor(
-    key: string,
-    name: string,
-    description: string,
-    value: number,
-    slot: FurnitureSlot,
-    tags: string[],
-    skillmods: SkillValuesInit,
-    texts: FurnitureTexts,
-  ) {
-    super({
-      key: key,
-      name: name,
-      description: description,
+  constructor(key: string, def: FurnitureDefinition) {
+    super(key, {
+      ...def,
       item_class: setup.itemclass.furniture,
-      value: value,
-      tags: tags,
     });
 
-    this.skillmods = setup.Skill.translate(skillmods);
-    this.slot_key = slot.key;
-    this.texts = texts;
-    if (!texts) throw new Error(`Missing text for furniture: ${this.key}`);
+    this.skillmods = setup.Skill.translateAndResolveConstants(def.skillmods);
+    this.slot_key = def.slot;
+    this.texts = def.texts;
+    if (!def.texts) throw new Error(`Missing text for furniture: ${this.key}`);
   }
 
   getTexts(): FurnitureTexts {

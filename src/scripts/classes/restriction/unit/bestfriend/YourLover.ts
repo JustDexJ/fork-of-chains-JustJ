@@ -3,11 +3,11 @@ export default class YourLover extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.YourLover()`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Unit must be your lover`;
   }
 

@@ -6,7 +6,7 @@ export default class PermanentlyCorrupt extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.PermanentlyCorrupt('${this.actor_name}')`;
   }
 
@@ -21,7 +21,7 @@ export default class PermanentlyCorrupt extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `permanently corrupt ${this.actor_name}`;
   }
 }

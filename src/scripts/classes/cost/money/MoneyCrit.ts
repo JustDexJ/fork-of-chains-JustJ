@@ -14,11 +14,11 @@ export default class MoneyCrit extends Money {
   static NAME = "Money (Critical)";
   static PASSAGE = "CostMoneyCrit";
 
-  override text() {
+  override text(): string {
     return `setup.qc.MoneyCrit(${this.multi || ""})`;
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     if (context) {
       return super.explain(context);
     } else {

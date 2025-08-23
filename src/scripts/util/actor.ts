@@ -4,7 +4,6 @@ import type {
   ResolvedActorUnitgroupKeyMap,
 } from "../classes/content/ContentTemplate";
 import Job from "../classes/restriction/unit/Job";
-import type { UnitPoolKey } from "../classes/unit/pool/UnitPool";
 import { UnitGroup } from "../classes/unit/UnitGroup";
 
 export namespace ActorHelper {
@@ -142,10 +141,7 @@ export namespace DebugActor {
             unit = State.variables.unit.player;
           } else {
             // just create new people for this
-            unit =
-              setup.unitpool[
-                "subrace_humankingdom" as UnitPoolKey
-              ].generateUnit();
+            unit = setup.unitpool["subrace_humankingdom"].generateUnit();
             State.variables.company.player.addUnit(
               unit,
               slave ? setup.job.slave : setup.job.slaver,

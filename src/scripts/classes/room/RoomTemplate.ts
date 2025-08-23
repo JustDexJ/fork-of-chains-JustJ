@@ -308,7 +308,7 @@ export class RoomTemplate extends TwineClass {
   }
 
   getRepMacro() {
-    return "roomtemplatecardkey";
+    return "roomtemplatecard";
   }
 
   rep(): string {

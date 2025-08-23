@@ -1,27 +1,35 @@
+import type { EQUIPMENT_POOL_DEFINITIONS } from "../../data/equipments/_index";
 import type { Equipment } from "./Equipment";
 import { EquipmentPool, type EquipmentPoolKey } from "./EquipmentPool";
+
+export interface EquipmentPoolGroupDefinition {
+  chances: ChanceObject<keyof typeof EQUIPMENT_POOL_DEFINITIONS>;
+}
 
 export class EquipmentPoolGroup extends EquipmentPool {
   group_chances: ChanceObject<EquipmentPoolKey>;
 
-  constructor(key: string, group_chances: ChanceObject<EquipmentPoolKey>) {
-    super(key, {});
+  constructor(key: string, def: Readonly<EquipmentPoolGroupDefinition>) {
+    super(key, {} as any /* unused */);
 
     // note: this is behaved as an equipment pool
     // group_chances: {equipment_pool_key: chance}
 
-    for (let groupkey in group_chances) {
+    for (let groupkey in def.chances) {
       if (!(groupkey in setup.equipmentpool))
         throw new Error(`group ${groupkey} not recognized in ${key}`);
     }
-    this.group_chances = group_chances;
+    this.group_chances = def.chances;
   }
 
   getEquipmentPoolChances(
-    is_normalize?: boolean,
+    should_normalize?: boolean,
   ): ChanceArray<EquipmentPoolKey> {
-    const chances = objectEntries(this.group_chances);
-    if (is_normalize) {
+    const chances = objectEntries(
+      this.group_chances,
+    ) as ChanceArray<EquipmentPoolKey>;
+
+    if (should_normalize) {
       setup.rng.normalizeChanceArray(chances);
     }
     return chances;

@@ -8,7 +8,7 @@ export default class QuestDoppelganger extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.QuestDoppelganger()`;
   }
 
@@ -25,7 +25,7 @@ export default class QuestDoppelganger extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `You are captured or otherwise lost from the company`;
   }
 }

@@ -14,8 +14,7 @@ export default {
     const positive = [];
     const negative = [];
     const preferences = living.getTraitPreferences();
-    for (const trait_key of objectKeys(preferences)) {
-      const pref = preferences[trait_key];
+    for (const [trait_key, pref] of objectEntries(preferences)) {
       const trait = setup.trait[trait_key];
       if (pref > 0) {
         positive.push(trait);

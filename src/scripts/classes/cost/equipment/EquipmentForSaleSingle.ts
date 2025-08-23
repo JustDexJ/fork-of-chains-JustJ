@@ -12,7 +12,7 @@ export default class EquipmentForSaleSingle extends Cost {
     this.equipment_key = resolveKey(equipment);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.EquipmentForSaleSingle('${this.equipment_key}')`;
   }
 
@@ -32,7 +32,7 @@ export default class EquipmentForSaleSingle extends Cost {
     return State.variables.market.equipmentmarket;
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     const equipment = setup.equipment[this.equipment_key];
     return `${this.getMarket().rep()} now sells ${equipment.rep()}`;
   }

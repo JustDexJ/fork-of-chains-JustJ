@@ -4,12 +4,13 @@ import { TwineClass } from "../../_TwineClass";
 import type { JobKey } from "../../job/Job";
 import { SexgenderKey } from "../../Settings";
 import type { SkillValuesArray, SkillValuesInit } from "../../Skill";
+import type { SubraceKey } from "../../trait/Subrace";
 import type { Trait, TraitKey } from "../../trait/Trait";
 import type { TraitAllocEntry, UnitPoolTraitAlloc } from "./UnitPoolTraitAlloc";
 
 export interface GenerateUnitOptions {
   /** Force the unit to be of this gender */
-  gender?: TraitKey | BuiltinTraitKey | keyof typeof SEXGENDERS;
+  gender?: TraitKey | keyof typeof SEXGENDERS;
 
   /**
    * If provided and "gender" is not specified,
@@ -19,7 +20,8 @@ export interface GenerateUnitOptions {
   job_hint?: JobKey;
 }
 
-export type UnitPoolKey = BrandedType<string, "UnitPoolKey">;
+//export type UnitPoolKey = BrandedType<string, "UnitPoolKey">;
+export type UnitPoolKey = { [k in SubraceKey]: `subrace_${k}` }[SubraceKey];
 
 export class UnitPool extends TwineClass {
   key: UnitPoolKey;
@@ -92,7 +94,7 @@ export class UnitPool extends TwineClass {
   }
 
   static getChanceArray<K extends string>(
-    chance_obj: Record<K, number>,
+    chance_obj: ChanceObject<K>,
     is_must_succeed?: boolean,
     forbiddens?: K[],
   ) {
@@ -100,7 +102,7 @@ export class UnitPool extends TwineClass {
     let sum_chance = 0.0;
     for (let key in chance_obj) {
       if (forbiddens && forbiddens.includes(key)) continue;
-      let chance = chance_obj[key];
+      let chance = chance_obj[key]!;
       if (chance > 0) {
         base_array.push([key, chance]);
         sum_chance += chance;
@@ -190,7 +192,7 @@ export class UnitPool extends TwineClass {
       let must_succeed = true;
 
       // generate the "still possible" tags
-      let banlist: Record<TraitKey, boolean> = {};
+      let banlist: { [k in TraitKey]?: boolean } = {};
       for (let i = 0; i < obtained_trait_keys.length; ++i) {
         let trait = setup.trait[obtained_trait_keys[i]];
         let traitgroup = trait.getTraitGroup();

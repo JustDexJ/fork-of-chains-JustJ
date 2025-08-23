@@ -6,15 +6,15 @@ export default class NoTraitsWithTag extends Restriction {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.NoTraitsWithTag(${JSON.stringify(this.tag)}})`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Does not have any trait with tag: ${this.tag}`;
   }
 
-  override isOk(unit: Unit) {
+  override isOk(unit: Unit): boolean {
     const traits = TraitHelper.getAllTraitsOfTag(this.tag);
     for (const trait of traits) {
       if (unit.isHasTraitExact(trait)) return false;

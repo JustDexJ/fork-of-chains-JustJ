@@ -14,7 +14,7 @@ export default class QuestDirect extends Cost {
     this.default_assignment = default_assignment;
   }
 
-  override text() {
+  override text(): string {
     const assignment_text = setup.qcImpl.QuestDirect.assignmentTextHelper(
       this.default_assignment,
     );
@@ -25,7 +25,7 @@ export default class QuestDirect extends Cost {
     return setup.questtemplate[this.template_key!];
   }
 
-  override apply(context?: CostContext) {
+  override apply(context?: CostContext): void {
     const template = this.getQuestTemplate(context);
     if (!template) throw new Error(`Quest template is missing`);
 
@@ -48,7 +48,7 @@ export default class QuestDirect extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     const assignment_text = setup.qcImpl.QuestDirect.assignmentExplainHelper(
       this.default_assignment,
     );

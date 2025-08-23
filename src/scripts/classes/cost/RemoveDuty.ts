@@ -9,7 +9,7 @@ export default class RemoveDuty extends Cost {
     this.duty_template_key = resolveKey(duty_template);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.RemoveDuty('${this.duty_template_key}')`;
   }
 
@@ -35,7 +35,7 @@ export default class RemoveDuty extends Cost {
     }
   }
 
-  override explain() {
+  override explain(): string {
     return `Lose duty: ${this.getDutyTemplate().getName()}`;
   }
 }

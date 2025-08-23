@@ -6,7 +6,7 @@ export default class AddHistory extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.AddHistory('${this.actor_name}', "${this.history}")`;
   }
 
@@ -21,7 +21,7 @@ export default class AddHistory extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name} gains a history: "${this.history}"`;
   }
 }

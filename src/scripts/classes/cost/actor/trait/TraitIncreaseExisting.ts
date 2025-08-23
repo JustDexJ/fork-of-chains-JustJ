@@ -17,7 +17,7 @@ export default class TraitIncreaseExisting extends Cost {
     this.trait_key = traitObj.key;
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.TraitIncreaseExisting('${this.actor_name}', setup.trait.${this.trait_key})`;
   }
 
@@ -32,7 +32,7 @@ export default class TraitIncreaseExisting extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name}'s trait (if any) increases to max. ${setup.trait[this.trait_key].rep()}`;
   }
 }

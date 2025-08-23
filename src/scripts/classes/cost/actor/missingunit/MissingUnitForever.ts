@@ -12,7 +12,7 @@ export default class MissingUnitForever extends Cost {
   static NAME = "Lose a unit from your company forever";
   static PASSAGE = "CostMissingUnitForever";
 
-  override text() {
+  override text(): string {
     return `setup.qc.MissingUnitForever('${this.actor_name}')`;
   }
 
@@ -30,7 +30,7 @@ export default class MissingUnitForever extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name} would be gone FOREVER and will never be seen again...`;
   }
 }

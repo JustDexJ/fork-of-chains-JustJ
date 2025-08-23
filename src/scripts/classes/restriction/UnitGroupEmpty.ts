@@ -10,16 +10,16 @@ export default class UnitGroupEmpty extends Restriction {
     this.unit_group_key = resolveKey(unit_group);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.UnitGroupEmpty('${this.unit_group_key}')`;
   }
 
-  override explain() {
+  override explain(): string {
     let unit_group = setup.unitgroup[this.unit_group_key];
     return `Unit group ${unit_group.rep()} must be empty`;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     let unit_group = setup.unitgroup[this.unit_group_key];
     return unit_group.isEmpty();
   }

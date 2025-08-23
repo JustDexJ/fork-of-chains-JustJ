@@ -5,11 +5,11 @@ export default class NotInjured extends Restriction.Unit {
 
   static UNIT = true;
 
-  override text() {
+  override text(): string {
     return `setup.qres.NotInjured()`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Unit must NOT be injured`;
   }
 

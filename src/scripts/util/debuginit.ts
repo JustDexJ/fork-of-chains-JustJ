@@ -445,8 +445,8 @@ export namespace DebugInit {
       .flatMap(
         (k) =>
           [
-            [k, "slaver", "gender_male" as TraitKey],
-            [k, "slaver", "gender_female" as TraitKey],
+            [k, "slaver", "gender_male"],
+            [k, "slaver", "gender_female"],
           ] as const,
       );
 

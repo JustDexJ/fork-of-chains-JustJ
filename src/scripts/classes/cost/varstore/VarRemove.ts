@@ -6,7 +6,7 @@ export default class VarRemove extends Cost {
   static NAME = "Remove a variable value";
   static PASSAGE = "CostVarRemove";
 
-  override text() {
+  override text(): string {
     return `setup.qc.VarRemove('${this.key}')`;
   }
 
@@ -14,7 +14,7 @@ export default class VarRemove extends Cost {
     State.variables.varstore.remove(this.key);
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     if (!State.variables.gDebug) {
       return "";
     }

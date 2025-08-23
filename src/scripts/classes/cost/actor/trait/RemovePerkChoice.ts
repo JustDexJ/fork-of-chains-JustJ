@@ -13,7 +13,7 @@ export default class RemovePerkChoice extends Cost {
     this.perk_key = resolveKey(perk);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.RemovePerkChoice('${this.actor_name}', '${this.perk_key}')`;
   }
 
@@ -26,7 +26,7 @@ export default class RemovePerkChoice extends Cost {
     unit.removePerkChoice(this.getPerk());
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     const perk = this.getPerk();
     return `${this.actor_name} loses access to the ${perk.rep()} perk`;
   }

@@ -6,7 +6,7 @@ export default class Nickname extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.Nickname('${this.actor_name}', '${setup.escapeJsString(this.nickname)}')`;
   }
 
@@ -15,7 +15,7 @@ export default class Nickname extends Cost {
     unit.nickname = this.nickname;
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name} is nicknamed ${this.nickname}`;
   }
 }

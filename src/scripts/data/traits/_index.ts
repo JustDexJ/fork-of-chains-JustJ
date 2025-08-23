@@ -1,4 +1,10 @@
-import type { TraitOrGroupDefinition } from "../../classes/trait/Trait";
+import type { SubraceKey } from "../../classes/trait/Subrace";
+import type {
+  InlineTraitGroupDefinition,
+  TraitOrGroupDefinition,
+} from "../../classes/trait/Trait";
+import type { TRAIT_GROUP_DEFINITIONS } from "./_traitgroups";
+import type { PERK_DEFINTIONS } from "./perks/traits_perk";
 
 import traits_background from "./traits_background";
 import traits_blessing from "./traits_blessing";
@@ -38,3 +44,31 @@ export const TRAIT_DEFINITIONS = {
   ...traits_blessing,
   ...traits_trauma,
 } satisfies Record<string, TraitOrGroupDefinition>;
+
+type aux = typeof TRAIT_DEFINITIONS;
+
+export type _PerkKey = keyof ReturnType<typeof PERK_DEFINTIONS>;
+
+// Keys of top-level traits + traits nested inside trait groups sequences/pools
+export type _TraitKey =
+  | _PerkKey
+  | { [k in SubraceKey]: `subrace_${k}` }[SubraceKey]
+  | Exclude<
+      {
+        [k in keyof aux]: aux[k] extends InlineTraitGroupDefinition<infer G>
+          ? G
+          : k;
+      }[keyof aux],
+      "_"
+    >;
+
+// Keys of TRAIT_GROUP_DEFINITIONS + keys of groups in TRAIT_DEFINITIONS
+export type _TraitGroupKey =
+  | keyof typeof TRAIT_GROUP_DEFINITIONS
+  | {
+      [k in keyof aux]: aux[k] extends InlineTraitGroupDefinition<infer G>
+        ? k extends `group:${infer k2}`
+          ? k2
+          : never
+        : never;
+    }[keyof aux];

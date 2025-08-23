@@ -7,7 +7,7 @@ export default class Surname extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.Surname('${this.actor_name}', '${setup.escapeJsString(this.surname)}')`;
   }
 
@@ -16,7 +16,7 @@ export default class Surname extends Cost {
     unit.setName(unit.getFirstName(), this.surname);
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `The surname of ${this.actor_name} becomes ${this.surname}`;
   }
 }

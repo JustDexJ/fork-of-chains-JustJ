@@ -1,3 +1,5 @@
+import { Constants, type NumericConstant } from "../../constants";
+import type { EQUIPMENT_DEFINITIONS } from "../../data/equipments/_index";
 import { TwineClass } from "../_TwineClass";
 import type { Rarity } from "../deck/Rarity";
 import type { SkillValuesArray, SkillValuesInit } from "../Skill";
@@ -6,12 +8,27 @@ import type { EquipmentSlot, EquipmentSlotKey } from "./EquipmentSlot";
 
 const FRACTION_CHARACTERS = ["½", "⅓", "¼", "⅕", "⅙", "⅐", "⅛", "⅑"];
 
+export interface EquipmentDefinition {
+  name: string;
+  slot: EquipmentSlotKey;
+  tags: string[];
+  value: number | NumericConstant;
+  sluttiness: number;
+  skillmods: SkillValuesInit;
+  /** {eq_gagged: 3} means need 3 of these kind of items to get this trait. */
+  traits: { [k in TraitKey]?: number };
+  restrictions: Restriction[];
+  icon: { image?: string; colorize?: boolean | string };
+  texts: EquipmentTexts;
+}
+
 interface EquipmentTexts {
   description: string;
   flavor: string;
 }
 
-export type EquipmentKey = BrandedType<string, "EquipmentKey">;
+//export type EquipmentKey = BrandedType<string, "EquipmentKey">;
+export type EquipmentKey = keyof typeof EQUIPMENT_DEFINITIONS;
 
 export class Equipment extends TwineClass {
   static NONSEX_URL = "img/special/equipment_nonsex.svg";
@@ -47,47 +64,35 @@ export class Equipment extends TwineClass {
   icon_settings: { image?: string; colorize?: boolean | string };
   texts: EquipmentTexts;
 
-  constructor(
-    key: string,
-    name: string,
-    slot: EquipmentSlot,
-    tags: string[],
-    value: number,
-    sluttiness: number,
-    skillmods: SkillValuesInit,
-    /** {eq_gagged: 3} means need 3 of these kind of items to get this trait. */
-    traits: Record<TraitKey, number>,
-    unit_restrictions: Restriction[],
-    icon_settings: { image?: string; colorize?: boolean | string },
-    texts: EquipmentTexts,
-  ) {
+  constructor(key: string, def: Readonly<EquipmentDefinition>) {
     super();
 
     this.key = key as EquipmentKey;
     this.order_key = Equipment.keygen++;
 
-    this.name = name;
-    this.slot_key = slot.key;
-    this.tags = tags; // ['a', 'b']
-    this.value = value;
-    this.sluttiness = sluttiness;
-    this.skillmods = setup.Skill.translate(skillmods);
-    this.texts = texts;
-    if (!texts) {
+    this.name = def.name;
+    this.slot_key = def.slot;
+    this.tags = def.tags;
+    this.value =
+      typeof def.value === "string" ? Constants[def.value] : def.value;
+    this.sluttiness = def.sluttiness;
+    this.skillmods = setup.Skill.translate(def.skillmods);
+    this.texts = def.texts;
+    if (!def.texts) {
       throw new Error(`Text object for equipment ${this.key} is missing.`);
     }
 
-    this.icon_settings = icon_settings || {};
+    this.icon_settings = def.icon || {};
 
-    if (icon_settings !== undefined && icon_settings instanceof Array) {
+    if (def.icon !== undefined && def.icon instanceof Array) {
       throw new Error(`Invalid icon_settings for '${key}', expected an object`);
     }
 
-    this.trait_key_mods = traits;
-    if (!traits || typeof traits !== "object") {
+    this.trait_key_mods = def.traits as Record<TraitKey, number>;
+    if (!def.traits || typeof def.traits !== "object") {
       throw new Error(`Trait key mods must be objects for ${this.key}`);
     }
-    for (const trait_key of objectKeys(traits)) {
+    for (const trait_key of objectKeys(def.traits)) {
       if (!setup.trait[trait_key]) {
         throw new Error(
           `Could not find trait with key ${trait_key} for equipment ${this.key}`,
@@ -95,11 +100,11 @@ export class Equipment extends TwineClass {
       }
     }
 
-    if (!Array.isArray(unit_restrictions)) {
+    if (!Array.isArray(def.restrictions)) {
       throw new Error(`Unit restrictions must be an array for ${this.key}`);
     }
-    if (unit_restrictions) {
-      this.unit_restrictions = unit_restrictions;
+    if (def.restrictions) {
+      this.unit_restrictions = def.restrictions;
     } else {
       this.unit_restrictions = [];
     }

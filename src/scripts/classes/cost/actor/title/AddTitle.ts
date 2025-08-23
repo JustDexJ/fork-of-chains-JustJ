@@ -12,7 +12,7 @@ export default class AddTitle extends Cost {
     this.title_key = resolveKey(title as Title | TitleKey);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.AddTitle('${this.actor_name}', '${this.title_key}')`;
   }
 
@@ -28,7 +28,7 @@ export default class AddTitle extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     let title = setup.title[this.title_key];
     return `${this.actor_name} gains ${title.rep()}`;
   }

@@ -6,7 +6,7 @@ export default class AddRandomBodypart extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.AddRandomBodypart('${this.actor_name}', ${this.allow_demonic})`;
   }
 
@@ -25,7 +25,7 @@ export default class AddRandomBodypart extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     if (this.allow_demonic) {
       return `${this.actor_name} gains a random bodypart (can be demonic)`;
     } else {

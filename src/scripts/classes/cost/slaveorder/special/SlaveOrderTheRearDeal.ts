@@ -15,7 +15,7 @@ export default class SlaveOrderTheRearDeal extends SlaveOrderTemplate {
     this.destination_unit_group_key = setup.unitgroup.soldslaves.key;
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.SlaveOrderTheRearDeal()`;
   }
 

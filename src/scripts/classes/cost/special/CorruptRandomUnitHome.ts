@@ -6,7 +6,7 @@ export default class CorruptRandomUnitHome extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.CorruptRandomUnitHome()`;
   }
 
@@ -17,7 +17,7 @@ export default class CorruptRandomUnitHome extends Cost {
     setup.qc.Corrupt("unit").apply(setup.costUnitHelper(chosen));
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `Corrupt a random unit in your company`;
   }
 }

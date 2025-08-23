@@ -10,16 +10,16 @@ export default class UnitGroupNotBusy extends Restriction {
     this.unit_group_key = resolveKey(unit_group);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.UnitGroupNotBusy('${this.unit_group_key}')`;
   }
 
-  override explain() {
+  override explain(): string {
     let unit_group = setup.unitgroup[this.unit_group_key];
     return `No unit from ${unit_group.rep()} must be on any quest / event / opportunity`;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     const unit_group = setup.unitgroup[this.unit_group_key];
     return !unit_group.isBusy();
   }

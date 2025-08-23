@@ -10,7 +10,7 @@ export default class IfActorSatisfyThen extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `### DEPRECATED. Use IfThenElse and Actor: restriction. ###`;
   }
 
@@ -30,7 +30,7 @@ export default class IfActorSatisfyThen extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `If (${this.requirement.explain()}) then ${this.effect.explain()}`;
   }
 }

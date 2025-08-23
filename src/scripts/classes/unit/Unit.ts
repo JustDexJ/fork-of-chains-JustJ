@@ -6,7 +6,7 @@ import type { Contact, ContactKey } from "../contact/Contact";
 import type { ContentTemplate } from "../content/ContentTemplate";
 import type { Rarity } from "../deck/Rarity";
 import type { DutyInstance, DutyInstanceKey } from "../duty/DutyInstance";
-import type { Equipment, EquipmentKey } from "../equipment/Equipment";
+import type { Equipment } from "../equipment/Equipment";
 import type { EquipmentSet, EquipmentSetKey } from "../equipment/EquipmentSet";
 import type {
   EquipmentSlot,
@@ -1271,13 +1271,9 @@ export class Unit extends TwineClass {
    * Accepts an array, or the traits as arguments
    */
   isHasAnyTraitExact(
-    ...traits:
-      | [Array<Trait | TraitKey | BuiltinTraitKey>]
-      | Array<Trait | TraitKey | BuiltinTraitKey>
+    ...traits: [Array<Trait | TraitKey>] | Array<Trait | TraitKey>
   ): boolean {
-    for (const trait of traits.flat() as Array<
-      Trait | TraitKey | BuiltinTraitKey
-    >) {
+    for (const trait of traits.flat() as Array<Trait | TraitKey>) {
       if (this.isHasTraitExact(trait)) return true;
     }
     return false;
@@ -1309,7 +1305,7 @@ export class Unit extends TwineClass {
    * Inexact: e.g. if unit has large penis, asking if it has a tiny penis will also return true.
    */
   isHasTrait(
-    trait_: Trait | TraitKey | BuiltinTraitKey | null | undefined,
+    trait_: Trait | TraitKey | null | undefined,
     trait_group?: TraitGroup | null,
     ignore_cover?: boolean,
   ): boolean {
@@ -1378,7 +1374,7 @@ export class Unit extends TwineClass {
     return false;
   }
 
-  isHasTraitExact(trait: Trait | TraitKey | BuiltinTraitKey): boolean {
+  isHasTraitExact(trait: Trait | TraitKey): boolean {
     let trait_obj = resolveObject(trait, setup.trait);
     if (!trait_obj)
       throw new Error(`Missing trait in is has trait exact: ${trait}`);
@@ -1514,7 +1510,7 @@ export class Unit extends TwineClass {
     return purifiable;
   }
 
-  isCanPurify(trait_tag: string): boolean {
+  isCanPurify(trait_tag?: string | null): boolean {
     return this._getPurifiable(trait_tag).length > 0;
   }
 
@@ -1712,11 +1708,11 @@ export class Unit extends TwineClass {
 
   getDefaultWeapon(): Equipment {
     const weapons = [
-      setup.equipment["weapon_sword" as EquipmentKey],
-      setup.equipment["weapon_spear" as EquipmentKey],
-      setup.equipment["weapon_axe" as EquipmentKey],
-      setup.equipment["weapon_dagger" as EquipmentKey],
-      setup.equipment["weapon_staff" as EquipmentKey],
+      setup.equipment.weapon_sword,
+      setup.equipment.weapon_spear,
+      setup.equipment.weapon_axe,
+      setup.equipment.weapon_dagger,
+      setup.equipment.weapon_staff,
     ];
     return weapons[this.Seed("defaultweapon") % 5];
   }
@@ -1801,7 +1797,7 @@ export class Unit extends TwineClass {
   /**
    * Get unit's cached trait value. Set it first if it was unset.
    */
-  getTraitMapCache(): Record<TraitKey, boolean> {
+  getTraitMapCache(): { [k in TraitKey]?: boolean } {
     return UnitTraitCacheHelper.getTraitMapCacheBackend(
       this,
       "unittrait",
@@ -1812,7 +1808,7 @@ export class Unit extends TwineClass {
   /**
    * Get unit's cached trait value. Set it first if it was unset.
    */
-  getExtraTraitMapCache(): Record<TraitKey, boolean> {
+  getExtraTraitMapCache(): { [k in TraitKey]?: boolean } {
     return UnitTraitCacheHelper.getTraitMapCacheBackend(
       this,
       "unitextratrait",
@@ -1823,7 +1819,7 @@ export class Unit extends TwineClass {
   /**
    * Get unit's cached trait value. Set it first if it was unset.
    */
-  getBaseTraitMapCache(): Record<TraitKey, boolean> {
+  getBaseTraitMapCache(): { [k in TraitKey]?: boolean } {
     return UnitTraitCacheHelper.getTraitMapCacheBackend(
       this,
       "unitbasetrait",

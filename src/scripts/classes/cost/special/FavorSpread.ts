@@ -18,11 +18,11 @@ export default class FavorSpread extends Cost {
     this.company_key = resolveKey(company);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.FavorSpread('${this.company_key}', ${this.amount})`;
   }
 
-  override apply(context: CostContext) {
+  override apply(context: CostContext): void {
     const companies: Company[] = [];
     for (const companykey of objectKeys(State.variables.company)) {
       const company = State.variables.company[companykey];
@@ -41,7 +41,7 @@ export default class FavorSpread extends Cost {
     setup.qc.Favor(chosen, this.amount).apply(context);
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `Gain ${this.amount} favor with a random company except ${State.variables.company[this.company_key].rep()}`;
   }
 }

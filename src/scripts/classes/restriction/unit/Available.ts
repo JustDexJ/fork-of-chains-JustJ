@@ -6,11 +6,11 @@ export default class Available extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.Available()`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Unit is available for work`;
   }
 

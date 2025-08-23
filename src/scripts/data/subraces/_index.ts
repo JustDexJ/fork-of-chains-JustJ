@@ -1,20 +1,20 @@
-import { DEFINITION_SUBRACE_ANGEL } from "./angel";
-import { DEFINITION_SUBRACE_DEMON } from "./demon";
-import { DEFINITION_SUBRACE_DEMONKIN } from "./demonkin";
-import { DEFINITION_SUBRACE_DRAGONKIN } from "./dragonkin";
-import { DEFINITION_SUBRACE_DROW } from "./drow";
-import { DEFINITION_SUBRACE_ELF } from "./elf";
-import { DEFINITION_SUBRACE_FAIRY } from "./fairy";
-import { DEFINITION_SUBRACE_HUMANDESERT } from "./humandesert";
-import { DEFINITION_SUBRACE_HUMANKINGDOM } from "./humankingdom";
-import { DEFINITION_SUBRACE_HUMANSEA } from "./humansea";
-import { DEFINITION_SUBRACE_HUMANVALE } from "./humanvale";
-import { DEFINITION_SUBRACE_KOBOLD } from "./kobold";
-import { DEFINITION_SUBRACE_LIZARDKIN } from "./lizardkin";
-import { DEFINITION_SUBRACE_NEKO } from "./neko";
-import { DEFINITION_SUBRACE_ORC } from "./orc";
-import { DEFINITION_SUBRACE_TIGERKIN } from "./tigerkin";
-import { DEFINITION_SUBRACE_WEREWOLF } from "./werewolf";
+import { DEFINITION_SUBRACE_ANGEL } from "./subrace_angel";
+import { DEFINITION_SUBRACE_DEMON } from "./subrace_demon";
+import { DEFINITION_SUBRACE_DEMONKIN } from "./subrace_demonkin";
+import { DEFINITION_SUBRACE_DRAGONKIN } from "./subrace_dragonkin";
+import { DEFINITION_SUBRACE_DROW } from "./subrace_drow";
+import { DEFINITION_SUBRACE_ELF } from "./subrace_elf";
+import { DEFINITION_SUBRACE_FAIRY } from "./subrace_fairy";
+import { DEFINITION_SUBRACE_HUMANDESERT } from "./subrace_humandesert";
+import { DEFINITION_SUBRACE_HUMANKINGDOM } from "./subrace_humankingdom";
+import { DEFINITION_SUBRACE_HUMANSEA } from "./subrace_humansea";
+import { DEFINITION_SUBRACE_HUMANVALE } from "./subrace_humanvale";
+import { DEFINITION_SUBRACE_KOBOLD } from "./subrace_kobold";
+import { DEFINITION_SUBRACE_LIZARDKIN } from "./subrace_lizardkin";
+import { DEFINITION_SUBRACE_NEKO } from "./subrace_neko";
+import { DEFINITION_SUBRACE_ORC } from "./subrace_orc";
+import { DEFINITION_SUBRACE_TIGERKIN } from "./subrace_tigerkin";
+import { DEFINITION_SUBRACE_WEREWOLF } from "./subrace_werewolf";
 
 export const SUBRACE_DEFINITIONS = {
   angel: DEFINITION_SUBRACE_ANGEL,

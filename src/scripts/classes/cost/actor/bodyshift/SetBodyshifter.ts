@@ -9,7 +9,7 @@ export default class SetBodyshifter extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.SetBodyshifter('${this.actor_name}', '${this.target_actor_name}')`;
   }
 
@@ -20,7 +20,7 @@ export default class SetBodyshifter extends Cost {
     State.variables.bodyshift.registerBodyshifter(unit, target);
   }
 
-  override explain() {
+  override explain(): string {
     return `${this.actor_name} becomes a bodyshifter, with ${this.target_actor_name} as its other body`;
   }
 }

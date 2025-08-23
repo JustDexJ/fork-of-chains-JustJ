@@ -14,15 +14,15 @@ export default class FortSkillBonusAtLeast extends Restriction {
     return setup.skill[this.skill_key];
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.FortSkillBonusAtLeast(setup.skill.${this.getSkill().keyword}, ${this.target == setup.ROOM_MAX_SKILL_BOOST ? `setup.ROOM_MAX_SKILL_BOOST` : this.target})`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Fort's ${this.getSkill().rep()} bonus is at least ${this.target}`;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     const skill = this.getSkill();
     return (
       State.variables.roomlist.getTotalSkillBonuses()[this.getSkill().key] >=

@@ -10,7 +10,7 @@ export default class TraumatizeRandom extends Cost {
   static PASSAGE = "CostTraumatizeRandom";
   static UNIT = true;
 
-  override text() {
+  override text(): string {
     return `setup.qc.TraumatizeRandom('${this.actor_name}', ${this.duration})`;
   }
 
@@ -19,7 +19,7 @@ export default class TraumatizeRandom extends Cost {
     State.variables.trauma.traumatize(unit, this.duration);
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name} gains a random temporary trauma for ${this.duration} weeks`;
   }
 }

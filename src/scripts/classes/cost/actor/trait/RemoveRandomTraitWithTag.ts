@@ -9,7 +9,7 @@ export default class RemoveRandomTraitWithTag extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.RemoveRandomTraitWithTag('${this.actor_name}', '${this.trait_tag}')`;
   }
 
@@ -23,7 +23,7 @@ export default class RemoveRandomTraitWithTag extends Cost {
     return setup.qc.TraitRemove(this.actor_name, trait).apply(context);
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name} loses a random ${this.trait_tag} trait`;
   }
 }

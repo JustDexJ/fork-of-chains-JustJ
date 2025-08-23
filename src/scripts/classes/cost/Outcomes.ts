@@ -14,7 +14,7 @@ export default class Outcomes extends Cost {
     }
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.Outcomes("${this.result}")`;
   }
 
@@ -31,7 +31,7 @@ export default class Outcomes extends Cost {
     }
   }
 
-  override explain() {
+  override explain(): string {
     return `Apply all outcomes from this quest on result: "${this.result}"`;
   }
 }

@@ -15,7 +15,7 @@ export default class ItemForSaleSingle extends Cost {
     this.market_key = resolveKey(market);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.ItemForSaleSingle('${this.item_key}')`;
   }
 
@@ -35,7 +35,7 @@ export default class ItemForSaleSingle extends Cost {
     return State.variables.market[this.market_key] as Market<Item>;
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     const item = setup.item[this.item_key];
     return `${item.rep()} in ${this.getMarket().rep()}`;
   }

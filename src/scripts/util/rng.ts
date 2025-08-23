@@ -1,7 +1,7 @@
 export namespace rng {
   export function normalizeChanceArray<T>(
-    chance_array: readonly [any, number][],
-  ) {
+    chance_array: readonly [T, number][],
+  ): void {
     let sum_chance = 0.0;
     for (let i = 0; i < chance_array.length; ++i) {
       sum_chance += chance_array[i][1];
@@ -36,7 +36,7 @@ export namespace rng {
    * @param key_chance_map like: {something1: 0.5, something2: 0.4}
    */
   export function sampleObject<K extends string>(
-    key_chance_map: ChanceObject<K> | ChanceObjectPartial<K>,
+    key_chance_map: ChanceObject<K>,
     force_return?: boolean,
   ): K | null {
     const chances = Object.entries(key_chance_map) as Array<[K, number]>;

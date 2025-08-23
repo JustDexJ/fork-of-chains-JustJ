@@ -7,17 +7,17 @@ export default class Cooldown extends Restriction.ContentTemplate {
     "Cooldown weeks (quest can only be generated at most once per this many weeks)";
   static PASSAGE = "RestrictionCooldown";
 
-  override text() {
+  override text(): string {
     return `setup.qres.Cooldown(${this.cooldown})`;
   }
 
-  override isOk(template: ContentTemplate) {
+  override isOk(template: ContentTemplate): boolean {
     let last_week = State.variables.calendar.getLastWeekOf(template);
     let current_week = State.variables.calendar.getWeek();
     return current_week - last_week >= this.cooldown;
   }
 
-  override explain() {
+  override explain(): string {
     return `Cooldown of ${this.cooldown} weeks`;
   }
 }

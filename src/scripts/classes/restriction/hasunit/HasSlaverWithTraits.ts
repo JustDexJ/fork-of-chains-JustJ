@@ -21,7 +21,7 @@ export default class HasSlaverWithTraits extends Restriction {
   static NAME = "Have at least one slaver with specific traits";
   static PASSAGE = "RestrictionHasSlaverWithTraits";
 
-  override text() {
+  override text(): string {
     let res = [];
     for (let i = 0; i < this.trait_keys.length; ++i) {
       res.push(`setup.trait.${this.trait_keys[i]}`);
@@ -37,7 +37,7 @@ export default class HasSlaverWithTraits extends Restriction {
     return result;
   }
 
-  override explain() {
+  override explain(): string {
     let base = `Has slaver with traits:`;
     let traits = this.getTraits();
     for (let i = 0; i < traits.length; ++i) {
@@ -46,7 +46,7 @@ export default class HasSlaverWithTraits extends Restriction {
     return base;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     let units = State.variables.company.player.getUnits({
       job: setup.job.slaver,
     });

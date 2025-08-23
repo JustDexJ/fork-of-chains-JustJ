@@ -6,7 +6,7 @@ export default class FreePlayer extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.FreePlayer()`;
   }
 
@@ -17,7 +17,7 @@ export default class FreePlayer extends Cost {
       .apply(setup.costUnitHelper(State.variables.unit.player));
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `You returned to the company`;
   }
 }

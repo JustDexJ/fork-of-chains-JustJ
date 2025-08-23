@@ -6,7 +6,7 @@ export default class AddRandomTraitWithTags extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     let texts = this.trait_tags.map((a) => `'${a}'`);
     return `setup.qc.AddRandomTraitWithTags('${this.actor_name}', [${texts.join(", ")}])`;
   }
@@ -18,7 +18,7 @@ export default class AddRandomTraitWithTags extends Cost {
     return setup.qc.Trait(this.actor_name, trait).apply(context);
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name} gains a random ${this.trait_tags} trait`;
   }
 }

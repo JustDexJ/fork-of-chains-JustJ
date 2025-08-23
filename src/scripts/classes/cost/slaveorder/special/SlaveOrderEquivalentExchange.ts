@@ -30,7 +30,7 @@ export default class SlaveOrderEquivalentExchange extends SlaveOrderTemplate {
     ];
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.SlaveOrderEquivalentExchange()`;
   }
 

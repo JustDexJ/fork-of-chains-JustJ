@@ -3,11 +3,11 @@ export default class IsCanPhysicallyWalk extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.IsCanPhysicallyWalk()`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Can walk physically: not blocked by restraints, but can be blocked by slave rule`;
   }
 

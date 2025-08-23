@@ -9,7 +9,7 @@ export default class VarEqual extends Restriction {
   static NAME = "Variable equals something";
   static PASSAGE = "RestrictionVarEqual";
 
-  override text() {
+  override text(): string {
     if (setup.isString(this.value)) {
       return `setup.qres.VarEqual('${this.key}', '${this.value}')`;
     } else {
@@ -17,11 +17,11 @@ export default class VarEqual extends Restriction {
     }
   }
 
-  override explain() {
+  override explain(): string {
     return `Variable "${this.key}" must equals "${this.value}"`;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     return State.variables.varstore.get(this.key) == this.value;
   }
 }

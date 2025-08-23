@@ -28,7 +28,7 @@ export default class QuestDirectForceAssign extends Cost {
     this.forced_assignment = forced_assignment;
   }
 
-  override text() {
+  override text(): string {
     const assignment_text = setup.qcImpl.QuestDirect.assignmentTextHelper(
       this.forced_assignment,
     );
@@ -62,7 +62,7 @@ export default class QuestDirectForceAssign extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     const assignment_text = setup.qcImpl.QuestDirect.assignmentExplainHelper(
       this.forced_assignment,
     );

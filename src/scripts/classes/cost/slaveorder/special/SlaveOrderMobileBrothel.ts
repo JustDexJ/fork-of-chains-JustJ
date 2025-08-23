@@ -16,7 +16,7 @@ export default class SlaveOrderMobileBrothel extends SlaveOrderTemplate {
     this.destination_unit_group_key = setup.unitgroup.soldslaves.key;
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.SlaveOrderMobileBrothel(${this.value_multi})`;
   }
 

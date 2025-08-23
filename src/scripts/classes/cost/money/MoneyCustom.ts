@@ -14,11 +14,11 @@ export default class MoneyCustom extends Money {
   static NAME = "Gain Money";
   static PASSAGE = "CostMoneyCustom";
 
-  override text() {
+  override text(): string {
     return `setup.qc.MoneyCustom(${this.money})`;
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     if (context) {
       return super.explain(context);
     } else {

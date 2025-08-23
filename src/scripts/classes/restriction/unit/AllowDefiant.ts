@@ -7,11 +7,11 @@ export default class AllowDefiant extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.AllowDefiant()`;
   }
 
-  override explain() {
+  override explain(): string {
     if (State.variables.gDebug) {
       return `Allow defiant units`;
     } else {

@@ -3,11 +3,11 @@ export default class Owner extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.Owner(${this.restriction.text()})`;
   }
 
-  override explain(context?: Unit) {
+  override explain(context?: Unit): string {
     return `Slave's owner satisfies: (${this.restriction.explain(context)})`;
   }
 

@@ -6,7 +6,7 @@ export default class TraumatizeRandomSlaverHome extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.TraumatizeRandomSlaverHome()`;
   }
 
@@ -20,7 +20,7 @@ export default class TraumatizeRandomSlaverHome extends Cost {
     setup.qc.TraumatizeRandom("unit", 40).apply(setup.costUnitHelper(chosen));
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `Traumatize a random unit in your company`;
   }
 }

@@ -101,13 +101,12 @@ export class Contact extends TwineClass {
     return base;
   }
 
-  getDescriptionPassage(): string {
+  getDescription(): string {
     const template = this.getTemplate();
     if (!template) throw new Error("Contact template not found");
-    const passage = template.getDescriptionPassage();
-    if (passage == null)
-      throw new Error("Contact template description passage is null");
-    return passage;
+    const descr = template.getDescription();
+    if (descr == null) throw new Error("Contact template description is null");
+    return descr;
   }
 
   isCanExpire(): boolean {

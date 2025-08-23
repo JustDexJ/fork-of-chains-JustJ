@@ -19,7 +19,7 @@ export default class SlaveOrderLonelyAlchemist extends SlaveOrderItem {
     this.destination_unit_group_key = setup.unitgroup.soldslaves.key;
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.SlaveOrderLonelyAlchemist('${this.item_key}')`;
   }
 

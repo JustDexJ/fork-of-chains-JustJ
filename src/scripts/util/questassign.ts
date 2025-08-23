@@ -142,7 +142,9 @@ export namespace QuestAssignHelper {
     criterias: { [x: string]: QuestUnitCriteria | { criteria: UnitCriteria } },
     units: Unit[],
     actor_name_permutation: string[],
-    criteria_actor_score_map: Record<UnitCriteriaKey, Record<UnitKey, number>>,
+    criteria_actor_score_map: {
+      [k in UnitCriteriaKey]?: Record<UnitKey, number>;
+    },
   ) {
     const actor_unitkey_map: ActorUnitKeyMap = {};
     const used_unitkeys: Record<UnitKey, boolean> = {};
@@ -155,7 +157,7 @@ export namespace QuestAssignHelper {
       let best_score = 0;
       for (const unit of units) {
         if (unit.key in used_unitkeys || !criteria.isCanAssign(unit)) continue;
-        const score = criteria_actor_score_map[criteria.key!][unit.key];
+        const score = criteria_actor_score_map[criteria.key!]![unit.key];
         if (!best_unit || score > best_score) {
           best_unit = unit;
           best_score = score;
@@ -210,10 +212,9 @@ export namespace QuestAssignHelper {
     const criterias = quest.getTemplate().getUnitCriterias();
     const difficulty = quest.getTemplate().getDifficulty();
 
-    const criteria_actor_score_map: Record<
-      UnitCriteriaKey,
-      Record<UnitKey, number>
-    > = {};
+    const criteria_actor_score_map: {
+      [k in UnitCriteriaKey]?: Record<UnitKey, number>;
+    } = {};
     for (const actor_name in criterias) {
       const criteria: UnitCriteria = criterias[actor_name].criteria;
       for (const unit of units) {

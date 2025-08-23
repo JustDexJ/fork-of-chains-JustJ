@@ -68,4 +68,9 @@ declare global {
   export function typedObject<T>(): <K extends string>(obj: {
     [k in K]: T;
   }) => { [k in K]: T };
+
+  /** Alias for `typedObject` */
+  export function definitions<T>(): <K extends string>(obj: {
+    [k in K]: T;
+  }) => { [k in K]: T };
 }

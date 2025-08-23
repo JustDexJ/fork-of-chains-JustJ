@@ -6,7 +6,7 @@ import { TraitHelper } from "../../trait/Trait";
 import type { ChancesWithMinMax } from "./UnitPoolHelper";
 
 export interface TraitAllocEntry {
-  chances: { [traitKey in TraitKey]: number };
+  chances: { [traitKey in TraitKey]?: number };
   min: number;
   max: number;
 }
@@ -22,9 +22,9 @@ export class UnitPoolTraitAlloc extends TwineClass {
   trait_dispreferences: ChanceObject<TraitKey>;
 
   constructor(
-    trait_preferences: { [k in TraitKey | BuiltinTraitKey]?: number | string },
+    trait_preferences: { [k in TraitKey]?: number | string },
     trait_dispreferences: {
-      [k in TraitKey | BuiltinTraitKey]?: number | string;
+      [k in TraitKey]?: number | string;
     },
   ) {
     super();
@@ -142,7 +142,7 @@ export class UnitPoolTraitAlloc extends TwineClass {
             throw new Error(
               `Missing positive trait: ${trait_key} in unit pool alloc for tag ${trait_tag}`,
             );
-          prefs[trait_tag].chances[trait_key] += value;
+          prefs[trait_tag].chances[trait_key]! += value;
         }
       }
 
@@ -163,7 +163,7 @@ export class UnitPoolTraitAlloc extends TwineClass {
             throw new Error(
               `Missing negative trait: ${trait_key} in unit pool alloc for tag ${trait_tag}`,
             );
-          prefs[trait_tag].chances[trait_key] /= value;
+          prefs[trait_tag].chances[trait_key]! /= value;
         }
       }
 

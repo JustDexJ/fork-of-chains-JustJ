@@ -261,7 +261,7 @@ export class ActivityTemplate extends ContentTemplate<ActivityTemplateKey> {
   makeProperFromDevTool(): void {
     for (const dialogue of this.getDialogues()) {
       for (const speech of Object.values(setup.speech)) {
-        const speechKey = speech.key as BuiltinSpeechKey;
+        const speechKey = speech.key;
         const texts = dialogue.texts[speechKey];
         if (texts.length == 1 && texts[0] == "") {
           dialogue.texts[speechKey] = dialogue.texts.friendly;

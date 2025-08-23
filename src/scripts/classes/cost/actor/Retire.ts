@@ -4,7 +4,7 @@ export default class Retire extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.Retire('${this.actor_name}')`;
   }
 
@@ -13,7 +13,7 @@ export default class Retire extends Cost {
     State.variables.retiredlist.retire(unit);
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `Forcefully retires ${this.actor_name}`;
   }
 }

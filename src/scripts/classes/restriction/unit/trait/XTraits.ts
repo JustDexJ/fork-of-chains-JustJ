@@ -16,12 +16,12 @@ export default class XTraits extends Restriction.Unit {
     return this.trait_keys.map((key) => setup.trait[key]);
   }
 
-  override text() {
+  override text(): string {
     const trait_texts = this.trait_keys.map((a) => `setup.trait.${a}`);
     return `setup.qres.XTraits([${trait_texts.join(", ")}], ${this.minimum})`;
   }
 
-  override explain() {
+  override explain(): string {
     const traittext = this.getTraits()
       .map((trait) => trait.rep())
       .join("");

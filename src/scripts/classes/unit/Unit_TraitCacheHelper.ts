@@ -11,8 +11,8 @@ export namespace UnitTraitCacheHelper {
     unit: Unit,
     varkey: string,
     callback: (unit: Unit) => Trait[],
-  ): Record<TraitKey, boolean> {
-    let map = State.variables.cache.get<Record<TraitKey, boolean>>(
+  ): { [k in TraitKey]?: boolean } {
+    let map = State.variables.cache.get<{ [k in TraitKey]?: boolean }>(
       varkey,
       unit.key,
     );
@@ -33,7 +33,7 @@ export namespace UnitTraitCacheHelper {
    * Compute units extra traits. Also cached for performance.
    */
   export function _computeAllExtraTraits(unit: Unit): Trait[] {
-    const trait_map: Record<TraitKey, boolean> = {};
+    const trait_map: { [k in TraitKey]?: boolean } = {};
 
     /**
      * Extra traits from equipment sets:

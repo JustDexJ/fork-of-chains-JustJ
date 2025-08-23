@@ -19,7 +19,7 @@ export default class Opportunity extends Cost {
     this.default_assignment = default_assignment;
   }
 
-  override text() {
+  override text(): string {
     const assignment_text = setup.qcImpl.QuestDirect.assignmentTextHelper(
       this.default_assignment,
     );
@@ -48,7 +48,7 @@ export default class Opportunity extends Cost {
     }
   }
 
-  override explain() {
+  override explain(): string {
     const assignment_text = setup.qcImpl.QuestDirect.assignmentExplainHelper(
       this.default_assignment,
     );

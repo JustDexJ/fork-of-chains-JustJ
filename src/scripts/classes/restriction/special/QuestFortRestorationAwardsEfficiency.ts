@@ -19,7 +19,7 @@ export default class QuestFortRestorationAwardsEfficiency extends Restriction {
     })[0];
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.QuestFortRestorationAwardsEfficiency()`;
   }
 
@@ -36,7 +36,7 @@ export default class QuestFortRestorationAwardsEfficiency extends Restriction {
     return bonuses.map((a) => a * 0.9);
   }
 
-  override explain() {
+  override explain(): string {
     const expl = setup.SkillHelper.explainSkills(
       this.getTargetBonuses(),
       /* hide skills = */ false,
@@ -45,7 +45,7 @@ export default class QuestFortRestorationAwardsEfficiency extends Restriction {
     return `Bonuses from ${this.getRoom().rep()} is at least ${expl}`;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     const bonuses = this.getTargetBonuses();
     const current = this.getRoom().getSkillBonuses();
     for (const skill of setup.skill) {

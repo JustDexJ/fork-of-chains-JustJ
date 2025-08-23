@@ -9,7 +9,7 @@ export default class RemoveTraitsWithTag extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.RemoveTraitsWithTag('${this.actor_name}', '${this.trait_tag}')`;
   }
 
@@ -18,7 +18,7 @@ export default class RemoveTraitsWithTag extends Cost {
     unit.removeTraitsWithTag(this.trait_tag);
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name} lose all ${this.trait_tag} traits`;
   }
 }

@@ -3,7 +3,7 @@ export default class Nothing extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return "setup.qc.Nothing()";
   }
 
@@ -15,7 +15,7 @@ export default class Nothing extends Cost {
 
   override undoApply() {}
 
-  override explain() {
+  override explain(): string {
     return `Nothing happened.`;
   }
 }

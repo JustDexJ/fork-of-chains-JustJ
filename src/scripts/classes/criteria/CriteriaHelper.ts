@@ -50,7 +50,7 @@ export namespace CriteriaHelper {
   export function Name(name: string, criteria: UnitCriteria): UnitCriteria {
     // adds [restriction1, restriction2]
     let newcriteria = setup.deepCopy(criteria);
-    newcriteria.name = name;
+    (newcriteria as any).name = name;
 
     return newcriteria;
   }

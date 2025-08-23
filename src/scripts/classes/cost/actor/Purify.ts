@@ -21,7 +21,7 @@ export default class Purify extends Cost {
   static PASSAGE = "CostPurify";
   static UNIT = true;
 
-  override text() {
+  override text(): string {
     if (this.trait_tag) {
       return `setup.qc.Purify('${this.actor_name}', ${this.trait_tag})`;
     } else {
@@ -34,7 +34,7 @@ export default class Purify extends Cost {
     unit.purify(this.trait_tag);
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `purify ${this.actor_name}'s ${this.trait_tag || "random aspect"}`;
   }
 }

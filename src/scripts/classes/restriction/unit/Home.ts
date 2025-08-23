@@ -6,11 +6,11 @@ export default class Home extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.Home()`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Unit is at home`;
   }
 

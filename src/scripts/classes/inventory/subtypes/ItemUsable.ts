@@ -1,15 +1,5 @@
 import { Item } from "../Item";
 
-interface ItemUsableInit {
-  key: string;
-  name: string;
-  description: string;
-  value: number;
-  restrictions: Restriction[];
-  effects: Cost[];
-  tags: string[];
-}
-
 export class ItemUsable extends Item {
   /** restrictions to use this */
   restrictions: Restriction[];
@@ -17,26 +7,24 @@ export class ItemUsable extends Item {
   /** whats the effect? */
   effects: Cost[];
 
-  constructor({
-    key,
-    name,
-    description,
-    value,
-    restrictions,
-    effects,
-    tags,
-  }: ItemUsableInit) {
-    super({
-      key: key,
-      name: name,
-      description: description,
+  constructor(
+    key: string,
+    def: {
+      name: string;
+      description: string;
+      value: number;
+      restrictions: Restriction[];
+      effects: Cost[];
+      tags: string[];
+    },
+  ) {
+    super(key, {
+      ...def,
       item_class: setup.itemclass.usablefreeitem,
-      value: value,
-      tags: tags,
     });
 
-    this.restrictions = restrictions;
-    this.effects = effects;
+    this.restrictions = def.restrictions;
+    this.effects = def.effects;
   }
 
   override isUsable(): boolean {

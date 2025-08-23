@@ -6,7 +6,7 @@ export default class Prestige extends Cost {
   static NAME = "Prestige";
   static PASSAGE = "CostPrestige";
 
-  override text() {
+  override text(): string {
     return `setup.qc.Prestige(${this.prestige})`;
   }
 
@@ -24,7 +24,7 @@ export default class Prestige extends Cost {
     State.variables.company.player.addPrestige(-this.prestige);
   }
 
-  override explain() {
+  override explain(): string {
     return `<<prestige ${this.prestige}>>`;
   }
 }

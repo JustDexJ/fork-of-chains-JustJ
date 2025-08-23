@@ -10,7 +10,7 @@ export default class EquipmentDirect extends Cost {
     this.equipment_key = resolveKey(equipment);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.EquipmentDirect('${this.equipment_key}')`;
   }
 
@@ -18,7 +18,7 @@ export default class EquipmentDirect extends Cost {
     State.variables.armory.addEquipment(setup.equipment[this.equipment_key]);
   }
 
-  override explain() {
+  override explain(): string {
     let equipment = setup.equipment[this.equipment_key];
     return `Gain ${equipment.rep()}`;
   }

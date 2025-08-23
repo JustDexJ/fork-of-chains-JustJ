@@ -15,7 +15,7 @@ export default class Exp extends Cost {
     this.exp_amount = exp_amount;
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.Exp(${this.exp_amount!})`;
   }
 
@@ -43,7 +43,7 @@ export default class Exp extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `some exp`;
   }
 }

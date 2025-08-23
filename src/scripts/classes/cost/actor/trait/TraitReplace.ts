@@ -7,7 +7,7 @@ export default class TraitReplace extends Cost {
 
   constructor(
     public actor_name: string,
-    trait: Trait | TraitKey | BuiltinTraitKey | null | undefined,
+    trait: Trait | TraitKey | null | undefined,
     trait_group?: TraitGroup | TraitGroupKey | null,
   ) {
     super();
@@ -15,14 +15,14 @@ export default class TraitReplace extends Cost {
     if (!trait && trait != null)
       throw new Error(`Missing trait for setup.qc.TraitReplace(${actor_name})`);
 
-    this.trait_key = trait ? resolveKey(trait as Trait | TraitKey) : null;
+    this.trait_key = trait ? resolveKey(trait) : null;
     this.trait_group_key = trait_group ? resolveKey(trait_group) : null;
 
     if (!this.trait_key && !this.trait_group_key)
       throw new Error(`TraitReplace must have either trait or traitgroup`);
   }
 
-  override text() {
+  override text(): string {
     if (this.trait_key) {
       return `setup.qc.TraitReplace('${this.actor_name}', setup.trait.${this.trait_key})`;
     } else {
@@ -45,7 +45,7 @@ export default class TraitReplace extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     if (this.trait_key) {
       return `${this.actor_name} FORCEFULLY gain ${setup.trait[this.trait_key].rep()}`;
     } else {

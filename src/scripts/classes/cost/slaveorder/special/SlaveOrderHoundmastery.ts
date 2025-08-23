@@ -24,7 +24,7 @@ export default class SlaveOrderHoundmastery extends SlaveOrderTemplate {
     this.trait_key = resolveKey(required_trait);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.SlaveOrderHoundmastery(${this.value_multi})`;
   }
 

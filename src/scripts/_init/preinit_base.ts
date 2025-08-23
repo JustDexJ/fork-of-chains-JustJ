@@ -16,7 +16,7 @@ import { globalsettings } from "../util/globalsettings";
 //
 // Add global functions/classes to `window`
 //
-Object.assign(globalThis as any, {
+Object.assign(globalThis, {
   Cost,
   SexCost,
   Restriction,
@@ -28,7 +28,8 @@ Object.assign(globalThis as any, {
   resolveKey: SetupUtil.resolveKey,
   resolveObject: SetupUtil.resolveObject,
 
-  typedObject: (() => (obj: any) => obj) as typeof typedObject,
+  typedObject: (() => (obj: unknown) => obj) as typeof typedObject,
+  definitions: (() => (obj: unknown) => obj) as typeof definitions,
 });
 
 //

@@ -1,9 +1,9 @@
-import { UnitAction, type UnitActionInit } from "./UnitAction";
+import { UnitAction, type UnitActionDefinition } from "./UnitAction";
 
 /** Repeatedly purifies the unit. */
 export class UnitAction_RepeatSelf extends UnitAction {
-  constructor(args: UnitActionInit) {
-    super(args);
+  constructor(key: string, def: Readonly<UnitActionDefinition>) {
+    super(key, def);
   }
 
   getName() {

@@ -18,7 +18,7 @@ export default class SlaveOrderFuckholeFair extends SlaveOrderTemplate {
     this.destination_unit_group_key = setup.unitgroup.soldslaves.key;
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.SlaveOrderFuckholeFair()`;
   }
 

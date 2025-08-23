@@ -17,7 +17,7 @@ export interface DutyTemplateInit {
   name: string;
   description_passage: string;
   unit_restrictions: Restriction[];
-  relevant_traits?: { [k in TraitKey | BuiltinTraitKey]?: number };
+  relevant_traits?: { [k in TraitKey]?: number };
   relevant_skills?: { [k in SkillKey | SkillKeyword]?: number };
   is_can_replace_with_specialist?: boolean;
   is_allow_leader?: boolean;
@@ -45,7 +45,7 @@ export class DutyTemplate<
   name: string;
   description_passage: string;
   unit_restrictions: Restriction[];
-  relevant_traits: { [k in TraitKey | BuiltinTraitKey]?: number };
+  relevant_traits: { [k in TraitKey]?: number };
   relevant_skills: { [k in SkillKey | SkillKeyword]?: number };
   is_can_replace_with_specialist: boolean;
 
@@ -137,7 +137,7 @@ export class DutyTemplate<
     return "img/duty/" + this.key + ".svg";
   }
 
-  getRelevantTraits(): { [k in TraitKey | BuiltinTraitKey]?: number } {
+  getRelevantTraits(): { [k in TraitKey]?: number } {
     return this.relevant_traits;
   }
 
@@ -169,7 +169,7 @@ export class DutyTemplate<
       if (unit.isHasTraitExact(setup.trait[traitkey])) chance += traitvalue;
     }
 
-    if (unit.isHasTrait(setup.trait.perk_duty)) {
+    if (unit.isHasTrait("perk_duty")) {
       const bonus = Math.min(
         setup.PERK_DUTY_BONUS,
         chance * setup.PERK_DUTY_BONUS,

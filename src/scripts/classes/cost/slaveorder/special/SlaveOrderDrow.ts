@@ -35,7 +35,7 @@ export default class SlaveOrderDrow extends SlaveOrderTemplate {
     return criteria;
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.SlaveOrderDrow(${this.base_price})`;
   }
 }

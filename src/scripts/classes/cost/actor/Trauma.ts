@@ -17,7 +17,7 @@ export default class Trauma extends Cost {
   static PASSAGE = "CostTrauma";
   static UNIT = true;
 
-  override text() {
+  override text(): string {
     return `setup.qc.Trauma('${this.actor_name}', setup.trait.${this.trait_key}, ${this.duration})`;
   }
 
@@ -27,7 +27,7 @@ export default class Trauma extends Cost {
     State.variables.trauma.adjustTrauma(unit, trait, this.duration);
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name}'s gains ${setup.trait[this.trait_key].rep()} for ${this.duration} weeks`;
   }
 }

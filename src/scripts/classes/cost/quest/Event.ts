@@ -35,7 +35,7 @@ export default class Event extends Cost {
     this.is_visible_in_calendar = is_visible_in_calendar;
   }
 
-  override text() {
+  override text(): string {
     const assignment_text = setup.qcImpl.QuestDirect.assignmentTextHelper(
       this.default_assignment,
     );
@@ -56,7 +56,7 @@ export default class Event extends Cost {
     );
   }
 
-  override explain() {
+  override explain(): string {
     const assignment_text = setup.qcImpl.QuestDirect.assignmentExplainHelper(
       this.default_assignment,
     );

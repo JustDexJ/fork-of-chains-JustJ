@@ -13,11 +13,11 @@ export default class NoOpportunity extends Restriction {
     this.template_key = resolveKey(template);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.NoOpportunity('${this.template_key}')`;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     let template = setup.opportunitytemplate[this.template_key];
     let opportunities = State.variables.opportunitylist.getOpportunities();
     for (let i = 0; i < opportunities.length; ++i)
@@ -25,7 +25,7 @@ export default class NoOpportunity extends Restriction {
     return true;
   }
 
-  override explain() {
+  override explain(): string {
     let template = setup.opportunitytemplate[this.template_key];
     return `No opportunity : ${template.getName()}`;
   }

@@ -4,11 +4,11 @@ export default class SlaveOwnedByYou extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.SlaveOwnedByYou()`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Unit must be owned directly by you in your bedchamber`;
   }
 

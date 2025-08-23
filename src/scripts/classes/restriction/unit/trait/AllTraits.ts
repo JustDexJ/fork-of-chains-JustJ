@@ -9,12 +9,12 @@ export default class AllTraits extends Restriction.Unit {
     this.is_exact = !!is_exact;
   }
 
-  override text() {
+  override text(): string {
     let trait_texts = this.trait_keys.map((a) => `setup.trait.${a}`);
     return `setup.qres.AllTraits([${trait_texts.join(", ")}], ${this.is_exact})`;
   }
 
-  override explain() {
+  override explain(): string {
     let traittext = [];
     for (let i = 0; i < this.trait_keys.length; ++i) {
       let trait = setup.trait[this.trait_keys[i]];

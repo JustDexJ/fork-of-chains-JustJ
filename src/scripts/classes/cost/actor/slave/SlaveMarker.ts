@@ -17,7 +17,7 @@ export default class SlaveMarker extends Cost {
     return this.actor_name;
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.SlaveMarker('${this.actor_name}')`;
   }
 
@@ -25,7 +25,7 @@ export default class SlaveMarker extends Cost {
     // nothing
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name} is marked as a slave for gender preference`;
   }
 }

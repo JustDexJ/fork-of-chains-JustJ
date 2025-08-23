@@ -13,7 +13,7 @@ export default class Equipment extends Cost {
     this.pool_key = resolveKey(equipment_pool);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.Equipment(setup.equipmentpool.${this.pool_key})`;
   }
 
@@ -23,7 +23,7 @@ export default class Equipment extends Cost {
     State.variables.armory.addEquipment(equip);
   }
 
-  override explain() {
+  override explain(): string {
     let pool = setup.equipmentpool[this.pool_key];
     return `Gain an equipment from ${pool.rep()}`;
   }

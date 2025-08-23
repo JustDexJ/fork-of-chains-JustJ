@@ -1,13 +1,13 @@
 export default class IsInjured extends Restriction.Unit {
-  constructor(public min_duration: number) {
+  constructor(public min_duration?: number) {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.IsInjured(${this.min_duration})`;
   }
 
-  override explain() {
+  override explain(): string {
     if (!this.min_duration) {
       return `Unit must be injured`;
     } else {

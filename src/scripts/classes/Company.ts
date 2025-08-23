@@ -1,6 +1,6 @@
 import { TwineClass } from "./_TwineClass";
 import type { CompanyTemplate, CompanyTemplateKey } from "./CompanyTemplate";
-import type { Job } from "./job/Job";
+import type { Job, JobKey } from "./job/Job";
 import type { QuestInstance, QuestInstanceKey } from "./quest/QuestInstance";
 import type { QuestTemplate, QuestTemplateKey } from "./quest/QuestTemplate";
 import type { Team, TeamKey } from "./Team";
@@ -507,8 +507,8 @@ export class Company extends TwineClass {
   }
 
   getUnits(
-    filter_dict?: {
-      job?: Job;
+    options: {
+      job?: Job | JobKey;
       no_team?: boolean;
       available?: boolean;
       injured?: boolean;
@@ -518,8 +518,8 @@ export class Company extends TwineClass {
       usable_by_you?: boolean;
       tag?: string;
       title?: TitleKey;
-    },
-    sortby?: any,
+    } = {},
+    sortby?: "name" | "job" | null,
   ): Unit[] {
     // filter_dict can consist of:
     // job: unit job
@@ -530,37 +530,29 @@ export class Company extends TwineClass {
     // sortby:
     // 'name', 'job'
     let result: Unit[] = [];
-    if (!filter_dict) {
-      filter_dict = {};
-    }
+
+    const job = options.job ? resolveObject(options.job, setup.job) : null;
+
     this.unit_keys.forEach((unit_key) => {
       if (!(unit_key in State.variables.unit))
         throw new Error(`unit ${unit_key} not found`);
       let unit = State.variables.unit[unit_key];
+      if (job && unit.getJob() !== job) return;
+      if (options["no_team"] && unit.team_key) return;
+      if (options["available"] && !unit.isAvailable()) return;
+      if (options["injured"] && !State.variables.hospital.isInjured(unit))
+        return;
+      if (options["notinjured"] && State.variables.hospital.isInjured(unit))
+        return;
+      if (options["home"] && !unit.isHome()) return;
+      if (options["on_duty"] && !unit.getDuty()) return;
       if (
-        "job" in filter_dict &&
-        filter_dict["job"] &&
-        unit.getJob() != filter_dict["job"]
-      )
-        return;
-      if (filter_dict["no_team"] && unit.team_key) return;
-      if (filter_dict["available"] && !unit.isAvailable()) return;
-      if (filter_dict["injured"] && !State.variables.hospital.isInjured(unit))
-        return;
-      if (filter_dict["notinjured"] && State.variables.hospital.isInjured(unit))
-        return;
-      if (filter_dict["home"] && !unit.isHome()) return;
-      if (filter_dict["on_duty"] && !unit.getDuty()) return;
-      if (
-        filter_dict["usable_by_you"] &&
+        options["usable_by_you"] &&
         !unit.isUsableBy(State.variables.unit.player)
       )
         return;
-      if (filter_dict["tag"] && !unit.isHasTag(filter_dict["tag"])) return;
-      if (
-        filter_dict["title"] &&
-        !unit.isHasTitle(setup.title[filter_dict["title"]])
-      )
+      if (options["tag"] && !unit.isHasTag(options["tag"])) return;
+      if (options["title"] && !unit.isHasTitle(setup.title[options["title"]]))
         return;
       result.push(unit);
     });
@@ -582,7 +574,7 @@ export class Company extends TwineClass {
     return this.getTemplate().getFavorEffects();
   }
 
-  getDescriptionPassage() {
-    return this.getTemplate().getDescriptionPassage();
+  getDescription() {
+    return this.getTemplate().getDescription();
   }
 }

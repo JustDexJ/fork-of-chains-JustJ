@@ -3,11 +3,11 @@ export default class NotOnActivity extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.NotOnActivity()`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Unit is not already on another activity`;
   }
 

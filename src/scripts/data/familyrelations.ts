@@ -1,7 +1,7 @@
 import type { FamilyRelationDefinition } from "../classes/family/FamilyRelation";
 
 export const FAMILY_RELATION_DEFINTIONS =
-  typedObject<FamilyRelationDefinition>()({
+  definitions<FamilyRelationDefinition>()({
     brother: {
       name: "brother",
       tags: ["sibling"],

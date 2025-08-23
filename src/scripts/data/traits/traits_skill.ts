@@ -1,6 +1,6 @@
-import type { TraitOrGroupDefinition } from "../../classes/trait/Trait";
+import type { TraitOrGroupDefinitions } from "../../classes/trait/Trait";
 
-export default typedObject<TraitOrGroupDefinition>()({
+export default {
   //
   // NON-MAGIC
   //
@@ -8,7 +8,7 @@ export default typedObject<TraitOrGroupDefinition>()({
   skill_ambidextrous: {
     name: "ambidextrous",
     description: "Capable of using both left and right arms equally well",
-    slave_value: setup.MONEY_TRAIT_MEDIUM,
+    slave_value: "MONEY_TRAIT_MEDIUM",
     skill_bonuses: { combat: 0.25 },
     tags: ["skill", "medium", "nonmagic"],
   },
@@ -16,7 +16,7 @@ export default typedObject<TraitOrGroupDefinition>()({
   skill_intimidating: {
     name: "intimidating",
     description: "Has an intimidating presence",
-    slave_value: setup.MONEY_TRAIT_MEDIUM,
+    slave_value: "MONEY_TRAIT_MEDIUM",
     skill_bonuses: { brawn: 0.25 },
     tags: ["skill", "medium", "nonmagic"],
   },
@@ -32,7 +32,7 @@ export default typedObject<TraitOrGroupDefinition>()({
   skill_connected: {
     name: "connected",
     description: "Has connections to many important people",
-    slave_value: setup.MONEY_TRAIT_MEDIUM,
+    slave_value: "MONEY_TRAIT_MEDIUM",
     skill_bonuses: { intrigue: 0.25 },
     tags: ["skill", "medium", "nonmagic"],
   },
@@ -40,7 +40,7 @@ export default typedObject<TraitOrGroupDefinition>()({
   skill_hypnotic: {
     name: "hypnotic",
     description: "Knows how to hypnotize people under the right conditions",
-    slave_value: setup.MONEY_TRAIT_MEDIUM,
+    slave_value: "MONEY_TRAIT_MEDIUM",
     skill_bonuses: { slaving: 0.25 },
     tags: ["skill", "medium", "nonmagic"],
   },
@@ -49,7 +49,7 @@ export default typedObject<TraitOrGroupDefinition>()({
     name: "creative",
     description:
       "Has a clockwork-like mind that keeps coming up with creative ideas",
-    slave_value: setup.MONEY_TRAIT_MEDIUM,
+    slave_value: "MONEY_TRAIT_MEDIUM",
     skill_bonuses: { knowledge: 0.25 },
     tags: ["skill", "medium", "nonmagic"],
   },
@@ -57,7 +57,7 @@ export default typedObject<TraitOrGroupDefinition>()({
   skill_entertain: {
     name: "entertainer",
     description: "Is skilled in entertaining people with a song and a dance",
-    slave_value: setup.MONEY_TRAIT_MEDIUM,
+    slave_value: "MONEY_TRAIT_MEDIUM",
     skill_bonuses: { social: 0.25 },
     tags: ["skill", "medium", "nonmagic"],
   },
@@ -65,7 +65,7 @@ export default typedObject<TraitOrGroupDefinition>()({
   skill_alchemy: {
     name: "alchemy",
     description: "Knows how mix herbs and make potions",
-    slave_value: setup.MONEY_TRAIT_MEDIUM,
+    slave_value: "MONEY_TRAIT_MEDIUM",
     skill_bonuses: { aid: 0.25 },
     tags: ["skill", "medium", "nonmagic"],
   },
@@ -73,7 +73,7 @@ export default typedObject<TraitOrGroupDefinition>()({
   skill_animal: {
     name: "animal whisperer",
     description: "Has strong bond with animals",
-    slave_value: setup.MONEY_TRAIT_MEDIUM,
+    slave_value: "MONEY_TRAIT_MEDIUM",
     skill_bonuses: { sex: 0.25 },
     tags: ["skill", "medium", "nonmagic"],
   },
@@ -84,140 +84,128 @@ export default typedObject<TraitOrGroupDefinition>()({
 
   "group:magicfire": {
     add_tags: [],
-    sequence: [
-      {
-        key: "magic_fire",
+    sequence: {
+      magic_fire: {
         name: "magic: fire",
         description:
           "Has some control over the fire domain. See also <<lore magic_fire>>",
-        slave_value: setup.MONEY_TRAIT_MEDIUM,
+        slave_value: "MONEY_TRAIT_MEDIUM",
         skill_bonuses: { arcane: 0.16, combat: 0.02, knowledge: 0.02 },
         tags: ["skill", "magic", "rare", "magicbasic"],
       },
-      {
-        key: "magic_fire_master",
+      magic_fire_master: {
         name: "magic: fire (master)",
         description:
           "Masters the use of the fire domain and can summon purifying flames. See also <<lore magic_fire>>",
-        slave_value: setup.MONEY_TRAIT_RARE,
+        slave_value: "MONEY_TRAIT_RARE",
         skill_bonuses: { arcane: 0.19, combat: 0.03, knowledge: 0.03 },
         tags: ["skill", "magic", "unicorn", "magicmaster"],
       },
-    ],
+    },
   },
   "group:magicwater": {
     add_tags: [],
-    sequence: [
-      {
-        key: "magic_water",
+    sequence: {
+      magic_water: {
         name: "magic: water",
         description:
           "Has some control over the water domain. See also <<lore magic_water>>",
-        slave_value: setup.MONEY_TRAIT_MEDIUM,
+        slave_value: "MONEY_TRAIT_MEDIUM",
         skill_bonuses: { arcane: 0.18, brawn: 0.02 },
         tags: ["skill", "magic", "rare", "magicbasic"],
       },
-      {
-        key: "magic_water_master",
+      magic_water_master: {
         name: "magic: water (master)",
         description:
           "Masters the use of the water domain and can employ its power to shape flesh, with the right equipment. See also <<lore magic_water>>",
-        slave_value: setup.MONEY_TRAIT_RARE,
+        slave_value: "MONEY_TRAIT_RARE",
         skill_bonuses: { arcane: 0.22, brawn: 0.03 },
         tags: ["skill", "magic", "unicorn", "magicmaster"],
       },
-    ],
+    },
   },
   "group:magicwind": {
     add_tags: [],
-    sequence: [
-      {
-        key: "magic_wind",
+    sequence: {
+      magic_wind: {
         name: "magic: wind",
         description:
           "Has some control over the wind domain. See also <<lore magic_wind>>",
-        slave_value: setup.MONEY_TRAIT_MEDIUM,
+        slave_value: "MONEY_TRAIT_MEDIUM",
         skill_bonuses: { arcane: 0.16, slaving: 0.02, social: 0.02 },
         tags: ["skill", "magic", "rare", "magicbasic"],
       },
-      {
-        key: "magic_wind_master",
+      magic_wind_master: {
         name: "magic: wind (master)",
         description:
           "Masters the use of the wind domain and can employ its power to summon lighnings. See also <<lore magic_wind>>",
-        slave_value: setup.MONEY_TRAIT_RARE,
+        slave_value: "MONEY_TRAIT_RARE",
         skill_bonuses: { arcane: 0.19, slaving: 0.03, social: 0.03 },
         tags: ["skill", "magic", "unicorn", "magicmaster"],
       },
-    ],
+    },
   },
   "group:magicearth": {
     add_tags: [],
-    sequence: [
-      {
-        key: "magic_earth",
+    sequence: {
+      magic_earth: {
         name: "magic: earth",
         description:
           "Has some control over the earth domain. See also <<lore magic_earth>>",
-        slave_value: setup.MONEY_TRAIT_MEDIUM,
+        slave_value: "MONEY_TRAIT_MEDIUM",
         skill_bonuses: { arcane: 0.16, sex: 0.02, survival: 0.02 },
         tags: ["skill", "magic", "rare", "magicbasic"],
       },
-      {
-        key: "magic_earth_master",
+      magic_earth_master: {
         name: "magic: earth (master)",
         description:
           "Masters the use of the earth domain and can employ its power to create tentacle aberrations. See also <<lore magic_earth>>",
-        slave_value: setup.MONEY_TRAIT_RARE,
+        slave_value: "MONEY_TRAIT_RARE",
         skill_bonuses: { arcane: 0.19, sex: 0.03, survival: 0.03 },
         tags: ["skill", "magic", "unicorn", "magicmaster"],
       },
-    ],
+    },
   },
   "group:magiclight": {
     add_tags: [],
-    sequence: [
-      {
-        key: "magic_light",
+    sequence: {
+      magic_light: {
         name: "magic: light",
         description:
           "Has some control over the light domain. See also <<lore magic_light>>",
-        slave_value: setup.MONEY_TRAIT_MEDIUM,
+        slave_value: "MONEY_TRAIT_MEDIUM",
         skill_bonuses: { arcane: 0.18, aid: 0.02 },
         tags: ["skill", "magic", "rare", "magicbasic"],
       },
-      {
-        key: "magic_light_master",
+      magic_light_master: {
         name: "magic: light (master)",
         description:
           "Masters the use of the light domain and can employ its power to heal, with the right equipment. See also <<lore magic_light>>",
-        slave_value: setup.MONEY_TRAIT_RARE,
+        slave_value: "MONEY_TRAIT_RARE",
         skill_bonuses: { arcane: 0.22, aid: 0.03 },
         tags: ["skill", "magic", "unicorn", "magicmaster"],
       },
-    ],
+    },
   },
   "group:magicdark": {
     add_tags: [],
-    sequence: [
-      {
-        key: "magic_dark",
+    sequence: {
+      magic_dark: {
         name: "magic: dark",
         description:
           "Has some control over the dark domain. See also <<lore magic_dark>>",
-        slave_value: setup.MONEY_TRAIT_MEDIUM,
+        slave_value: "MONEY_TRAIT_MEDIUM",
         skill_bonuses: { arcane: 0.18, intrigue: 0.02 },
         tags: ["skill", "magic", "rare", "magicbasic"],
       },
-      {
-        key: "magic_dark_master",
+      magic_dark_master: {
         name: "magic: dark (master)",
         description:
           "Masters the use of the dark domain and can employ its power to corrupt others, with the right equipment. See also <<lore magic_dark>>",
-        slave_value: setup.MONEY_TRAIT_RARE,
+        slave_value: "MONEY_TRAIT_RARE",
         skill_bonuses: { arcane: 0.22, intrigue: 0.03 },
         tags: ["skill", "magic", "unicorn", "magicmaster"],
       },
-    ],
+    },
   },
-});
+} satisfies TraitOrGroupDefinitions;

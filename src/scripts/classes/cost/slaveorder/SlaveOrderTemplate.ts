@@ -98,7 +98,7 @@ export abstract class SlaveOrderTemplate extends Cost {
     );
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.getName(context)}`;
   }
 }

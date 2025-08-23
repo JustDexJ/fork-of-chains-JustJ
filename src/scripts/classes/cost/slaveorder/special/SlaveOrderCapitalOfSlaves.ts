@@ -13,10 +13,10 @@ export default class SlaveOrderCapitalOfSlaves extends SlaveOrderTemplate {
     this.expires_in = 8;
     this.fulfilled_outcomes = [];
     this.unfulfilled_outcomes = [];
-    this.destination_unit_group_key = setup.unitgroup.subrace_humandesert.key;
+    this.destination_unit_group_key = "subrace_humandesert";
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.SlaveOrderCapitalOfSlaves()`;
   }
 

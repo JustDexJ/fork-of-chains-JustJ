@@ -1,14 +1,14 @@
 export default class HasItem extends Restriction {
   item_key: ItemKey;
 
-  constructor(item: Item | ItemKey | BuiltinItemKey) {
+  constructor(item: Item | ItemKey) {
     super();
 
     if (!item) throw new Error(`Item null in HasItem`);
-    this.item_key = resolveKey(item as Item | ItemKey);
+    this.item_key = resolveKey(item);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.HasItem(setup.item.${this.item_key})`;
   }
 
@@ -16,11 +16,11 @@ export default class HasItem extends Restriction {
     return setup.item[this.item_key];
   }
 
-  override explain() {
+  override explain(): string {
     return `${this.getItem().rep()}`;
   }
 
-  override isOk() {
+  override isOk(): boolean {
     return State.variables.inventory.isHasItem(this.getItem());
   }
 }

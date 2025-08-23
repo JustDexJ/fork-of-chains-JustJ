@@ -92,6 +92,5 @@ declare global {
 
   type ChanceArray<T> = Array<[value: T, chance: number]>;
 
-  type ChanceObject<K extends string> = Record<K, number>;
-  type ChanceObjectPartial<K extends string> = { [k in K]?: number };
+  type ChanceObject<K extends string> = { [k in K]?: number };
 }

@@ -6,11 +6,11 @@ export default class Bodyshifter extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.Bodyshifter()`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Unit is a bodyshifter`;
   }
 

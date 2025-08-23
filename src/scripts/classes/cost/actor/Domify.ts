@@ -41,7 +41,7 @@ export default class Domify extends SluttifyDomifyCostBase {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.Domify('${this.actor_name}')`;
   }
 
@@ -129,7 +129,7 @@ export default class Domify extends SluttifyDomifyCostBase {
     return this._do_apply(context, unit, domify_candidates);
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name} becomes more dominant`;
   }
 }

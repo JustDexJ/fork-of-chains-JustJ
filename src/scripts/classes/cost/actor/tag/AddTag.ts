@@ -10,7 +10,7 @@ export default class AddTag extends Cost {
   static PASSAGE = "CostAddTag";
   static UNIT = true;
 
-  override text() {
+  override text(): string {
     return `setup.qc.AddTag('${this.actor_name}', '${this.tag_name}')`;
   }
 
@@ -19,7 +19,7 @@ export default class AddTag extends Cost {
     unit.addTag(this.tag_name);
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name} gains a tag: "${this.tag_name}"`;
   }
 }

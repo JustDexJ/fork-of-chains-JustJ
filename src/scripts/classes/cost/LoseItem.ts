@@ -12,7 +12,7 @@ export default class LoseItem extends Cost {
     this.quantity = quantity || 1;
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.LoseItem('${this.item_key}', ${this.quantity})`;
   }
 
@@ -38,7 +38,7 @@ export default class LoseItem extends Cost {
     }
   }
 
-  override explain() {
+  override explain(): string {
     return `Lose ${this.quantity}x ${this.getItem().rep()}`;
   }
 }

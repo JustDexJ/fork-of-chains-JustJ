@@ -16,7 +16,7 @@ export default class MissingUnitRebuy extends Cost {
   static NAME = "Lose a unit from your company, but repurchasable immediately";
   static PASSAGE = "CostMissingUnitRebuy";
 
-  override text() {
+  override text(): string {
     return `setup.qc.MissingUnitRebuy('${this.actor_name}', ${this.price_mult})`;
   }
 
@@ -64,7 +64,7 @@ export default class MissingUnitRebuy extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.actor_name} would be gone from your company, but immediately repurchasable for ${this.price_mult} x their value`;
   }
 }

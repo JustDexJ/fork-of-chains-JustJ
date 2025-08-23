@@ -1,6 +1,6 @@
 import { SkillDefinition } from "../classes/Skill";
 
-export const SKILL_DEFINITIONS = typedObject<SkillDefinition>()({
+export const SKILL_DEFINITIONS = definitions<SkillDefinition>()({
   combat: {
     name: "Combat",
     description:

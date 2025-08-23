@@ -2,32 +2,26 @@ import type { LoreKey } from "../../Lore";
 import { Item } from "../Item";
 
 export class ItemLorebook extends Item {
-  constructor({
-    key,
-    name,
-    lore,
-    tags,
-  }: {
-    key: string;
-    name: string;
-    lore: LoreKey;
-    tags: string[];
-  }) {
-    const lore_obj = setup.lore[lore];
+  constructor(
+    key: string,
+    def: {
+      name: string;
+      lore: LoreKey;
+      tags: string[];
+    },
+  ) {
+    const lore_obj = setup.lore[def.lore];
     if (!lore_obj) {
-      throw new Error(`Lore ${lore} not found for lorebook ${key}`);
+      throw new Error(`Lore ${def.lore} not found for lorebook ${key}`);
     }
-    const desc = `Unlocks the ${lore_obj.getName()} lore`;
 
-    super({
-      key: key,
-      name: name,
-      description: desc,
+    super(key, {
+      ...def,
       item_class: setup.itemclass.lorebook,
-      tags: tags,
+      description: `Unlocks the ${lore_obj.getName()} lore`,
     });
 
     // add this book as a requirement to see the lore.
-    (lore_obj.restrictions as any).push(setup.qres.HasItem(this));
+    (lore_obj.restrictions as Restriction[]).push(setup.qres.HasItem(this));
   }
 }

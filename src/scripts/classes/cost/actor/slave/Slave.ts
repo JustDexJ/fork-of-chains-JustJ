@@ -15,7 +15,7 @@ export default class Slave extends Cost {
     return true;
   }
 
-  override text() {
+  override text(): string {
     let pricemulttext = "";
     if (this.price_mult) pricemulttext = `, ${this.price_mult}`;
     return `setup.qc.Slave('${this.actor_name}', "${setup.escapeJsString(this.origin_text ?? "")}", ${this.is_mercenary}${pricemulttext})`;
@@ -62,7 +62,7 @@ export default class Slave extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     let textbase = "free slave";
     if (this.is_mercenary)
       textbase = `PAID slave${this.price_mult ? ` (${this.price_mult}x price)` : ``}`;

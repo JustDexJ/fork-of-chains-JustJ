@@ -2,7 +2,7 @@ import { TwineClass } from "../_TwineClass";
 import { FamilyRelation, FamilyRelationKey } from "./FamilyRelation";
 
 const FAMILY_RELATION_TYPES = typedObject<{
-  [k in BuiltinTraitKey]?: FamilyRelationKey;
+  [k in TraitKey]?: FamilyRelationKey;
 }>()({
   sibling: {
     gender_male: "brother",

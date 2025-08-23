@@ -21,7 +21,7 @@ export default class EquipmentForSale extends Cost {
     this.equipment_pool_key = resolveKey(equipment_pool);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.EquipmentForSale('${this.equipment_pool_key}', ${this.amount}, ${this.markup})`;
   }
 
@@ -44,7 +44,7 @@ export default class EquipmentForSale extends Cost {
     return State.variables.market.equipmentmarket;
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `${this.amount} new items in ${this.getMarket().rep()} at ${this.markup}x price`;
   }
 }

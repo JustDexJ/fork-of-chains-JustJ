@@ -11,7 +11,7 @@ export default class IreSpread extends Cost {
     this.company_key = resolveKey(company);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.IreSpread('${this.company_key}')`;
   }
 
@@ -43,7 +43,7 @@ export default class IreSpread extends Cost {
     }
   }
 
-  override explain(context: CostContext) {
+  override explain(context: CostContext): string {
     return `Gain ire with three other companies except ${State.variables.company[this.company_key].rep()}`;
   }
 }

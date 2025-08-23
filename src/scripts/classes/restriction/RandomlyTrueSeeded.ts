@@ -15,11 +15,11 @@ export default class RandomlyTrueSeeded extends Restriction.ContentContext {
     }
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.RandomlyTrueSeeded(${this.modulo}, ${this.remainder})`;
   }
 
-  override explain() {
+  override explain(): string {
     if (State.variables.gDebug) {
       return `True when seed % ${this.modulo} equals ${this.remainder}`;
     } else {
@@ -27,7 +27,7 @@ export default class RandomlyTrueSeeded extends Restriction.ContentContext {
     }
   }
 
-  override isOk(content: CostContext) {
+  override isOk(content: CostContext): boolean {
     return (content.getSeed?.() ?? 0) % this.modulo == this.remainder;
   }
 }

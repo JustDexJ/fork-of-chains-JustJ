@@ -3,11 +3,11 @@ export default class DietMilk extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.DietMilk()`;
   }
 
-  override explain() {
+  override explain(): string {
     return `On milk-based diet`;
   }
 

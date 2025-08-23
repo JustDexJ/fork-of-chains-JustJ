@@ -9,7 +9,7 @@ export default class EquipmentLose extends Cost {
     this.equipment_key = resolveKey(equipment);
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.EquipmentLose(setup.equipment.${this.equipment_key})`;
   }
 
@@ -24,7 +24,7 @@ export default class EquipmentLose extends Cost {
     }
   }
 
-  override explain() {
+  override explain(): string {
     return `Lose ${this.getEquipment().rep()}`;
   }
 }

@@ -3,11 +3,11 @@ export default class CanUseRememberedUnit extends Restriction.Unit {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qres.CanUseRememberedUnit()`;
   }
 
-  override explain() {
+  override explain(): string {
     return `Unit must be able to use remembered unit`;
   }
 

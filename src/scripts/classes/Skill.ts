@@ -1,3 +1,4 @@
+import { Constants, type NumericConstant } from "../constants";
 import type { SKILL_DEFINITIONS } from "../data/skills";
 import { TwineClass } from "./_TwineClass";
 import { Unit } from "./unit/Unit";
@@ -85,6 +86,13 @@ export class Skill extends TwineClass {
       result[skill.key] = value;
     }
     return result;
+  }
+
+  static translateAndResolveConstants<T>(
+    array_or_obj: Readonly<SkillValuesInit<number | NumericConstant>>,
+  ): SkillValuesArray<number> {
+    const values = this.translate(array_or_obj);
+    return values.map((x) => (typeof x === "string" ? Constants[x] : x));
   }
 
   static makeEmptySkills(): SkillValuesArray {

@@ -6,7 +6,7 @@ export default class Bodyshift extends Cost {
     super();
   }
 
-  override text() {
+  override text(): string {
     return `setup.qc.Bodyshift('${this.actor_name}')`;
   }
 
@@ -21,7 +21,7 @@ export default class Bodyshift extends Cost {
     }
   }
 
-  override explain() {
+  override explain(): string {
     return `${this.actor_name} bodyshifts`;
   }
 }
