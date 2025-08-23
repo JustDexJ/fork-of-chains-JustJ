@@ -1,25 +1,9 @@
 import type { DutyInstance } from "../DutyInstance";
-import { DutyTemplate } from "../DutyTemplate";
+import { DutyTemplate, type DutyTemplateInit } from "../DutyTemplate";
 
 export class DutyTemplateTrainer extends DutyTemplate {
-  constructor() {
-    super({
-      key: "trainer",
-      name: "Drill Sergeant",
-      description_passage: "DutyTrainer",
-      type: "util",
-      unit_restrictions: [setup.qres.Job("slaver")],
-      relevant_skills: {
-        brawn: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 2,
-        knowledge: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 2,
-      },
-      relevant_traits: {
-        skill_intimidating: setup.DUTY_TRAIT_CRIT_CHANCE,
-        per_dominant: setup.DUTY_TRAIT_NORMAL_CHANCE,
-        per_submissive: -setup.DUTY_TRAIT_NORMAL_CHANCE,
-      },
-      is_can_replace_with_specialist: true,
-    });
+  constructor(init: DutyTemplateInit) {
+    super(init);
   }
 
   override advanceWeek(duty_instance: DutyInstance) {

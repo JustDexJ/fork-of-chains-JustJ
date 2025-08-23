@@ -76,7 +76,9 @@ export class Skill extends TwineClass {
     // e.g., [1, 2, 3, 4, 5, ...] or {'brawn': 1}
     if (Array.isArray(array_or_obj)) {
       if (array_or_obj.length != setup.skill.length)
-        throw new Error(`${array_or_obj} length not correct`);
+        throw new Error(
+          `Skill values array length not correct: ${array_or_obj}`,
+        );
       return array_or_obj;
     }
     let result = Array(setup.skill.length).fill(0);

@@ -1,5 +1,0 @@
-:: LoadTagCard [nobr widget]
-
-<<focwidget 'tagcard'>>
-  <span class='tagcard'><<= $args[0]>></span>
-<</focwidget>>

@@ -5,7 +5,7 @@ import type { LoreKey } from "../../../Lore";
 import type { QuestTemplateKey } from "../../../quest/QuestTemplate";
 import type { TitleKey } from "../../../title/Title";
 import type { DutyInstance } from "../../DutyInstance";
-import { DutyTemplate } from "../../DutyTemplate";
+import { DutyTemplate, type DutyTemplateInit } from "../../DutyTemplate";
 
 const EXTRA_HIGH_PROFIT_THRESHOLD = 300;
 
@@ -473,24 +473,8 @@ function brothelDescription(): DOM.Node {
 }
 
 export class DutyTemplateQuestBrothelManager extends DutyTemplate {
-  constructor() {
-    super({
-      key: "questbrothelmanager",
-      name: "Brothel Manager",
-      description_passage: "DutyQuestBrothelManager",
-      type: "util",
-      unit_restrictions: [setup.qres.Job("slaver")],
-      relevant_skills: {
-        slaving: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 2,
-        social: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 2,
-      },
-      relevant_traits: {
-        skill_connected: setup.DUTY_TRAIT_CRIT_CHANCE,
-        per_gregarious: setup.DUTY_TRAIT_NORMAL_CHANCE,
-        per_loner: -setup.DUTY_TRAIT_NORMAL_CHANCE,
-      },
-      is_can_replace_with_specialist: true,
-    });
+  constructor(init: DutyTemplateInit) {
+    super(init);
   }
 
   QUEST_BROTHEL_WAIT = "quest_brothel_wait";

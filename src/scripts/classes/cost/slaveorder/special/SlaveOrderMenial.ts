@@ -13,7 +13,7 @@ export default class SlaveOrderMenial extends SlaveOrderTemplate {
       [] /* critical, */,
       [] /* disaster, */,
       [/* restrictions */ setup.qres.Job("slave")],
-      {} /* skill effects */,
+      {} /* skill multis */,
     );
     this.name = "Order for a menial slave from a nearby mine";
     this.company_key = "independent";

@@ -1,26 +1,10 @@
 import { Constants } from "../../../constants";
 import type { DutyInstance } from "../DutyInstance";
-import { DutyTemplate } from "../DutyTemplate";
+import { DutyTemplate, type DutyTemplateInit } from "../DutyTemplate";
 
 export class DutyTemplateMarketer extends DutyTemplate {
-  constructor() {
-    super({
-      key: "marketer",
-      name: "Marketer",
-      description_passage: "DutyMarketer",
-      type: "util",
-      unit_restrictions: [setup.qres.Job("slaver")],
-      relevant_skills: {
-        slaving: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 2,
-        social: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 2,
-      },
-      relevant_traits: {
-        skill_connected: setup.DUTY_TRAIT_CRIT_CHANCE,
-        per_gregarious: setup.DUTY_TRAIT_NORMAL_CHANCE,
-        per_loner: -setup.DUTY_TRAIT_NORMAL_CHANCE,
-      },
-      is_can_replace_with_specialist: true,
-    });
+  constructor(init: DutyTemplateInit) {
+    super(init);
   }
 
   override advanceWeek(duty_instance: DutyInstance) {

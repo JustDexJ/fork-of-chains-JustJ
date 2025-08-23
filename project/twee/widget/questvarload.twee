@@ -1,4 +1,0 @@
-:: LoadQuestVarLoadWidget [nobr widget]
-<<focwidget "questvarload">>
-  <<run setup.DOM.Helper.loadQuestVars($args[0])>>
-<</focwidget>>

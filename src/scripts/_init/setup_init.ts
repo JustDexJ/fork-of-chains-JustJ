@@ -38,10 +38,7 @@ import { rarity, Rarity } from "../classes/deck/Rarity.js";
 import { DutyInstance } from "../classes/duty/DutyInstance.js";
 import { DutyList } from "../classes/duty/DutyList.js";
 import { DutyTemplate } from "../classes/duty/DutyTemplate.js";
-import {
-  DUTY_TEMPLATE_SUBCLASSES,
-  dutytemplate,
-} from "../classes/duty/subtypes/_index.js";
+import * as DUTY_TEMPLATE_SUBCLASSES from "../classes/duty/subtypes/_index.js";
 import { DutyInstanceBedchamberSlave } from "../classes/duty/subtypes/BedchamberSlave.js";
 import { DutyInstancePrestigeSlave } from "../classes/duty/subtypes/PrestigeSlave.js";
 import { Armory } from "../classes/equipment/Armory.js";
@@ -450,7 +447,7 @@ const setup_ = {
   rarity,
 
   /** Holds singleton instances of DutyTemplate subclasses */
-  dutytemplate,
+  dutytemplate: {} as unknown as Registry<DutyTemplate>,
 
   equipmentslot: {} as unknown as Registry<EquipmentSlot>,
   furnitureslot: {} as unknown as Registry<FurnitureSlot>,

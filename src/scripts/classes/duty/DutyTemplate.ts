@@ -1,3 +1,4 @@
+import type { DUTY_TEMPLATE_DEFINITIONS } from "../../data/duties/_index";
 import { TwineClass } from "../_TwineClass";
 import type { Job } from "../job/Job";
 import Job_ from "../restriction/unit/Job";
@@ -5,23 +6,43 @@ import type { SkillKey, SkillKeyword } from "../Skill";
 import type { Trait, TraitKey } from "../trait/Trait";
 import type { Unit } from "../unit/Unit";
 import type { DutyInstance } from "./DutyInstance";
-import type { DutyTemplateKey_ } from "./subtypes/_index";
+import * as DUTY_TEMPLATE_SUBCLASSES from "./subtypes/_index";
 
 export type DutyTemplateType = keyof (typeof DutyTemplate)["TYPE"];
 
-export type DutyTemplateKey = DutyTemplateKey_; //BrandedType<string, "DutyTemplateKey">;
+export type DutyTemplateKey = keyof typeof DUTY_TEMPLATE_DEFINITIONS;
 
 export interface DutyTemplateInit {
   key: string;
   type: DutyTemplateType;
   name: string;
-  description_passage: string;
+  description: string;
   unit_restrictions: Restriction[];
   relevant_traits?: { [k in TraitKey]?: number };
   relevant_skills?: { [k in SkillKey | SkillKeyword]?: number };
   is_can_replace_with_specialist?: boolean;
   is_allow_leader?: boolean;
 }
+
+type SubclassesInit = {
+  [k in keyof typeof DUTY_TEMPLATE_SUBCLASSES]: ConstructorParameters<
+    (typeof DUTY_TEMPLATE_SUBCLASSES)[k]
+  >;
+};
+
+type SubclassDef = {
+  [k in keyof SubclassesInit]: {
+    /**
+     * If provided, will be created using the specified subclass of DutyTemplate.
+     * Used for duties that need to add additional logic such as end-of-week logic.
+     */
+    $class: k;
+  } & Omit<SubclassesInit[k][0], "key">;
+}[keyof SubclassesInit];
+
+export type DutyTemplateDefinition =
+  | SubclassDef
+  | Omit<DutyTemplateInit, "key">;
 
 /**
  * Base class for all duty templates
@@ -43,7 +64,7 @@ export class DutyTemplate<
   key: DutyTemplateKey;
   type: DutyTemplateType;
   name: string;
-  description_passage: string;
+  description: string;
   unit_restrictions: Restriction[];
   relevant_traits: { [k in TraitKey]?: number };
   relevant_skills: { [k in SkillKey | SkillKeyword]?: number };
@@ -56,7 +77,7 @@ export class DutyTemplate<
     key,
     type,
     name,
-    description_passage,
+    description,
     unit_restrictions,
     relevant_traits,
     relevant_skills,
@@ -71,7 +92,7 @@ export class DutyTemplate<
       throw new Error(`Unrecognized duty type ${type}`);
 
     this.name = name;
-    this.description_passage = description_passage;
+    this.description = description;
     this.unit_restrictions = setup.deepCopy(unit_restrictions);
     if (!is_allow_leader) {
       this.unit_restrictions.push(setup.qres.NotYou());
@@ -188,8 +209,8 @@ export class DutyTemplate<
     return this.type;
   }
 
-  getDescriptionPassage(): string {
-    return this.description_passage;
+  getDescription(): string {
+    return this.description;
   }
 
   getUnitRestrictions(): Restriction[] {
@@ -234,7 +255,4 @@ export class DutyTemplate<
     const image = `img/tag_duty/${type}.svg`;
     return setup.repImgIcon(image, tooltip);
   }
-
-  // Initialized at "./_index.ts"
-  static initializeSingletons = () => {};
 }

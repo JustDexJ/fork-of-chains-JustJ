@@ -1,9 +1,0 @@
-:: LoadQuestWidget [nobr widget]
-
-<<focwidget "questauthorcard">>
-  <<set _template = $args[0]>>
-  <<if _template.getAuthor().name>>
-    <<questauthorcardtext _template.getAuthor()>>
-  <</if>>
-<</focwidget>>
-

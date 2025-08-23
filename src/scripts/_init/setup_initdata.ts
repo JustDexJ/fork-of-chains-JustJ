@@ -7,7 +7,6 @@ import { BuildingTemplate } from "../classes/BuildingTemplate";
 import { CompanyTemplate } from "../classes/CompanyTemplate";
 import { ContactTemplate } from "../classes/contact/ContactTemplate";
 import { UnitCriteria } from "../classes/criteria/UnitCriteria";
-import { DutyTemplate } from "../classes/duty/DutyTemplate";
 import { Equipment } from "../classes/equipment/Equipment";
 import { EquipmentPool } from "../classes/equipment/EquipmentPool";
 import { EquipmentPoolGroup } from "../classes/equipment/EquipmentPoolGroup";
@@ -21,6 +20,7 @@ import {
 import { COMPANY_DEFINITIONS } from "../data/companies";
 import { CONTACT_TEMPLATE_DEFINITIONS } from "../data/contacts/_index";
 import { CRITERIA_DEFINITIONS } from "../data/criteria/_index";
+import { DUTY_TEMPLATE_DEFINITIONS } from "../data/duties/_index";
 import { EQUIPMENT_POOL_GROUP_DEFINITIONS } from "../data/equipments/_equipmentpools";
 import {
   EQUIPMENT_DEFINITIONS,
@@ -149,7 +149,7 @@ DataUtil.load(QuestPool, QUEST_POOL_DEFINITIONS);
 DataUtil.load(ContactTemplate, CONTACT_TEMPLATE_DEFINITIONS);
 
 // Duty Templates
-DutyTemplate.initializeSingletons();
+DataUtil.loadDuties(DUTY_TEMPLATE_DEFINITIONS);
 
 // Building Templates & Room Templates
 {

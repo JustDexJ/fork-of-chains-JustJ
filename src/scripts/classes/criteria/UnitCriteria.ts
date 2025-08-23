@@ -33,7 +33,7 @@ export class UnitCriteria extends TwineClass {
   readonly crit_trait_map: { [traitKey in TraitKey]?: boolean };
   readonly disaster_trait_map: { [traitKey in TraitKey]?: boolean };
   readonly restrictions: Restriction[];
-  readonly skill_multis: SkillValuesArray;
+  readonly skill_multis: SkillValuesInit;
 
   constructor(
     key: string | null,
@@ -101,7 +101,17 @@ export class UnitCriteria extends TwineClass {
     }
 
     this.restrictions = def.restrictions;
-    this.skill_multis = Skill.translate(def.skill_multis);
+
+    this.skill_multis = def.skill_multis;
+    Object.defineProperty(this, "skill_multis", { value: def.skill_multis });
+    if (Array.isArray(def.skill_multis) && !def.skill_multis.length) {
+      throw new Error(
+        `Skill multis cannot be an empty array (you can use an empty object instead)`,
+      );
+    }
+    if (def.name === "Menial Slave Order") {
+      debugger;
+    }
 
     if (key) {
       if (key in setup.qu)
@@ -140,7 +150,7 @@ export class UnitCriteria extends TwineClass {
   }
 
   getSkillMultis(): SkillValuesArray {
-    return this.skill_multis;
+    return Skill.translate(this.skill_multis);
   }
 
   getCritTraits(): Trait[] {
@@ -215,11 +225,14 @@ export class UnitCriteria extends TwineClass {
     let stat_mod_plus = 0;
     let stat_mod_neg = 0;
     let unit_skills = unit.getSkills();
-    for (let i = 0; i < this.skill_multis.length; ++i) {
-      if (this.skill_multis[i] > 0)
-        stat_mod_plus += this.skill_multis[i] * unit_skills[i];
-      if (this.skill_multis[i] < 0)
-        stat_mod_neg -= this.skill_multis[i] * unit_skills[i];
+    const skill_multis = this.getSkillMultis();
+    for (let i = 0; i < skill_multis.length; ++i) {
+      if (skill_multis[i] > 0) {
+        stat_mod_plus += skill_multis[i] * unit_skills[i];
+      }
+      if (skill_multis[i] < 0) {
+        stat_mod_neg -= skill_multis[i] * unit_skills[i];
+      }
     }
 
     return {

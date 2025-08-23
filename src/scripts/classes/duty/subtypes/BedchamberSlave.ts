@@ -1,18 +1,5 @@
 import type { Bedchamber, BedchamberKey } from "../../bedchamber/BedChamber";
 import { DutyInstance } from "../DutyInstance";
-import { DutyTemplate } from "../DutyTemplate";
-
-export class DutyTemplateBedchamberSlave extends DutyTemplate {
-  constructor() {
-    super({
-      key: "bedchamberslave",
-      type: "bedchamber",
-      name: "Bedchamber Slave",
-      description_passage: "DutyBedchamberSlave",
-      unit_restrictions: [setup.qres.Job("slave")],
-    });
-  }
-}
 
 export class DutyInstanceBedchamberSlave extends DutyInstance {
   bedchamber_key: BedchamberKey;

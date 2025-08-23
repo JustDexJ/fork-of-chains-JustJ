@@ -1,3 +1,8 @@
+import {
+  DutyTemplate,
+  type DutyTemplateDefinition,
+} from "../classes/duty/DutyTemplate";
+import * as DUTY_TEMPLATE_SUBCLASSES from "../classes/duty/subtypes/_index";
 import { Furniture } from "../classes/furniture/Furniture";
 import type { ItemDefinition } from "../classes/inventory/Item";
 import { ItemLorebook } from "../classes/inventory/subtypes/ItemLorebook";
@@ -125,6 +130,25 @@ export namespace DataUtil {
           new Furniture(key, def);
           break;
       }
+    }
+  }
+
+  export function loadDuties(defs: Record<string, DutyTemplateDefinition>) {
+    /** Holds singleton instances of DutyTemplate subclasses */
+    //export const dutytemplate: Record<DutyTemplateKey_, DutyTemplate> = {} as any;
+
+    // This initialization is delayed because it depends on the traits being defined already
+    const dutytemplate = setup.dutytemplate as any;
+    for (const [key, def] of objectEntries(defs)) {
+      let klass = DutyTemplate as { new (arg: object): any };
+      if ("$class" in def) {
+        klass =
+          (DUTY_TEMPLATE_SUBCLASSES[
+            def.$class as keyof typeof DUTY_TEMPLATE_SUBCLASSES
+          ] as any) || klass;
+      }
+
+      dutytemplate[key] = new klass({ key, ...def });
     }
   }
 

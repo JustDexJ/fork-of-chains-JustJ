@@ -1,34 +1,11 @@
 import type { Company } from "../../../Company";
 import type { TitleKey } from "../../../title/Title";
 import type { DutyInstance } from "../../DutyInstance";
-import { DutyTemplate } from "../../DutyTemplate";
+import { DutyTemplate, type DutyTemplateInit } from "../../DutyTemplate";
 
 export class DutyTemplateQuestLivingGod extends DutyTemplate {
-  constructor() {
-    super({
-      key: "questlivinggod",
-      name: "Living God",
-      description_passage: "DutyQuestLivingGod",
-      type: "util",
-      unit_restrictions: [
-        setup.qres.Job("slaver"),
-        setup.qres.Trait("bg_mythical"),
-        setup.qres.HasTitle("quest_living_god"),
-      ],
-      relevant_skills: {
-        social: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 3,
-        intrigue: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 3,
-        aid: setup.DUTY_SKILL_MULTIPLIER_TOTAL / 3,
-      },
-      relevant_traits: {
-        magic_light_master: setup.DUTY_TRAIT_CRIT_CHANCE,
-        magic_light: setup.DUTY_TRAIT_NORMAL_CHANCE,
-        magic_fire_master: setup.DUTY_TRAIT_CRIT_CHANCE,
-        magic_fire: setup.DUTY_TRAIT_NORMAL_CHANCE,
-        magic_dark_master: -setup.DUTY_TRAIT_CRIT_CHANCE,
-        magic_dark: -setup.DUTY_TRAIT_NORMAL_CHANCE,
-      },
-    });
+  constructor(init: DutyTemplateInit) {
+    super(init);
   }
 
   isFavor(): boolean {

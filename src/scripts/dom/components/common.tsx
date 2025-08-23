@@ -1,6 +1,6 @@
 import { Show, createSignal } from "solid-js";
 import type { LoreKey } from "../../classes/Lore.js";
-import { unitRep } from "../../macro/rep.js";
+import { unitRep } from "../../macro/content/rep.js";
 import { reload } from "../nav/nav.js";
 import "./ToggleSwitch.css";
 export { DOM_Text as Text } from "../text/text.js";

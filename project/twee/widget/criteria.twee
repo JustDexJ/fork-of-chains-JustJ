@@ -1,6 +1,0 @@
-:: LoadCriteriaWidget [nobr widget]
-
-<<focwidget "criteriacard">>
-  <<set _dom = setup.DOM.Card.criteria($args[0], $args[1])>>
-  <<attach _dom>>
-<</focwidget>>
