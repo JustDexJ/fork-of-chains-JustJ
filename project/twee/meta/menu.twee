@@ -74,3 +74,11 @@
   <</timed>>
 </div>
 
+
+
+
+:: StoryTopBar [nobr]
+
+<div>
+  <<=setup.DOM.Util.money($company.player.getMoney())>>
+</div>

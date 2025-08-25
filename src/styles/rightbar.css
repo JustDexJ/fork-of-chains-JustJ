@@ -7,7 +7,7 @@ http://twinery.org/forum/discussion/comment/17617/
 #right-ui-bar {
   --bg-color: #222;
   background-color: #222;
-  border-right: 1px solid #444;
+  border-left: 1px solid #444;
 }
 
 #right-ui-bar-toggle {
@@ -113,6 +113,7 @@ http://twinery.org/forum/discussion/comment/17617/
 #right-ui-bar.stowed {
   right: -15.5em;
   background-color: transparent;
+  border: none;
 }
 
 #right-ui-bar.stowed #right-ui-bar-toggle {
