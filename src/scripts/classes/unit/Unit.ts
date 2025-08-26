@@ -320,7 +320,7 @@ export class Unit extends TwineClass {
   /**
    * Force remove a perk choice. Relevant for special perks.
    */
-  removePerkChoice(trait: Trait | Perk) {
+  removePerkChoice(trait: Trait | Perk): void {
     if (trait.getTags().includes("perkbasic")) {
       throw new Error(
         `Can only remove non-basic traits from perk choice, not ${trait.key}!`,
@@ -369,7 +369,7 @@ export class Unit extends TwineClass {
     );
   }
 
-  delete() {
+  delete(): void {
     // there is a check here because sometimes the unit can be removed and then immediately added again
     // e.g., see Light in Darkness disaster results.
 
@@ -392,7 +392,7 @@ export class Unit extends TwineClass {
     }
   }
 
-  checkDelete() {
+  checkDelete(): void {
     let check_obj = State.variables.unit[this.key];
     if (check_obj && check_obj._isCanDelete()) {
       setup.queueDelete(check_obj, "unit");
@@ -407,7 +407,7 @@ export class Unit extends TwineClass {
     return State.variables.retiredlist.getLiving(this);
   }
 
-  advanceWeek() {
+  advanceWeek(): void {
     if (this.isYourCompany()) {
       this.weeks_with_you += 1;
     }
@@ -419,11 +419,11 @@ export class Unit extends TwineClass {
     this.resetCache();
   }
 
-  reSeed() {
+  reSeed(): void {
     this.seed = Math.floor(Math.random() * 999999997);
   }
 
-  setName(firstname: string, surname: string) {
+  setName(firstname: string, surname: string): void {
     let changenick = this.nickname == this.first_name;
     this.first_name = firstname;
     this.surname = surname;
@@ -432,19 +432,19 @@ export class Unit extends TwineClass {
     this.resetCache();
   }
 
-  getWeeksWithCompany() {
+  getWeeksWithCompany(): number {
     return this.weeks_with_you;
   }
 
-  resetWeeksWithCompany() {
+  resetWeeksWithCompany(): void {
     this.weeks_with_you = 0;
   }
 
-  getOrigin() {
+  getOrigin(): string {
     return setup.Text.replaceUnitMacros(this.origin || "", { a: this });
   }
 
-  setOrigin(origin_text: string) {
+  setOrigin(origin_text: string): void {
     this.origin = origin_text;
     this.resetCache();
   }
@@ -514,7 +514,7 @@ export class Unit extends TwineClass {
     return State.variables.cache.get("unitvalue", this.key) || 0;
   }
 
-  getSluttinessLimit() {
+  getSluttinessLimit(): number {
     if (this.isYou()) return setup.INFINITY;
 
     let base;
@@ -598,7 +598,7 @@ export class Unit extends TwineClass {
    * Get a pseudo-random number based on this unit's seed and the given string.
    * Useful for making the unit has certain property, e.g., which preferred weapon
    */
-  Seed(stringobj: string) {
+  Seed(stringobj: string): number {
     let t = `${stringobj}_${this.seed}`;
     let res = Math.abs(t.hashCode()) % 1000000009;
     return res;
@@ -607,7 +607,7 @@ export class Unit extends TwineClass {
   /**
    * Gets a random value between 0 and almost 1.0. Never returns 1.0
    */
-  seedFloat(stringobj: string) {
+  seedFloat(stringobj: string): number {
     const val = this.Seed(stringobj);
     return val / 1000000009.0;
   }
@@ -661,7 +661,7 @@ export class Unit extends TwineClass {
     return null;
   }
 
-  isUsableBy(unit: Unit) {
+  isUsableBy(unit: Unit): boolean {
     if (State.variables.hospital.isInjured(this)) return false;
     if (!this.isHome()) return false;
     let bedchamber = this.getBedchamber();
@@ -676,7 +676,7 @@ export class Unit extends TwineClass {
   /**
    * Clears this unit's cache.
    */
-  clearCache() {
+  clearCache(): void {
     this.resetTraitMapCache();
     this.resetSkillCache();
     // reset unit value cache
@@ -687,7 +687,7 @@ export class Unit extends TwineClass {
    * Resets this unit's cache, because something has changed.
    * resetImage can repopulate the cleared cache. Do not use this method when preparing to delete a unit.
    */
-  resetCache() {
+  resetCache(): void {
     this.clearCache();
     State.variables.unitimage.resetImage(this);
   }
@@ -742,7 +742,7 @@ export class Unit extends TwineClass {
     return true;
   }
 
-  setDebugInfo(content_template: ContentTemplate<string>) {
+  setDebugInfo(content_template: ContentTemplate<string>): void {
     if (!this.debug_generator_key) {
       this.debug_generator_key = content_template.key;
       this.debug_generator_type = content_template.TYPE;
@@ -888,7 +888,7 @@ export class Unit extends TwineClass {
     return setup.trait.training_mindbreak.key in this.trait_key_map;
   }
 
-  isDefiant() {
+  isDefiant(): boolean {
     return (
       this.isHasTrait("will_defiant") || this.isHasTrait("will_indomitable")
     );
@@ -956,7 +956,7 @@ export class Unit extends TwineClass {
     return State.variables.titlelist.isHasTitle(this, title);
   }
 
-  addTitle(title: Title) {
+  addTitle(title: Title): void {
     return State.variables.titlelist.addTitle(this, title);
   }
 
@@ -967,7 +967,7 @@ export class Unit extends TwineClass {
     );
   }
 
-  getGenitalCovering() {
+  getGenitalCovering(): Equipment | null {
     const legs = this.getEquipmentAt(setup.equipmentslot.legs);
     if (legs && legs.isCovering()) {
       return legs;
@@ -981,7 +981,7 @@ export class Unit extends TwineClass {
     return null;
   }
 
-  getChestCovering() {
+  getChestCovering(): Equipment | null {
     const torso = this.getEquipmentAt(setup.equipmentslot.torso);
     if (torso && torso.isCovering()) {
       return torso;
@@ -1012,7 +1012,7 @@ export class Unit extends TwineClass {
     return State.variables.friendship.getBestFriend(this);
   }
 
-  getOwnedBedchambers(): Bedchamber[] {
+  getOwnedBedchambers(): readonly Bedchamber[] {
     if (this.isSlaver()) {
       return State.variables.bedchamberlist.getBedchambers({
         slaver: this,
@@ -1023,11 +1023,11 @@ export class Unit extends TwineClass {
 
   // #region EXP & LEVEL
 
-  getLevel() {
+  getLevel(): number {
     return this.level;
   }
 
-  resetLevel() {
+  resetLevel(): void {
     this.level = 1;
     this.exp = 0;
     this.skills = setup.deepCopy(this.base_skills);
@@ -1037,7 +1037,7 @@ export class Unit extends TwineClass {
     this.resetCache();
   }
 
-  levelUp(levels: number = 1) {
+  levelUp(levels: number = 1): void {
     let skill_gains: SkillValuesArray = [];
     for (let i = 0; i < levels; ++i) {
       this.level += 1;
@@ -1089,11 +1089,11 @@ export class Unit extends TwineClass {
     this.resetCache();
   }
 
-  getExp() {
+  getExp(): number {
     return this.exp;
   }
 
-  getExpForNextLevel() {
+  getExpForNextLevel(): number {
     let level = this.getLevel();
     if (level < setup.LEVEL_PLATEAU) {
       let exponent = Math.pow(
@@ -1111,7 +1111,7 @@ export class Unit extends TwineClass {
     }
   }
 
-  getOnDutyExp() {
+  getOnDutyExp(): number {
     if (this.getLevel() >= setup.LEVEL_PLATEAU) {
       return Math.round(
         (setup.EXP_DUTY_MULTIPLIER * setup.EXP_LEVEL_PLATEAU) /
@@ -1133,11 +1133,11 @@ export class Unit extends TwineClass {
     trait: Trait | null,
     trait_group?: TraitGroup | null,
     is_replace?: boolean,
-  ) {
+  ): Trait | null {
     return UnitTraitsHelper.addTrait.call(this, trait, trait_group, is_replace);
   }
 
-  decreaseTrait(trait_group: TraitGroup) {
+  decreaseTrait(trait_group: TraitGroup): Trait | null {
     if (!trait_group) {
       throw new Error(`Missing trait group in decreaseTrait`);
     }
@@ -1161,7 +1161,7 @@ export class Unit extends TwineClass {
   /**
    * Set a trait as an innate trait, replacing all conflicting ones
    */
-  makeInnateTrait(trait: Trait, trait_group?: TraitGroup) {
+  makeInnateTrait(trait: Trait, trait_group?: TraitGroup): void {
     if (!trait.getTags().includes("skin"))
       throw new Error(`Can only make innate traits from skin traits`);
     trait_group = trait_group || trait.getTraitGroup();
@@ -1180,7 +1180,7 @@ export class Unit extends TwineClass {
   /**
    * Reset a unit's innate traits
    */
-  setInnateTraits(traits: Trait[]) {
+  setInnateTraits(traits: Trait[]): void {
     this.innate_trait_key_map = {};
     for (const trait of traits) {
       this.innate_trait_key_map[trait.key] = 1;
@@ -1347,7 +1347,7 @@ export class Unit extends TwineClass {
   /**
    * Remove all traits with this tag
    */
-  removeTraitsWithTag(trait_tag: string) {
+  removeTraitsWithTag(trait_tag: string): void {
     const to_remove = [];
     const traits = this.getTraits();
 

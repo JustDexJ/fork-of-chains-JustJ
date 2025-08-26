@@ -45,12 +45,12 @@ export class BuildingInstance extends TwineClass {
     return this.level < template.getMaxLevel();
   }
 
-  getUpgradeCost(): Cost[] {
+  getUpgradeCost(): readonly Cost[] {
     let template = this.getTemplate();
     return template.getCost(this.level);
   }
 
-  getUpgradePrerequisite(): Restriction[] {
+  getUpgradePrerequisite(): readonly Restriction[] {
     let template = this.getTemplate();
     return template.getPrerequisite(this.level);
   }

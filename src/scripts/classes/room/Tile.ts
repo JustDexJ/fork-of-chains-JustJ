@@ -309,15 +309,20 @@ export class Tile extends TwineClass {
     ) {
       const activity = State.variables.activitylist.getActivityAt(room);
       if (activity) {
-        outer_extra += `<span class='activity-unit-container'>${activity.getDisplay()}</span>`;
+        outer_extra += `<aside class='activity-unit-container'>${activity.getDisplay()}</aside>`;
       }
+    }
+
+    const entrances = this.entranceOfRooms();
+    for (const entrance of entrances) {
+      outer_extra += `<aside class="fortgrid-entrance fortgrid-entrance-${entrance.getClockwiseRotations()}"></aside>`;
     }
 
     // background tile
     const tile_path_raw = `img/room/${location}_floor${rng}.png`;
     const tile_url = setup.escapeHtml(setup.resolveImageUrl(tile_path_raw));
     const url = setup.escapeHtml(setup.resolveImageUrl(image_path_raw));
-    return `${outer_extra}<div style="background-image: url('${tile_url}'); width:${divwidth}px; height:${divheight}px" class="${classes.join(" ")}" ${tooltip ? `data-tooltip="${tooltip}" data-tooltip-wide` : ""}>${extras}<img ${rotatestyle ? `style="transform: ${rotatestyle};"` : ""} width="${width}" height="${height}" class="${imgclass.join(" ")}" src="${url}"/>${caption}</div>`;
+    return `${outer_extra}<div style="background-image: url('${tile_url}'); width:${divwidth}px; height:${divheight}px" class="${classes.join(" ")}" ${tooltip ? `data-tooltip="${tooltip}" data-tooltip-med` : ""}>${extras}<img ${rotatestyle ? `style="transform: ${rotatestyle};"` : ""} width="${width}" height="${height}" class="${imgclass.join(" ")}" src="${url}"/>${caption}</div>`;
   }
 
   static getZoom(): number {

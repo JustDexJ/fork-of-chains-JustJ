@@ -480,13 +480,13 @@ that you can play the game without even bothering with this bonus if you prefer.
     } else if (["delete"].includes(this.mode)) {
       menus.push(
         menuItemText({
-          text: `Click to remove`,
+          text: `Click a room to remove`,
         }),
       );
     } else if (["edit"].includes(this.mode) && this.is_show_renovation) {
       menus.push(
         menuItemText({
-          text: `Click to move`,
+          text: `Click a room to move`,
         }),
       );
     }
@@ -583,7 +583,7 @@ that you can play the game without even bothering with this bonus if you prefer.
       const unplaced = State.variables.roomlist.getUnplacedRooms().length;
       menus.push(
         menuItemAction({
-          text: `View / Upgrade`,
+          text: `View/upgrade buildings`,
           tooltip: `See all buildings as well as upgrade existing ones`,
           callback: () => {
             setup.DevToolHelper.saveScrollPos();
@@ -610,7 +610,7 @@ that you can play the game without even bothering with this bonus if you prefer.
           },
         }),
         menuItemAction({
-          text: this.is_show_renovation ? `Renovate / Expand` : `Expand`,
+          text: this.is_show_renovation ? `Relocate / Expand` : `Expand`,
           tooltip: this.is_show_renovation
             ? `Expand the size of your fort as well as move rooms around`
             : `Expand the size of your fort either inwards or outwards`,

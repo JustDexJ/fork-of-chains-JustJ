@@ -352,7 +352,8 @@ export class FortGrid extends FortGridBase {
       !is_skip_pathing &&
       !this.isEmptySpaceRemainsConnected(room, location_top_left)
     ) {
-      return `Room cannot divide the remaining empty spaces into two or more parts`;
+      //return `Room cannot divide the remaining empty spaces into two or more parts`;
+      return `Other rooms would become inaccessible`;
     }
 
     return null;

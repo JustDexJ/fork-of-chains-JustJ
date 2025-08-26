@@ -56,6 +56,13 @@ function createTooltipInstanceIfMissing(target: Element) {
     undefined) as Placement | undefined;
   const distance = +target.getAttribute("data-tooltip-distance")! || 0;
 
+  let maxWidth: number | undefined = undefined;
+  if (target.getAttribute("data-tooltip-wide") !== null) {
+    maxWidth = 860;
+  } else if (target.getAttribute("data-tooltip-med") !== null) {
+    maxWidth = 480;
+  }
+
   instance = tippy(target, {
     content: content_element,
     duration: [showAnimDuration, 0], // animation duration
@@ -63,8 +70,7 @@ function createTooltipInstanceIfMissing(target: Element) {
       target.getAttribute("data-tooltip-delay") !== null
         ? [500, 0]
         : [showDelay, 0], // time on hover before tooltip opens
-    maxWidth:
-      target.getAttribute("data-tooltip-wide") !== null ? 860 : undefined,
+    maxWidth,
     trigger:
       target.getAttribute("data-tooltip-noclick") !== null
         ? "mouseenter"

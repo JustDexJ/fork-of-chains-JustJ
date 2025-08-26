@@ -82,7 +82,7 @@ export class UnitImage extends TwineClass {
   }
 
   getImagePath(unit: Unit): string {
-    this._doResetImage(unit);
+    this._removeImageIfNeeded(unit);
     if (unit.image === undefined) {
       this._updateImage(unit);
     }
@@ -229,34 +229,42 @@ export class UnitImage extends TwineClass {
   }
 
   /**
-   * Called when unit's trait set is changed
+   * Called when unit's trait set is changed,
+   * to invalidate the current image.
    */
   resetImage(unit: Unit, is_forced?: boolean) {
     unit.image_need_reset = !!is_forced;
   }
 
-  _doResetImage(unit: Unit) {
-    if (!unit.image) return;
-    const is_forced = !!unit.image_need_reset;
+  /**
+   * Removes the unit image if either:
+   *  - The image is invalid (it does not exist in the currently enabled imagepacks)
+   *  - The unit has `image_need_reset = true`
+   */
+  _removeImageIfNeeded(unit: Unit) {
+    if (unit.image_need_reset === undefined) return;
 
-    // images not loaded yet due to async computation:
+    // images not loaded yet (due to async loading), so do nothing for now
     if (!UnitImage.IMAGES_LOADED) return;
 
+    // Clear the "image_need_reset" flag
+    const is_forced = !!unit.image_need_reset;
     unit.image_need_reset = undefined;
 
-    if (!is_forced && unit.image) {
-      // if current image is still valid, do nothing.
+    // if no image assigned, no need to do anything
+    if (!unit.image) return;
+
+    if (!is_forced) {
+      // if not forcing reset, and current image is still valid, do nothing
       const possible_images = this.getImages(unit, true);
-      const current_image = this.getImageObject(unit);
-      if (possible_images.includes(current_image)) {
+      const current_image_path = UnitImage.getImageObject(unit.image).path;
+      if (possible_images.find((it) => it.path === current_image_path)) {
         return;
       }
     }
 
-    if (unit.image) {
-      this.image_last_used[unit.image] = this.image_use_counter;
-      unit.image = undefined;
-    }
+    this.image_last_used[unit.image] = this.image_use_counter;
+    unit.image = undefined;
   }
 
   /**
@@ -264,7 +272,7 @@ export class UnitImage extends TwineClass {
    */
   setImage(unit: Unit, image: ImageObject | string) {
     this.resetImage(unit, /* is forced = */ true);
-    this._doResetImage(unit);
+    this._removeImageIfNeeded(unit);
 
     const image_path = typeof image === "string" ? image : image.path;
     unit.image = image_path;

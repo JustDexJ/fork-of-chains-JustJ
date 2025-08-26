@@ -21,6 +21,11 @@
 
 .fortgrid-table > tbody > tr > td {
   position: relative;
+  transition: background-color 0.2s;
+}
+
+.fortgrid-table > tbody > tr > td > div {
+  transition: opacity 0.2s;
 }
 
 .tile-main-image {
@@ -80,13 +85,11 @@
 }
 
 .fortgrid-table td:hover:not(.fortgrid-expansion):not(.fortgrid-highlight) {
-  background-color: blue;
+  background-color: #0055ff;
 }
 
-.fortgrid-table
-  td:hover:not(.fortgrid-expansion)
-  > :not(.activity-unit-container),
-.fortgrid-highlight > :not(.activity-unit-container) {
+.fortgrid-table td:hover:not(.fortgrid-expansion) > div,
+.fortgrid-highlight > div {
   opacity: 0.5;
 }
 
@@ -99,24 +102,31 @@
 }
 
 .fortgrid-table .fortgrid-invalid-entrance:not(.fortgrid-expansion) {
-  background-color: rgb(255, 0, 200);
+  background-color: rgb(212, 0, 255);
 }
 
 .fortgrid-table .fortgrid-valid-entrance:not(.fortgrid-expansion) {
   background-color: rgb(0, 102, 128);
 }
 
-/* 0 = bottom, 1 = left, 2 = up, 3 = right */
-.fortgrid-table .fortgrid-entrance-0::after,
-.fortgrid-table .fortgrid-entrance-1::after,
-.fortgrid-table .fortgrid-entrance-2::after,
-.fortgrid-table .fortgrid-entrance-3::after {
-  font-family: tme-fa-icons;
+.fortgrid-table .fortgrid-entrance {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+.fortgrid-table .fortgrid-entrance::after {
+  font-family: sc-icons !important;
   font-style: normal;
-  font-weight: 400;
+  font-weight: normal;
   font-variant: normal;
-  text-transform: none;
   line-height: 1;
+  speak: never;
+  text-rendering: auto;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
   display: flex;
   position: absolute;
@@ -129,23 +139,31 @@
   align-items: center;
   scale: var(--fortgrid-scale);
   color: rgba(255, 255, 255, 0.6);
+
+  opacity: 0;
 }
+.fortgrid-table td:hover:not(.fortgrid-expansion) .fortgrid-entrance::after,
+.fortgrid-highlight .fortgrid-entrance::after {
+  opacity: 1;
+}
+
+/* 0 = bottom, 1 = left, 2 = up, 3 = right */
 .fortgrid-table .fortgrid-entrance-0::after {
-  content: "\e823";
+  content: "\f062";
   height: 60%;
 }
 .fortgrid-table .fortgrid-entrance-1::after {
-  content: "\e822";
+  content: "\f061";
   width: 60%;
   left: 40%;
 }
 .fortgrid-table .fortgrid-entrance-2::after {
-  content: "\e820";
+  content: "\f063";
   height: 60%;
   top: 40%;
 }
 .fortgrid-table .fortgrid-entrance-3::after {
-  content: "\e821";
+  content: "\f060";
   width: 60%;
 }
 
@@ -154,7 +172,7 @@
 }
 
 .fortgrid-table .fortgrid-neighbor {
-  background-color: purple;
+  background-color: cyan;
 }
 
 .fortgrid-expansion > div {

@@ -2,8 +2,10 @@
 
 <<set $gMenuVisible = true>>
 
-<<focbutton 'Fort' 'FortGrid'>>
+<<focbutton 'Back to Fort' 'FortGrid'>>
 <</focbutton>>
+
+<hr/>
 
 <<set _dom = setup.DOM.Menu.roomlist()>>
 <<attach _dom>>
