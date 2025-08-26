@@ -55,7 +55,6 @@ import type { Unit } from "../classes/unit/Unit";
 import type { UnitGroupKey } from "../classes/unit/UnitGroup";
 import { UnitImage } from "../classes/unit/UnitImage";
 import { VarStore } from "../classes/VarStore";
-import type { FortGridController } from "../dom/menu/fortgrid";
 
 // Types declared by State.variables "constructor"
 export type StateVariablesBase = ReturnType<typeof createEmptyState>;
@@ -83,8 +82,6 @@ function createEmptyState() {
     titlelist: new TitleList(),
     roomlist: new RoomList(),
     fortgrid: new FortGrid(),
-
-    gFortGridControl: undefined as FortGridController | null | undefined,
 
     // Init Companies
     company: {} as Registry<Company>,
@@ -255,6 +252,7 @@ export function initState(this: SugarCubeStoryVariables): void {
     }
 
     // special case for player company name
+    // FIXME
     this.company.player.name = this.company.player.getName();
   }
 

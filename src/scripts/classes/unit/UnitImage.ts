@@ -4,7 +4,7 @@ import "../../util/globalsettings"; // ensure globalsettings loads before this f
 import { createLogger } from "../../util/logger";
 import { TwineClass } from "../_TwineClass";
 import type { TraitKey } from "../trait/Trait";
-import type { Unit, UnitKey } from "./Unit";
+import type { Unit } from "./Unit";
 
 const IMAGEPACK_DIR_NAME = "imagepacks";
 
@@ -32,12 +32,6 @@ export class UnitImage extends TwineClass {
   static IMAGES_LOADED = false;
 
   /**
-   * Current used image.
-   * unit.key -> image_full_path
-   */
-  unit_image_map: Record<UnitKey, string> = {};
-
-  /**
    * image_full_path -> when was it last picked?
    */
   image_last_used: Record<string, number> = {};
@@ -46,8 +40,6 @@ export class UnitImage extends TwineClass {
    * image_full_path -> true if image should be ignored, because the player say so
    */
   image_ignored: Record<string, true> = {};
-
-  image_need_reset: Record<UnitKey, boolean> = {};
 
   /** counter for image_last_used */
   image_use_counter = 1;
@@ -76,10 +68,12 @@ export class UnitImage extends TwineClass {
    * Resets all unit images. Mainly for migrating between different type of unitpacks.
    */
   resetAllImages() {
-    this.unit_image_map = {};
+    for (const unit of Object.values(State.variables.unit)) {
+      unit.image = undefined;
+      unit.image_need_reset = undefined;
+    }
     this.image_last_used = {};
     this.image_ignored = {};
-    this.image_need_reset = {};
     this.image_use_counter = 1;
   }
 
@@ -87,10 +81,12 @@ export class UnitImage extends TwineClass {
     this.image_use_counter += Constants.UNIT_IMAGE_WEEKEND_MEMORY_LAPSE;
   }
 
-  getImagePath(unit: Unit) {
+  getImagePath(unit: Unit): string {
     this._doResetImage(unit);
-    if (!(unit.key in this.unit_image_map)) this._updateImage(unit);
-    return this.unit_image_map[unit.key];
+    if (unit.image === undefined) {
+      this._updateImage(unit);
+    }
+    return unit.image!;
   }
 
   getImageObject(unit: Unit) {
@@ -147,8 +143,10 @@ export class UnitImage extends TwineClass {
 
     // generate images that are already in use, effectively a "banlist"
     const used_image_paths: Record<string, boolean> = {};
-    for (const [unitkey, image_path] of objectEntries(this.unit_image_map)) {
-      used_image_paths[image_path] = true;
+    for (const unit of Object.values(State.variables.unit)) {
+      if (unit.image) {
+        used_image_paths[unit.image] = true;
+      }
     }
 
     // filter with the banlist
@@ -230,29 +228,23 @@ export class UnitImage extends TwineClass {
     return this.image_last_used[image.path];
   }
 
-  /** called when unit's trait set is changed
+  /**
+   * Called when unit's trait set is changed
    */
   resetImage(unit: Unit, is_forced?: boolean) {
-    this.image_need_reset[unit.key] = !!is_forced;
-  }
-
-  /** called when unit is deleted
-   */
-  deleteUnit(unit: Unit) {
-    delete this.image_need_reset[unit.key];
-    delete this.unit_image_map[unit.key];
+    unit.image_need_reset = !!is_forced;
   }
 
   _doResetImage(unit: Unit) {
-    if (!(unit.key in this.image_need_reset)) return;
-    const is_forced = this.image_need_reset[unit.key];
+    if (!unit.image) return;
+    const is_forced = !!unit.image_need_reset;
 
     // images not loaded yet due to async computation:
     if (!UnitImage.IMAGES_LOADED) return;
 
-    delete this.image_need_reset[unit.key];
+    unit.image_need_reset = undefined;
 
-    if (!is_forced && unit.key in this.unit_image_map) {
+    if (!is_forced && unit.image) {
       // if current image is still valid, do nothing.
       const possible_images = this.getImages(unit, true);
       const current_image = this.getImageObject(unit);
@@ -261,10 +253,9 @@ export class UnitImage extends TwineClass {
       }
     }
 
-    if (unit.key in this.unit_image_map) {
-      this.image_last_used[this.unit_image_map[unit.key]] =
-        this.image_use_counter;
-      delete this.unit_image_map[unit.key];
+    if (unit.image) {
+      this.image_last_used[unit.image] = this.image_use_counter;
+      unit.image = undefined;
     }
   }
 
@@ -276,7 +267,7 @@ export class UnitImage extends TwineClass {
     this._doResetImage(unit);
 
     const image_path = typeof image === "string" ? image : image.path;
-    this.unit_image_map[unit.key] = image_path;
+    unit.image = image_path;
     this.image_last_used[image_path] = this.image_use_counter;
     this.image_use_counter += 1;
   }
@@ -335,7 +326,7 @@ export class UnitImage extends TwineClass {
     // console.log(`Generating new identity for unit ${unit.key}`)
 
     // mark previous image as stale, if any
-    if (unit.key in this.unit_image_map) {
+    if (unit.image) {
       throw new Error(
         `resetImage() not called before _updateImage for ${unit}`,
       );

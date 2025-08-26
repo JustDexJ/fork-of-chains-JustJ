@@ -44,16 +44,29 @@
 
 .tile-caption {
   position: absolute;
-  background-color: rgba(32, 32, 32, 0.8);
+  /*background-color: rgba(32, 32, 32, 0.8);*/
   border-radius: 4px;
   font-size: x-small;
   z-index: 5;
   padding: 0 2px;
+
+  --shadow-color: #222;
+  text-shadow:
+    1px 1px 1px var(--shadow-color),
+    -1px 1px 1px var(--shadow-color),
+    1px -1px 1px var(--shadow-color),
+    -1px -1px 1px var(--shadow-color);
+
+  pointer-events: none;
+
+  & > span {
+    white-space: nowrap;
+  }
 }
 
 .tile-caption-top {
   top: 2px;
-  left: 2px; 
+  left: 2px;
 }
 
 .tile-caption-bottom {
@@ -115,12 +128,26 @@
   justify-content: center;
   align-items: center;
   scale: var(--fortgrid-scale);
-  color: rgba(255,255,255,0.6);
+  color: rgba(255, 255, 255, 0.6);
 }
-.fortgrid-table .fortgrid-entrance-0::after { content: '\e823'; height: 60%; }
-.fortgrid-table .fortgrid-entrance-1::after { content: '\e822'; width: 60%; left: 40%; }
-.fortgrid-table .fortgrid-entrance-2::after { content: '\e820'; height: 60%; top: 40%; }
-.fortgrid-table .fortgrid-entrance-3::after { content: '\e821'; width: 60%; }
+.fortgrid-table .fortgrid-entrance-0::after {
+  content: "\e823";
+  height: 60%;
+}
+.fortgrid-table .fortgrid-entrance-1::after {
+  content: "\e822";
+  width: 60%;
+  left: 40%;
+}
+.fortgrid-table .fortgrid-entrance-2::after {
+  content: "\e820";
+  height: 60%;
+  top: 40%;
+}
+.fortgrid-table .fortgrid-entrance-3::after {
+  content: "\e821";
+  width: 60%;
+}
 
 .fortgrid-table .fortgrid-path {
   background-color: yellow;

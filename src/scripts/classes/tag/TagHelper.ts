@@ -96,7 +96,7 @@ export class TagHelper {
   static getTagsRep(menu: MenuKey, tags: readonly string[]): string {
     const tag_map = setup.TagHelper.getTagsMap(menu);
     const taglist = Object.keys(tag_map);
-    const tag_copy = tags.filter((tag) => true);
+    const tag_copy = [...tags];
     tag_copy.sort((tag1, tag2) => {
       const idx1 = taglist.indexOf(tag1);
       const idx2 = taglist.indexOf(tag2);

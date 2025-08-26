@@ -304,8 +304,7 @@ export class Tile extends TwineClass {
     let outer_extra = "";
     if (
       room &&
-      State.variables.gFortGridControl &&
-      State.variables.gFortGridControl.mode == "view" &&
+      setup.gFortGridControl?.mode == "view" &&
       State.variables.menufilter.get("fortgrid", "show_activities") != "hide"
     ) {
       const activity = State.variables.activitylist.getActivityAt(room);
@@ -318,7 +317,7 @@ export class Tile extends TwineClass {
     const tile_path_raw = `img/room/${location}_floor${rng}.png`;
     const tile_url = setup.escapeHtml(setup.resolveImageUrl(tile_path_raw));
     const url = setup.escapeHtml(setup.resolveImageUrl(image_path_raw));
-    return `${outer_extra}<div style="background-image: url('${tile_url}'); width:${divwidth}px; height:${divheight}px" class="${classes.join(" ")}" ${tooltip ? `data-tooltip="${tooltip}"` : ""}>${extras}<img ${rotatestyle ? `style="transform: ${rotatestyle};"` : ""} width="${width}" height="${height}" class="${imgclass.join(" ")}" src="${url}"/>${caption}</div>`;
+    return `${outer_extra}<div style="background-image: url('${tile_url}'); width:${divwidth}px; height:${divheight}px" class="${classes.join(" ")}" ${tooltip ? `data-tooltip="${tooltip}" data-tooltip-wide` : ""}>${extras}<img ${rotatestyle ? `style="transform: ${rotatestyle};"` : ""} width="${width}" height="${height}" class="${imgclass.join(" ")}" src="${url}"/>${caption}</div>`;
   }
 
   static getZoom(): number {

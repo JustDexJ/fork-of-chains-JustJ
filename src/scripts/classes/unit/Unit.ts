@@ -65,48 +65,59 @@ export class Unit extends TwineClass {
   level: number;
   first_name: string;
   surname: string;
-  custom_image_name: string;
-  nickname: string;
+  nickname?: string;
+
+  /**
+   * Current used image from imagepacks, as the full image path
+   */
+  image?: string;
+
+  image_need_reset?: boolean;
+
+  /**
+   * Custom image path. Overrides the imagepack image if any.
+   */
+  custom_image_name?: string;
 
   /** Unit's traits */
-  trait_key_map: { [k in TraitKey]?: boolean } = {};
+  trait_key_map: { [k in TraitKey]?: 1 } = {};
 
   /** Unit's innate (skin) traits */
-  innate_trait_key_map: { [k in TraitKey]?: boolean } = {};
+  innate_trait_key_map: { [k in TraitKey]?: 1 } = {};
 
   /**
    * List of unit's extra perk choices.
    */
-  perk_keys_choices: TraitKey[] = [];
+  perk_keys_choices?: TraitKey[];
 
   /** Unit's speech type. */
-  speech_key: SpeechKey | null = null;
+  speech_key?: SpeechKey;
 
   job_key: JobKey = setup.job.unemployed.key;
 
   skills: SkillValuesArray = [];
 
   /** List of INVISIBLE tags. Useful for marking units for certain quests. */
-  tags: string[] = [];
+  tags?: string[];
 
   /** Skills at level 1. For implementing re-speccing later. */
   base_skills: SkillValuesArray = [];
 
   // this unit belongs to...
-  team_key: TeamKey | null = null;
-  party_key: PartyKey | null = null;
-  company_key: CompanyKey | null = null;
-  unit_group_key: UnitGroupKey | null = null;
-  duty_key: DutyInstanceKey | null = null;
-  contact_key: ContactKey | null = null;
+  team_key?: TeamKey;
+  party_key?: PartyKey;
+  company_key?: CompanyKey;
+  unit_group_key?: UnitGroupKey;
+  duty_key?: DutyInstanceKey;
+  contact_key?: ContactKey;
 
   // Current quest this unit is tied to. E.g., relevant mostly for actors
-  quest_key: QuestInstanceKey | null = null;
-  opportunity_key: OpportunityInstanceKey | null = null;
+  quest_key?: QuestInstanceKey = undefined;
+  opportunity_key?: OpportunityInstanceKey = undefined;
 
-  market_key: MarketKey | null = null;
+  market_key?: MarketKey = undefined;
 
-  equipment_set_key: EquipmentSetKey | null = null;
+  equipment_set_key?: EquipmentSetKey = undefined;
 
   exp = 0;
 
@@ -114,18 +125,16 @@ export class Unit extends TwineClass {
   weeks_with_you = 0;
 
   /** Flavor text to supplement unit origin */
-  origin = "";
+  origin?: string;
 
   /** The quest/event/interaction/etc that generates this unit. For debug only. */
-  debug_generator_type?: string | null = null;
+  debug_generator_type?: string;
   /** The quest/event/interaction/etc that generates this unit. For debug only. */
-  debug_generator_key?: string | null = null;
+  debug_generator_key?: string;
 
-  skill_focus_keys: SkillKey[] = [];
+  skill_focus_keys?: SkillKey[];
 
-  history: string[] = [];
-
-  is_speech_reset = true;
+  history?: string[];
 
   seed?: number;
 
@@ -157,19 +166,15 @@ export class Unit extends TwineClass {
     // some surname can be empty.
     this.surname = bothnamearray[1];
 
-    this.custom_image_name = "";
-
-    this.nickname = this.first_name;
-
     this.trait_key_map = {};
     this.innate_trait_key_map = {};
 
     for (const trait of traits) {
       if (!trait) throw new Error(`Unrecognized trait for unit ${this.name}`);
-      this.trait_key_map[trait.key] = true;
+      this.trait_key_map[trait.key] = 1;
       if (trait.getTags().includes("skin")) {
         // skin traits are innate
-        this.innate_trait_key_map[trait.key] = true;
+        this.innate_trait_key_map[trait.key] = 1;
       }
     }
 
@@ -215,7 +220,7 @@ export class Unit extends TwineClass {
    * Return list of all perks that this unit could possibly learn. Must re-check that the unit can actually learn it.
    */
   getPerkChoices(): Perk[] {
-    if (!this.perk_keys_choices.length) {
+    if (!this.perk_keys_choices?.length) {
       // generate extra perk choices.
 
       const perks: Perk[] = [];
@@ -292,7 +297,7 @@ export class Unit extends TwineClass {
     }
     // generate perks
     this.getPerkChoices();
-    if (this.perk_keys_choices.includes(trait.key)) {
+    if (this.perk_keys_choices!.includes(trait.key)) {
       // already know this perk
       if (this.isYourCompany()) {
         setup.notify(
@@ -303,7 +308,7 @@ export class Unit extends TwineClass {
       return false;
     }
 
-    this.perk_keys_choices.push(trait.key);
+    this.perk_keys_choices!.push(trait.key);
     if (this.isYourCompany()) {
       setup.notify(`a|Rep a|gain access to the ${trait.rep()} perk!`, {
         a: this,
@@ -323,12 +328,12 @@ export class Unit extends TwineClass {
     }
     // generate perks
     this.getPerkChoices();
-    if (!this.perk_keys_choices.includes(trait.key)) {
+    if (!this.perk_keys_choices!.includes(trait.key)) {
       // does not know the perk
       return;
     }
 
-    this.perk_keys_choices = this.perk_keys_choices.filter(
+    this.perk_keys_choices = this.perk_keys_choices!.filter(
       (key) => key != trait.key,
     );
     if (this.isYourCompany()) {
@@ -373,7 +378,6 @@ export class Unit extends TwineClass {
 
     if (check_obj && check_obj._isCanDelete()) {
       this.clearCache();
-      State.variables.unitimage.deleteUnit(this);
       State.variables.activitylist.removeUnitActivity(this);
       State.variables.hospital.deleteUnit(this);
       State.variables.friendship.deleteUnit(this);
@@ -423,7 +427,7 @@ export class Unit extends TwineClass {
     let changenick = this.nickname == this.first_name;
     this.first_name = firstname;
     this.surname = surname;
-    if (changenick) this.nickname = this.first_name;
+    if (changenick) this.nickname = undefined;
 
     this.resetCache();
   }
@@ -437,7 +441,7 @@ export class Unit extends TwineClass {
   }
 
   getOrigin() {
-    return setup.Text.replaceUnitMacros(this.origin, { a: this });
+    return setup.Text.replaceUnitMacros(this.origin || "", { a: this });
   }
 
   setOrigin(origin_text: string) {
@@ -768,7 +772,7 @@ export class Unit extends TwineClass {
   }
 
   getName(): string {
-    return this.nickname;
+    return this.nickname ?? this.first_name;
   }
 
   get name(): string {
@@ -1170,7 +1174,7 @@ export class Unit extends TwineClass {
     }
 
     // set the innate trait
-    this.innate_trait_key_map[trait.key] = true;
+    this.innate_trait_key_map[trait.key] = 1;
   }
 
   /**
@@ -1179,7 +1183,7 @@ export class Unit extends TwineClass {
   setInnateTraits(traits: Trait[]) {
     this.innate_trait_key_map = {};
     for (const trait of traits) {
-      this.innate_trait_key_map[trait.key] = true;
+      this.innate_trait_key_map[trait.key] = 1;
     }
   }
 
@@ -1591,7 +1595,7 @@ export class Unit extends TwineClass {
   }
 
   getSpeech(): Speech {
-    if (this.is_speech_reset) {
+    if (!this.speech_key) {
       this.recomputeSpeech();
     }
     return setup.speech[this.speech_key!];
@@ -1608,7 +1612,7 @@ export class Unit extends TwineClass {
 
   // recompute a unit's speech.
   resetSpeech(): void {
-    this.is_speech_reset = true;
+    this.speech_key = undefined;
   }
 
   recomputeSpeech(): void {
@@ -1619,7 +1623,7 @@ export class Unit extends TwineClass {
       // keep
       return;
     }
-    this.speech_key = null;
+    this.speech_key = undefined;
     let keys = objectKeys(scores);
     setup.rng.shuffleArray(keys);
     for (let i = 0; i < keys.length; ++i) {
@@ -1630,7 +1634,6 @@ export class Unit extends TwineClass {
       }
     }
     if (!this.speech_key) throw new Error(`??????`);
-    this.is_speech_reset = false;
   }
 
   isAllowedTalk(): boolean {
@@ -1968,7 +1971,7 @@ export class Unit extends TwineClass {
     return State.variables.unitimage.getImageObject(this).info;
   }
 
-  getCustomImageName(): string {
+  getCustomImageName(): string | undefined {
     return this.custom_image_name;
   }
 
@@ -1986,17 +1989,20 @@ export class Unit extends TwineClass {
   // #region Tags
 
   getTags(): string[] {
-    return this.tags;
+    return this.tags ?? [];
   }
 
   addTag(tag: string) {
-    this.tags.push(tag);
+    (this.tags ??= []).push(tag);
     this.resetCache();
   }
 
   removeTag(tag: string) {
     // if (!this.isHasTag(tag)) throw new Error(`Tag ${tag} not found in ${this.getName()}`)
-    this.tags = this.tags.filter((item) => item != tag);
+    this.tags = (this.tags ?? []).filter((item) => item != tag);
+    if (!this.tags.length) {
+      this.tags = undefined;
+    }
     this.resetCache();
   }
 

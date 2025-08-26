@@ -589,8 +589,14 @@ const setup_ = {
 
   MacroUtil,
   ArgType,
+
+  gFortGridControl: undefined as FortGridController | undefined,
 };
 
 export type SetupType = typeof setup_;
 
 Object.assign(setup, setup_);
+
+Object.assign(globalThis, {
+  _DE: setup.deserializeClass,
+});

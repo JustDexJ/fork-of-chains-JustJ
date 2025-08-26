@@ -48,7 +48,7 @@ $fort.player.getBuilding(setup.buildingtemplate.lodgings).getLevel() == 1>>
   </div>
 <</if>>
 
-<<unset $gFortGridControl>>
+<<set setup.gFortGridControl = undefined>>
 <<set _dom = setup.DOM.Menu.fortgrid({mode: 'view'})>>
 <<attach _dom>>
 

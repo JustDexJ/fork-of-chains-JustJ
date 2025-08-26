@@ -380,7 +380,9 @@ export class RoomTemplate extends TwineClass {
     const building = this.getBuildingTemplate();
     if (building) {
       const all_tags = setup.TagHelper.getTagsMap("room");
-      return tags.concat(building.getTags().filter((tag) => tag in all_tags));
+      return tags.concatUnique(
+        building.getTags().filter((tag) => tag in all_tags),
+      );
     }
     return tags;
   }

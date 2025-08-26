@@ -116,8 +116,8 @@ function roomInstanceNameActionMenu(
           unplaced.resetRotation();
 
           State.variables.gFortGridPlaceRoomKey = unplaced.key;
-          State.variables.gFortGridControl!.mode = "place";
-          State.variables.gFortGridControl!.setRoom(
+          setup.gFortGridControl!.mode = "place";
+          setup.gFortGridControl!.setRoom(
             unplaced,
             /* save location = */ false,
           );
@@ -146,8 +146,8 @@ function roomInstanceNameActionMenu(
     show_actions &&
     !room.getTemplate().isFixed() &&
     State.variables.roomlist.getRoomCount(room.getTemplate()).placed &&
-    State.variables.gFortGridControl &&
-    State.variables.gFortGridControl.mode != "view"
+    setup.gFortGridControl &&
+    setup.gFortGridControl.mode != "view"
   ) {
     menus.push(
       menuItemAction({
@@ -170,7 +170,7 @@ function roomInstanceNameActionMenu(
               null,
               /* return obsolete = */ true,
             )!;
-            State.variables.gFortGridControl!.refreshTiles(tiles);
+            setup.gFortGridControl!.refreshTiles(tiles);
             placed.resetRotation();
             setup.DOM.Nav.goto();
           } else {

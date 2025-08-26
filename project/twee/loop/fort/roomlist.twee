@@ -17,7 +17,7 @@
   setup.DOM.Nav.link(
     'Back',
     () => {
-      State.variables.gFortGridControl.mode = 'edit';
+      setup.gFortGridControl.mode = 'edit';
     },
     'FortGridRenovate',
   )
@@ -26,7 +26,7 @@
 <div>
   Select room to build:
   <<foclink '(back)' 'FortGridRenovate'>>
-    <<set State.variables.gFortGridControl.mode = 'edit'>>
+    <<set setup.gFortGridControl.mode = 'edit'>>
   <</foclink>>
 </div>
 
