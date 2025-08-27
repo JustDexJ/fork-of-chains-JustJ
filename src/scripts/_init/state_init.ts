@@ -42,7 +42,7 @@ import { FortGrid } from "../classes/room/FortGrid";
 import type { RoomInstance } from "../classes/room/RoomInstance";
 import { RoomList } from "../classes/room/RoomList";
 import { Settings } from "../classes/Settings";
-import { SexActionClass } from "../classes/sex/action/_index";
+import * as SexActionClass from "../classes/sex/action/_index";
 import { sexSanityChecks } from "../classes/sex/sexaction_sanity_check";
 import { SkillBoost } from "../classes/SkillBoost";
 import type { SlaveOrder } from "../classes/slaveorder/SlaveOrder";

@@ -171,9 +171,6 @@ export class RoomTemplate extends TwineClass {
     if (this.is_outdoors) {
       this.tags.push("outdoors");
     } else {
-      if (this.tags.includes("indoors")) {
-        debugger;
-      }
       this.tags.push("indoors");
     }
 

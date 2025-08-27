@@ -112,7 +112,7 @@ function findDataTooltip(ev: Event): Element | null {
   return null;
 }
 
-let checkTooltipReferencesTimeout: ReturnType<typeof setTimeout> | null = null; // to debounce calls to checkTooltipReferences
+let checkTooltipReferencesQueued = false;
 
 function destroyTooltip(instance: TooltipInstance) {
   instance.setProps({
@@ -126,12 +126,13 @@ function destroyTooltip(instance: TooltipInstance) {
 // Checks that all tooltip references (targets) are still valid DOM elements
 // attached to document, otherwise destroy those instances
 function checkTooltipReferences() {
-  checkTooltipReferencesTimeout = null;
+  checkTooltipReferencesQueued = false;
 
-  for (const instance of tooltip_instances.filter(
-    (instance) => !instance.reference || !instance.reference.isConnected,
-  )) {
-    destroyTooltip(instance);
+  for (let i = 0; i < tooltip_instances.length; ++i) {
+    const instance = tooltip_instances[i];
+    if (!instance.reference || !instance.reference.isConnected) {
+      destroyTooltip(instance);
+    }
   }
 }
 
@@ -157,9 +158,10 @@ function setupMutationObserver() {
   setTimeout(function () {
     const observer = new MutationObserver(
       function (/*mutationsList, observer*/) {
-        if (!checkTooltipReferencesTimeout)
-          // call checkTooltipReferences, debounced
-          checkTooltipReferencesTimeout = setTimeout(checkTooltipReferences, 1);
+        if (!checkTooltipReferencesQueued) {
+          checkTooltipReferencesQueued = true;
+          queueMicrotask(checkTooltipReferences);
+        }
       },
     );
 
