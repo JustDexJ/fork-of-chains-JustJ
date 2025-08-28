@@ -314,5 +314,14 @@ export const DOM_Menu_mainmenu = function (): DOM.Node {
       fragments.push(setup.DOM.create("div", {}, children));
     }
   }
+  // software version footer
+  let debugtext: DOM.Node | null = null;
+  if (State.variables.gDebug) {
+    debugtext = html` ${setup.DOM.Text.dangerlite("[DEBUG]")}`;
+  }
+  fragments.push(html`
+    <div id="site-version">Fort of Chains ${setup.VERSION}${debugtext}</div>
+  `);
+
   return setup.DOM.create("span", {}, fragments);
 };

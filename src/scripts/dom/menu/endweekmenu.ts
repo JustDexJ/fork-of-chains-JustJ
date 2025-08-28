@@ -351,22 +351,7 @@ function getNextEventsMenu(): DOM.Attachable {
 function getInfoMenu(): DOM.Node {
   const fragments: DOM.Attachable[] = [];
 
-  // software version
-  let debugtext = null;
-  if (State.variables.gDebug) {
-    debugtext = html` ${setup.DOM.Text.dangerlite("[DEBUG]")}`;
-  }
-  fragments.push(html`
-    <div>Fort of Chains ${setup.VERSION}${debugtext}</div>
-  `);
-
   if (State.variables.calendar && State.variables.unit?.player) {
-    // week and company name
-    fragments.push(html`
-      ${State.variables.company.player.getName()} / Week
-      ${State.variables.calendar.getWeek()}
-    `);
-
     // next events
     if (
       State.variables.gDebug ||
@@ -374,22 +359,6 @@ function getInfoMenu(): DOM.Node {
     ) {
       fragments.push(getNextEventsMenu());
     }
-
-    // money and prestige
-    const moneytexts = [];
-    moneytexts.push(
-      html`${setup.DOM.Util.money(State.variables.company.player.getMoney())}`,
-    );
-    if (State.variables.fort.player.isHasBuilding("recreationwing")) {
-      moneytexts.push(html` / `);
-      moneytexts.push(
-        html`${setup.DOM.Util.prestige(
-          State.variables.company.player.getPrestige(),
-        )}`,
-      );
-    }
-
-    fragments.push(setup.DOM.create("div", {}, moneytexts));
   }
 
   return setup.DOM.create("div", {}, fragments);
@@ -448,7 +417,7 @@ function getTopLeftNavigationMenu(): DOM.Node | null {
         fragments.push(ele);
 
         fragments.push(html``);
-        fragments.push(setup.DOM.Text.danger(`[${deployable}]`));
+        fragments.push(setup.DOM.Text.danger(` [${deployable}] `));
         fragments.push(
           setup.DOM.create(
             "small",

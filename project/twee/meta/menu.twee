@@ -20,17 +20,6 @@
   <<loadmenu>>
 </div>
 
-
-:: StoryDisplayTitle [nobr]
-/* Used for titlebar */
-
-<<if $calendar>>
-  <<= State.variables.company.player.getName()>> / Week <<= $calendar.getWeek() >>
-<<else>>
-  Fort of Chains <<= setup.VERSION>>
-<</if>>
-
-
 :: StoryBanner [nobr]
 
 <<focwidget 'loadmenutopdata'>>
@@ -74,3 +63,31 @@
   <</timed>>
 </div>
 
+
+
+
+:: StoryTopBar [nobr]
+
+<div class="company-name">
+  <<= State.variables.company.player.getName()>>
+</div>
+
+<span class="v-separator" aria-hidden="true"></span>
+
+<div class="calendar-week">
+  Week <<= $calendar.getWeek() >>
+</div>
+
+<div class="story-topbar-content">
+  <div class="story-money">
+    <img src="img/tag_quest/money.svg" alt="gold" class="money-icon" />
+    <<=setup.DOM.Util.money($company.player.getMoney())>>
+  </div>
+
+  <span class="v-separator" aria-hidden="true"></span>
+
+  <div class="story-prestige">
+    <img src="img/tag_quest/veteran.svg" alt="prestige" class="prestige-icon" />
+    <<=setup.DOM.Util.prestige($company.player.getPrestige())>>
+  </div>
+</div>

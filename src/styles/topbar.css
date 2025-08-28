@@ -1,0 +1,153 @@
+:root {
+  --topbar-height: 44px;
+  --topbar-gap: 8px;
+  --topbar-offset: 10px;
+  --topbar-bg: #222;
+  --topbar-accent: rgba(255, 255, 255, 0.04);
+  --topbar-muted: #9aa0a6;
+  --topbar-muted-dark: #6b6f73;
+  --topbar-gold: #d4af37;
+  --separator-width: 0.15rem;
+  --separator-height: 1.3rem;
+  --separator-color: #1f1f1f;
+}
+
+#top-ui-bar {
+  /* position: fixed; */
+  top: var(--topbar-offset);
+  left: 0;
+  width: 100%;
+  overflow: visible;
+
+  height: var(--topbar-height);
+  z-index: 24;
+
+  --bg-color: var(--topbar-bg);
+  border-bottom: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+
+  box-sizing: border-box;
+  padding-left: 16.5em;
+  padding-right: 16.5em; /* was 19 before */
+  padding-top: var(--topbar-gap);
+  /* padding-bottom: var(--topbar-gap); */
+}
+
+#ui-bar.stowed ~ #top-ui-bar {
+  padding-left: 3em !important;
+}
+#right-ui-bar.stowed ~ #top-ui-bar {
+  padding-right: 3em !important;
+}
+
+#top-ui-bar #top-ui-bar-body {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  margin: 0 auto;
+  width: calc(100% - 4em);
+
+  background: var(--bg-color);
+  /* border-radius: 14px;
+  border: 1px solid var(--topbar-accent);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px) saturate(120%);
+  -webkit-backdrop-filter: blur(6px) saturate(120%); */
+}
+
+.company-name {
+  font-weight: 700;
+  font-size: 1rem;
+  color: #ffffff;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.calendar-week {
+  font-size: 0.85rem;
+  color: var(--topbar-muted);
+  white-space: nowrap;
+}
+
+.v-separator {
+  display: inline-block;
+  width: var(--separator-width);
+  height: var(--separator-height);
+  background: var(--separator-color);
+  vertical-align: middle;
+  border-radius: 1px;
+}
+
+.story-topbar-content {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.story-money {
+  color: var(--topbar-gold);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.story-prestige {
+  color: var(--topbar-muted);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding-right: 0.25rem;
+  margin-right: 0.5rem;
+}
+
+.prestige-icon {
+  width: 1rem;
+  height: 1rem;
+  vertical-align: middle;
+  filter: saturate(110%) brightness(0.95);
+}
+
+.money-icon {
+  width: 1.05rem;
+  height: 1.05rem;
+  vertical-align: middle;
+  margin-right: 0.15rem;
+  filter: saturate(120%) brightness(0.95)
+    drop-shadow(0 1px 0 rgba(0, 0, 0, 0.2));
+}
+
+.money-icon {
+  filter: none;
+}
+.money-icon svg {
+  fill: var(--topbar-gold) !important;
+}
+
+#ui-bar.stowed ~ #top-ui-bar #top-ui-bar-body {
+  padding-left: 4em;
+}
+#right-ui-bar.stowed ~ #top-ui-bar #top-ui-bar-body {
+  padding-right: 4em;
+}
+
+#story {
+  margin-top: calc(var(--topbar-height) + var(--topbar-offset) + 2.25rem);
+}
+
+#site-version {
+  position: fixed;
+  left: 7%;
+  transform: translateX(-50%);
+  bottom: 8px;
+  color: var(--topbar-muted);
+  font-size: 0.8rem;
+  pointer-events: none;
+  opacity: 0.95;
+  z-index: 1000;
+}
