@@ -363,7 +363,7 @@ img {
 .questcard-numunits {
   display: inline-flex;
   align-items: center;
-  gap: 1px;
+  /*gap: 1px;*/
   margin-left: 0.5em;
   white-space: nowrap;
   & img {

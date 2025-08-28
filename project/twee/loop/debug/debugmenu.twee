@@ -1,0 +1,5 @@
+:: DebugMenu [nobr]
+
+<h2>Debug Menu</h2>
+
+<<attach setup.DOM.Menu.debugmenu()>>

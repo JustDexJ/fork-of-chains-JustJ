@@ -4,8 +4,6 @@
 
 <<set _objects = $market.equipmentmarket.getMarketObjects()>>
 
-<h2>Equipment Market</h2>
-
 <<set _room = $fort.player.getBuilding(setup.buildingtemplate.forge)>>
 
 <p>

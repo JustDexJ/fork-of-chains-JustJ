@@ -121,6 +121,7 @@
   vertical-align: middle;
   color: #222;
   font-weight: bold;
+  font-stretch: condensed;
   background-color: rgb(137, 202, 137);
   padding: 0 4px;
   border-radius: 6px;

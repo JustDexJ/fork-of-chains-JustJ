@@ -60,8 +60,10 @@ img {
   text-align: center;
 }
 
-button.selected {
-  color: yellow !important;
+button.selected,
+.button-active button {
+  color: #fdec02 !important;
+  border-color: #fdec02 !important;
 }
 
 .overflow-story-container {

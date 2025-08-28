@@ -61,9 +61,9 @@ export default {
   },
 
   race_demon: {
-    name: "demon",
+    name: "demonic",
     description:
-      "Residents of the land beyond the mist who occasionally crosses into the mortal plane. Demons and all their subraces are unaffected by the negative skill and value penalties of demonic bodyparts.",
+      "Residents of the land beyond the mist who occasionally crosses into the mortal plane. All demonic subraces are unaffected by the negative skill and value penalties of demonic bodyparts.",
     slave_value: 0,
     skill_bonuses: {},
     tags: ["race", "computed"],

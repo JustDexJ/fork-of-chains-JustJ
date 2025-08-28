@@ -3,6 +3,7 @@ import { DOM_Menu_bedchamberdescription } from "./bedchamberdescription";
 import { DOM_Menu_bedchamberedit } from "./bedchamberedit";
 import { DOM_Menu_changeactivetitles } from "./changeactivetitles";
 import { DOM_Menu_changeskillfocus } from "./changeskillfocus";
+import { DOM_Menu_debugmenu } from "./debug/debugmenu";
 import { DOM_Menu_debugfriendship } from "./debugfriendship";
 import {
   DOM_Menu_dev_content_generated_begin,
@@ -29,7 +30,7 @@ import { DOM_Menu_fortgrid } from "./fortgrid";
 import { DOM_Menu_interactionpool } from "./interactionpool";
 import { DOM_Menu_interactivesex } from "./interactivesex";
 import { DOM_Menu_useitemonunit } from "./item";
-import { DOM_Menu_mainmenu } from "./mainmenu";
+import { DOM_Menu_mainmenu, DOM_Menu_mainmenufooter } from "./mainmenu";
 import { DOM_Menu_newgameplus } from "./newgameplus";
 import { DOM_Menu_opportunityautoanswer } from "./opportunityautoanswer";
 import { DOM_Menu_perklearn } from "./perklearn";
@@ -47,7 +48,6 @@ import { DOM_Menu_roomlist } from "./roomlist";
 import { DOM_Menu_Settings } from "./settings/_index";
 import {
   DOM_Menu_settingsbase,
-  DOM_Menu_settingsdebug,
   DOM_Menu_settingsmain,
 } from "./settings/settings";
 import { DOM_Menu_unitdebug } from "./settings/unitdebug";
@@ -93,6 +93,7 @@ export const DOM_Menu = {
   interactivesex: DOM_Menu_interactivesex,
   useitemonunit: DOM_Menu_useitemonunit,
   mainmenu: DOM_Menu_mainmenu,
+  mainmenufooter: DOM_Menu_mainmenufooter,
   newgameplus: DOM_Menu_newgameplus,
   opportunityautoanswer: DOM_Menu_opportunityautoanswer,
   perklearn: DOM_Menu_perklearn,
@@ -121,7 +122,7 @@ export const DOM_Menu = {
   prologueNewGamePlusPCChange: DOM_Menu_prologueNewGamePlusPCChange,
   settingsbase: DOM_Menu_settingsbase,
   settingsmain: DOM_Menu_settingsmain,
-  settingsdebug: DOM_Menu_settingsdebug,
+  debugmenu: DOM_Menu_debugmenu,
   unitdebug: DOM_Menu_unitdebug,
   weekend: DOM_Menu_weekend,
   gameinit: DOM_Menu_gameinit,

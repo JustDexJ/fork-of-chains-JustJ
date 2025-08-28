@@ -5,7 +5,7 @@ export const DEFINITION_SUBRACE_ANGEL: SubraceDefinition = {
   homeland_region: setup.Text.Race.REGIONS.heaven,
   company_key: "humankingdom",
   description:
-    "Residents of the celestial realm who one way or another has been reborn as a <<rep 'trait'.race_human>>. Even as a mortal, they  still retai their high affinity for <<lore magic_light>>.",
+    "Residents of the celestial realm who one way or another has been reborn as a <<rep setup.trait.race_human>>. Even as a mortal, they  still retai their high affinity for <<lore magic_light>>.",
   slave_value: 30000,
   rarity: "unicorn",
   race: "race_human",

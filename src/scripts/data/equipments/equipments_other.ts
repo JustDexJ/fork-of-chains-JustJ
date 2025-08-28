@@ -5,7 +5,7 @@ export default {
   equipmentpools: definitions<EquipmentPoolDefinition>()({}),
   equipments: definitions<EquipmentDefinition>()({
     pants: {
-      name: "Standard Pants",
+      name: "Basic Pants",
       slot: "legs",
       tags: ["clothes", "covering"],
       value: 0,
@@ -23,7 +23,7 @@ export default {
     },
 
     shirt: {
-      name: "Standard Shirt",
+      name: "Basic Shirt",
       slot: "torso",
       tags: ["clothes", "covering"],
       value: 0,
@@ -41,7 +41,7 @@ export default {
     },
 
     shoes: {
-      name: "Standard Shoes",
+      name: "Basic Shoes",
       slot: "feet",
       tags: ["shoes", "covering"],
       value: 0,

@@ -1,0 +1,30 @@
+:: Market [nobr]
+
+<<set $gMenuVisible = true>>
+
+<h2>Market</h2>
+
+
+<<set _TABS = [
+  ['items', 'Items Market', 'MarketItems'],
+  ['equipment', 'Equipment Market', 'MarketEquipment'],
+]>>
+
+<<set $marketTab = $marketTab || _TABS[0][0]>>
+
+<<for _tab range _TABS>>
+  <<capture _tab>>
+    <span @class="$marketTab === _tab[0] ? 'button-active' : ''">
+      <<set _text = _tab[1]>>
+      <<focbutton _text 'Market'>>
+        <<set $marketTab = _tab[0]>>
+      <</focbutton>>
+    </span>
+  <</capture>>
+<</for>>
+
+<<if $marketTab === 'equipment'>>
+  <<include MarketEquipment>>
+<<else>>
+  <<include MarketItem>>
+<</if>>

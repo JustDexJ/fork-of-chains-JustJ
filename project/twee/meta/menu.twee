@@ -20,6 +20,8 @@
   <<loadmenu>>
 </div>
 
+<<attach setup.DOM.Menu.mainmenufooter()>>
+
 :: StoryBanner [nobr]
 
 <<focwidget 'loadmenutopdata'>>
