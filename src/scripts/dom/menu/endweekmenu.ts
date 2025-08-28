@@ -282,15 +282,6 @@ function getMainMenuItems() {
           restrictions: [setup.qres.Building("greathall")],
         },
       ],
-
-      [
-        /* Company info, settings */
-        {
-          title: "Settings",
-          passage: "SettingsMenu",
-          restrictions: [],
-        },
-      ],
     ];
   }
   return setup.DOM.Menu.MAINMENU_ITEMS;

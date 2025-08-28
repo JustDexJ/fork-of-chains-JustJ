@@ -2,7 +2,7 @@
 
 <h2>Adjust your favor with other companies</h2>
 
-<<focmove 'Done' 'SettingsMenu'>>
+<<focmove 'Done' 'DebugMenu'>>
 
 <<for _icompany, _company range $company>>
   <<if _company != $company.player>>
@@ -42,7 +42,7 @@
 
 <h2>Adjust your ire with other companies</h2>
 
-<<focmove 'Done' 'SettingsMenu'>>
+<<focmove 'Done' 'DebugMenu'>>
 
 <<for _icompany, _company range $company>>
   <<if _company != $company.player>>

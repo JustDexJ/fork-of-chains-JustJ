@@ -46,10 +46,6 @@ import {
 import { DOM_Menu_relationsofficemanagedcompanies } from "./relationsofficemanagedcompanies";
 import { DOM_Menu_roomlist } from "./roomlist";
 import { DOM_Menu_Settings } from "./settings/_index";
-import {
-  DOM_Menu_settingsbase,
-  DOM_Menu_settingsmain,
-} from "./settings/settings";
 import { DOM_Menu_unitdebug } from "./settings/unitdebug";
 import { DOM_Menu_proposeSex } from "./sexpropose";
 import { DOM_Menu_slaveorderquicklist } from "./slaveorderquicklist";
@@ -120,8 +116,6 @@ export const DOM_Menu = {
   devtoolverifycreate: DOM_Menu_devtoolverifycreate,
   prologueMakePlayer: DOM_Menu_prologueMakePlayer,
   prologueNewGamePlusPCChange: DOM_Menu_prologueNewGamePlusPCChange,
-  settingsbase: DOM_Menu_settingsbase,
-  settingsmain: DOM_Menu_settingsmain,
   debugmenu: DOM_Menu_debugmenu,
   unitdebug: DOM_Menu_unitdebug,
   weekend: DOM_Menu_weekend,

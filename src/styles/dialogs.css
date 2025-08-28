@@ -9,7 +9,7 @@
   height: calc(100vh - 96px);
 }
 
-#ui-dialog-body.dialog-globalsettings {
+#ui-dialog-body.dialog-settings {
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -36,6 +36,11 @@
     overflow: auto;
     padding: 1em;
     padding-top: 0;
+  }
+
+  & h4 {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
   }
 }
 

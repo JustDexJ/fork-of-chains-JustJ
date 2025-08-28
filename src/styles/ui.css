@@ -66,6 +66,19 @@ button.selected,
   border-color: #fdec02 !important;
 }
 
+label {
+  & > * {
+    vertical-align: middle;
+  }
+  input[type="checkbox"] + span {
+    margin-inline-start: 0.4em;
+  }
+
+  .ToggleSwitch + span {
+    margin-inline-start: 0.6em;
+  }
+}
+
 .overflow-story-container {
   /* Overflow the "story passage" container
    *   100vw: 100% of screen width

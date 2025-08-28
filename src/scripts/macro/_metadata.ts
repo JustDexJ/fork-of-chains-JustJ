@@ -718,7 +718,6 @@ const MACROS_METADATA = defineMacrosMetadata()({
     internal: true,
   },
 
-  printtext: INTERNAL,
   costrelationshipwidget: INTERNAL,
   generatechar: INTERNAL,
   refreshgenerate: INTERNAL,

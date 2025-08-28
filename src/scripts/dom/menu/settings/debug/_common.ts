@@ -65,7 +65,7 @@ export function debug_frontpage_title(
 ): DOM.Node {
   return html`
     <h2>Select ${content_name} to try</h2>
-    <div>${setup.DOM.Nav.move("(Return)", "SettingsMenu")}</div>
+    <div>${setup.DOM.Nav.move("(Return)", "DebugMenu")}</div>
     <div>${twee`[[(Test All)|${all_passage}]]`}</div>
   `;
 }

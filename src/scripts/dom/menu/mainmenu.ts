@@ -306,16 +306,6 @@ const MAINMENU_ITEMS = [
       },
     },
   ],
-
-  [
-    /* Company info, settings */
-    {
-      title: "Settings",
-      passage: "SettingsMenu",
-      icon: "img/tag_room/optional.svg",
-      restrictions: [],
-    },
-  ],
 ];
 
 /**

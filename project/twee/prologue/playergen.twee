@@ -141,18 +141,16 @@ From now on, the player character will simply be referred to as "you".
     <</message>>
   </div>
   <div style="margin-left: 0.5em">
-  <<include 'ShowBannedTags'>>
+  <<component 'BannedContentTagsEditor'>>
   </div>
 </p>
 
 <hr/>
 
 <p>
-You can <<message 'change other game settings too.'>>
-<div class='helpcard'>
-  <<include 'SettingsBase'>>
-  </div>
-<</message>>
+You can <<link 'change other game settings too.'>>
+  <<run setup.DOM.Menu.Settings.opendialog('settings_general')>>
+<</link>>
 </p>
 
 <hr/>

@@ -37,6 +37,23 @@ export const Twee: Component<{ children: string }> = (props) => {
   //);
 };
 
+export const TweeSpan: Component<{ children: string }> = (props) => {
+  let divRef: HTMLDivElement | undefined;
+
+  onMount(() => {
+    new Wikifier(divRef!, props.children);
+  });
+
+  createEffect(() => {
+    while (divRef!.firstChild) {
+      divRef!.removeChild(divRef!.firstChild);
+    }
+    new Wikifier(divRef!, props.children);
+  });
+
+  return <span ref={divRef} />;
+};
+
 export const Message: Component<ParentProps<{ label: string }>> = (props) => {
   const [isOpen, setIsOpen] = createSignal(false);
   return (

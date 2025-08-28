@@ -1,12 +1,23 @@
 import { For, Match, Switch, createSignal } from "solid-js";
 import { Button } from "../common";
+import {
+  ContentSettingsView,
+  GameplaySettingsView,
+  UiSettingsView,
+} from "./GameSettingsView";
 import { ImagepacksManagement } from "./ImagepacksManagement";
 import { ModsManagement } from "./ModsManagement";
 
 const tabs = {
-  //'settings': {
-  //  label: 'Settings',
-  //},
+  settings_general: {
+    label: "General Settings",
+  },
+  settings_content: {
+    label: "Content Settings",
+  },
+  settings_ui: {
+    label: "UI Settings",
+  },
   imagepacks: {
     label: "Image Packs",
   },
@@ -19,7 +30,7 @@ export const GlobalSettingsEdit: Component<{
   initial_tab?: keyof typeof tabs;
 }> = (props) => {
   const [getTab, setTab] = createSignal<keyof typeof tabs>(
-    props.initial_tab ?? "imagepacks",
+    props.initial_tab ?? "settings_general",
   );
 
   return (
@@ -41,9 +52,15 @@ export const GlobalSettingsEdit: Component<{
       </header>
       <div>
         <Switch>
-          {/*<Match when={getTab() === 'settings'}>
-            <div>WIP</div>
-          </Match>*/}
+          <Match when={getTab() === "settings_general"}>
+            <GameplaySettingsView />
+          </Match>
+          <Match when={getTab() === "settings_content"}>
+            <ContentSettingsView />
+          </Match>
+          <Match when={getTab() === "settings_ui"}>
+            <UiSettingsView />
+          </Match>
           <Match when={getTab() === "imagepacks"}>
             <ImagepacksManagement />
           </Match>
@@ -58,8 +75,8 @@ export const GlobalSettingsEdit: Component<{
 
 export default function (initial_tab?: keyof typeof tabs) {
   const dialog = Dialog.create(
-    "Global Settings",
-    "dialog-fullwidth dialog-fullheight dialog-globalsettings",
+    "Settings",
+    "dialog-fullwidth dialog-fullheight dialog-settings",
   );
 
   if (initial_tab && !(initial_tab in tabs)) {
