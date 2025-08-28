@@ -20,10 +20,6 @@
   <<loadmenu>>
 </div>
 
-
-:: StoryDisplayTitle [nobr]
-
-
 :: StoryBanner [nobr]
 
 <<focwidget 'loadmenutopdata'>>

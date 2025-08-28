@@ -351,15 +351,6 @@ function getNextEventsMenu(): DOM.Attachable {
 function getInfoMenu(): DOM.Node {
   const fragments: DOM.Attachable[] = [];
 
-  // software version
-  let debugtext = null;
-  if (State.variables.gDebug) {
-    debugtext = html` ${setup.DOM.Text.dangerlite("[DEBUG]")}`;
-  }
-  fragments.push(html`
-    <div>Fort of Chains ${setup.VERSION}${debugtext}</div>
-  `);
-
   if (State.variables.calendar && State.variables.unit?.player) {
     // next events
     if (
@@ -426,7 +417,7 @@ function getTopLeftNavigationMenu(): DOM.Node | null {
         fragments.push(ele);
 
         fragments.push(html``);
-        fragments.push(setup.DOM.Text.danger(`[${deployable}]`));
+        fragments.push(setup.DOM.Text.danger(` [${deployable}] `));
         fragments.push(
           setup.DOM.create(
             "small",
