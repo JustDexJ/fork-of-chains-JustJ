@@ -104,12 +104,15 @@ button.selected {
 }
 
 .filtercontainer > * > article {
-  & > .card, & > .unitcard, & > .equipmentset {
+  & > .card,
+  & > .unitcard,
+  & > .equipmentset {
     margin-bottom: 1em;
   }
 }
 
-.debug-info { /* rep extra only shown in debug mode for items, quests, etc., showing the key and the tooltip */
+.debug-info {
+  /* rep extra only shown in debug mode for items, quests, etc., showing the key and the tooltip */
   font-size: 65%;
   vertical-align: middle;
   color: lightslategray;

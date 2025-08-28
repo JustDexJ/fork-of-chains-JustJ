@@ -13,7 +13,7 @@
 }
 
 #top-ui-bar {
-  position: fixed;
+  /* position: fixed; */
   top: var(--topbar-offset);
   left: 0;
   width: 100%;
@@ -23,7 +23,6 @@
   z-index: 24;
 
   --bg-color: var(--topbar-bg);
-  background-color: transparent;
   border-bottom: 0;
 
   display: flex;
@@ -31,10 +30,10 @@
   gap: 0.5em;
 
   box-sizing: border-box;
-  padding-left: 19em;
-  padding-right: 19em;
+  padding-left: 16.5em;
+  padding-right: 16.5em; /* was 19 before */
   padding-top: var(--topbar-gap);
-  padding-bottom: var(--topbar-gap);
+  /* padding-bottom: var(--topbar-gap); */
 }
 
 #ui-bar.stowed ~ #top-ui-bar {
@@ -52,18 +51,13 @@
 
   margin: 0 auto;
   width: calc(100% - 4em);
-  max-width: 1400px;
 
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.02),
-    rgba(255, 255, 255, 0.01)
-  );
-  border-radius: 14px;
+  background: var(--bg-color);
+  /* border-radius: 14px;
   border: 1px solid var(--topbar-accent);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
   backdrop-filter: blur(6px) saturate(120%);
-  -webkit-backdrop-filter: blur(6px) saturate(120%);
+  -webkit-backdrop-filter: blur(6px) saturate(120%); */
 }
 
 .company-name {
