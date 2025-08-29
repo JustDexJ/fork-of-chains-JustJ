@@ -153,7 +153,7 @@ setup.SPEECH_ADVERBS = {
     'scandalously', 'riotously', 'unruly', 'dissolutely', 'infamously',
     'iniquitously', 'corruptly', 'recklessly', 'filthily', 'obscenely',
     'wickedly', 'bawdily', 'outrageously', 'indecently',
-    'disgracefully', 'profanely', 'unwholesomely', 'sordidly', 'immorally',
+    'disgracefully', 'profanely', 'unwholesomely', 'sordidly',
     'devilishly', 'frenziedly', 'rabidly', 'wildly', 'carnally', 'voraciously', 'extravagantly', 'daringly'
   ],
 };
