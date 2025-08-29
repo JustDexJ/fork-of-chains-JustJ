@@ -105,7 +105,12 @@ setup.SPEECH_ADVERBS = {
     'tenderly', 'lovingly', 'compassionately', 'thoughtfully', 'benignly',
     'pleasantly', 'affectionately', 'courteously', 'cordially', 'amiably',
     'agreeably', 'delightfully', 'hospitably', 'openly', 'earnestly',
-    'faithfully', 'friendly', 'supportively', 'cheerily', 'sunnyly', 'sweetly', 'neighborly', 'bounteously', 'humbly', 'genially'
+    'agreeably', 'obligingly', 'delightfully', 'genially',
+    'cheerfully', 'neighborly', 'merrily', 'jovially', 'heartily',
+    'graciously', 'approvingly', 'sympathetically', 'considerately', 'benevolently',
+    'tenderly', 'lovingly', 'compassionately', 'thoughtfully', 'benignly',
+    'affectionately', 'courteously', 'earnestly',
+    'faithfully', 'friendly', 'supportively', 'cheerily', 'sunnyly', 'sweetly', 'bounteously', 'humbly'
   ],
   bold: [
     'angrily', 'proudly', 'arrogantly', 'vainly', 'smugly',
