@@ -120,7 +120,7 @@ setup.SPEECH_ADVERBS = {
     'defiantly', 'resolutely', 'stubbornly', 'unyieldingly', 'domineeringly',
     'imperiously', 'commandingly', 'ferociously', 'valiantly', 'intrepidly',
     'spiritedly', 'tenaciously', 'adamantly', 'courageously', 'sternly',
-    'unflinchingly', 'rigorously', 'unyieldingly', 'forcefully', 'stridently',
+    'unflinchingly', 'rigorously', 'stridently',
     'offensively', 'belligerently', 'provocatively', 'recklessly', 'undauntedly', 'dauntlessly', 'authoritatively', 'strikingly', 'formidably', 'ferociously'
   ],
   cool: [
