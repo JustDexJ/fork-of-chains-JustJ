@@ -143,7 +143,7 @@ setup.SPEECH_ADVERBS = {
     'jestingly', 'laughably', 'sprightly', 'blithely', 'mischievously',
     'brightly', 'sparklingly', 'grinningly', 'snappily', 'quick-wittedly',
     'waggishly', 'banteringly', 'nimblely', 'zestfully', 'chirpily',
-    'cheekily', 'frivolously', 'airily', 'sparklingly', 'jauntily', 'buoyantly', 'jocularly', 'gleefully', 'lively', 'effervescently'
+    'cheekily', 'frivolously', 'airily', 'jauntily', 'buoyantly', 'jocularly', 'lively', 'effervescently'
   ],
   debauched: [
     'debauchedly', 'depravedly', 'shamelessly', 'immorally', 'impurely',
