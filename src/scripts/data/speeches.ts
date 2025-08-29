@@ -132,7 +132,7 @@ setup.SPEECH_ADVERBS = {
     'dispassionately', 'thoughtfully', 'judiciously', 'reflectively', 'coolheadedly',
     'calculatingly', 'restrainedly', 'measuredly', 'serenely', 'reticently',
     'retiredly', 'watchfully', 'observantly', 'inexpressively', 'ponderingly',
-    'apathetically', 'stoically', 'unaffectedly', 'placidly', 'evenly', 'steadily', 'unruffledly'
+    'apathetically', 'unaffectedly', 'placidly', 'evenly', 'steadily', 'unruffledly'
   ],
   witty: [
     'sarcastically', 'ridiculously', 'funnily', 'amusingly', 'humorously',
