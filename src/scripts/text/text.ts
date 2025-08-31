@@ -141,8 +141,8 @@ export namespace Text {
         const uverb = `u${unitverb}`;
         if (Macro.has(uverb)) {
           // it's a bodypart macro, yikes.
-          return setup.runSugarCubeCommandAndGetOutput(
-            `<<${uverb} "${unit.key}">>`,
+          return setup.DOM.toString(
+            setup.DOM.Util.twee(`<<${uverb} "${unit.key}">>`),
           );
         }
 

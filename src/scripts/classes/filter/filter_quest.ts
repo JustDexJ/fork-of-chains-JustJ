@@ -10,7 +10,12 @@ function getQuestTagFilters(tag_type: string) {
     const base: FilterMenuOptions<QuestInstance> = {};
     for (const tag of setup.TagHelper.getAllTagsOfType("quest", tag_type)) {
       base[tag] = {
-        title: setup.TagHelper.tagRep("quest", tag, /* force = */ true),
+        title: setup.TagHelper.tagRep(
+          "quest",
+          tag,
+          /* force = */ true,
+          /* tooltip no click = */ true,
+        ),
         filter: getQuestTagFilter(tag),
       };
     }

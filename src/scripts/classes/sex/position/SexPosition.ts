@@ -41,12 +41,12 @@ export class SexPosition extends TwineClassCustom {
     return `img/sexposition/${this.key}.svg`;
   }
 
-  getImageRep(): string {
+  _getImageRep(): string {
     return setup.repImgIcon(this.getImage(), this.getTitle());
   }
 
   rep(): string {
-    return this.getImageRep();
+    return this._getImageRep();
   }
 
   /**

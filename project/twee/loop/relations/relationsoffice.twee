@@ -111,16 +111,8 @@ You enter the relations office.
 You find an empty desk to work at, sit there and begin your work here.
 </p>
 
-<<set _companies = Object.values($company).filter(c => c != $company.player && $favor.isCompanyKnown(c))>>
-<<run _companies.sort((a, b) => { return a.getName().localeCompare(b.getName()) })>>
+<<attach setup.FilterableLists.companies>>
 
-<<filterall 'company' _companies>>
-  <<if $menufilter.get('company', 'display') == 'compact'>>
-    <<companycardcompact _displayobj true>>
-  <<else>>
-    <<companycard _displayobj true>>
-  <</if>>
-<</filterall>>
 
 
 :: RelationsOfficeManagedCompanies [nobr]

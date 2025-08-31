@@ -53,6 +53,10 @@ export abstract class Market<
     return this.getName();
   }
 
+  repJSX(): DOM.Node {
+    return document.createTextNode(this.getName());
+  }
+
   getName(): string {
     return this.name;
   }

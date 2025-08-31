@@ -75,21 +75,18 @@ export class DutyInstance extends TwineClass {
     this.is_can_go_on_quests_auto = !this.is_can_go_on_quests_auto || undefined;
   }
 
-  getImageRep(skip_tooltip?: boolean, big?: boolean): string {
+  renderIcon(skip_tooltip?: boolean, big?: boolean): HTMLElement {
     const template = this.getTemplate();
-    const tooltip_content = skip_tooltip
-      ? undefined
-      : `<<dutycard '${this.key}'>>`;
-    return (
-      '<span class="' +
-      template.getCssClass() +
-      (big ? " big" : "") +
-      '">' +
-      setup.repImg({
+    return setup.DOM.span(
+      {
+        class: `${template.getCssClass()}${big ? " big" : ""}`,
+      },
+      setup.repImgJSX({
         imagepath: template.getImage(),
-        tooltip_content: tooltip_content,
-      }) +
-      "</span>"
+        tooltip_content: skip_tooltip
+          ? undefined
+          : `<<dutycard '${this.key}'>>`,
+      }),
     );
   }
 
@@ -99,14 +96,34 @@ export class DutyInstance extends TwineClass {
 
   rep(): string {
     return (
-      setup.repMessage(this, undefined, undefined, this.getImageRep(true)) +
+      setup.repMessage(
+        this,
+        undefined,
+        undefined,
+        setup.DOM.toString(this.renderIcon(true)),
+      ) +
       "&nbsp;" +
       setup.repMessage(this)
     );
   }
+  repJSX(): DOM.Node {
+    return setup.DOM.createFragment(
+      // TODO
+      setup.repObjectJSX(this, {
+        message: setup.DOM.toString(this.renderIcon(true)),
+      }),
+      " ",
+      setup.repObjectJSX(this),
+    );
+  }
 
   repIcon(): string {
-    return setup.repMessage(this, undefined, undefined, this.getImageRep());
+    return setup.repMessage(
+      this,
+      undefined,
+      undefined,
+      setup.DOM.toString(this.renderIcon()),
+    );
   }
 
   /**

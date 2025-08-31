@@ -37,25 +37,21 @@ import { DOM_Menu_perklearn } from "./perklearn";
 import { DOM_Menu_prologueMakePlayer } from "./prologue/prologueMakePlayer";
 import { DOM_Menu_prologueNewGamePlusPCChange } from "./prologue/prologueNewGamePlusChanges";
 import { DOM_Menu_questassign } from "./questassign";
-import { DOM_Menu_questquicklist } from "./questquicklist";
-import {
-  DOM_Menu_quicklistmenu,
-  DOM_Menu_refreshRightSidebar,
-  DOM_Menu_rightsidebar,
-} from "./quicklistmenu";
 import { DOM_Menu_relationsofficemanagedcompanies } from "./relationsofficemanagedcompanies";
 import { DOM_Menu_roomlist } from "./roomlist";
 import { DOM_Menu_Settings } from "./settings/_index";
 import { DOM_Menu_unitdebug } from "./settings/unitdebug";
 import { DOM_Menu_proposeSex } from "./sexpropose";
-import { DOM_Menu_slaveorderquicklist } from "./slaveorderquicklist";
+import {
+  DOM_Menu_refreshRightSidebar,
+  DOM_Menu_rightsidebar,
+} from "./sidebar/Quicklist";
 import {
   DOM_Menu_traitpickermulti,
   DOM_Menu_traitpickersingle,
 } from "./traitpicker";
 import { DOM_Menu_unitdescription } from "./unitdescription";
 import { DOM_Menu_unitdetail } from "./unitdetail";
-import { DOM_Menu_unitquicklist } from "./unitquicklist";
 import {
   DOM_Menu_debugComputeStats,
   DOM_Menu_gameinit,
@@ -94,19 +90,15 @@ export const DOM_Menu = {
   opportunityautoanswer: DOM_Menu_opportunityautoanswer,
   perklearn: DOM_Menu_perklearn,
   questassign: DOM_Menu_questassign,
-  questquicklist: DOM_Menu_questquicklist,
-  quicklistmenu: DOM_Menu_quicklistmenu,
   rightsidebar: DOM_Menu_rightsidebar,
   refreshRightSidebar: DOM_Menu_refreshRightSidebar,
   relationsofficemanagedcompanies: DOM_Menu_relationsofficemanagedcompanies,
   roomlist: DOM_Menu_roomlist,
   proposeSex: DOM_Menu_proposeSex,
-  slaveorderquicklist: DOM_Menu_slaveorderquicklist,
   traitpickermulti: DOM_Menu_traitpickermulti,
   traitpickersingle: DOM_Menu_traitpickersingle,
   unitdescription: DOM_Menu_unitdescription,
   unitdetail: DOM_Menu_unitdetail,
-  unitquicklist: DOM_Menu_unitquicklist,
   dev_content_generated_begin: DOM_Menu_dev_content_generated_begin,
   dev_content_generated_middle: DOM_Menu_dev_content_generated_middle,
   devmainmenu: DOM_Menu_devmainmenu,

@@ -19,6 +19,7 @@ function getBuildingTagFilters(tag_type: string) {
           "buildinginstance",
           tag,
           /* force = */ true,
+          /* tooltip no click = */ true,
         ),
         filter: getBuildingTagFilter(tag),
       };

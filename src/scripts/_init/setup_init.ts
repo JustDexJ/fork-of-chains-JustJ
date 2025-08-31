@@ -54,7 +54,7 @@ import { Family } from "../classes/family/Family.js";
 import { FamilyRelation } from "../classes/family/FamilyRelation.js";
 import { Favor } from "../classes/Favor.js";
 import { MenuFilter } from "../classes/filter/_filter.js";
-import { FilterHelper } from "../classes/filter/filterhelper.js";
+import { FilterableLists } from "../classes/filter/FilterableLists.jsx";
 import { Fort } from "../classes/Fort.js";
 import { Friendship, FriendshipConstants } from "../classes/Friendship.js";
 import { Furniture } from "../classes/furniture/Furniture.js";
@@ -507,7 +507,7 @@ const setup_ = {
   DOM,
   Dialogs,
   Text,
-  FilterHelper,
+  FilterableLists,
   SkillHelper,
   BanterHelper,
   SexUtil,

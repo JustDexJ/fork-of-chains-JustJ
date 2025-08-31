@@ -90,8 +90,8 @@ export class RoomTemplate extends TwineClass {
    */
   image_list: ImageObject[] = [];
 
-  cached_rep_tag: string | null = null;
-  cached_rep_combined_tag: string | null = null;
+  cached_rep_tag: string[] | null = null;
+  cached_rep_combined_tag: string[] | null = null;
   cached_type_tag: string | null = null;
   max_room_count: number | null = null;
 
@@ -325,27 +325,34 @@ export class RoomTemplate extends TwineClass {
     return this.cached_type_tag;
   }
 
-  repTags(): string {
-    return (this.cached_rep_tag ??= setup.TagHelper.getTagsRep(
+  repTags(): HTMLElement[] {
+    const tags = (this.cached_rep_tag ??= setup.TagHelper.computeVisibleTagList(
       "room",
       this.getTags(),
     ));
+
+    return tags
+      .map((tag) => setup.TagHelper.tagRep("room", tag))
+      .filter((tag) => !!tag);
   }
 
   /** Same as repTags but using the combined room & building tags */
-  repCombinedTags(): string {
+  repCombinedTags(): HTMLElement[] {
     if (!this.cached_rep_combined_tag) {
       let tags = this.getTags();
       const b = this.getBuildingTemplate();
       if (b && b.key === this.key) {
         tags = tags.concatUnique(b.tags).sort();
       }
-      this.cached_rep_combined_tag = setup.TagHelper.getTagsRep(
+      this.cached_rep_combined_tag = setup.TagHelper.computeVisibleTagList(
         "room_combined",
         tags,
       );
     }
-    return this.cached_rep_combined_tag;
+
+    return this.cached_rep_combined_tag
+      .map((tag) => setup.TagHelper.tagRep("room_combined", tag))
+      .filter((tag) => !!tag);
   }
 
   getRepMacro() {
@@ -355,6 +362,9 @@ export class RoomTemplate extends TwineClass {
   rep(): string {
     return setup.repMessage(this);
   }
+  repJSX(): DOM.Node {
+    return setup.repObjectJSX(this);
+  }
 
   repFull(): string {
     return (
@@ -362,6 +372,15 @@ export class RoomTemplate extends TwineClass {
       setup.repMessage(this) +
       ` (${this.getWidth()} x ${this.getHeight()})`
     );
+  }
+  repFullJSX(): DOM.Node {
+    const fragment = document.createDocumentFragment();
+    fragment.append(...this.repTags());
+    fragment.append(
+      setup.repObjectJSX(this),
+      ` (${this.getWidth()} x ${this.getHeight()})`,
+    );
+    return fragment;
   }
 
   getImageList(): ImageObject[] {

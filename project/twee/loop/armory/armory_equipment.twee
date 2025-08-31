@@ -12,20 +12,6 @@
 <<focmove "Go back" "Armory">>
 <br/>
 
-<<set _display = $armory.getEquipments()>>
-<<set _forfilter = _display.map(a => a[0])>>
 
-<<run _dom = setup.DOM.Util.filterAll({
-  menu: 'equipment',
-  filter_objects: _forfilter,
-  display_objects: _display,
-  display_callback: equipment_obj => {
-    if ($menufilter.get('equipment', 'display') == 'compact') {
-      return setup.DOM.Card.equipmentcompact(equipment_obj[0], /* show_actions = */ true);
-    } else {
-      return setup.DOM.Card.equipment(equipment_obj[0], /* show_actions = */ true);
-    }
-  },
-})>>
-<<attach _dom>>
+<<attach setup.FilterableLists.armory_equipments>>
 

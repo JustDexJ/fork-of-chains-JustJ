@@ -15,8 +15,9 @@ import { UnequipOther } from "../../../classes/sex/action/actions/core/UnequipOt
 import { UnequipSelf } from "../../../classes/sex/action/actions/core/UnequipSelf";
 import SexEnd from "../../../classes/sex/cost/SexEnd";
 import { SexScene } from "../../../classes/sex/engine/SexScene";
-import { sexMenuFragment } from "../../menu/interactivesex";
+import { InteractiveSexToolbarItems } from "../../menu/interactivesex";
 import { Twee } from "../common";
+import { MenuItemToolbar } from "../menubar/MenuItem";
 import { InteractiveSexStatusView } from "./InteractiveSexStatusView";
 import "./InteractiveSexView.css";
 
@@ -29,27 +30,27 @@ const forceRefresh = () => {
 };
 
 async function runSexLoop(sex: SexInstance, scene: SexScene) {
-  if (scene.isEnded()) return;
-
-  // Populate text until it's the player's turn, while keep checking for end game.
-  while (!scene.isEnded()) {
-    const turn_unit = scene.getTurnUnit();
-    if (!turn_unit.isYou()) {
-      scene.advanceTurn();
-    } else {
-      break;
+  if (!scene.isEnded()) {
+    // Populate text until it's the player's turn, while keep checking for end game.
+    while (!scene.isEnded()) {
+      const turn_unit = scene.getTurnUnit();
+      if (!turn_unit.isYou()) {
+        scene.advanceTurn();
+      } else {
+        break;
+      }
     }
-  }
 
-  if (scene.isEnded()) {
-    // Finish. Show done button.
-    //refreshInfoDisplay(sex);
-    scene.appendEndText();
+    if (scene.isEnded()) {
+      // Finish. Show done button.
+      //refreshInfoDisplay(sex);
+      scene.appendEndText();
 
-    // Finish sex button
-    setup.DOM.Nav.topLeftNavigation(<FinishSexButton />);
-  } else {
-    // now it's your turn.
+      // Finish sex button
+      setup.DOM.Nav.topLeftNavigation(<FinishSexButton />);
+    } else {
+      // now it's your turn.
+    }
   }
 
   refreshInfoDisplay(sex);
@@ -202,15 +203,17 @@ const InteractiveSexSetup: Component<{
 
 const description_div_id = "interactive_sex_description_div";
 
-const InteractiveSexMenuFragment: Component<{
+const InteractiveSexMenuToolbar: Component<{
   sex: SexInstance;
   scene: SexScene;
   onReroll: () => void;
 }> = (props) => {
   return (
-    <>
-      {setup.DOM.Util.menuItemToolbar(
-        sexMenuFragment(props.sex, props.scene, (action) => {
+    <MenuItemToolbar>
+      <InteractiveSexToolbarItems
+        sex={props.sex}
+        scene={props.scene}
+        callback={(action) => {
           if (action === "action_selected") {
             runSexLoop(props.sex, props.scene);
           } else {
@@ -220,9 +223,9 @@ const InteractiveSexMenuFragment: Component<{
 
             forceRefresh();
           }
-        }),
-      )}
-    </>
+        }}
+      />
+    </MenuItemToolbar>
   );
 };
 
@@ -297,7 +300,7 @@ const InteractiveSexScene: Component<{ sex: SexInstance; scene: SexScene }> = (
         fallback={<FinishSexButton />}
       >
         <div class="InteractiveSex-actions">
-          <InteractiveSexMenuFragment
+          <InteractiveSexMenuToolbar
             {...props}
             onReroll={() => setRollIndex(getRollIndex() + 1)}
           />
@@ -318,12 +321,10 @@ const InteractiveSexScene: Component<{ sex: SexInstance; scene: SexScene }> = (
                     </span>
 
                     <aside>
-                      <Twee>
-                        {setup.TagHelper.getTagsRep(
-                          "sexaction",
-                          action.getTags(),
-                        )}
-                      </Twee>
+                      {setup.TagHelper.getTagsRep(
+                        "sexaction",
+                        action.getTags(),
+                      )}
                     </aside>
                   </article>
                 );

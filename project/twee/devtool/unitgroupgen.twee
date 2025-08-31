@@ -74,7 +74,7 @@ Unit group name:
     multiple quests, or making a quest that details the adventure of a certain
     unit spanning multiple quests.
     A new unit will only be generated when the existing one is removed, either
-    by using the (Remove actor from unit group) outcome, or by the 
+    by using the (Remove actor from unit group) outcome, or by the
     (Clear all units from a unit group) outcome.
   </div>
 <</message>>

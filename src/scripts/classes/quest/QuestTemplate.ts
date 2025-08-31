@@ -480,11 +480,6 @@ export class QuestTemplate extends ContentTemplate<QuestTemplateKey> {
     return skills;
   }
 
-  getSkillSummary(): string {
-    const skills = this.getMainSkills();
-    return skills.map((a) => a.rep()).join("");
-  }
-
   getCardClass(): string {
     return setup.TagHelper.getQuestCardClass(this.getTags());
   }

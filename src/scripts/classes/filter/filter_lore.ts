@@ -11,7 +11,12 @@ function getLoreTagFilters(type: string) {
     const options: FilterMenuOption<Lore>[] = [];
     for (const tag of setup.TagHelper.getAllTagsOfType("lore", type)) {
       options.push({
-        title: setup.TagHelper.tagRep("lore", tag, /* force = */ true),
+        title: setup.TagHelper.tagRep(
+          "lore",
+          tag,
+          /* force = */ true,
+          /* tooltip no click = */ true,
+        ),
         filter: getLoreTagFilter(tag),
       });
     }

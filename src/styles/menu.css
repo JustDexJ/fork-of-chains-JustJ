@@ -46,9 +46,9 @@
   position: relative;
 }
 
-.menu div:not(.menu-clickonly):hover > nav {
+/*.menu div:not(.menu-clickonly):hover > nav {
   display: block;
-}
+}*/
 
 .menu div > .menu-span {
   position: relative;
@@ -66,7 +66,7 @@
 
 /* Small arrow at the right of non-terminal menu items */
 .menu div > nav > div > span:not(:only-child)::after {
-  content: "\e81a";
+  content: "\f0da"; /* icon-caret-right */
   position: absolute;
   right: 6px;
   top: 0;
@@ -75,13 +75,20 @@
   display: flex;
   align-items: center;
 
-  font-family: tme-fa-icons;
-  font-weight: 400;
+  font-family: sc-icons !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
   line-height: 1;
+  speak: never;
+  text-rendering: auto;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .menu div.menu-left > nav > div > span:not(:only-child)::after {
-  content: "\e819";
+  content: "\f0d9"; /* icon-caret-left */
   right: unset;
   left: 6px;
 }
@@ -95,7 +102,7 @@
 }
 
 .menu nav {
-  display: none;
+  /*display: none;*/
   margin: 0;
   padding: 0;
   position: absolute;

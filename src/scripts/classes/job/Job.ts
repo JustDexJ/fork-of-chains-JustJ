@@ -28,12 +28,15 @@ export class Job extends TwineClass {
     return `img/job/${this.key}.svg`;
   }
 
-  getImageRep(): string {
-    return setup.repImgIcon(this.getImage(), this.getName());
+  renderIcon(): HTMLElement {
+    return setup.repImgIconJSX(this.getImage(), this.getName());
   }
 
   rep(): string {
-    return this.getImageRep();
+    return setup.repImgIcon(this.getImage(), this.getName());
+  }
+  repJSX(): DOM.Node {
+    return this.renderIcon();
   }
 
   getTrait(): Trait {

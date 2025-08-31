@@ -29,7 +29,7 @@ function getJobFilters() {
   const base: FilterMenuOptions<DutyInstance> = {};
   for (const [job_key, job] of objectEntries(setup.job)) {
     base[job_key] = {
-      title: setup.job[job_key].rep(),
+      title: setup.job[job_key].repJSX(),
       filter: getJobFilter(job_key),
     };
   }

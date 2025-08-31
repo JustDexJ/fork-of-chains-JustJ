@@ -143,6 +143,9 @@ export class Living extends TwineClass {
   rep(): string {
     return this.getName();
   }
+  repJSX(): DOM.Node {
+    return document.createTextNode(this.getName());
+  }
 
   /**
    * Choose a living for this unit

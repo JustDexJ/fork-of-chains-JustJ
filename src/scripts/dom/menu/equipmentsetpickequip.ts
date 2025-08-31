@@ -1,5 +1,6 @@
 import type { EquipmentSet } from "../../classes/equipment/EquipmentSet";
 import { menuItemAction, menuItemText, menuItemTitle } from "../../ui/menuitem";
+import { FilterableList } from "../components/misc/FilterableList";
 
 export function setEquipmentSetOnUnit(equipment_set: EquipmentSet, unit: Unit) {
   const previous_eq_set = unit.getEquipmentSet();
@@ -64,8 +65,8 @@ export const DOM_Menu_equipmentsetpickequip = function (unit: Unit): DOM.Node {
   }
 
   outer.push(
-    setup.DOM.Util.filterAll({
-      menu: "equipmentsetpickequip",
+    setup.DOM.renderComponent(FilterableList, {
+      menu: "equipmentsetpickequip" as const,
       filter_objects: sets,
       display_callback: (equipment_set) => {
         const fragments: DOM.Attachable[] = [];

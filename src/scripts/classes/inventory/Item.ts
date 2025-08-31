@@ -133,13 +133,17 @@ export abstract class Item extends TwineClass {
     return setup.rarity.common;
   }
 
-  getImageRep(skip_tooltip?: boolean) {
+  renderIcon(skip_tooltip?: boolean) {
     const image_path_raw = this.getItemClass().getImage();
-    const tooltip_attr = skip_tooltip
-      ? ""
-      : `data-tooltip="<<itemcard '${this.key}'>>"`;
-    const url = setup.escapeHtml(setup.resolveImageUrl(image_path_raw));
-    return `<span class="trait" ${tooltip_attr}><img src="${url}"/></span>`;
+    return setup.DOM.span(
+      {
+        class: "icon",
+        "data-tooltip": skip_tooltip ? undefined : "<<itemcard '${this.key}'>>",
+      },
+      setup.DOM.create("img", {
+        src: setup.resolveImageUrl(image_path_raw),
+      }),
+    );
   }
 
   getRepMacro() {
@@ -153,7 +157,14 @@ export abstract class Item extends TwineClass {
   rep(): string {
     return setup.repMessageDict({
       instance: this,
-      icontext: this.getImageRep(),
+      icontext: setup.DOM.toString(this.renderIcon()),
+      text_class: this.getRarity().getTextColorClass(),
+    });
+  }
+
+  repJSX(): DOM.Node {
+    return setup.repObjectJSX(this, {
+      icon: this.renderIcon(),
       text_class: this.getRarity().getTextColorClass(),
     });
   }

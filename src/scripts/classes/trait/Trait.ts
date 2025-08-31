@@ -176,7 +176,7 @@ export class Trait extends TwineClass {
       base = `${base} (worth: ${setup.DOM.toString(setup.DOM.Util.money(this.getSlaveValue()))})`;
     }
     if (this.isHasSkillBonuses()) {
-      base = `(${setup.SkillHelper.explainSkillMods(this.getSkillBonuses())}) ${base}`;
+      base = `(${setup.DOM.toString(setup.SkillHelper.explainSkillMods(this.getSkillBonuses()))}) ${base}`;
     }
     return base;
   }
@@ -237,7 +237,7 @@ export class Trait extends TwineClass {
     else return setup.rarity.common;
   }
 
-  _getCssAttrs(): string {
+  _getCssAttrs(): { style: string; classes: string } {
     let style = "";
     let classes = "trait " + this.getRarity().getIconTriangleClass();
 
@@ -264,33 +264,37 @@ export class Trait extends TwineClass {
       }
     }
 
-    return `class="${classes}" style="${style}"`;
+    return { classes, style };
   }
 
-  _rep(tooltip: boolean, tooltip_noclick?: boolean): string {
-    let inner = tooltip
-      ? setup.repImg({
-          imagepath: this.getImage(),
-          tooltip_content: `<<tooltiptrait '${this.key}'>>`,
-          tooltip_noclick: tooltip_noclick,
-        })
-      : setup.repImg({
-          imagepath: this.getImage(),
-        });
-    const tags = this.icon_settings.background || this.tags.join(" ");
-    return `<span ${this._getCssAttrs()}><span>${inner}</span></span>`;
+  _rep(tooltip: boolean, tooltip_noclick?: boolean): HTMLElement {
+    const inner = setup.repImgJSX({
+      imagepath: this.getImage(),
+      tooltip_content: tooltip ? `<<tooltiptrait '${this.key}'>>` : undefined,
+      tooltip_noclick: tooltip_noclick,
+    });
+
+    const span = document.createElement("span");
+    span.appendChild(inner);
+
+    const outer = document.createElement("span");
+    outer.appendChild(span);
+    const css_attrs = this._getCssAttrs();
+    outer.className = css_attrs.classes;
+    outer.style = css_attrs.style;
+    return outer;
   }
 
-  getImageRep(): string {
+  renderIcon(): HTMLElement {
     return this._rep(false);
   }
 
   rep(tooltip_noclick?: boolean): string {
-    return this._rep(true, tooltip_noclick);
+    return setup.DOM.toString(this._rep(true, tooltip_noclick));
   }
 
   repFull(): string {
-    return `<span class='capitalize' data-tooltip="<<tooltiptrait '${this.key}'>>">${this._rep(/* tooltip = */ false)} ${this.getName()}</span>`;
+    return `<span class='capitalize' data-tooltip="<<tooltiptrait '${this.key}'>>">${setup.DOM.toString(this._rep(/* tooltip = */ false))} ${this.getName()}</span>`;
   }
 
   repNegative(tooltip_noclick?: boolean): string {
@@ -299,6 +303,34 @@ export class Trait extends TwineClass {
 
   repPositive(tooltip_noclick?: boolean): string {
     return `<span class="traitcardglow">${this.rep(tooltip_noclick)}</span>`;
+  }
+
+  repJSX(tooltip_noclick?: boolean): DOM.Node {
+    return this._rep(true, tooltip_noclick);
+  }
+
+  repFullJSX(): DOM.Node {
+    return setup.DOM.span(
+      {
+        class: "capitalize",
+        "data-tooltip": "<<tooltiptrait '${this.key}'>>",
+      },
+      [this.repJSX(/* tooltip = */ false), this.getName()],
+    );
+  }
+
+  repNegativeJSX(tooltip_noclick?: boolean): DOM.Node {
+    return setup.DOM.span(
+      { class: "negtraitcard" },
+      this.repJSX(tooltip_noclick),
+    );
+  }
+
+  repPositiveJSX(tooltip_noclick?: boolean): DOM.Node {
+    return setup.DOM.span(
+      { class: "traitcardglow" },
+      this.repJSX(tooltip_noclick),
+    );
   }
 
   repSizeAdjective(): string {

@@ -157,6 +157,10 @@ export class BuildingTemplate extends TwineClass {
     // return setup.repMessage(this, undefined, this.getImageRep())
     return setup.repMessage(this);
   }
+  repJSX(): DOM.Node {
+    // return setup.repMessage(this, undefined, this.getImageRep())
+    return setup.repObjectJSX(this);
+  }
 
   isBuildable(current_level: number = 0): boolean {
     if (!current_level && State.variables.fort.player.countBuildings(this) >= 1)

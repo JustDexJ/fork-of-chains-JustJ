@@ -4,30 +4,32 @@ export function unitRep(unit: Unit): string {
 
 Macro.add("rep", {
   handler() {
-    const wrapper = $(document.createElement("span"));
+    const target = this.args[0];
     if (this.args[0] instanceof setup.Unit) {
-      const unitrep = unitRep(this.args[0]);
-      wrapper.wiki(unitrep);
+      const unitrep = unitRep(target);
+      new Wikifier(this.output, unitrep);
+    } else if ("repJSX" in target) {
+      this.output.appendChild(target.repJSX(this.args[1]));
     } else {
-      wrapper.wiki(this.args[0].rep(this.args[1]));
+      new Wikifier(this.output, target.rep(this.args[1]));
     }
-    wrapper.appendTo(this.output);
   },
 });
 
 Macro.add("Rep", {
   handler() {
-    const wrapper = $(document.createElement("span"));
-    if (this.args[0] instanceof setup.Unit) {
-      let unitrep = unitRep(this.args[0]);
+    const target = this.args[0];
+    if (target instanceof setup.Unit) {
+      let unitrep = unitRep(target);
       if (unitrep == "you") {
         unitrep = "You";
       }
-      wrapper.wiki(unitrep);
+      new Wikifier(this.output, unitrep);
+    } else if ("repJSX" in target) {
+      this.output.appendChild(target.repJSX(this.args[1]));
     } else {
-      wrapper.wiki(this.args[0].rep(this.args[1]));
+      new Wikifier(this.output, target.rep(this.args[1]));
     }
-    wrapper.appendTo(this.output);
   },
 });
 

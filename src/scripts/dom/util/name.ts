@@ -5,13 +5,16 @@ export default {
    * Formats object's name. <<nameof>>
    */
   namebold(object: ObjectWithName): DOM.Node {
-    return html` <span class="namespan">${object.getName()}</span> `;
+    const span = document.createElement("span");
+    span.className = "namespan";
+    span.appendChild(document.createTextNode(String(object.getName())));
+    return span;
   },
 
   /**
    * Formats object's name. <<nameof>>
    */
   name(object: ObjectWithName): DOM.Node {
-    return html`${object.getName()}`;
+    return document.createTextNode(String(object.getName()));
   },
 };

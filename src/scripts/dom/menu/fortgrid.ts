@@ -6,20 +6,15 @@ import {
   type Rotation,
 } from "../../classes/room/RoomInstance";
 import type { Tile } from "../../classes/room/Tile";
-import {
-  menuItemAction,
-  menuItemDanger,
-  menuItemExtras,
-  menuItemText,
-  menuItemTitle,
-} from "../../ui/menuitem";
+import { menuItemText, menuItemTitle } from "../../ui/menuitem";
 import { getUnplacedRoom } from "../card/room";
+import { FortgridToolbar } from "./fortgrid/fortgrid_toolbars";
 
 const FORTGRID_GRID_DIV_ID = "fortgrid-grid-div";
 const FORTGRID_TOOLBAR_DIV_ID = "fortgrid-toolbar-div";
 const FORTGRID_TITLEBAR_DIV_ID = "fortgrid-titlebar-div";
 
-function return_callback() {
+export function return_callback() {
   setup.DevToolHelper.saveScrollPos();
   if (State.variables.fortgrid.isRoomPlacementsValid()) {
     const cost = setup.gFortGridControl!.getRenovateCost();
@@ -387,371 +382,11 @@ that you can play the game without even bothering with this bonus if you prefer.
     if (explanation) {
       menus.push(
         menuItemText({
-          text: html`${explanation}`,
+          text: explanation,
           tooltip: tooltip,
         }),
       );
     }
-    return menus;
-  }
-
-  getToolbars(): JQuery[] {
-    const cancel_callback = () => {
-      setup.DevToolHelper.saveScrollPos();
-      if (this.mode == "build") {
-        const building_template = this.getRoom()!
-          .getTemplate()
-          .getBuildingTemplate()!;
-        this.getRoom()!.delete();
-        if (State.variables.fort.player.isHasBuilding(building_template)) {
-          setup.DOM.Nav.goto("Fort");
-        } else {
-          setup.DOM.Nav.goto("FortBuild");
-        }
-        return;
-      } else if (this.mode == "place" && this.move_origin_location) {
-        this.resetRoom();
-        this.mode = "edit";
-      } else if (this.mode == "place") {
-        // was from room list place
-        // can move back freely if no buildings was changed
-        if (!this.getChangedRooms().length) {
-          setup.DOM.Nav.goto("RoomList");
-          return;
-        } else {
-          setup.DOM.Nav.goto("RoomListPlace");
-          return;
-        }
-      } else {
-        this.mode = "edit";
-      }
-      this.refreshAll();
-    };
-
-    const confirm_build_callback = () => {
-      const room = this.getRoom()!;
-      const building_template = room.getTemplate().getBuildingTemplate()!;
-      if (State.variables.fort.player.isHasBuilding(building_template)) {
-        const instance =
-          State.variables.fort.player.getBuilding(building_template)!;
-        instance.upgrade(room);
-        setup.DevToolHelper.saveScrollPos();
-        setup.DOM.Nav.goto("Fort");
-      } else {
-        State.variables.fort.player.build(building_template, room);
-        setup.DevToolHelper.saveScrollPos();
-        setup.DOM.Nav.goto("FortBuild");
-      }
-      return;
-    };
-
-    if (["delete"].includes(this.mode)) {
-      setup.DOM.Nav.topLeftNavigation(
-        setup.DOM.Nav.link(`Finish removals`, cancel_callback),
-      );
-    } else if (this.mode == "edit") {
-      const cost = this.getRenovateCost();
-      if (cost > 0 && State.variables.company.player.getMoney() < cost) {
-        setup.DOM.Nav.topLeftNavigation(html`
-          Not enough money (Need: ${setup.DOM.Util.money(cost)})
-        `);
-      } else {
-        setup.DOM.Nav.topLeftNavigation(
-          setup.DOM.Nav.link(
-            html`Finish${cost ? html` (${setup.DOM.Util.money(-cost)})` : ``}`,
-            return_callback,
-          ),
-        );
-      }
-    } else if (this.mode == "confirmbuild") {
-      setup.DOM.Nav.topLeftNavigation(
-        setup.DOM.Nav.link(html`Confirm`, confirm_build_callback),
-      );
-    }
-
-    const menus = [];
-
-    if (["place", "build"].includes(this.mode)) {
-      menus.push(
-        menuItemText({
-          text: `Place ${this.getRoom()!.rep()}`,
-        }),
-      );
-    } else if (["delete"].includes(this.mode)) {
-      menus.push(
-        menuItemText({
-          text: `Click a room to remove`,
-        }),
-      );
-    } else if (["edit"].includes(this.mode) && this.is_show_renovation) {
-      menus.push(
-        menuItemText({
-          text: `Click a room to move`,
-        }),
-      );
-    }
-
-    if (["place", "build"].includes(this.mode)) {
-      const room = this.getRoom()!;
-      menus.push(
-        menuItemAction({
-          text: `Rotate`,
-          tooltip: `Rotate this room clockwise 90 degrees. You can use the "[" and "]" keyboard shortcuts for rotating rooms.`,
-          callback: () => {
-            room.rotate90clockwise();
-            if (this.current_mouse_enter_tile) {
-              on_mouse_enter_callback(this.current_mouse_enter_tile)();
-            }
-            this.refreshToolbar();
-          },
-        }),
-      );
-
-      menus.push(
-        menuItemAction({
-          text: `Auto-place`,
-          tooltip: `Let the game automatically place this room somewhere on the fort.`,
-          callback: () => {
-            const tiles = State.variables.fortgrid.placeAnywhere(
-              room,
-              /* return obsolete tiles = */ true,
-            );
-            if (Array.isArray(tiles)) {
-              on_build_success(room, tiles);
-            }
-          },
-        }),
-      );
-
-      Mousetrap.unbind("[").bind("[", () => {
-        if (["place", "build"].includes(this.mode)) {
-          room.rotate90anticlockwise();
-          if (this.current_mouse_enter_tile) {
-            on_mouse_enter_callback(this.current_mouse_enter_tile)();
-          }
-          this.refreshToolbar();
-        }
-      });
-
-      Mousetrap.unbind("]").bind("]", () => {
-        if (["place", "build"].includes(this.mode)) {
-          room.rotate90clockwise();
-          if (this.current_mouse_enter_tile) {
-            on_mouse_enter_callback(this.current_mouse_enter_tile)();
-          }
-          this.refreshToolbar();
-        }
-      });
-    }
-
-    if (this.is_show_renovation) {
-      if (["edit", "delete"].includes(this.mode)) {
-        const unplaced = State.variables.roomlist.getUnplacedRooms();
-        let text;
-        if (unplaced.length) {
-          text = html`Room list (${setup.DOM.Text.successlite(unplaced.length)})`;
-        } else {
-          text = html`Room list`;
-        }
-        menus.push(
-          menuItemAction({
-            text: text,
-            tooltip: `See your room list, and optionally place/remove some of them from your fort`,
-            callback: () => {
-              setup.DevToolHelper.saveScrollPos();
-              setup.DOM.Nav.goto("RoomListPlace");
-            },
-          }),
-        );
-      }
-
-      if (["edit"].includes(this.mode)) {
-        menus.push(
-          menuItemAction({
-            text: `Remove rooms`,
-            tooltip: `Remove rooms from your fort. You can place them back later`,
-            callback: () => {
-              this.mode = "delete";
-              this.refreshMeta();
-            },
-          }),
-        );
-      }
-    }
-
-    if (this.mode == "view") {
-      const unplaced = State.variables.roomlist.getUnplacedRooms().length;
-      menus.push(
-        menuItemAction({
-          text: `View/upgrade buildings`,
-          tooltip: `See all buildings as well as upgrade existing ones`,
-          callback: () => {
-            setup.DevToolHelper.saveScrollPos();
-            setup.DOM.Nav.goto("Fort");
-          },
-        }),
-        menuItemAction({
-          text: `Build`,
-          tooltip: `Construct new buildings`,
-          callback: () => {
-            setup.DevToolHelper.saveScrollPos();
-            setup.DOM.Nav.goto("FortBuild");
-          },
-        }),
-        menuItemAction({
-          text: html`Room
-          list${unplaced
-            ? html` (${setup.DOM.Text.successlite(`${unplaced}`)})`
-            : ""}`,
-          tooltip: `List all rooms`,
-          callback: () => {
-            setup.DevToolHelper.saveScrollPos();
-            setup.DOM.Nav.goto("RoomList");
-          },
-        }),
-        menuItemAction({
-          text: this.is_show_renovation ? `Relocate / Expand` : `Expand`,
-          tooltip: this.is_show_renovation
-            ? `Expand the size of your fort as well as move rooms around`
-            : `Expand the size of your fort either inwards or outwards`,
-          callback: () => {
-            setup.DevToolHelper.saveScrollPos();
-            delete setup.gFortGridControl;
-            setup.DOM.Nav.goto("FortGridRenovate");
-          },
-        }),
-      );
-    }
-
-    if (["place", "delete", "build"].includes(this.mode)) {
-      menus.push(
-        menuItemAction({
-          text: ["delete"].includes(this.mode) ? `Finish removals` : `Cancel`,
-          tooltip: ["delete"].includes(this.mode)
-            ? `Finish removing rooms`
-            : `Cancel the current action`,
-          callback: cancel_callback,
-        }),
-      );
-    } else if (["confirmbuild"].includes(this.mode)) {
-      menus.push(
-        menuItemAction({
-          text: "Confirm placement",
-          tooltip: `Finish the room placement`,
-          callback: confirm_build_callback,
-        }),
-        menuItemAction({
-          text: "Cancel",
-          tooltip: `Cancel the room placement and pick another position`,
-          callback: () => {
-            const room = this.getRoom()!;
-            const tiles = State.variables.fortgrid.relocateRoom(
-              room,
-              null,
-              /* return obsolete = */ true,
-            )!;
-            this.mode = "build";
-            this.refreshTiles(tiles);
-          },
-        }),
-      );
-    } else if (this.mode == "edit") {
-      const cost = this.getRenovateCost();
-      if (cost > 0 && State.variables.company.player.getMoney() < cost) {
-        menus.push(
-          menuItemText({
-            text: html`Not enough money: ${setup.DOM.Util.money(cost)}`,
-          }),
-        );
-      } else {
-        menus.push(
-          menuItemAction({
-            text: html`Finish${cost
-              ? html` (${setup.DOM.Util.money(-cost)})`
-              : ``}`,
-            tooltip: `Finish the renovation`,
-            callback: return_callback,
-          }),
-        );
-      }
-    }
-
-    const extras: JQuery[] = [];
-    if (this.mode == "edit") {
-      extras.push(
-        menuItemDanger({
-          text: `Reset to start`,
-          tooltip: `Reset all room positions to what it was at the start of this renovation`,
-          callback: () => {
-            this.resetAllRooms();
-            this.refreshAll();
-          },
-        }),
-      );
-    }
-
-    extras.push(
-      State.variables.menufilter.getMenuItemChecked(
-        "fortgrid",
-        "show_caption",
-        () => {
-          this.refreshAll();
-        },
-        "Show titles of the rooms at the top left corner of their images",
-      ),
-    );
-    extras.push(
-      State.variables.menufilter.getMenuItemChecked(
-        "fortgrid",
-        "show_tooltip",
-        () => {
-          this.refreshAll();
-        },
-        "Show room tooltips when hovering over them",
-      ),
-    );
-    if (this.is_show_bonus) {
-      extras.push(
-        State.variables.menufilter.getMenuItemChecked(
-          "fortgrid",
-          "show_skills",
-          () => {
-            this.refreshAll();
-          },
-          "Show the skill benefits of each room, if any, on the bottom left corner of their images",
-        ),
-      );
-    }
-    extras.push(
-      State.variables.menufilter.getMenuItemChecked(
-        "fortgrid",
-        "show_activities",
-        () => {
-          this.refreshAll();
-        },
-        "Show unit activities on the rooms",
-      ),
-    );
-
-    menus.push(
-      State.variables.menufilter.getMenuFilterToolbarSingleMenu(
-        setup.MenuFilter.getMenus("fortgrid"),
-        "fortgrid",
-        "zoom",
-        () => {
-          this.refreshAll();
-        },
-      ),
-    );
-
-    if (extras.length) {
-      menus.push(
-        menuItemExtras({
-          children: extras,
-        }),
-      );
-    }
-
     return menus;
   }
 }
@@ -774,7 +409,7 @@ function show_adjacencies(room: RoomInstance, location: TileLocation) {
   }
 }
 
-function on_mouse_enter_callback(tile: Tile) {
+export function on_mouse_enter_callback(tile: Tile) {
   return () => {
     if (!setup.gFortGridControl) return;
     const mode = setup.gFortGridControl.mode;
@@ -871,7 +506,10 @@ export function show_reason(
   });
 }
 
-function on_build_success(room: RoomInstance, to_update: TileLocation[]) {
+export function on_build_success(
+  room: RoomInstance,
+  to_update: TileLocation[],
+) {
   const control = setup.gFortGridControl!;
   const mode = control.mode;
   if (mode == "build") {
@@ -1085,8 +723,7 @@ export const DOM_Menu_fortgrid = function ({
         id: FORTGRID_TOOLBAR_DIV_ID,
         class: "tagtoolbarsticky",
       },
-      () =>
-        setup.DOM.Util.menuItemToolbar(setup.gFortGridControl!.getToolbars()),
+      () => setup.DOM.renderComponent(FortgridToolbar),
     ),
   );
 

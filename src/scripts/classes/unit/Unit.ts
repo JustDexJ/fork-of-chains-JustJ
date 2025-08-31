@@ -51,7 +51,7 @@ import { UnitTraitCacheHelper } from "./Unit_TraitCacheHelper";
 import { UnitTraitsHelper } from "./Unit_TraitsHelper";
 import type { UnitGroup, UnitGroupKey } from "./UnitGroup";
 
-type ValueBreakdown = Array<{ value: number; title: string }>;
+type ValueBreakdown = Array<{ value: number; title?: DOM.Node | string }>;
 
 /** Unique units (like the pc) use string IDs, whereas non-unique use numbers */
 export type UnitKey = BrandedType<string | number, "UnitKey">;
@@ -453,7 +453,7 @@ export class Unit extends TwineClass {
    * TRAITS ARE UNRELIABLE here, due to being called when traits are refreshed.
    * Do NOT use trait methods like isMindbroken
    */
-  getSlaveValueBreakdown(): ValueBreakdown {
+  getSlaveValueBreakdown(includeRep?: boolean): ValueBreakdown {
     const result: ValueBreakdown = [];
     result.push({
       value: setup.SLAVE_BASE_VALUE,
@@ -478,7 +478,7 @@ export class Unit extends TwineClass {
       if (trait_value) {
         result.push({
           value: trait_value,
-          title: trait.rep(),
+          title: includeRep ? trait.repJSX() : undefined,
         });
       }
     }
@@ -489,7 +489,7 @@ export class Unit extends TwineClass {
       if (value) {
         result.push({
           value: value,
-          title: title.rep(),
+          title: includeRep ? title.repJSX() : undefined,
         });
       }
     }
@@ -2017,7 +2017,7 @@ export class Unit extends TwineClass {
   busyInfo(
     show_duty_icon?: boolean,
     tooltip?: string,
-  ): { icon: string; title: string } {
+  ): { icon: DOM.Node; title: string } {
     let img;
     let title;
     if (this.getQuest()) {
@@ -2040,7 +2040,7 @@ export class Unit extends TwineClass {
       title = "on duty";
       if (show_duty_icon) {
         return {
-          icon: this.getDuty()!.repIcon(),
+          icon: this.getDuty()!.renderIcon(),
           title: title,
         };
       } else {
@@ -2052,19 +2052,19 @@ export class Unit extends TwineClass {
     }
 
     return {
-      icon: setup.repImgIcon(img, tooltip),
+      icon: setup.repImgIconJSX(img, tooltip),
       title: title,
     };
   }
 
-  repBusyState(show_duty_icon?: boolean): string {
-    if (!this.isYourCompany()) return "";
+  repBusyStateJSX(show_duty_icon?: boolean): DOM.Node | null {
+    if (!this.isYourCompany()) return null;
     return this.busyInfo(show_duty_icon, `<<tooltipunitstatus '${this.key}'>>`)
       .icon;
   }
 
   /** Same as rep, but doesn't include icons (just name + tooltip) */
-  repShort(show_actions?: boolean): string {
+  repShortJSX(show_actions?: boolean): DOM.Node {
     let color_class = "";
     if (State.variables.settings.inline_color) {
       if (this.isSlaver()) {
@@ -2086,44 +2086,59 @@ export class Unit extends TwineClass {
       !this.getContact() &&
       !this.isRetired()
     ) {
-      return `<span class="${color_class}">${this.getName()}</span>`;
+      return setup.DOM.span({ class: color_class }, this.getName());
     } else {
-      return (
-        `<span data-tooltip="<<tooltipunit '${this.key}'${show_actions ? " true" : ""}>>" data-tooltip-wide>` +
-        `<a class="replink${color_class}">${this.getName()}</a>` +
-        `</span>`
+      return setup.DOM.span(
+        {
+          "data-tooltip": `<<tooltipunit '${this.key}'${show_actions ? " true" : ""}>>`,
+          "data-tooltip-wide": "",
+        },
+        setup.DOM.create(
+          "a",
+          { class: `replink${color_class}` },
+          this.getName(),
+        ),
       );
     }
   }
 
   /** Same as rep and always include icons */
-  repLong(show_actions?: boolean): string {
+  repLongJSX(show_actions?: boolean): DOM.Node {
     const job = this.getJob();
 
-    let text = '<span class="rep">';
+    const children: DOM.JSXElement[] = [];
 
     if (job == setup.job.slaver) {
-      text += '<div class="icongrid">';
-      text += this.repBusyState(/* show duty = */ false);
+      const icongrid_items: DOM.JSXElement[] = [];
+      icongrid_items.push(this.repBusyStateJSX(/* show duty = */ false));
+
       const focuses = this.getSkillFocuses(
         State.variables.settings.unsortedskills,
       );
       for (let i = 0; i < focuses.length; ++i) {
-        text += focuses[i].rep();
+        icongrid_items.push(focuses[i].rep());
       }
-      text += "</div>";
+      children.push(setup.DOM.div({ class: "icongrid" }, icongrid_items));
     } else {
-      text += this.repBusyState(/* show duty = */ true);
-      text += job.rep();
+      children.push(this.repBusyStateJSX(/* show duty = */ true));
+      children.push(job.rep());
     }
 
-    text += this.repShort(show_actions);
+    children.push(this.repShortJSX(show_actions));
 
     if (State.variables.hospital.isInjured(this)) {
-      text += setup.DOM.toString(setup.DOM.Card.injury(this));
+      children.push(setup.DOM.Card.injury(this));
     }
 
-    return text + "</span>";
+    return setup.DOM.span({ class: "rep" }, children);
+  }
+
+  repShort(): string {
+    return setup.DOM.toString(this.repShortJSX());
+  }
+
+  repLong(): string {
+    return setup.DOM.toString(this.repLongJSX());
   }
 
   rep(): string {
@@ -2131,6 +2146,14 @@ export class Unit extends TwineClass {
       return this.repShort();
     } else {
       return this.repLong();
+    }
+  }
+
+  repJSX(): DOM.Node {
+    if (!State.variables.settings.inline_icon) {
+      return this.repShortJSX();
+    } else {
+      return this.repLongJSX();
     }
   }
 

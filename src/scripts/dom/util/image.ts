@@ -5,6 +5,7 @@ namespace DOM_Util_Image {
     tooltip?: string;
     image_class?: string;
     extra_styles?: string;
+    onClick?: () => void;
   }
 
   export function load({
@@ -13,6 +14,7 @@ namespace DOM_Util_Image {
     tooltip,
     image_class,
     extra_styles,
+    onClick,
   }: ImageLoadArgs): DOM.Node {
     const imageurl = (window.IMAGES && window.IMAGES[image_name]) || image_name;
 
@@ -46,7 +48,10 @@ namespace DOM_Util_Image {
       }
     });
 
-    const params = {};
+    if (onClick) {
+      img.addEventListener("click", onClick);
+    }
+
     if (tooltip) {
       return setup.DOM.create("span", { "data-tooltip": tooltip }, img);
     } else {

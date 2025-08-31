@@ -38,10 +38,12 @@ export default class QuestFortRestorationAwardsEfficiency extends Restriction {
   }
 
   override explain(): string {
-    const expl = setup.SkillHelper.explainSkills(
-      this.getTargetBonuses(),
-      /* hide skills = */ false,
-      /* to fixed = */ true,
+    const expl = setup.DOM.toString(
+      setup.SkillHelper.explainSkills(
+        this.getTargetBonuses(),
+        /* hide skills = */ false,
+        /* to fixed = */ true,
+      ),
     );
     return `Bonuses from ${this.getRoom().rep()} is at least ${expl}`;
   }

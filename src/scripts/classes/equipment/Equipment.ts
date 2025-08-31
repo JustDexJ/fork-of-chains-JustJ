@@ -34,15 +34,15 @@ export class Equipment extends TwineClass {
   static NONSEX_URL = "img/special/equipment_nonsex.svg";
   static SEX_URL = "img/special/equipment_sex.svg";
 
-  static repNonSexIcon(): string {
-    return setup.repImgIcon(
+  static repNonSexIcon(): DOM.Node {
+    return setup.repImgIconJSX(
       setup.Equipment.NONSEX_URL,
       "Equipments unrelated to sexual intercourse",
     );
   }
 
-  static repSexIcon(): string {
-    return setup.repImgIcon(
+  static repSexIcon(): DOM.Node {
+    return setup.repImgIconJSX(
       setup.Equipment.SEX_URL,
       "Sex toys and sex-related equipments",
     );
@@ -164,16 +164,15 @@ export class Equipment extends TwineClass {
     else return setup.rarity.common;
   }
 
-  getImageRep(skip_tooltip?: boolean): string {
+  renderIcon(skip_tooltip?: boolean): HTMLElement {
     let classes = "";
 
     const has_custom_image = this.icon_settings.image;
-    const imagepath =
-      "img/equipment/" +
-      (has_custom_image
+    const imagepath = `img/equipment/${
+      has_custom_image
         ? this.icon_settings.image
-        : this.getDefaultImageForSlot()) +
-      ".svg";
+        : this.getDefaultImageForSlot()
+    }.svg`;
 
     if (this.icon_settings.colorize !== false) {
       if (typeof this.icon_settings.colorize === "string") {
@@ -195,10 +194,15 @@ export class Equipment extends TwineClass {
 
     classes += ` ${this.getRarity().getIconTriangleClass()}`;
 
-    const tooltip = `<<equipmentcard '${this.key}'>>`;
-    const url = setup.escapeHtml(setup.resolveImageUrl(imagepath));
-    const tooltip_attr = skip_tooltip ? "" : `data-tooltip="${tooltip}"`;
-    return `<span class="trait ${classes}" ${tooltip_attr}><img src="${url}"/></span>`;
+    return setup.DOM.span(
+      {
+        class: `trait ${classes}`,
+        "data-tooltip": skip_tooltip
+          ? undefined
+          : `<<equipmentcard '${this.key}'>>`,
+      },
+      setup.DOM.create("img", { src: setup.resolveImageUrl(imagepath) }),
+    );
   }
 
   getRepMacro() {
@@ -212,7 +216,13 @@ export class Equipment extends TwineClass {
   rep(): string {
     return setup.repMessageDict({
       instance: this,
-      icontext: this.getImageRep(),
+      icontext: setup.DOM.toString(this.renderIcon()),
+      text_class: this.getRarity().getTextColorClass(),
+    });
+  }
+  repJSX(): DOM.Node {
+    return setup.repObjectJSX(this, {
+      icon: this.renderIcon(),
       text_class: this.getRarity().getTextColorClass(),
     });
   }
@@ -223,31 +233,43 @@ export class Equipment extends TwineClass {
     if (explanation) {
       basic += " " + explanation;
     }
-    const traits = this.repTraits();
+    const traits = setup.DOM.toString(this.repTraits());
     if (traits) {
       basic += " " + traits;
     }
     return basic;
   }
 
-  repTraits(): string {
-    const inner_fragments_front = [];
-    const inner_fragments_back = [];
+  repTraits(): DOM.Node {
+    const inner_fragments_front: DOM.Node[] = [];
+    const inner_fragments_back: DOM.Node[] = [];
     const trait_mods = this.getTraitMods();
     for (const [trait_key, mod] of objectEntries(trait_mods)) {
       const trait = setup.trait[trait_key];
       if (mod == 1) {
-        inner_fragments_front.push(trait.rep());
+        inner_fragments_front.push(trait.repJSX());
       } else {
         const fract =
           mod >= 2 && mod <= 9 ? FRACTION_CHARACTERS[mod - 2] : `1/${mod}`;
         inner_fragments_back.push(
-          `[<span data-tooltip="You need at least ${mod} pieces of equipment with this to get the trait">${fract} of</span> ${trait.rep()}]`,
+          document.createTextNode("["),
+          setup.DOM.span(
+            {
+              "data-tooltip":
+                "You need at least ${mod} pieces of equipment with this to get the trait",
+            },
+            `${fract} of`,
+          ),
+          trait.repJSX(),
+          document.createTextNode("]"),
         );
       }
     }
-    const all_fragments = inner_fragments_front.concat(inner_fragments_back);
-    return all_fragments.join("");
+
+    const fragment = document.createDocumentFragment();
+    fragment.append(...inner_fragments_front);
+    fragment.append(...inner_fragments_back);
+    return fragment;
   }
 
   getTraitMods(): Record<TraitKey, number> {

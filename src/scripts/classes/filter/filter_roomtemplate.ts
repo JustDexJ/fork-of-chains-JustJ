@@ -12,7 +12,12 @@ function getRoomTemplateTagFilters(tag_type: string) {
     const base: FilterMenuOptions<RoomTemplate> = {};
     for (const tag of setup.TagHelper.getAllTagsOfType("room", tag_type)) {
       base[tag] = {
-        title: setup.TagHelper.tagRep("room", tag, /* force = */ true),
+        title: setup.TagHelper.tagRep(
+          "room",
+          tag,
+          /* force = */ true,
+          /* tooltip no click = */ true,
+        ),
         filter: getRoomTemplateTagFilter(tag),
       };
     }
@@ -29,7 +34,7 @@ function getSkillFilters() {
 
   for (const skill of setup.skill) {
     base[skill.keyword] = {
-      title: skill.getImageRep(),
+      title: skill.renderIcon(),
       filter: getSkillFilter(skill.key),
     };
   }

@@ -1,5 +1,6 @@
 import type { Equipment } from "../../classes/equipment/Equipment";
 import type { EquipmentSet } from "../../classes/equipment/EquipmentSet";
+import { FilterableList } from "../components/misc/FilterableList";
 
 export const DOM_Menu_equipmentsetedit = function (
   equipment_set: EquipmentSet,
@@ -19,8 +20,8 @@ export const DOM_Menu_equipmentsetedit = function (
   const equipments = State.variables.armory.getEquipments();
 
   fragments.push(
-    setup.DOM.Util.filterAll({
-      menu: "equipmentattach",
+    setup.DOM.renderComponent(FilterableList, {
+      menu: "equipmentattach" as const,
       filter_objects: equipments.map((equipment_obj) => equipment_obj[0]),
       display_callback: (equipment: Equipment) => {
         const inner = [];

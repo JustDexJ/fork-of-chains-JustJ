@@ -1,5 +1,6 @@
 import type { Bedchamber } from "../../classes/bedchamber/BedChamber";
 import type { Furniture } from "../../classes/furniture/Furniture";
+import { FilterableList } from "../components/misc/FilterableList";
 
 export const DOM_Menu_bedchamberedit = function (
   bedchamber: Bedchamber,
@@ -23,8 +24,8 @@ export const DOM_Menu_bedchamberedit = function (
     .filter((item) => item instanceof setup.Furniture);
 
   fragments.push(
-    setup.DOM.Util.filterAll({
-      menu: "furnitureattach",
+    setup.DOM.renderComponent(FilterableList, {
+      menu: "furnitureattach" as const,
       filter_objects: furnitures,
       display_callback: (furniture: Furniture) => {
         const inner = [];

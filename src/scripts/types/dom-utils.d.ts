@@ -57,7 +57,7 @@ declare global {
       : false;
     type test = Attributes<"button">["click"];
 
-    type Node = HTMLElement | DocumentFragment;
+    type Node = HTMLElement | DocumentFragment | Text;
 
     type Attachable =
       | Attachable[]

@@ -15,7 +15,7 @@ function getEquipmentSetSkillsSort() {
 
   for (const skill of setup.skill) {
     base[skill.keyword] = {
-      title: skill.getImageRep(),
+      title: skill.renderIcon(),
       sort: getEquipmentSetSkillSort(skill.key),
     };
   }

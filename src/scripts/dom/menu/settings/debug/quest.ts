@@ -5,6 +5,7 @@ import {
   type QuestOutcome,
 } from "../../../../classes/quest/QuestTemplate";
 import { renderDescription } from "../../../card/quest";
+import { FilterableList } from "../../../components/misc/FilterableList";
 import {
   debug_do_one_finalize,
   debug_do_one_title,
@@ -75,8 +76,8 @@ export default {
     fragments.push(debug_frontpage_title("quest", "QuestDebugAll"));
 
     fragments.push(
-      setup.DOM.Util.filterAll({
-        menu: "questtemplate",
+      setup.DOM.renderComponent(FilterableList, {
+        menu: "questtemplate" as const,
         filter_objects: Object.values(setup.questtemplate),
         display_callback: (template) => {
           const inner = [];

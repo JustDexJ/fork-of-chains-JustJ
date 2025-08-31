@@ -31,8 +31,8 @@ export class ItemClass extends TwineClass {
     return `img/itemclass/${this.key}.svg`;
   }
 
-  getImageRep(): string {
-    return setup.repImgIcon(this.getImage());
+  renderIcon(): HTMLElement {
+    return setup.repImgIconJSX(this.getImage());
   }
 
   rep(): string {

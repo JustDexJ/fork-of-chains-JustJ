@@ -200,22 +200,9 @@ You take a look at the details of these quests...
 <</if>>
 
 <<focwidget 'loadquests'>>
-
-  <<set _quests = $company.player.getQuests()>>
-
   <div>
-    <<run _dom = setup.DOM.Util.filterAll({
-      menu: 'quest',
-      filter_objects: _quests,
-      display_callback: quest => {
-        if ($menufilter.get('quest', 'display') == 'compact') return setup.DOM.Card.questcompact(quest, /* show_actions = */ true);
-        if ($menufilter.get('quest', 'display') == 'short') return setup.DOM.Card.questcompact(quest, /* show_actions = */ true);
-        return setup.DOM.Card.quest(quest, /* show_actions = */ true);
-      },
-    })>>
-    <<attach _dom>>
+    <<attach setup.FilterableLists.questhub()>>
   </div>
-
 <</focwidget>>
 
 <<focwidget 'refreshquests'>>

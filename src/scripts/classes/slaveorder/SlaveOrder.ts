@@ -77,6 +77,9 @@ export class SlaveOrder extends TwineClass {
   rep(): string {
     return setup.repMessage(this);
   }
+  repJSX(): DOM.Node {
+    return setup.repObjectJSX(this);
+  }
 
   doUnfulfill(): void {
     // unfulfilled, so pay the cost.

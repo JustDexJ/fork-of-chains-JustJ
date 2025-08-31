@@ -54,7 +54,7 @@ export namespace SetupUtil {
     return Object.prototype.toString.call(x) === "[object String]";
   }
 
-  export function escapeJsString(s: string) {
+  export function escapeJsString(s: string): string {
     return s
       .split("\\")
       .join("\\\\")
@@ -64,17 +64,17 @@ export namespace SetupUtil {
       .join('\\\"');
   }
 
-  export function capitalize(s: string) {
+  export function capitalize(s: string): string {
     return s.substr(0, 1).toUpperCase() + s.substr(1);
   }
 
   const capitalize_words_regex = /(\b[a-z](?!\s))/g;
 
-  export function capitalizeWords(s: string) {
+  export function capitalizeWords(s: string): string {
     return s.replace(capitalize_words_regex, (c) => c.toUpperCase());
   }
 
-  export function title_case(s: string) {
+  export function title_case(s: string): string {
     return s.replace(/\w\S*/g, function (txt) {
       return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
@@ -89,7 +89,7 @@ export namespace SetupUtil {
     "'": "&#039;",
   };
 
-  export function escapeHtml(unsafe: string) {
+  export function escapeHtml(unsafe: string): string {
     return unsafe.replace(escape_html_regexp, (c) => escape_html_map[c]);
   }
 
@@ -97,7 +97,7 @@ export namespace SetupUtil {
    * Returns the URL for an image
    * Tries to find if it is present as an embbeded image, returning the data uri in such case
    **/
-  export function resolveImageUrl(imagepath: string) {
+  export function resolveImageUrl(imagepath: string): string {
     return (window.IMAGES && window.IMAGES[imagepath]) || imagepath;
   }
 
@@ -115,7 +115,7 @@ export namespace SetupUtil {
     tooltip_content?: string;
     tooltip_noclick?: boolean;
     extra_class?: string;
-  }) {
+  }): string {
     const img = `<img src="${setup.escapeHtml(setup.resolveImageUrl(imagepath))}" />`;
     if (tooltip_content || extra_class) {
       const noclick = tooltip_noclick ? " data-tooltip-noclick" : "";
@@ -126,18 +126,79 @@ export namespace SetupUtil {
   }
 
   /**
+   * Returns an image DOM element pointing to the specified path,
+   * calling 'setup.resolveImageUrl' internally
+   **/
+  export function repImgJSX({
+    imagepath,
+    tooltip_content,
+    tooltip_noclick,
+    extra_class,
+  }: {
+    imagepath: string;
+    tooltip_content?: string;
+    tooltip_noclick?: boolean;
+    extra_class?: string;
+  }): HTMLElement {
+    const img = document.createElement("img");
+    img.src = setup.resolveImageUrl(imagepath);
+
+    if (tooltip_content) {
+      img.setAttribute("data-tooltip", tooltip_content ?? "");
+      if (tooltip_noclick) img.setAttribute("data-tooltip-noclick", "");
+    }
+    if (extra_class) img.className = extra_class;
+
+    return img;
+
+    /*if (tooltip_content || extra_class) {
+      const span = document.createElement("span");
+      span.setAttribute("data-tooltip", tooltip_content ?? "");
+      if (tooltip_noclick) span.setAttribute("data-tooltip-noclick", "");
+      if (extra_class) span.classList = extra_class;
+      span.appendChild(img);
+      return span;
+    } else {
+      return img;
+    }*/
+  }
+
+  /**
    * Like setup.repImg, but for icons and resize them properly.
    */
-  export function repImgIcon(imagepath: string, tooltip_content?: string) {
+  export function repImgIcon(
+    imagepath: string,
+    tooltip_content?: string,
+  ): string {
     return setup.repImg({
       imagepath: imagepath,
       tooltip_content: tooltip_content,
-      extra_class: "trait",
+      extra_class: "icon",
     });
   }
 
+  /**
+   * Like setup.repImgJSX, but for icons and resize them properly.
+   */
+  export function repImgIconJSX(
+    imagepath: string,
+    tooltip_content?: string,
+  ): HTMLElement {
+    return setup.repImgJSX({
+      imagepath: imagepath,
+      tooltip_content: tooltip_content,
+      extra_class: "icon",
+    });
+  }
+
+  type Repable = {
+    key: string | number | null | undefined;
+    getName(): string;
+    getRepMacro?: () => string;
+  };
+
   export function repMessage(
-    instance: { key: any; getName(): string; getRepMacro?: () => string },
+    instance: Repable,
     macroname?: string,
     icontext?: string,
     message?: string,
@@ -158,31 +219,57 @@ export namespace SetupUtil {
     message,
     text_class,
   }: {
-    instance: {
-      key: string | number;
-      getName(): string;
-      getRepMacro?: () => string;
-    };
+    instance: Repable;
     macroname?: string;
     icontext?: string;
     message?: string;
     text_class?: string;
   }): string {
     macroname ??= instance.getRepMacro?.() ?? "";
-    let tooltip = "";
-    if (macroname) {
-      tooltip = `<<${macroname} '${instance.key}'>>`;
-    }
+    //let tooltip = "";
+    //if (macroname) {
+    //  tooltip = `<<${macroname} '${instance.key}'>>`;
+    //}
     //else if (instance.repPath && instance.repCard) {
     //  tooltip = `<<repcard ${instance.repPath()}>>`
     //}
+    message ||= instance.getName();
 
-    if (!message) message = instance.getName();
     let text = icontext || "";
     text += `<span data-tooltip="<<${macroname} '${instance.key}' 1>>" data-tooltip-wide>`;
     text += `<a class="replink ${text_class ? text_class : ""}">${message}</a>`;
     text += `</span>`;
     return text;
+  }
+
+  export function repObjectJSX(
+    instance: Repable,
+    options?: {
+      macroname?: string;
+      icon?: DOM.JSXElement;
+      message?: DOM.JSXElement;
+      text_class?: string;
+    },
+  ): HTMLElement | DocumentFragment {
+    const macroname = (options?.macroname || instance.getRepMacro?.()) ?? "";
+    const message = options?.message || instance.getName();
+
+    const span = document.createElement("span");
+    span.setAttribute("data-tooltip", `<<${macroname} '${instance.key}'>>`);
+    span.setAttribute("data-tooltip-wide", "");
+
+    const a = document.createElement("a");
+    a.className = options?.text_class
+      ? `replink ${options.text_class}`
+      : "replink";
+    a.appendChild(setup.DOM.toDOM(message));
+    span.appendChild(a);
+
+    if (options?.icon) {
+      return setup.DOM.createFragment(setup.DOM.toDOM(options.icon), span);
+    } else {
+      return span;
+    }
   }
 
   export function getKeyFromName(
@@ -243,16 +330,6 @@ export namespace SetupUtil {
    */
   export function runSugarCubeCommand(command: string) {
     new Wikifier(null, command);
-  }
-
-  /**
-   * Runs a sugarcube command and get its output as a html string
-   */
-  export function runSugarCubeCommandAndGetOutput(command: string): string {
-    // see comment for runSugarCubeCommand
-    const fragment = document.createDocumentFragment();
-    new Wikifier(fragment, command);
-    return setup.DOM.toString(fragment);
   }
 
   /**

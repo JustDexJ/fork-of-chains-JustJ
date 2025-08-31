@@ -13,7 +13,12 @@ function getTemplateTagFilters(tag_type: string) {
     const base: FilterMenuOptions<ContentTemplate> = {};
     for (const tag of TagHelper.getAllTagsOfType("quest", tag_type)) {
       base[tag] = {
-        title: TagHelper.tagRep("quest", tag, /* force = */ true),
+        title: TagHelper.tagRep(
+          "quest",
+          tag,
+          /* force = */ true,
+          /* tooltip no click = */ true,
+        ),
         filter: getTemplateTagFilter(tag),
       };
     }
@@ -30,7 +35,7 @@ function getSubraceFilters() {
   const base: FilterMenuOptions<ContentTemplate> = {};
   for (const subrace of TraitHelper.getAllTraitsOfTags(["subrace"])) {
     base[subrace.key] = {
-      title: subrace.rep(),
+      title: subrace.repJSX(),
       filter: getSubraceFilter(subrace),
     };
   }
@@ -46,7 +51,7 @@ function getSkillFilters() {
   const base: FilterMenuOptions<ContentTemplate> = {};
   for (const skill of setup.skill) {
     base[skill.keyword] = {
-      title: skill.rep(),
+      title: skill.repJSX(),
       filter: getSkillFilter(skill),
     };
   }

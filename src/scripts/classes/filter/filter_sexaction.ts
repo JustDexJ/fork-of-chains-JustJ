@@ -9,7 +9,12 @@ function getSexActionTagFilters(tag_type: string) {
     const base: FilterMenuOptions<SexAction> = {};
     for (const tag of setup.TagHelper.getAllTagsOfType("sexaction", tag_type)) {
       base[tag] = {
-        title: setup.TagHelper.tagRep("sexaction", tag, /* force = */ true),
+        title: setup.TagHelper.tagRep(
+          "sexaction",
+          tag,
+          /* force = */ true,
+          /* tooltip no click = */ true,
+        ),
         filter: getSexActionTagFilter(tag),
       };
     }

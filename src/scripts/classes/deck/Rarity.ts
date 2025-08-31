@@ -61,13 +61,23 @@ export class Rarity extends TwineClass {
     return `img/rarity/${this.key}.svg`;
   }
 
-  getImageRep(): string {
-    const img = `<img src="${setup.escapeHtml(setup.resolveImageUrl(this.getImage()))}" />`;
-    return `<span class='trait' data-tooltip="${this.getName()}">${img}</span>`;
+  renderIcon(): HTMLElement {
+    return setup.DOM.span(
+      {
+        class: "icon",
+        "data-tooltip": this.getName(),
+      },
+      setup.DOM.create("img", {
+        src: setup.resolveImageUrl(this.getImage()),
+      }),
+    );
   }
 
   rep(): string {
-    return this.getImageRep();
+    return setup.DOM.toString(this.renderIcon());
+  }
+  repJSX(): DOM.Node {
+    return this.renderIcon();
   }
 
   getFrequency(): number {

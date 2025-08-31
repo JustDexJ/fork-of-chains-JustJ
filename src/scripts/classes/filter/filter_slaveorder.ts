@@ -14,7 +14,7 @@ function getSourceCompanyFilter() {
     .filter((company) => orders_sources.includes(company))
     .map((company) => {
       return {
-        title: company.rep(),
+        title: company.repJSX(),
         filter: slaveOrderFilter(company),
       };
     });

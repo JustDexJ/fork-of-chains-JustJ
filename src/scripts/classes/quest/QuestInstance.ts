@@ -66,6 +66,9 @@ export class QuestInstance extends TwineClass {
   rep() {
     return setup.repMessage(this);
   }
+  repJSX() {
+    return setup.repObjectJSX(this);
+  }
 
   isDismissable() {
     if (this.team_key) return false;

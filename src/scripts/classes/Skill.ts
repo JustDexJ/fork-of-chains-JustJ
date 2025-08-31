@@ -40,15 +40,15 @@ export class Skill extends TwineClass {
     setup.skill.push(this);
   }
 
-  getName() {
+  getName(): string {
     return this.name;
   }
 
-  getDescription() {
+  getDescription(): string {
     return this.description;
   }
 
-  getImage() {
+  getImage(): string {
     // Apparently ad-block does not like social.png, so this had to be renamed.
     if (this.keyword == "social") {
       return `img/role/sc.svg`;
@@ -57,16 +57,25 @@ export class Skill extends TwineClass {
     }
   }
 
-  getImageRep() {
-    return setup.repImgIcon(this.getImage());
+  renderIcon(): HTMLElement {
+    return setup.repImgIconJSX(this.getImage());
   }
 
-  rep() {
+  rep(): string {
     return setup.repImgIcon(this.getImage(), `<<tooltipskill '${this.key}'>>`);
   }
+  repJSX(): DOM.Node {
+    return setup.repImgIconJSX(
+      this.getImage(),
+      `<<tooltipskill '${this.key}'>>`,
+    );
+  }
 
-  repPositive() {
+  repPositive(): string {
     return `<span class='skillcardglow'>${this.rep()}</span>`;
+  }
+  repPositiveJSX(): DOM.JSXElement {
+    return setup.DOM.span({ class: "skillcardglow" }, this.repJSX());
   }
 
   static translate<T>(
@@ -135,34 +144,43 @@ export namespace SkillHelper {
     skill_mod_array_raw: number[],
     is_hide_skills?: boolean,
     is_no_mult?: boolean,
-  ) {
+  ): DOM.Node {
+    const fragment = document.createDocumentFragment();
+
     let skill_array = setup.Skill.translate(skill_mod_array_raw);
-    let texts = [];
     let mid = " × ";
     if (is_no_mult) mid = " ";
     for (let i = 0; i < skill_array.length; ++i) {
       if (skill_array[i]) {
-        let image_rep = setup.skill[i].rep();
-        if (is_hide_skills) {
-          image_rep = setup.skill[i].getName();
-        }
         let sign = "";
         if (skill_array[i] > 0) sign = "+";
         let percent = Math.round(skill_array[i] * 100);
         let fixed = 1;
         if (percent % 10) fixed = 2;
-        let vtext = `${sign}${(percent / 100).toFixed(fixed)}`;
+        let vtext: DOM.Node | string =
+          `${sign}${(percent / 100).toFixed(fixed)}`;
         if (!is_hide_skills) {
           if (sign == "+") {
-            vtext = setup.DOM.toString(setup.DOM.Text.successlite(vtext));
+            vtext = setup.DOM.Text.successlite(vtext);
           } else if (vtext.startsWith("-")) {
-            vtext = setup.DOM.toString(setup.DOM.Text.dangerlite(vtext));
+            vtext = setup.DOM.Text.dangerlite(vtext);
           }
         }
-        texts.push(`${vtext}${mid}${image_rep}`);
+
+        if (fragment.firstChild) {
+          fragment.append("║");
+        }
+
+        const vtext_node =
+          typeof vtext === "string" ? document.createTextNode(vtext) : vtext;
+
+        const rendered_icon = is_hide_skills
+          ? document.createTextNode(setup.skill[i].getName())
+          : setup.skill[i].repJSX();
+        fragment.append(vtext_node, mid, rendered_icon);
       }
     }
-    return texts.join("║");
+    return fragment;
   }
 
   /**
@@ -193,8 +211,7 @@ export namespace SkillHelper {
     return texts.join("");
   }
 
-  export function explainSkillWithAdditive(unit: Unit, skill: Skill): string {
-    const image_rep = skill.rep();
+  export function explainSkillWithAdditive(unit: Unit, skill: Skill): DOM.Node {
     const innate_add = State.variables.skillboost.getBoosts(unit)[skill.key];
     const val = unit.getSkillsBase()[skill.key];
     const add = unit.getSkillsAdd()[skill.key];
@@ -227,20 +244,24 @@ export namespace SkillHelper {
         text = setup.DOM.toString(setup.DOM.Text.dangerlite(text));
       }
     }
-    return `<span class="unit-skill">${image_rep} <span data-tooltip='${tooltip}'>${text}</span></span>`;
+
+    return setup.DOM.span({ class: "unit-skill" }, [
+      skill.repJSX(),
+      setup.DOM.span({ "data-tooltip": tooltip }, text),
+    ]);
   }
 
-  export function explainSkillsWithAdditives(unit: Unit): string {
+  export function explainSkillsWithAdditives(unit: Unit): DOM.Node {
     const skill_array = unit.getSkillsBase(/* ignore skill boosts = */ true);
-    let texts = [];
+    let children: DOM.Node[] = [];
     for (let i = 0; i < skill_array.length; ++i) {
       if (skill_array[i]) {
-        texts.push(
+        children.push(
           setup.SkillHelper.explainSkillWithAdditive(unit, setup.skill[i]),
         );
       }
     }
-    return `<div class="unit-skills">${texts.join("")}</div>`;
+    return setup.DOM.div({ class: "unit-skills" }, children);
   }
 
   /**
@@ -250,25 +271,27 @@ export namespace SkillHelper {
     skill_array_raw: readonly number[],
     is_hide_skills?: boolean,
     is_to_fixed?: boolean,
-  ): string {
+  ): DOM.Node {
     const skill_array = setup.Skill.translate(skill_array_raw);
-    const texts = [];
+    const fragment = document.createDocumentFragment();
     for (let i = 0; i < skill_array.length; ++i) {
       if (skill_array[i]) {
-        let image_rep = setup.skill[i].rep();
-        if (is_hide_skills) {
-          image_rep = setup.skill[i].getName();
-        }
+        let image_rep: DOM.Attachable = is_hide_skills
+          ? setup.skill[i].getName()
+          : setup.skill[i].repJSX();
+
         let val;
         if (is_to_fixed) {
           val = skill_array[i].toFixed(1);
         } else {
           val = Math.round(skill_array[i]);
         }
-        texts.push(`<span>${val} ${image_rep}</span>`);
+
+        if (fragment.firstChild) fragment.append("║");
+        fragment.append(setup.DOM.span({}, [val, image_rep]));
       }
     }
-    return texts.join("║");
+    return fragment;
   }
 
   /**

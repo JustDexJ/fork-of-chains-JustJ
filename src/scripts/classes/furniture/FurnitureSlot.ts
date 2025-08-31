@@ -35,13 +35,21 @@ export class FurnitureSlot extends TwineClass {
     return `img/furnitureslot/${this.key}.svg`;
   }
 
-  getImageRep(): string {
-    const img = `<img src="${setup.escapeHtml(setup.resolveImageUrl(this.getImage()))}" />`;
-    return `<span class='trait colorize-white' data-tooltip="${setup.capitalize(this.getName())}">${img}</span>`;
+  renderIcon(): HTMLElement {
+    return setup.DOM.span(
+      {
+        class: "icon colorize-white",
+        "data-tooltip": setup.capitalize(this.getName()),
+      },
+      setup.DOM.create("img", { src: setup.resolveImageUrl(this.getImage()) }),
+    );
   }
 
   rep(): string {
-    return this.getImageRep();
+    return setup.DOM.toString(this.renderIcon());
+  }
+  repJSX(): DOM.Node {
+    return this.renderIcon();
   }
 
   getBasicFurniture(): Furniture {

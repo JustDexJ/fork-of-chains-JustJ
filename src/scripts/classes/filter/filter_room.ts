@@ -11,7 +11,12 @@ function getRoomTagFilters(tag_type: string) {
     const base: FilterMenuOptions<RoomInstance> = {};
     for (const tag of setup.TagHelper.getAllTagsOfType("room", tag_type)) {
       base[tag] = {
-        title: setup.TagHelper.tagRep("room", tag, /* force = */ true),
+        title: setup.TagHelper.tagRep(
+          "room",
+          tag,
+          /* force = */ true,
+          /* tooltip no click = */ true,
+        ),
         filter: getRoomTagFilter(tag),
       };
     }

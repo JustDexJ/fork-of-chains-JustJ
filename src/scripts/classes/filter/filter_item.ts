@@ -19,7 +19,7 @@ function getItemClassFilters() {
 
   for (const item_class of Object.values(setup.itemclass)) {
     options.push({
-      title: item_class.getImageRep(),
+      title: item_class.renderIcon(),
       filter: getItemClassFilter(item_class.key),
     });
   }
@@ -38,7 +38,7 @@ function getFurnitureSlotFilters() {
 
   for (const furniture_slot of Object.values(setup.furnitureslot)) {
     options.push({
-      title: furniture_slot.getImageRep(),
+      title: furniture_slot.renderIcon(),
       filter: getFurnitureSlotFilter(furniture_slot.key),
     });
   }
@@ -60,7 +60,7 @@ function getSkillModsSort() {
 
   for (const skill of setup.skill) {
     base[skill.keyword] = {
-      title: skill.getImageRep(),
+      title: skill.renderIcon(),
       sort: getSkillModSort(skill.key),
       filter: (a) => a instanceof setup.Furniture && a.getSkillMod(skill) > 0,
     };

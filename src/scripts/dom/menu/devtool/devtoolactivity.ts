@@ -1,5 +1,6 @@
 import type { ActivityTemplate } from "../../../classes/activity/ActivityTemplate";
 import type { RoomTemplate } from "../../../classes/room/RoomTemplate";
+import { FilterableList } from "../../components/misc/FilterableList";
 
 function refreshPage() {
   setup.DevToolHelper.saveScrollPos();
@@ -266,8 +267,8 @@ export const DOM_Menu_devtoolactivityselectroom = function (
   all_rooms.sort((a, b) => a.getName().localeCompare(b.getName()));
 
   fragments.push(
-    setup.DOM.Util.filterAll({
-      menu: "roomtemplate",
+    setup.DOM.renderComponent(FilterableList, {
+      menu: "roomtemplate" as const,
       filter_objects: all_rooms,
       display_callback: (room_template) => {
         let inside;

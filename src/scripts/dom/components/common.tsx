@@ -1,4 +1,4 @@
-import { Show, createEffect, createSignal, onMount } from "solid-js";
+import { Show, createEffect, createSignal, onMount, type JSX } from "solid-js";
 import type { LoreKey } from "../../classes/Lore.js";
 import { unitRep } from "../../macro/content/rep.js";
 import { reload } from "../nav/nav.js";
@@ -18,10 +18,12 @@ export const Twee: Component<{ children: string }> = (props) => {
   });
 
   createEffect(() => {
-    while (divRef!.firstChild) {
-      divRef!.removeChild(divRef!.firstChild);
+    if (divRef) {
+      while (divRef.firstChild) {
+        divRef.removeChild(divRef.firstChild);
+      }
+      new Wikifier(divRef, setup.DevToolHelper.stripNewLine(props.children));
     }
-    new Wikifier(divRef!, props.children);
   });
 
   return <div ref={divRef} />;
@@ -45,16 +47,21 @@ export const TweeSpan: Component<{ children: string }> = (props) => {
   });
 
   createEffect(() => {
-    while (divRef!.firstChild) {
-      divRef!.removeChild(divRef!.firstChild);
+    if (divRef) {
+      while (divRef.firstChild) {
+        divRef.removeChild(divRef.firstChild);
+      }
+      new Wikifier(divRef, props.children);
     }
-    new Wikifier(divRef!, props.children);
   });
 
   return <span ref={divRef} />;
 };
 
-export const Message: Component<ParentProps<{ label: string }>> = (props) => {
+export const Message: Component<{
+  label: string;
+  children?: JSX.Element | (() => JSX.Element);
+}> = (props) => {
   const [isOpen, setIsOpen] = createSignal(false);
   return (
     <span class="message-text">
@@ -62,7 +69,11 @@ export const Message: Component<ParentProps<{ label: string }>> = (props) => {
         {props.label}
       </a>
       <span style={{ display: isOpen() ? "block" : "none" }}>
-        <Show when={isOpen()}>{props.children}</Show>
+        <Show when={isOpen()}>
+          {typeof props.children === "function"
+            ? props.children()
+            : props.children}
+        </Show>
       </span>
     </span>
   );
@@ -185,6 +196,10 @@ export const Icon: Component<{ icon: string; text: string }> = (props) => {
   );
 };
 
+/**
+ * Render an image to the specified path,
+ * calling `setup.resolveImageUrl` internally
+ **/
 export const Image: Component<{
   imagepath: string;
   tooltip_content?: string;
@@ -211,7 +226,7 @@ export const ImageIcon: Component<{
   imagepath: string;
   tooltip_content?: string;
 }> = (props) => {
-  return <Image {...props} extra_class="trait" />;
+  return <Image {...props} extra_class="icon" />;
 };
 
 export const Rep = <T extends { rep(arg: any): any }>(props: {

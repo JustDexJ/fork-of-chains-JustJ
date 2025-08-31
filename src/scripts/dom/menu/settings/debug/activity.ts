@@ -1,4 +1,5 @@
 import type { ActivityTemplate } from "../../../../classes/activity/ActivityTemplate";
+import { FilterableList } from "../../../components/misc/FilterableList";
 import {
   debug_do_one_finalize,
   debug_do_one_title,
@@ -11,8 +12,8 @@ export default {
     fragments.push(debug_frontpage_title("activity", "ActivityDebugAll"));
 
     fragments.push(
-      setup.DOM.Util.filterAll({
-        menu: "activitytemplate",
+      setup.DOM.renderComponent(FilterableList, {
+        menu: "activitytemplate" as const,
         filter_objects: Object.values(setup.activitytemplate),
         display_callback: (template) =>
           html` <div>

@@ -9,7 +9,7 @@
         <<set _friendcardfriendship = $friendship.getFriendship(_friendcardunit, _friendcardbestfriend)>>
         Closest with <<= setup.Friendship.rep([_friendcardbestfriend, _friendcardfriendship])>>
         <<if $friendship.getLover(_friendcardunit)>>
-          (<<= setup.Friendship.loversIcon()>>)
+          (<<attach setup.Friendship.loversIcon()>>)
         <<else>>
           (<<tfriendtitle _friendcardfriendship>>)
         <</if>>

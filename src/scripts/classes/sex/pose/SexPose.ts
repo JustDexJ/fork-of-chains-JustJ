@@ -62,12 +62,12 @@ export abstract class SexPose extends TwineClassCustom {
     )}" />`;
   }
 
-  getImageRep(position?: SexPosition, sex?: SexInstance): string {
+  _getImageRep(position?: SexPosition, sex?: SexInstance): string {
     return `<span class='colorize-white' data-tooltip="${this.getTitle()}">${this.getImageFlipped(position, sex)}</span>`;
   }
 
   rep(position?: SexPosition, sex?: SexInstance): string {
-    return `<span class='trait'>${this.getImageRep(position, sex)}</span>`;
+    return `<span class='trait'>${this._getImageRep(position, sex)}</span>`;
   }
 
   repBig(position?: SexPosition, sex?: SexInstance): string {

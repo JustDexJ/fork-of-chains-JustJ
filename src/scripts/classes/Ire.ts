@@ -34,35 +34,25 @@ export class Ire extends TwineClass {
   /**
    * Get a description of the companys "ire rating" towards you
    */
-  getIreDisplay(company: Company): string {
+  getIreDisplay(company: Company): HTMLElement | string {
     const ire = this.getIre(company);
     if (ire == 0) {
-      return setup.DOM.toString(setup.DOM.Text.success("No grievances"));
+      return setup.DOM.Text.success("No grievances");
     } else if (ire < 4) {
-      return setup.DOM.toString(
-        setup.DOM.Text.successlite("Very few grievances"),
-      );
+      return setup.DOM.Text.successlite("Very few grievances");
     } else if (ire < 8) {
       return `Have disagreements with your company`;
     } else if (ire < 12) {
-      return setup.DOM.toString(
-        setup.DOM.Text.dangerlite("Bears a grudge against your company"),
-      );
+      return setup.DOM.Text.dangerlite("Bears a grudge against your company");
     } else if (ire < 16) {
-      return setup.DOM.toString(
-        setup.DOM.Text.dangerlite("Vengeful against your company"),
-      );
+      return setup.DOM.Text.dangerlite("Vengeful against your company");
     } else if (ire < 20) {
-      return setup.DOM.toString(
-        setup.DOM.Text.danger(
-          "Almost at a breaking point! Get ready for retaliation",
-        ),
+      return setup.DOM.Text.danger(
+        "Almost at a breaking point! Get ready for retaliation",
       );
     } else {
-      return setup.DOM.toString(
-        setup.DOM.Text.danger(
-          "To Arms! This company will sabotage you very soon",
-        ),
+      return setup.DOM.Text.danger(
+        "To Arms! This company will sabotage you very soon",
       );
     }
   }

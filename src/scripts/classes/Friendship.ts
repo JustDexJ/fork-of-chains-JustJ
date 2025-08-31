@@ -569,7 +569,7 @@ export class Friendship extends TwineClass {
     return `${unit.rep()}: <<friendship ${value}>>`;
   }
 
-  static loversIcon(): string {
-    return setup.repImgIcon(setup.Unit.LOVERS_IMAGE_URL, "Lovers");
+  static loversIcon(): DOM.Node {
+    return setup.repImgIconJSX(setup.Unit.LOVERS_IMAGE_URL, "Lovers");
   }
 }

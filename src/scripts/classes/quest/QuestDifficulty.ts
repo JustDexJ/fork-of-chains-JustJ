@@ -109,7 +109,7 @@ export class QuestDifficulty extends TwineClass {
     setup.qdiff[key as QuestDifficultyKey] = this;
   }
 
-  rep() {
+  rep(): string {
     let difftext = "";
     let diffname = this.getDiffName();
     if (diffname == "easiest") {
@@ -124,6 +124,23 @@ export class QuestDifficulty extends TwineClass {
       difftext = setup.DOM.toString(setup.DOM.Text.danger(diffname));
     }
     return `Lv. ${this.getLevel()} ${difftext}`;
+  }
+
+  repJSX(): DOM.Node {
+    let difftext: string | DOM.Node = "";
+    let diffname = this.getDiffName();
+    if (diffname == "easiest") {
+      difftext = setup.DOM.Text.success(diffname);
+    } else if (["easier", "easy"].includes(diffname)) {
+      difftext = setup.DOM.Text.successlite(diffname);
+    } else if (diffname == "normal") {
+      difftext = `${diffname}`;
+    } else if (["hard", "harder"].includes(diffname)) {
+      difftext = setup.DOM.Text.dangerlite(diffname);
+    } else {
+      difftext = setup.DOM.Text.danger(diffname);
+    }
+    return setup.DOM.createFragment(`Lv. ${this.getLevel()} `, difftext);
   }
 
   get() {

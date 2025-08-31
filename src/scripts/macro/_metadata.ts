@@ -685,10 +685,6 @@ const MACROS_METADATA = defineMacrosMetadata()({
     container: true,
     internal: true,
   },
-  filterall: {
-    container: true,
-    internal: true,
-  },
   focwidget: {
     container: true,
     internal: true,
@@ -710,7 +706,6 @@ const MACROS_METADATA = defineMacrosMetadata()({
     container: true,
     internal: true,
   },
-  filtertoolbarinternal: INTERNAL,
   "refreshable-refresh": INTERNAL,
   "onevent-callback": INTERNAL,
   onevent: {

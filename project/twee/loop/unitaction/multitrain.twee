@@ -59,13 +59,7 @@
   <b>Your slave orders</b>
 </div>
 
-<<filterall 'slaveorder' $slaveorderlist.getSlaveOrders()>>
-  <<if $menufilter.get('slaveorder', 'display') == 'compact'>>
-    <<slaveordercardcompact _displayobj>>
-  <<else>>
-    <<slaveordercard _displayobj>>
-  <</if>>
-<</filterall>>
+<<attach setup.FilterableLists.slaveorders(false)>>
 
 </div>
 

@@ -1,6 +1,7 @@
 .InteractiveSexStatusView {
   & > footer {
     margin-top: 0.5em;
+    white-space: initial;
 
     & > span:first-child {
       opacity: 0.5;

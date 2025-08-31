@@ -1,7 +1,7 @@
 export default {
   /**
    * Twine-parse a passage and returns it as a node. Replace unit macros too.
-   * <<include>>
+   * `<<include>>`
    */
   include_replace(passage: string): DOM.Node {
     if (!Story.has(passage)) {

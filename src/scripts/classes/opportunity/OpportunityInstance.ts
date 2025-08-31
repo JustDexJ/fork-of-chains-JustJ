@@ -63,6 +63,9 @@ export class OpportunityInstance extends TwineClass {
   rep(): string {
     return setup.repMessage(this);
   }
+  repJSX(): DOM.Node {
+    return setup.repObjectJSX(this);
+  }
 
   cleanup() {
     // remove all associations of this opportunity with units

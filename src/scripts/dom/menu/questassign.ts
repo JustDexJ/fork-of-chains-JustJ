@@ -1,5 +1,6 @@
 import { UnitCriteria } from "../../classes/criteria/UnitCriteria";
 import type { QuestDifficulty } from "../../classes/quest/QuestDifficulty";
+import { FilterableList } from "../components/misc/FilterableList";
 
 function compareScoreSort(
   quest: QuestInstance,
@@ -77,8 +78,8 @@ function getSelectUnitFragment(
   }
 
   fragments.push(
-    setup.DOM.Util.filterAll({
-      menu: "unitquest",
+    setup.DOM.renderComponent(FilterableList, {
+      menu: "unitquest" as const,
       filter_objects: units,
 
       display_callback: (unit: Unit) => {
@@ -94,7 +95,7 @@ function getSelectUnitFragment(
                 setup.Unit.DANGER_IMAGE_URL,
                 `Unit already going on this quest`,
               )}`
-            : html`${unit.repBusyState(true)}`}
+            : unit.repBusyStateJSX(true)}
           ${setup.DOM.Util.level(unit.getLevel())} ${unit.repFull()}
           ${criteria.repActor(unit, quest.getTemplate().getDifficulty())}
         `);

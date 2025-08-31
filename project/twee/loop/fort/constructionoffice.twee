@@ -84,21 +84,8 @@
 
   <hr/>
 
-  <<set _forfilter = $fort.player.getBuildings()>>
-
   <div>
-    <<run _dom = setup.DOM.Util.filterAll({
-      menu: 'buildinginstance',
-      filter_objects: _forfilter,
-      display_callback: buildinginstance => {
-        if ($menufilter.get('buildinginstance', 'display') == 'compact') {
-          return setup.DOM.Card.buildinginstancecompact(buildinginstance, /* show_actions = */ true);
-        } else {
-          return setup.DOM.Card.buildinginstance(buildinginstance, /* show_actions = */ true);
-        }
-      },
-    })>>
-    <<attach _dom>>
+    <<attach setup.FilterableLists.buildinginstances>>
   </div>
 <</focwidget>>
 
@@ -153,28 +140,8 @@
 
 <hr/>
 
-<<set _forfilter = Object.values(setup.buildingtemplate).filter(a => !a.isHidden())>>
-<<run _forfilter.sort((a, b) => {
-  var ba = a.isBuildable(0);
-  var bb = b.isBuildable(0);
-  if (ba && !bb) {return -1;}
-  if (bb && !ba) {return 1;}
-  return 0;
-})>>
-
 <div>
-  <<run _dom = setup.DOM.Util.filterAll({
-    menu: 'buildingtemplate',
-    filter_objects: _forfilter,
-    display_callback: buildingtemplate => {
-      if ($menufilter.get('buildingtemplate', 'display') == 'compact') {
-        return setup.DOM.Card.buildingtemplatecompact(buildingtemplate, /* show_actions = */ true);
-      } else {
-        return setup.DOM.Card.buildingtemplate(buildingtemplate, /* show_actions = */ true);
-      }
-    },
-  })>>
-  <<attach _dom>>
+  <<attach setup.FilterableLists.buildingtemplates>>
 </div>
 
 <</focwidget>>

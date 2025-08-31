@@ -10,7 +10,12 @@ function getTraitTagFilters(tag_type: string) {
     const base: FilterMenuOptions<Trait> = {};
     for (const tag of setup.TagHelper.getAllTagsOfType("trait", tag_type)) {
       base[tag] = {
-        title: setup.TagHelper.tagRep("trait", tag, /* force = */ true),
+        title: setup.TagHelper.tagRep(
+          "trait",
+          tag,
+          /* force = */ true,
+          /* tooltip no click = */ true,
+        ),
         filter: getTraitTagFilter(tag),
       };
     }

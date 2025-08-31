@@ -25,16 +25,19 @@ export class Party extends TwineClass {
     State.variables.party[this.key] = this;
   }
 
-  delete() {
+  delete(): void {
     delete State.variables.party[this.key];
   }
 
-  getRepMacro() {
+  getRepMacro(): string {
     return "partycard";
   }
 
-  rep() {
+  rep(): string {
     return setup.repMessage(this);
+  }
+  repJSX(): DOM.Node {
+    return setup.repObjectJSX(this);
   }
 
   getName(): string {
@@ -77,7 +80,7 @@ export class Party extends TwineClass {
     return !this.is_cannot_go_on_quests_auto;
   }
 
-  toggleIsCanGoOnQuestsAuto() {
+  toggleIsCanGoOnQuestsAuto(): void {
     this.is_cannot_go_on_quests_auto = !this.is_cannot_go_on_quests_auto;
   }
 

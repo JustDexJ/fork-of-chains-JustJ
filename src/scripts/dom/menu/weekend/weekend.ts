@@ -3,10 +3,10 @@ import {
   advanceWeekAfterResolvingQuests,
   advanceWeekBeforeResolvingQuests,
 } from "./advanceWeek";
-import { showWeekendBanters } from "./banter";
 import { showEndweekEvents } from "./events";
 import { showEndweekQuests } from "./quests";
 import { payWages } from "./wages";
+import { showWeekendBanters } from "./WeekEndBanters";
 
 /**
  * Display week-end screen and all the associated computations.

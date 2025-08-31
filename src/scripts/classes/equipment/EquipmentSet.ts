@@ -1,13 +1,4 @@
-import { domCardRep } from "../../dom/util/cardnamerep";
-import {
-  menuItem,
-  menuItemAction,
-  menuItemExtras,
-  menuItemText,
-  menuItemTitle,
-} from "../../ui/menuitem";
 import { TwineClass } from "../_TwineClass";
-import { MenuFilter, type MenuKey } from "../filter/_filter";
 import type { SkillValuesArray } from "../Skill";
 import type { TraitKey } from "../trait/Trait";
 import type { UnitKey } from "../unit/Unit";
@@ -56,16 +47,18 @@ export class EquipmentSet extends TwineClass {
     delete State.variables.equipmentset[this.key];
   }
 
-  getImageRep() {
-    return this.getSkillReps();
-  }
-
   getRepMacro() {
     return "equipmentsetcard";
   }
 
   rep(): string {
-    return this.getSkillReps() + setup.repMessage(this);
+    return setup.DOM.toString(this._getSkillReps()) + setup.repMessage(this);
+  }
+  repJSX(): DOM.Node {
+    return setup.DOM.createFragment(
+      this._getSkillReps(),
+      setup.repObjectJSX(this),
+    );
   }
 
   getUnit(): Unit | null {
@@ -305,19 +298,22 @@ export class EquipmentSet extends TwineClass {
   /**
    * Returns the most relevant reps of the skills from this equipment
    */
-  getSkillReps(): string {
+  _getSkillReps(): HTMLElement {
     const mods = this.getSkillMods();
     const with_skill: Array<[Skill, number]> = [];
     for (let i = 0; i < mods.length; ++i)
       with_skill.push([setup.skill[i], mods[i]]);
     with_skill.sort((a, b) => b[1] - a[1]);
-    let rep = `<div class="icongrid equipmentset-icongrid${!with_skill[0]?.[1] ? " empty" : ""}">`;
+
+    const div = setup.DOM.div({
+      class: `icongrid equipmentset-icongrid${!with_skill[0]?.[1] ? " empty" : ""}`,
+    });
     for (let i = 0; i < setup.EQUIPMENTSET_SKILL_DISPLAY; ++i) {
       if (with_skill[i][1]) {
-        rep += with_skill[i][0].rep();
+        div.appendChild(with_skill[i][0].repJSX());
       }
     }
-    return rep + "</div>";
+    return div;
   }
 
   getSkillMods(): SkillValuesArray {
@@ -333,184 +329,6 @@ export class EquipmentSet extends TwineClass {
       }
     }
     return result;
-  }
-
-  getAutoAttachMenuCallback(primary_skill: Skill, secondary_skill: Skill) {
-    return () => {
-      const skills = [primary_skill];
-      if (secondary_skill) skills.push(secondary_skill);
-      State.variables.armory.autoAttach(this, skills);
-      setup.runSugarCubeCommand("<<focgoto>>");
-    };
-  }
-
-  getAutoAttachMenuSubChildren(primary_skill: Skill) {
-    const returned = [];
-    for (const secondary_skill of setup.skill) {
-      returned.push(
-        menuItemAction({
-          text: `${primary_skill.rep()}${secondary_skill.rep()}`,
-          callback: this.getAutoAttachMenuCallback(
-            primary_skill,
-            secondary_skill,
-          ),
-        }),
-      );
-    }
-    return returned;
-  }
-
-  getAutoAttachMenu() {
-    return menuItemAction({
-      text: `Auto-Attach <i class="sfa sfa-caret-down"></i>`,
-      tooltip: `Automatically attach equipments to this set maximizing your chosen skills`,
-      clickonly: true,
-      children: () => {
-        const returned = [];
-        for (const skill of setup.skill) {
-          returned.push(
-            menuItem({
-              text: skill.rep(),
-              children: this.getAutoAttachMenuSubChildren(skill),
-            }),
-          );
-        }
-        return returned;
-      },
-    });
-  }
-
-  /**
-   * Construct the menu for this equipment set
-   */
-  getMenu(): JQuery[] {
-    const toolbar_items = [];
-
-    toolbar_items.push(
-      menuItemTitle({
-        text: domCardRep(this),
-      }),
-    );
-
-    const unit = this.getUnit();
-    if (unit) {
-      toolbar_items.push(
-        menuItemText({
-          text: `${unit.rep()}`,
-        }),
-      );
-    }
-
-    if (!this.isCanChange()) {
-      toolbar_items.push(
-        menuItemText({
-          text: "Cannot be changed right now",
-        }),
-      );
-    } else {
-      if (this.getUnit()) {
-        toolbar_items.push(
-          menuItemAction({
-            text: `Unequip`,
-            tooltip: `Unequip this equipment set from the unit`,
-            callback: () => {
-              this.unequip();
-              setup.runSugarCubeCommand("<<focgoto>>");
-            },
-          }),
-        );
-      } else {
-        toolbar_items.push(
-          menuItemAction({
-            text: `Equip`,
-            tooltip: `Equip this equipment set to a unit`,
-            callback: () => {
-              State.variables.gEquipmentSet_key = this.key;
-              setup.runSugarCubeCommand('<<focgoto "ArmoryEquip">>');
-            },
-          }),
-        );
-      }
-
-      if (State.variables.gPassage != "EquipmentSetChange") {
-        toolbar_items.push(
-          menuItemAction({
-            text: `Edit`,
-            tooltip: `Attach / unattach equipments to this equipment set`,
-            callback: () => {
-              State.variables.gEquipmentSet_key = this.key;
-              State.variables.gEquipmentSetChangeReturnPassage =
-                State.variables.gPassage;
-              setup.runSugarCubeCommand('<<focgoto "EquipmentSetChange">>');
-            },
-          }),
-        );
-      }
-
-      toolbar_items.push(this.getAutoAttachMenu());
-    }
-
-    const extra = [];
-    const menu_name: MenuKey = "equipmentauto";
-
-    for (const menu_key in MenuFilter._MENUS[menu_name]) {
-      const menu_obj = MenuFilter._MENUS[menu_name][menu_key];
-      extra.push(
-        menuItem({
-          text: menu_obj.title,
-          checked: !!State.variables.menufilter.get(menu_name, menu_key),
-          callback: () => {
-            const value = State.variables.menufilter.get(menu_name, menu_key);
-            State.variables.menufilter.set(menu_name, menu_key, !value);
-            setup.runSugarCubeCommand(`<<focgoto>>`);
-          },
-        }),
-      );
-    }
-
-    extra.push(
-      menuItem({
-        text: `Change name`,
-        tooltip: `Rename this equipment set`,
-        callback: () => {
-          State.variables.gEquipmentSet_key = this.key;
-          setup.runSugarCubeCommand('<<focgoto "EquipmentSetChangeName">>');
-        },
-      }),
-    );
-
-    if (this.isCanChange()) {
-      extra.push(
-        menuItem({
-          text: `Strip`,
-          tooltip: `Unattach all equipments from this set`,
-          callback: () => {
-            // Unassign all equipment, then assign all basic equipment
-            State.variables.armory.unassignAllEquipments(this);
-
-            // Attach basic equipments
-            const free_equipments = setup.Armory.getFreeEquipments();
-            for (const equipment of free_equipments) {
-              State.variables.armory.replaceEquipment(equipment, this);
-            }
-
-            this.recheckEligibility();
-
-            setup.runSugarCubeCommand("<<focgoto>>");
-          },
-        }),
-      );
-    }
-
-    if (extra.length) {
-      toolbar_items.push(
-        menuItemExtras({
-          children: extra,
-        }),
-      );
-    }
-
-    return toolbar_items;
   }
 
   /**

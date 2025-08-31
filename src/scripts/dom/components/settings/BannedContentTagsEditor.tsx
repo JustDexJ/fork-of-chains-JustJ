@@ -1,5 +1,4 @@
 import { For } from "solid-js";
-import { TweeSpan } from "../common";
 
 export const BannedContentTagsEditor: Component = () => {
   return (
@@ -26,7 +25,7 @@ export const BannedContentTagsEditor: Component = () => {
                 />
                 <span />
               </span>
-              <TweeSpan>{setup.TagHelper.tagRepLong("quest", tag)}</TweeSpan>
+              {setup.TagHelper.tagRepLong("quest", tag)}
             </label>
           </div>
         )}

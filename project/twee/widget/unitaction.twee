@@ -10,32 +10,8 @@
   quest in order to actually perform the action.
 <</message>>
 
-
-<<set _tofilter = []>>
-<<for _unitaction range $args[0]>>
-  <<if !_unitaction.isHidden($args[1]) && _unitaction.isCanTrain($args[1])>>
-    <<run _tofilter.push(_unitaction)>>
-  <</if>>
-<</for>>
-<<for _unitaction range $args[0]>>
-  <<if !_unitaction.isHidden($args[1]) && !_unitaction.isCanTrain($args[1])>>
-    <<run _tofilter.push(_unitaction)>>
-  <</if>>
-<</for>>
-
 <<set _unitaction_unit = $args[1]>>
-
-<<run _dom = setup.DOM.Util.filterAll({
-  menu: 'unitaction',
-  filter_objects: _tofilter,
-  display_callback: unitaction => {
-    if ($menufilter.get('unitaction', 'display') == 'compact') {
-      return setup.DOM.Card.unitactioncompact(unitaction, $args[1], /* show_actions = */ true);
-    } else {
-      return setup.DOM.Card.unitaction(unitaction, $args[1], /* show_actions = */ true);
-    }
-  },
-})>>
-<<attach _dom>>
+<<set _node = setup.FilterableLists.unitactions(Object.values($args[0]), _unitaction_unit)>>
+<<attach _node>>
 
 <</focwidget>>

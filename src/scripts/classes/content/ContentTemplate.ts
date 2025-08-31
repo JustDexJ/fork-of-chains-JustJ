@@ -157,7 +157,7 @@ export abstract class ContentTemplate<
   /**
    * Returns the difficulty level for this template.
    */
-  getDifficulty(): any {
+  getDifficulty(): QuestDifficulty {
     return this.difficulty;
   }
 

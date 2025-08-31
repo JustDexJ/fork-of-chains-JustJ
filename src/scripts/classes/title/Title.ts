@@ -136,4 +136,13 @@ export class Title extends TwineClass {
     let base = setup.repMessage(this);
     return `<span class="titlecardmini${this.isNegative() ? "-negative" : ""}">${base}</span>`;
   }
+  repJSX(): DOM.Node {
+    const base = setup.repObjectJSX(this);
+    return setup.DOM.span(
+      {
+        class: `titlecardmini${this.isNegative() ? "-negative" : ""}`,
+      },
+      base,
+    );
+  }
 }

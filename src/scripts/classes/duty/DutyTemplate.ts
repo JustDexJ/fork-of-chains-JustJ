@@ -248,11 +248,11 @@ export class DutyTemplate<
    */
   onUnassign(duty_instance: T, unit: Unit) {}
 
-  static getTypeRep(type: DutyTemplateType): string {
+  static getTypeRep(type: DutyTemplateType): DOM.Node {
     if (!(type in setup.DutyTemplate.TYPE))
       throw new Error(`Unknown duty type ${type}`);
     const tooltip = setup.DutyTemplate.TYPE[type];
     const image = `img/tag_duty/${type}.svg`;
-    return setup.repImgIcon(image, tooltip);
+    return setup.repImgIconJSX(image, tooltip);
   }
 }

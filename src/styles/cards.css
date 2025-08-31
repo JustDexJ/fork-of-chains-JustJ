@@ -26,7 +26,7 @@
     -1px -1px var(--injury-shadow-color),
     1px -1px var(--injury-shadow-color);
 }
-.injurycard .trait img {
+.injurycard .icon img {
   width: 20px;
   height: 20px;
   margin: 2px 4px;

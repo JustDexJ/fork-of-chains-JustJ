@@ -47,6 +47,9 @@ export class Company extends TwineClass {
   rep(): string {
     return setup.repMessage(this);
   }
+  repJSX(): DOM.Node {
+    return setup.repObjectJSX(this);
+  }
 
   isFavorActive(): boolean {
     return !!this.is_favor_active;

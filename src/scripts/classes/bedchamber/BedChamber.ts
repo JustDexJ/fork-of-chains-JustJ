@@ -1,10 +1,3 @@
-import { domCardRep } from "../../dom/util/cardnamerep";
-import {
-  menuItemAction,
-  menuItemExtras,
-  menuItemText,
-  menuItemTitle,
-} from "../../ui/menuitem";
 import { TwineClass } from "../_TwineClass";
 import type { DutyInstanceKey } from "../duty/DutyInstance";
 import type { DutyInstanceBedchamberSlave } from "../duty/subtypes/BedchamberSlave";
@@ -474,85 +467,5 @@ export class Bedchamber extends TwineClass {
 
   isPrivate(): boolean {
     return this.getOption("share") == "no";
-  }
-
-  /**
-   * Construct the menu for this bedchamber
-   */
-  getMenu(show_actions?: boolean): JQuery[] {
-    const toolbar_items = [];
-
-    toolbar_items.push(
-      menuItemTitle({
-        text: domCardRep(this),
-      }),
-    );
-
-    toolbar_items.push(
-      menuItemText({
-        text: `${this.getSlaver().rep()}`,
-      }),
-    );
-
-    if (show_actions) {
-      if (State.variables.gPassage != "BedchamberChangeFurniture") {
-        toolbar_items.push(
-          menuItemAction({
-            text: `Edit`,
-            tooltip: `Add / remove furnitures from this room`,
-            callback: () => {
-              State.variables.gBedchamber_key = this.key;
-              State.variables.gBedchamberChangeFurnitureReturnPassage =
-                State.variables.gPassage;
-              setup.DOM.Nav.goto("BedchamberChangeFurniture");
-            },
-          }),
-        );
-      }
-
-      toolbar_items.push(
-        menuItemAction({
-          text: `Auto-Furnish`,
-          tooltip: `Automatically put the best furnitures for this room`,
-          callback: () => {
-            this.autoAssignFurniture();
-            setup.DOM.Nav.goto();
-          },
-        }),
-      );
-
-      toolbar_items.push(
-        menuItemExtras({
-          children: [
-            menuItemAction({
-              text: `Change rules`,
-              tooltip: `Change the slave rules of your bedroom, which may change whether the slaves will like you or be afraid of you.`,
-              callback: () => {
-                State.variables.gBedchamber_key = this.key;
-                setup.DOM.Nav.goto("BedchamberOptionsChange");
-              },
-            }),
-            menuItemAction({
-              text: `Change owner`,
-              tooltip: `Give the room a different slaver owner`,
-              callback: () => {
-                State.variables.gBedchamber_key = this.key;
-                setup.DOM.Nav.goto("BedchamberOwnerChange");
-              },
-            }),
-            menuItemAction({
-              text: `Rename`,
-              tooltip: `Rename the room`,
-              callback: () => {
-                State.variables.gBedchamber_key = this.key;
-                setup.DOM.Nav.goto("BedchamberRename");
-              },
-            }),
-          ],
-        }),
-      );
-    }
-
-    return toolbar_items;
   }
 }

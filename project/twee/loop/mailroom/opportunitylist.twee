@@ -22,9 +22,8 @@
 </p>
 
 
-<<filterall 'opportunity' _opportunities>>
-  <<opportunitycard _displayobj true>>
-<</filterall>>
+<<attach setup.FilterableLists.opportunities>>
+
 
 
 :: OpportunityOptionSelected [nobr]

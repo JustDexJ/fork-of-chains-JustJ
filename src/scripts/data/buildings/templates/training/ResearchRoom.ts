@@ -18,8 +18,8 @@ export const BUILDINGS = definitions<BuildingDefinition>()({
     name: "Research Room",
     tags: ["training"],
     description: `You can assign your slavers to work here, figuring out the best way to break
-a <<rep "will_defiant">> slave.
-Unlocks a training that can give you a way to remove <<rep "will_defiant">> from a slave.
+a <<rep setup.trait.will_defiant>> slave.
+Unlocks a training that can give you a way to remove <<rep setup.trait.will_defiant>> from a slave.
 It will be incredibly difficult, however, and you best be prepared...`,
     costs: [[qc.MoneyMult(-Constants.BUILDING_HIGH_MULT)]],
     restrictions: [

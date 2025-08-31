@@ -5,7 +5,7 @@
 <<set _room = $fort.player.getBuilding(setup.buildingtemplate.moraleoffice)>>
 <<set _parties = $partylist.getParties()>>
 
-<h2><<= _room.getTitleRep()>></h2> 
+<h2><<= _room.getTitleRep()>></h2>
 
 <div>
   You enter the morale office,
@@ -51,15 +51,8 @@
   <</if>>
 </div>
 
-<<set _partylist = $partylist.getParties()>>
+<<attach setup.FilterableLists.partylist>>
 
-<<filterall 'party' _partylist>>
-  <<if $menufilter.get('party', 'display') == 'compact'>>
-    <<partycardcompact _displayobj true>>
-  <<else>>
-    <<partycard _displayobj true>>
-  <</if>>
-<</filterall>>
 
 
 :: PartyNameChange [nobr]

@@ -1,3 +1,5 @@
+import { render } from "solid-js/web";
+
 const mapping = {
   activitycard: setup.DOM.Card.activity,
   bedchambercard: setup.DOM.Card.bedchamber,
@@ -39,14 +41,14 @@ const mapping = {
   costcard: setup.DOM.Card.cost,
   requirementcard: setup.DOM.Card.restriction,
   criteriacard: setup.DOM.Card.criteria,
-} satisfies Record<string, (...args: any[]) => DOM.Node | null | undefined>;
+} satisfies Record<string, (...args: any[]) => DOM.Attachable>;
 
 for (const [macro_name, card] of objectEntries(mapping)) {
   Macro.add(macro_name, {
     handler() {
-      const node: DOM.Node | null | undefined = (card as any)(...this.args);
+      const node: DOM.JSXElement = (card as any)(...this.args);
       if (node) {
-        this.output.appendChild(node);
+        render(() => node, this.output);
       }
     },
   });

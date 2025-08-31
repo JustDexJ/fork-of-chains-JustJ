@@ -1,3 +1,4 @@
+import type { JSX } from "solid-js/jsx-runtime";
 import { ImagePicker } from "../../dom/components/ImagePicker";
 
 export namespace Dialogs {
@@ -5,7 +6,7 @@ export namespace Dialogs {
     title: string;
     classnames?: string;
     passage?: string;
-    content?: string | DOM.Node | ((container: HTMLElement) => void);
+    content?: JSX.Element | ((container: HTMLElement) => void);
   }
 
   export function open({
@@ -29,7 +30,7 @@ export namespace Dialogs {
       } else {
         const dialog_content = passage
           ? Story.get(passage).processText()
-          : setup.DevToolHelper.stripNewLine(content || "");
+          : setup.DevToolHelper.stripNewLine(String(content || ""));
         dialog.wiki(dialog_content);
       }
 

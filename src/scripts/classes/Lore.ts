@@ -80,7 +80,10 @@ export class Lore extends TwineClass {
   }
 
   getLoreText(): string {
-    return this.text ?? Story.get(this.text_passage)?.text ?? "";
+    return (
+      this.text ??
+      setup.DevToolHelper.stripNewLine(Story.get(this.text_passage)?.text ?? "")
+    );
   }
 
   getRestrictions(): readonly Restriction[] {

@@ -1,14 +1,36 @@
 import { createSignal, For, Show } from "solid-js";
-import type { FilterAllArgs, ObjectWithKey } from "../util/filter";
+import {
+  BuildingTemplateCard,
+  BuildingTemplateCompactCard,
+} from "../card/building";
+import { CompanyCard, CompanyCompactCard } from "../card/company";
+import {
+  ActivityTemplateCard,
+  EventTemplateCard,
+  InteractionTemplateCard,
+  OpportunityTemplateCard,
+  QuestTemplateCard,
+} from "../card/contenttemplate";
+import { EquipmentCard, EquipmentCompactCard } from "../card/equipment";
+import { ItemCard, ItemCompactCard } from "../card/item";
+import { LivingCard } from "../card/living";
+import { LoreCard, LoreCompactCard } from "../card/lore";
+import { RoomTemplateCard, RoomTemplateCompactCard } from "../card/room";
+import { SexActionCard, SexActionCompactCard } from "../card/sexaction";
+import {
+  FilterableList,
+  type FilterableListProps,
+  type ObjectWithKey,
+} from "./misc/FilterableList";
 
 export interface Section<T extends ObjectWithKey, D = T> {
   title: string;
   get_objects: () => readonly T[];
   get_display_object?: (obj: T) => D;
 
-  menu: FilterAllArgs<T, D>["menu"];
-  display_callback: FilterAllArgs<T, D>["display_callback"];
-  style_override?: FilterAllArgs<T, D>["style_override"];
+  menu: FilterableListProps<T, D>["menu"];
+  display_callback: FilterableListProps<T, D>["display_callback"];
+  style_override?: FilterableListProps<T, D>["style_override"];
 }
 
 function wikiSection<T extends ObjectWithKey, D = T>(args: Section<T, D>) {
@@ -21,7 +43,7 @@ const WIKI_SECTIONS = [
     menu: "questtemplate",
     get_objects: () => Object.values(setup.questtemplate),
     display_callback(quest_template) {
-      return setup.DOM.Card.questtemplate(quest_template);
+      return <QuestTemplateCard template={quest_template} />;
     },
   }),
   wikiSection({
@@ -29,7 +51,7 @@ const WIKI_SECTIONS = [
     menu: "opportunitytemplate",
     get_objects: () => Object.values(setup.opportunitytemplate),
     display_callback(opportunity_template) {
-      return setup.DOM.Card.opportunitytemplate(opportunity_template);
+      return <OpportunityTemplateCard template={opportunity_template} />;
     },
   }),
 
@@ -38,7 +60,7 @@ const WIKI_SECTIONS = [
     menu: "event",
     get_objects: () => Object.values(setup.event),
     display_callback(event) {
-      return setup.DOM.Card.event(event);
+      return <EventTemplateCard template={event} />;
     },
   }),
 
@@ -47,7 +69,7 @@ const WIKI_SECTIONS = [
     menu: "interaction",
     get_objects: () => Object.values(setup.interaction),
     display_callback(interaction) {
-      return setup.DOM.Card.interaction(interaction);
+      return <InteractionTemplateCard template={interaction} />;
     },
   }),
 
@@ -56,7 +78,7 @@ const WIKI_SECTIONS = [
     menu: "activitytemplate",
     get_objects: () => Object.values(setup.activitytemplate),
     display_callback(template) {
-      return setup.DOM.Card.activitytemplate(template);
+      return <ActivityTemplateCard template={template} />;
     },
   }),
 
@@ -67,7 +89,7 @@ const WIKI_SECTIONS = [
     style_override:
       "display: grid; grid-template-columns: repeat(auto-fill, minmax(34px, 1fr))",
     display_callback(trait) {
-      return trait.rep();
+      return trait.repJSX();
     },
   }),
 
@@ -76,12 +98,15 @@ const WIKI_SECTIONS = [
     menu: "item",
     get_objects: () => Object.values(setup.item),
     get_display_object: (item) => ({ item: item, quantity: 1 }),
-    display_callback(item_obj) {
-      if (State.variables.menufilter.get("item", "display") == "compact") {
-        return setup.DOM.Card.itemcompact(item_obj.item);
-      } else {
-        return setup.DOM.Card.item(item_obj.item);
-      }
+    display_callback(item_obj, getDisplayMode) {
+      return (
+        <Show
+          when={getDisplayMode() === "compact"}
+          fallback={<ItemCard item={item_obj.item} />}
+        >
+          <ItemCompactCard item={item_obj.item} />
+        </Show>
+      );
     },
   }),
 
@@ -89,12 +114,15 @@ const WIKI_SECTIONS = [
     title: "Equipments",
     menu: "equipment",
     get_objects: () => Object.values(setup.equipment),
-    display_callback(equipment_obj) {
-      if (State.variables.menufilter.get("equipment", "display") == "compact") {
-        return setup.DOM.Card.equipmentcompact(equipment_obj);
-      } else {
-        return setup.DOM.Card.equipment(equipment_obj);
-      }
+    display_callback(equipment_obj, getDisplayMode) {
+      return (
+        <Show
+          when={getDisplayMode() === "compact"}
+          fallback={<EquipmentCard equipment={equipment_obj} />}
+        >
+          <EquipmentCompactCard equipment={equipment_obj} />
+        </Show>
+      );
     },
   }),
 
@@ -102,15 +130,15 @@ const WIKI_SECTIONS = [
     title: "Buildings",
     menu: "buildingtemplate",
     get_objects: () => Object.values(setup.buildingtemplate),
-    display_callback(buildingtemplate) {
-      if (
-        State.variables.menufilter.get("buildingtemplate", "display") ==
-        "compact"
-      ) {
-        return setup.DOM.Card.buildingtemplatecompact(buildingtemplate);
-      } else {
-        return setup.DOM.Card.buildingtemplate(buildingtemplate);
-      }
+    display_callback(buildingtemplate, getDisplayMode) {
+      return (
+        <Show
+          when={getDisplayMode() === "compact"}
+          fallback={<BuildingTemplateCard template={buildingtemplate} />}
+        >
+          <BuildingTemplateCompactCard template={buildingtemplate} />
+        </Show>
+      );
     },
   }),
 
@@ -118,14 +146,15 @@ const WIKI_SECTIONS = [
     title: "Rooms",
     menu: "roomtemplate",
     get_objects: () => Object.values(setup.roomtemplate),
-    display_callback(roomtemplate) {
-      if (
-        State.variables.menufilter.get("roomtemplate", "display") == "compact"
-      ) {
-        return setup.DOM.Card.roomtemplatecompact(roomtemplate);
-      } else {
-        return setup.DOM.Card.roomtemplate(roomtemplate);
-      }
+    display_callback(roomtemplate, getDisplayMode) {
+      return (
+        <Show
+          when={getDisplayMode() === "compact"}
+          fallback={<RoomTemplateCard template={roomtemplate} />}
+        >
+          <RoomTemplateCompactCard template={roomtemplate} />
+        </Show>
+      );
     },
   }),
 
@@ -133,12 +162,15 @@ const WIKI_SECTIONS = [
     title: "Sex Actions",
     menu: "sexaction",
     get_objects: () => setup.sexaction.filter((action) => action.desc()),
-    display_callback(sexaction) {
-      if (State.variables.menufilter.get("sexaction", "display") == "compact") {
-        return setup.DOM.Card.sexactioncompact(sexaction);
-      } else {
-        return setup.DOM.Card.sexaction(sexaction);
-      }
+    display_callback(sexaction, getDisplayMode) {
+      return (
+        <Show
+          when={getDisplayMode() === "compact"}
+          fallback={<SexActionCard action={sexaction} />}
+        >
+          <SexActionCompactCard action={sexaction} />
+        </Show>
+      );
     },
   }),
 
@@ -146,12 +178,15 @@ const WIKI_SECTIONS = [
     title: "Companies",
     menu: "company",
     get_objects: () => Object.values(State.variables.company),
-    display_callback(company) {
-      if (State.variables.menufilter.get("company", "display") == "compact") {
-        return setup.DOM.Card.companycompact(company);
-      } else {
-        return setup.DOM.Card.company(company);
-      }
+    display_callback(company, getDisplayMode) {
+      return (
+        <Show
+          when={getDisplayMode() === "compact"}
+          fallback={<CompanyCard company={company} />}
+        >
+          <CompanyCompactCard company={company} />
+        </Show>
+      );
     },
   }),
 
@@ -159,12 +194,15 @@ const WIKI_SECTIONS = [
     title: "Lore",
     menu: "lore",
     get_objects: () => Object.values(setup.lore),
-    display_callback(lore) {
-      if (State.variables.menufilter.get("lore", "display") == "compact") {
-        return setup.DOM.Card.lorecompact(lore);
-      } else {
-        return setup.DOM.Card.lore(lore);
-      }
+    display_callback(lore, getDisplayMode) {
+      return (
+        <Show
+          when={getDisplayMode() === "compact"}
+          fallback={<LoreCard lore={lore} />}
+        >
+          <LoreCompactCard lore={lore} />
+        </Show>
+      );
     },
   }),
 
@@ -174,8 +212,10 @@ const WIKI_SECTIONS = [
     get_objects: () => Object.values(setup.dutytemplate),
     display_callback(duty_template) {
       return (
-        setup.DutyTemplate.getTypeRep(duty_template.getType()) +
-        setup.DOM.Util.domCardName(duty_template)
+        <>
+          {setup.DutyTemplate.getTypeRep(duty_template.getType())}
+          {setup.DOM.Util.domCardName(duty_template)}
+        </>
       );
     },
   }),
@@ -185,7 +225,7 @@ const WIKI_SECTIONS = [
     menu: "living",
     get_objects: () => Object.values(setup.living),
     display_callback(living) {
-      return setup.DOM.Card.living(living);
+      return <LivingCard living={living} />;
     },
   }),
 
@@ -194,7 +234,7 @@ const WIKI_SECTIONS = [
     menu: "title",
     get_objects: () => Object.values(setup.title),
     display_callback(title) {
-      return title.rep();
+      return title.repJSX();
     },
   }),
 ] as const;
@@ -202,15 +242,19 @@ const WIKI_SECTIONS = [
 function renderSection<T extends ObjectWithKey, D = T>(section: Section<T, D>) {
   const objects = section.get_objects();
 
-  return setup.DOM.Util.filterAll({
-    menu: section.menu,
-    filter_objects: objects,
-    style_override: section.style_override,
-    display_objects: section.get_display_object
-      ? objects.map(section.get_display_object)
-      : undefined,
-    display_callback: section.display_callback,
-  });
+  return (
+    <FilterableList
+      menu={section.menu}
+      filter_objects={objects}
+      style_override={section.style_override}
+      display_objects={
+        section.get_display_object
+          ? objects.map(section.get_display_object)
+          : undefined
+      }
+      display_callback={section.display_callback}
+    />
+  );
 }
 
 let lastWikiSection: number | null = null;

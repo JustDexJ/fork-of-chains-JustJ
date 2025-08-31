@@ -336,48 +336,54 @@ export class UnitCriteria extends TwineClass {
   /**
    * Gives a representation of this actor, together with which matching traits/skills it have.
    */
-  repActor(unit: Unit, difficulty: QuestDifficulty): string {
+  repActor(unit: Unit, difficulty: QuestDifficulty): DOM.Node {
     const skills = unit.getSkills();
 
-    let text = "";
+    const fragment = document.createDocumentFragment();
 
     const skillmultis = this.getSkillMultis();
-    const skilltexts = [];
+    const skills_fragment = document.createDocumentFragment();
     for (const skill of setup.skill) {
       let skillval = skillmultis[skill.key];
       if (skillval) {
+        if (skills_fragment.firstChild) {
+          skills_fragment.append(" + ");
+        }
         if (skillval != 1) {
           let skilltext = skillval.toFixed(0);
           if (skillval % 1) skilltext = skillval.toFixed(1);
-          skilltexts.push(`${skilltext} x ${skills[skill.key]} ${skill.rep()}`);
+          skills_fragment.append(
+            `${skilltext} x ${skills[skill.key]}`,
+            skill.repJSX(),
+          );
         } else {
-          skilltexts.push(`${skills[skill.key]} ${skill.rep()}`);
+          skills_fragment.append(`${skills[skill.key]} `, skill.repJSX());
         }
       }
     }
-    if (skilltexts.length) {
-      text += `[${skilltexts.join(" + ")}]`;
+    if (skills_fragment.firstChild) {
+      fragment.append("[", skills_fragment, "]");
     }
 
     const matches = this.getMatchingTraits(unit);
 
     for (const crit_trait of this.getCritTraits()) {
       if (matches.crit.includes(crit_trait)) {
-        text += crit_trait.rep();
+        fragment.append(crit_trait.repJSX());
       }
     }
 
     for (const disaster_trait of this.getDisasterTraits()) {
       if (matches.disaster.includes(disaster_trait)) {
-        text += disaster_trait.repNegative();
+        fragment.append(disaster_trait.repNegativeJSX());
       }
     }
 
     if (difficulty) {
       const score = 100 * this.computeScore(unit, difficulty);
-      text += ` (Score: ${score.toFixed(1)})`;
+      fragment.append(` (Score: ${score.toFixed(1)})`);
     }
 
-    return text;
+    return fragment;
   }
 }

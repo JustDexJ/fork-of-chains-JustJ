@@ -102,6 +102,14 @@ export class Contact extends TwineClass {
     }
     return base;
   }
+  repJSX(): DOM.Node {
+    const base = setup.repObjectJSX(this);
+    const unit = this.getUnit();
+    if (unit) {
+      return setup.DOM.createFragment(base, " (", unit.repJSX(), ")");
+    }
+    return base;
+  }
 
   getDescription(): string {
     const template = this.getTemplate();

@@ -39,7 +39,7 @@ function getUnitSkillsSort() {
 
   for (const skill of setup.skill) {
     base[skill.keyword] = {
-      title: skill.getImageRep(),
+      title: skill.renderIcon(),
       sort: getUnitSkillSort(skill.key),
     };
   }
@@ -55,7 +55,7 @@ export function getJobFilters() {
     const base: FilterMenuOptions<Unit> = {};
     for (const [job_key, job] of objectEntries(setup.job)) {
       base[job_key] = {
-        title: job.rep(),
+        title: job.repJSX(),
         filter: getJobFilter(job_key),
       };
     }
@@ -73,7 +73,7 @@ function getTraitFilters(tag: string) {
     for (const trait of Object.values(setup.trait)) {
       if (trait.getTags().includes(tag)) {
         base[trait.key] = {
-          title: trait.rep(),
+          title: trait.repJSX(),
           filter: getTraitFilter(trait.key),
         };
       }

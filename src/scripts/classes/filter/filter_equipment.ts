@@ -18,7 +18,7 @@ function getEquipmentSlotFilters(): FilterMenuOption<Equipment>[] {
 
   for (const equipment_slot of Object.values(setup.equipmentslot)) {
     options.push({
-      title: equipment_slot.getImageRep(),
+      title: equipment_slot.repJSX(),
       filter: getEquipmentSlotFilter(equipment_slot.key),
     });
   }
@@ -38,7 +38,7 @@ function getSkillModsSort() {
 
   for (const skill of setup.skill) {
     base[skill.keyword] = {
-      title: skill.getImageRep(),
+      title: skill.repJSX(),
       sort: getSkillModSort(skill.key),
       filter: (a) => a.getSkillMod(skill) > 0,
     };

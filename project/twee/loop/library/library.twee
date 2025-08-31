@@ -49,14 +49,6 @@
     You could also head to the <<focmove 'classroom' 'Classroom'>> to study your sex manuals.
   </p>
 
-  <<set _forfilter = Object.values(setup.lore).filter(a => a.isVisible())>>
-
-  <<filterall 'lore' _forfilter>>
-    <<if $menufilter.get('lore', 'display') == 'compact'>>
-      <<lorecardcompact _displayobj true>>
-    <<else>>
-      <<lorecard _displayobj true>>
-    <</if>>
-  <</filterall>>
+  <<attach setup.FilterableLists.lores>>
 <</if>>
 

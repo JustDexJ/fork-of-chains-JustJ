@@ -80,7 +80,7 @@ export class Furniture extends Item {
     else return setup.rarity.common;
   }
 
-  getImageRep(skip_tooltip?: boolean) {
+  override renderIcon(skip_tooltip?: boolean): HTMLElement {
     const image_path_raw = this.getSlot().getImage();
     const main_skill = this.getMainSkill();
 
@@ -93,17 +93,31 @@ export class Furniture extends Item {
 
     classes += ` ${this.getRarity().getIconTriangleClass()}`;
 
-    const tooltip = `<<itemcard '${this.key}'>>`;
-    const url = setup.escapeHtml(setup.resolveImageUrl(image_path_raw));
-    const tooltip_attr = skip_tooltip ? "" : `data-tooltip="${tooltip}"`;
-    return `<span class="trait ${classes}" ${tooltip_attr}><img src="${url}"/></span>`;
+    return setup.DOM.span(
+      {
+        class: `trait ${classes}`,
+        "data-tooltip": skip_tooltip ? undefined : `<<itemcard '${this.key}'>>`,
+      },
+      setup.DOM.create("img", {
+        src: setup.resolveImageUrl(image_path_raw),
+      }),
+    );
   }
 
   repFull(): string {
     let basic = this.rep();
     const explanation = setup.SkillHelper.explainSkills(this.getSkillMods());
     if (explanation) {
-      basic += " " + explanation;
+      basic += " " + setup.DOM.toString(explanation);
+    }
+    return basic;
+  }
+
+  repFullJSX(): DOM.Node {
+    let basic = this.repJSX();
+    const explanation = setup.SkillHelper.explainSkills(this.getSkillMods());
+    if (explanation) {
+      return setup.DOM.createFragment(basic, explanation);
     }
     return basic;
   }

@@ -319,7 +319,7 @@ export const DOM_Menu_unitdescription = function (unit: Unit): DOM.Node {
 
       fragments.push(html`
         ${format([
-          `a|Rep a|have at least ${nfamily} family member${nfamily > 1 ? "s" : ""}.`,
+          `a|Rep a|have at least ${nfamily} known family member${nfamily > 1 ? "s" : ""}.`,
           `You are aware that a|rep a|have at least ${nfamily} family member${nfamily > 1 ? "s" : ""}.`,
         ])}
         ${format(`a|They a|is`)}
@@ -866,8 +866,8 @@ export const DOM_Menu_unitdescription = function (unit: Unit): DOM.Node {
       ${format([
         `If a|rep was to become a slaver, a|their starting skills would be:`,
       ])}
-      ${setup.SkillHelper.explainSkillsWithAdditives(unit)}
     `);
+    fragments.push(setup.SkillHelper.explainSkillsWithAdditives(unit));
 
     outer_fragments.push(setup.DOM.create("p", {}, fragments));
   }

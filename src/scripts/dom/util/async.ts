@@ -3,7 +3,10 @@ export default {
    * Returns a node that will be filled with children asynchronously.
    * <<foctimed>>
    */
-  async(callback: () => DOM.Node, transition?: boolean): DOM.Node {
+  async(
+    callback: () => DOM.Node | null | undefined,
+    transition?: boolean,
+  ): DOM.Node {
     if (State.temporary.foctimed_is_tooltip) {
       return setup.DOM.create("span", {}, callback());
     }
@@ -17,7 +20,9 @@ export default {
 
     setTimeout(() => {
       const node = callback();
-      element.append(node);
+      if (node) {
+        element.appendChild(node);
+      }
     }, 1);
 
     if (transition) {

@@ -14,7 +14,12 @@ function getUnitActionTagFilters(tag_type: string) {
       tag_type,
     )) {
       base[tag] = {
-        title: setup.TagHelper.tagRep("unitaction", tag, /* force = */ true),
+        title: setup.TagHelper.tagRep(
+          "unitaction",
+          tag,
+          /* force = */ true,
+          /* tooltip no click = */ true,
+        ),
         filter: getUnitActionTagFilter(tag),
       };
     }

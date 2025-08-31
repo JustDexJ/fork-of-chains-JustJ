@@ -3,7 +3,6 @@ import async from "./async";
 import cardnamerep from "./cardnamerep";
 import exception from "./exception";
 import favor from "./favor";
-import filter from "./filter";
 import filterable from "./filterable";
 import friendship from "./friendship";
 import help from "./help";
@@ -30,7 +29,6 @@ export const DOM_Util = {
   ...cardnamerep,
   ...exception,
   ...favor,
-  ...filter,
   ...filterable,
   ...friendship,
   ...help,

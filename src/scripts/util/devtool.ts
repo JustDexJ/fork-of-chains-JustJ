@@ -5,6 +5,7 @@ import type { MenuKey } from "../classes/filter/_filter";
 import type { Lore } from "../classes/Lore";
 import type { SkillKey } from "../classes/Skill";
 import type { Title } from "../classes/title/Title";
+import { FilterableList } from "../dom/components/misc/FilterableList";
 
 export namespace DevToolHelper {
   const REGEX_STRIP_NEWLINE_1 = /^\n+|\n+$/g;
@@ -190,7 +191,7 @@ export namespace DevToolHelper {
     temporary_varname: string,
   ) {
     delete State.temporary[temporary_varname];
-    return setup.DOM.Util.filterAll({
+    return setup.DOM.renderComponent(FilterableList, {
       menu: menu,
       filter_objects: objects,
       display_callback: (obj) => html`

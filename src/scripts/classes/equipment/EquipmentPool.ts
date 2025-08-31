@@ -42,6 +42,9 @@ export class EquipmentPool extends TwineClass {
   rep(): string {
     return setup.repMessage(this);
   }
+  repJSX(): DOM.Node {
+    return setup.repObjectJSX(this);
+  }
 
   getEquipmentChances(is_normalize?: boolean): ChanceArray<EquipmentKey> {
     const chances = objectEntries(

@@ -8,48 +8,59 @@ interface ObjectWithRepExtras {
   key: any;
   getName(): string;
   getRepMacro(): string;
-  getImageRep?: (skip_tooltip?: boolean) => string;
+  renderIcon?: (skip_tooltip?: boolean) => HTMLElement;
   getRepRarity?: () => Rarity;
 }
 
-export function domCardName(obj: ObjectWithKeyAndName): string {
+export function domCardName(obj: ObjectWithKeyAndName): DOM.Node {
   if (State.variables.gDebug) {
-    return `${obj.getName()} <span class="debug-info">(${obj.key})</span>`;
+    return setup.DOM.createFragment(
+      obj.getName(),
+      setup.DOM.span({ class: "debug-info" }, `(${obj.key})`),
+    );
   } else {
-    return obj.getName();
+    return document.createTextNode(obj.getName());
   }
 }
 
 export function domCardRep(
   obj: ObjectWithRepExtras,
   capitalize?: boolean,
-): string {
-  const icon = obj.getImageRep?.(true) ?? "";
+): DOM.Node {
+  const icon = obj.renderIcon?.(true) ?? "";
   const rarity = obj.getRepRarity?.();
   let name = obj.getName();
   if (capitalize) {
     name = setup.capitalize(name);
   }
-  if (rarity) {
-    name = `<span class="${rarity.getTextColorClass()}">${name}</span>`;
-  }
-  let html = icon + name;
+
+  const name_node = rarity
+    ? setup.DOM.span(
+        { class: rarity.getTextColorClass() },
+        document.createTextNode(name),
+      )
+    : document.createTextNode(name);
+
+  const fragment = document.createDocumentFragment();
+  fragment.append(icon, name_node);
+
   if (State.variables.gDebug) {
-    const rep = setup.repMessage(
-      obj,
-      undefined,
-      undefined,
-      `<i class="sfa sfa-bug"></i>`,
+    const rep = setup.repObjectJSX(obj, {
+      message: setup.DOM.create("i", { class: "sfa sfa-bug" }),
+    });
+    fragment.append(
+      setup.DOM.span({ class: "debug-info" }, [String(obj.key), rep]),
     );
-    html += `<span class="debug-info">(${String(obj.key)} ${rep})</span>`;
   }
-  return html;
+  return fragment;
 }
 
 export function domCardNameBold(obj: ObjectWithKeyAndName): DOM.Node {
   if (State.variables.gDebug) {
-    return html`${setup.DOM.Util.namebold(obj)}
-      <span class="debug-info">(${obj.key})</span>`;
+    return setup.DOM.createFragment(
+      setup.DOM.Util.namebold(obj),
+      setup.DOM.span({ class: "debug-info" }, `(${obj.key})`),
+    );
   } else {
     return setup.DOM.Util.namebold(obj);
   }

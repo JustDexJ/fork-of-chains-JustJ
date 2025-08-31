@@ -18,10 +18,4 @@ deliver your messages.
 <</if>>
 </p>
 
-<<filterall 'contact' _contacts>>
-  <<if $menufilter.get('contact', 'display') == 'compact'>>
-    <<contactcardcompact _displayobj true>>
-  <<else>>
-    <<contactcard _displayobj true>>
-  <</if>>
-<</filterall>>
+<<attach setup.FilterableLists.contacts>>

@@ -15,7 +15,12 @@ function getOpportunityTagFilters(tag_type: string) {
       tag_type,
     )) {
       base[tag] = {
-        title: setup.TagHelper.tagRep("opportunity", tag, /* force = */ true),
+        title: setup.TagHelper.tagRep(
+          "opportunity",
+          tag,
+          /* force = */ true,
+          /* tooltip no click = */ true,
+        ),
         filter: getOpportunityTagFilter(tag),
       };
     }

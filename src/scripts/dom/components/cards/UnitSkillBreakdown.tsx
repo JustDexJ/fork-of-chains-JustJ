@@ -53,7 +53,7 @@ export const UnitSkillBreakdown: Component<{ unit: Unit; skill: Skill }> = ({
   return (
     <div class="unit-skill-breakdown">
       <div>
-        Breakdown of {setup.DOM.toDOM(unit.rep())}'s <Rep of={skill} />
+        Breakdown of {unit.repJSX()}'s <Rep of={skill} />
       </div>
       <div>
         <header>Base value: {val_base()}</header>

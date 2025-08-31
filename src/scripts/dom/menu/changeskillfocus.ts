@@ -2,7 +2,7 @@ import { menuItemAction, menuItemText } from "../../ui/menuitem";
 
 export const DOM_Menu_changeskillfocus = function (unit: Unit): DOM.Node {
   const fragments: DOM.Attachable[] = [];
-  fragments.push(html`
+  fragments.push(twee`
     <div>
       Change ${unit.rep()}'s skill focuses. ${setup.DOM.Util.help(html`
         <p>

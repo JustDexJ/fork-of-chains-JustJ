@@ -55,12 +55,5 @@
   You proceed to sit at a desk to view your teams.
 <br/>
 
-<<set _teamlist = State.variables.company.player.getTeams()>>
 
-<<filterall 'team' _teamlist>>
-  <<if $menufilter.get('team', 'display') == 'compact'>>
-    <<teamcardcompact _displayobj true>>
-  <<else>>
-    <<teamcard _displayobj true>>
-  <</if>>
-<</filterall>>
+<<attach setup.FilterableLists.teams>>

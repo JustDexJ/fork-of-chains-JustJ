@@ -32,10 +32,4 @@ You enter the room you designated as the marketing office.
 <</if>>
 </p>
 
-<<filterall 'slaveorder' $slaveorderlist.getSlaveOrders()>>
-  <<if $menufilter.get('slaveorder', 'display') == 'compact'>>
-    <<slaveordercardcompact _displayobj true>>
-  <<else>>
-    <<slaveordercard _displayobj true>>
-  <</if>>
-<</filterall>>
+<<attach setup.FilterableLists.slaveorders>>

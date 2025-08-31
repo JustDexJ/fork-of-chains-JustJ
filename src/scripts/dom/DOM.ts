@@ -1,3 +1,4 @@
+import type { JSX } from "solid-js/jsx-runtime";
 import { createComponent, render } from "solid-js/web";
 import { DOM_Card } from "./card/_index";
 import Components_ from "./components/_index";
@@ -85,7 +86,7 @@ export namespace DOM {
    * Depending on the type of arg, returns:
    *  - if falsy (null, false, undefined, ""): an empty fragment
    *  - if a DOM node already: returns self
-   *  - if function: assumes it is a Component, and renders it with setup.DOM.renderComponent (without props)
+   *  - if function: assumes it is a Component, and renders it to a document fragment
    *  - if array: fragment with the elements as children
    *  - otherwise: fragment containing the value as a string
    *
@@ -99,7 +100,9 @@ export namespace DOM {
     }
 
     if (arg instanceof Function) {
-      return setup.DOM.renderComponent(arg as any);
+      const fragment = document.createDocumentFragment();
+      render(() => arg as unknown as JSX.Element, fragment);
+      return fragment;
     }
 
     if (Array.isArray(arg)) {
@@ -180,6 +183,30 @@ export namespace DOM {
     return elem;
   }
 
+  /** Alias for `setup.DOM.create('div', ...)` */
+  export function div(
+    attrs?: DOM_Types._.Attributes<"div">,
+    children?: DOM.Attachable,
+  ): HTMLDivElement {
+    return create("div", attrs, children) as HTMLDivElement;
+  }
+
+  /** Alias for `setup.DOM.create('span', ...)` */
+  export function span(
+    attrs?: DOM_Types._.Attributes<"span">,
+    children?: DOM.Attachable,
+  ): HTMLSpanElement {
+    return create("span", attrs, children) as HTMLSpanElement;
+  }
+
+  export function createFragment(
+    ...nodes: (string | Node)[]
+  ): DocumentFragment {
+    const fragment = document.createDocumentFragment();
+    fragment.append(...nodes);
+    return fragment;
+  }
+
   /**
    * Similar to setup.DOM.create, but sets up a render callback so it can be later
    * refreshed via `setup.DOM.refresh`
@@ -227,18 +254,20 @@ export namespace DOM {
   export function renderComponent<T extends {}>(
     component: Component<T>,
     values: T,
+    wrapper_element?: string,
   ): HTMLElement;
 
   export function renderComponent(
     component: Component<any>,
     values?: {},
+    wrapper_element?: string,
   ): HTMLElement {
     let componentName = component.name || "unknown";
     if (import.meta.hot && componentName.startsWith("[")) {
       componentName = componentName.replace(/\[[^\]]+\]/g, "");
     }
 
-    const div = document.createElement("div");
+    const div = document.createElement(wrapper_element ?? "div");
     div.setAttribute("data-component", componentName);
     render(() => createComponent(component, values || {}), div);
     return div;
@@ -336,7 +365,7 @@ export namespace DOM {
       fragment = setup.DOM.toDOM(html);
     }
 
-    if (has_placeholders) {
+    if (has_placeholders && !(fragment instanceof window.Text)) {
       const placeholders = fragment.querySelectorAll("[data--tbd]");
       for (const placeholder of placeholders) {
         const index = +placeholder.getAttribute("data--tbd")!;

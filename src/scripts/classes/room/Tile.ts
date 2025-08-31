@@ -258,7 +258,7 @@ export class Tile extends TwineClass {
         /* is to fixed = */ true,
       );
       if (explanation) {
-        caption += `<div class='tile-caption tile-caption-bottom'>${explanation}</div>`;
+        caption += `<div class='tile-caption tile-caption-bottom'>${setup.DOM.toString(explanation)}</div>`;
       }
     }
 

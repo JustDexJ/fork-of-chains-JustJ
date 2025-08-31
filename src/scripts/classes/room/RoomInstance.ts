@@ -56,6 +56,9 @@ export class RoomInstance extends TwineClass {
   rep(): string {
     return setup.repMessage(this);
   }
+  repJSX(): DOM.Node {
+    return setup.repObjectJSX(this);
+  }
 
   repFull(): string {
     return (

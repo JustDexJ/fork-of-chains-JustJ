@@ -1,4 +1,5 @@
 /* Actually misnomer. The trait class is used for all icons */
+.icon,
 .trait {
   position: relative;
   overflow: hidden;
@@ -7,11 +8,24 @@
   vertical-align: middle;
 }
 
+.icon img,
 .trait img {
   position: relative;
   display: inline-block;
   width: 25px;
   height: 25px;
+}
+
+img.icon {
+  position: relative;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+}
+
+.icon + span,
+.trait + span {
+  margin-inline-start: 0.2em;
 }
 
 /* Invert colors for certain backgrounds, to make icons white instead of black */

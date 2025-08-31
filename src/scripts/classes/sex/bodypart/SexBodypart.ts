@@ -241,12 +241,21 @@ export abstract class SexBodypart extends TwineClassCustom {
     return `img/sexbodypart/${this.key}.svg`;
   }
 
-  getImageRep(): string {
+  _renderIconPlain(): string {
     return `<span class='colorize-white'>${setup.repImgIcon(this.getImage(), this.getTitle())}</span>`;
   }
 
+  renderIcon(): HTMLElement {
+    return setup.DOM.span(
+      {
+        class: "colorize-white",
+      },
+      setup.repImgIconJSX(this.getImage(), this.getTitle()),
+    );
+  }
+
   repsimple(): string {
-    return this.getImageRep();
+    return this._renderIconPlain();
   }
 
   _isCanInteractWithHeight(

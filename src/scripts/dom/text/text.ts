@@ -1,4 +1,4 @@
-function createSpan(css_class: string, text: unknown): DOM.Node {
+function createSpan(css_class: string, text: unknown): HTMLElement {
   const span = document.createElement("span");
   span.className = css_class;
   span.appendChild(document.createTextNode(String(text)));
@@ -9,42 +9,42 @@ export const DOM_Text = {
   /**
    * <<successtext>>
    */
-  success(text: unknown): DOM.Node {
+  success(text: unknown): HTMLElement {
     return createSpan("successtext", text);
   },
 
   /**
    * <<successtextlite>>
    */
-  successlite(text: unknown): DOM.Node {
+  successlite(text: unknown): HTMLElement {
     return createSpan("successtextlite", text);
   },
 
   /**
    * <<dangertext>>
    */
-  danger(text: unknown): DOM.Node {
+  danger(text: unknown): HTMLElement {
     return createSpan("dangertext", text);
   },
 
   /**
    * <<dangertextlite>>
    */
-  dangerlite(text: unknown): DOM.Node {
+  dangerlite(text: unknown): HTMLElement {
     return createSpan("dangertextlite", text);
   },
 
   /**
    * <<infotext>>
    */
-  info(text: unknown): DOM.Node {
+  info(text: unknown): HTMLElement {
     return createSpan("infotext", text);
   },
 
   /**
    * <<infotextlite>>
    */
-  infolite(text: unknown): DOM.Node {
+  infolite(text: unknown): HTMLElement {
     return createSpan("infotextlite", text);
   },
 
