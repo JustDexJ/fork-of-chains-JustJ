@@ -9,7 +9,9 @@ export default class SexBodypartsCanReach extends SexRestriction {
   }
 
   override explain() {
-    return `${this.my_actor_name}'s ${this.my_bodypart.repsimple()} can reach ${this.their_actor_name}'s ${this.their_bodypart.repsimple()}`;
+    const my_name = this.getActorDisplayName(this.my_actor_name);
+    const their_name = this.getActorDisplayName(this.their_actor_name);
+    return `${my_name}'s ${this.my_bodypart.repsimple()} can reach ${their_name}'s ${this.their_bodypart.repsimple()}`;
   }
 
   override isOk(action: SexAction) {

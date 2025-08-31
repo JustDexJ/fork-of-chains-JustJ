@@ -25,7 +25,7 @@ export default class Or<T = unknown> extends Restriction<T> {
     let texts = [];
     for (let i = 0; i < this.requirements.length; ++i)
       texts.push(this.requirements[i].explain(context));
-    return `OR(${texts.join(", ")})`;
+    return `EITHER(${texts.join(", ")})`;
   }
 
   getLayout() {

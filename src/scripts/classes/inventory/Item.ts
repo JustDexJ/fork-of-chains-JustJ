@@ -138,7 +138,7 @@ export abstract class Item extends TwineClass {
     return setup.DOM.span(
       {
         class: "icon",
-        "data-tooltip": skip_tooltip ? undefined : "<<itemcard '${this.key}'>>",
+        "data-tooltip": skip_tooltip ? undefined : `<<itemcard '${this.key}'>>`,
       },
       setup.DOM.create("img", {
         src: setup.resolveImageUrl(image_path_raw),

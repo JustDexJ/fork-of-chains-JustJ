@@ -30,7 +30,11 @@ import { DOM_Menu_fortgrid } from "./fortgrid";
 import { DOM_Menu_interactionpool } from "./interactionpool";
 import { DOM_Menu_interactivesex } from "./interactivesex";
 import { DOM_Menu_useitemonunit } from "./item";
-import { DOM_Menu_mainmenu, DOM_Menu_mainmenufooter } from "./mainmenu";
+import {
+  DOM_Menu_mainmenu,
+  DOM_Menu_mainmenufooter,
+  DOM_Menu_marketObjectsDescriptor,
+} from "./mainmenu";
 import { DOM_Menu_newgameplus } from "./newgameplus";
 import { DOM_Menu_opportunityautoanswer } from "./opportunityautoanswer";
 import { DOM_Menu_perklearn } from "./perklearn";
@@ -85,6 +89,7 @@ export const DOM_Menu = {
   interactivesex: DOM_Menu_interactivesex,
   useitemonunit: DOM_Menu_useitemonunit,
   mainmenu: DOM_Menu_mainmenu,
+  marketObjectsDescriptor: DOM_Menu_marketObjectsDescriptor,
   mainmenufooter: DOM_Menu_mainmenufooter,
   newgameplus: DOM_Menu_newgameplus,
   opportunityautoanswer: DOM_Menu_opportunityautoanswer,

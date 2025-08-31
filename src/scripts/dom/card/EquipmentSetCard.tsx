@@ -42,7 +42,9 @@ const EquipmentSetNameActionMenu: Component<{
       <MenuItemTitle text={domCardRep(props.equipment_set)} />
 
       <Show when={props.equipment_set.getUnit()}>
-        <MenuItemText text={props.equipment_set.getUnit()!.repJSX()} />
+        <MenuItemText
+          text={<>Equipped to {props.equipment_set.getUnit()!.repJSX()}</>}
+        />
       </Show>
 
       <Show
@@ -53,7 +55,7 @@ const EquipmentSetNameActionMenu: Component<{
           when={props.equipment_set.getUnit()}
           fallback={
             <MenuItemAction
-              text="Equip"
+              text="Equip to..."
               tooltip="Equip this equipment set to a unit"
               callback={() => {
                 State.variables.gEquipmentSet_key = props.equipment_set.key;
@@ -88,16 +90,16 @@ const EquipmentSetNameActionMenu: Component<{
         <MenuItemAction
           text={
             <>
-              Auto-Attach <i class="sfa sfa-caret-down" />
+              Optimize <i class="sfa sfa-caret-down" />
             </>
           }
-          tooltip={`Automatically attach equipments to this set maximizing your chosen skills`}
+          tooltip="Automatically attach/replace equipments on this set to maximize the chosen skills"
           clickonly={true}
           children={() => (
             <>
-              {Object.values(setup.skill).map((skill1) => (
+              {setup.skill.map((skill1) => (
                 <MenuItem text={skill1.repJSX()}>
-                  {Object.values(setup.skill).map((skill2) => (
+                  {setup.skill.map((skill2) => (
                     <MenuItemAction
                       text={
                         <>

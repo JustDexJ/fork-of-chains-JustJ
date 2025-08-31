@@ -234,6 +234,10 @@ img.icon {
   color: rgb(151, 255, 130);
 }
 
+.text-rarity-common {
+  color: #eee;
+}
+
 .text-rarity-never {
   color: rgb(255, 133, 133);
 }

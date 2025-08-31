@@ -233,14 +233,14 @@ export class Equipment extends TwineClass {
     if (explanation) {
       basic += " " + explanation;
     }
-    const traits = setup.DOM.toString(this.repTraits());
+    const traits = this.repTraits();
     if (traits) {
-      basic += " " + traits;
+      basic += " " + setup.DOM.toString(traits);
     }
     return basic;
   }
 
-  repTraits(): DOM.Node {
+  repTraits(): DOM.Node | null {
     const inner_fragments_front: DOM.Node[] = [];
     const inner_fragments_back: DOM.Node[] = [];
     const trait_mods = this.getTraitMods();
@@ -266,6 +266,9 @@ export class Equipment extends TwineClass {
       }
     }
 
+    if (!inner_fragments_front.length && !inner_fragments_back.length) {
+      return null;
+    }
     const fragment = document.createDocumentFragment();
     fragment.append(...inner_fragments_front);
     fragment.append(...inner_fragments_back);

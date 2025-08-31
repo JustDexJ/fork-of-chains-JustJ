@@ -11,7 +11,9 @@ export default class SexIsOngoing extends SexRestriction {
   }
 
   override explain() {
-    return `${this.my_actor_name}'s ${this.my_bodypart.repsimple()} is penetrating ${this.their_actor_name}'s ${this.their_bodypart.repsimple()}`;
+    const my_name = this.getActorDisplayName(this.my_actor_name);
+    const their_name = this.getActorDisplayName(this.their_actor_name);
+    return `${my_name}'s ${this.my_bodypart.repsimple()} is penetrating ${their_name}'s ${this.their_bodypart.repsimple()}`;
   }
 
   override isOk(action: SexAction) {

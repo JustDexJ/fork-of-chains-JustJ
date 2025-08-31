@@ -44,6 +44,17 @@ const SexActionNameActionMenu: Component<{
 
 export const SexActionCompactCard = SexActionNameActionMenu;
 
+const getActorDisplayName = (index: number) => {
+  switch (index) {
+    case 0:
+      return "user";
+    case 1:
+      return "target";
+    default:
+      return `actor ${index + 1}`;
+  }
+};
+
 export const SexActionCard: Component<{
   action: SexAction;
   show_actions?: boolean;
@@ -55,6 +66,7 @@ export const SexActionCard: Component<{
       {/* general restrictions */}
       <Show when={props.action.getRestrictions().length}>
         <div>
+          <b class="mutedtext">Requires:</b>
           <CostsCard costs={props.action.getRestrictions()} />
         </div>
       </Show>
@@ -64,7 +76,10 @@ export const SexActionCard: Component<{
         {(actor_desc, getIndex) => (
           <Show when={actor_desc.restrictions?.length}>
             <div>
-              Actor {getIndex()}: <CostsCard costs={actor_desc.restrictions!} />
+              <b class="mutedtext">
+                Requires {getActorDisplayName(getIndex())}:
+              </b>{" "}
+              <CostsCard costs={actor_desc.restrictions!} />
             </div>
           </Show>
         )}

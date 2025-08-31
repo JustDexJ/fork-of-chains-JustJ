@@ -55,6 +55,10 @@ img {
   color: rgb(180, 180, 180);
 }
 
+.mutedtext {
+  opacity: 0.5;
+}
+
 .worldmap {
   margin: 1em auto;
   text-align: center;
@@ -62,7 +66,7 @@ img {
 
 button.selected,
 .button-active button {
-  color: #fdec02 !important;
+  color: #fdec02;
   border-color: #fdec02 !important;
 }
 
@@ -123,6 +127,39 @@ label {
   & > .unitcard,
   & > .equipmentset {
     margin-bottom: 1em;
+  }
+}
+
+.icon-checkbox {
+  position: relative;
+  display: inline-block;
+  width: 0.8em;
+  height: 0.8em;
+  vertical-align: middle;
+  margin-inline-end: 0.4em;
+
+  border: 1px solid #eee;
+  border-radius: 4px;
+
+  &.checked::before {
+    display: block;
+    position: absolute;
+    right: -0.2em;
+    top: -0.1em;
+    font-size: 90%;
+
+    content: "\f00c"; /* icon-checked */
+
+    font-family: sc-icons !important;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    line-height: 1;
+    speak: never;
+    text-rendering: auto;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 

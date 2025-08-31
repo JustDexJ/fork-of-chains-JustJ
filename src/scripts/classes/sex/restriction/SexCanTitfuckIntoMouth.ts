@@ -9,7 +9,9 @@ export default class SexCanTitfuckIntoMouth extends SexRestriction {
   }
 
   override explain() {
-    return `${this.my_actor_name} has a dick long enough to poke out of ${this.their_actor_name} breasts`;
+    const my_name = this.getActorDisplayName(this.my_actor_name);
+    const their_name = this.getActorDisplayName(this.their_actor_name);
+    return `${my_name} has a dick long enough to poke out of ${their_name} breasts`;
   }
 
   override isOk(action: SexAction) {

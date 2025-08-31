@@ -27,9 +27,11 @@ export default class SexCanTitfuck extends SexRestriction {
   }
 
   override explain() {
+    const my_name = this.getActorDisplayName(this.my_actor_name);
+    const their_name = this.getActorDisplayName(this.their_actor_name);
     const breast_size = setup.sexbodypart.breasts.getMinBreastTraitForTitfuck();
     const muscle_size = setup.sexbodypart.breasts.getMinMuscleTraitForPecjob();
-    return `${this.my_actor_name} has a dick, while ${this.their_actor_name} either has ${breast_size.rep()} or does not have a breast but has ${muscle_size.rep()}`;
+    return `${my_name} has a dick, while ${their_name} either has ${breast_size.rep()} or does not have a breast but has ${muscle_size.rep()}`;
   }
 
   override isOk(action: SexAction) {

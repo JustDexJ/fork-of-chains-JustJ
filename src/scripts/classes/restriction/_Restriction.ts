@@ -81,6 +81,17 @@ export abstract class SexRestriction extends Restriction {
     super();
     this.sex = State.temporary.gSex;
   }
+
+  getActorDisplayName(actor_name: string): string {
+    switch (actor_name) {
+      case "a":
+        return "user";
+      case "b":
+        return "target";
+      default:
+        return actor_name;
+    }
+  }
 }
 
 const subclasses = {

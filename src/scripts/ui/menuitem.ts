@@ -30,8 +30,7 @@ export function menuItem({
 }: MenuItemArgs): JQuery {
   let checked_html = "";
   if (checked != undefined) {
-    if (checked)
-      checked_html = '<i class="icon-checkbox checked sfa sfa-check"></i> ';
+    if (checked) checked_html = '<i class="icon-checkbox checked"></i> ';
     else checked_html = '<i class="icon-checkbox"></i> ';
   }
 

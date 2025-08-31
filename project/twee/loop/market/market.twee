@@ -6,8 +6,8 @@
 
 
 <<set _TABS = [
-  ['items', 'Items Market', 'MarketItems'],
-  ['equipment', 'Equipment Market', 'MarketEquipment'],
+  ['items', () => `Items Market (${setup.DOM.Menu.marketObjectsDescriptor(State.variables.market.itemmarket)})`, 'MarketItems'],
+  ['equipment', () => `Equipment Market (${setup.DOM.Menu.marketObjectsDescriptor(State.variables.market.equipmentmarket)})`, 'MarketEquipment'],
 ]>>
 
 <<set $marketTab = $marketTab || _TABS[0][0]>>
@@ -15,7 +15,7 @@
 <<for _tab range _TABS>>
   <<capture _tab>>
     <span @class="$marketTab === _tab[0] ? 'button-active' : ''">
-      <<set _text = _tab[1]>>
+      <<set _text = _tab[1]()>>
       <<focbutton _text 'Market'>>
         <<set $marketTab = _tab[0]>>
       <</focbutton>>

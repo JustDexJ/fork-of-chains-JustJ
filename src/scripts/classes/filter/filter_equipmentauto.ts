@@ -5,7 +5,7 @@ import type { FilterMenu } from "./_filter";
  */
 export const _MENUS_equipmentauto: FilterMenu<unknown> = {
   max: {
-    title: "(Auto-Attach) Fill All",
+    title: "(Optimize) Fill All",
     default: "No",
     options: {
       yes: {
@@ -14,7 +14,7 @@ export const _MENUS_equipmentauto: FilterMenu<unknown> = {
     },
   },
   slutty: {
-    title: "(Auto-Attach) Slutty",
+    title: "(Optimize) Slutty",
     default: "No",
     options: {
       yes: {
@@ -23,7 +23,7 @@ export const _MENUS_equipmentauto: FilterMenu<unknown> = {
     },
   },
   special: {
-    title: "(Auto-Attach) Special",
+    title: "(Optimize) Special",
     default: "No",
     options: {
       yes: {

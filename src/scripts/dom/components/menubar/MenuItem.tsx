@@ -124,9 +124,9 @@ export const MenuItem: Component<MenuItemProps> = (props) => {
         onClick={onClick}
       >
         <Show when={props.checked !== undefined}>
-          <Show when={props.checked} fallback={<i class="icon-checkbox" />}>
-            <i class="icon-checkbox checked sfa sfa-check" />
-          </Show>
+          <i
+            class={props.checked ? "icon-checkbox checked" : "icon-checkbox"}
+          />
         </Show>
 
         <span>

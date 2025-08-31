@@ -59,8 +59,7 @@ const MarketObjectNameActionMenu: Component<{
             text={
               props.market_object.getPrice() ? (
                 <>
-                  Buy for
-                  {setup.DOM.Util.money(props.market_object.getPrice())}
+                  Buy for {setup.DOM.Util.money(props.market_object.getPrice())}
                 </>
               ) : (
                 <>Get for {setup.DOM.Text.successlite("Free")}</>

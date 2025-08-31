@@ -27,6 +27,8 @@ function marketObjectsDescriptor(...markets: Market[]): string | null {
   return `${rarities.join("|")}`;
 }
 
+export { marketObjectsDescriptor as DOM_Menu_marketObjectsDescriptor };
+
 const MAINMENU_ITEMS = [
   [
     {
