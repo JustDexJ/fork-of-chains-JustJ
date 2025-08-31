@@ -366,19 +366,12 @@ export class RoomTemplate extends TwineClass {
     return setup.repObjectJSX(this);
   }
 
-  repFull(): string {
-    return (
-      this.repTags() +
-      setup.repMessage(this) +
-      ` (${this.getWidth()} x ${this.getHeight()})`
-    );
-  }
-  repFullJSX(): DOM.Node {
+  repFull(): DOM.Node {
     const fragment = document.createDocumentFragment();
     fragment.append(...this.repTags());
     fragment.append(
       setup.repObjectJSX(this),
-      ` (${this.getWidth()} x ${this.getHeight()})`,
+      ` (${this.getWidth()} × ${this.getHeight()})`,
     );
     return fragment;
   }

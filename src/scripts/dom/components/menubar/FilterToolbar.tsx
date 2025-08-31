@@ -371,6 +371,29 @@ export const FilterToolbar = <
         </Show>
 
         <MenuItem text={<i class="sfa sfa-cog" />} clickonly={true}>
+          <MenuItem
+            text="Reset Filters"
+            callback={() => {
+              for (const key in menu_parsed[props.menu]) {
+                State.variables.menufilter.set(
+                  props.menu,
+                  key,
+                  /* value = */ null,
+                );
+              }
+
+              refresh();
+            }}
+          />
+
+          <MenuItem
+            text="Scroll to Top"
+            callback={() => {
+              document.body.scrollTop = 0;
+              document.documentElement.scrollTop = 0;
+            }}
+          />
+
           <For each={objectEntries(MenuFilter.OPTIONS)}>
             {([option, option_obj]) => (
               <MenuItem
@@ -387,29 +410,6 @@ export const FilterToolbar = <
               />
             )}
           </For>
-
-          <MenuItem
-            text="Scroll to Top"
-            callback={() => {
-              document.body.scrollTop = 0;
-              document.documentElement.scrollTop = 0;
-            }}
-          />
-
-          <MenuItem
-            text="Reset Filters"
-            callback={() => {
-              for (const key in menu_parsed[props.menu]) {
-                State.variables.menufilter.set(
-                  props.menu,
-                  key,
-                  /* value = */ null,
-                );
-              }
-
-              refresh();
-            }}
-          />
         </MenuItem>
 
         <MenuItemText

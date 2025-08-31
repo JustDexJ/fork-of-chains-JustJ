@@ -13,50 +13,43 @@ export namespace QuestAssignHelper {
     actor_name: string,
     unit: Unit,
     criteria: UnitCriteria,
+    actormap: ActorUnitKeyMap,
   ) {
-    const unitused = State.variables.gAdhocUnitUsed!;
-
-    const actormap = State.variables.gAdhocQuestActorMap!;
-
     // If this unit is already there, do nothing
-    if (actormap[actor_name] == unit.key) return;
+    if (actormap[actor_name] === unit.key) return;
 
     // Get old unit, if any
-    let old_unit = null;
+    let old_unit: Unit | null = null;
     if (actormap[actor_name]) {
       old_unit = State.variables.unit[actormap[actor_name]];
 
       // Remove old unit from its position
-      delete unitused[old_unit.key];
       delete actormap[actor_name];
     }
 
     // Get old position, if any
-    const old_actor_name = unitused[unit.key];
+    const old_actor_name = Object.keys(actormap).find(
+      (k) => actormap[k] === unit.key,
+    );
 
     if (old_actor_name) {
       // remove new unit from this position
-      delete unitused[unit.key];
       delete actormap[old_actor_name];
     }
 
     // put unit in position
-    unitused[unit.key] = actor_name;
     actormap[actor_name] = unit.key;
 
     // swap with old unit, if appropriate
     if (old_unit && old_actor_name && criteria.isCanAssign(old_unit)) {
-      unitused[old_unit.key] = old_actor_name;
       actormap[old_actor_name] = old_unit.key;
     }
   }
 
-  export function isAllActorsFilled(): boolean {
-    const quest =
-      State.variables.questinstance[State.variables.gAdhocQuest_key!];
-
-    const actormap = State.variables.gAdhocQuestActorMap!;
-
+  export function isAllActorsFilled(
+    quest: QuestInstance,
+    actormap: ActorUnitKeyMap,
+  ): boolean {
     for (const actor_name in quest.getTemplate().getUnitCriterias()) {
       if (!(actor_name in actormap)) {
         return false;
@@ -65,11 +58,10 @@ export namespace QuestAssignHelper {
     return true;
   }
 
-  export function computeSuccessObjRep() {
-    const quest =
-      State.variables.questinstance[State.variables.gAdhocQuest_key!];
-    const actormap = State.variables.gAdhocQuestActorMap;
-
+  export function computeSuccessObjRep(
+    quest: QuestInstance,
+    actormap: ActorUnitKeyMap,
+  ): DOM.Node {
     const actor_unit_map: ActorUnitMap = {};
     for (const key in actormap) {
       actor_unit_map[key] = State.variables.unit[actormap[key]];
@@ -102,9 +94,7 @@ export namespace QuestAssignHelper {
     quest.assignTeam(team, actor_unit_map);
   }
 
-  export function finalize(quest: QuestInstance) {
-    const actormap = State.variables.gAdhocQuestActorMap!;
-
+  export function finalize(quest: QuestInstance, actormap: ActorUnitKeyMap) {
     // remove the old team, if any
     if (quest.getTeam()) {
       quest.cancelAssignTeam();
@@ -115,20 +105,6 @@ export namespace QuestAssignHelper {
 
   export function initialize(quest: QuestInstance) {
     State.variables.gAdhocQuest_key = quest.key;
-
-    const actor_map: ActorUnitKeyMap = {};
-    const unit_used: Record<UnitKey, string> = {};
-
-    const unit_assignment = quest.getUnitCriteriasList();
-    for (const [actor_name, _, unit] of unit_assignment) {
-      if (unit) {
-        actor_map[actor_name] = unit.key;
-        unit_used[unit.key] = actor_name;
-      }
-    }
-
-    State.variables.gAdhocQuestActorMap = actor_map;
-    State.variables.gAdhocUnitUsed = unit_used;
   }
 
   export function computeGreedyAutoAssignment(
@@ -245,9 +221,9 @@ export namespace QuestAssignHelper {
 
   export function computeAutoAssignmentScoreRepIfAny(
     quest: QuestInstance,
-  ): string {
+  ): DOM.Node | null {
     const assignment = setup.QuestAssignHelper.computeAutoAssignment(quest);
-    if (!assignment) return "";
+    if (!assignment) return null;
     const assignment_units: ActorUnitMap = {};
     for (const [key, value] of objectEntries(assignment)) {
       assignment_units[key] = State.variables.unit[value];

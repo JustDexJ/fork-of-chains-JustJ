@@ -36,25 +36,29 @@ export const UnitCriteriaCard: Component<{
       </Show>
 
       <div>
-        {props.criteria.getCritTraits().length ? "Crit:" : null}
-        {props.criteria.getCritTraits().map((trait) => {
-          if (getMatches().crit.includes(trait)) {
-            return trait.repPositiveJSX();
-          } else {
-            return trait.repJSX();
-          }
-        })}
+        <Show when={props.criteria.getCritTraits().length}>
+          Crit:
+          <For each={props.criteria.getCritTraits()}>
+            {(trait) =>
+              getMatches().crit.includes(trait)
+                ? trait.repPositiveJSX()
+                : trait.repJSX()
+            }
+          </For>
+        </Show>
       </div>
 
       <div>
-        {props.criteria.getDisasterTraits().length ? "Disaster:" : null}
-        {props.criteria.getDisasterTraits().map((trait) => {
-          if (getMatches().disaster.includes(trait)) {
-            return trait.repNegativeJSX();
-          } else {
-            return trait.repJSX();
-          }
-        })}
+        <Show when={props.criteria.getDisasterTraits().length}>
+          Disaster:
+          <For each={props.criteria.getDisasterTraits()}>
+            {(trait) =>
+              getMatches().disaster.includes(trait)
+                ? trait.repNegativeJSX()
+                : trait.repJSX()
+            }
+          </For>
+        </Show>
       </div>
     </>
   );

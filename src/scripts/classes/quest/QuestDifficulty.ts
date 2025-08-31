@@ -176,13 +176,23 @@ export class QuestDifficulty extends TwineClass {
     );
   }
 
-  static explainChance(chanceObj: QuestOutcomeValues) {
-    // chanceObj: {success: a, failure: b, crit: c, disaster: d}
+  // chanceObj: {success: a, failure: b, crit: c, disaster: d}
+  static explainChance(chanceObj: QuestOutcomeValues): DOM.Node {
     let crit = Math.round(100 * chanceObj.crit);
     let success = Math.round(100 * chanceObj.success);
     let failure = Math.round(100 * chanceObj.failure);
     let disaster = Math.round(100 * chanceObj.disaster);
-    return `(${setup.DOM.toString(setup.DOM.Text.success(crit))} / ${setup.DOM.toString(setup.DOM.Text.successlite(success))} / ${setup.DOM.toString(setup.DOM.Text.dangerlite(failure))} / ${setup.DOM.toString(setup.DOM.Text.danger(disaster))})`;
+    return setup.DOM.createFragment(
+      "(",
+      setup.DOM.Text.success(crit),
+      " / ",
+      setup.DOM.Text.successlite(success),
+      " / ",
+      setup.DOM.Text.dangerlite(failure),
+      " / ",
+      setup.DOM.Text.danger(disaster),
+      ")",
+    );
   }
 
   static computeSumScore(score_objs: QuestOutcomeValues[]): QuestOutcomeValues {

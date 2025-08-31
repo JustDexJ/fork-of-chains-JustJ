@@ -109,10 +109,7 @@ const BuildingInstanceNameActionMenu: Component<{
 
         <Show when={props.building.getTemplate().getSubRoomTemplate()}>
           <MenuItemText
-            text={props.building
-              .getTemplate()
-              .getSubRoomTemplate()!
-              .repFullJSX()}
+            text={props.building.getTemplate().getSubRoomTemplate()!.repFull()}
           />
         </Show>
       </Show>
@@ -198,9 +195,7 @@ const BuildingTemplateNameActionMenu: Component<{
         <MenuItemText text={<CostsCard costs={props.template.getCost(0)} />} />
 
         <Show when={props.template.getMainRoomTemplate()}>
-          <MenuItemText
-            text={props.template.getMainRoomTemplate().repFullJSX()}
-          />
+          <MenuItemText text={props.template.getMainRoomTemplate().repFull()} />
         </Show>
       </Show>
       const extras = [];

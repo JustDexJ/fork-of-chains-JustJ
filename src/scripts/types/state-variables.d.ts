@@ -100,9 +100,6 @@ export interface StateVariables
   gInteractiveSexLocation_key?: string;
   gNewGamePlusExLeader?: boolean;
   gNewGamePlusExtraKeys?: UnitKey[];
-  gAdhocQuestCriteriaOpenActor?: string;
-  gAdhocUnitUsed?: Record<UnitKey, string>;
-  gAdhocQuestActorMap?: ActorUnitKeyMap;
   gAdhocQuest_key?: QuestInstanceKey;
   compiledquest?: any;
   dtEditActor?: any;

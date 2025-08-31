@@ -165,14 +165,14 @@ const QuestNameActionMenu: Component<{
         callback={() => {
           setup.Dialogs.open({
             title: `Full quest roles`,
-            content: (
+            content: setup.DOM.renderComponent(() => (
               <div>
                 <div>Quest roles for {props.quest.repJSX()}:</div>
                 <div>
                   <QuestUnitRolesFragment quest={props.quest} />
                 </div>
               </div>
-            ),
+            )),
           }).then(() => {
             setup.DOM.Nav.goto();
           });

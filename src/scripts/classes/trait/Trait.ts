@@ -77,10 +77,11 @@ export class Trait extends TwineClass {
     if (!key) throw new Error(`null key for trait`);
     this.key = key;
 
-    if (!def.name) throw new Error(`null name for trait ${key}`);
+    if (!def.name) throw new Error(`missing name for trait ${key}`);
     this.name = def.name;
 
-    if (!def.description) throw new Error(`null name for trait ${key}`);
+    if (!def.description)
+      throw new Error(`missing description for trait ${key}`);
     this.description = def.description;
 
     if (def.tags) {
@@ -239,7 +240,7 @@ export class Trait extends TwineClass {
 
   _getCssAttrs(): { style: string; classes: string } {
     let style = "";
-    let classes = "trait " + this.getRarity().getIconTriangleClass();
+    let classes = "trait";
 
     if (this.icon_settings.tier)
       classes += " trait-tier" + this.icon_settings.tier;
@@ -257,7 +258,7 @@ export class Trait extends TwineClass {
       if (tags.includes(tag)) {
         // found
         const taginfo = setup.Trait.ICON_BACKGROUNDS[tag];
-        style += `--trait-bg-image: url(${setup.resolveImageUrl("img/trait/backgrounds/" + tag + ".svg")});`;
+        style += `--trait-bg-image: url(${setup.resolveImageUrl(`img/trait/backgrounds/${tag}.svg`)});`;
         if (!this.icon_settings.colors && taginfo.effect)
           classes += " " + taginfo.effect;
         break;
@@ -274,15 +275,21 @@ export class Trait extends TwineClass {
       tooltip_noclick: tooltip_noclick,
     });
 
-    const span = document.createElement("span");
+    let span = document.createElement("span");
     span.appendChild(inner);
-
-    const outer = document.createElement("span");
-    outer.appendChild(span);
     const css_attrs = this._getCssAttrs();
-    outer.className = css_attrs.classes;
-    outer.style = css_attrs.style;
-    return outer;
+    span.className = css_attrs.classes;
+    span.style = css_attrs.style;
+
+    const rarity = this.getRarity();
+    if (rarity !== setup.rarity.common) {
+      const span2 = document.createElement("span");
+      span2.classList.add("icon", rarity.getIconTriangleClass());
+      span2.appendChild(span);
+      return span2;
+    }
+
+    return span;
   }
 
   renderIcon(): HTMLElement {
@@ -291,10 +298,6 @@ export class Trait extends TwineClass {
 
   rep(tooltip_noclick?: boolean): string {
     return setup.DOM.toString(this._rep(true, tooltip_noclick));
-  }
-
-  repFull(): string {
-    return `<span class='capitalize' data-tooltip="<<tooltiptrait '${this.key}'>>">${setup.DOM.toString(this._rep(/* tooltip = */ false))} ${this.getName()}</span>`;
   }
 
   repNegative(tooltip_noclick?: boolean): string {
@@ -309,13 +312,13 @@ export class Trait extends TwineClass {
     return this._rep(true, tooltip_noclick);
   }
 
-  repFullJSX(): DOM.Node {
+  repFull(): DOM.Node {
     return setup.DOM.span(
       {
         class: "capitalize",
         "data-tooltip": "<<tooltiptrait '${this.key}'>>",
       },
-      [this.repJSX(/* tooltip = */ false), this.getName()],
+      [this.repJSX(/* tooltip = */ false), " ", this.getName()],
     );
   }
 

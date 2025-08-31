@@ -104,20 +104,11 @@ export class Furniture extends Item {
     );
   }
 
-  repFull(): string {
-    let basic = this.rep();
-    const explanation = setup.SkillHelper.explainSkills(this.getSkillMods());
-    if (explanation) {
-      basic += " " + setup.DOM.toString(explanation);
-    }
-    return basic;
-  }
-
-  repFullJSX(): DOM.Node {
+  repFull(): DOM.Node {
     let basic = this.repJSX();
     const explanation = setup.SkillHelper.explainSkills(this.getSkillMods());
     if (explanation) {
-      return setup.DOM.createFragment(basic, explanation);
+      return setup.DOM.createFragment(basic, " ", explanation);
     }
     return basic;
   }

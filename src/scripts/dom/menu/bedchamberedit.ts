@@ -43,7 +43,7 @@ export const DOM_Menu_bedchamberedit = function (
           `);
         }
 
-        very_inner.push(html`${furniture.repFull()}`);
+        very_inner.push(furniture.repFull());
         if (current != furniture && !current.isBasic()) {
           very_inner.push(html` (replacing ${current.repFull()}) `);
         }

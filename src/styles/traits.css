@@ -46,7 +46,7 @@ img.icon {
 }
 
 /* trait backgrounds image (the variable is defined in the element style="...") */
-.trait > *::before {
+.trait::before {
   content: "";
   position: absolute;
   top: 0;
@@ -59,7 +59,7 @@ img.icon {
 }
 
 /* tier text (I, IV, III, ...) */
-.trait > *::after {
+.trait::after {
   position: absolute;
   font-size: 16px;
   font-weight: bold;
@@ -73,55 +73,55 @@ img.icon {
   pointer-events: none;
 }
 
-.trait-tier1 > *::after {
+.trait-tier1::after {
   content: "I";
 }
 
-.trait-tier2 > *::after {
+.trait-tier2::after {
   content: "II";
 }
 
-.trait-tier3 > *::after {
+.trait-tier3::after {
   content: "III";
 }
 
-.trait-tier4 > *::after {
+.trait-tier4::after {
   content: "IV";
 }
 
-.trait-tier5 > *::after {
+.trait-tier5::after {
   content: "V";
 }
 
-.trait-tier6 > *::after {
+.trait-tier6::after {
   content: "VI";
 }
 
-.trait-tier7 > *::after {
+.trait-tier7::after {
   content: "VII";
 }
 
-.trait-tier8 > *::after {
+.trait-tier8::after {
   content: "VIII";
 }
 
-.trait-tier9 > *::after {
+.trait-tier9::after {
   content: "IX";
 }
 
-.trait-tier10 > *::after {
+.trait-tier10::after {
   content: "X";
 }
 
-.trait-plus > *::after {
+.trait-plus::after {
   content: "+";
 }
 
-.trait-minus > *::after {
+.trait-minus::after {
   content: "-";
 }
 
-.trait-cross > *::after {
+.trait-cross::after {
   content: "X";
 }
 

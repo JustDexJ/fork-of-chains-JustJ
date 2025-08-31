@@ -60,11 +60,11 @@ export class RoomInstance extends TwineClass {
     return setup.repObjectJSX(this);
   }
 
-  repFull(): string {
-    return (
-      this.getTemplate().repTags() +
-      setup.repMessage(this) +
-      ` (${this.getTemplate().getWidth()} x ${this.getTemplate().getHeight()})`
+  repFull(): DOM.Node {
+    return setup.DOM.createFragment(
+      ...this.getTemplate().repTags(),
+      setup.repObjectJSX(this),
+      ` (${this.getTemplate().getWidth()} × ${this.getTemplate().getHeight()})`,
     );
   }
 

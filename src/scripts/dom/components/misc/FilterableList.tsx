@@ -11,6 +11,7 @@ export interface FilterableListProps<T extends ObjectWithKey, D = T> {
   display_callback: (obj: D, getDisplayMode: () => string) => DOM.JSXElement;
   display_objects?: readonly D[];
   style_override?: string;
+  onFiltersChanged?: () => void;
 }
 
 /**
@@ -23,7 +24,10 @@ export const FilterableList = <T extends ObjectWithKey, D = T>(
   const [getForceRefresh, setForceRefresh] = createSignal(0);
 
   const subscribeToRefresh = getForceRefresh;
-  const refresh = () => setForceRefresh(getForceRefresh() + 1);
+  const refresh = () => {
+    setForceRefresh(getForceRefresh() + 1);
+    props.onFiltersChanged?.();
+  };
 
   const getFilteredKeys = createMemo(() => {
     subscribeToRefresh(); // subscribe to signal

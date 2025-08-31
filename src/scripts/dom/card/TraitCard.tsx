@@ -9,7 +9,7 @@ const TraitNameActionMenu: Component<{
       <MenuItemTitle
         text={
           <>
-            {props.trait.repFullJSX()}
+            {props.trait.repFull()}
             <Show when={State.variables.gDebug}>
               <span class="debug-info">({props.trait.key})</span>
             </Show>

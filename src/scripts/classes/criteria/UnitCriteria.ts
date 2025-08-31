@@ -353,7 +353,7 @@ export class UnitCriteria extends TwineClass {
           let skilltext = skillval.toFixed(0);
           if (skillval % 1) skilltext = skillval.toFixed(1);
           skills_fragment.append(
-            `${skilltext} x ${skills[skill.key]}`,
+            `${skilltext} × ${skills[skill.key]}`,
             skill.repJSX(),
           );
         } else {

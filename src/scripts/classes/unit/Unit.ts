@@ -1148,7 +1148,9 @@ export class Unit extends TwineClass {
    * Innate traits are skin traits that the unit will get purified back to
    */
   getInnateTraits(): Trait[] {
-    return objectKeys(this.innate_trait_key_map).map((key) => setup.trait[key]);
+    return objectKeys(this.innate_trait_key_map)
+      .map((key) => setup.trait[key])
+      .filter((t) => t);
   }
 
   /**
@@ -2165,11 +2167,11 @@ export class Unit extends TwineClass {
   /**
    * Bob of Party 3
    */
-  repFull(): string {
-    let base = `${this.repLong()}`;
+  repFull(): DOM.Node {
+    let base = this.repLongJSX();
     const party = this.getParty();
     if (party) {
-      return `${base} of ${party.rep()}`;
+      return setup.DOM.createFragment(base, " of ", party.repJSX());
     } else {
       return base;
     }

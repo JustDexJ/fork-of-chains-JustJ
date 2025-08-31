@@ -1,4 +1,4 @@
-import { createMemo, For, Show } from "solid-js";
+import { createEffect, createMemo, For, Show } from "solid-js";
 import { QuestAssignHelper } from "../../util/questassign";
 import { MenuFilterToolbarSingleMenu } from "../components/menubar/FilterToolbar";
 import {
@@ -32,11 +32,10 @@ export const PartyChildren: Component<{
           props.instance.getTemplate().getUnitCriterias(),
           assignment_units,
         );
-        const success_expl = setup.QuestDifficulty.explainChance(success_obj);
 
         parties.push({
           party,
-          success_expl,
+          success_expl: () => setup.QuestDifficulty.explainChance(success_obj),
           assignment,
         });
       }
@@ -57,7 +56,7 @@ export const PartyChildren: Component<{
     >
       {({ party, success_expl, assignment }) => (
         <MenuItem
-          text={`${party.getName()} ${success_expl}`}
+          text={`${party.getName()} ${success_expl()}`}
           callback={() => {
             QuestAssignHelper.doFinalize(props.instance, assignment);
             setup.runSugarCubeCommand("<<focgoto>>");
@@ -85,7 +84,14 @@ export const RoleAssignMenu: Component<{ instance: QuestInstance }> = (
           // Edit and Clear buttons
           <>
             <MenuItemAction
-              text={`Edit Team ${setup.QuestDifficulty.explainChance(props.instance.getScoreObj())}`}
+              text={
+                <>
+                  Edit Team{" "}
+                  {setup.QuestDifficulty.explainChance(
+                    props.instance.getScoreObj(),
+                  )}
+                </>
+              }
               tooltip="Pick different units to go on this quest"
               callback={() => {
                 setup.QuestAssignHelper.initialize(props.instance);
@@ -125,38 +131,52 @@ export const RoleAssignMenu: Component<{ instance: QuestInstance }> = (
           )}
         >
           <Show when={props.instance.isCostsSatisfied()}>
-            <MenuItemAction
-              text={
-                <>
-                  Auto-Assign{" "}
-                  <span id={`autoassignchance${props.instance.key}`} />
-                </>
-              }
-              tooltip="Let the game automatically pick units to go on this quest. Does not always pick the optimal set of units, but the game tries its best to do so. You can change how the game picks the units via the gear menu on the right."
-              callback={() => {
-                if (setup.QuestAssignHelper.tryAutoAssign(props.instance)) {
-                  setup.runSugarCubeCommand("<<focgoto>>");
-                } else {
-                  setup.runSugarCubeCommand(
-                    '<<focgoto "QuestAdhocNoAssignment">>',
-                  );
-                }
-              }}
-            />
+            {(() => {
+              let autoassignChancesRef: HTMLDivElement | undefined;
 
-            {
-              //setTimeout(() => {
-              //  const score =
-              //    setup.QuestAssignHelper.computeAutoAssignmentScoreRepIfAny(quest);
-              //
-              //  let wikitext = score;
-              //  if (!wikitext) {
-              //    wikitext = `<span class='lightgraytext'>(No assignment found)</span>`;
-              //  }
-              //  $(`#autoassignchance${quest.key}`).empty();
-              //  $(`#autoassignchance${quest.key}`).html(wikitext);
-              //}, 1);
-            }
+              createEffect(() => {
+                setTimeout(() => {
+                  if (autoassignChancesRef) {
+                    let content =
+                      setup.QuestAssignHelper.computeAutoAssignmentScoreRepIfAny(
+                        props.instance,
+                      );
+                    if (!content) {
+                      content = setup.DOM.span(
+                        { class: "lightgraytext" },
+                        "(No assignment found)",
+                      );
+                    }
+                    while (autoassignChancesRef!.firstChild) {
+                      autoassignChancesRef!.removeChild(
+                        autoassignChancesRef.firstChild,
+                      );
+                    }
+                    autoassignChancesRef.appendChild(content);
+                  }
+                }, 1);
+              });
+
+              return (
+                <MenuItemAction
+                  text={
+                    <>
+                      Auto-Assign <span ref={autoassignChancesRef} />
+                    </>
+                  }
+                  tooltip="Let the game automatically pick units to go on this quest. Does not always pick the optimal set of units, but the game tries its best to do so. You can change how the game picks the units via the gear menu on the right."
+                  callback={() => {
+                    if (setup.QuestAssignHelper.tryAutoAssign(props.instance)) {
+                      setup.runSugarCubeCommand("<<focgoto>>");
+                    } else {
+                      setup.runSugarCubeCommand(
+                        '<<focgoto "QuestAdhocNoAssignment">>',
+                      );
+                    }
+                  }}
+                />
+              );
+            })()}
 
             <Show when={State.variables.partylist.getParties().length}>
               <MenuItemAction

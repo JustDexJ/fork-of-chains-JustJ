@@ -1,5 +1,4 @@
 import { Show, createEffect, createSignal, onMount, type JSX } from "solid-js";
-import type { LoreKey } from "../../classes/Lore.js";
 import { unitRep } from "../../macro/content/rep.js";
 import { reload } from "../nav/nav.js";
 import "./ToggleSwitch.css";
@@ -39,6 +38,10 @@ export const Twee: Component<{ children: string }> = (props) => {
   //);
 };
 
+/**
+ * Same as `<Twee />` but wraps the rendered content in a <span> instead of a <div>.
+ * @see Twee
+ */
 export const TweeSpan: Component<{ children: string }> = (props) => {
   let divRef: HTMLDivElement | undefined;
 
@@ -58,6 +61,14 @@ export const TweeSpan: Component<{ children: string }> = (props) => {
   return <span ref={divRef} />;
 };
 
+/**
+ * JSX alternative to:
+ * ```
+ * <<message "label">>
+ *   {children}
+ * <</link>
+ * ```
+ */
 export const Message: Component<{
   label: string;
   children?: JSX.Element | (() => JSX.Element);
@@ -142,6 +153,14 @@ function goToPassage(passage: string) {
   );
 }
 
+/**
+ * JSX alternative to:
+ * ```
+ * <<button "label_as_children" "passage">>
+ *   <<run onClick()>>
+ * <</button>
+ * ```
+ */
 export const Button = (
   props: ParentProps<{
     passage?: string;
@@ -164,6 +183,14 @@ export const Button = (
   );
 };
 
+/**
+ * JSX alternative to:
+ * ```
+ * <<link "label_as_children" "passage">>
+ *   <<run onClick()>>
+ * <</link>
+ * ```
+ */
 export const Link = (
   props: ParentProps<{
     passage?: string;
@@ -188,6 +215,9 @@ export const Link = (
   );
 };
 
+/**
+ * Renders a SugarCube built-in icon.
+ */
 export const Icon: Component<{ icon: string; text: string }> = (props) => {
   return (
     <span data-tooltip={props.text} data-tooltip-delay data-tooltip-noclick>
@@ -248,8 +278,4 @@ export const Rep = <T extends { rep(arg: any): any }>(props: {
       </Show>
     </span>
   );
-};
-
-export const Lore: Component<{ of: LoreKey }> = (props) => {
-  return <>{setup.Lore.repLore(props.of)}</>;
 };

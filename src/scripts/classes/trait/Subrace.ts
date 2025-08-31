@@ -14,7 +14,7 @@ export interface SubraceDefinition {
   noun: string;
   rare?: boolean;
   homeland_region?: string;
-  company_key?: CompanyKey;
+  company_key?: CompanyKey | null;
 
   /** How much does the trait pool for this race will prefer a certain trait. */
   trait_preferences: {

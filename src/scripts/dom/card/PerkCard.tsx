@@ -18,7 +18,7 @@ const PerkNameActionMenu: Component<{
       <MenuItemTitle
         text={
           <>
-            {props.perk.repFullJSX()}
+            {props.perk.repFull()}
             {State.variables.gDebug ? (
               <span class="debug-info">(${props.perk.key})</span>
             ) : null}
