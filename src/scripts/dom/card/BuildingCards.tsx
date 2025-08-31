@@ -10,8 +10,8 @@ import {
   MenuItemToolbar,
 } from "../components/menubar/MenuItem";
 import { domCardRep } from "../util/cardnamerep";
-import { CostsCard } from "./cost";
-import { RestrictionsCard } from "./restriction";
+import { CostsCard } from "./CostsCard";
+import { RestrictionsCard } from "./RestrictionsCard";
 
 export const BuildingTemplateNameFragment: Component<{
   template: BuildingTemplate;

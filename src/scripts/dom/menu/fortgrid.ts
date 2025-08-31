@@ -7,7 +7,7 @@ import {
 } from "../../classes/room/RoomInstance";
 import type { Tile } from "../../classes/room/Tile";
 import { menuItemText, menuItemTitle } from "../../ui/menuitem";
-import { getUnplacedRoom } from "../card/room";
+import { getUnplacedRoom } from "../card/RoomCards";
 import { FortgridToolbar } from "./fortgrid/fortgrid_toolbars";
 
 const FORTGRID_GRID_DIV_ID = "fortgrid-grid-div";

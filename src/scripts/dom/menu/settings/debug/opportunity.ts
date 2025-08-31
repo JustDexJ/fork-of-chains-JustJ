@@ -1,5 +1,5 @@
 import type { OpportunityTemplate } from "../../../../classes/opportunity/OpportunityTemplate";
-import { renderDescription } from "../../../card/quest";
+import { renderDescription } from "../../../card/QuestInstanceCard";
 import { FilterableList } from "../../../components/misc/FilterableList";
 import {
   debug_do_one_finalize,

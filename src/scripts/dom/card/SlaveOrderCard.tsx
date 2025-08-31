@@ -8,8 +8,8 @@ import {
   MenuItemToolbar,
 } from "../components/menubar/MenuItem";
 import { domCardRep } from "../util/cardnamerep";
-import { CostsCard } from "./cost";
-import { CriteriaCard } from "./criteria";
+import { CostsCard } from "./CostsCard";
+import { UnitCriteriaCard } from "./UnitCriteriaCard";
 
 const SlaveOrderNameActionMenu: Component<{
   slave_order: SlaveOrder;
@@ -88,7 +88,7 @@ export const SlaveOrderCard: Component<{
 
       <Show when={props.slave_order.getCriteria()}>
         <div>
-          <CriteriaCard criteria={props.slave_order.getCriteria()!} />
+          <UnitCriteriaCard criteria={props.slave_order.getCriteria()!} />
         </div>
       </Show>
 

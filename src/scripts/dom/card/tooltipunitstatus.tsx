@@ -1,6 +1,6 @@
 import { Show } from "solid-js";
-import { InjuryCard } from "./injury";
-import { UnitLeaveCard } from "./unit";
+import { InjuryCard } from "./InjuryCard";
+import { UnitLeaveCard } from "./UnitCard";
 
 /**
  * Tooltip unit status, e.g., "busy icon"

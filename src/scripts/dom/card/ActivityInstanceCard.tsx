@@ -3,8 +3,8 @@ import type {
   ActivityInstance,
   ActivityInstanceKey,
 } from "../../classes/activity/ActivityInstance";
-import { DialogueCard } from "./dialogue";
-import { ContentInstanceDescription } from "./quest";
+import { DialogueCard } from "./DialogueCard";
+import { ContentInstanceDescription } from "./QuestInstanceCard";
 
 const ActivityRender: Component<{ activity: ActivityInstance }> = (props) => {
   const getActorUnitMap = createMemo(() => {

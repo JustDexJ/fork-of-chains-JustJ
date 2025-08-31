@@ -16,10 +16,10 @@ import {
   MenuItemToolbar,
 } from "../components/menubar/MenuItem";
 import { domCardRep } from "../util/cardnamerep";
-import { AuthorCard } from "./author";
-import { CostsCard } from "./cost";
-import { CriteriaCard } from "./criteria";
+import { AuthorCard } from "./AuthorCard";
+import { CostsCard } from "./CostsCard";
 import { RoleAssignMenu } from "./RoleAssignMenu";
+import { UnitCriteriaCard } from "./UnitCriteriaCard";
 
 /**
  * Prints the quest author
@@ -49,7 +49,7 @@ const QuestUnitRoleFragment: Component<{
     <div class="actorcard">
       {setup.DOM.Util.namebold(getCriteria())}
       {getOffsetMod() == 1 ? "" : `(Important: ${getOffsetMod()}x)`}
-      <CriteriaCard criteria={getCriteria()} unit={getUnit()} />
+      <UnitCriteriaCard criteria={getCriteria()} unit={getUnit()} />
     </div>
   );
 };

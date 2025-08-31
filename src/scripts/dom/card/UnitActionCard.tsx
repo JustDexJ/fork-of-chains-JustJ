@@ -11,7 +11,7 @@ import {
   MenuItemToolbar,
 } from "../components/menubar/MenuItem";
 import { domCardNameBold } from "../util/cardnamerep";
-import { RestrictionsCard } from "./restriction";
+import { RestrictionsCard } from "./RestrictionsCard";
 
 const UnitActionNameFragment: Component<{ action: UnitAction; unit: Unit }> = (
   props,

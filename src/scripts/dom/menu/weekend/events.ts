@@ -1,5 +1,5 @@
 import type { EventInstance } from "../../../classes/event/EventInstance";
-import { renderDescription } from "../../card/quest";
+import { renderDescription } from "../../card/QuestInstanceCard";
 
 export function showEndweekEvents(): {
   node: DOM.Node;

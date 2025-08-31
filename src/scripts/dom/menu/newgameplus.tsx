@@ -3,7 +3,7 @@ import type { QuestTemplateKey } from "../../classes/quest/QuestTemplate";
 import type { TitleKey } from "../../classes/title/Title";
 import { TraitHelper } from "../../classes/trait/Trait";
 import { createLevelOneUnitCopy } from "../../classes/unit/util";
-import { renderLivingPassage } from "../card/livingdescription";
+import { renderLivingPassage } from "../card/LivingDescriptionCard";
 import { MenuItemAction } from "../components/menubar/MenuItem";
 
 const CONTAINER_DIV_ID = "newgamepluspromptsdivid";

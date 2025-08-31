@@ -1,7 +1,7 @@
 import { createMemo } from "solid-js";
 import type { Living } from "../../classes/retire/Living";
 import { domCardName } from "../util/cardnamerep";
-import { RestrictionsCard } from "./restriction";
+import { RestrictionsCard } from "./RestrictionsCard";
 
 export const LivingCard: Component<{ living: Living }> = (props) => {
   const getPrefs = createMemo(() => {

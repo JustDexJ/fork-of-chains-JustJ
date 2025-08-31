@@ -1,5 +1,5 @@
 import { createMemo, For, Show } from "solid-js";
-import { QuestDurationFragment } from "../../card/quest";
+import { QuestDurationFragment } from "../../card/QuestInstanceCard";
 import { FilterableList } from "../../components/misc/FilterableList";
 
 /**

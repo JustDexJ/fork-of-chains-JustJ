@@ -1,6 +1,6 @@
 import { createMemo, For, Show } from "solid-js";
 import type { UnitCriteria } from "../../classes/criteria/UnitCriteria";
-import { CostsCard } from "./cost";
+import { CostsCard } from "./CostsCard";
 
 /**
  * Explain a criteria. A little different than other card in that it does not
@@ -8,7 +8,7 @@ import { CostsCard } from "./cost";
  *
  * <<criteriacard>>
  */
-export const CriteriaCard: Component<{
+export const UnitCriteriaCard: Component<{
   criteria: UnitCriteria;
   unit?: Unit | null;
 }> = (props) => {
@@ -65,7 +65,7 @@ export const CriteriaCard: Component<{
  *
  * @param ignore_extra Whether to ignore extra traits
  */
-export const CriteriaTraitListCard: Component<{
+export const UnitCriteriaTraitListCard: Component<{
   criteria: UnitCriteria;
   unit: Unit;
   ignore_extra?: boolean;
@@ -94,7 +94,7 @@ export const CriteriaTraitListCard: Component<{
 
 export default {
   criteria(criteria: UnitCriteria, unit?: Unit | null): DOM.Attachable {
-    return setup.DOM.renderComponent(CriteriaCard, { criteria, unit });
+    return setup.DOM.renderComponent(UnitCriteriaCard, { criteria, unit });
   },
 
   criteriatraitlist(
@@ -102,7 +102,7 @@ export default {
     unit: Unit,
     ignore_extra?: boolean,
   ): DOM.Attachable {
-    return setup.DOM.renderComponent(CriteriaTraitListCard, {
+    return setup.DOM.renderComponent(UnitCriteriaTraitListCard, {
       criteria,
       unit,
       ignore_extra,

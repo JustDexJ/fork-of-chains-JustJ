@@ -1,6 +1,6 @@
 import { Show } from "solid-js";
 import type { MenuKey } from "../../classes/filter/_filter";
-import { UnitCard } from "../card/unit";
+import { UnitCard } from "../card/UnitCard";
 import { MenuItemTitle, MenuItemToolbar } from "../components/menubar/MenuItem";
 import { FilterableList } from "../components/misc/FilterableList";
 

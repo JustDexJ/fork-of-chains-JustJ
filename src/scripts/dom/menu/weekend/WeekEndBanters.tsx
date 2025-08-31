@@ -1,6 +1,6 @@
 import { createSignal, For, Show } from "solid-js";
 import type { BanterInstance } from "../../../classes/banter/BanterInstance";
-import { BanterCard } from "../../card/banter";
+import { BanterCard } from "../../card/BanterCard";
 import { Link } from "../../components/common";
 
 const WeekEndBanters: Component<{ banters: BanterInstance[] }> = (props) => {

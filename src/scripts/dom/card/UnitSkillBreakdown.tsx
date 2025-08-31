@@ -1,6 +1,5 @@
-/* eslint-disable no-irregular-whitespace */
-
-import { Rep } from "../common";
+import type { SkillKey } from "../../classes/Skill";
+import { Rep } from "../components/common";
 
 function format_value(value: number, text: string): DOM.Node {
   if (value > 0) {
@@ -92,4 +91,16 @@ export const UnitSkillBreakdown: Component<{ unit: Unit; skill: Skill }> = ({
       </div>
     </div>
   );
+};
+
+export default {
+  unitskill(
+    unit_or_key: Unit | UnitKey,
+    skill_or_key: Skill | SkillKey,
+  ): DOM.Node {
+    const unit = resolveObject(unit_or_key, State.variables.unit);
+    const skill = resolveObject(skill_or_key, setup.skill as Registry<Skill>);
+
+    return setup.DOM.renderComponent(UnitSkillBreakdown, { unit, skill });
+  },
 };

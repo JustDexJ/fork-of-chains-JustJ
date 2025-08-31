@@ -2,7 +2,7 @@ import type { Lore, LoreKey } from "../../classes/Lore";
 import { Twee } from "../components/common";
 import { MenuItemTitle, MenuItemToolbar } from "../components/menubar/MenuItem";
 import { domCardRep } from "../util/cardnamerep";
-import { RestrictionsCard } from "./restriction";
+import { RestrictionsCard } from "./RestrictionsCard";
 
 const LoreNameActionMenu: Component<{ lore: Lore; show_actions?: boolean }> = (
   props,

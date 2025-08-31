@@ -1,4 +1,4 @@
-import { CriteriaTraitListCard } from "../card/criteria";
+import { UnitCriteriaTraitListCard } from "../card/UnitCriteriaCard";
 import { MenuItemAction, MenuItemText } from "../components/menubar/MenuItem";
 
 const SlaveOrderMenuItems: Component<{
@@ -49,7 +49,7 @@ const SlaveOrderMenuItems: Component<{
     <MenuItemText
       text={
         <span>
-          <CriteriaTraitListCard
+          <UnitCriteriaTraitListCard
             criteria={slave_order.getCriteria()}
             unit={unit}
             ignore_extra={true}

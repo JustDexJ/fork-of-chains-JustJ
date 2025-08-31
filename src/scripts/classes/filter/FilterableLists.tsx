@@ -4,30 +4,39 @@ import {
   BuildingInstanceCompactCard,
   BuildingTemplateCard,
   BuildingTemplateCompactCard,
-} from "../../dom/card/building";
-import { CompanyCard, CompanyCompactCard } from "../../dom/card/company";
-import { ContactCard, ContactCompactCard } from "../../dom/card/contact";
-import { DutyInstanceCard, DutyInstanceCompactCard } from "../../dom/card/duty";
-import { EquipmentCard, EquipmentCompactCard } from "../../dom/card/equipment";
+} from "../../dom/card/BuildingCards";
+import { CompanyCard, CompanyCompactCard } from "../../dom/card/CompanyCard";
+import { ContactCard, ContactCompactCard } from "../../dom/card/ContactCard";
+import {
+  DutyInstanceCard,
+  DutyInstanceCompactCard,
+} from "../../dom/card/DutyInstanceCard";
+import {
+  EquipmentCard,
+  EquipmentCompactCard,
+} from "../../dom/card/EquipmentCard";
 import {
   EquipmentSetCard,
   EquipmentSetCompactCard,
-} from "../../dom/card/equipmentset";
-import { ItemCard, ItemCompactCard } from "../../dom/card/item";
-import { LoreCard, LoreCompactCard } from "../../dom/card/lore";
-import { OpportunityInstanceCard } from "../../dom/card/opportunity";
-import { PartyCard, PartyCompactCard } from "../../dom/card/party";
-import { QuestCard, QuestCompactCard } from "../../dom/card/quest";
-import { SexActionCard, SexActionCompactCard } from "../../dom/card/sexaction";
+} from "../../dom/card/EquipmentSetCard";
+import { ItemCard, ItemCompactCard } from "../../dom/card/ItemCard";
+import { LoreCard, LoreCompactCard } from "../../dom/card/LoreCard";
+import { OpportunityInstanceCard } from "../../dom/card/OpportunityInstanceCard";
+import { PartyCard, PartyCompactCard } from "../../dom/card/PartyCard";
+import { QuestCard, QuestCompactCard } from "../../dom/card/QuestInstanceCard";
+import {
+  SexActionCard,
+  SexActionCompactCard,
+} from "../../dom/card/SexActionCard";
 import {
   SlaveOrderCard,
   SlaveOrderCompactCard,
-} from "../../dom/card/slaveorder";
-import { TeamCard, TeamCompactCard } from "../../dom/card/team";
+} from "../../dom/card/SlaveOrderCard";
+import { TeamCard, TeamCompactCard } from "../../dom/card/TeamCard";
 import {
   UnitActionCard,
   UnitActionCompactCard,
-} from "../../dom/card/unitaction";
+} from "../../dom/card/UnitActionCard";
 import { FilterableList } from "../../dom/components/misc/FilterableList";
 import type { UnitAction } from "../unitaction/UnitAction";
 

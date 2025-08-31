@@ -19,7 +19,7 @@ import { domCardRep } from "../util/cardnamerep";
 import {
   BuildingTemplateDescriptionFragment,
   BuildingTemplateNameFragment,
-} from "./building";
+} from "./BuildingCards";
 
 const RoomNameFragment: Component<{
   room: RoomInstance;

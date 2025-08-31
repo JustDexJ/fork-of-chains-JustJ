@@ -6,7 +6,7 @@ import {
   MenuItemTitle,
   MenuItemToolbar,
 } from "../components/menubar/MenuItem";
-import { TraitEtcFragment } from "./trait";
+import { TraitEtcFragment } from "./TraitCard";
 
 const PerkNameActionMenu: Component<{
   perk: Perk;

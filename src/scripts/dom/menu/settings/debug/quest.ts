@@ -4,7 +4,7 @@ import {
   QUEST_OUTCOMES,
   type QuestOutcome,
 } from "../../../../classes/quest/QuestTemplate";
-import { renderDescription } from "../../../card/quest";
+import { renderDescription } from "../../../card/QuestInstanceCard";
 import { FilterableList } from "../../../components/misc/FilterableList";
 import {
   debug_do_one_finalize,

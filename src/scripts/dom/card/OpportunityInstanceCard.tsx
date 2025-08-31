@@ -12,9 +12,9 @@ import {
   MenuItemToolbar,
 } from "../components/menubar/MenuItem";
 import { domCardRep } from "../util/cardnamerep";
-import { CostsCard } from "./cost";
-import { ContentInstanceDescription } from "./quest";
-import { RestrictionsCard } from "./restriction";
+import { CostsCard } from "./CostsCard";
+import { ContentInstanceDescription } from "./QuestInstanceCard";
+import { RestrictionsCard } from "./RestrictionsCard";
 
 const OpportunityExpiresFragment: Component<{
   opportunity: OpportunityInstance;

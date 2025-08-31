@@ -206,7 +206,7 @@ import { UnitActionHelper } from "../classes/unitaction/UnitActionHelper.js";
 import { VarStore } from "../classes/VarStore.js";
 import { Constants } from "../constants.js";
 import { SEXGENDERS } from "../data/sexgenders.js";
-import { renderDescription } from "../dom/card/quest.js";
+import { renderDescription } from "../dom/card/QuestInstanceCard.jsx";
 import { DOM } from "../dom/DOM.js";
 import { FortGridController } from "../dom/menu/fortgrid.js";
 import { Article, ArticleOnly, articles } from "../lib/articles.js";

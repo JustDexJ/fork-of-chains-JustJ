@@ -1,4 +1,4 @@
-import { renderDescription } from "../../card/quest";
+import { renderDescription } from "../../card/QuestInstanceCard";
 
 export function showEndweekQuests(): {
   node: DOM.Node;

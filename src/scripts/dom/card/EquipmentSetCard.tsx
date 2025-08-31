@@ -15,7 +15,7 @@ import {
   MenuItemToolbar,
 } from "../components/menubar/MenuItem";
 import { domCardRep } from "../util/cardnamerep";
-import { RestrictionsCard } from "./restriction";
+import { RestrictionsCard } from "./RestrictionsCard";
 
 const EquipmentSetTopRightInfo: Component<{ equipment_set: EquipmentSet }> = (
   props,

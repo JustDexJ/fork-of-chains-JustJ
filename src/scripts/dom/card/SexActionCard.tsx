@@ -5,7 +5,7 @@ import {
   MenuItemTitle,
   MenuItemToolbar,
 } from "../components/menubar/MenuItem";
-import { CostsCard } from "./cost";
+import { CostsCard } from "./CostsCard";
 
 const SexActionNameActionMenu: Component<{
   action: SexAction;

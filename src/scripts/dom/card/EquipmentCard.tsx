@@ -9,7 +9,7 @@ import {
   MenuItemToolbar,
 } from "../components/menubar/MenuItem";
 import { domCardRep } from "../util/cardnamerep";
-import { CostsCard } from "./cost";
+import { CostsCard } from "./CostsCard";
 
 const EquipmentNameActionMenu: Component<{
   equipment: Equipment;

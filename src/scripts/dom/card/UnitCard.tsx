@@ -9,8 +9,8 @@ import {
 } from "../components/menubar/MenuItem";
 import { RosterListMenuItems } from "../roster/rosterlist";
 import { domCardNameBold } from "../util/cardnamerep";
-import { JobCard } from "./job";
-import { UnitValueCard } from "./unitvalue";
+import { JobCard } from "./JobCard";
+import { UnitValueCard } from "./UnitValueCard";
 
 const UnitNameFragment: Component<{ unit: Unit; skipJob?: boolean }> = (
   props,

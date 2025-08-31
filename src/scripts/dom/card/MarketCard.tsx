@@ -17,9 +17,9 @@ import {
 } from "../components/menubar/MenuItem";
 import { FilterableList } from "../components/misc/FilterableList";
 import { domCardRep } from "../util/cardnamerep";
-import { EquipmentCard } from "./equipment";
-import { ItemCard } from "./item";
-import { UnitCard } from "./unit";
+import { EquipmentCard } from "./EquipmentCard";
+import { ItemCard } from "./ItemCard";
+import { UnitCard } from "./UnitCard";
 
 const MarketObjectNameActionMenu: Component<{
   market: Market;

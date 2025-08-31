@@ -1,7 +1,7 @@
 import { Show } from "solid-js";
 import type { InteractionPoolKey } from "../../classes/interaction/InteractionPool";
-import { EquipmentSetCard } from "../card/equipmentset";
-import { UnitCard } from "../card/unit";
+import { EquipmentSetCard } from "../card/EquipmentSetCard";
+import { UnitCard } from "../card/UnitCard";
 import { Link, TweeSpan } from "../components/common";
 import { RosterMenuToolbar } from "../roster/roster";
 import { RosterListMenuItems } from "../roster/rosterlist";
