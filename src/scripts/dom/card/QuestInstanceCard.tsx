@@ -475,7 +475,7 @@ export const QuestCard: Component<{
 };
 
 export default {
-  questcompact(quest: QuestInstance, show_actions?: boolean): DOM.Attachable {
+  questcompact(quest: QuestInstance, show_actions?: boolean): DOM.Node {
     return setup.DOM.renderComponent(() => (
       <div id={getCompactDivId(quest)}>
         <QuestCardCompactInternal quest={quest} show_actions={show_actions} />
@@ -486,7 +486,7 @@ export default {
   quest(
     quest_or_key: QuestInstance | QuestInstanceKey,
     show_actions?: boolean,
-  ): DOM.Attachable {
+  ): DOM.Node {
     const quest = resolveObject(quest_or_key, State.variables.questinstance);
     return setup.DOM.renderComponent(QuestCard, { quest, show_actions });
   },
@@ -494,7 +494,7 @@ export default {
   /**
    * Prints the quest author
    */
-  questauthor(template: ContentTemplate): DOM.Attachable {
+  questauthor(template: ContentTemplate): DOM.Node {
     return setup.DOM.renderComponent(ContentAuthorCard, { template });
   },
 };

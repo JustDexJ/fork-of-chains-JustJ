@@ -76,12 +76,12 @@ export default {
   contact(
     contact_or_key: Contact | Contact["key"],
     show_actions?: boolean,
-  ): DOM.Attachable {
+  ): DOM.Node {
     const contact = resolveObject(contact_or_key, State.variables.contact);
     return setup.DOM.renderComponent(ContactCard, { contact, show_actions });
   },
 
-  contactcompact(contact: Contact, show_actions?: boolean): DOM.Attachable {
+  contactcompact(contact: Contact, show_actions?: boolean): DOM.Node {
     return setup.DOM.renderComponent(ContactNameActionMenu, {
       contact,
       show_actions,

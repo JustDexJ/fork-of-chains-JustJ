@@ -119,7 +119,7 @@ export default {
     action_or_key: UnitAction | UnitActionKey,
     unit_or_key: Unit | UnitKey,
     show_actions?: boolean,
-  ): DOM.Attachable {
+  ): DOM.Node {
     const action = resolveObject(action_or_key, setup.unitaction);
     const unit = resolveObject(unit_or_key, State.variables.unit);
     return setup.DOM.renderComponent(UnitActionCard, {
@@ -133,7 +133,7 @@ export default {
     action: UnitAction,
     unit: Unit,
     show_actions?: boolean,
-  ): DOM.Attachable {
+  ): DOM.Node {
     return setup.DOM.renderComponent(UnitActionNameActionMenu, {
       action,
       unit,

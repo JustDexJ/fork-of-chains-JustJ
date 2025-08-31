@@ -109,15 +109,12 @@ export const PartyCard: Component<{ party: Party; show_actions?: boolean }> = (
 };
 
 export default {
-  party(
-    party_or_key: Party | PartyKey,
-    show_actions?: boolean,
-  ): DOM.Attachable {
+  party(party_or_key: Party | PartyKey, show_actions?: boolean): DOM.Node {
     const party = resolveObject(party_or_key, State.variables.party);
     return setup.DOM.renderComponent(PartyCard, { party, show_actions });
   },
 
-  partycompact(party: Party, show_actions?: boolean): DOM.Attachable {
+  partycompact(party: Party, show_actions?: boolean): DOM.Node {
     return setup.DOM.renderComponent(PartyNameActionMenu, {
       party,
       show_actions,

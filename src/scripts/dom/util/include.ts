@@ -3,7 +3,7 @@ export default {
    * Twine-parse a passage and returns it as a node.
    * <<include>>
    */
-  include(passage: string): DOM.Node {
+  include(passage: string): DocumentFragment {
     if (!Story.has(passage)) {
       throw new Error(`Passage "${passage}" does not exist`);
     }

@@ -1,4 +1,4 @@
-import type { InteractionTemplate } from "../../../../classes/interaction/InteractionTemplate";
+import { InteractionTemplate } from "../../../../classes/interaction/InteractionTemplate";
 import { renderDescription } from "../../../card/QuestInstanceCard";
 import { FilterableList } from "../../../components/misc/FilterableList";
 import {
@@ -13,7 +13,7 @@ export default {
     fragments.push(debug_frontpage_title("interaction", "InteractionDebugAll"));
 
     fragments.push(
-      setup.DOM.renderComponent(FilterableList, {
+      setup.DOM.renderComponent(FilterableList<InteractionTemplate>, {
         menu: "interaction" as const,
         filter_objects: Object.values(setup.interaction),
         display_callback: (template) =>

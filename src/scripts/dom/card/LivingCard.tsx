@@ -56,7 +56,7 @@ export const LivingCard: Component<{ living: Living }> = (props) => {
 };
 
 export default {
-  living(living: Living): DOM.Attachable {
+  living(living: Living): DOM.Node {
     return setup.DOM.renderComponent(LivingCard, { living });
   },
 };

@@ -61,7 +61,7 @@ export const DialogueCard: Component<{
 };
 
 export default {
-  dialogue(props: Parameters<typeof DialogueCard>[0]): DOM.Attachable {
+  dialogue(props: Parameters<typeof DialogueCard>[0]): DOM.Node {
     return setup.DOM.renderComponent(DialogueCard, props);
   },
 };

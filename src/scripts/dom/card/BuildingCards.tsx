@@ -295,7 +295,7 @@ export default {
   buildingtemplate(
     template_or_key: BuildingTemplate | BuildingTemplate["key"],
     show_actions?: boolean,
-  ): DOM.Attachable {
+  ): DOM.Node {
     const template = resolveObject(template_or_key, setup.buildingtemplate);
     return setup.DOM.renderComponent(BuildingTemplateCard, {
       template,
@@ -327,7 +327,7 @@ export default {
   buildinginstancecompact(
     building: BuildingInstance,
     show_actions?: boolean,
-  ): DOM.Attachable {
+  ): DOM.Node {
     return setup.DOM.renderComponent(BuildingInstanceNameActionMenu, {
       building,
       show_actions,

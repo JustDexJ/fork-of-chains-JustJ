@@ -340,16 +340,16 @@ export const UnitCard: Component<{
 };
 
 export default {
-  unit(unit_or_key: Unit | UnitKey, show_actions?: boolean): DOM.Attachable {
+  unit(unit_or_key: Unit | UnitKey, show_actions?: boolean): DOM.Node {
     const unit = resolveObject(unit_or_key, State.variables.unit);
     return setup.DOM.renderComponent(UnitCard, { unit, show_actions });
   },
 
-  skillFocus(unit: Unit): DOM.Attachable {
+  skillFocus(unit: Unit): DOM.Node {
     return setup.DOM.renderComponent(UnitFocusCard, { unit });
   },
 
-  leave(unit: Unit): DOM.Attachable {
+  leave(unit: Unit): DOM.Node {
     return setup.DOM.renderComponent(UnitLeaveCard, { unit });
   },
 };

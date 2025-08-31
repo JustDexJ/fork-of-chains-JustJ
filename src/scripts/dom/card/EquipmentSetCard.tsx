@@ -307,7 +307,7 @@ export default {
     equipment_set_or_key: EquipmentSet | EquipmentSetKey,
     show_actions?: boolean,
     show_remove_button?: boolean,
-  ): DOM.Attachable {
+  ): DOM.Node {
     const equipment_set = resolveObject(
       equipment_set_or_key,
       State.variables.equipmentset,
@@ -322,7 +322,7 @@ export default {
   equipmentsetcompact(
     equipment_set: EquipmentSet,
     show_actions?: boolean,
-  ): DOM.Attachable {
+  ): DOM.Node {
     // async here?
     return setup.DOM.renderComponent(() => (
       <Show

@@ -37,7 +37,7 @@ export const UnitValueCard: Component<{
 };
 
 export default {
-  unitvalue(unit: Unit, show_actions?: boolean): DOM.Attachable {
+  unitvalue(unit: Unit, show_actions?: boolean): DOM.Node {
     return setup.DOM.renderComponent(UnitValueCard, { unit, show_actions });
   },
 };

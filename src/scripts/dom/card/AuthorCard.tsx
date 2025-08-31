@@ -50,7 +50,7 @@ export const AuthorCard: Component<{ value: AuthorInfo | string }> = (
 };
 
 export default {
-  author(value: AuthorInfo | string): DOM.Attachable {
+  author(value: AuthorInfo | string): DOM.Node {
     return setup.DOM.renderComponent(AuthorCard, { value });
   },
 };

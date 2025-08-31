@@ -14,7 +14,7 @@ export default {
     fragments.push(debug_frontpage_title("opportunity", "OpportunityDebugAll"));
 
     fragments.push(
-      setup.DOM.renderComponent(FilterableList, {
+      setup.DOM.renderComponent(FilterableList<OpportunityTemplate>, {
         menu: "opportunitytemplate" as const,
         filter_objects: Object.values(setup.opportunitytemplate),
         display_callback: (template) =>

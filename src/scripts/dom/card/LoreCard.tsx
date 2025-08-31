@@ -44,12 +44,12 @@ export const LoreCard: Component<{ lore: Lore; show_actions?: boolean }> = (
 };
 
 export default {
-  lore(lore_or_key: Lore | LoreKey, show_actions?: boolean): DOM.Attachable {
+  lore(lore_or_key: Lore | LoreKey, show_actions?: boolean): DOM.Node {
     const lore = resolveObject(lore_or_key, setup.lore);
     return setup.DOM.renderComponent(LoreCard, { lore, show_actions });
   },
 
-  lorecompact(lore: Lore, show_actions?: boolean): DOM.Attachable {
+  lorecompact(lore: Lore, show_actions?: boolean): DOM.Node {
     return setup.DOM.renderComponent(LoreNameActionMenu, {
       lore,
       show_actions,

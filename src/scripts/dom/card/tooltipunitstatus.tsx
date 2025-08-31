@@ -43,7 +43,7 @@ export const TooltipUnitStatus: Component<{ unit: Unit }> = (props) => {
 };
 
 export default {
-  tooltipunitstatus(unit: Unit): DOM.Attachable {
+  tooltipunitstatus(unit: Unit): DOM.Node {
     return setup.DOM.renderComponent(TooltipUnitStatus, { unit });
   },
 };

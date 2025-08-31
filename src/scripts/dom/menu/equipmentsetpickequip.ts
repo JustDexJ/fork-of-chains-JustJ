@@ -1,4 +1,4 @@
-import type { EquipmentSet } from "../../classes/equipment/EquipmentSet";
+import { EquipmentSet } from "../../classes/equipment/EquipmentSet";
 import { menuItemAction, menuItemText, menuItemTitle } from "../../ui/menuitem";
 import { FilterableList } from "../components/misc/FilterableList";
 
@@ -65,7 +65,7 @@ export const DOM_Menu_equipmentsetpickequip = function (unit: Unit): DOM.Node {
   }
 
   outer.push(
-    setup.DOM.renderComponent(FilterableList, {
+    setup.DOM.renderComponent(FilterableList<EquipmentSet>, {
       menu: "equipmentsetpickequip" as const,
       filter_objects: sets,
       display_callback: (equipment_set) => {

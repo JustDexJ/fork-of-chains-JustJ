@@ -5,9 +5,9 @@
 
 import { createSignal, For, Match, Show, Switch } from "solid-js";
 import { MenuItem, MenuItemToolbar } from "../../components/menubar/MenuItem";
-import { QuestQuicklist } from "./questquicklist";
-import { SlaveOrderQuicklist } from "./slaveorderquicklist";
-import { UnitQuicklist } from "./unitquicklist";
+import { QuestQuicklist } from "./QuestQuicklist";
+import { SlaveOrderQuicklist } from "./SlaveOrderQuicklist";
+import { UnitQuicklist } from "./UnitQuicklist";
 
 export const RIGHT_SIDEBAR_MENUS = {
   unit: {

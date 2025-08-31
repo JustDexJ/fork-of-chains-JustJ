@@ -253,7 +253,7 @@ export default {
   opportunity(
     opportunity_or_key: OpportunityInstance | OpportunityInstanceKey,
     show_actions?: boolean,
-  ): DOM.Attachable {
+  ): DOM.Node {
     const opportunity = resolveObject(
       opportunity_or_key,
       State.variables.opportunityinstance,
@@ -266,7 +266,7 @@ export default {
 
   opportunity_option_selected(
     opportunity: OpportunityInstance,
-  ): DOM.Attachable {
+  ): DOM.Node | null {
     const passage = opportunity.getSelectedOptionPassage();
     let description: DOM.JSXElement;
     if (passage) {

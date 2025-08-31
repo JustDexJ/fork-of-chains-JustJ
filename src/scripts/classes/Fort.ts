@@ -191,11 +191,11 @@ export class Fort extends TwineClass {
 
     let building = new setup.BuildingInstance(template);
     this.building_keys.push(building.key);
-    if (building.fort_key) {
-      throw new Error(`Building already has a fort?`);
-    }
 
-    building.fort_key = this.key;
+    //if (building.fort_key) {
+    //  throw new Error(`Building already has a fort?`);
+    //}
+    //building.fort_key = this.key;
 
     this.template_key_to_building_key[template.key] = building.key;
     setup.notify(`<<successtext 'New improvement'>>: ${building.rep()}`);

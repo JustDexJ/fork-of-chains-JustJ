@@ -348,12 +348,12 @@ export default {
   duty(
     duty_or_key: DutyInstance | DutyInstance["key"],
     show_actions?: boolean,
-  ): DOM.Attachable {
+  ): DOM.Node {
     const duty = resolveObject(duty_or_key, State.variables.duty);
     return setup.DOM.renderComponent(DutyInstanceCard, { duty, show_actions });
   },
 
-  dutycompact(duty: DutyInstance, show_actions?: boolean): DOM.Attachable {
+  dutycompact(duty: DutyInstance, show_actions?: boolean): DOM.Node {
     return setup.DOM.renderComponent(DutyNameActionMenus, {
       duty,
       show_actions,

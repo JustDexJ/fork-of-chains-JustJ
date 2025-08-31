@@ -12,7 +12,7 @@ export default {
     fragments.push(debug_frontpage_title("activity", "ActivityDebugAll"));
 
     fragments.push(
-      setup.DOM.renderComponent(FilterableList, {
+      setup.DOM.renderComponent(FilterableList<ActivityTemplate>, {
         menu: "activitytemplate" as const,
         filter_objects: Object.values(setup.activitytemplate),
         display_callback: (template) =>

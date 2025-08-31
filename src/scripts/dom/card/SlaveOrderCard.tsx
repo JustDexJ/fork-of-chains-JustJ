@@ -124,7 +124,7 @@ export default {
   slaveorder(
     slave_order_or_key: SlaveOrder | SlaveOrderKey,
     show_actions?: boolean,
-  ): DOM.Attachable {
+  ): DOM.Node {
     const slave_order = resolveObject(
       slave_order_or_key,
       State.variables.slaveorder,
@@ -135,10 +135,7 @@ export default {
     });
   },
 
-  slaveordercompact(
-    slave_order: SlaveOrder,
-    show_actions?: boolean,
-  ): DOM.Attachable {
+  slaveordercompact(slave_order: SlaveOrder, show_actions?: boolean): DOM.Node {
     return setup.DOM.renderComponent(SlaveOrderNameActionMenu, {
       slave_order,
       show_actions,

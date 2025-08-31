@@ -140,12 +140,12 @@ export const ItemCard: Component<{ item: Item; show_actions?: boolean }> = (
 };
 
 export default {
-  item(item_or_key: Item | ItemKey, show_actions?: boolean): DOM.Attachable {
+  item(item_or_key: Item | ItemKey, show_actions?: boolean): DOM.Node {
     const item = resolveObject(item_or_key, setup.item);
     return setup.DOM.renderComponent(ItemCard, { item, show_actions });
   },
 
-  itemcompact(item: Item, show_actions?: boolean): DOM.Attachable {
+  itemcompact(item: Item, show_actions?: boolean): DOM.Node {
     return setup.DOM.renderComponent(ItemNameActionMenu, {
       item,
       show_actions,

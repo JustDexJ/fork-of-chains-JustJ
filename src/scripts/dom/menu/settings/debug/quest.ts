@@ -76,7 +76,7 @@ export default {
     fragments.push(debug_frontpage_title("quest", "QuestDebugAll"));
 
     fragments.push(
-      setup.DOM.renderComponent(FilterableList, {
+      setup.DOM.renderComponent(FilterableList<QuestTemplate>, {
         menu: "questtemplate" as const,
         filter_objects: Object.values(setup.questtemplate),
         display_callback: (template) => {

@@ -52,7 +52,9 @@ export default class Bodyswap extends Cost {
     const innate1 = unit.getInnateTraits();
     const innate2 = target.getInnateTraits();
 
-    const swaps: Array<[Unit, Trait[], Unit, string, string, Trait[]]> = [
+    const swaps: Array<
+      [Unit, Trait[], Unit, string, string | undefined, Trait[]]
+    > = [
       [
         unit,
         target.getRemovableTraits(),

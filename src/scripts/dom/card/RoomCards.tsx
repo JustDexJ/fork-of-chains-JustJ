@@ -503,15 +503,12 @@ export default {
   roominstance(
     room_or_key: RoomInstance | RoomInstanceKey,
     show_actions?: boolean,
-  ): DOM.Attachable {
+  ): DOM.Node {
     const room = resolveObject(room_or_key, State.variables.roominstance);
     return setup.DOM.renderComponent(RoomInstanceCard, { room, show_actions });
   },
 
-  roominstancecompact(
-    room: RoomInstance,
-    show_actions?: boolean,
-  ): DOM.Attachable {
+  roominstancecompact(room: RoomInstance, show_actions?: boolean): DOM.Node {
     return setup.DOM.renderComponent(RoomInstanceNameActionMenu, {
       room,
       show_actions,
@@ -521,7 +518,7 @@ export default {
   roomtemplate(
     template_or_key: RoomTemplate | RoomTemplateKey,
     show_actions?: boolean,
-  ): DOM.Attachable {
+  ): DOM.Node {
     const template = resolveObject(template_or_key, setup.roomtemplate);
     return setup.DOM.renderComponent(RoomTemplateCard, {
       template,
@@ -532,7 +529,7 @@ export default {
   roomtemplatecompact(
     template: RoomTemplate,
     show_actions?: boolean,
-  ): DOM.Attachable {
+  ): DOM.Node {
     return setup.DOM.renderComponent(RoomTemplateNameActionMenu, {
       template,
       show_actions,

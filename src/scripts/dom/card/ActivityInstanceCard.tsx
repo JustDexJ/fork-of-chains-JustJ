@@ -51,7 +51,7 @@ const ActivityCard: Component<{ activity: ActivityInstance }> = (props) => {
 };
 
 export default {
-  _activityrender(activity_key: ActivityInstanceKey): DOM.Attachable {
+  _activityrender(activity_key: ActivityInstanceKey): DOM.Node {
     return setup.DOM.renderComponent(ActivityRender, {
       activity: State.variables.activityinstance[activity_key],
     });
@@ -59,7 +59,7 @@ export default {
 
   activity(
     activity_or_key: ActivityInstance | ActivityInstance["key"],
-  ): DOM.Attachable {
+  ): DOM.Node {
     const activity = resolveObject(
       activity_or_key,
       State.variables.activityinstance,

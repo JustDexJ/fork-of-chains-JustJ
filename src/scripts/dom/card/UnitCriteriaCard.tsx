@@ -93,7 +93,7 @@ export const UnitCriteriaTraitListCard: Component<{
 };
 
 export default {
-  criteria(criteria: UnitCriteria, unit?: Unit | null): DOM.Attachable {
+  criteria(criteria: UnitCriteria, unit?: Unit | null): DOM.Node {
     return setup.DOM.renderComponent(UnitCriteriaCard, { criteria, unit });
   },
 
@@ -101,7 +101,7 @@ export default {
     criteria: UnitCriteria,
     unit: Unit,
     ignore_extra?: boolean,
-  ): DOM.Attachable {
+  ): DOM.Node {
     return setup.DOM.renderComponent(UnitCriteriaTraitListCard, {
       criteria,
       unit,

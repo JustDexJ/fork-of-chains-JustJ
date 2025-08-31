@@ -1,4 +1,4 @@
-import type { EventTemplate } from "../../../../classes/event/EventTemplate";
+import { EventTemplate } from "../../../../classes/event/EventTemplate";
 import { renderDescription } from "../../../card/QuestInstanceCard";
 import { FilterableList } from "../../../components/misc/FilterableList";
 import {
@@ -14,7 +14,7 @@ export default {
     fragments.push(debug_frontpage_title("event", "EventDebugAll"));
 
     fragments.push(
-      setup.DOM.renderComponent(FilterableList, {
+      setup.DOM.renderComponent(FilterableList<EventTemplate>, {
         menu: "event" as const,
         filter_objects: Object.values(setup.event),
         display_callback: (template) =>

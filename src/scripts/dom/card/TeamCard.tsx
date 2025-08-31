@@ -82,12 +82,12 @@ export const TeamCard: Component<{ team: Team; show_actions?: boolean }> = (
 };
 
 export default {
-  team(team_or_key: Team | TeamKey, show_actions?: boolean): DOM.Attachable {
+  team(team_or_key: Team | TeamKey, show_actions?: boolean): DOM.Node {
     const team = resolveObject(team_or_key, State.variables.team);
     return setup.DOM.renderComponent(TeamCard, { team });
   },
 
-  teamcompact(team: Team, show_actions?: boolean): DOM.Attachable {
+  teamcompact(team: Team, show_actions?: boolean): DOM.Node {
     return setup.DOM.renderComponent(TeamNameActionMenu, {
       team,
       show_actions,

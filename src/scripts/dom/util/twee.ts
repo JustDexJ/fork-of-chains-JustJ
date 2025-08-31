@@ -1,5 +1,5 @@
 export default {
-  replaceUnitInFragment(fragment: DOM.Node): DOM.Node {
+  replaceUnitInFragment(fragment: HTMLElement | DocumentFragment): DOM.Node {
     let last_text = "";
 
     [

@@ -260,7 +260,7 @@ export default {
     is_can_delete?: boolean;
     /** if returns True, then won't refresh market. */
     on_buy_callback?: () => boolean;
-  }): DOM.Attachable {
+  }): DOM.Node {
     return setup.DOM.renderComponent(MarketCard, {
       market,
       on_buy_callback,

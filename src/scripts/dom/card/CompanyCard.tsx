@@ -147,12 +147,12 @@ export default {
   company(
     company_or_key: Company | Company["key"],
     show_actions?: boolean,
-  ): DOM.Attachable {
+  ): DOM.Node {
     const company = resolveObject(company_or_key, State.variables.company);
     return setup.DOM.renderComponent(CompanyCard, { company, show_actions });
   },
 
-  companycompact(company: Company, show_actions?: boolean): DOM.Attachable {
+  companycompact(company: Company, show_actions?: boolean): DOM.Node {
     return setup.DOM.renderComponent(CompanyNameActionMenu, {
       company,
       show_actions,

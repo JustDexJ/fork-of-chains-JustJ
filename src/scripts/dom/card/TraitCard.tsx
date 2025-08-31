@@ -51,10 +51,7 @@ export const TraitCard: Component<{ trait: Trait; show_actions?: boolean }> = (
 };
 
 export default {
-  trait(
-    trait_or_key: Trait | TraitKey,
-    show_actions?: boolean,
-  ): DOM.Attachable {
+  trait(trait_or_key: Trait | TraitKey, show_actions?: boolean): DOM.Node {
     const trait = resolveObject(trait_or_key, setup.trait);
     return setup.DOM.renderComponent(TraitCard, { trait, show_actions });
   },

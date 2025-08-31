@@ -12,7 +12,7 @@ export const SkillCard: Component<{ skill: Skill }> = (props) => {
 };
 
 export default {
-  skill(skill: Skill): DOM.Attachable {
+  skill(skill: Skill): DOM.Node {
     return setup.DOM.renderComponent(SkillCard, { skill });
   },
 };

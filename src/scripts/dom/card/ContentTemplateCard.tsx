@@ -116,23 +116,23 @@ export const ActivityTemplateCard: Component<{ template: ActivityTemplate }> = (
 };
 
 export default {
-  questtemplate(template: QuestTemplate): DOM.Attachable {
+  questtemplate(template: QuestTemplate): DOM.Node {
     return setup.DOM.renderComponent(QuestTemplateCard, { template });
   },
 
-  opportunitytemplate(template: OpportunityTemplate): DOM.Attachable {
+  opportunitytemplate(template: OpportunityTemplate): DOM.Node {
     return setup.DOM.renderComponent(OpportunityTemplateCard, { template });
   },
 
-  event(template: EventTemplate): DOM.Attachable {
+  event(template: EventTemplate): DOM.Node {
     return setup.DOM.renderComponent(EventTemplateCard, { template });
   },
 
-  interaction(template: InteractionTemplate): DOM.Attachable {
+  interaction(template: InteractionTemplate): DOM.Node {
     return setup.DOM.renderComponent(InteractionTemplateCard, { template });
   },
 
-  activitytemplate(template: ActivityTemplate): DOM.Attachable {
+  activitytemplate(template: ActivityTemplate): DOM.Node {
     return setup.DOM.renderComponent(ActivityTemplateCard, { template });
   },
 };

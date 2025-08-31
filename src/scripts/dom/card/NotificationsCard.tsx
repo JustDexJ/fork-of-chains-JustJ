@@ -21,7 +21,7 @@ export default {
   /**
    * @param notifications - if left empty, will pop from `$notifications`
    */
-  notifications(notifications?: string[]): DOM.Attachable {
+  notifications(notifications?: string[]): DOM.Node {
     return setup.DOM.renderComponent(NotificationsCard, {
       notifications: notifications ?? State.variables.notification.popAll(),
     });

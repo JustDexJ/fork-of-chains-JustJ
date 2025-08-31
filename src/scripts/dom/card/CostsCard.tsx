@@ -24,7 +24,7 @@ export default {
   cost(
     costs: readonly Cost[] | readonly Restriction[],
     obj?: CostContext,
-  ): DOM.Attachable {
+  ): DOM.Node {
     return setup.DOM.renderComponent(CostsCard, { costs, obj });
   },
 };

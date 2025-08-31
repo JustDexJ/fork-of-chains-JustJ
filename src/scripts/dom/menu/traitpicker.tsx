@@ -153,7 +153,7 @@ function doTraitPick<IsMulti extends boolean>({
 
   all_fragments.push(
     setup.DOM.createRefreshable("div", { id: divid2 }, () => {
-      return setup.DOM.renderComponent(FilterableList, {
+      return setup.DOM.renderComponent(FilterableList<Trait>, {
         menu: "trait" as const,
         filter_objects: traits,
         style_override:

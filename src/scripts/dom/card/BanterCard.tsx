@@ -40,11 +40,11 @@ export const BanterCard: Component<{ banter: BanterInstance }> = (props) => {
 };
 
 export default {
-  bantertext(banter: BanterInstance): DOM.Attachable {
+  bantertext(banter: BanterInstance): DOM.Node {
     return setup.DOM.renderComponent(BanterTextCard, { banter });
   },
 
-  banter(banter: BanterInstance): DOM.Attachable {
+  banter(banter: BanterInstance): DOM.Node {
     return setup.DOM.renderComponent(BanterCard, { banter });
   },
 };

@@ -31,7 +31,7 @@ export const TitleCard: Component<{ title: Title }> = (props) => {
 };
 
 export default {
-  title(title_or_key: Title | TitleKey): DOM.Attachable {
+  title(title_or_key: Title | TitleKey): DOM.Node {
     const title = resolveObject(title_or_key, setup.title);
     return setup.DOM.renderComponent(TitleCard, { title });
   },

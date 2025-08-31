@@ -169,7 +169,7 @@ export default {
     bedchamber_or_key: Bedchamber | Bedchamber["key"],
     show_actions?: boolean,
     show_remove_button?: boolean,
-  ): DOM.Attachable {
+  ): DOM.Node {
     const bedchamber = resolveObject(
       bedchamber_or_key,
       State.variables.bedchamber,

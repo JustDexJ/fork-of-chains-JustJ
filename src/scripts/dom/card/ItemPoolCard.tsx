@@ -49,7 +49,7 @@ export default {
   itempool(
     pool_or_key: ItemPool | ItemPoolKey,
     show_actions?: boolean,
-  ): DOM.Attachable {
+  ): DOM.Node {
     const pool = resolveObject(pool_or_key, setup.itempool);
     return setup.DOM.renderComponent(ItemPoolCard, { pool, show_actions });
   },

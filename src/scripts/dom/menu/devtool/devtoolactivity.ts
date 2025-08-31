@@ -1,5 +1,5 @@
 import type { ActivityTemplate } from "../../../classes/activity/ActivityTemplate";
-import type { RoomTemplate } from "../../../classes/room/RoomTemplate";
+import { RoomTemplate } from "../../../classes/room/RoomTemplate";
 import { FilterableList } from "../../components/misc/FilterableList";
 
 function refreshPage() {
@@ -267,7 +267,7 @@ export const DOM_Menu_devtoolactivityselectroom = function (
   all_rooms.sort((a, b) => a.getName().localeCompare(b.getName()));
 
   fragments.push(
-    setup.DOM.renderComponent(FilterableList, {
+    setup.DOM.renderComponent(FilterableList<RoomTemplate>, {
       menu: "roomtemplate" as const,
       filter_objects: all_rooms,
       display_callback: (room_template) => {

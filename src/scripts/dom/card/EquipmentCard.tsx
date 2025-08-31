@@ -122,7 +122,7 @@ export default {
   equipment(
     equipment_or_key: Equipment | Equipment["key"],
     show_actions?: boolean,
-  ): DOM.Attachable {
+  ): DOM.Node {
     const equipment = resolveObject(equipment_or_key, setup.equipment);
     return setup.DOM.renderComponent(EquipmentCard, {
       equipment,
@@ -130,10 +130,7 @@ export default {
     });
   },
 
-  equipmentcompact(
-    equipment: Equipment,
-    show_actions?: boolean,
-  ): DOM.Attachable {
+  equipmentcompact(equipment: Equipment, show_actions?: boolean): DOM.Node {
     return setup.DOM.renderComponent(EquipmentNameActionMenu, {
       equipment,
       show_actions,

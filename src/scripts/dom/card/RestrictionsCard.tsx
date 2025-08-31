@@ -65,7 +65,7 @@ function restriction<T>(
   restrictions: readonly Restriction<T>[],
   obj: T,
   is_show_all?: boolean,
-): DOM.Attachable {
+): DOM.Node {
   return setup.DOM.renderComponent(RestrictionsCard, {
     restrictions,
     obj,

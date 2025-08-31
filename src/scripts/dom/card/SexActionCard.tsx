@@ -89,14 +89,14 @@ export const SexActionCard: Component<{
 };
 
 export default {
-  sexactioncompact(action: SexAction, show_actions?: boolean): DOM.Attachable {
+  sexactioncompact(action: SexAction, show_actions?: boolean): DOM.Node {
     return setup.DOM.renderComponent(SexActionNameActionMenu, {
       action,
       show_actions,
     });
   },
 
-  sexaction(action: SexAction, show_actions?: boolean): DOM.Attachable {
+  sexaction(action: SexAction, show_actions?: boolean): DOM.Node {
     return setup.DOM.renderComponent(SexActionCard, { action, show_actions });
   },
 };

@@ -253,7 +253,7 @@ export default {
     return setup.Text.replaceUnitMacros(options, { a: unit });
   },
 
-  livingdescription(unit: Unit, living?: Living): DOM.Attachable {
+  livingdescription(unit: Unit, living?: Living): DOM.Node {
     return setup.DOM.renderComponent(LivingDescriptionCard, { unit, living });
   },
 };

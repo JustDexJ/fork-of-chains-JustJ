@@ -191,7 +191,7 @@ export namespace DevToolHelper {
     temporary_varname: string,
   ) {
     delete State.temporary[temporary_varname];
-    return setup.DOM.renderComponent(FilterableList, {
+    return setup.DOM.renderComponent(FilterableList<T>, {
       menu: menu,
       filter_objects: objects,
       display_callback: (obj) => html`

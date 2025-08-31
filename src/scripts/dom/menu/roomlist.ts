@@ -3,6 +3,7 @@ Originally from:
 http://twinery.org/forum/discussion/comment/17617/
 */
 
+import { RoomInstance } from "../../classes/room/RoomInstance";
 import type { RoomTemplateKey } from "../../classes/room/RoomTemplate";
 import { FilterableList } from "../components/misc/FilterableList";
 
@@ -23,7 +24,7 @@ export const DOM_Menu_roomlist = function (): DOM.Node {
     }
   }
 
-  return setup.DOM.renderComponent(FilterableList, {
+  return setup.DOM.renderComponent(FilterableList<RoomInstance>, {
     menu: "room" as const,
     filter_objects: repr,
     display_callback: (room) => {

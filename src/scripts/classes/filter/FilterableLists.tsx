@@ -179,7 +179,9 @@ export namespace FilterableLists {
   }
 
   export function classroom() {
-    const forfilter = setup.sexaction.filter((a) => a.isVisibleInClassroom());
+    const forfilter = setup.sexaction.filter((a) =>
+      a.isVisibleInClassroom(),
+    ) as Array<SexAction & { key: string }>;
 
     return setup.DOM.renderComponent(() => (
       <FilterableList

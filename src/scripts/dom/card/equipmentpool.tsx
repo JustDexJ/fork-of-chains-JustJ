@@ -81,7 +81,7 @@ export default {
   equipmentpool(
     pool_or_key: EquipmentPool | EquipmentPoolKey,
     show_actions?: boolean,
-  ): DOM.Attachable {
+  ): DOM.Node {
     const pool = resolveObject(pool_or_key, setup.equipmentpool);
     return setup.DOM.renderComponent(EquipmentPoolCard, { pool, show_actions });
   },

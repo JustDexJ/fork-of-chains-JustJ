@@ -70,7 +70,7 @@ export default {
     perk_or_key: Perk | TraitKey,
     unit: Unit,
     show_actions?: boolean,
-  ): DOM.Attachable {
+  ): DOM.Node {
     const perk = resolveObject(perk_or_key, setup.trait) as Perk;
     return setup.DOM.renderComponent(PerkCard, { perk, unit, show_actions });
   },
