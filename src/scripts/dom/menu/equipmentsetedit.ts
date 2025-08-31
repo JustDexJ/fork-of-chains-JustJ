@@ -44,7 +44,7 @@ export const DOM_Menu_equipmentsetedit = function (
           `);
         }
         very_inner.push(
-          html`${equipment.getSlot().rep()}${equipment.repFull()}`,
+          html`${equipment.getSlot().repJSX()}${equipment.repFull()}`,
         );
         if (current != equipment && is_can_attach && current) {
           very_inner.push(html` (replacing ${current.repFull()}) `);

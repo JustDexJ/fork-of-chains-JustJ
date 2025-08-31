@@ -227,17 +227,18 @@ export class Equipment extends TwineClass {
     });
   }
 
-  repFull(): string {
-    let basic = this.rep();
+  repFull(): DOM.Node {
+    const fragment = document.createDocumentFragment();
+    fragment.append(this.repJSX());
     const explanation = setup.SkillHelper.explainSkillMods(this.getSkillMods());
     if (explanation) {
-      basic += " " + explanation;
+      fragment.append(" ", explanation);
     }
     const traits = this.repTraits();
     if (traits) {
-      basic += " " + setup.DOM.toString(traits);
+      fragment.append(" ", traits);
     }
-    return basic;
+    return fragment;
   }
 
   repTraits(): DOM.Node | null {

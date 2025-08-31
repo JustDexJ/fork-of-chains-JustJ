@@ -49,7 +49,7 @@ Change <<rep _set>>'s name to
 
 <<run setup.DOM.Nav.topLeftNavigation(
   setup.DOM.Nav.link(
-    'Confirm [space]',
+    'Finish editing [space]',
     () => {
       const res = State.variables.gEquipmentSetChangeReturnPassage;
       delete State.variables.gEquipmentSetChangeReturnPassage;
@@ -59,7 +59,7 @@ Change <<rep _set>>'s name to
 )>>
 
 <div>
-  <<foclink '(Confirm)'>>
+  <<foclink '(Finish editing)'>>
     <<set _res = $gEquipmentSetChangeReturnPassage>>
     <<unset $gEquipmentSetChangeReturnPassage>>
     <<focgoto _res>>

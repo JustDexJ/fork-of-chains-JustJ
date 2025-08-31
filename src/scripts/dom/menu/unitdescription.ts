@@ -267,8 +267,8 @@ export const DOM_Menu_unitdescription = function (unit: Unit): DOM.Node {
     if (unit.getHistory().length) {
       // You can check their history with your company.
       fragments.push(html`
-        ${format([`a|They a|have a `])}
-        ${setup.DOM.Nav.link(`history`, () => {
+        ${format([`a|They a|have `])}
+        ${setup.DOM.Nav.link(`a history`, () => {
           setup.Dialogs.open({
             title: `History`,
             classnames: "",

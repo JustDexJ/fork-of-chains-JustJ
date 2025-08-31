@@ -266,34 +266,31 @@ export const EquipmentSetCard: Component<{
               props.equipment_set.getEquipmentAtSlot(slot),
             );
             return (
-              <>
-                <div>
-                  <Show
-                    when={getEquipmentAtSlot()}
-                    fallback={
-                      <>
-                        <span class="empty-slot">{slot.repJSX()}</span>
-                        <span class="graytext">(empty)</span>
-                      </>
-                    }
-                  >
-                    {getEquipmentAtSlot()!.repJSX()}
-                  </Show>
-                </div>
+              <div>
+                <Show
+                  when={getEquipmentAtSlot()}
+                  fallback={
+                    <>
+                      <span class="empty-slot">{slot.repJSX()}</span>
+                      <span class="graytext">(empty)</span>
+                    </>
+                  }
+                >
+                  {getEquipmentAtSlot()!.repJSX()}
+                </Show>
 
                 <Show when={props.show_remove_button && getEquipmentAtSlot()}>
+                  {" "}
                   <Link
-                    onClick={() =>
-                      removeEquipmentCallback(
-                        getEquipmentAtSlot()!,
-                        props.equipment_set,
-                      )
-                    }
+                    onClick={removeEquipmentCallback(
+                      getEquipmentAtSlot()!,
+                      props.equipment_set,
+                    )}
                   >
                     (remove)
                   </Link>
                 </Show>
-              </>
+              </div>
             );
           }}
         </For>
