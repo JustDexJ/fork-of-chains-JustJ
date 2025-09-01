@@ -1,5 +1,6 @@
 import { createSignal, For, Show, type JSX } from "solid-js";
 import type { Settings } from "../../../classes/Settings";
+import { globalsettings } from "../../../util/globalsettings";
 import { Help, Message, Twee } from "../common";
 import { BannedContentTagsEditor } from "./BannedContentTagsEditor";
 import { SexGenderPreferencesEditor } from "./SexGenderPreferencesEditor";
@@ -36,31 +37,31 @@ export const UiSettingsView: Component = () => {
       </div>
 
       <Checkbox
-        title={`Hide quest / event images`}
-        field={`hidecontentimages`}
+        title="Hide quest / event images"
+        field="hidecontentimages"
         help={`
         If checked, then images in quest and event outcomes are hidden.
       `}
       />
       <Checkbox
-        title={`Summarize quest/event outcomes`}
-        field={`hidequestoutcome`}
+        title="Summarize quest/event outcomes"
+        field="hidequestoutcome"
         help={`
         If checked, then quest outcome notifications are summarized, and must be
         toggled to view.
       `}
       />
       <Checkbox
-        title={`Summarize quest texts`}
-        field={`hidequestdescription`}
+        title="Summarize quest texts"
+        field="hidequestdescription"
         help={`
         If checked, then quest result texts are summarized, and must be toggled
         to view.
       `}
       />
       <Checkbox
-        title={`Summarize event texts`}
-        field={`hideeventdescription`}
+        title="Summarize event texts"
+        field="hideeventdescription"
         help={`
         If checked, then event texts are summarized and must be toggled to view.
       `}
@@ -72,27 +73,27 @@ export const UiSettingsView: Component = () => {
       </div>
 
       <Checkbox
-        title={`Show unit icons in text`}
-        field={`inline_icon`}
+        title="Show unit icons in text"
+        field="inline_icon"
         help={`
         If checked, icons will be shown next to units and equipments in texts.
       `}
       />
       <Checkbox
-        title={`Use different color for unit names depending on gender`}
-        field={`inline_color`}
+        title="Use different color for unit names depending on gender"
+        field="inline_color"
         help={` If checked, unit names will be color-coded in texts. `}
       />
       <Checkbox
-        title={`Use different font for unit names depending on race`}
-        field={`inline_font`}
+        title="Use different font for unit names depending on race"
+        field="inline_font"
         help={`
         If checked, unit names will use different fonts, depending on their race
       `}
       />
       <Checkbox
-        title={`Summarize unit skills`}
-        field={`summarizeunitskills`}
+        title="Summarize unit skills"
+        field="summarizeunitskills"
         help={
           <>
             If checked, then unit skills are displayed as their total sum,
@@ -108,8 +109,8 @@ export const UiSettingsView: Component = () => {
         }
       />
       <Checkbox
-        title={`Sort skill focuses as they appear in the skill change menu`}
-        field={`unsortedskills`}
+        title="Sort skill focuses as they appear in the skill change menu"
+        field="unsortedskills"
         help={`
         If checked, the skill focuses in the icon grid won't be sorted by their
         natural order. Instead they will appear in the order they are in the
@@ -117,8 +118,8 @@ export const UiSettingsView: Component = () => {
       `}
       />
       <Checkbox
-        title={`Hide skin traits`}
-        field={`hideskintraits`}
+        title="Hide skin traits"
+        field="hideskintraits"
         help={
           <>
             If checked, skin traits such as{" "}
@@ -134,13 +135,30 @@ export const UiSettingsView: Component = () => {
       </div>
 
       <Checkbox
-        title={`Animated tooltips`}
-        field={`animatedtooltips`}
+        title="Animated tooltips"
+        field="animatedtooltips"
         help={`
         If checked, tooltips will fade in, and appear after some small delay. If
         unchecked, tooltips will instantly show up, with no delay.
       `}
       />
+
+      <hr />
+
+      <div>
+        Top bar:{" "}
+        <select
+          value={globalsettings.topbar}
+          onChange={(ev) =>
+            (globalsettings.topbar = ev.currentTarget
+              .value as typeof globalsettings.topbar)
+          }
+        >
+          <option value="sticky">Sticky</option>
+          <option value="nonstick">Not sticky</option>
+          <option value="hide">Hidden</option>
+        </select>
+      </div>
     </>
   );
 };
@@ -205,8 +223,8 @@ export const GameplaySettingsView: Component = () => {
       <br />
 
       <Checkbox
-        title={`Auto-assign units for unit actions`}
-        field={`unitactionautoassign`}
+        title="Auto-assign units for unit actions"
+        field="unitactionautoassign"
         help={`
         If checked, quests generated from unit action will be auto-assigned a
         team when you select it.
@@ -335,6 +353,7 @@ export const GameplaySettingsView: Component = () => {
               <button
                 onClick={() => {
                   State.variables.gDebug = true;
+                  State.variables.gDebugInfo = true;
                   State.variables.gDebugWasTurnedOn = true;
                   setup.DOM.Nav.goto();
                   UI.update();
@@ -352,6 +371,7 @@ export const GameplaySettingsView: Component = () => {
             <button
               onClick={() => {
                 State.variables.gDebug = false;
+                State.variables.gDebugInfo = false;
                 setup.DOM.Nav.goto();
                 UI.update();
               }}
@@ -389,9 +409,9 @@ export const ContentSettingsView: Component = () => {
           <br />
           <b>Enable at least one</b>, or the game may behave erratically.
         </Help>
-        <Checkbox title={"Male-Female"} field={"lovers_mf"} />
-        <Checkbox title={"Male-Male"} field={"lovers_mm"} />
-        <Checkbox title={"Female-Female"} field={"lovers_ff"} />
+        <Checkbox title="Male-Female" field="lovers_mf" />
+        <Checkbox title="Male-Male" field="lovers_mm" />
+        <Checkbox title="Female-Female" field="lovers_ff" />
       </div>
 
       <hr />

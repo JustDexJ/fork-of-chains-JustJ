@@ -17,6 +17,8 @@ declare global {
     mods_installed?: readonly string[];
 
     endweek_hide_banters?: boolean;
+
+    topbar: "sticky" | "nonsticky" | "hide";
   }
 }
 

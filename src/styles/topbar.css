@@ -1,7 +1,5 @@
 :root {
-  --topbar-height: 44px;
-  --topbar-gap: 8px;
-  --topbar-offset: 10px;
+  --topbar-height: 48px;
   --topbar-bg: #222;
   --topbar-accent: rgba(255, 255, 255, 0.04);
   --topbar-muted: #9aa0a6;
@@ -13,8 +11,8 @@
 }
 
 #top-ui-bar {
-  /* position: fixed; */
-  top: var(--topbar-offset);
+  position: absolute;
+  top: 0;
   left: 0;
   width: 100%;
   overflow: visible;
@@ -26,14 +24,32 @@
   border-bottom: 0;
 
   display: flex;
-  align-items: center;
+  align-items: stretch;
   gap: 0.5em;
 
   box-sizing: border-box;
-  padding-left: 16.5em;
-  padding-right: 16.5em; /* was 19 before */
-  padding-top: var(--topbar-gap);
-  /* padding-bottom: var(--topbar-gap); */
+
+  /* Left/right padding must be the width of sidebars (17.5em) + any extra padding */
+  padding-left: 17.5em;
+  padding-right: 17.5em;
+}
+
+:root.topbar-sticky {
+  --topbar-sticky-offset: var(--topbar-height);
+  & #top-ui-bar {
+    position: fixed;
+  }
+}
+:root.topbar-hide {
+  --topbar-height: 2.5em;
+  & #top-ui-bar {
+    display: none;
+  }
+}
+:root:not(.topbar-hide) {
+  #story {
+    margin-top: calc(var(--topbar-height) + 1.5rem);
+  }
 }
 
 #ui-bar.stowed ~ #top-ui-bar {
@@ -44,13 +60,12 @@
 }
 
 #top-ui-bar #top-ui-bar-body {
-  padding: 1rem;
+  padding: 0 1rem;
   display: flex;
   align-items: center;
   gap: 0.75rem;
 
-  margin: 0 auto;
-  width: calc(100% - 4em);
+  width: 100%;
 
   background: var(--bg-color);
   /* border-radius: 14px;
@@ -134,8 +149,4 @@
 }
 #right-ui-bar.stowed ~ #top-ui-bar #top-ui-bar-body {
   padding-right: 4em;
-}
-
-#story {
-  margin-top: calc(var(--topbar-height) + var(--topbar-offset) + 2.25rem);
 }

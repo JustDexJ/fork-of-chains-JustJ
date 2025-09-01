@@ -14,7 +14,7 @@
 }
 
 #story .tagtoolbarsticky {
-  top: var(--topbar-height, 0);
+  top: var(--topbar-sticky-offset, 0);
 }
 
 .description-render {
