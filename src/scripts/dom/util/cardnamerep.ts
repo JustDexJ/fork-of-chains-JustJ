@@ -13,7 +13,7 @@ interface ObjectWithRepExtras {
 }
 
 export function domCardName(obj: ObjectWithKeyAndName): DOM.Node {
-  if (State.variables.gDebug) {
+  if (State.variables.gDebugInfo) {
     return setup.DOM.createFragment(
       obj.getName(),
       setup.DOM.span({ class: "debug-info" }, `(${obj.key})`),
@@ -44,7 +44,7 @@ export function domCardRep(
   const fragment = document.createDocumentFragment();
   fragment.append(icon, name_node);
 
-  if (State.variables.gDebug) {
+  if (State.variables.gDebugInfo) {
     const rep = setup.repObjectJSX(obj, {
       message: setup.DOM.create("i", { class: "sfa sfa-bug" }),
     });
@@ -56,7 +56,7 @@ export function domCardRep(
 }
 
 export function domCardNameBold(obj: ObjectWithKeyAndName): DOM.Node {
-  if (State.variables.gDebug) {
+  if (State.variables.gDebugInfo) {
     return setup.DOM.createFragment(
       setup.DOM.Util.namebold(obj),
       setup.DOM.span({ class: "debug-info" }, `(${obj.key})`),

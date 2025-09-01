@@ -353,7 +353,7 @@ export class FortGrid extends FortGridBase {
       !this.isEmptySpaceRemainsConnected(room, location_top_left)
     ) {
       //return `Room cannot divide the remaining empty spaces into two or more parts`;
-      return `Other rooms would become inaccessible`;
+      return `Part of the fort would become inaccessible`;
     }
 
     return null;

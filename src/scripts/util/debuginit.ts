@@ -38,10 +38,11 @@ export namespace DebugInit {
     sv.titlelist.addTitle(sv.unit.player, setup.title.leader);
   }
 
-  export function initCommon() {
+  export function initCommon(hideDebugInfo?: boolean) {
     const sv = State.variables;
     playerUnit();
     sv.gDebug = true;
+    sv.gDebugInfo = !hideDebugInfo;
   }
 
   /**
@@ -431,10 +432,10 @@ export namespace DebugInit {
     return eq1;
   }
 
-  export function debugModeInit() {
+  export function debugModeInit(hideDebugInfo?: boolean) {
     console.info("Starting debug init");
 
-    initCommon();
+    initCommon(hideDebugInfo);
     initBuildings();
     initRooms();
 

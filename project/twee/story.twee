@@ -88,6 +88,11 @@ story, code, art, anything
       <<focsavestategoto 'PrologueDebugGen'>>
     <</link>>
     ·
+    <<link '(Debug Start w/o debug info)'>>
+      <<run setup.DebugInit.debugModeInit(true)>>
+      <<focsavestategoto 'PrologueDebugGen'>>
+    <</link>>
+    ·
     <<link '(Compute debug statistics in javascript console and then debug start)'>>
       <<run setup.DebugInit.debugModeInit()>>
       <<run setup.DOM.Menu.debugComputeStats()>>

@@ -288,13 +288,17 @@ export const FortgridToolbar: Component = () => {
             }
             fallback={
               <MenuItemAction
-                text={`Finish${
-                  fortgrid.getRenovateCost()
-                    ? html` (${setup.DOM.Util.money(
-                        -fortgrid.getRenovateCost(),
-                      )})`
-                    : ``
-                }`}
+                text={
+                  <>
+                    Finish{" "}
+                    {fortgrid.getRenovateCost() ? (
+                      <>
+                        {" "}
+                        ({setup.DOM.Util.money(-fortgrid.getRenovateCost())})
+                      </>
+                    ) : null}
+                  </>
+                }
                 tooltip="Finish the renovation"
                 callback={return_callback}
               />
