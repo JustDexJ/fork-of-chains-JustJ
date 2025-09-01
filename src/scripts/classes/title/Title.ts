@@ -133,16 +133,19 @@ export class Title extends TwineClass {
   }
 
   rep(): string {
-    let base = setup.repMessage(this);
-    return `<span class="titlecardmini${this.isNegative() ? "-negative" : ""}">${base}</span>`;
+    return (
+      `<span class="titlecardmini ${this.isNegative() ? "titlecardmini-negative" : ""}" data-tooltip="<<titlecard '${this.key}'>>">` +
+      this.getName() +
+      "</span>"
+    );
   }
   repJSX(): DOM.Node {
-    const base = setup.repObjectJSX(this);
     return setup.DOM.span(
       {
-        class: `titlecardmini${this.isNegative() ? "-negative" : ""}`,
+        class: `titlecardmini ${this.isNegative() ? "titlecardmini-negative" : ""}`,
+        "data-tooltip": `<<titlecard '${this.key}'>>`,
       },
-      base,
+      this.getName(),
     );
   }
 }

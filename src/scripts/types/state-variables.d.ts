@@ -44,31 +44,61 @@ import type { Team } from "../classes/Team";
 import type { UnitKey } from "../classes/unit/Unit";
 import type { UnitAction } from "../classes/unitaction/UnitAction";
 
-// Declare additional state variables which are defined in the .twee files
+// Here we declare additional state variables which are defined in the .twee files
 // (and therefore not detected by typescript)
 // It's mostly stuff used in the devtool
 export interface StateVariables
   extends StateVariablesBase,
     StateVariablesDevtool {
-  /** Set to true when state is initialized */
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // General variables
+  //
+  ////////////////////////////////////////////////////////////////////////////
+
+  /** Set to true when the game-state has been initialized */
   gInitDone: boolean;
 
-  mods?: string[];
-
-  args?: any[] & { raw?: string; full?: string; payload?: string }; // $args as used in widgets
-  a?: string;
-  b?: string;
-  g: ActorUnitMap;
-
+  /** The game version that produced the savegame/savestate */
   gVersion:
     | `${number}.${number}.${number}`
     | `${number}.${number}.${number}.${number}`;
+
+  /** List of mods enabled for this save. Each entry is the path to the mod. */
+  mods?: string[];
+
+  /** $args as used in widgets/macros */
+  args?: any[] & { raw?: string; full?: string; payload?: string };
+
+  /**
+   * Whether to show the main menu links (quests, unit lists, etc.) on the left-sidebar.
+   * Set to false during "modal" passages where you don't want the player navigating elsewhere.
+   */
   gMenuVisible?: boolean;
-  gNextpassage?: string;
-  gOldPassage?: string;
-  gOutcome?: "crit" | "success" | "failure" | "disaster" | null;
+
+  /**
+   * The current "soft-loaded" passage name.
+   * Used to navigate passages without actually pushing to SugarCube story history
+   * which triggers a serialization which is slow.
+   */
   gPassage?: string;
-  gPassageName?: string;
+
+  /** The previous "soft-loaded" passage name, used when soft-navigating to a new passage. */
+  gOldPassage?: string;
+
+  gNewGamePlusBackwardsCompat?: boolean;
+  gUpdatePostProcess?: boolean;
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Rendering Variables
+  //
+  // Temporary variables used to make info accessible to .twee passages,
+  // so that it is easily accesible like `$gQuest`.
+  //
+  ////////////////////////////////////////////////////////////////////////////
+
+  /** The instance of the content we're rendering the passage for.  */
   gQuest?:
     | QuestInstance
     | OpportunityInstance
@@ -76,7 +106,24 @@ export interface StateVariables
     | ActivityInstance
     | InteractionInstance
     | UnitAction;
+
+  /** The outcome of the quest, using when rendering quest outcome passages */
+  gOutcome?: "crit" | "success" | "failure" | "disaster" | null;
+
+  /** The actor map (actor_name -> Unit) for the content instance, when applicable. */
+  g: ActorUnitMap;
+
+  /** The team assigned to the quest/content instance. */
   gTeam?: Team;
+
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Variables used to transmit the selected unit/whatever
+  // between passages. We cannot use State.temporary because if the page
+  // was reloaded the value would be lost.
+  //
+  ////////////////////////////////////////////////////////////////////////////
+
   gUnit_key?: UnitKey;
   gParty_key?: PartyKey;
   gPartySelected_key?: PartyKey;
@@ -101,14 +148,32 @@ export interface StateVariables
   gNewGamePlusExLeader?: boolean;
   gNewGamePlusExtraKeys?: UnitKey[];
   gAdhocQuest_key?: QuestInstanceKey;
-  compiledquest?: any;
-  dtEditActor?: any;
 
-  gNewGamePlusBackwardsCompat?: boolean;
-  gUpdatePostProcess?: boolean;
+  ////////////////////////////////////////////////////////////////////////////
+  //
+  // Debug Mode
+  //
+  ////////////////////////////////////////////////////////////////////////////
 
-  gDebug: boolean;
+  /**
+   * The flag which determines if the "debug mode" is enabled or not
+   */
+  gDebug?: boolean;
+
+  /**
+   * Whether the debug mode was turned on at any point during this save.
+   * Mostly used to show a warning to prevent player from reporting a "bug"
+   * if they broke the game with debug mode.
+   */
   gDebugWasTurnedOn?: boolean;
+
+  /**
+   * Whether to show additional inline info (object keys, etc.), when debug mode is enabled.
+   * This alters parts of the game UI,
+   * so keep in mind you won't see the same UI a regular player would see.
+   */
+  gDebugInfo?: boolean;
+
   gDebugQuestTest?: boolean;
   qDebugQuestTemplate_key?: QuestTemplateKey;
   qDebugQuestResult?: QuestOutcome;
@@ -118,38 +183,21 @@ export interface StateVariables
   qDebugEventTemplate_key?: EventTemplateKey;
   qDebugInteractionTemplate_key?: InteractionTemplateKey;
   gDebugLiving_key?: LivingKey;
-
-  qauthor: string;
-  qcosts: InstanceType<typeof setup.Cost>[];
-  qcustomcriteria: InstanceType<typeof setup.UnitCriteria>[];
-  qcustomslaveorder: InstanceType<typeof SlaveOrderFlex>[];
-  qcustomtitle: InstanceType<typeof setup.Title>[];
-  qcustomunitgroup: InstanceType<typeof setup.UnitGroup>[];
-  qdesc: string;
-  qDevTool: boolean;
-  qdiff: InstanceType<typeof setup.QuestDifficulty> | null;
-  qexpires: number;
-  qname: string;
-  qoutcomedesc: string[];
-  qoutcomes: InstanceType<typeof setup.Cost>[][];
-  qPassageName: string;
-  qpool: InstanceType<typeof setup.QuestPool>;
-  qrarity: number;
-  qrestrictions: InstanceType<typeof setup.Restriction>[];
-  qrolename: string;
-  qscrolly: number | undefined;
-  qtags: string[];
-  qunfulfilled: InstanceType<typeof setup.Cost>[];
-  qweeks: number;
 }
 
+////////////////////////////////////////////////////////////////////////////
 //
 // Devtool-only state variables
 //
+////////////////////////////////////////////////////////////////////////////
 interface StateVariablesDevtool {
+  /** The flag that determines if we're in devtool or not. */
+  qDevTool: boolean;
+
   devqueue?: Record<string, [string, any][]>;
 
-  devtooltype?: string;
+  devtooltype?: "quest" | "opportunity" | "event" | "interaction" | "activity";
+
   dtquest?:
     | QuestTemplate
     | OpportunityTemplate
@@ -183,4 +231,30 @@ interface StateVariablesDevtool {
   akey?: string;
   apassagesetup?: string;
   apassagedesc?: string;
+
+  //
+  // Misc
+  //
+
+  /** A temporary instance of the content using for rendering the text/passage previews. */
+  compiledquest?:
+    | QuestInstance
+    | OpportunityInstance
+    | EventInstance
+    | InteractionInstance
+    | ActivityInstance;
+
+  dtEditActor?: string;
+
+  qcustomcriteria: InstanceType<typeof setup.UnitCriteria>[];
+  qcustomslaveorder: InstanceType<typeof SlaveOrderFlex>[];
+  qcustomtitle: InstanceType<typeof setup.Title>[];
+  qcustomunitgroup: InstanceType<typeof setup.UnitGroup>[];
+  qdesc: string;
+  qoutcomedesc: string[];
+  qPassageName: string;
+  qpool: InstanceType<typeof setup.QuestPool>;
+  qrarity: number;
+  qrolename: string;
+  qscrolly: number | undefined;
 }

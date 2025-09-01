@@ -62,7 +62,7 @@ const UnitNameActionMenus: Component<{ unit: Unit; show_actions?: boolean }> = (
       >
         <MenuItemText
           text={
-            <span>
+            <>
               <Show when={props.unit.isSlaver()}>
                 <UnitFocusCard unit={props.unit} />
               </Show>
@@ -85,7 +85,7 @@ const UnitNameActionMenus: Component<{ unit: Unit; show_actions?: boolean }> = (
               <span data-tooltip="This is the unit's current title, which is determined mostly by their traits or skills. As the unit improves over time, their title may also change. This title is purely cosmetics.">
                 {props.unit.getTitle()}
               </span>
-            </span>
+            </>
           }
         />
       </Show>

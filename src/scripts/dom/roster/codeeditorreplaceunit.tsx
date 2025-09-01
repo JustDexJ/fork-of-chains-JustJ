@@ -10,12 +10,12 @@ export default {
           <MenuItemAction
             text="Select"
             callback={() => {
+              const quest = State.variables.compiledquest as any;
               if (State.variables.dtEditActor == "Target") {
-                State.variables.compiledquest.unit_key = unit.key;
+                quest.unit_key = unit.key;
               } else {
-                State.variables.compiledquest.actor_unit_key_map[
-                  State.variables.dtEditActor
-                ] = unit.key;
+                quest.actor_unit_key_map[State.variables.dtEditActor!] =
+                  unit.key;
               }
               delete State.variables.dtEditActor;
 
