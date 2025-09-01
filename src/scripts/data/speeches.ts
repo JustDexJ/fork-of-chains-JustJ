@@ -99,27 +99,56 @@ setup.SPEECH_ADVERBS = {
   friendly: [
     'cordially', 'pleasantly', 'warmly', 'amiably', 'affably',
     'congenially', 'gregariously', 'hospitably', 'openly', 'kindly',
-    'amicably', 'cordially', 'agreeably', 'obligingly', 'delightfully',
+    'amicably', 'agreeably', 'obligingly', 'delightfully', 'genially',
+    'cheerfully', 'neighborly', 'merrily', 'jovially', 'heartily',
+    'graciously', 'approvingly', 'sympathetically', 'considerately', 'benevolently',
+    'tenderly', 'lovingly', 'compassionately', 'thoughtfully', 'benignly',
+    'affectionately', 'courteously',
+    'earnestly',
+    'faithfully', 'friendly', 'supportively', 'cheerily', 'sunnyly', 'sweetly', 'bounteously', 'humbly'
   ],
   bold: [
     'angrily', 'proudly', 'arrogantly', 'vainly', 'smugly',
     'pomposhly', 'haughtily', 'complacently', 'disdainfully', 'boastfully',
     'irritably', 'forcefully', 'condescendingly', 'mightily', 'powerfully',
-    'boldly',
+    'boldly', 'audaciously', 'vehemently', 'bravely', 'fiercely',
+    'defiantly', 'resolutely', 'stubbornly', 'unyieldingly', 'domineeringly',
+    'imperiously', 'commandingly', 'ferociously', 'valiantly', 'intrepidly',
+    'spiritedly', 'tenaciously', 'adamantly', 'courageously', 'sternly',
+    'unflinchingly', 'rigorously', 'stridently',
+    'offensively', 'belligerently', 'provocatively', 'recklessly', 'undauntedly', 'dauntlessly', 'authoritatively', 'strikingly', 'formidably'
   ],
   cool: [
     'coolly', 'coldly', 'aloofly', 'remotely', 'distantly',
     'solemnly', 'seriously', 'sternly', 'stoically', 'grimly',
     'calmly', 'reservedly', 'plainly', 'neutrally', 'indifferently',
+    'detachedly', 'impartially', 'objectively', 'composedly', 'levelly',
+    'quietly', 'unemotively', 'soberly', 'unperturbedly', 'tranquilly',
+    'dispassionately', 'thoughtfully', 'judiciously', 'reflectively', 'coolheadedly',
+    'calculatingly', 'restrainedly', 'measuredly', 'serenely', 'reticently',
+    'retiredly', 'watchfully', 'observantly', 'inexpressively', 'ponderingly',
+    'apathetically', 'unaffectedly', 'placidly', 'evenly', 'steadily', 'unruffledly'
   ],
   witty: [
     'sarcastically', 'ridiculously', 'funnily', 'amusingly', 'humorously',
     'comically', 'hilariously', 'wittily', 'absurdly', 'merrily',
     'happily', 'jovially', 'lightheartedly', 'cheerfully', 'joyfully',
+    'playfully', 'mockingly', 'jokingly', 'facetiously', 'teasingly',
+    'gleefully', 'frolicsomely', 'quirkily', 'punningly', 'satirically',
+    'jestingly', 'laughably', 'sprightly', 'blithely', 'mischievously',
+    'brightly', 'sparklingly', 'grinningly', 'snappily', 'quick-wittedly',
+    'waggishly', 'banteringly', 'nimblely', 'zestfully', 'chirpily',
+    'cheekily', 'frivolously', 'airily', 'jauntily', 'buoyantly', 'jocularly', 'lively', 'effervescently'
   ],
   debauched: [
     'debauchedly', 'depravedly', 'shamelessly', 'immorally', 'impurely',
     'crazily', 'madly', 'insanely', 'brazenly', 'brashly',
     'directly', 'transparently', 'unabashedly', 'pervertedly', 'deviantly',
+    'licentiously', 'viciously', 'lustfully', 'lewdly', 'sinfully',
+    'scandalously', 'riotously', 'unruly', 'dissolutely', 'infamously',
+    'iniquitously', 'corruptly', 'recklessly', 'filthily', 'obscenely',
+    'wickedly', 'bawdily', 'outrageously', 'indecently',
+    'disgracefully', 'profanely', 'unwholesomely', 'sordidly',
+    'devilishly', 'frenziedly', 'rabidly', 'wildly', 'carnally', 'voraciously', 'extravagantly', 'daringly'
   ],
 };
