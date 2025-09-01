@@ -106,7 +106,7 @@
 
   bg_royal: {
     hobby: [
-      "reading a book on etiquette for when a|they return to the court",
+      "reading a book on etiquette for when a|they return to the court", 
       "sitting in the sun with a few friends--or possibly flunkies",
       "trying to explain the joys of fattened goose liver to the cook",
       "sipping fine wine and debating which vineyard it came from",
@@ -207,10 +207,17 @@
   },
 
   bg_mythical: {
-    hobby: ["sitting crossed legged on a small cushion, itself placed within a chalk circle a|they a|have drawn onto the ground", "talking to nobody. Or at least, nobody you can see"],
+    hobby: [
+      "sitting crossed legged on a small cushion,
+       itself placed within a chalk circle a|they a|have drawn onto the ground",
+        "talking to nobody. Or at least, nobody you can see"
+      ],
   },
   bg_mist: {
-    hobby: ["grinning madly", "regaling a|their friends with tales from other planes of existence",],
+    hobby: [
+      "grinning madly",
+      "regaling a|their friends with tales from other planes of existence",
+    ],
   },
 
   bg_knight: {
@@ -371,10 +378,18 @@
   },
 
   bg_metalworker: {
-    hobby: ["crafting slave restraints", "making nails", "tempering the edge of a shovel",],
+    hobby: [
+      "crafting slave restraints",
+       "making nails",
+       "tempering the edge of a shovel",
+      ],
   },
   bg_wildman: {
-    hobby: ["longing for the embrace of the wilds", "staring out over the walls towards the northern forests", "entering the courtyard with a basket of foraged mushrooms",],
+    hobby: [
+      "longing for the embrace of the wilds", 
+      "staring out over the walls towards the northern forests", 
+      "entering the courtyard with a basket of foraged mushrooms",
+    ],
   },
 
   bg_assassin: {
@@ -587,19 +602,37 @@
   },
 
   bg_scholar: {
-    hobby: ["organizing a|their books", "snoozing in the sunlight", "carefully illustrating what looks to be the cross section of a flower",],
+    hobby: [
+      "organizing a|their books", 
+      "snoozing in the sunlight", 
+      "carefully illustrating what looks to be the cross section of a flower",
+    ],
   },
   bg_noble: {
-    hobby: ["reminiscing about a|their previous riches", "trying to work out how to use a needle and thread",],
+    hobby: [
+      "reminiscing about a|their previous riches", 
+      "trying to work out how to use a needle and thread",
+    ],
   },
   bg_healer: {
-    hobby: ["teaching the others how to properly bandage a wound", "boiling bandages", "hanging up bundles of herbs to dry", ],
+    hobby: [
+      "teaching the others how to properly bandage a wound", 
+      "boiling bandages", 
+      "hanging up bundles of herbs to dry", 
+    ],
   },
   bg_mystic: {
-    hobby: ["recharging a|their magical powers", "examining a strange device you've never seen before", ],
+    hobby: [
+      "recharging a|their magical powers", 
+      "examining a strange device you've never seen before", 
+    ],
   },
   bg_courtesan: {
-    hobby: ["gazing at a|their visage in the mirrors", "combing a|their hair", "playing the panflute, the music making your toes twitch",],
+    hobby: [
+      "gazing at a|their visage in the mirrors", 
+      "combing a|their hair", 
+      "playing the panflute, the music making your toes twitch",
+    ],
   },
   bg_mercenary: {
     hobby: [
@@ -707,13 +740,24 @@
   },
 
   bg_monk: {
-    hobby: ["meditating", "exercising meditatively, a|their motions slow and fluid as water",],
+    hobby: [
+      "meditating", 
+      "exercising meditatively, a|their motions slow and fluid as water",
+    ],
   },
   bg_hunter: {
-    hobby: ["hunting game", "skinning the carcass of a deer", "gutting a brace of rabbits", "treating rabbitskins with salt for curing",],
+    hobby: [
+      "hunting game", 
+      "skinning the carcass of a deer", 
+      "gutting a brace of rabbits", 
+      "treating rabbitskins with salt for curing",
+    ],
   },
   bg_informer: {
-    hobby: ["eavesdropping important conversations", "having quiet conversations that stop when anyone else draws near",],
+    hobby: [
+      "eavesdropping important conversations", 
+      "having quiet conversations that stop when anyone else draws near",
+    ],
   },
 
   bg_slaver: {
@@ -822,10 +866,19 @@
   },
 
   bg_artisan: {
-    hobby: ["making some trinkets", "whittling spoons", "using a pole lathe to turn legs for stools", "carving a small sculpture of a wolf out of wood",],
+    hobby: [
+      "making some trinkets", 
+      "whittling spoons", 
+      "using a pole lathe to turn legs for stools", 
+      "carving a small sculpture of a wolf out of wood",
+    ],
   },
   bg_wiseman: {
-    hobby: ["meditating", "sitting in the sun with a group of students", "sitting in the sun with a hot cup of something watching the world go by",],
+    hobby: [
+      "meditating", 
+      "sitting in the sun with a group of students", 
+      "sitting in the sun with a hot cup of something watching the world go by",
+    ],
   },
 
   bg_priest: {
@@ -934,7 +987,11 @@
   },
 
   bg_apprentice: {
-    hobby: ["continuing a|their study of magic", "heading to the dungeons for some relief", "trying to use magic to light a candle",],
+    hobby: [
+      "continuing a|their study of magic", 
+      "heading to the dungeons for some relief", 
+      "trying to use magic to light a candle",
+    ],
   },
 
   bg_artist: {
@@ -2471,7 +2528,12 @@
   },
 
   bg_foodworker: {
-    hobby: ["cooking", "slow roasting a goat on a spit", "kneading bread dough", "brewing ale",],
+    hobby: [
+      "cooking", 
+      "slow roasting a goat on a spit", 
+      "kneading bread dough", 
+      "brewing ale",
+    ],
   },
 
   bg_whore: {
