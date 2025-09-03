@@ -3333,6 +3333,14 @@
     description: "a|possess a pitch-black pair of demonic eyes",
     flavor: "Non-demons that possess these eyes have difficulty seeing with them.",
   },
+  eyes_woodmousekin: {
+    size_adjective: ["round"],
+
+    noun: "pair of round hazel eyes that glint in the light",
+    description: "a|possess a pair of round hazle eyes",
+    flavor: 'a| eyes dart around quickly allowing a| to for predators or food quickly.',
+  },
+
   ears_werewolf: {
     size_adjective: ['furry', 'furred',],
 
@@ -3368,6 +3376,14 @@
     description: "a|possess a pair of distorted demonic ears",
     flavor: "a|They also have a pair of horns jutting from atop a|their head.",
   },
+  ears_woodmousekin: {
+    size_adjective: ['furry', 'fluffy',],
+
+    noun: "large round ears that stand up like dishes",
+    description: "a|possess a pair of round ears that stand out of a|their fur",
+    flavor: 'The bases of a|their ears are very fluffy to touch.',
+  },
+
   mouth_werewolf: {
     size_adjective: ['werewolf', ],
 
@@ -3403,6 +3419,14 @@
     description: "a|possess a demonic mouth complete with dexterous lengthy tongue",
     flavor: "It is not visible from the outside, but inside a|their mouth is an incredibly long and dexterous tongue.",
   },
+  mouth_woodmousekin: {
+    size_adjective: ['pointed', ‘stubby’, ],
+
+    noun: "long whiskers growing from their cheeks behind their pink nose",
+    description: "a|possess long whiskers growing from a|their cheeks",
+    flavor: 'Several mouse-like whiskers grow long from a|their chubby cheeks.',
+  },
+
   body_drow: {
     size_adjective: ['dark-purplish', 'drow', ],
 
@@ -3451,6 +3475,14 @@
     description: "a|possess a purple-tinted body of demonic origin",
     flavor: "a|Their entire body is tinted purple and emits an intoxicating smell.",
   },
+  body_woodmousekin: {
+    size_adjective: ['thin', 'brown', 'white-belly', ],
+
+    noun: "there thin brown bodies with a plump white belly",
+    description: "a|possess a body thin and brown, accompanied with a loving white belly, fur short but thick",
+    flavor: "a|Their entire body is coated in short thick brown fur, blending easily with the dead leaves and twigs of winter. White belly standing out mimicking the clouds on a bright summers day to those beneath.",
+  },
+
   wings_elf: {
     size_adjective: ['translucent', ],
 
@@ -3514,6 +3546,14 @@
     description: "a|possess a demonic pair of arms jutting with spikes",
     flavor: "Spikes jut out unnaturally from various parts of a|their arms.",
   },
+  arms_woodmousekin: {
+    size_adjective: ['fluffy', 'slim', ],
+
+    noun: "pair of slim arms covered in thick short fluffy fur",
+    description: "a|possess a pair thin arms covered in thick short fur",
+    flavor: "Thick short fur covers the entire length of a|their thin arms.",
+  },
+
   legs_werewolf: {
     size_adjective: ['furry', ],
 
@@ -3542,6 +3582,14 @@
     description: "a|possess legs distorted beyond natural shape",
     flavor: "a|Their legs are unnaturally bent at several joints.",
   },
+  legs_woodmousekin: {
+    size_adjective: ['fluffy', 'slim', ],
+
+    noun: "pair of slim legs covered in thick short fluffy fur",
+    description: "a|possess a pair thin legs covered in thick short fur",
+    flavor: "Thick short fur covers the entire length of a|their thin legs.",
+  },
+
   tail_werewolf: {
     size_adjective: ['werewolf', 'wolfen',],
 
@@ -3571,6 +3619,14 @@
     description: "a|possess a long thin tail with sharp end point",
     flavor: "",
   },
+  tail_woodmousekin: {
+    size_adjective: ['thin', 'long', 'flexable',],
+
+    noun: "thick skin covered mouse tail that often sway around",
+    description: "a|possess a skin covered mouse tail that often sway around",
+    flavor: "a|Their tail seems to have a mind but actually is great for keeping the mouse nimble with superior balance",
+  },
+
   dick_werewolf: {
     size_adjective: ['werewolf', "canine", ],
 
@@ -3592,6 +3648,14 @@
     description: "a|possess an uneven bumpy dick",
     flavor: "The entire length of a|their shaft is covered by bumps.",
   },
+  dick_woodmousekin: {
+    size_adjective: ['pointed', 'pink', ],
+
+    noun: "pink pointed cock",
+    description: "a|possess a thick based pointed cock",
+    flavor: "The entire length of a|is pink, shaft starting thick at the base slowly thins as it reaches the pointed tip.",
+  },
+
 
   /* =======================
       PERSONALITY TRAITS
