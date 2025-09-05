@@ -3312,6 +3312,16 @@
 
     description: "a|possess a body corrupted by demonic influences",
   },
+  /* =======================
+      eyes
+  ======================= */
+  eyes_sergal: {
+    size_adjective: ["round"],
+
+    noun: "pair of slit like eyes on the sides",
+    description: "a|eyes are located on both sides of the wedge like muzzle",
+    flavor: 'a|eyes stare ahead, muzzle faced at you as the angle of overlap is so small.',
+  },
 
   eyes_neko: {
     size_adjective: ["feline"],
@@ -3339,6 +3349,16 @@
     noun: "pair of round hazel eyes that glint in the light",
     description: "a|possess a pair of round hazle eyes",
     flavor: 'a| eyes dart around quickly allowing a| to for predators or food quickly.',
+  },
+  /* =======================
+      ears
+  ======================= */
+ears_sergal: {
+    size_adjective: ['pointed', 'angled',],
+
+    noun: "thick pointy ears that point back, following the wedge of the muzzle",
+    description: "a|back pointed ears that follow the angle of the muzzle",
+    flavor: 'The ears are firm, nice to grab and pull.',
   },
 
   ears_werewolf: {
@@ -3383,6 +3403,16 @@
     description: "a|possess a pair of round ears that stand out of a|their fur",
     flavor: 'The bases of a|their ears are very fluffy to touch.',
   },
+  /* =======================
+      mouth
+  ======================= */
+  mouth_sergal: {
+    size_adjective: ['pointed', ‘cheese’, ],
+
+    noun: "muzzle is shaped like a wedge of cheese",
+    description: "a|long wedge like muzzle, going to a tip at the nose",
+    flavor: 'cheese like muzzle, eyes on the side of the head hiding a long and flexible tongue.',
+  },
 
   mouth_werewolf: {
     size_adjective: ['werewolf', ],
@@ -3425,6 +3455,16 @@
     noun: "long whiskers growing from their cheeks behind their pink nose",
     description: "a|possess long whiskers growing from a|their cheeks",
     flavor: 'Several mouse-like whiskers grow long from a|their chubby cheeks.',
+  },
+  /* =======================
+      body
+  ======================= */
+  body_sergal: {
+    size_adjective: ['long', 'flexible', 'scrawny', ],
+
+    noun: "long and flexible ",
+    description: "a|body thin and long body freakishly flexible grate for balancing on tree branches",
+    flavor: "a|Their entire body is coated in short fur. Most people describe it as pencil like",
   },
 
   body_drow: {
@@ -3482,7 +3522,9 @@
     description: "a|possess a body thin and brown, accompanied with a loving white belly, fur short but thick",
     flavor: "a|Their entire body is coated in short thick brown fur, blending easily with the dead leaves and twigs of winter. White belly standing out mimicking the clouds on a bright summers day to those beneath.",
   },
-
+  /* =======================
+      wings
+  ======================= */
   wings_elf: {
     size_adjective: ['translucent', ],
 
@@ -3518,6 +3560,17 @@
     flavorslaver: "These beautiful wings allow a|them to take flight gracefully, with the wings fluttering ever so lightly behind them.",
     noungood: ['divine wings'],
   },
+  /* =======================
+      arms
+  ======================= */
+  arms_sergal: {
+    size_adjective: ['fluffy', 'long', ],
+
+    noun: "pair of long slim arms covered in short fur",
+    description: "a|long thin arms covered in short fur",
+    flavor: "Short fur covers the entire length of a|arms.",
+  },
+
   arms_werewolf: {
     size_adjective: ['furry', ],
 
@@ -3552,6 +3605,16 @@
     noun: "pair of slim arms covered in thick short fluffy fur",
     description: "a|possess a pair thin arms covered in thick short fur",
     flavor: "Thick short fur covers the entire length of a|their thin arms.",
+  },
+  /* =======================
+      legs
+  ======================= */
+  legs_sergal: {
+    size_adjective: ['fluffy', 'long', ],
+
+    noun: "pair of digitigrade slim legs covered in short fur",
+    description: "a|digitigrade legs covered in short fur ending in hand like feet",
+    flavor: "Short fur covers the entire length of a|digitigrade legs.",
   },
 
   legs_werewolf: {
@@ -3588,6 +3651,16 @@
     noun: "pair of slim legs covered in thick short fluffy fur",
     description: "a|possess a pair thin legs covered in thick short fur",
     flavor: "Thick short fur covers the entire length of a|their thin legs.",
+  },
+  /* =======================
+      tail
+  ======================= */
+  tail_sergal: {
+    size_adjective: ['thin', 'long', 'flexable',],
+
+    noun: "long and flexible with a tuft of fur on the end",
+    description: "a|tail flexes around, short fur covers a long tail",
+    flavor: "sergals have full control of there tail and use it for superior balance",
   },
 
   tail_werewolf: {
@@ -3626,6 +3699,16 @@
     description: "a|possess a skin covered mouse tail that often sway around",
     flavor: "a|Their tail seems to have a mind but actually is great for keeping the mouse nimble with superior balance",
   },
+  /* =======================
+      dick
+  ======================= */
+  dick_sergal: {
+    size_adjective: ['demonic', ],
+
+    noun: "sergal cock",
+    description: "a|cock is ribbed with a pointed tip hidden in a tight sheath, fluffy balls hang beneath",
+    flavor: "The entire length is ribbed, come in many colors with a pointed tip",
+  },
 
   dick_werewolf: {
     size_adjective: ['werewolf', "canine", ],
@@ -3654,6 +3737,16 @@
     noun: "pink pointed cock",
     description: "a|possess a thick based pointed cock",
     flavor: "The entire length of a| is pink, shaft starting thick at the base slowly thins as it reaches the pointed tip. Normally hidden inside a thick brown or white sheath with nice furry balls hanging underneath",
+  },
+  /* =======================
+      vagina
+  ======================= */
+  vagina_sergal
+    size_adjective: ['hood', 'flexible',  ],
+
+    noun: "vagina with prehensile clitoral hood",
+    description: "a|clit has a hood that wraps around, flexible and grabs anything warm. for lubrication and trying to pull it in, stopping cocks from pulling out",
+    flavor: "Soft this clit has a hood, keeping it safe in battle or fighting. Strong it likes to wrap around warm things when filled with lust",
   },
 
 
