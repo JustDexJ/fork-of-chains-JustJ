@@ -3660,7 +3660,7 @@ ears_sergal: {
 
     noun: "long and flexible with a tuft of fur on the end",
     description: "a|tail flexes around, short fur covers a long tail",
-    flavor: "sergals have full control of there tail and use it for superior balance",
+    flavor: "sergals have full control of their tail and use it for superior balance",
   },
 
   tail_werewolf: {
