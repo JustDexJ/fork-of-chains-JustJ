@@ -3656,7 +3656,7 @@ ears_sergal: {
       tail
   ======================= */
   tail_sergal: {
-    size_adjective: ['thin', 'long', 'flexable',],
+    size_adjective: ['thin', 'long', 'flexible',],
 
     noun: "long and flexible with a tuft of fur on the end",
     description: "a|tail flexes around, short fur covers a long tail",
