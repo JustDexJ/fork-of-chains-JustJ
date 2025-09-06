@@ -53,7 +53,7 @@ export default {
   body_sergal: {
     name: "body (sergal)",
     description:
-      "The sergal's body is long and very flexible, allowing for unique climbing ability and thin enough to slide in very small vents. Their chests are normally flat eaven for females, however can change due to pregnancy. ",
+      "The sergal's body is long and very flexible, allowing for unique climbing ability and thin enough to slide in very small vents. Their chests are normally flat even for females, however can change due to pregnancy. ",
     slave_value: "MONEY_TRAIT_RARE",
     skill_bonuses: {
       intrigue: +0.1,
