@@ -33,7 +33,7 @@ export default {
   mouth_sergal: {
     name: "mouth (sergal)",
     description:
-      "The profile of a sergals muzzle is that of a large cheese wedge cut out of a wheel of cheese. Their mouth hides carnivore sharp teeth, accompanied with a wood pecker-like long tongue that can be split at the end. This tong is flexible, strong and useful for picking up objects and using them with the mouth. Allowing for them to use keys on shackled paws or mind shattering oral sex.",
+      "The profile of a sergals muzzle is that of a large cheese wedge cut out of a wheel of cheese. Their mouth hides carnivore sharp teeth, accompanied with a wood pecker-like long tongue that can be split at the end. This tongue is flexible, strong and useful for picking up objects and using them with the mouth. Allowing for them to use keys on shackled paws or mind shattering oral sex.",
     slave_value: "MONEY_TRAIT_RARE",
     skill_bonuses: {
       sex: +0.2,
