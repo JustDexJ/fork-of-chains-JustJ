@@ -110,7 +110,7 @@ export default {
   vagina_sergal: {
     name: "vagina (sergal)",
     description:
-      "Sergals vergina is different from almost any other species in the land. Covered with a prehensile clitoral hood it covers the sensitive clit with protection in battle, but also is used in sex. Attracted to warmth it naturally wraps around anything warm that brushes against it. Covering it in the natural lubrication allows for easy insertion. It also has the side effect of wrapping around the partners balls, or fist/arm. Making pulling out much difficult especially when the female sergal is closer to climax. This suits a female femdom ability to control the partner's orgasm until they're ready to let them. ",
+      "Sergals vagina is different from almost any other species in the land. Covered with a prehensile clitoral hood it covers the sensitive clit with protection in battle, but also is used in sex. Attracted to warmth it naturally wraps around anything warm that brushes against it. Covering it in the natural lubrication allows for easy insertion. It also has the side effect of wrapping around the partners balls, or fist/arm. Making pulling out much difficult especially when the female sergal is closer to climax. This suits a female femdom ability to control the partner's orgasm until they're ready to let them. ",
     slave_value: 0,
     skill_bonuses: {
       sex: +0.1,
