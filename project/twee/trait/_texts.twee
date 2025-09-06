@@ -3347,7 +3347,7 @@
     size_adjective: ["round"],
 
     noun: "pair of round hazel eyes that glint in the light",
-    description: "a|possess a pair of round hazle eyes",
+    description: "a|possess a pair of round hazel eyes",
     flavor: 'a| eyes dart around quickly allowing a| to for predators or food quickly.',
   },
   /* =======================
