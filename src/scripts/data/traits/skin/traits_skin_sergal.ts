@@ -15,7 +15,7 @@ export default {
   ears_sergal: {
     name: "ears (sergal)",
     description:
-      "Sergals have two ears that mostly point backwards, following the angle of their muzzle. However, except for nice things to hold on during sex, there is little to no advantage to this. ",
+      "Sergals have two ears that mostly point backwards, following the angle of their muzzle. However, except for nice things to hold on to during sex, there is little to no advantage to this. ",
     slave_value: 0,
     skill_bonuses: {
       sex: +0.04,
