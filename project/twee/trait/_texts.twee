@@ -3741,8 +3741,8 @@ ears_sergal: {
   /* =======================
       vagina
   ======================= */
-  vagina_sergal
-    size_adjective: ['hood', 'flexible',  ],
+  vagina_sergal: {
+    size_adjective: ['hood', 'flexible'],
 
     noun: "vagina with prehensile clitoral hood",
     description: "a|clit has a hood that wraps around, flexible and grabs anything warm. for lubrication and trying to pull it in, stopping cocks from pulling out",
