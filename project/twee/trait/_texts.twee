@@ -3348,7 +3348,7 @@
 
     noun: "pair of round hazel eyes that glint in the light",
     description: "a|possess a pair of round hazel eyes",
-    flavor: 'a| eyes dart around quickly allowing a| to for predators or food quickly.',
+    flavor: 'a| eyes dart around quickly, allowing a|them to watch for predators or food.',
   },
   /* =======================
       ears
