@@ -198,7 +198,6 @@ const BuildingTemplateNameActionMenu: Component<{
           <MenuItemText text={props.template.getMainRoomTemplate().repFull()} />
         </Show>
       </Show>
-      const extras = [];
       <Show
         when={
           props.show_actions &&
