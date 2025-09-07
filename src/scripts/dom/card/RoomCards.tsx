@@ -77,9 +77,11 @@ const RoomTemplateActionFragmentCommon: Component<{
               }
             >
               <Match when={getCounts().placed && !getCounts().unplaced}>
-                {getCounts().placed > 1
-                  ? `{getCounts().placed} placed`
-                  : `Placed`}
+                {getCounts().placed > 1 ? (
+                  <>{getCounts().placed} placed</>
+                ) : (
+                  `Placed`
+                )}
               </Match>
 
               <Match when={!getCounts().placed}>
