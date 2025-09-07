@@ -1,6 +1,9 @@
 import { createMemo, For, Match, Show, Switch, type JSX } from "solid-js";
 import type { DutyInstance } from "../../classes/duty/DutyInstance";
-import type { DutyInstancePrestigeSlave } from "../../classes/duty/subtypes/PrestigeSlave";
+import type {
+  DutyInstancePrestigeSlave,
+  DutyTemplatePrestigeSlave,
+} from "../../classes/duty/subtypes/PrestigeSlave";
 import type { SkillKeyword } from "../../classes/Skill";
 import { Message, Twee } from "../components/common";
 import {
@@ -85,19 +88,19 @@ const DutyFullDetails: Component<{ duty: DutyInstance; unit: Unit }> = (
 const TriggerChanceOrPrestige: Component<{ duty: DutyInstance }> = (props) => {
   return (
     <span>
-      <Show when={props.duty.getAssignedUnit()}>
-        <Switch>
-          <Match when={props.duty.getTemplate().isHasTriggerChance()}>
-            Trigger chance: {(props.duty.computeChance() * 100).toFixed(2)}%
-          </Match>
+      <Switch>
+        <Match when={props.duty.getTemplate().isHasTriggerChance()}>
+          Trigger chance: {(props.duty.computeChance() * 100).toFixed(2)}%
+        </Match>
 
-          <Match when={props.duty.getTemplate().isHasPrestigeAmount()}>
+        <Match when={props.duty.getTemplate().isHasPrestigeAmount()}>
+          <span data-tooltip="The total amount of prestige that the units assigned to this duty provide to the fort. There are disminishing returns when multiple units are assigned to a same duty.">
             {setup.DOM.Util.prestige(
               (props.duty as DutyInstancePrestigeSlave).getCurrentPrestige(),
             )}
-          </Match>
-        </Switch>
-      </Show>
+          </span>
+        </Match>
+      </Switch>
     </span>
   );
 };
@@ -110,58 +113,72 @@ const DutyNameActionMenus: Component<{
     <MenuItemToolbar>
       <MenuItemTitle text={domCardRep(props.duty)} />
 
-      <Show
-        when={props.duty.getAssignedUnit()}
-        fallback={<MenuItemText text="Vacant" />}
-      >
-        <Show
-          when={
-            props.duty.getTemplate().isHasTriggerChance() ||
-            props.duty.getTemplate().isHasPrestigeAmount()
-          }
-          fallback={
-            <MenuItemText
-              text={
-                <>
-                  {props.duty.getAssignedUnit()!.repLongJSX()}{" "}
-                  <DutyStatusFragment duty={props.duty} />
-                </>
-              }
-            />
-          }
-        >
+      <MenuItemText
+        text={
+          <>
+            {props.duty.getAssignedUnits().length} / {props.duty.getNumSlots()}
+          </>
+        }
+      />
+
+      <For each={props.duty.getAssignedUnits()}>
+        {(unit) => (
           <MenuItemText
             text={
               <>
-                {props.duty.getAssignedUnit()!.repLongJSX()}{" "}
-                <DutyStatusFragment duty={props.duty} /> (
-                <TriggerChanceOrPrestige duty={props.duty} />)
+                {unit.repLongJSX()} <DutyStatusFragment duty={props.duty} />
+                <Show when={props.duty.getTemplate().isHasPrestigeAmount()}>
+                  <span data-tooltip="The maximum amount of prestige this unit can provide to the duty.">
+                    (
+                    {setup.DOM.Util.prestigeNumberOnly(
+                      (
+                        props.duty.getTemplate() as DutyTemplatePrestigeSlave
+                      ).computeUnitRawPrestige(unit),
+                    )}
+                    )
+                  </span>
+                </Show>
+                <button
+                  data-tooltip="Unassign unit from this duty"
+                  onClick={() => {
+                    props.duty.unassignUnit(unit);
+                    setup.DOM.Nav.goto();
+                  }}
+                >
+                  ×
+                </button>
               </>
             }
           />
-        </Show>
+        )}
+      </For>
+
+      <Show
+        when={
+          (props.duty.getTemplate().isHasTriggerChance() ||
+            props.duty.getTemplate().isHasPrestigeAmount()) &&
+          props.duty.getAssignedUnits().length
+        }
+      >
+        {" "}
+        <MenuItemText
+          text={<TriggerChanceOrPrestige duty={props.duty} />}
+        />{" "}
       </Show>
 
-      <Show when={props.show_actions}>
-        <Show
-          when={props.duty.getAssignedUnit()}
-          fallback={
-            <MenuItemAction
-              text="Assign"
-              tooltip="Assign unit to this duty"
-              callback={() => {
-                State.variables.gDuty_key = props.duty.key;
-                setup.DOM.Nav.goto("DutyListAssign");
-              }}
-            />
-          }
-        >
+      <Show
+        when={
+          props.show_actions &&
+          props.duty.getAssignedUnits().length < props.duty.getNumSlots()
+        }
+      >
+        <Show when={true /*!props.duty.getAssignedUnit()*/}>
           <MenuItemAction
-            text="Unassign"
-            tooltip="Remove unit from this duty"
+            text="Assign"
+            tooltip="Assign an unit to this duty"
             callback={() => {
-              props.duty.unassignUnit();
-              setup.DOM.Nav.goto();
+              State.variables.gDuty_key = props.duty.key;
+              setup.DOM.Nav.goto("DutyListAssign");
             }}
           />
         </Show>
@@ -171,7 +188,7 @@ const DutyNameActionMenus: Component<{
       <MenuItemActionOrText
         text={
           <span data-tooltip="If checked, then units on this duty can be selected to go on quests by quest auto-assign. Regardless of this settings, the unit can always be selected when using manual unit assignment.">
-            Auto-assign pickable
+            Pickable
           </span>
         }
         checked={props.duty.isCanGoOnQuestsAuto()}
@@ -194,7 +211,9 @@ const DutyNameActionMenus: Component<{
       >
         <MenuItemActionOrText
           text={
-            <span data-tooltip="When enabled, this duty will remain active even when the duty unit is busy, injured, or otherwise occupied. The unit will arrange for a skillful contract specialist to replace them in their absence, which will have to be paid ${setup.DUTY_SPECIALIST_WEEKLY_UPKEEP}g per week.">
+            <span
+              data-tooltip={`When enabled, this duty will remain active even when the duty unit is busy, injured, or otherwise occupied. The unit will arrange for a skillful contract specialist to replace them in their absence, which will have to be paid ${setup.DUTY_SPECIALIST_WEEKLY_UPKEEP}g per week.`}
+            >
               Specialist
             </span>
           }

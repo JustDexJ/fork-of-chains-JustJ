@@ -67,7 +67,7 @@ export const _MENUS_duty: FilterMenu<DutyInstance> = {
       },
       busy: {
         title: "Inactive",
-        filter: (duty) => !!duty.getAssignedUnit() && !duty.isActive(),
+        filter: (duty) => duty.hasAssignedUnits() && !duty.isActive(),
       },
       inactive: {
         title: "Inactive or empty",
@@ -75,7 +75,7 @@ export const _MENUS_duty: FilterMenu<DutyInstance> = {
       },
       empty: {
         title: "Empty",
-        filter: (duty) => !duty.getAssignedUnit(),
+        filter: (duty) => !duty.hasAssignedUnits(),
       },
     },
   },

@@ -246,15 +246,12 @@ export class Bedchamber extends TwineClass {
       throw new Error(`Bedchamber ${this.key} already exists`);
     State.variables.bedchamber[this.key] = this;
 
-    for (let i = 0; i < 2; ++i) {
-      const duty = State.variables.dutylist.addDuty(
-        new setup.DutyInstanceBedchamberSlave({
-          bedchamber: this,
-          index: i,
-        }),
-      );
-      this.duty_keys.push(duty.key);
-    }
+    const duty = State.variables.dutylist.addDuty(
+      new setup.DutyInstanceBedchamberSlave({
+        bedchamber: this,
+      }),
+    );
+    this.duty_keys.push(duty.key);
   }
 
   getRepMacro() {
@@ -292,23 +289,11 @@ export class Bedchamber extends TwineClass {
   }
 
   getSlaves(): Unit[] {
-    let slaves: Unit[] = [];
-    let duties = this.getDuties();
-    for (let i = 0; i < duties.length; ++i) {
-      let unit = duties[i].getUnitIfAvailable();
-      if (unit) slaves.push(unit);
-    }
-    return slaves;
+    return this.getDuties().flatMap((duty) => duty.getActiveUnits());
   }
 
   getAssignedSlaves(): Unit[] {
-    let slaves: Unit[] = [];
-    let duties = this.getDuties();
-    for (let i = 0; i < duties.length; ++i) {
-      let unit = duties[i].getAssignedUnit();
-      if (unit) slaves.push(unit);
-    }
-    return slaves;
+    return this.getDuties().flatMap((duty) => duty.getAssignedUnits());
   }
 
   getFurniture(slot: FurnitureSlot): Furniture {

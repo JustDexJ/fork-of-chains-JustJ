@@ -23,7 +23,7 @@ export const DOM_Menu_bedchamberdescription = function (
     bedchamber.getDuties().forEach((duty) => {
       fragments.push(html` <span> ${duty.rep()} </span> `);
     });
-    fragments.push(html` duties. `);
+    fragments.push(html` duty. `);
   } else {
     fragments.push(html`
       There are ${setup.DOM.Text.success(slaves.length)} slaves in this room, to

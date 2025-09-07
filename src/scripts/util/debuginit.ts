@@ -712,7 +712,7 @@ export namespace DebugInit {
           gender: "gender_female",
         });
         sv.company.player.addUnit(femaleslave, setup.job.slave);
-        bc.getDuties()[1].assignUnit(femaleslave);
+        bc.getDuties()[0].assignUnit(femaleslave);
 
         let totrain = maleslave;
         if (bc == bc2) totrain = femaleslave;

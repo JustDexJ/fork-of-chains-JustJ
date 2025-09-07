@@ -415,7 +415,7 @@ export class Company extends TwineClass {
     // remove from duties
     let duty = unit.getDuty();
     if (duty) {
-      duty.unassignUnit();
+      duty.unassignUnit(unit);
     }
 
     // remove from owning bedchambers

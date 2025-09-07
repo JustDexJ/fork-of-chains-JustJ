@@ -6,30 +6,47 @@ export class DutyTemplatePrestigeSlave extends DutyTemplate<DutyInstancePrestige
     super(args);
   }
 
-  computeValuePrestige(unit: Unit): number {
-    return Math.max(this.computeChanceForUnit(unit), 0);
+  computeUnitRawPrestige(unit: Unit) {
+    return this.computeChanceForUnit(unit);
+  }
+
+  private computeTotalPrestige(duty_instance: DutyInstancePrestigeSlave) {
+    let max_prestige = 0;
+    let max_unit: UnitKey | null = null;
+    for (const unit_key of duty_instance.unit_keys ?? []) {
+      const unit = State.variables.unit[unit_key];
+      const prestige = this.computeUnitRawPrestige(unit);
+      if (prestige > max_prestige) {
+        max_prestige = prestige;
+        max_unit = unit.key;
+      }
+    }
+    return { prestige: max_prestige, unit: max_unit };
   }
 
   override onAssign(duty_instance: DutyInstancePrestigeSlave, unit: Unit) {
-    duty_instance.setCurrentPrestige(this.computeValuePrestige(unit));
+    duty_instance.setCurrentPrestige(
+      this.computeTotalPrestige(duty_instance).prestige,
+    );
   }
 
   override onUnassign(duty_instance: DutyInstancePrestigeSlave, unit: Unit) {
-    duty_instance.unsetCurrentPrestige();
+    duty_instance.setCurrentPrestige(
+      this.computeTotalPrestige(duty_instance).prestige,
+    );
   }
 
   override advanceWeek(duty_instance: DutyInstancePrestigeSlave) {
     super.advanceWeek(duty_instance);
 
     // update prestige, if appropriate.
-    const unit = duty_instance.getAssignedUnit();
-    if (unit) {
-      const prestige = this.computeValuePrestige(unit);
-      if (prestige != duty_instance.getCurrentPrestige()) {
+    if (duty_instance.hasAssignedUnits()) {
+      const result = this.computeTotalPrestige(duty_instance);
+      if (result.prestige != duty_instance.getCurrentPrestige()) {
         setup.notify(
-          `The effectiveness of ${unit.rep()} as ${duty_instance.rep()} has changed.`,
+          `The effectiveness of ${duty_instance.rep()} has changed.`,
         );
-        duty_instance.setCurrentPrestige(prestige);
+        duty_instance.setCurrentPrestige(result.prestige);
       }
     }
   }
@@ -52,9 +69,5 @@ export class DutyInstancePrestigeSlave extends DutyInstance {
     if (diff) {
       State.variables.company.player.addPrestige(diff);
     }
-  }
-
-  unsetCurrentPrestige(): void {
-    this.setCurrentPrestige(0);
   }
 }

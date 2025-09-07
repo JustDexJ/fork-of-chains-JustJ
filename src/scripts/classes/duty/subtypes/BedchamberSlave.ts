@@ -3,18 +3,10 @@ import { DutyInstance } from "../DutyInstance";
 
 export class DutyInstanceBedchamberSlave extends DutyInstance {
   bedchamber_key: BedchamberKey;
-  index: number;
 
-  constructor({
-    bedchamber,
-    index,
-  }: {
-    bedchamber: Bedchamber;
-    index: number;
-  }) {
+  constructor({ bedchamber }: { bedchamber: Bedchamber }) {
     super({ duty_template: setup.dutytemplate.bedchamberslave });
     this.bedchamber_key = bedchamber.key;
-    this.index = index;
   }
 
   getBedchamber(): Bedchamber {
@@ -23,5 +15,9 @@ export class DutyInstanceBedchamberSlave extends DutyInstance {
 
   override getName(): string {
     return `Bedchamber slave for ${this.getBedchamber().getName()}`;
+  }
+
+  override getNumSlots(): number {
+    return 2;
   }
 }
