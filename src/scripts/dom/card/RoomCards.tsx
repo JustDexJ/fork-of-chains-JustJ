@@ -294,7 +294,7 @@ const RoomAndTemplateCommonFragment: Component<{
     > = {};
 
     for (const adj of adjacency) {
-      if (adj.type !== "always") {
+      if (adj.type !== "always" && adj.type !== "built") {
         const room_template_key = adj.room_template_key as RoomTemplateKey;
         const template = setup.roomtemplate[room_template_key];
         if (!template)
@@ -429,6 +429,19 @@ const FullAdjacencyExplanation: Component<{ room: RoomInstance }> = (props) => {
             </Show>
           )}
         </Index>
+        <For each={getAffectingRooms()!.skill_bonuses_breakdown}>
+          {(entry) => (
+            <div>
+              <Switch>
+                <Match when={entry.type === "built"}>
+                  {entry.amount.toFixed(1)}{" "}
+                  {setup.skill[entry.skill_key].repJSX()} from upgrade{" "}
+                  {setup.buildingtemplate[entry.building_template_key].repJSX()}
+                </Match>
+              </Switch>
+            </div>
+          )}
+        </For>
       </div>
     </Show>
   );

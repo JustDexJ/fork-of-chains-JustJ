@@ -331,6 +331,30 @@ export namespace BackwardsCompat {
         }
       }
 
+      // Delete removed rooms
+      if (sv.roominstance) {
+        const deleted_room_template_keys = [
+          "anuslab",
+          "ballslab",
+          "breastlab",
+          "dicklab",
+          "vaginalab",
+          "surgeryanus",
+          "surgeryballs",
+          "surgerybreast",
+          "surgerydick",
+          "surgeryvagina",
+        ];
+
+        for (const room_instance_key of objectKeys(sv.roominstance)) {
+          const room_instance = sv.roominstance[room_instance_key];
+          if (deleted_room_template_keys.includes(room_instance.template_key)) {
+            delete sv.roominstance[room_instance_key];
+          }
+        }
+        sv.roomlist!.resetCacheAll();
+      }
+
       ////////////////////////////
       // Finish up
       ////////////////////////////

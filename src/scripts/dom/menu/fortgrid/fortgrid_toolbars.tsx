@@ -198,8 +198,8 @@ export const FortgridToolbar: Component = () => {
 
       <Show when={fortgrid.mode == "view"}>
         <MenuItemAction
-          text="View/upgrade buildings"
-          tooltip="See all buildings as well as upgrade existing ones"
+          text="View improvements"
+          tooltip="See all buildings and upgrades, or upgrade existing buildings"
           callback={() => {
             setup.DevToolHelper.saveScrollPos();
             setup.DOM.Nav.goto("Fort");
@@ -207,7 +207,7 @@ export const FortgridToolbar: Component = () => {
         />
         <MenuItemAction
           text="Build"
-          tooltip="Construct new buildings"
+          tooltip="Build new rooms or upgrades"
           callback={() => {
             setup.DevToolHelper.saveScrollPos();
             setup.DOM.Nav.goto("FortBuild");
@@ -229,7 +229,7 @@ export const FortgridToolbar: Component = () => {
               ) : null}
             </>
           }
-          tooltip="List all rooms"
+          tooltip="See list of all built rooms"
           callback={() => {
             setup.DevToolHelper.saveScrollPos();
             setup.DOM.Nav.goto("RoomList");

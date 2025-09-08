@@ -1,4 +1,5 @@
-import type { SkillValuesArray } from "../Skill";
+import type { BuildingTemplateKey } from "../BuildingTemplate";
+import type { SkillKey, SkillValuesArray } from "../Skill";
 import {
   CACHED_ARE_PATHS_COMPUTED,
   CACHED_TILES,
@@ -12,6 +13,11 @@ export interface TileLocation {
   row: number;
   col: number;
 }
+
+type SkillBonusesBreakdownEntry = { amount: number; skill_key: SkillKey } & {
+  type: "built";
+  building_template_key: BuildingTemplateKey;
+};
 
 /**
  * The grid representing your fort. Does not actually get stored,
@@ -545,14 +551,15 @@ export class FortGrid extends FortGridBase {
     rooms: RoomInstance[];
     paths: Tile[];
     skill_bonuses: number[];
+    skill_bonuses_breakdown: SkillBonusesBreakdownEntry[];
     skill_to_room: Array<RoomInstance[]>;
   } {
     const skill_bonuses = Array(setup.skill.length).fill(0);
     const bonus_from: SkillValuesArray<RoomInstance[]> = skill_bonuses.map(
       (_) => [],
     );
+    const skill_bonuses_breakdown: SkillBonusesBreakdownEntry[] = [];
 
-    const fortgrid = State.variables.fortgrid;
     const skill_bonus_mods = room.getTemplate().getSkillBonus();
 
     let adjacent_room_keys: Record<RoomInstanceKey, boolean>;
@@ -579,6 +586,22 @@ export class FortGrid extends FortGridBase {
 
       if (adj_bonus.type == "always") {
         skill_bonuses[skill.key] += bonus;
+        continue;
+      }
+      if (adj_bonus.type == "built") {
+        if (
+          Object.values(State.variables.buildinginstance).some(
+            (inst) => inst.template_key === adj_bonus.building_template_key,
+          )
+        ) {
+          skill_bonuses[skill.key] += bonus;
+          skill_bonuses_breakdown.push({
+            type: "built",
+            building_template_key: adj_bonus.building_template_key,
+            skill_key: skill.key,
+            amount: bonus,
+          });
+        }
         continue;
       }
 
@@ -635,6 +658,7 @@ export class FortGrid extends FortGridBase {
       paths: tiles,
       skill_bonuses: skill_bonuses,
       skill_to_room: bonus_from,
+      skill_bonuses_breakdown,
     };
   }
 
