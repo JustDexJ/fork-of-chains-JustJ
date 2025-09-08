@@ -3462,7 +3462,7 @@ ears_sergal: {
   body_sergal: {
     size_adjective: ['long', 'flexible', 'scrawny', ],
 
-    noun: "long and flexible ",
+    noun: "long and flexible",
     description: "a|body thin and long, freakishly flexible, great for balancing on tree branches",
     flavor: "a|Their entire body is coated in short fur. Most people describe it as pencil like",
   },
