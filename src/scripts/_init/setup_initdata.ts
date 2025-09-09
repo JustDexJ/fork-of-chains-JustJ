@@ -13,6 +13,7 @@ import { EquipmentPoolGroup } from "../classes/equipment/EquipmentPoolGroup";
 import { QuestPool } from "../classes/quest/QuestPool";
 import { RoomTemplate } from "../classes/room/RoomTemplate";
 import { UnitGroup } from "../classes/unit/UnitGroup";
+import * as ACTIVITY_TEMPLATE_DEFINITIONS from "../data/activities/_index";
 import {
   BUILDING_DEFINITIONS,
   ROOM_DEFINITIONS,
@@ -185,8 +186,10 @@ DataUtil.load(setup.FamilyRelation, FAMILY_RELATION_DEFINTIONS);
 
 // Activities
 {
-  executePassagesWithTag("activity");
-
+  DataUtil.loadWithEmbeddedKeys(
+    setup.ActivityTemplate,
+    ACTIVITY_TEMPLATE_DEFINITIONS,
+  );
   setup.ActivityTemplateInitFuck();
 }
 

@@ -11,20 +11,20 @@ export namespace ActorHelper {
     actor_unitgroups: ActorUnitgroupsInit,
   ): ActorUnitgroupKeyMap {
     let actor_unitgroup_key_map: ActorUnitgroupKeyMap = {};
-    for (let criteria_key in actor_unitgroups) {
-      if (!actor_unitgroups[criteria_key]) {
-        actor_unitgroup_key_map[criteria_key] = null;
+    for (let actor_name in actor_unitgroups) {
+      if (!actor_unitgroups[actor_name]) {
+        actor_unitgroup_key_map[actor_name] = null;
       } else {
-        let unitgroup = actor_unitgroups[criteria_key];
-        if (setup.isString(unitgroup)) {
-          actor_unitgroup_key_map[criteria_key] = {
+        let value = actor_unitgroups[actor_name];
+        if (setup.isString(value)) {
+          actor_unitgroup_key_map[actor_name] = {
             type: "unitgroup",
-            key: unitgroup,
+            key: value,
           };
-        } else if (Array.isArray(unitgroup)) {
-          actor_unitgroup_key_map[criteria_key] = {
+        } else if (Array.isArray(value)) {
+          actor_unitgroup_key_map[actor_name] = {
             type: "companyunit",
-            val: setup.deepCopy(unitgroup),
+            val: setup.deepCopy(value),
           };
           const status_restriction_classes = [
             setup.qresImpl.HomeExceptOnLeave,
@@ -33,7 +33,7 @@ export namespace ActorHelper {
           ];
           let found = false;
           for (const status_class of status_restriction_classes) {
-            if (unitgroup.filter((a) => a instanceof status_class).length) {
+            if (value.filter((a) => a instanceof status_class).length) {
               found = true;
               break;
             }
@@ -42,25 +42,27 @@ export namespace ActorHelper {
             // assign one
 
             // check if it allows for retired slavers
-            if (setup.Living.isRestrictionsAllowRetired(unitgroup)) {
+            if (setup.Living.isRestrictionsAllowRetired(value)) {
               // has retired slaver.
-              actor_unitgroup_key_map[criteria_key].val.push(
+              actor_unitgroup_key_map[actor_name].val.push(
                 setup.qres.NotEngaged(),
               );
             } else {
-              actor_unitgroup_key_map[criteria_key].val.push(setup.qres.Home());
+              actor_unitgroup_key_map[actor_name].val.push(setup.qres.Home());
             }
           }
-        } else if (unitgroup instanceof setup.ContactTemplate) {
-          actor_unitgroup_key_map[criteria_key] = {
+        } else if (value instanceof setup.ContactTemplate) {
+          actor_unitgroup_key_map[actor_name] = {
             type: "contact",
-            key: unitgroup.key,
+            key: value.key,
           };
-        } else {
-          actor_unitgroup_key_map[criteria_key] = {
+        } else if (value instanceof setup.UnitGroup) {
+          actor_unitgroup_key_map[actor_name] = {
             type: "unitgroup",
-            key: unitgroup.key,
+            key: value.key,
           };
+        } else if (value && typeof value === "object" && "type" in value) {
+          actor_unitgroup_key_map[actor_name] = value;
         }
       }
     }

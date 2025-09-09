@@ -2,7 +2,7 @@ import {
   ContentTemplate,
   type ActorUnitgroupsInit,
 } from "../content/ContentTemplate";
-import type { Rarity } from "../deck/Rarity";
+import type { Rarity, RarityKey } from "../deck/Rarity";
 import type { QuestDifficultyKey } from "../quest/QuestDifficulty";
 import type { RoomInstance } from "../room/RoomInstance";
 import type { RoomTemplate, RoomTemplateKey } from "../room/RoomTemplate";
@@ -13,7 +13,7 @@ export const activitytemplate: Registry<ActivityTemplate> = {};
 
 export type ActivityTemplateKey = BrandedType<string, "ActivityTemplateKey">;
 
-interface ActivityTemplateInit {
+export interface ActivityTemplateDefinition {
   key: string;
   name: string;
   /** who wrote this quest? */
@@ -26,17 +26,19 @@ interface ActivityTemplateInit {
    *  - if [res1, res2], will be taken from your slavers that satisfy these
    * the first entry will be considered the primary actor
    */
-  actor_unitgroups: ActorUnitgroupsInit;
+  actors: ActorUnitgroupsInit;
   /** units with this traits would prefer this activity, increasing chance */
-  critical_traits: Trait[];
+  critical_traits: TraitKey[];
   /** units with this traits would not prefer this activity, reducing chance */
-  disaster_traits: Trait[];
+  disaster_traits: TraitKey[];
   /** list that governs whether quest can be generated or not, if any. E.g., NeedItem(xxx) */
   restrictions: Restriction[];
-  rarity: Rarity;
+  rarity: RarityKey;
   dialogues: DialogueRaw[];
   /** list of room templates this can take place in */
-  room_templates: RoomTemplate[];
+  room_templates: RoomTemplateKey[];
+
+  /** used only for temporary activites created using the devtool */
   devtool?: boolean;
 }
 
@@ -48,33 +50,20 @@ export class ActivityTemplate extends ContentTemplate<ActivityTemplateKey> {
   dialogues: Dialogue[];
   room_template_keys: RoomTemplateKey[];
 
-  constructor({
-    key,
-    name,
-    author,
-    tags,
-    actor_unitgroups,
-    critical_traits,
-    disaster_traits,
-    restrictions,
-    rarity,
-    dialogues,
-    room_templates,
-    devtool,
-  }: ActivityTemplateInit) {
+  constructor(def: ActivityTemplateDefinition) {
     super(
-      key,
-      name,
-      author,
-      tags,
-      actor_unitgroups,
+      def.key,
+      def.name,
+      def.author,
+      def.tags,
+      def.actors,
       setup.qdiff["normal40" as QuestDifficultyKey],
     );
 
     // append not on activity on the unit groups
     for (const group of Object.values(this.actor_unitgroup_key_map)) {
       if (group && group.type == "companyunit") {
-        if (!devtool) {
+        if (!def.devtool) {
           group.val.push(setup.qres.NotYou(), setup.qres.NotOnActivity());
           if (
             !setup.Living.isRestrictionsAllowRetired(group.val) &&
@@ -101,55 +90,55 @@ export class ActivityTemplate extends ContentTemplate<ActivityTemplateKey> {
       );
     }
 
-    if (!Object.keys(actor_unitgroups).length) {
+    if (!Object.keys(def.actors).length) {
       throw new Error(`Activity ${this.key} missing actor!`);
     }
-    if (!Array.isArray(Object.values(actor_unitgroups)[0])) {
+    if (!Array.isArray(Object.values(def.actors)[0])) {
       throw new Error(`Primary actor for ${this.key} must be a slaver!`);
     }
 
-    if (!Array.isArray(critical_traits)) {
+    if (!Array.isArray(def.critical_traits)) {
       throw new Error(
         `Critical Traits must be an array for Activity ${this.key}`,
       );
     }
-    if (!Array.isArray(disaster_traits)) {
+    if (!Array.isArray(def.disaster_traits)) {
       throw new Error(
         `Critical Traits must be an array for Activity ${this.key}`,
       );
     }
 
-    this.critical_trait_keys = critical_traits.map((trait) => trait.key);
+    this.critical_trait_keys = def.critical_traits;
     if (this.critical_trait_keys.filter((key) => !key).length) {
       throw new Error(`Undefined critical trait for Activity ${this.key}`);
     }
 
-    this.disaster_trait_keys = disaster_traits.map((trait) => trait.key);
+    this.disaster_trait_keys = def.disaster_traits;
     if (this.disaster_trait_keys.filter((key) => !key).length) {
       throw new Error(`Undefined disaster trait for Activity ${this.key}`);
     }
 
-    this.restrictions = restrictions;
-    if (!Array.isArray(restrictions)) {
+    this.restrictions = def.restrictions;
+    if (!Array.isArray(def.restrictions)) {
       throw new Error(`Restrictions must be an array for Activity ${this.key}`);
     }
 
-    for (const restriction of restrictions) {
+    for (const restriction of def.restrictions) {
       if (!(restriction instanceof setup.Restriction)) {
         throw new Error(`Restriction ${restriction} isnt' a restriction`);
       }
     }
 
-    this.rarity = rarity;
-    if (!(rarity instanceof setup.Rarity)) {
+    this.rarity = setup.rarity[def.rarity];
+    if (!(this.rarity instanceof setup.Rarity)) {
       throw new Error(`Rarity for ${this.key} must be a Rarity`);
     }
 
-    if (!Array.isArray(dialogues)) {
+    if (!Array.isArray(def.dialogues)) {
       throw new Error(`Dialogue must be an array`);
     }
-    for (let i = 0; i < dialogues.length; ++i) {
-      const dialogue = dialogues[i];
+    for (let i = 0; i < def.dialogues.length; ++i) {
+      const dialogue = def.dialogues[i];
       if (Array.isArray(dialogue.texts)) {
         // same text for all.
         const texts_base = dialogue.texts;
@@ -181,21 +170,16 @@ export class ActivityTemplate extends ContentTemplate<ActivityTemplateKey> {
         }
       }
     }
-    this.dialogues = dialogues as Dialogue[];
+    this.dialogues = def.dialogues as Dialogue[];
 
-    if (!Array.isArray(room_templates)) {
+    if (!Array.isArray(def.room_templates)) {
       throw new Error(`Room Templates must be an array`);
     }
-    for (const room_template of room_templates) {
-      if (!(room_template instanceof setup.RoomTemplate)) {
-        throw new Error(`Room template ${room_template} isnt' a room_template`);
-      }
-    }
-    this.room_template_keys = room_templates.map((template) => template.key);
+    this.room_template_keys = def.room_templates;
 
-    if (key in setup.activitytemplate)
-      throw new Error(`Activity Base ${key} already exists`);
-    setup.activitytemplate[key as ActivityTemplateKey] = this;
+    if (def.key in setup.activitytemplate)
+      throw new Error(`Activity Base ${def.key} already exists`);
+    setup.activitytemplate[def.key as ActivityTemplateKey] = this;
   }
 
   override get TYPE() {

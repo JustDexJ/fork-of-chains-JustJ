@@ -35,7 +35,9 @@ export type ActorUnitgroupsInit = {
   [actorname in string]?:
     | UnitGroup
     | UnitGroupKey
+    | { type: "unitgroup"; key: UnitGroupKey }
     | ContactTemplate
+    | { type: "contact"; key: ContactKey }
     | Restriction[]
     | null;
 };

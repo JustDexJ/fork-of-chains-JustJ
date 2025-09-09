@@ -42,6 +42,18 @@ export namespace DataUtil {
     }
   }
 
+  export function loadWithEmbeddedKeys<T extends {}, A extends Readonly<T>>(
+    klass: { new (def: A): any },
+    definitions: Record<string, T>,
+    mod?: InstalledMod,
+  ) {
+    for (const [_key, def] of Object.entries(definitions)) {
+      if (def) {
+        new klass(def as any);
+      }
+    }
+  }
+
   export function loadUnitActions(defs: Record<string, UnitActionDefinition>) {
     for (const [key, def] of objectEntries(defs)) {
       if (def.repeat_self) {

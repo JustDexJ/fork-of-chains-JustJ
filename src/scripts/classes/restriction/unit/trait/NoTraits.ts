@@ -2,13 +2,13 @@ export default class NoTraits extends Restriction.Unit {
   trait_keys: TraitKey[];
   is_exact?: boolean;
 
-  constructor(traits: Trait[], is_exact?: boolean) {
+  constructor(traits: (Trait | TraitKey)[], is_exact?: boolean) {
     super();
 
     this.trait_keys = [];
     for (let i = 0; i < traits.length; ++i) {
-      let trait = traits[i];
-      this.trait_keys.push(trait.key);
+      const trait_key = resolveKey(traits[i]);
+      this.trait_keys.push(trait_key);
     }
 
     this.is_exact = is_exact;
