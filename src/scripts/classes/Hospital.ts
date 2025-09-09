@@ -155,7 +155,7 @@ export class Hospital extends TwineClass {
 
     let doctor = State.variables.dutylist.getDuty("doctor");
     if (doctor) {
-      let doctor_heal = 0;
+      let num_weeks_healed = 0;
       let attempts = setup.DOCTOR_ATTEMPTS;
       if (doctor.getProc() == "crit") {
         attempts = setup.DOCTOR_ATTEMPTS_CRIT;
@@ -164,13 +164,13 @@ export class Hospital extends TwineClass {
         let proc = doctor.getProc();
         if (proc == "proc" || proc == "crit") {
           if (this.healRandom()) {
-            doctor_heal += 1;
+            num_weeks_healed += 1;
           }
         }
       }
-      if (doctor_heal) {
+      if (num_weeks_healed) {
         setup.notify(
-          `${setup.capitalize(doctor.repYourDutyRep())} helps heal ${doctor_heal} weeks of injuries`,
+          `${setup.capitalize(doctor.repYourDutyRep())} heals ${num_weeks_healed} week${num_weeks_healed === 1 ? "" : "s"} worth of injuries`,
         );
       }
     }

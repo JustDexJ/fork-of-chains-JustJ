@@ -31,7 +31,7 @@ export default class TraitRemove extends Cost {
     if (!unit.isHasRemovableTrait(trait)) return;
     unit.removeTraitExact(trait);
     if (unit.isYourCompany()) {
-      setup.notify(`a|Rep a|lose ${trait.rep()}`, { a: unit });
+      setup.notify.traitLost(unit, trait);
     }
   }
 

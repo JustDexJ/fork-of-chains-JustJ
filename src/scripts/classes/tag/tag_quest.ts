@@ -162,48 +162,48 @@ export const QUESTTAGS = {
   money: {
     type: "reward",
     title: "Money",
-    description: "Probably rewards money",
+    description: "Likely rewards money",
   },
   item: {
     type: "reward",
     title: "Item",
-    description: "Probably gives you some kind of loot",
+    description: "Likely gives you some kind of loot",
   },
   quest: {
     type: "reward",
     title: "Quest",
-    description: "Probably gives you quest leads",
+    description: "Likely gives you quest leads",
   },
   unit: {
     type: "reward",
     title: "Unit",
-    description: "Probably gives you slaves or slavers",
+    description: "Likely gives you slaves or slavers",
   },
   order: {
     type: "reward",
     title: "Order",
-    description: "Probably allows you to sell your slaves",
+    description: "Likely allows you to sell your slaves",
   },
   favor: {
     type: "reward",
     title: "Favor",
-    description: "Probably gains you favor with other companies",
+    description: "Likely gains you favor with other companies",
   },
   ire: {
     type: "reward",
     title: "Ire",
     description:
-      "Probably makes your company less popular with some other companies",
+      "Likely makes your company less popular with some other companies",
   },
   trait: {
     type: "reward",
     title: "Improvement",
-    description: "Probably alters your unit",
+    description: "Likely alters your unit",
   },
   upgrade: {
     type: "reward",
     title: "Upgrade",
-    description: "Probably improves your fort",
+    description: "Likely improves your fort",
   },
   unknown: {
     type: "reward",

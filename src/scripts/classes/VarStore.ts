@@ -18,7 +18,7 @@ export class VarStore extends TwineClass {
     // if deadline is 0 or negative, will never expires.
     this.vars[key] = value;
     this.vars_deadline[key] = deadline;
-    if (State.variables.gDebug) {
+    if (State.variables.gDebugInfo) {
       setup.notify(
         `<span class="debug-info">DEBUG: variable ${key} is set to ${value}${deadline != -1 ? ` for ${deadline} weeks` : ""}</span>`,
       );
@@ -36,13 +36,13 @@ export class VarStore extends TwineClass {
       if (!(key in this.vars_deadline))
         throw new Error(`${key} not found in vars deadline`);
       delete this.vars_deadline[key];
-      if (State.variables.gDebug) {
+      if (State.variables.gDebugInfo) {
         setup.notify(
           `<span class="debug-info">DEBUG: variable ${key} is unset</span>`,
         );
       }
     } else {
-      if (State.variables.gDebug) {
+      if (State.variables.gDebugInfo) {
         setup.notify(
           `<span class="debug-info">DEBUG: variable ${key} was attempted to be unset, but it's already unset</span>`,
         );

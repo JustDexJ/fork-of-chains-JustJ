@@ -56,7 +56,7 @@ export default class DecreaseTraitsRandom extends Cost {
         }
       }
       if (unit.isYourCompany()) {
-        setup.notify(`a|Rep a|lose ${trait.rep()}`, { a: unit });
+        setup.notify.traitLost(unit, trait);
       }
     }
   }

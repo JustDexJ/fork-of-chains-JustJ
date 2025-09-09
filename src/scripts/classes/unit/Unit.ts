@@ -2082,7 +2082,7 @@ export class Unit extends TwineClass {
 
     // only show if either: (0. your unit, 1. in market, 2. contact, 3. retiree, 4. in debug mode)
     if (
-      !State.variables.gDebug &&
+      !State.variables.gDebugInfo &&
       !this.isYourCompany() &&
       !this.getMarket() &&
       !this.getContact() &&

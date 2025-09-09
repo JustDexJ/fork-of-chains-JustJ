@@ -130,7 +130,7 @@ export class SexScene extends TwineClass {
     const description = action.story(this.getSex());
     this.appendText(description);
 
-    if (State.variables.gDebug) {
+    if (State.variables.gDebugInfo) {
       this.appendText(
         html` <span class="debug-info"
           >(Debug: ${action.description(this.getSex())} ${action.desc()})</span

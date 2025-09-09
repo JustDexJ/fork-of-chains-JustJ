@@ -93,10 +93,7 @@ export class Trauma extends TwineClass {
     let traitkey = trait.key;
     if (!(traitkey in traumas)) {
       if (duration > 0 && unit.isYourCompany()) {
-        const base = setup.Text.replaceUnitMacros(`a|Rep temporarily a|gain `, {
-          a: unit,
-        });
-        setup.notify(`${base} ${trait.rep()}`);
+        setup.notify.traitGainedTemporarily(unit, trait);
       }
     }
 
@@ -113,8 +110,7 @@ export class Trauma extends TwineClass {
 
     if (new_duration <= 0) {
       if (unit.isYourCompany()) {
-        const base = setup.Text.replaceUnitMacros(`a|Rep a|lose`, { a: unit });
-        setup.notify(`${base} ${trait.rep()}`);
+        setup.notify.traitLost(unit, trait);
       }
       delete traumas[traitkey];
     }

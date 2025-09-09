@@ -105,10 +105,10 @@ export default class Blessing extends Cost {
                 { a: unit },
               );
             } else {
-              setup.notify(`a|Rep a|gain ${final_trait.rep()}`, { a: unit });
+              setup.notify.traitGained(unit, final_trait);
             }
           } else if (original) {
-            setup.notify(`a|Rep a|lose ${original.rep()}`, { a: unit });
+            setup.notify.traitLost(unit, original);
           }
         }
       }
