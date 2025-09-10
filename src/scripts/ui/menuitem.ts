@@ -48,7 +48,7 @@ export function menuItem({
   }
 
   const menuitem = $(
-    `<div><span ${tooltip_text} class='menu-span'>${checked_html}<span>${wrapper.html()}</span></span></div>`,
+    `<div><header ${tooltip_text}>${checked_html}<span>${wrapper.html()}</span></header></div>`,
   );
   menuitem.on("mouseenter", function (ev) {
     if (is_open) return;

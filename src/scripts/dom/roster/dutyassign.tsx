@@ -55,7 +55,7 @@ export default {
   dutyassign(duty: DutyInstance): DOM.Node {
     const units = State.variables.company.player
       .getUnits()
-      .filter((unit) => duty.isCanUnitAssign(unit));
+      .filter((unit) => duty.canAssignUnit(unit));
     return setup.DOM.Roster.show({
       menu: "unitduty",
       units: units,

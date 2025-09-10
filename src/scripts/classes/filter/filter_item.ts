@@ -87,6 +87,7 @@ export const _MENUS_item: FilterMenu<Item> = {
     title: "Rarity",
     default: "All",
     icon_menu: true,
+    make_filter: MenuFilterHelper.makeRarityFilter,
     options: MenuFilterHelper.rarityFilters,
   },
   sortskill: {

@@ -268,9 +268,9 @@ export namespace DebugInit {
       pasture: [1, 24, 4],
       tavern: [2, 39, 13],
       surgery: [3, -21, 15],
-      surgerydick: [3, -9, 15],
-      surgeryballs: [0, -16, 17],
-      surgerybreast: [3, -12, 15],
+      //surgerydick: [3, -9, 15],
+      //surgeryballs: [0, -16, 17],
+      //surgerybreast: [3, -12, 15],
       ritualchamber: [2, 5, 0],
       poolofmist: [0, 1, 3],
       deepritualchamber: [2, 5, 5],
@@ -712,7 +712,7 @@ export namespace DebugInit {
           gender: "gender_female",
         });
         sv.company.player.addUnit(femaleslave, setup.job.slave);
-        bc.getDuties()[1].assignUnit(femaleslave);
+        bc.getDuties()[0].assignUnit(femaleslave);
 
         let totrain = maleslave;
         if (bc == bc2) totrain = femaleslave;

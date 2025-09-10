@@ -19,7 +19,7 @@ your former slavers when they decide to revisit your fort.
 slavers that you may retire in the future.
 <</if>>
 <<if _room && _room.getLevel() > 1>>
-It has been extended with <<= _room.getLevel() - 1>> additional rooms.
+It has been extended with <<= _room.getLevel() - 1>> additional room<<= _room.getLevel() - 1 === 1 ? '' : 's'>>.
 <</if>>
 <<if _unitlist.length>>
 Currently, you have <<successtext _unitlist.length>>

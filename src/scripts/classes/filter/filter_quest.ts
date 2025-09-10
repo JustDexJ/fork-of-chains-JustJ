@@ -1,10 +1,6 @@
 import { down, up, type FilterMenu, type FilterMenuOptions } from "./_filter";
 import { MenuFilterHelper } from "./filterhelper";
 
-function getQuestTagFilter(tag: string) {
-  return (quest: QuestInstance) => quest.getTemplate().getTags().includes(tag);
-}
-
 function getQuestTagFilters(tag_type: string) {
   return () => {
     const base: FilterMenuOptions<QuestInstance> = {};
@@ -16,7 +12,6 @@ function getQuestTagFilters(tag_type: string) {
           /* force = */ true,
           /* tooltip no click = */ true,
         ),
-        filter: getQuestTagFilter(tag),
       };
     }
     return base;
@@ -28,24 +23,28 @@ export const _MENUS_quest: FilterMenu<QuestInstance> = {
     title: "Rarity",
     default: "All",
     icon_menu: true,
+    tags_menu: true,
     options: getQuestTagFilters("rarity"),
   },
   tag_region: {
     title: "Region",
     default: "All",
     icon_menu: true,
+    tags_menu: true,
     options: getQuestTagFilters("region"),
   },
   tag_type: {
     title: "Type",
     default: "All",
     icon_menu: true,
+    tags_menu: true,
     options: getQuestTagFilters("type"),
   },
   tag_reward: {
     title: "Reward",
     default: "All",
     icon_menu: true,
+    tags_menu: true,
     options: getQuestTagFilters("reward"),
   },
 

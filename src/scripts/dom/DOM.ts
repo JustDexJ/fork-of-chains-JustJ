@@ -152,7 +152,7 @@ export namespace DOM {
     tag: T,
     attrs?: DOM_Types._.Attributes<T>,
     children?: DOM.Attachable,
-  ): DOM.Node {
+  ): HTMLElement {
     const elem = document.createElement(tag);
 
     if (attrs) {

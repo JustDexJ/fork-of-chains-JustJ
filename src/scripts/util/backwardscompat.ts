@@ -33,7 +33,7 @@ export namespace BackwardsCompat {
       return;
     }
 
-    if (saveVersionStr !== currentVersionStr) {
+    if (saveVersionStr !== currentVersionStr || "versionForceUpgrade" in sv) {
       if (isOlderThan(currentVersion, saveVersion)) {
         alert(
           "The loaded save file is from a newer game version, some things may break...",
@@ -107,14 +107,11 @@ export namespace BackwardsCompat {
             console.info(`Removing obsolete duty ${obsolete_duty}`);
             // remove the unit, then remove the duty
             for (const duty of to_remove) {
-              const unit_key = duty.unit_key;
+              const unit_key = (duty as any).unit_key;
               if (unit_key) {
                 sv.unit![unit_key].duty_key = undefined;
               }
               delete sv.duty[duty.key];
-              sv.dutylist!.duty_keys = sv.dutylist!.duty_keys.filter(
-                (duty_key) => duty_key != duty.key,
-              );
             }
           }
         }
@@ -209,7 +206,7 @@ export namespace BackwardsCompat {
         };
       }
 
-      // Cleanup unnecessary fields
+      // Cleanup unnecessary fields (savegame size optimizations leveraging undefineds)
       delete (sv as any).gFortGridControl;
       if (sv.fortgrid) {
         delete (sv.fortgrid as any).cached_tiles;
@@ -232,7 +229,6 @@ export namespace BackwardsCompat {
           company.ignored_quest_template_keys = undefined;
       }
       for (const duty of Object.values(sv.duty ?? {})) {
-        duty.unit_key ||= undefined;
         duty.is_specialist_enabled ||= undefined;
         duty.is_can_go_on_quests_auto ||= undefined;
       }
@@ -302,6 +298,61 @@ export namespace BackwardsCompat {
         for (const k of objectKeys(unit.innate_trait_key_map)) {
           unit.innate_trait_key_map[k] = 1;
         }
+      }
+      delete (sv.dutylist as any).duty_keys;
+
+      // Migrate DutyInstance to support multiple assigned units
+      // Also migrate DutyInstanceBedchamberSlave (from 2 instances of 1 slot, to 1 instance of 2 slots)
+      if (sv.duty) {
+        for (const duty_instance of Object.values(sv.duty ?? {})) {
+          if ("unit_key" in duty_instance && duty_instance.unit_key) {
+            duty_instance.unit_keys = [duty_instance.unit_key as any];
+            delete duty_instance.unit_key;
+          }
+        }
+        for (const bedchamber of Object.values(sv.bedchamber ?? {})) {
+          if (bedchamber.duty_keys.length) {
+            const merged_duty = sv.duty[bedchamber.duty_keys[0]];
+            for (let i = 0; i < bedchamber.duty_keys.length; ++i) {
+              const duty_key = bedchamber.duty_keys[i];
+              const duty_instance = sv.duty[duty_key];
+              if ("index" in sv.duty[duty_key]) {
+                delete (duty_instance as any).index; // delete bedchamber duty slot index
+                if (i > 0) {
+                  (merged_duty.unit_keys ??= []).push(
+                    ...(sv.duty[duty_key].unit_keys ?? []),
+                  );
+                  delete sv.duty[duty_key];
+                  bedchamber.duty_keys.splice(i--, 1);
+                }
+              }
+            }
+          }
+        }
+      }
+
+      // Delete removed rooms
+      if (sv.roominstance) {
+        const deleted_room_template_keys = [
+          "anuslab",
+          "ballslab",
+          "breastlab",
+          "dicklab",
+          "vaginalab",
+          "surgeryanus",
+          "surgeryballs",
+          "surgerybreast",
+          "surgerydick",
+          "surgeryvagina",
+        ];
+
+        for (const room_instance_key of objectKeys(sv.roominstance)) {
+          const room_instance = sv.roominstance[room_instance_key];
+          if (deleted_room_template_keys.includes(room_instance.template_key)) {
+            delete sv.roominstance[room_instance_key];
+          }
+        }
+        sv.roomlist!.resetCacheAll();
       }
 
       ////////////////////////////

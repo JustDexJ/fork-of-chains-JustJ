@@ -1,6 +1,7 @@
 import { TwineClass } from "../_TwineClass";
 import { Unit } from "../unit/Unit";
 import { _MENUS as __MENUS } from "./_index";
+import { MenuFilterHelper } from "./filterhelper";
 
 export interface FilterMenuOption<T> {
   title: DOM.JSXElement;
@@ -11,16 +12,44 @@ export interface FilterMenuOption<T> {
 export type FilterMenuOptions<T> = Record<string, FilterMenuOption<T>>;
 
 export interface FilterMenuEntry<T> {
+  /** The label to display in the menu item */
   title: string;
+
+  /** The placeholder text when no option is selected */
   default?: string;
+
   icon_menu?: boolean;
-  hidden?: boolean;
+
+  /** If this returns true, this menu item/group won't show in the UI */
+  should_be_visible?: (objects: readonly T[]) => boolean;
+
+  /** Performs a full passage reload when its value si changed. */
   hardreload?: boolean;
+
+  /** Key of other FilterMenuEntry of the same FilterMenu which will be reset when this option changes. */
   resets?: string[];
+
+  /** Special case only set to true for tag menus, which handles the common case of filtering by tags. */
+  tags_menu?: boolean;
+
+  /** Special case only set to true for trait menus, which opens the Trait Picker when clicked. */
   trait_menu?: boolean;
+
+  /** Do not show the downwards arrow (indicator of submenu). Mostly used for the config menu (config gear icon). */
   hidearrow?: boolean;
+
+  make_filter?: (filter_values: string[]) => (instance: T) => boolean;
+
+  /** Default filtering when no value is selected for this filter. */
   default_filter?: (instance: T) => boolean | unknown;
+
+  /** Default sorting when no value is selected for this filter. */
   default_sort?: (a: T, b: T) => number;
+
+  /**
+   * The possible values for this menu option.
+   * If a function is provided, it will be called each time just before rendering the menu.
+   */
   options?:
     | FilterMenuOption<T>[]
     | FilterMenuOptions<T>
@@ -214,6 +243,26 @@ export class MenuFilter extends TwineClass {
           objects = objects.filter(
             (obj) => obj instanceof Unit && obj.isHasTraitsExact(traits),
           );
+        } else if (value && Array.isArray(value)) {
+          // handle filters that support selecting more than 1 simultaneous option
+          if (value.length) {
+            if (menu_entry.make_filter) {
+              objects = objects.filter(menu_entry.make_filter(value));
+            } else if (menu_entry.tags_menu) {
+              objects = (
+                objects as Array<T & { getTags: () => readonly string[] }>
+              ).filter(MenuFilterHelper.makeTagsFilter(value));
+            } else {
+              const filter_funcs = value
+                .map((k) => menu_entry.options[k].filter)
+                .filter((f) => !!f);
+              if (filter_funcs.length) {
+                objects = objects.filter((obj) =>
+                  filter_funcs.some((f) => f(obj)),
+                );
+              }
+            }
+          }
         } else if (value && value in menu_entry.options) {
           const value_object = menu_entry.options[value];
           if (value_object.filter) {

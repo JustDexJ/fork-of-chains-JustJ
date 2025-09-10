@@ -98,6 +98,10 @@ export class RoomInstance extends TwineClass {
     return setup.roomtemplate[this.template_key];
   }
 
+  getTags(): readonly string[] {
+    return this.getTemplate().getTags();
+  }
+
   //getOwners(): Unit[] {
   //  return this.owner_keys?.map((key) => State.variables.unit[key]) ?? [];
   //}

@@ -2019,43 +2019,53 @@ export class Unit extends TwineClass {
   busyInfo(
     show_duty_icon?: boolean,
     tooltip?: string,
-  ): { icon: DOM.Node; title: string } {
+  ): { icon: DOM.Node; title: string; state: string } {
     let img;
     let title;
+    let state;
     if (this.getQuest()) {
       img = setup.Unit.BUSY_QUEST_URL;
       title = "on a quest";
+      state = "questing";
     } else if (this.getOpportunity()) {
       img = setup.Unit.BUSY_OPPORTUNITY_URL;
       title = "on an opportunity";
+      state = "questing";
     } else if (State.variables.leave.isOnLeave(this)) {
       img = setup.Unit.BUSY_LEAVE_URL;
       title = "on leave";
+      state = "absent";
     } else if (this.isInjured()) {
       img = setup.Unit.BUSY_INJURY_URL;
       title = "injured";
+      state = "absent";
     } else if (!this.isAvailable()) {
       // should not actually happen, but just in case
       img = setup.Unit.BUSY_OTHER_URL;
       title = "unknown";
+      state = "absent";
     } else if (this.getDuty()) {
       title = "on duty";
       if (show_duty_icon) {
         return {
           icon: this.getDuty()!.renderIcon(),
           title: title,
+          state: "duty",
         };
       } else {
         img = setup.Unit.BUSY_DUTY_URL;
       }
+      state = "duty";
     } else {
       img = setup.Unit.BUSY_IDLE_URL;
       title = "idle";
+      state = "idle";
     }
 
     return {
       icon: setup.repImgIconJSX(img, tooltip),
       title: title,
+      state,
     };
   }
 
@@ -2063,6 +2073,28 @@ export class Unit extends TwineClass {
     if (!this.isYourCompany()) return null;
     return this.busyInfo(show_duty_icon, `<<tooltipunitstatus '${this.key}'>>`)
       .icon;
+  }
+
+  repFaceImageJSX(): DOM.Node | null {
+    const image_obj = State.variables.unitimage.getImageObject(this);
+
+    return setup.DOM.div(
+      {
+        class: "unitface",
+        "data-tooltip": `<<tooltipunit '${this.key}'>>`,
+        "data-tooltip-wide": "",
+      },
+      [
+        setup.DOM.create("img", {
+          src: image_obj.path,
+          class: "bg",
+        }),
+        document.createElement("div"),
+        setup.DOM.create("img", {
+          src: image_obj.path,
+        }),
+      ],
+    );
   }
 
   /** Same as rep, but doesn't include icons (just name + tooltip) */
@@ -2082,7 +2114,7 @@ export class Unit extends TwineClass {
 
     // only show if either: (0. your unit, 1. in market, 2. contact, 3. retiree, 4. in debug mode)
     if (
-      !State.variables.gDebug &&
+      !State.variables.gDebugInfo &&
       !this.isYourCompany() &&
       !this.getMarket() &&
       !this.getContact() &&
@@ -2105,10 +2137,18 @@ export class Unit extends TwineClass {
   }
 
   /** Same as rep and always include icons */
-  repLongJSX(show_actions?: boolean): DOM.Node {
+  repLongJSX(
+    show_actions?: boolean,
+    show_face_image?: boolean,
+    hide_busy_status?: boolean,
+  ): DOM.Node {
     const job = this.getJob();
 
     const children: DOM.JSXElement[] = [];
+
+    if (show_face_image) {
+      children.push(this.repFaceImageJSX());
+    }
 
     if (job == setup.job.slaver) {
       const icongrid_items: DOM.JSXElement[] = [];
@@ -2122,7 +2162,9 @@ export class Unit extends TwineClass {
       }
       children.push(setup.DOM.div({ class: "icongrid" }, icongrid_items));
     } else {
-      children.push(this.repBusyStateJSX(/* show duty = */ true));
+      if (!hide_busy_status) {
+        children.push(this.repBusyStateJSX(/* show duty = */ true));
+      }
       children.push(job.rep());
     }
 
@@ -2165,7 +2207,7 @@ export class Unit extends TwineClass {
   }
 
   /**
-   * Bob of Party 3
+   * Returns e.g.: "Bob of Party 3"
    */
   repFull(): DOM.Node {
     let base = this.repLongJSX();

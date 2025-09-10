@@ -2,10 +2,6 @@ import type { UnitAction } from "../unitaction/UnitAction";
 import type { FilterMenu, FilterMenuOptions } from "./_filter";
 import { MenuFilterHelper } from "./filterhelper";
 
-function getUnitActionTagFilter(tag: string) {
-  return (unitaction: UnitAction) => unitaction.getTags().includes(tag);
-}
-
 function getUnitActionTagFilters(tag_type: string) {
   return () => {
     const base: FilterMenuOptions<UnitAction> = {};
@@ -20,7 +16,6 @@ function getUnitActionTagFilters(tag_type: string) {
           /* force = */ true,
           /* tooltip no click = */ true,
         ),
-        filter: getUnitActionTagFilter(tag),
       };
     }
     return base;
@@ -31,6 +26,7 @@ export const _MENUS_unitaction: FilterMenu<UnitAction> = {
   type: {
     title: "Type",
     icon_menu: true,
+    tags_menu: true,
     options: getUnitActionTagFilters("type"),
   },
   status: {

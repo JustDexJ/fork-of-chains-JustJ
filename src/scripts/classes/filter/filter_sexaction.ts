@@ -1,9 +1,5 @@
 import { down, up, type FilterMenu, type FilterMenuOptions } from "./_filter";
 
-function getSexActionTagFilter(tag: string) {
-  return (action: SexAction) => action.getTags().includes(tag);
-}
-
 function getSexActionTagFilters(tag_type: string) {
   return () => {
     const base: FilterMenuOptions<SexAction> = {};
@@ -15,7 +11,6 @@ function getSexActionTagFilters(tag_type: string) {
           /* force = */ true,
           /* tooltip no click = */ true,
         ),
-        filter: getSexActionTagFilter(tag),
       };
     }
     return base;
@@ -27,18 +22,21 @@ export const _MENUS_sexaction: FilterMenu<SexAction> = {
     title: "Sub/Dom",
     default: "All",
     icon_menu: true,
+    tags_menu: true,
     options: getSexActionTagFilters("subdom"),
   },
   tag_type: {
     title: "Type",
     default: "All",
     icon_menu: true,
+    tags_menu: true,
     options: getSexActionTagFilters("type"),
   },
   tag_bodypart: {
     title: "Bodypart",
     default: "All",
     icon_menu: true,
+    tags_menu: true,
     options: getSexActionTagFilters("bodypart"),
   },
   sort: {

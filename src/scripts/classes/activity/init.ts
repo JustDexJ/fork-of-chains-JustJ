@@ -1,27 +1,41 @@
+import type { RarityKey } from "../deck/Rarity";
+import type { JobKey } from "../job/Job";
+import type { RoomTemplateKey } from "../room/RoomTemplate";
+
 // create a bunch of fucking-related activities.
 export const ActivityTemplateInitFuck = function () {
-  const rarity_default = setup.rarity.rare;
-  const veryrare = setup.rarity.epic;
+  const rarity_default: RarityKey = "rare";
+  const veryrare: RarityKey = "epic";
 
-  const authordata = {
+  const authordata: AuthorInfo = {
     name: "Innoxia",
     url: "https://lilithsthrone.blogspot.com/",
   };
 
-  const horny_c = ["per_lustful", "per_sexaddict"];
-  const horny_d: string[] = [];
-  const cruel_c = ["per_cruel"];
-  const cruel_d = ["per_kind", "per_honorable"];
-  const weird_c = ["per_lunatic", "per_playful"];
-  const weird_d = ["per_stubborn"];
+  const horny_c: TraitKey[] = ["per_lustful", "per_sexaddict"];
+  const horny_d: TraitKey[] = [];
+  const cruel_c: TraitKey[] = ["per_cruel"];
+  const cruel_d: TraitKey[] = ["per_kind", "per_honorable"];
+  const weird_c: TraitKey[] = ["per_lunatic", "per_playful"];
+  const weird_d: TraitKey[] = ["per_stubborn"];
 
   const default_horny_abuse_crit = horny_c.concat(cruel_c);
   const default_horny_abuse_disaster = horny_d.concat(cruel_d);
 
-  const slave_rooms = ["dungeons"];
-  const slaver_rooms = ["lodgings"];
+  const slave_rooms: RoomTemplateKey[] = ["dungeons"];
+  const slaver_rooms: RoomTemplateKey[] = ["lodgings"];
 
-  const fucks = [
+  const fucks: Array<{
+    name: string;
+    rooms: RoomTemplateKey[];
+    crits: TraitKey[];
+    disaster: TraitKey[];
+    type: JobKey;
+    unit_bodypart: SexBodypart;
+    target_bodypart: SexBodypart;
+    restriction?: Restriction[];
+    rarity?: RarityKey;
+  }> = [
     {
       name: "Fuck a slave",
       rooms: slave_rooms,
@@ -221,7 +235,7 @@ export const ActivityTemplateInitFuck = function () {
       name: fuckdata.name,
       author: authordata,
       tags: [],
-      actor_unitgroups: {
+      actors: {
         a: [
           setup.qres.Job("slaver"),
           setup.qres.NoTrait(setup.trait.per_chaste),
@@ -229,18 +243,12 @@ export const ActivityTemplateInitFuck = function () {
         ].concat(fuckdata.unit_bodypart.getHasRestrictions()),
         b: bres,
       },
-      critical_traits: fuckdata.crits.map((key) =>
-        resolveObject(key, setup.trait),
-      ),
-      disaster_traits: fuckdata.disaster.map((key) =>
-        resolveObject(key, setup.trait),
-      ),
+      critical_traits: fuckdata.crits,
+      disaster_traits: fuckdata.disaster,
       restrictions: fuckdata.restriction || [],
       rarity: fuckdata.rarity ? fuckdata.rarity : rarity_default,
       dialogues: [dialogue_a, dialogue_b],
-      room_templates: fuckdata.rooms.map((key) =>
-        resolveObject(key, setup.roomtemplate),
-      ),
+      room_templates: fuckdata.rooms,
     });
   }
 };

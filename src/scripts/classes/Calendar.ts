@@ -54,7 +54,7 @@ export class Calendar extends TwineClass {
     } else {
       container[obj.key] = duration;
     }
-    if (State.variables.gDebug) {
+    if (State.variables.gDebugInfo) {
       setup.notify(
         `<span class="debug-info">DEBUG: ${obj.TYPE} ${obj.key} is on cooldown for ${duration} weeks.</span>`,
       );

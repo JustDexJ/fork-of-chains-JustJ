@@ -415,7 +415,7 @@ export class Company extends TwineClass {
     // remove from duties
     let duty = unit.getDuty();
     if (duty) {
-      duty.unassignUnit();
+      duty.unassignUnit(unit);
     }
 
     // remove from owning bedchambers
@@ -486,7 +486,7 @@ export class Company extends TwineClass {
     State.variables.statistics.setMax("money_max_gain", money);
   }
 
-  substractMoney(money: number) {
+  substractMoney(money: number, skip_notify?: boolean) {
     if (!Number.isInteger(money))
       throw new Error(`Money amount is not an integer`);
 
@@ -495,7 +495,9 @@ export class Company extends TwineClass {
       this.addMoney(-money);
     } else {
       this.money -= money;
-      setup.notify(`Lost <<moneyloss ${money}>>`);
+      if (!skip_notify) {
+        setup.notify(`Lost <<moneyloss ${money}>>`);
+      }
     }
     State.variables.statistics.setMax("money_max_lose", money);
   }

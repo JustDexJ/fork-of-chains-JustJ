@@ -93,7 +93,7 @@ export class UnitImage extends TwineClass {
     return UnitImage.getImageObject(this.getImagePath(unit));
   }
 
-  static DEFAULT_IMAGE = Object.freeze({
+  static DEFAULT_IMAGE: Readonly<ImageObject> = Object.freeze({
     path: "img/special/defaultunit.svg",
     depth: 0,
     info: {},

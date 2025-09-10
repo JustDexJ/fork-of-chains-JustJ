@@ -12,7 +12,7 @@ export interface MenuItemProps {
   /** Text label for the item */
   text: JSX.Element;
   /** Callback executed when item is clicked */
-  callback?: () => unknown;
+  callback?: (ev: MouseEvent) => unknown;
   /** Additional CSS class(es) to add to this menu item */
   cssclass?: string;
   /** If not undefined, will render a checkbox, checked or unchecked depending on the truthiness of the value  */
@@ -100,7 +100,7 @@ export const MenuItem: Component<MenuItemProps> = (props) => {
         context.close?.();
       }
 
-      props.callback();
+      props.callback(ev);
     }
   };
 
@@ -114,9 +114,8 @@ export const MenuItem: Component<MenuItemProps> = (props) => {
         [props.cssclass || ""]: true,
       }}
     >
-      <span
+      <header
         data-tooltip={props.tooltip ? props.tooltip : undefined}
-        class="menu-span"
         onMouseDown={(ev) => {
           // prevent from gaining focus
           ev.preventDefault();
@@ -136,7 +135,7 @@ export const MenuItem: Component<MenuItemProps> = (props) => {
             props.text
           )}
         </span>
-      </span>
+      </header>
 
       <Show when={props.children}>
         <nav ref={navRef} style={{ display: getIsOpen() ? undefined : "none" }}>

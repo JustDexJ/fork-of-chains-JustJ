@@ -158,10 +158,7 @@ export namespace UnitTraitsHelper {
         ) {
           this.removeTraitExact(remove_trait);
           if (this.isYourCompany()) {
-            setup.notify(
-              `a|Rep <<dangertext 'a|lose'>> ${remove_trait.rep()}`,
-              { a: this },
-            );
+            setup.notify.traitLost(this, remove_trait);
           }
         }
       }
@@ -212,9 +209,7 @@ export namespace UnitTraitsHelper {
           !this.isMindbroken() || removeMindbrokenTraits([new_trait]).length;
 
         if ((trait_visible && this.isYourCompany()) || State.variables.gDebug) {
-          setup.notify(`a|Rep <<successtext 'a|gain'>> ${new_trait.rep()}`, {
-            a: this,
-          });
+          setup.notify.traitGained(this, new_trait);
         }
       }
     }

@@ -6,9 +6,9 @@ export const ROOMS = definitions<RoomDefinition>()({
     door_column: 2,
     skill_bonus: [
       {
-        type: "near",
+        type: "built",
         skill_key: "aid",
-        room_keys: [
+        building_keys: [
           "surgeryanus",
           "surgeryballs",
           "surgerybreast",

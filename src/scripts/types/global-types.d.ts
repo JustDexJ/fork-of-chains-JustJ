@@ -42,6 +42,8 @@ export namespace Types {
     import("../classes/room/RoomTemplate").RoomTemplate;
   export type RoomDefinition =
     import("../classes/room/RoomTemplate").RoomDefinition;
+  export type ActivityTemplateDefinition =
+    import("../classes/activity/ActivityTemplate").ActivityTemplateDefinition;
 }
 
 declare global {
@@ -83,6 +85,7 @@ declare global {
     type BuildingDefinition = Types.BuildingDefinition;
     type RoomTemplate = Types.RoomTemplate;
     type RoomDefinition = Types.RoomDefinition;
+    type ActivityTemplateDefinition = Types.ActivityTemplateDefinition;
 
     type SexAction = Types.SexAction;
     type SexBodypart = Types.SexBodypart;

@@ -342,7 +342,7 @@ export class EventPool extends TwineClass {
     if (is_visible_in_calendar) {
       const trigger = occur_week - State.variables.calendar.getWeek();
       setup.notify(`${event.getName()} will trigger in ${trigger} weeks.`);
-    } else if (State.variables.gDebug) {
+    } else if (State.variables.gDebugInfo) {
       setup.notify(
         `<span class="debug-info">DEBUG: Hidden event ${event.getName()} is scheduled to trigger in week ${occur_week}.</span>`,
       );

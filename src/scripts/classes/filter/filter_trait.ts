@@ -1,10 +1,6 @@
 import type { FilterMenu, FilterMenuOptions } from "./_filter";
 import { MenuFilterHelper } from "./filterhelper";
 
-function getTraitTagFilter(tag: string) {
-  return (trait: Trait) => trait.getTags().includes(tag);
-}
-
 function getTraitTagFilters(tag_type: string) {
   return () => {
     const base: FilterMenuOptions<Trait> = {};
@@ -16,7 +12,6 @@ function getTraitTagFilters(tag_type: string) {
           /* force = */ true,
           /* tooltip no click = */ true,
         ),
-        filter: getTraitTagFilter(tag),
       };
     }
     return base;
@@ -28,12 +23,14 @@ export const _MENUS_trait: FilterMenu<Trait> = {
     title: "Type",
     default: "All",
     icon_menu: true,
+    tags_menu: true,
     options: getTraitTagFilters("type"),
   },
   rarity: {
     title: "Rarity",
     default: "All",
     icon_menu: true,
+    make_filter: MenuFilterHelper.makeRarityFilter,
     options: MenuFilterHelper.rarityFilters,
   },
   show: {

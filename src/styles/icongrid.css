@@ -15,6 +15,7 @@
 .icongrid > span {
   line-height: 0.1;
   padding: 0px !important;
+  margin: 0 !important;
 }
 
 .icongrid img {

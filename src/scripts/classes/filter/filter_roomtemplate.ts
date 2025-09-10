@@ -3,10 +3,6 @@ import type { SkillKey } from "../Skill";
 import { down, up, type FilterMenu, type FilterMenuOptions } from "./_filter";
 import { MenuFilterHelper } from "./filterhelper";
 
-function getRoomTemplateTagFilter(tag: string) {
-  return (template: RoomTemplate) => template.getTags().includes(tag);
-}
-
 function getRoomTemplateTagFilters(tag_type: string) {
   return () => {
     const base: FilterMenuOptions<RoomTemplate> = {};
@@ -18,7 +14,6 @@ function getRoomTemplateTagFilters(tag_type: string) {
           /* force = */ true,
           /* tooltip no click = */ true,
         ),
-        filter: getRoomTemplateTagFilter(tag),
       };
     }
     return base;
@@ -46,6 +41,7 @@ export const _MENUS_roomtemplate: FilterMenu<RoomTemplate> = {
     title: "Location",
     default: "All",
     icon_menu: true,
+    tags_menu: true,
     options: getRoomTemplateTagFilters("location"),
   },
 
@@ -53,6 +49,7 @@ export const _MENUS_roomtemplate: FilterMenu<RoomTemplate> = {
     title: "Type",
     default: "All",
     icon_menu: true,
+    tags_menu: true,
     options: getRoomTemplateTagFilters("unique"),
   },
 
@@ -60,6 +57,7 @@ export const _MENUS_roomtemplate: FilterMenu<RoomTemplate> = {
     title: "Building type",
     default: "All",
     icon_menu: true,
+    tags_menu: true,
     options: getRoomTemplateTagFilters("type"),
   },
 

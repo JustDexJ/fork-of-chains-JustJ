@@ -30,6 +30,10 @@ img {
   vertical-align: middle;
 }
 
+span[data-component] {
+  vertical-align: middle;
+}
+
 .indented {
   margin-left: 1em;
 }

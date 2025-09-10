@@ -1,5 +1,5 @@
 import { TwineClass } from "../_TwineClass";
-import type { Rarity, RarityKey } from "../deck/Rarity";
+import type { Rarity } from "../deck/Rarity";
 import type { QuestDifficulty } from "../quest/QuestDifficulty";
 import { down, up, type FilterMenuOption } from "./_filter";
 
@@ -110,8 +110,14 @@ export class MenuFilterHelper extends TwineClass {
         b.getDifficulty().getLevel() - a.getDifficulty().getLevel(),
     };
 
-  static _getRarityFilter(rarity_key: RarityKey) {
-    return (obj: { getRarity(): Rarity }) => obj.getRarity().key == rarity_key;
+  static makeRarityFilter(rarity_keys: readonly string[]) {
+    return (obj: { getRarity(): Rarity }) =>
+      rarity_keys.includes(obj.getRarity().key);
+  }
+
+  static makeTagsFilter(tags: readonly string[]) {
+    return (obj: { getTags(): readonly string[] }) =>
+      obj.getTags().some((tag) => tags.includes(tag));
   }
 
   static rarityFilters<T extends { getRarity(): Rarity }>() {
@@ -120,7 +126,6 @@ export class MenuFilterHelper extends TwineClass {
     for (const rarity of Object.values(setup.rarity)) {
       options.push({
         title: rarity.repJSX(),
-        filter: MenuFilterHelper._getRarityFilter(rarity.key),
       });
     }
 

@@ -83,7 +83,7 @@ export namespace TextBanter {
     } else {
       candidates = candidates.concat(adverbs);
     }
-    candidates = [...unit.getSpeech().getAdverbs()]; // TODO: this replaces the value from above, why?
+
     let traits = unit.getAllTraitsWithTag("per");
     for (let i = 0; i < traits.length; ++i) {
       let text = traits[i].text();

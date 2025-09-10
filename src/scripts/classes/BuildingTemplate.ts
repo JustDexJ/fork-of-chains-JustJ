@@ -12,7 +12,7 @@ export interface BuildingDefinition {
   costs: ReadonlyArray<Cost[]>;
   restrictions: ReadonlyArray<Restriction[]>;
   on_build?: ReadonlyArray<Cost[]>;
-  main_room_template_key: RoomTemplateKey;
+  main_room_template_key?: RoomTemplateKey;
   sub_room_template_key?: RoomTemplateKey;
 }
 
@@ -27,7 +27,7 @@ export class BuildingTemplate extends TwineClass {
   costs: ReadonlyArray<Cost[]>;
   prerequisites: ReadonlyArray<Restriction[]>;
   on_build: ReadonlyArray<Cost[]>;
-  main_room_template_key: RoomTemplateKey;
+  main_room_template_key?: RoomTemplateKey;
   sub_room_template_key?: RoomTemplateKey;
 
   constructor(key: string, def: Readonly<BuildingDefinition>) {
@@ -102,7 +102,8 @@ export class BuildingTemplate extends TwineClass {
     setup.buildingtemplate[key as BuildingTemplateKey] = this;
   }
 
-  getMainRoomTemplate(): RoomTemplate {
+  getMainRoomTemplate(): RoomTemplate | null {
+    if (!this.main_room_template_key) return null;
     return setup.roomtemplate[this.main_room_template_key];
   }
 

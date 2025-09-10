@@ -306,6 +306,10 @@ export class QuestInstance extends TwineClass {
     return setup.questtemplate[this.quest_template_key];
   }
 
+  getTags(): string[] {
+    return this.getTemplate().getTags();
+  }
+
   /**
    * @returns like [['actor1', unit], ['actor2', unit], ...]
    */

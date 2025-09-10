@@ -8,7 +8,9 @@
   margin: 0 4px;
   line-height: 1;
   border-radius: 5px;
-  background-color: #e80000;
+  background-color: #e93f00;
+
+  user-select: none;
 }
 .injurycard > * {
   grid-row: 1;
@@ -26,10 +28,10 @@
     -1px -1px var(--injury-shadow-color),
     1px -1px var(--injury-shadow-color);
 }
-.injurycard .icon img {
+.injurycard .icon {
   width: 20px;
   height: 20px;
-  margin: 2px 4px;
+  margin: 1px 4px;
   filter: opacity(0.9);
 }
 

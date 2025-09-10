@@ -4,10 +4,6 @@ import { TraitHelper } from "../trait/Trait";
 import { down, type FilterMenu, type FilterMenuOptions } from "./_filter";
 import { MenuFilterHelper } from "./filterhelper";
 
-function getTemplateTagFilter(tag: string) {
-  return (template: ContentTemplate) => template.getTags().includes(tag);
-}
-
 function getTemplateTagFilters(tag_type: string) {
   return () => {
     const base: FilterMenuOptions<ContentTemplate> = {};
@@ -19,7 +15,6 @@ function getTemplateTagFilters(tag_type: string) {
           /* force = */ true,
           /* tooltip no click = */ true,
         ),
-        filter: getTemplateTagFilter(tag),
       };
     }
     return base;
@@ -102,24 +97,28 @@ export const _MENUS_questtemplate: FilterMenu<ContentTemplate> = {
     title: "Rarity",
     default: "All",
     icon_menu: true,
+    tags_menu: true,
     options: getTemplateTagFilters("rarity"),
   },
   tag_region: {
     title: "Region",
     default: "All",
     icon_menu: true,
+    tags_menu: true,
     options: getTemplateTagFilters("region"),
   },
   tag_type: {
     title: "Type",
     default: "All",
     icon_menu: true,
+    tags_menu: true,
     options: getTemplateTagFilters("type"),
   },
   tag_reward: {
     title: "Reward",
     default: "All",
     icon_menu: true,
+    tags_menu: true,
     options: getTemplateTagFilters("reward"),
   },
   subrace: {

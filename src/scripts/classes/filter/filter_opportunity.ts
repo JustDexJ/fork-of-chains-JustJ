@@ -2,11 +2,6 @@ import type { OpportunityInstance } from "../opportunity/OpportunityInstance";
 import { down, up, type FilterMenu, type FilterMenuOptions } from "./_filter";
 import { MenuFilterHelper } from "./filterhelper";
 
-function getOpportunityTagFilter(tag: string) {
-  return (opportunity: OpportunityInstance) =>
-    opportunity.getTemplate().getTags().includes(tag);
-}
-
 function getOpportunityTagFilters(tag_type: string) {
   return () => {
     const base: FilterMenuOptions<OpportunityInstance> = {};
@@ -21,7 +16,6 @@ function getOpportunityTagFilters(tag_type: string) {
           /* force = */ true,
           /* tooltip no click = */ true,
         ),
-        filter: getOpportunityTagFilter(tag),
       };
     }
     return base;
@@ -33,18 +27,21 @@ export const _MENUS_opportunity: FilterMenu<OpportunityInstance> = {
     title: "Rarity",
     default: "All",
     icon_menu: true,
+    tags_menu: true,
     options: getOpportunityTagFilters("rarity"),
   },
   tag_region: {
     title: "Region",
     default: "All",
     icon_menu: true,
+    tags_menu: true,
     options: getOpportunityTagFilters("region"),
   },
   tag_type: {
     title: "Type",
     default: "All",
     icon_menu: true,
+    tags_menu: true,
     options: getOpportunityTagFilters("type"),
   },
   tag_reward: {

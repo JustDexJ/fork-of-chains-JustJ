@@ -67,7 +67,11 @@ const BuildingInstanceNameActionMenu: Component<{
         >
           <MenuItemAction
             text="Upgrade"
-            tooltip="Upgrade this improvement, potentially getting a new room to place"
+            tooltip={
+              props.building.getUpgradeRoom()
+                ? "Upgrade this improvement by placing a new room"
+                : "Upgrade this improvement"
+            }
             callback={() => {
               const room = props.building.getUpgradeRoom();
               if (room) {
@@ -81,22 +85,24 @@ const BuildingInstanceNameActionMenu: Component<{
             }}
           />
 
-          <MenuItemAction
-            text="Upgrade and auto-place"
-            tooltip="Upgrade this improvement and automatically place its room (if any) on the fort"
-            callback={() => {
-              const room = props.building.getUpgradeRoom();
-              if (!room || State.variables.fortgrid.placeAnywhere(room)) {
-                props.building.upgrade(room);
-                setup.DOM.Nav.goto();
-              } else {
-                if (room) {
-                  room.delete();
+          <Show when={props.building.getUpgradeRoom()}>
+            <MenuItemAction
+              text="Upgrade and auto-place"
+              tooltip="Upgrade this improvement and automatically place its room on the fort"
+              callback={() => {
+                const room = props.building.getUpgradeRoom();
+                if (!room || State.variables.fortgrid.placeAnywhere(room)) {
+                  props.building.upgrade(room);
+                  setup.DOM.Nav.goto();
+                } else {
+                  if (room) {
+                    room.delete();
+                  }
+                  setup.DOM.Nav.goto();
                 }
-                setup.DOM.Nav.goto();
-              }
-            }}
-          />
+              }}
+            />
+          </Show>
         </Show>
       </Show>
 
@@ -156,8 +162,16 @@ const BuildingTemplateNameActionMenu: Component<{
           fallback={<MenuItemText text="Not buildable" />}
         >
           <MenuItemAction
-            text="Build"
-            tooltip="Build this improvement and place its room on the fort"
+            text={
+              props.template.getMainRoomTemplate()
+                ? "Build room"
+                : "Build upgrade"
+            }
+            tooltip={
+              props.template.getMainRoomTemplate()
+                ? "Build this improvement by manually placing its room on the fort"
+                : "Build this improvement for an existing room"
+            }
             callback={() => {
               const room = State.variables.fort.player.getBuildRoom(
                 props.template,
@@ -172,33 +186,36 @@ const BuildingTemplateNameActionMenu: Component<{
               }
             }}
           />
-          <MenuItemAction
-            text="Build and auto-place"
-            tooltip="Build this improvement and automatically place its room somewhere on the fort"
-            callback={() => {
-              const room = State.variables.fort.player.getBuildRoom(
-                props.template,
-              );
-              if (!room || State.variables.fortgrid.placeAnywhere(room)) {
-                State.variables.fort.player.build(props.template, room);
-                setup.DOM.Nav.goto();
-              } else {
-                if (room) {
-                  room.delete();
+          <Show when={props.template.getMainRoomTemplate()}>
+            <MenuItemAction
+              text="Build & auto-place room"
+              tooltip="Build this improvement and automatically place its room somewhere on the fort"
+              callback={() => {
+                const room = State.variables.fort.player.getBuildRoom(
+                  props.template,
+                );
+                if (!room || State.variables.fortgrid.placeAnywhere(room)) {
+                  State.variables.fort.player.build(props.template, room);
+                  setup.DOM.Nav.goto();
+                } else {
+                  if (room) {
+                    room.delete();
+                  }
+                  setup.DOM.Nav.goto();
                 }
-                setup.DOM.Nav.goto();
-              }
-            }}
-          />
+              }}
+            />
+          </Show>
         </Show>
 
         <MenuItemText text={<CostsCard costs={props.template.getCost(0)} />} />
 
         <Show when={props.template.getMainRoomTemplate()}>
-          <MenuItemText text={props.template.getMainRoomTemplate().repFull()} />
+          <MenuItemText
+            text={props.template.getMainRoomTemplate()!.repFull()}
+          />
         </Show>
       </Show>
-      const extras = [];
       <Show
         when={
           props.show_actions &&

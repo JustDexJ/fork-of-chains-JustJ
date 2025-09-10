@@ -1,13 +1,11 @@
 import { TwineClass } from "../_TwineClass";
-import { type DutyInstance, type DutyInstanceKey } from "./DutyInstance";
+import { type DutyInstance } from "./DutyInstance";
 import type { DutyTemplate, DutyTemplateKey } from "./DutyTemplate";
 
 /**
  * Assigned to special variable $dutylist
  */
 export class DutyList extends TwineClass {
-  duty_keys: DutyInstanceKey[] = [];
-
   constructor() {
     super();
   }
@@ -20,7 +18,6 @@ export class DutyList extends TwineClass {
     if (!duty_instance) {
       throw new Error(`Duty instance must not be null`);
     }
-    this.duty_keys.push(duty_instance.key);
     setup.notify(`New duty: ${duty_instance.rep()}`);
     return duty_instance;
   }
@@ -29,29 +26,21 @@ export class DutyList extends TwineClass {
    * Deletes a duty. Will unassign it first, if necessary.
    */
   removeDuty(duty_instance: DutyInstance): void {
-    if (!this.duty_keys.includes(duty_instance.key))
-      throw new Error("Trying to remove duty which does not exists!");
-
     // First, unassign the unit.
-    if (duty_instance.getAssignedUnit()) {
-      duty_instance.unassignUnit();
+    if (duty_instance.getAssignedUnits().length) {
+      duty_instance.unassignAllUnits();
     }
-
-    // Remove from duty list
-    this.duty_keys = this.duty_keys.filter(
-      (duty_key) => duty_key != duty_instance.key,
-    );
 
     // Then, remove the duty.
     duty_instance.delete();
   }
 
   getOpenDutiesCount(): number {
-    return this.getDuties().filter((duty) => !duty.getAssignedUnit()).length;
+    return this.getDuties().filter((duty) => !duty.hasAssignedUnits()).length;
   }
 
   getDuties(): DutyInstance[] {
-    return this.duty_keys.map((key) => State.variables.duty[key]);
+    return Object.values(State.variables.duty);
   }
 
   getDuty(

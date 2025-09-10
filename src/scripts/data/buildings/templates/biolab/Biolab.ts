@@ -8,19 +8,23 @@ export const ROOMS = definitions<RoomDefinition>()({
       {
         type: "near",
         skill_key: "brawn",
-        room_keys: [
-          "greathall",
+        room_keys: ["greathall"],
+      },
+      {
+        type: "near",
+        skill_key: "brawn",
+        room_keys: ["surgery", "hospital", "warehouse", "library"],
+      },
+      {
+        type: "built",
+        skill_key: "brawn",
+        building_keys: [
           "anuslab",
           "ballslab",
           "breastlab",
           "dicklab",
           "vaginalab",
         ],
-      },
-      {
-        type: "near",
-        skill_key: "brawn",
-        room_keys: ["surgery", "hospital", "warehouse", "library"],
       },
     ],
     is_fixed: false,

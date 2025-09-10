@@ -40,6 +40,10 @@ export class BuildingInstance extends TwineClass {
     return setup.buildingtemplate[this.template_key];
   }
 
+  getTags(): readonly string[] {
+    return this.getTemplate().getTags();
+  }
+
   isHasUpgrade(): boolean {
     let template = this.getTemplate();
     return this.level < template.getMaxLevel();

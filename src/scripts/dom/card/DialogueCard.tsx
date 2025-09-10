@@ -50,9 +50,7 @@ export const DialogueCard: Component<{
       >
         <div>
           <Twee>
-            {'"' +
-              setup.DevToolHelper.stripNewLine(props.dialogue.trim()) +
-              '"'}
+            {`"${setup.DevToolHelper.stripNewLine(props.dialogue.trim())}"`}
           </Twee>
         </div>
       </div>

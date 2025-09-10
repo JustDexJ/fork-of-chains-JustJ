@@ -135,7 +135,7 @@
 <<focbutton 'Back to Fort' 'FortGrid'>>
 <</focbutton>>
 
-<<focbutton 'View/upgrade buildings' 'Fort'>>
+<<focbutton 'View improvements' 'Fort'>>
 <</focbutton>>
 
 <hr/>

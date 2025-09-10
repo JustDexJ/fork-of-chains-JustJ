@@ -11,7 +11,7 @@ export class DutyInstance extends TwineClass {
   key: DutyInstanceKey;
   template_key: DutyTemplateKey;
 
-  unit_key: UnitKey | undefined = undefined;
+  unit_keys: UnitKey[] | undefined = undefined;
 
   /** Whether unit on this duty can still go on quests. */
   is_can_go_on_quests_auto?: true;
@@ -142,15 +142,30 @@ export class DutyInstance extends TwineClass {
   }
 
   /**
-   * Returns the unit assigned to this duty.
+   * Returns the first unit assigned to this duty, if any.
+   * Kept for backwards compatibility, prefer to use `getAssignedUnits` instead.
    */
   getAssignedUnit(): Unit | null {
-    if (!this.unit_key) return null;
-    return State.variables.unit[this.unit_key];
+    if (!this.unit_keys?.length) return null;
+    return State.variables.unit[this.unit_keys[0]];
   }
 
   /**
-   * Returns the unit assigned to this duty, but only if the unit is available.
+   * Returns the units assigned to this duty (regardless of whether they are currently available).
+   */
+  getAssignedUnits(): Unit[] {
+    return (this.unit_keys ?? []).map((key) => State.variables.unit[key]);
+  }
+
+  /**
+   * Returns whether there's at least 1 unit assigned to this duty.
+   */
+  hasAssignedUnits(): boolean {
+    return (this.unit_keys?.length ?? 0) > 0;
+  }
+
+  /**
+   * Returns the first unit assigned to this duty, but only if the unit is available.
    * If you want the unit regardless, use getAssignedUnit
    */
   getUnitIfAvailable(): Unit | null {
@@ -159,7 +174,15 @@ export class DutyInstance extends TwineClass {
   }
 
   /**
-   * Whether this duty is active or not
+   * Returns the units assigned to this duty which are also currently active.
+   */
+  getActiveUnits(): Unit[] {
+    return this.getAssignedUnits().filter((u) => u.isAvailable());
+  }
+
+  /**
+   * Whether this duty is currently active or not
+   * (i.e. the unit is not away, or there's a specialist assigned)
    */
   isActive(): boolean {
     const unit = this.getAssignedUnit();
@@ -192,7 +215,14 @@ export class DutyInstance extends TwineClass {
     return upkeep;
   }
 
-  isCanUnitAssign(unit: Unit): boolean {
+  /**
+   * Gets the maximum number of units assignable to this duty.
+   */
+  getNumSlots(): number {
+    return 1;
+  }
+
+  canAssignUnit(unit: Unit): boolean {
     if (!unit.isAvailable()) return false;
     if (unit.getDuty()) return false;
     return setup.RestrictionLib.isUnitSatisfyIncludeDefiancy(
@@ -202,13 +232,11 @@ export class DutyInstance extends TwineClass {
   }
 
   assignUnit(unit: Unit) {
-    if (this.unit_key) {
-      throw new Error(
-        `Duty ${this.key} already have unit and cannot be reassigned`,
-      );
+    if (this.unit_keys?.includes(unit.key)) {
+      throw new Error(`Duty ${this.key} already have unit assigned`);
     }
 
-    this.unit_key = unit.key;
+    (this.unit_keys ??= []).push(unit.key);
     unit.duty_key = this.key;
 
     this.getTemplate().onAssign(this, unit);
@@ -216,15 +244,28 @@ export class DutyInstance extends TwineClass {
     this.resetCache(unit);
   }
 
-  unassignUnit() {
-    const unit = this.getAssignedUnit();
-    if (unit) {
-      this.getTemplate().onUnassign(this, unit);
+  unassignUnit(unit: Unit) {
+    if (!this.unit_keys) return;
 
-      this.unit_key = undefined;
+    const index = this.unit_keys.indexOf(unit.key);
+    if (index !== -1) {
       unit.duty_key = undefined;
 
+      if (this.unit_keys.length === 1) {
+        this.unit_keys = undefined;
+      } else {
+        this.unit_keys.splice(index, 1);
+      }
+
+      this.getTemplate().onUnassign(this, unit);
+
       this.resetCache(unit);
+    }
+  }
+
+  unassignAllUnits() {
+    for (const k of this.unit_keys ?? []) {
+      this.unassignUnit(State.variables.unit[k]);
     }
   }
 

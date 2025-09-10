@@ -2,10 +2,6 @@ import type { RoomInstance } from "../room/RoomInstance";
 import { down, up, type FilterMenu, type FilterMenuOptions } from "./_filter";
 import { MenuFilterHelper } from "./filterhelper";
 
-function getRoomTagFilter(tag: string) {
-  return (room: RoomInstance) => room.getTemplate().getTags().includes(tag);
-}
-
 function getRoomTagFilters(tag_type: string) {
   return () => {
     const base: FilterMenuOptions<RoomInstance> = {};
@@ -17,7 +13,6 @@ function getRoomTagFilters(tag_type: string) {
           /* force = */ true,
           /* tooltip no click = */ true,
         ),
-        filter: getRoomTagFilter(tag),
       };
     }
     return base;
@@ -29,6 +24,7 @@ export const _MENUS_room: FilterMenu<RoomInstance> = {
     title: "Location",
     default: "All",
     icon_menu: true,
+    tags_menu: true,
     options: getRoomTagFilters("location"),
   },
 
@@ -36,6 +32,7 @@ export const _MENUS_room: FilterMenu<RoomInstance> = {
     title: "Type",
     default: "All",
     icon_menu: true,
+    tags_menu: true,
     options: getRoomTagFilters("unique"),
   },
 
@@ -43,6 +40,7 @@ export const _MENUS_room: FilterMenu<RoomInstance> = {
     title: "Building type",
     default: "All",
     icon_menu: true,
+    tags_menu: true,
     options: getRoomTagFilters("type"),
   },
 

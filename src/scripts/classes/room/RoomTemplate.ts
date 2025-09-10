@@ -51,6 +51,12 @@ export class RoomTemplate extends TwineClass {
     } & (
       | { type: "always" }
       | {
+          type: "built";
+          // TODO: find way to avoid circular type reference :/
+          //building_keys: BuildingTemplateKey[];
+          building_keys: string[];
+        }
+      | {
           type: "near" | "adjacent";
 
           // TODO: find way to avoid circular type reference :/
@@ -65,6 +71,10 @@ export class RoomTemplate extends TwineClass {
       bonus: number;
     } & (
       | { type: "always" }
+      | {
+          type: "built";
+          building_template_key: BuildingTemplateKey;
+        }
       | {
           type: "near" | "adjacent";
 
@@ -155,7 +165,7 @@ export class RoomTemplate extends TwineClass {
     this.skill_bonus = [];
 
     for (const sb of skill_bonus) {
-      if (!["always", "near", "adjacent"].includes(sb.type))
+      if (!["always", "built", "near", "adjacent"].includes(sb.type))
         throw new Error(`${key} unrecognized room type: ${sb.type}`);
     }
 
@@ -280,6 +290,16 @@ export class RoomTemplate extends TwineClass {
             skill_key: sb.skill_key,
             bonus: sb.bonus_amount!,
           });
+        } else if (sb.type === "built") {
+          for (const building_template_key of sb.building_keys) {
+            template.skill_bonus.push({
+              type: "built",
+              building_template_key:
+                building_template_key as BuildingTemplateKey,
+              skill_key: sb.skill_key,
+              bonus: sb.bonus_amount!,
+            });
+          }
         } else {
           for (const room_template_key of sb.room_keys as RoomTemplateKey[]) {
             const bonus = {

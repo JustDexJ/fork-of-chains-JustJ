@@ -212,7 +212,7 @@ export class InteractionTemplate extends ContentTemplate<InteractionTemplateKey>
 
       let bc = State.variables.bedchamberlist.newBedchamber();
       bc.getDuties()[0].assignUnit(unit);
-      bc.getDuties()[1].assignUnit(unit2);
+      bc.getDuties()[0].assignUnit(unit2);
     }
 
     return new setup.InteractionInstance(this, unit);
