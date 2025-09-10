@@ -14,16 +14,10 @@ $rightUiBar
     $rightUiBar.toggleClass("stowed"),
   );
 
-// FIXME
-declare var postrender: any;
-
 /* Automatically show the contents of the StoryRightSidebar passage in the right-ui-bar-body element. */
-postrender["Display Right Sidebar Contents"] = function (
-  content: string,
-  taskName: string,
-) {
+$(document).on(":passagerender", function (ev) {
   setPageElement("right-ui-bar-body", "StoryRightSidebar");
-};
+});
 
 if ($(window).width()! < 1424) {
   $rightUiBar.toggleClass("stowed");

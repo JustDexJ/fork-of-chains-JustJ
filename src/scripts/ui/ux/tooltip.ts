@@ -63,6 +63,11 @@ function createTooltipInstanceIfMissing(target: Element) {
     maxWidth = 480;
   }
 
+  /** If true gnore clicks, so don't change it to "permanently open" when clicked */
+  let no_click =
+    target.getAttribute("data-tooltip-noclick") !== null ||
+    target.closest(".menu"); // if inside a menu toolbar don't make it clickable
+
   instance = tippy(target, {
     content: content_element,
     duration: [showAnimDuration, 0], // animation duration
@@ -71,10 +76,7 @@ function createTooltipInstanceIfMissing(target: Element) {
         ? [500, 0]
         : [showDelay, 0], // time on hover before tooltip opens
     maxWidth,
-    trigger:
-      target.getAttribute("data-tooltip-noclick") !== null
-        ? "mouseenter"
-        : "mouseenter click",
+    trigger: no_click ? "mouseenter" : "mouseenter click",
     placement: placement,
     offset: [0, distance],
     showOnCreate: true,

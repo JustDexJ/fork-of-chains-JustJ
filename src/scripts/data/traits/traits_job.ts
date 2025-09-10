@@ -26,7 +26,7 @@ export default {
   },
 
   job_unemployed: {
-    name: "unemployed",
+    name: "unaffiliated",
     description: "Not part of your company",
     slave_value: 0,
     skill_bonuses: {},

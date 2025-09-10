@@ -138,15 +138,17 @@ const DutyNameActionMenus: Component<{
                     )
                   </span>
                 </Show>
-                <button
-                  data-tooltip="Unassign unit from this duty"
-                  onClick={() => {
-                    props.duty.unassignUnit(unit);
-                    setup.DOM.Nav.goto();
-                  }}
-                >
-                  ×
-                </button>
+                <Show when={props.show_actions}>
+                  <button
+                    data-tooltip="Unassign unit from this duty"
+                    onClick={() => {
+                      props.duty.unassignUnit(unit);
+                      setup.DOM.Nav.goto();
+                    }}
+                  >
+                    ×
+                  </button>
+                </Show>
               </>
             }
           />
