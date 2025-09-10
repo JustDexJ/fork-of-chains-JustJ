@@ -3,13 +3,13 @@
  *
  *  <div class="menu">
  *    <div>
- *      <span>Lebel</span>
+ *      <header>Lebel</header>
  *      <nav>...children...</nav>
  *    </div>
  *  </div>
  *
  *  <div>: menu item
- *    <span>: label
+ *    <header>: label
  *    <nav>: container of children menu items (divs) [optional]
  */
 
@@ -20,7 +20,7 @@
   margin-bottom: 2px;
 
   & > div {
-    & > span {
+    & > header {
       height: 100%;
       min-height: 36px;
       box-sizing: border-box;
@@ -44,28 +44,38 @@
 
 .menu div {
   position: relative;
+
+  /** default colors */
+  --menu-color: #394c7a;
+  --menu-hover-color: #5d7ccb;
 }
 
 /*.menu div:not(.menu-clickonly):hover > nav {
   display: block;
 }*/
 
-.menu div > .menu-span {
+.menu div > header {
   position: relative;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 2px 0.4em;
   padding: 8px 12px;
-  background-color: var(--menu-color, #394c7a);
+  background-color: var(--menu-color);
+
+  & > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0 0.4em;
+  }
 }
 
-.menu div > .menu-span:hover {
-  background-color: var(--menu-hover-color, #68d);
+.menu div > header:hover {
+  background-color: var(--menu-hover-color);
 }
 
 /* Small arrow at the right of non-terminal menu items */
-.menu div > nav > div > span:not(:only-child)::after {
+.menu div > nav > div > header:not(:only-child)::after {
   content: "\f0da"; /* icon-caret-right */
   position: absolute;
   right: 6px;
@@ -87,17 +97,17 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.menu div.menu-left > nav > div > span:not(:only-child)::after {
+.menu div.menu-left > nav > div > header:not(:only-child)::after {
   content: "\f0d9"; /* icon-caret-left */
   right: unset;
   left: 6px;
 }
 
-.menu div:not(.menu-left) > nav > div > span {
+.menu div:not(.menu-left) > nav > div > header {
   padding-right: 24px;
 }
 
-.menu div.menu-left > nav > div > span {
+.menu div.menu-left > nav > div > header {
   padding-left: 24px;
 }
 
@@ -119,7 +129,7 @@
   right: 0;
 }
 
-.menu nav > div > .menu-span {
+.menu nav > div > header {
   display: block;
   background: var(--menu-color, #394c7a);
   color: #fff;
@@ -139,48 +149,58 @@
   right: 100%;
 }
 
+.menu .submenu-tag-selected > header {
+  /*box-shadow:
+    inset 4px 0 6px rgba(0, 0, 0, 0.4),
+    inset -4px 0 6px rgba(0, 0, 0, 0.4);
+  --menu-color: var(--menu-hover-color);*/
+
+  box-shadow:
+    inset 6px 0 6px var(--menu-hover-color),
+    inset -6px 0 6px var(--menu-hover-color);
+}
+
+.menu .submenu-tag-nomatches > header {
+  opacity: 0.5;
+}
+
 /** Menu Colors **/
-.menu .submenu-actor > * {
+.menu .submenu-actor {
   --menu-color: #436767;
   --menu-hover-color: #5f9191;
 }
 
-.menu .submenu-action > * {
+.menu .submenu-action {
   --menu-color: #312a5a;
   --menu-hover-color: #694c9e;
 }
 
-.menu .submenu-value > * {
+.menu .submenu-value {
   --menu-color: #766d46;
   --menu-hover-color: #ac994a;
 }
 
-.menu .submenu-debug > * {
+.menu .submenu-debug {
   --menu-color: #375741;
   --menu-hover-color: #547669;
 }
 
-.menu .submenu-tag-0 > * {
+.menu .submenu-tag-0 {
   --menu-color: #5d833e;
-  --menu-hover-color: #6cdb91;
+  --menu-hover-color: #89bf5d;
 }
 
-.menu .submenu-tag-1 > * {
+.menu .submenu-tag-1 {
   --menu-color: #813e7e;
-  --menu-hover-color: #db6edf;
+  --menu-hover-color: #c362c6;
 }
 
-.menu .submenu-tag-2 > * {
+.menu .submenu-tag-2 {
   --menu-color: #477b94;
   --menu-hover-color: #70d2df;
 }
 
-.menu .submenu-tag-selected > * {
-  --menu-color: #707070;
-  --menu-hover-color: #b9b9b9;
-}
-
-.menu .submenu-danger > * {
+.menu .submenu-danger {
   --menu-color: #674343;
   --menu-hover-color: #915f5f;
 }

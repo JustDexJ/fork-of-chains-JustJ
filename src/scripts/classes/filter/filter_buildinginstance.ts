@@ -2,11 +2,6 @@ import type { BuildingInstance } from "../BuildingInstance";
 import { down, up, type FilterMenu, type FilterMenuOptions } from "./_filter";
 import { MenuFilterHelper } from "./filterhelper";
 
-function getBuildingTagFilter(tag: string) {
-  return (instance: BuildingInstance) =>
-    instance.getTemplate().getTags().includes(tag);
-}
-
 function getBuildingTagFilters(tag_type: string) {
   return () => {
     const base: FilterMenuOptions<BuildingInstance> = {};
@@ -21,7 +16,6 @@ function getBuildingTagFilters(tag_type: string) {
           /* force = */ true,
           /* tooltip no click = */ true,
         ),
-        filter: getBuildingTagFilter(tag),
       };
     }
     return base;
@@ -33,12 +27,14 @@ export const _MENUS_buildinginstance: FilterMenu<BuildingInstance> = {
     title: "Unique",
     default: "All",
     icon_menu: true,
+    tags_menu: true,
     options: getBuildingTagFilters("unique"),
   },
   tag_type: {
     title: "Type",
     default: "All",
     icon_menu: true,
+    tags_menu: true,
     options: getBuildingTagFilters("type"),
   },
   status: {

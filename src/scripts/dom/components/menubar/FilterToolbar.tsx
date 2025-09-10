@@ -1,14 +1,33 @@
-import { createSignal, For, Show, useContext, type JSX } from "solid-js";
+import {
+  createMemo,
+  createSignal,
+  For,
+  Show,
+  useContext,
+  type JSX,
+} from "solid-js";
 import {
   MenuFilter,
   type MenuKey,
   type MenuOptionKey,
   type MenuParsed,
 } from "../../../classes/filter/_filter";
+import { MenuFilterHelper } from "../../../classes/filter/filterhelper";
 import { TweeSpan } from "../common";
 import type { ObjectWithKey } from "../misc/FilterableList";
 import { RefreshableContext } from "../misc/RefreshableContext";
 import { MenuItem, MenuItemText, MenuItemToolbar } from "./MenuItem";
+
+export function setValue(
+  menu: MenuKey,
+  key: string,
+  value: any,
+  context: { refresh(): void },
+) {
+  State.variables.menufilter.set(menu, key, value);
+
+  context.refresh();
+}
 
 export function makeCallback(
   menu: MenuKey,
@@ -19,9 +38,7 @@ export function makeCallback(
   extra_callback?: () => void,
 ) {
   return () => {
-    State.variables.menufilter.set(menu, key, value);
-
-    context.refresh();
+    setValue(menu, key, value, context);
 
     //if (hardreload) {
     //  setup.runSugarCubeCommand("<<focgoto>>");
@@ -37,7 +54,15 @@ export function makeCallback(
 }
 
 /**
- * Render a single filter menu (standard)
+ * Gets a value for CSS min-width which will reserve space for up to the given number
+ * (used so that if the actual value changes, layout doesn't change)
+ */
+function getMinWidthValueForMaxNumber(max_value: number): string {
+  return `${1 + Math.floor(Math.log10(max_value))}ch`;
+}
+
+/**
+ * Render one filter menu entry (a non-special one: traits filter uses another variant)
  */
 export function MenuFilterToolbarSingleMenu(props: {
   menu_parsed: MenuParsed;
@@ -182,7 +207,7 @@ function MenuFilterToolbarTraits(props: {
 }
 
 /**
- * Construct the icon-based menus
+ * Construct an icon-based menu (e.g. for tag filters)
  */
 function IconMenu<T extends { key: string | number }>(props: {
   menu: MenuKey;
@@ -193,39 +218,75 @@ function IconMenu<T extends { key: string | number }>(props: {
 
   const shouldBeVisible = (menu_key: string) => {
     const menu_obj = props.menu_parsed[props.menu]![menu_key];
-    if (menu_obj.hidden) return false;
+    if (
+      menu_obj.should_be_visible &&
+      !menu_obj.should_be_visible(props.objects)
+    )
+      return false;
     if (!menu_obj.icon_menu) return false;
     return true;
   };
 
-  const getCurrentValue = (menu_key: string) => {
+  const getCurrentValues = (menu_key: string) => {
     context.subscribeToRefresh();
-    return State.variables.menufilter.get(props.menu, menu_key);
+    const raw_value = State.variables.menufilter.get<string[]>(
+      props.menu,
+      menu_key,
+    );
+    return Array.isArray(raw_value) ? raw_value : [];
   };
 
   return (
     <For each={objectEntries(props.menu_parsed[props.menu]!)}>
-      {([menu_key, menu_obj], getTagKindIndex) => {
-        // First, construct the filtered objects
-        const filter_func = State.variables.menufilter.getFilterFunc(
-          props.menu,
-          props.objects,
-          [menu_key],
-        );
+      {([menu_key, menu_obj], getGroupIndex) => {
+        const getFilteredObjects = createMemo(() => {
+          context.subscribeToRefresh();
 
-        const ids = filter_func();
-        const filtered = props.objects.filter((obj) =>
-          ids.includes(String(obj.key)),
-        );
+          // First, construct the filtered objects
+          const filter_func = State.variables.menufilter.getFilterFunc(
+            props.menu,
+            props.objects,
+            [menu_key],
+          );
 
-        // Compute the number of objects that would've been filtered by this tag
-        const getObjNumber = (option_key: string) => {
-          const additional_filter_func = menu_obj.options[option_key].filter;
-          let obj_number = filtered.length;
-          if (additional_filter_func) {
-            obj_number = filtered.filter(additional_filter_func).length;
+          const ids = filter_func();
+
+          return props.objects.filter((obj) => ids.includes(String(obj.key)));
+        });
+
+        // Get the total count regardless of current filters
+        // Used to avoid showing a tag at all if there's no a single object with it
+        const getUnfilteredObjCountForOption = (option_key: string): number => {
+          const filter_func = menu_obj.options[option_key].filter;
+          if (filter_func) {
+            return props.objects.filter(filter_func).length;
+          } else if (menu_obj.make_filter || menu_obj.tags_menu) {
+            const filter_values = [option_key];
+            const filter_func = (
+              menu_obj.make_filter ?? MenuFilterHelper.makeTagsFilter
+            )(filter_values);
+            return props.objects.filter(filter_func as any).length;
           }
-          return obj_number;
+          return props.objects.length;
+        };
+
+        /**
+         * Compute the number of objects that would've been filtered by this tag
+         * (so if we applied the current filter + this filter)
+         */
+        const getObjCountForOption = (option_key: string): number => {
+          const filter_func = menu_obj.options[option_key].filter;
+          if (filter_func) {
+            return getFilteredObjects().filter(filter_func).length;
+          } else if (menu_obj.make_filter || menu_obj.tags_menu) {
+            const filter_values = [option_key];
+            const filter_func = (
+              menu_obj.make_filter ?? MenuFilterHelper.makeTagsFilter
+            )(filter_values);
+            return getFilteredObjects().filter(filter_func as any).length;
+          } else {
+            return getFilteredObjects().length;
+          }
         };
 
         // Now construct the items one by one
@@ -234,38 +295,45 @@ function IconMenu<T extends { key: string | number }>(props: {
             <For each={objectKeys(menu_obj.options)}>
               {(option_key) => (
                 <Show
-                  when={getCurrentValue(menu_key) !== option_key}
-                  fallback={
-                    // the current selected option
-                    <MenuItem
-                      text={menu_obj.options[option_key].title}
-                      cssclass={"submenu-tag-selected"}
-                      callback={makeCallback(
-                        props.menu,
-                        menu_key,
-                        /* value = */ null,
-                        context,
-                      )}
-                    />
+                  when={
+                    getCurrentValues(menu_key).includes(option_key) ||
+                    getUnfilteredObjCountForOption(option_key) > 0
                   }
                 >
-                  <Show when={getObjNumber(option_key)}>
-                    <MenuItem
-                      text={
-                        <>
-                          {menu_obj.options[option_key].title}{" "}
-                          {getObjNumber(option_key)}
-                        </>
-                      }
-                      cssclass={`submenu-tag-${getTagKindIndex()}`}
-                      callback={makeCallback(
-                        props.menu,
-                        menu_key,
-                        option_key,
-                        context,
-                      )}
-                    />
-                  </Show>
+                  <MenuItem
+                    text={
+                      <>
+                        {menu_obj.options[option_key].title}{" "}
+                        <small
+                          style={{
+                            "min-width": getMinWidthValueForMaxNumber(
+                              getUnfilteredObjCountForOption(option_key),
+                            ),
+                          }}
+                        >
+                          {getObjCountForOption(option_key)}
+                        </small>
+                      </>
+                    }
+                    cssclass={
+                      `submenu-tag-${getGroupIndex()}` +
+                      (getCurrentValues(menu_key).includes(option_key)
+                        ? " submenu-tag-selected"
+                        : getObjCountForOption(option_key) === 0
+                          ? " submenu-tag-nomatches"
+                          : "")
+                    }
+                    callback={(ev) => {
+                      const current_values = getCurrentValues(menu_key);
+                      const new_values = current_values.includes(option_key)
+                        ? current_values.filter((k) => k !== option_key)
+                        : ev.shiftKey
+                          ? [...current_values, option_key]
+                          : [option_key];
+
+                      setValue(props.menu, menu_key, new_values, context);
+                    }}
+                  />
                 </Show>
               )}
             </For>
@@ -290,10 +358,13 @@ function NonIconMenu<T>(props: {
   return (
     <For each={objectKeys(props.menu_parsed[props.menu]!)}>
       {(key) => {
-        if (props.menu_parsed[props.menu]![key].hidden) return null;
-        if (props.menu_parsed[props.menu]![key].icon_menu) return null;
+        const entry = props.menu_parsed[props.menu]![key];
 
-        if (props.menu_parsed[props.menu]![key].trait_menu) {
+        if (entry.should_be_visible && !entry.should_be_visible(props.objects))
+          return null;
+        if (entry.icon_menu) return null;
+
+        if (entry.trait_menu) {
           return (
             <MenuFilterToolbarTraits
               menu_parsed={props.menu_parsed}
@@ -415,7 +486,18 @@ export const FilterToolbar = <
         <MenuItemText
           text={
             <>
-              {props.num_filtered_objects} / {props.objects.length}
+              <span
+                style={{
+                  "text-align": "right",
+                  "min-width": getMinWidthValueForMaxNumber(
+                    props.objects.length,
+                  ),
+                }}
+              >
+                {props.num_filtered_objects}{" "}
+              </span>
+              <span>/</span>
+              <span>{props.objects.length}</span>
             </>
           }
         />

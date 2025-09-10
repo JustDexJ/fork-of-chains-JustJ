@@ -108,6 +108,10 @@ export class OpportunityInstance extends TwineClass {
     return setup.opportunitytemplate[this.opportunity_template_key];
   }
 
+  getTags(): string[] {
+    return this.getTemplate().getTags();
+  }
+
   getOptions(): OpportunityOption[] {
     return this.getTemplate().getOptions();
   }

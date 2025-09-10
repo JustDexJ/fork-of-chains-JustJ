@@ -2,10 +2,6 @@ import type { BuildingTemplate } from "../BuildingTemplate";
 import type { FilterMenu, FilterMenuOptions } from "./_filter";
 import { MenuFilterHelper } from "./filterhelper";
 
-function getBuildingTagFilter(tag: string) {
-  return (template: BuildingTemplate) => template.getTags().includes(tag);
-}
-
 function getBuildingTagFilters(tag_type: string) {
   return () => {
     const base: FilterMenuOptions<BuildingTemplate> = {};
@@ -20,7 +16,6 @@ function getBuildingTagFilters(tag_type: string) {
           /* force = */ true,
           /* tooltip no click = */ true,
         ),
-        filter: getBuildingTagFilter(tag),
       };
     }
     return base;
@@ -32,12 +27,14 @@ export const _MENUS_buildingtemplate: FilterMenu<BuildingTemplate> = {
     title: "Unique",
     default: "All",
     icon_menu: true,
+    tags_menu: true,
     options: getBuildingTagFilters("unique"),
   },
   tag_type: {
     title: "Type",
     default: "All",
     icon_menu: true,
+    tags_menu: true,
     options: getBuildingTagFilters("type"),
   },
   status: {

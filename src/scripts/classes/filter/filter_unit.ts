@@ -155,6 +155,13 @@ export const _MENUS_unit: FilterMenu<Unit> = {
   job: {
     title: "Job",
     icon_menu: true,
+    should_be_visible(units) {
+      if (units.length > 0) {
+        const first_job_key = units[0].job_key;
+        return units.some((unit) => unit.job_key !== first_job_key);
+      }
+      return false;
+    },
     options: getJobFilters(),
   },
   gender: {
@@ -173,6 +180,9 @@ export const _MENUS_unit: FilterMenu<Unit> = {
   party: {
     title: "Party",
     default: "All",
+    should_be_visible(units) {
+      return units.some((unit) => unit.isYourCompany());
+    },
     options: getUnitParties,
   },
   status: {
@@ -252,6 +262,7 @@ export const _MENUS_unitmarket: FilterMenu<Unit> = { ..._MENUS_unit };
     title: "Rarity",
     default: "All",
     icon_menu: true,
+    make_filter: MenuFilterHelper.makeRarityFilter,
     options: MenuFilterHelper.rarityFilters,
   };
 }

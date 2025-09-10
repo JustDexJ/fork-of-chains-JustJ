@@ -2,10 +2,6 @@ import type { Lore } from "../Lore";
 import { down, type FilterMenu, type FilterMenuOption } from "./_filter";
 import { MenuFilterHelper } from "./filterhelper";
 
-function getLoreTagFilter(tag: string) {
-  return (lore: Lore) => lore.getTags().includes(tag);
-}
-
 function getLoreTagFilters(type: string) {
   return () => {
     const options: FilterMenuOption<Lore>[] = [];
@@ -17,7 +13,6 @@ function getLoreTagFilters(type: string) {
           /* force = */ true,
           /* tooltip no click = */ true,
         ),
-        filter: getLoreTagFilter(tag),
       });
     }
     return options;
@@ -29,6 +24,7 @@ export const _MENUS_lore: FilterMenu<Lore> = {
     title: "Type",
     default: "All",
     icon_menu: true,
+    tags_menu: true,
     options: getLoreTagFilters("type"),
   },
   sort: {
