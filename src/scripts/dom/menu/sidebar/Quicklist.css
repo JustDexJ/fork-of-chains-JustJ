@@ -1,0 +1,50 @@
+.UnitQuicklist-unit {
+  margin-bottom: 1px;
+
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+
+  overflow: hidden;
+  white-space: nowrap;
+
+  &.UnitQuicklist-unit-idle {
+    --status-color: #555;
+  }
+  &.UnitQuicklist-unit-duty {
+    --status-color: #2ca2c6;
+  }
+  &.UnitQuicklist-unit-questing {
+    --status-color: #d4af37;
+  }
+  &.UnitQuicklist-unit-absent {
+    --status-color: #b1364d;
+  }
+
+  & > header {
+    display: block;
+    height: 100%;
+    width: 4px;
+    background-color: var(--status-color);
+    border-radius: 4px;
+  }
+
+  & > * {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+  & > :last-child {
+    display: flex;
+    gap: 4px;
+    padding-left: 8px;
+  }
+
+  & .icongrid {
+    margin-left: 3px;
+    margin-right: 5px;
+  }
+
+  & span {
+    text-overflow: ellipsis;
+  }
+}

@@ -23,10 +23,20 @@ export const UnitQuicklist: Component = (props) => {
       menu="unitquick"
       filter_objects={getUnits()}
       display_callback={(unit) => (
-        <div>
-          {unit.isSlaver() ? unit.repBusyStateJSX(/* duty = */ true) : null}
-          {unit.repLongJSX()}
-          <span class="toprightspan">{unit.getSubrace().repJSX()}</span>
+        <div
+          classList={{
+            "UnitQuicklist-unit": true,
+            [`UnitQuicklist-unit-${unit.busyInfo().state}`]: true,
+          }}
+        >
+          <header data-tooltip={`<<tooltipunitstatus '${unit.key}'>>`} />
+          <span>{unit.repLongJSX(undefined, true, true)}</span>
+          <span>
+            {unit.busyInfo().state !== "idle"
+              ? unit.repBusyStateJSX(/* duty = */ true)
+              : null}
+            {unit.getSubrace().repJSX()}
+          </span>
         </div>
       )}
     />

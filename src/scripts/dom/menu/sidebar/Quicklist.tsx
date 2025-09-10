@@ -6,6 +6,7 @@
 import { createSignal, For, Match, Show, Switch } from "solid-js";
 import { MenuItem, MenuItemToolbar } from "../../components/menubar/MenuItem";
 import { QuestQuicklist } from "./QuestQuicklist";
+import "./Quicklist.css";
 import { SlaveOrderQuicklist } from "./SlaveOrderQuicklist";
 import { UnitQuicklist } from "./UnitQuicklist";
 

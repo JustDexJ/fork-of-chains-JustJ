@@ -319,17 +319,22 @@ export const UnitCard: Component<{
     <div
       class={`unitcard ${props.unit.getJob().key}card ${props.unit.isMale() ? "male-card" : "female-card"}`}
     >
-      <div class="unitimage">
-        {setup.DOM.Util.onEvent(
-          "click",
-          setup.DOM.Util.Image.load({
-            image_name: props.unit.getImage(),
-            fallback: setup.UnitImage.DEFAULT_IMAGE.path,
-          }),
-          () => {
-            setup.Dialogs.openUnitImage(props.unit);
-          },
-        )}
+      <div
+        class="unitimage"
+        onClick={() => {
+          setup.Dialogs.openUnitImage(props.unit);
+        }}
+      >
+        {setup.DOM.Util.Image.load({
+          image_name: props.unit.getImage(),
+          fallback: setup.UnitImage.DEFAULT_IMAGE.path,
+          image_class: "bg",
+        })}
+        <div />
+        {setup.DOM.Util.Image.load({
+          image_name: props.unit.getImage(),
+          fallback: setup.UnitImage.DEFAULT_IMAGE.path,
+        })}
       </div>
 
       <div class="unitcard-content">
