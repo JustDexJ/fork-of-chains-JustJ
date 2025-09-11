@@ -52,7 +52,7 @@ export default {
   body_woodmousekin: {
     name: "body (woodmousekin)",
     description:
-      "Their entire body is coated in short thick brown fur, blending easily with the dead leaves and twigs of winter. White belly standing out mimicking the clouds on a bright summers day to those beneath.",
+      "Their entire body is coated in short, thick brown fur, blending easily with the dead leaves and twigs of winter. White belly standing out, mimicking the clouds on a bright summers day, to those beneath.",
     slave_value: "MONEY_TRAIT_RARE",
     skill_bonuses: {
       survival: +0.1,
@@ -63,7 +63,7 @@ export default {
   arms_woodmousekin: {
     name: "arms (woodmousekin)",
     description:
-      "Thick short fur covers the entire length of a|their thin arms.",
+      "Thick short fur covers the entire length of their thin arms.",
     slave_value: 0,
     skill_bonuses:{
     },
