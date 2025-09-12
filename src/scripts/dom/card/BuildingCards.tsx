@@ -170,7 +170,7 @@ const BuildingTemplateNameActionMenu: Component<{
             tooltip={
               props.template.getMainRoomTemplate()
                 ? "Build this improvement by manually placing its room on the fort"
-                : "Build this improvement for an existing room"
+                : "Build this improvement on the corresponding room"
             }
             callback={() => {
               const room = State.variables.fort.player.getBuildRoom(
@@ -188,7 +188,7 @@ const BuildingTemplateNameActionMenu: Component<{
           />
           <Show when={props.template.getMainRoomTemplate()}>
             <MenuItemAction
-              text="Build & auto-place room"
+              text="Build & auto-place"
               tooltip="Build this improvement and automatically place its room somewhere on the fort"
               callback={() => {
                 const room = State.variables.fort.player.getBuildRoom(
