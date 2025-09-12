@@ -196,7 +196,7 @@ export class Equipment extends TwineClass {
 
     return setup.DOM.span(
       {
-        class: `trait ${classes}`,
+        class: `icon ${classes}`,
         "data-tooltip": skip_tooltip
           ? undefined
           : `<<equipmentcard '${this.key}'>>`,

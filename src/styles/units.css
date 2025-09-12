@@ -81,17 +81,26 @@
 .unit-skill {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
   white-space: nowrap;
+  line-height: 1.4;
+
   & > :first-child {
     flex: 0 0 auto;
   }
   & > :last-child {
     /*background-color: rgba(32,32,32,0.9);*/
-    background-color: rgba(12, 12, 12, 0.6);
+    /*background-color: rgba(12, 12, 12, 0.6);*/
+    /*background-color: rgba(20, 20, 20, 0.5);*/
+    /*background-color: var(--skill-color-bg);*/
+    background-color: rgba(60, 60, 60, 0.4);
     border-radius: 10px;
     padding: 0 6px;
     flex: 1 0 auto;
+    border: 2px solid var(--skill-color-aux, gray);
+    border-color: transparent;
+    /*border-color: var(--skill-color-border);*/
+    /*border-color: var(--skill-color-alt);*/
   }
 }
 .unit-skills {
@@ -107,6 +116,11 @@
     flex-grow: 0;
     flex-shrink: 0;
     flex-basis: 16%;
+  }
+
+  img {
+    width: 20px;
+    height: 20px;
   }
 }
 
@@ -168,4 +182,85 @@
   display: flex;
   flex-direction: column;
   gap: 0.8em;
+}
+
+.icon-skill {
+  /*background-color: var(--skill-color-alt);*/
+  /*mask-image: var(--skill-img);*/
+  /*width: 25px;*/
+  /*height: 25px;*/
+  /*display: inline-block;*/
+}
+
+/* Skill colors */
+
+.skill-combat {
+  --skill-color: #ff0000;
+  /*--skill-color-alt: oklch(75% 0.25 30);*/
+  /*--skill-color-bg: oklch(80% 0.2 30 / 0.2);*/
+  /*--skill-color-border: oklch(60% 0.1 30);*/
+  /*--skill-color-aux: #f62525;*/
+}
+.skill-brawn {
+  --skill-color: #ff6600;
+  /*--skill-color-alt: oklch(75% 0.25 70);*/
+  /*--skill-color-bg: oklch(80% 0.2 70 / 0.2);*/
+  /*--skill-color-border: oklch(60% 0.1 70);*/
+  /*--skill-color-aux: #ff6600;*/
+}
+.skill-survival {
+  --skill-color: #03ff00;
+  /*--skill-color-alt: oklch(75% 0.25 142.484);*/
+  /*--skill-color-bg: oklch(80% 0.2 142.484 / 0.2);*/
+  /*--skill-color-border: oklch(60% 0.1 142.484);*/
+  /*--skill-color-aux: #1bc518;*/
+}
+.skill-intrigue {
+  --skill-color: #8a6f91;
+  /*--skill-color-alt: oklch(75% 0.06013 319.202);*/
+  /*--skill-color-bg: oklch(80% 0.2 319.202 / 0.2);*/
+  /*--skill-color-border: oklch(60% 0.1 319.202);*/
+  /*--skill-color-aux: #8a6f91;*/
+}
+.skill-slaving {
+  --skill-color: #b3b3b3;
+  /*--skill-color-alt: oklch(75% 0.00009 271.152);*/
+  /*--skill-color-bg: oklch(80% 0 271.152 / 0.2);*/
+  /*--skill-color-border: oklch(60% 0.1 271.152);*/
+  /*--skill-color-aux: #b3b3b3;*/
+}
+.skill-knowledge {
+  --skill-color: #03ffff;
+  /*--skill-color-alt: oklch(75% 0.25 194.81);*/
+  /*--skill-color-bg: oklch(80% 0.2 194.81 / 0.2);*/
+  /*--skill-color-border: oklch(60% 0.1 194.81);*/
+  /*--skill-color-aux: #17d6d6;*/
+}
+.skill-social {
+  --skill-color: #5f8dd3;
+  /*--skill-color-alt: oklch(75% 0.15 258.56);*/
+  /*--skill-color-bg: oklch(80% 0.2 258.56 / 0.2);*/
+  /*--skill-color-border: oklch(60% 0.1 258.56);*/
+  /*--skill-color-aux: #5f8dd3;*/
+}
+.skill-aid {
+  --skill-color: #e9afaf;
+  /*--skill-color-alt: oklch(75% 0.15 0);*/
+  /*--skill-color-bg: oklch(80% 0.2 0 / 0.2);*/
+  /*--skill-color-border: oklch(60% 0.1 0);*/
+  /*--skill-color-aux: #e9afaf;*/
+}
+.skill-arcane {
+  --skill-color: #ff00ff;
+  /*--skill-color-alt: oklch(75% 0.25 330);*/
+  /*--skill-color-bg: oklch(80% 0.2 330 / 0.2);*/
+  /*--skill-color-border: oklch(60% 0.1 330);*/
+  /*--skill-color-aux: #bd46bd;*/
+}
+.skill-sex {
+  --skill-color: #ffff00;
+  /*--skill-color-alt: oklch(75% 0.25 110);*/
+  /*--skill-color-bg: oklch(80% 0.2 110 / 0.2);*/
+  /*--skill-color-border: oklch(60% 0.1 110);*/
+  /*--skill-color-aux: #bdbd18;*/
 }

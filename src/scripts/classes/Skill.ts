@@ -6,6 +6,7 @@ import { Unit } from "./unit/Unit";
 export interface SkillDefinition {
   name: string;
   description: string;
+  color: string;
 }
 
 export type SkillKeyword = keyof typeof SKILL_DEFINITIONS;
@@ -26,6 +27,7 @@ export class Skill extends TwineClass {
 
   name: string;
   description: string;
+  color: string;
 
   constructor(keyword: string, def: Readonly<SkillDefinition>) {
     super();
@@ -34,6 +36,7 @@ export class Skill extends TwineClass {
     this.keyword = keyword as SkillKeyword;
     this.name = def.name;
     this.description = def.description;
+    this.color = def.color;
 
     if (keyword in setup.skill) throw new Error(`Duplicate role ${keyword}`);
     (setup.skill as any)[keyword] = this;
@@ -58,17 +61,31 @@ export class Skill extends TwineClass {
   }
 
   renderIcon(): HTMLElement {
-    return setup.repImgIconJSX(this.getImage());
+    const img = setup.repImgJSX({
+      imagepath: this.getImage(),
+      extra_class: "icon icon-skill skill-" + this.keyword,
+    });
+    return img;
+
+    //const elem = document.createElement("i");
+    //elem.className = "icon icon-skill skill-" + this.keyword;
+    //elem.setAttribute("data-tooltip", `<<tooltipskill '${this.key}'>>`);
+    //elem.style.setProperty("--skill-img", `url("${this.getImage()}")`);
+    //return elem;
   }
 
   rep(): string {
-    return setup.repImgIcon(this.getImage(), `<<tooltipskill '${this.key}'>>`);
+    return setup.repImg({
+      imagepath: this.getImage(),
+      tooltip_content: `<<tooltipskill '${this.key}'>>`,
+      extra_class: "icon icon-skill skill-" + this.keyword,
+    });
   }
-  repJSX(): DOM.Node {
-    return setup.repImgIconJSX(
-      this.getImage(),
-      `<<tooltipskill '${this.key}'>>`,
-    );
+
+  repJSX(): HTMLElement {
+    const elem = this.renderIcon();
+    elem.setAttribute("data-tooltip", `<<tooltipskill '${this.key}'>>`);
+    return elem;
   }
 
   repPositive(): string {
@@ -245,10 +262,12 @@ export namespace SkillHelper {
       }
     }
 
-    return setup.DOM.span({ class: "unit-skill" }, [
-      skill.repJSX(),
-      setup.DOM.span({ "data-tooltip": tooltip }, text),
-    ]);
+    return setup.DOM.span(
+      {
+        class: "unit-skill skill-" + skill.keyword,
+      },
+      [skill.repJSX(), setup.DOM.span({ "data-tooltip": tooltip }, text)],
+    );
   }
 
   export function explainSkillsWithAdditives(unit: Unit): DOM.Node {
