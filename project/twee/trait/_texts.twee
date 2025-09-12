@@ -3407,7 +3407,7 @@ ears_sergal: {
       mouth
   ======================= */
   mouth_sergal: {
-    size_adjective: ['pointed', ‘cheese’, ],
+    size_adjective: ['pointed', 'cheese', ],
 
     noun: "muzzle is shaped like a wedge of cheese",
     description: "a|long wedge like muzzle, going to a tip at the nose",
@@ -3703,7 +3703,7 @@ ears_sergal: {
       dick
   ======================= */
   dick_sergal: {
-    size_adjective: ['demonic', ],
+    size_adjective: ['demonic',],
 
     noun: "sergal cock",
     description: "a|cock is ribbed with a pointed tip hidden in a tight sheath, fluffy balls hang beneath",
