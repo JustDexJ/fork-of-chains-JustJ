@@ -3316,7 +3316,7 @@
       eyes
   ======================= */
   eyes_sergal: {
-    size_adjective: ["round"],
+    size_adjective: ["pointed", "piercing", ],
 
     noun: "pair of slit like eyes on the sides",
     description: "a|eyes are located on both sides of the wedge like muzzle",
@@ -3324,7 +3324,7 @@
   },
 
   eyes_neko: {
-    size_adjective: ["feline"],
+    size_adjective: ["feline",],
 
     noun: "pair of cat-like eyes that can see in the dark",
     description: "a|possess a pair of cat-like eyes that can see in the dark",
@@ -3344,7 +3344,7 @@
     flavor: "Non-demons that possess these eyes have difficulty seeing with them.",
   },
   eyes_woodmousekin: {
-    size_adjective: ["round"],
+    size_adjective: ["round",],
 
     noun: "pair of round hazel eyes that glint in the light",
     description: "a|possess a pair of round hazel eyes",
@@ -3391,7 +3391,7 @@ ears_sergal: {
     flavor: "",
   },
   ears_dragonkin: {
-    size_adjective: ['draconic', 'reptilian'],
+    size_adjective: ['draconic', 'reptilian',],
 
     noun: "fin-like ears",
     description: "a|possess a pair of fin-like ears",
@@ -3405,7 +3405,7 @@ ears_sergal: {
     flavor: "a|They also have a pair of horns jutting from atop a|their head.",
   },
   ears_woodmousekin: {
-    size_adjective: ['furry', 'fluffy',],
+    size_adjective: ['furry', 'round',],
 
     noun: "large round ears that stand up like dishes",
     description: "a|possess a pair of round ears that stand out of a|their fur",
@@ -3686,7 +3686,7 @@ ears_sergal: {
     flavor: "a|Their legs are unnaturally bent at several joints.",
   },
   legs_woodmousekin: {
-    size_adjective: ['fluffy', 'slim', ],
+    size_adjective: ['pink', 'slim', ],
 
     noun: "pair of slim legs covered in thick short fluffy fur",
     description: "a|possess a pair thin legs covered in thick short fur",
@@ -3759,7 +3759,7 @@ ears_sergal: {
       dick
   ======================= */
   dick_sergal: {
-    size_adjective: ['demonic',],
+    size_adjective: ['knotted', 'ribbed', ],
 
     noun: "sergal cock",
     description: "a|cock is ribbed with a pointed tip hidden in a tight sheath, fluffy balls hang beneath",
