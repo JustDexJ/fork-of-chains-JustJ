@@ -3350,6 +3350,14 @@
     description: "a|possess a pair of round hazel eyes",
     flavor: 'a| eyes dart around quickly, allowing a|them to watch for predators or food.',
   },
+  eyes_otterkin: {
+    size_adjective: ['round', 'small',],
+
+    noun: "pair of slit round front facing eyes",
+    description: "a|eyes are round and normally hazel, good for seeing underwater",
+    flavor: 'a|eyes stare ahead, muzzle faced at you as the angle of overlap is so not so huge.',
+  },
+
   /* =======================
       ears
   ======================= */
@@ -3403,6 +3411,14 @@ ears_sergal: {
     description: "a|possess a pair of round ears that stand out of a|their fur",
     flavor: 'The bases of a|their ears are very fluffy to touch.',
   },
+  ears_otterkin: {
+    size_adjective: ['round', 'small',],
+
+    noun: "tiny round ears that stick up on each side of the head",
+    description: "a|back tiny round ears point up out of his muzzle",
+    flavor: 'The ears are soft and small, nice to rub.',
+  },
+
   /* =======================
       mouth
   ======================= */
@@ -3450,12 +3466,20 @@ ears_sergal: {
     flavor: "It is not visible from the outside, but inside a|their mouth is an incredibly long and dexterous tongue.",
   },
   mouth_woodmousekin: {
-    size_adjective: ['pointed', ‘stubby’, ],
+    size_adjective: ['pointed', 'stubby', ],
 
     noun: "long whiskers growing from their cheeks behind their pink nose",
     description: "a|possess long whiskers growing from a|their cheeks",
     flavor: 'Several mouse-like whiskers grow long from a|their chubby cheeks.',
   },
+  mouth_otterkin: {
+    size_adjective: ['small', 'stubby', ],
+
+    noun: "muzzle short and stubby with large black nose",
+    description: "a|short stubby muzzle is covered in thick numerous whiskers",
+    flavor: 'Otterkin have a rounded muzzle that is quite small, easily fitting in to a werewolf paw.',
+  },
+
   /* =======================
       body
   ======================= */
@@ -3522,6 +3546,14 @@ ears_sergal: {
     description: "a|possess a body thin and brown, accompanied with a loving white belly, fur short but thick",
     flavor: "a|Their entire body is coated in short thick brown fur, blending easily with the dead leaves and twigs of winter. White belly standing out mimicking the clouds on a bright summers day to those beneath.",
   },
+  body_otterkin: {
+    size_adjective: ['short', 'flexible', 'fluffy', ],
+
+    noun: "short and flexible body",
+    description: "a|slightly fat and short appearance is amazing for insolation underwater",
+    flavor: "a|body is covered in short thick fur grate for insolation and swimming",
+  },
+
   /* =======================
       wings
   ======================= */
@@ -3606,6 +3638,14 @@ ears_sergal: {
     description: "a|possess a pair thin arms covered in thick short fur",
     flavor: "Thick short fur covers the entire length of a|their thin arms.",
   },
+  arms_otterkin: {
+    size_adjective: ['fluffy', 'cute', ],
+
+    noun: "pair of short fur arms that are strong",
+    description: "a| average arms are strong and good for swimming",
+    flavor: "Short fur covers the entire length of a|arms.",
+  },
+
   /* =======================
       legs
   ======================= */
@@ -3652,6 +3692,14 @@ ears_sergal: {
     description: "a|possess a pair thin legs covered in thick short fur",
     flavor: "Thick short fur covers the entire length of a|their thin legs.",
   },
+  legs_otterkin: {
+    size_adjective: ['fluffy', 'stocky', ],
+
+    noun: "pair of short and stocky legs",
+    description: "a| legs are designed for swimming",
+    flavor: "Thick short fur ending with flipper like feet are amazing at swimming.",
+  },
+
   /* =======================
       tail
   ======================= */
@@ -3699,6 +3747,14 @@ ears_sergal: {
     description: "a|possess a skin covered mouse tail that often sway around",
     flavor: "a|Their tail seems to have a mind but actually is great for keeping the mouse nimble with superior balance",
   },
+  tail_otterkin: {
+    size_adjective: ['thin', 'long', 'flexable',],
+
+    noun: "long and flexible",
+    description: "a|tail is used for swimming",
+    flavor: "otterkins have full control of their tail and use it to help shift direction in water.",
+  },
+
   /* =======================
       dick
   ======================= */
@@ -3738,6 +3794,14 @@ ears_sergal: {
     description: "a|possess a thick based pointed cock",
     flavor: "The entire length of a|shaft is pink, shaft starting thick at the base slowly thins as it reaches the pointed tip. Normally hidden inside a thick brown or white sheath with nice furry balls hanging underneath",
   },
+  dick_otterkin: {
+    size_adjective: ['pink', 'short', ],
+
+    noun: "otterkin cock",
+    description: "a|cock sometimes tapered sometimes mimicking small equine with a flare at the end",
+    flavor: "The entire length is either tapered or has an equine esque flare on the end with mid ridge where it gets wider. ",
+  },
+
   /* =======================
       vagina
   ======================= */
@@ -3747,6 +3811,13 @@ ears_sergal: {
     noun: "vagina with prehensile clitoral hood",
     description: "a|clit has a hood that wraps around, flexible and grabs anything warm. for lubrication and trying to pull it in, stopping cocks from pulling out",
     flavor: "Soft this clit has a hood, keeping it safe in battle or fighting. Strong it likes to wrap around warm things when filled with lust",
+  },
+  vagina_otterkin: {
+    size_adjective: ['spade',],
+
+    noun: "small pussy with the resemblance of a spade head",
+    description: "a|clit has thick folds curved to what some people would call a spade",
+    flavor: "Soft and thick clit in the shape of a spade that helps guide the counterpart to the appropriate place.",
   },
 
 
